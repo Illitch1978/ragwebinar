@@ -189,8 +189,6 @@
 .landing-nav {
   @apply absolute top-0 left-0 right-0 flex justify-between items-center z-50;
   padding: 20px 60px;
-  background: linear-gradient(180deg, hsl(var(--background) / 0.8) 0%, hsl(var(--background) / 0) 100%);
-  backdrop-filter: blur(12px);
 }
 .landing-nav.fade-out { 
   @apply opacity-0 pointer-events-none;
