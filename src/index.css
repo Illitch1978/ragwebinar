@@ -273,7 +273,7 @@
 }
 .hero-video {
   @apply absolute top-0 left-0 w-full h-full object-cover;
-  filter: brightness(0.8) saturate(1.15);
+  filter: brightness(0.95) saturate(1.15);
 }
 .hero-video-overlay {
   @apply absolute inset-0;
