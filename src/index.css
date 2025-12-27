@@ -264,35 +264,25 @@
 /* Shimmer overlay - narrow spotlight beam */
 .signup-btn .shimmer {
   position: absolute;
-  inset: -2px;
+  inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  overflow: hidden;
-}
-
-.signup-btn .shimmer::before {
-  content: "";
-  position: absolute;
-  inset: -100%;
+  padding: 1.5px;
   background: conic-gradient(
     from var(--shimmer, 0deg),
     transparent 0%,
-    transparent 5%,
-    hsl(var(--primary) / 0.8) 8%,
-    hsl(var(--primary)) 10%,
-    hsl(var(--primary) / 0.8) 12%,
-    transparent 15%,
+    transparent 3%,
+    hsl(var(--primary)) 6%,
+    hsl(var(--primary) / 0.9) 9%,
+    transparent 12%,
     transparent 100%
   );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   animation: shimmer 2.5s linear infinite;
-}
-
-.signup-btn .shimmer::after {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border-radius: inherit;
-  background: hsl(240 15% 6% / 0.95);
 }
 
 /* === Stage === */
@@ -1094,35 +1084,25 @@
 /* Input shimmer overlay - narrow spotlight beam */
 .input-wrapper .shimmer {
   position: absolute;
-  inset: -2px;
+  inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  overflow: hidden;
-}
-
-.input-wrapper .shimmer::before {
-  content: "";
-  position: absolute;
-  inset: -100%;
+  padding: 2px;
   background: conic-gradient(
     from var(--shimmer, 0deg),
     transparent 0%,
-    transparent 5%,
-    hsl(var(--primary) / 0.8) 8%,
-    hsl(var(--primary)) 10%,
-    hsl(var(--primary) / 0.8) 12%,
-    transparent 15%,
+    transparent 3%,
+    hsl(var(--primary)) 6%,
+    hsl(var(--primary) / 0.9) 9%,
+    transparent 12%,
     transparent 100%
   );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   animation: shimmer 3s linear infinite;
-}
-
-.input-wrapper .shimmer::after {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border-radius: inherit;
-  background: hsl(240 15% 6% / 0.95);
 }
 
 .input-wrapper:focus-within {
