@@ -593,7 +593,7 @@
   background: hsl(240 12% 4%);
   border: 1px solid hsl(var(--foreground) / 0.08);
   padding: 40px 32px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
 }
 
@@ -608,7 +608,6 @@
 }
 
 .pricing-card:hover {
-  transform: translateY(-8px);
   border-color: hsl(var(--foreground) / 0.15);
   box-shadow: 
     0 20px 40px hsl(0 0% 0% / 0.3),
@@ -647,7 +646,6 @@
   position: relative;
   border: none;
   background: linear-gradient(180deg, hsl(var(--primary) / 0.1) 0%, hsl(240 12% 4%) 100%);
-  transform: scale(1.02);
 }
 
 .pricing-card.popular::before {
@@ -679,7 +677,6 @@
 }
 
 .pricing-card.popular:hover {
-  transform: scale(1.02) translateY(-8px);
   box-shadow: 
     0 20px 50px hsl(var(--primary) / 0.15),
     0 0 80px hsl(var(--primary) / 0.1);
@@ -730,10 +727,9 @@
 }
 .price { 
   @apply text-5xl font-bold text-foreground mb-2;
-  transition: transform 0.3s ease;
 }
 .pricing-card:hover .price {
-  transform: scale(1.05);
+  color: hsl(var(--primary));
 }
 .price .period { 
   @apply text-base font-normal;
