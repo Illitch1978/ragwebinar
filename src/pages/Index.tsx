@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Globe, ArrowRight } from 'lucide-react';
+import { Globe } from 'lucide-react';
+import { ArrowRightIcon } from '@/components/Icons';
 import ProtocolCard from '@/components/landing/ProtocolCard';
 import PricingSection from '@/components/landing/PricingSection';
 import Footer from '@/components/landing/Footer';
@@ -110,19 +111,16 @@ function Index() {
                       onBlur={() => setIsFocused(false)}
                       onKeyDown={handleKeyDown}
                       placeholder="Enter your website URL..."
-                      className="w-full bg-transparent border-none outline-none text-foreground placeholder-muted-foreground/40 font-medium tracking-wide text-sm z-10"
+                      className="w-full bg-transparent border-none outline-none text-foreground placeholder-muted-foreground/40 tracking-wide text-base z-10"
+                      style={{ fontFamily: 'var(--font-sans)' }}
                     />
 
                     {/* Submit Button */}
                     <button 
                       onClick={handleSubmit}
-                      className={`ml-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer
-                      ${inputValue.length > 0 
-                        ? 'bg-primary text-primary-foreground shadow-[0_0_16px_hsl(var(--primary)/0.4)]' 
-                        : 'bg-foreground/10 text-muted-foreground'
-                      }`}
+                      className="ml-4 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer bg-foreground text-background hover:scale-105"
                     >
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRightIcon />
                     </button>
                   </div>
                 </div>
