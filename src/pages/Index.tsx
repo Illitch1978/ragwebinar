@@ -75,7 +75,20 @@ function Index() {
           </section>
 
           <section className="protocol-section">
-            {/* Protocol Video Background */}
+            <div className="section-header">
+              <h2>OUR PROTOCOL</h2>
+              <p className="section-desc">
+                People do not experience websites in parts. They experience them as a whole.
+                In seconds, they sense credibility, relevance, speed, clarity, and ease.
+                Most tools break this experience into fragments and miss the big picture.
+                Mondro brings it back together, showing where confidence forms, where it fades,
+                and why decisions never happen.
+              </p>
+            </div>
+          </section>
+
+          {/* Full viewport video background section */}
+          <section className="protocol-video-section">
             <div className="protocol-video-container">
               <video 
                 autoPlay 
@@ -89,16 +102,6 @@ function Index() {
               <div className="protocol-video-overlay"></div>
             </div>
             
-            <div className="section-header">
-              <h2>OUR PROTOCOL</h2>
-              <p className="section-desc">
-                People do not experience websites in parts. They experience them as a whole.
-                In seconds, they sense credibility, relevance, speed, clarity, and ease.
-                Most tools break this experience into fragments and miss the big picture.
-                Mondro brings it back together, showing where confidence forms, where it fades,
-                and why decisions never happen.
-              </p>
-            </div>
             <div className="protocol-list">
               {DIMENSIONS.map((dim, idx) => (
                 <ProtocolCard key={dim.id} dim={dim} idx={idx} />
