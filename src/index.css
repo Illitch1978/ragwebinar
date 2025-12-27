@@ -318,6 +318,7 @@
   background-color: hsl(var(--primary));
   box-shadow: 0 0 12px hsl(var(--primary));
   flex-shrink: 0;
+  animation: logo-dot-pulse 2s infinite ease-in-out;
 }
 
 /* Protocol Video Section - Full Viewport */
