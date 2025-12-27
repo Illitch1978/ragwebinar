@@ -393,10 +393,6 @@
   letter-spacing: -0.02em;
 }
 
-.mondro-tagline {
-  margin-top: 0.5em;
-}
-
 .protocol-list { 
   @apply flex flex-col;
   gap: 80px; 
