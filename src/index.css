@@ -281,8 +281,8 @@
   margin: 0 auto;
 }
 
-.section-desc--dark {
-  color: hsl(240 12% 8%);
+.protocol-section--light .section-desc--dark {
+  color: hsl(240 12% 8%) !important;
 }
 
 /* Protocol Video Section - Full Viewport */
