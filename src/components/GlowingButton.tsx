@@ -1,5 +1,4 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
 
 interface GlowingButtonProps {
   text: string;
@@ -18,20 +17,14 @@ const GlowingButton: React.FC<GlowingButtonProps> = ({
     sm: {
       padding: 'px-4 py-2',
       text: 'text-xs',
-      iconSize: 12,
-      glowSize: '60px',
     },
     md: {
       padding: 'px-5 py-2.5',
       text: 'text-xs',
-      iconSize: 14,
-      glowSize: '80px',
     },
     lg: {
       padding: 'px-7 py-3.5',
       text: 'text-sm',
-      iconSize: 16,
-      glowSize: '100px',
     },
   };
 
@@ -44,7 +37,7 @@ const GlowingButton: React.FC<GlowingButtonProps> = ({
         className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
         style={{
           background: 'radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, transparent 70%)',
-          transform: `scale(1.5)`,
+          transform: 'scale(1.5)',
         }}
       />
 
@@ -60,7 +53,7 @@ const GlowingButton: React.FC<GlowingButtonProps> = ({
           onClick={onClick}
           className={`
             relative ${styles.padding} rounded-full overflow-hidden
-            flex items-center justify-center gap-2
+            flex items-center justify-center
             transition-all duration-300 ease-out cursor-pointer
             group-hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)]
           `}
@@ -93,14 +86,8 @@ const GlowingButton: React.FC<GlowingButtonProps> = ({
             }}
           />
 
-          {/* Icon */}
-          <Sparkles 
-            size={styles.iconSize} 
-            className="relative z-10 text-foreground/70 group-hover:text-primary transition-colors duration-300" 
-          />
-
           {/* Text */}
-          <span className={`relative z-10 ${styles.text} font-semibold uppercase tracking-[0.15em] text-foreground/90 group-hover:text-foreground transition-colors duration-300`}>
+          <span className={`relative z-10 font-heading ${styles.text} font-semibold uppercase tracking-[0.15em] text-foreground/90 group-hover:text-foreground transition-colors duration-300`}>
             {text}
           </span>
         </button>
