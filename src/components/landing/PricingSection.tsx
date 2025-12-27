@@ -14,37 +14,39 @@ function PricingSection() {
           <div className="pricing-header">
             <h3>Scan</h3>
             <div className="price">$149 <span className="period">one-time</span></div>
-            <p className="pricing-desc">A complete diagnostic. One clear score. Prioritised fixes.</p>
+            <p className="pricing-desc">A complete diagnostic.<br />One clear view of performance.<br />Prioritised fixes.</p>
           </div>
           <div className="pricing-includes">
             <span className="includes-label">What it includes</span>
             <ul className="pricing-features">
               <li><CheckIcon /> Full site scan</li>
-              <li><CheckIcon /> Confidence score</li>
+              <li><CheckIcon /> Key metrics and content analysis</li>
               <li><CheckIcon /> Competitor snapshot</li>
               <li><CheckIcon /> Shareable report</li>
             </ul>
           </div>
-          <button className="pricing-btn primary">Get Your Score</button>
+          <button className="pricing-btn primary">Get your report</button>
         </div>
 
         <div className="pricing-card">
           <div className="pricing-header">
             <h3>Monitor</h3>
-            <div className="price">$49 <span className="period">/month</span></div>
-            <p className="pricing-desc">Ongoing insight and improvement guidance.</p>
+            <div className="price">$49 <span className="period">per month</span></div>
+            <p className="pricing-desc">See where you stand, what works, and what to change.</p>
           </div>
           <div className="pricing-includes">
             <span className="includes-label">What it includes</span>
             <ul className="pricing-features">
-              <li><CheckIcon /> Live dashboard</li>
+              <li><CheckIcon /> Live performance dashboard</li>
               <li><CheckIcon /> Score tracking over time</li>
-              <li><CheckIcon /> Competitor tracking</li>
+              <li><CheckIcon /> Competitor and peer comparison</li>
               <li><CheckIcon /> Sector benchmarks and best practice</li>
-              <li><CheckIcon /> AI consultant to guide improvements</li>
+              <li><CheckIcon /> AI consultant to pressure test decisions</li>
+              <li><CheckIcon /> Messaging and positioning alignment checks</li>
+              <li><CheckIcon /> Impact tracking as changes are made</li>
             </ul>
           </div>
-          <button className="pricing-btn primary">Start Monitoring</button>
+          <button className="pricing-btn primary">Start monitoring</button>
         </div>
       </div>
     </section>
