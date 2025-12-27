@@ -346,21 +346,20 @@
 }
 
 /* Cycling Tagline */
+/* Cycling Tagline */
 .cycling-tagline-container {
   @apply w-full;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 80px;
+  margin-bottom: 120px;
 }
 
 .cycling-tagline {
-  @apply flex items-baseline gap-3;
-  max-width: 900px;
+  @apply flex items-center;
+  max-width: 1000px;
   padding: 0 24px;
   width: 100%;
-  flex-wrap: nowrap;
-  justify-content: center;
 }
 
 .mondro-static {
@@ -374,6 +373,7 @@
   color: hsl(var(--foreground));
   flex-shrink: 0;
   text-transform: lowercase;
+  margin-right: 12px;
 }
 
 .mondro-static .mondro-dot {
@@ -387,9 +387,8 @@
 
 .phrase-container {
   @apply relative;
-  display: inline-flex;
-  align-items: baseline;
-  flex-shrink: 1;
+  display: inline-block;
+  flex: 1;
   min-width: 0;
 }
 
