@@ -678,13 +678,12 @@
 
 .social-proof-headline {
   font-family: var(--font-heading);
-  @apply font-medium text-foreground relative;
-  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  @apply font-medium text-foreground relative text-3xl md:text-4xl lg:text-5xl;
   letter-spacing: -0.02em;
-  line-height: 1.4;
+  line-height: 1.2;
   padding-left: 0;
   transition: color 0.3s ease;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
 }
 
 .social-proof-label {
