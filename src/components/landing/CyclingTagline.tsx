@@ -28,64 +28,12 @@ const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
     
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % phrases.length);
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [isVisible]);
 
   if (!isVisible) return null;
-
-  const currentPhrase = phrases[currentIndex];
-  const characters = currentPhrase.split('');
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.02,
-        delayChildren: 0.1,
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        staggerChildren: 0.01,
-        staggerDirection: -1,
-        when: "afterChildren",
-      },
-    },
-  };
-
-  const characterVariants = {
-    hidden: {
-      opacity: 0,
-      y: 20,
-      filter: 'blur(8px)',
-      scale: 0.8,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      scale: 1,
-      transition: {
-        type: 'spring' as const,
-        damping: 20,
-        stiffness: 300,
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -15,
-      filter: 'blur(4px)',
-      scale: 0.95,
-      transition: {
-        duration: 0.15,
-        ease: 'easeIn' as const,
-      },
-    },
-  };
 
   return (
     <motion.div 
@@ -103,37 +51,45 @@ const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
             <motion.span
               key={currentIndex}
               className="cycling-phrase"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+              initial={{ 
+                opacity: 0,
+                y: 8,
+                x: -3,
+              }}
+              animate={{ 
+                opacity: [0, 1, 1, 1],
+                y: [8, -2, 1, 0],
+                x: [-3, 2, -1, 0],
+              }}
+              exit={{ 
+                opacity: 0,
+                y: -6,
+                filter: 'blur(4px)',
+              }}
+              transition={{
+                duration: 0.5,
+                times: [0, 0.3, 0.6, 1],
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
-              {characters.map((char, index) => (
-                <motion.span
-                  key={`${currentIndex}-${index}`}
-                  variants={characterVariants}
-                  className="inline-block"
-                  style={{ 
-                    display: char === ' ' ? 'inline' : 'inline-block',
-                    width: char === ' ' ? '0.25em' : 'auto',
-                  }}
-                >
-                  {char === ' ' ? '\u00A0' : char}
-                </motion.span>
-              ))}
               <motion.span
-                className="phrase-glow"
-                initial={{ opacity: 0, scaleX: 0 }}
-                animate={{ 
-                  opacity: [0, 0.6, 0],
-                  scaleX: [0, 1, 1],
+                className="phrase-text"
+                animate={{
+                  textShadow: [
+                    '0 0 0 transparent',
+                    '-2px 0 0 hsl(var(--primary) / 0.4), 2px 0 0 hsl(var(--accent) / 0.3)',
+                    '1px 0 0 hsl(var(--primary) / 0.2), -1px 0 0 hsl(var(--accent) / 0.15)',
+                    '0 0 0 transparent',
+                  ],
                 }}
                 transition={{
-                  duration: 0.8,
-                  delay: characters.length * 0.02 + 0.2,
-                  ease: [0.22, 1, 0.36, 1],
+                  duration: 0.4,
+                  times: [0, 0.15, 0.3, 1],
+                  ease: 'easeOut',
                 }}
-              />
+              >
+                {phrases[currentIndex]}
+              </motion.span>
             </motion.span>
           </AnimatePresence>
         </div>
