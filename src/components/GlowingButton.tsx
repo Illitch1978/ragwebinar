@@ -65,7 +65,7 @@ const GlowingButton: React.FC<GlowingButtonProps> = ({
       {/* 4. BUTTON CONTENT */}
       <span className="relative z-10 flex items-center gap-3">
         {icon && <i className={`${icon} text-white/70 group-hover:text-white transition-colors`} />}
-        <span className="tracking-[0.2em] uppercase text-[10px] sm:text-xs">
+        <span className="font-heading font-semibold tracking-wide">
           {text}
         </span>
       </span>
