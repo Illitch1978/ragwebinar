@@ -239,7 +239,8 @@
   z-index: -1;
 }
 .hero-video {
-  @apply w-full h-full object-cover;
+  @apply w-full object-cover;
+  height: calc(100% + 50px);
   filter: brightness(0.4) saturate(1.2);
   transform: translateY(50px);
 }
