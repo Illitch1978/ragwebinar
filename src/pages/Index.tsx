@@ -42,22 +42,30 @@ function Index() {
     return () => scrollContainer.removeEventListener('scroll', handleScrollGate);
   }, [textRevealComplete]);
 
-  // Auto-trigger dissolve after text reveal completes (no scroll needed)
+  // Scroll-trigger dissolve after text reveal completes
   useEffect(() => {
-    if (textRevealComplete && !shouldDissolve) {
-      const timer = setTimeout(() => {
+    if (!textRevealComplete || shouldDissolve) return;
+    
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const handleScrollDissolve = () => {
+      const scrollThreshold = window.innerHeight * 1.2;
+      if (scrollContainer.scrollTop > scrollThreshold) {
         setShouldDissolve(true);
-      }, 800); // Brief pause after reveal before dissolving
-      return () => clearTimeout(timer);
-    }
+      }
+    };
+
+    scrollContainer.addEventListener('scroll', handleScrollDissolve, { passive: true });
+    return () => scrollContainer.removeEventListener('scroll', handleScrollDissolve);
   }, [textRevealComplete, shouldDissolve]);
 
-  // Show framework section after tagline has been visible
+  // Show framework section shortly after tagline appears
   useEffect(() => {
     if (showCyclingTagline && !showFramework) {
       const timer = setTimeout(() => {
         setShowFramework(true);
-      }, 2000); // Let tagline breathe for 2 seconds
+      }, 600); // Quick transition to framework
       return () => clearTimeout(timer);
     }
   }, [showCyclingTagline, showFramework]);
