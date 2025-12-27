@@ -50,7 +50,10 @@ function Index() {
             <div className="hero-top-bar">
               <div className="logo">mondro<span className="dot"></span></div>
               <div className="signup-btn-wrapper">
-                <a href="#" className="signup-btn"><span>Get Started</span></a>
+                <a href="#" className="signup-btn">
+                  <span className="shimmer"></span>
+                  <span>Get Started</span>
+                </a>
               </div>
             </div>
             {/* Hero Video Background */}
@@ -72,6 +75,7 @@ function Index() {
             <div className="hero-input-container">
               <div className="input-wrapper-glow">
                 <div className="input-wrapper" ref={inputWrapperRef}>
+                  <span className="shimmer"></span>
                   <div className="placeholder-with-cursor">
                     <span>yourwebsite.com</span>
                     <span className="blinking-cursor"></span>

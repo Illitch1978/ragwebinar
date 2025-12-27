@@ -203,27 +203,31 @@
   animation: logo-dot-pulse 2s infinite ease-in-out;
 }
 
-/* Signature Button - Elegant Gradient Border */
-@keyframes glow-pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+/* === Shimmer Effect System === */
+@property --shimmer {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 33deg;
 }
 
-@keyframes glow-shift {
-  0%, 100% { 
-    box-shadow: 
-      0 0 20px hsl(var(--primary) / 0.3),
-      0 0 40px hsl(var(--primary) / 0.15),
-      0 0 60px hsl(210 100% 70% / 0.1);
-  }
-  50% { 
-    box-shadow: 
-      0 0 25px hsl(210 100% 70% / 0.35),
-      0 0 50px hsl(var(--primary) / 0.2),
-      0 0 70px hsl(220 100% 65% / 0.12);
-  }
+:root {
+  --glow-hue: 210deg;
+  --shimmer-inset: 30px;
 }
 
+@keyframes shimmer {
+  0% { --shimmer: 0deg; }
+  100% { --shimmer: 360deg; }
+}
+
+@keyframes shine {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  55% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* === Signature Button with Shimmer === */
 .signup-btn-wrapper {
   position: relative;
   display: inline-block;
@@ -234,12 +238,15 @@
   @apply px-7 py-3 rounded-full no-underline text-sm font-semibold;
   background: hsl(240 15% 6% / 0.95);
   color: hsl(var(--foreground)); 
-  border: 1.5px solid hsl(var(--primary) / 0.5);
+  border: 1.5px solid hsl(var(--primary) / 0.4);
   backdrop-filter: blur(20px);
   transition: all 0.4s ease;
   position: relative;
   z-index: 1;
-  animation: glow-shift 4s ease-in-out infinite;
+  isolation: isolate;
+  box-shadow: 
+    0 0 20px hsl(var(--primary) / 0.15),
+    0 0 40px hsl(var(--primary) / 0.08);
 }
 
 .signup-btn > span {
@@ -248,12 +255,57 @@
 }
 
 .signup-btn:hover { 
-  background: hsl(240 15% 8% / 0.98);
-  border-color: hsl(var(--primary) / 0.7);
+  border-color: hsl(var(--primary) / 0.6);
   box-shadow: 
-    0 0 30px hsl(var(--primary) / 0.4),
-    0 0 60px hsl(var(--primary) / 0.25),
-    0 0 80px hsl(210 100% 70% / 0.15);
+    0 0 25px hsl(var(--primary) / 0.25),
+    0 0 50px hsl(var(--primary) / 0.15);
+}
+
+/* Shimmer overlay */
+.signup-btn .shimmer {
+  position: absolute;
+  inset: -20px;
+  border-radius: inherit;
+  pointer-events: none;
+  mask-image: conic-gradient(
+    from var(--shimmer, 0deg),
+    transparent 0%,
+    transparent 10%,
+    black 36%,
+    black 45%,
+    transparent 50%,
+    transparent 60%,
+    black 85%,
+    black 95%,
+    transparent 100%
+  );
+  mask-size: cover;
+  mix-blend-mode: plus-lighter;
+  animation: shimmer 2.5s linear infinite;
+}
+
+.signup-btn .shimmer::before,
+.signup-btn .shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.signup-btn .shimmer::before {
+  box-shadow: 
+    0 0 3px 1px hsl(var(--glow-hue) 80% 90%),
+    0 0 8px 2px hsl(var(--glow-hue) 80% 70%),
+    0 0 15px 3px hsl(var(--glow-hue) 100% 60%);
+  z-index: -1;
+}
+
+.signup-btn .shimmer::after {
+  box-shadow: 
+    inset 0 0 0 1px hsl(var(--glow-hue) 70% 90%),
+    inset 0 0 3px 1px hsl(var(--glow-hue) 100% 75%);
+  z-index: 2;
 }
 
 /* === Stage === */
@@ -1032,22 +1084,7 @@
   color: hsl(0 0% 100% / 0.2); 
 }
 
-/* === Signature URL Bar - Elegant Gradient Border === */
-@keyframes input-glow-shift {
-  0%, 100% { 
-    box-shadow: 
-      0 0 30px hsl(var(--primary) / 0.2),
-      0 0 60px hsl(var(--primary) / 0.1),
-      0 0 90px hsl(210 100% 70% / 0.08);
-  }
-  50% { 
-    box-shadow: 
-      0 0 35px hsl(210 100% 70% / 0.25),
-      0 0 70px hsl(var(--primary) / 0.15),
-      0 0 100px hsl(220 100% 65% / 0.1);
-  }
-}
-
+/* === Signature URL Bar with Shimmer === */
 .input-wrapper-glow {
   position: relative;
   width: 100%;
@@ -1059,18 +1096,67 @@
   padding: 6px 6px 6px 28px;
   backdrop-filter: blur(40px);
   z-index: 1;
-  border: 2px solid hsl(var(--primary) / 0.4);
-  animation: input-glow-shift 4s ease-in-out infinite;
-  transition: border-color 0.4s ease, background 0.4s ease;
+  border: 2px solid hsl(var(--primary) / 0.35);
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+  isolation: isolate;
+  box-shadow: 
+    0 0 30px hsl(var(--primary) / 0.12),
+    0 0 60px hsl(var(--primary) / 0.06);
+}
+
+/* Input shimmer overlay */
+.input-wrapper .shimmer {
+  position: absolute;
+  inset: -25px;
+  border-radius: inherit;
+  pointer-events: none;
+  mask-image: conic-gradient(
+    from var(--shimmer, 0deg),
+    transparent 0%,
+    transparent 10%,
+    black 36%,
+    black 45%,
+    transparent 50%,
+    transparent 60%,
+    black 85%,
+    black 95%,
+    transparent 100%
+  );
+  mask-size: cover;
+  mix-blend-mode: plus-lighter;
+  animation: shimmer 3s linear infinite;
+}
+
+.input-wrapper .shimmer::before,
+.input-wrapper .shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 25px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.input-wrapper .shimmer::before {
+  box-shadow: 
+    0 0 4px 1px hsl(var(--glow-hue) 80% 90%),
+    0 0 12px 3px hsl(var(--glow-hue) 80% 70%),
+    0 0 20px 5px hsl(var(--glow-hue) 100% 60%);
+  z-index: -1;
+}
+
+.input-wrapper .shimmer::after {
+  box-shadow: 
+    inset 0 0 0 1px hsl(var(--glow-hue) 70% 90%),
+    inset 0 0 4px 1px hsl(var(--glow-hue) 100% 75%);
+  z-index: 2;
 }
 
 .input-wrapper:focus-within {
   background: hsl(240 15% 7% / 0.98);
-  border-color: hsl(var(--primary) / 0.6);
+  border-color: hsl(var(--primary) / 0.5);
   box-shadow: 
-    0 0 40px hsl(var(--primary) / 0.3),
-    0 0 80px hsl(var(--primary) / 0.2),
-    0 0 120px hsl(210 100% 70% / 0.12);
+    0 0 40px hsl(var(--primary) / 0.2),
+    0 0 80px hsl(var(--primary) / 0.1);
 }
 
 .input-wrapper:focus-within .placeholder-with-cursor {
