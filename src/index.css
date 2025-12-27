@@ -270,13 +270,13 @@
 
 /* Protocol Video Section - Full Viewport */
 .protocol-video-section {
-  @apply relative w-full;
+  @apply relative w-full overflow-hidden;
   min-height: 100vh;
 }
 
 /* Protocol Video Background */
 .protocol-video-container {
-  @apply fixed inset-0 w-full h-full pointer-events-none;
+  @apply absolute inset-0 w-full h-full pointer-events-none;
   z-index: 0;
 }
 
