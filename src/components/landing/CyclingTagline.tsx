@@ -9,14 +9,12 @@ const phrases = [
   "assesses content and messaging fit",
   "shows how content clarity builds trust",
   "combines seo and geo visibility",
-  "reflects how search and ai see you",
   "benchmarks your site against peers",
-  "reveals competitor strengths and gaps",
-  "explains what makes you stand out",
-  "highlights where differentiation is lost",
   "helps prioritise changes that convert",
   "transforms audits into decisions",
   "distils signals into a clear score",
+  "checks all technical essentials",
+  "flags issues users may experience",
 ];
 
 // Fisher-Yates shuffle

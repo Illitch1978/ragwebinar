@@ -377,13 +377,14 @@
   @apply w-full;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 5%;
 }
 
 .cycling-tagline {
   @apply flex items-center;
-  max-width: 1200px;
-  padding: 0 24px;
+  max-width: 1400px;
+  padding: 0 24px 0 0;
   width: 100%;
 }
 
