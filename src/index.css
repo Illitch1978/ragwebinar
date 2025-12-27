@@ -245,7 +245,7 @@
 .hero-section h1 { 
   font-family: var(--font-heading); 
   @apply font-extrabold mb-7 relative z-10;
-  font-size: clamp(3.5rem, 10vw, 7rem); 
+  font-size: clamp(2.8rem, 8vw, 5.5rem); 
   line-height: 0.85; 
   letter-spacing: -0.05em; 
 }
