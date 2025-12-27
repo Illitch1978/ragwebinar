@@ -3,16 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const phrases = [
   "brings it back together",
-  "shows how your website really performs",
-  "measures what visitors actually notice",
+  "shows how your site really performs",
+  "measures what visitors notice",
   "turns signals into a clear score",
-  "exposes hidden website friction",
+  "exposes hidden friction",
   "checks how search and AI see you",
-  "benchmarks you against real competitors",
+  "benchmarks you against competitors",
   "shows where you stand and why",
-  "highlights what helps or hurts conversion",
+  "highlights what helps or hurts",
   "turns audits into decisions",
-  "shows what matters in the first seconds",
+  "reveals what matters in seconds",
   "replaces guesswork with structure",
 ];
 
