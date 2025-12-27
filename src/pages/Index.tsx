@@ -87,11 +87,11 @@ function Index() {
             </div>
           </section>
 
-          <section className="protocol-section">
+          <section className="protocol-section protocol-section--light">
             <div className="section-header">
               <TextReveal 
                 text="People do not experience websites in parts. They experience them as a whole. In seconds, they sense credibility, relevance, speed, clarity, and ease. Most tools break this experience into fragments and miss the big picture. Mondro puts the experience back together."
-                className="section-desc"
+                className="section-desc section-desc--dark"
               />
             </div>
           </section>
