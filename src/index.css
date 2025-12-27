@@ -239,10 +239,9 @@
   z-index: -1;
 }
 .hero-video {
-  @apply w-full object-cover;
-  height: calc(100% + 50px);
+  @apply w-full h-full object-cover;
+  object-position: center calc(50% + 50px);
   filter: brightness(0.4) saturate(1.2);
-  transform: translateY(50px);
 }
 .hero-video-overlay {
   @apply absolute inset-0;
