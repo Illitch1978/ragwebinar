@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRightIcon } from '@/components/Icons';
 import ProtocolCard from '@/components/landing/ProtocolCard';
 import PricingSection from '@/components/landing/PricingSection';
 import Footer from '@/components/landing/Footer';
 import TextReveal from '@/components/landing/TextReveal';
+import SocialProofSection from '@/components/landing/SocialProofSection';
 import { DIMENSIONS } from '@/lib/constants';
 import heroVideo from '@/assets/hero-video.mp4';
 import protocolBgVideo from '@/assets/protocol-bg.mp4';
@@ -11,6 +12,7 @@ import protocolBgVideo from '@/assets/protocol-bg.mp4';
 function Index() {
   const [inputValue, setInputValue] = useState('');
   const heroInputRef = useRef<HTMLInputElement>(null);
+  const inputWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     heroInputRef.current?.focus();
@@ -26,6 +28,19 @@ function Index() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') handleSubmit();
   };
+
+  const handleCtaClick = useCallback(() => {
+    heroInputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    setTimeout(() => {
+      heroInputRef.current?.focus();
+      inputWrapperRef.current?.classList.add('input-glow');
+      
+      setTimeout(() => {
+        inputWrapperRef.current?.classList.remove('input-glow');
+      }, 1500);
+    }, 600);
+  }, []);
 
   return (
     <div className="immersive-app">
@@ -53,7 +68,7 @@ function Index() {
             <h1>Websites succeed or<br/>fail in seconds.</h1>
             <p className="hero-subtext">Mondro combines over fifty signals into one clear score that shows how your website really performs.</p>
             <div className="hero-input-container">
-              <div className="input-wrapper">
+              <div className="input-wrapper" ref={inputWrapperRef}>
                 <div className="placeholder-with-cursor">
                   <span>yourwebsite.com</span>
                   <span className="blinking-cursor"></span>
@@ -103,6 +118,7 @@ function Index() {
             </div>
           </section>
 
+          <SocialProofSection onCtaClick={handleCtaClick} />
           <PricingSection />
           <Footer />
         </div>

@@ -517,6 +517,114 @@
   border-color: hsl(var(--foreground) / 0.3); 
 }
 
+/* === Social Proof Section === */
+.social-proof-section {
+  @apply w-full mx-auto relative;
+  padding: 160px 60px;
+  max-width: 1000px;
+}
+
+.social-proof-content {
+  @apply flex flex-col items-start;
+  gap: 20px;
+}
+
+.social-proof-headline {
+  font-family: var(--font-heading);
+  @apply font-bold text-foreground relative;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  padding-left: 0;
+  transition: color 0.3s ease;
+}
+
+.social-proof-headline::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: hsl(var(--primary));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.social-proof-headline:hover {
+  color: hsl(var(--foreground));
+}
+
+.social-proof-headline:hover::before {
+  opacity: 1;
+}
+
+.social-proof-subtext {
+  @apply text-xl font-light;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.6;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  padding-left: 0;
+  position: relative;
+}
+
+.social-proof-subtext::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: hsl(var(--primary));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.social-proof-subtext:hover {
+  opacity: 0.85;
+}
+
+.social-proof-subtext:hover::before {
+  opacity: 1;
+}
+
+.social-proof-cta {
+  @apply flex items-center gap-3 mt-8 px-0 py-4 bg-transparent cursor-pointer text-lg font-medium;
+  color: hsl(var(--foreground));
+  border: none;
+  border-bottom: 1px solid hsl(var(--foreground) / 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.social-proof-cta .cta-arrow {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.12s ease 0.12s;
+}
+
+.social-proof-cta:hover {
+  border-color: hsl(var(--foreground) / 0.4);
+  background: hsl(var(--foreground) / 0.02);
+}
+
+.social-proof-cta:hover .cta-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .social-proof-section {
+    padding: 100px 24px;
+  }
+  
+  .social-proof-headline::before,
+  .social-proof-subtext::before {
+    left: -12px;
+  }
+}
+
 /* === Footer === */
 .footer { 
   @apply w-full mx-auto;
@@ -649,6 +757,12 @@
   color: hsl(var(--background));
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s;
 }
+/* Input focus glow for CTA scroll */
+.input-wrapper.input-glow {
+  border-color: hsl(var(--primary) / 0.5);
+  box-shadow: 0 0 60px hsl(var(--primary) / 0.2), 0 10px 30px hsl(0 0% 0% / 0.4);
+}
+
 .hero-send-btn:hover, .send-button:hover {
   transform: scale(1.08);
   box-shadow: 0 6px 20px hsl(var(--primary) / 0.3);
