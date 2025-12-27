@@ -17,8 +17,8 @@ const TextReveal = ({ text, className = '' }: TextRevealProps) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
+        staggerChildren: 0.12,
+        delayChildren: 0.2,
       },
     },
   };
@@ -34,7 +34,7 @@ const TextReveal = ({ text, className = '' }: TextRevealProps) => {
       y: 0,
       filter: 'blur(0px)',
       transition: {
-        duration: 0.6,
+        duration: 0.8,
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
