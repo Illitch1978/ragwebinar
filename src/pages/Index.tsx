@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRightIcon } from '@/components/Icons';
 import ProtocolCard from '@/components/landing/ProtocolCard';
 import PricingSection from '@/components/landing/PricingSection';
@@ -11,6 +12,7 @@ import protocolBgVideo from '@/assets/protocol-bg.mp4';
 
 function Index() {
   const [inputValue, setInputValue] = useState('');
+  const [textRevealComplete, setTextRevealComplete] = useState(false);
   const heroInputRef = useRef<HTMLInputElement>(null);
   const inputWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -92,12 +94,19 @@ function Index() {
               <TextReveal 
                 text="People do not experience websites in parts. They experience them as a whole. In seconds, they sense credibility, relevance, speed, clarity, and ease. Most tools break this experience into fragments and miss the big picture. Mondro puts the experience back together."
                 className="section-desc section-desc--dark"
+                onAnimationComplete={() => setTextRevealComplete(true)}
               />
             </div>
           </section>
 
-          {/* Full viewport video background section */}
-          <section className="protocol-video-section">
+          {/* Full viewport video background section - gated until text reveal completes */}
+          <motion.section 
+            className="protocol-video-section"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: textRevealComplete ? 1 : 0 }}
+            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ pointerEvents: textRevealComplete ? 'auto' : 'none' }}
+          >
             <div className="protocol-video-container">
               <video 
                 autoPlay 
@@ -116,7 +125,7 @@ function Index() {
                 <ProtocolCard key={dim.id} dim={dim} idx={idx} />
               ))}
             </div>
-          </section>
+          </motion.section>
 
           <SocialProofSection onCtaClick={handleCtaClick} />
           <PricingSection />
