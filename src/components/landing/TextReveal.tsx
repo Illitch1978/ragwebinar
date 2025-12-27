@@ -62,11 +62,17 @@ const TextReveal = ({ text, className = '', onAnimationComplete, shouldDissolve 
     },
   };
 
-  const handleAnimationComplete = () => {
-    if (onAnimationComplete) {
-      setTimeout(onAnimationComplete, 400);
+  // Calculate total animation duration and trigger callback when complete
+  useEffect(() => {
+    if (animationStarted && onAnimationComplete) {
+      // Total time = delayChildren + (staggerChildren * wordCount) + last word duration
+      const totalDuration = 0.3 + (0.08 * words.length) + 0.6;
+      const timer = setTimeout(() => {
+        onAnimationComplete();
+      }, totalDuration * 1000 + 200); // Add small buffer
+      return () => clearTimeout(timer);
     }
-  };
+  }, [animationStarted, onAnimationComplete, words.length]);
 
   return (
     <motion.div
@@ -74,7 +80,6 @@ const TextReveal = ({ text, className = '', onAnimationComplete, shouldDissolve 
       variants={container}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
-      onAnimationComplete={handleAnimationComplete}
       className={className}
     >
       <motion.div
