@@ -1,75 +1,118 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Sparkles } from 'lucide-react';
 
 interface GlowingButtonProps {
   text: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg';
   onClick?: () => void;
-  icon?: string;
   className?: string;
 }
 
 const GlowingButton: React.FC<GlowingButtonProps> = ({ 
   text, 
-  size = 'lg', 
+  size = 'md', 
   onClick,
-  icon,
   className = ""
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked(true);
-    setTimeout(() => setIsClicked(false), 800);
-    if (onClick) onClick();
+  const sizeStyles = {
+    sm: {
+      padding: 'px-4 py-2',
+      text: 'text-xs',
+      iconSize: 12,
+      glowSize: '60px',
+    },
+    md: {
+      padding: 'px-5 py-2.5',
+      text: 'text-xs',
+      iconSize: 14,
+      glowSize: '80px',
+    },
+    lg: {
+      padding: 'px-7 py-3.5',
+      text: 'text-sm',
+      iconSize: 16,
+      glowSize: '100px',
+    },
   };
 
-  const sizeClasses = {
-    sm: "px-4 py-1.5 text-sm",
-    md: "px-6 py-2.5 text-base",
-    lg: "px-8 py-3.5 text-lg font-semibold",
-    xl: "px-12 py-5 text-2xl font-black"
-  };
+  const styles = sizeStyles[size];
 
   return (
-    <button 
-      onClick={handleClick}
-      className={`
-        group relative transition-all duration-300 ease-out
-        rounded-full border border-white/10 backdrop-blur-xl
-        flex items-center justify-center gap-3
-        bg-slate-900/40 text-white
-        hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]
-        ${sizeClasses[size]}
-        ${className}
-      `}
-    >
-      {/* 1. PERIMETER TRACE LAYER (The Ghost Line) */}
-      <div className="absolute inset-[-1.5px] rounded-full overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div 
-          className={`absolute inset-[-200%] ${isClicked ? 'animate-[rotate_0.8s_linear_infinite]' : 'animate-[rotate_3s_linear_infinite]'}`}
-          style={{ 
-            background: `conic-gradient(from 0deg, transparent 0deg, transparent 280deg, rgba(255,255,255,0.5) 320deg, #fff 340deg, rgba(255,255,255,0.5) 360deg)` 
-          }} 
-        />
+    <div className={`relative group ${className}`}>
+      {/* Deep Ambient Glow (Behind) */}
+      <div 
+        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
+        style={{
+          background: 'radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, transparent 70%)',
+          transform: `scale(1.5)`,
+        }}
+      />
+
+      {/* Gradient Border Container */}
+      <div 
+        className="relative rounded-full p-[1px]"
+        style={{
+          background: 'linear-gradient(135deg, hsl(var(--foreground) / 0.3) 0%, hsl(var(--foreground) / 0.1) 50%, hsl(var(--foreground) / 0.25) 100%)',
+        }}
+      >
+        {/* The Button Content */}
+        <button
+          onClick={onClick}
+          className={`
+            relative ${styles.padding} rounded-full overflow-hidden
+            flex items-center justify-center gap-2
+            transition-all duration-300 ease-out cursor-pointer
+            group-hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)]
+          `}
+          style={{
+            background: 'linear-gradient(180deg, hsl(240 10% 10%) 0%, hsl(240 10% 6%) 100%)',
+          }}
+        >
+          {/* Top Glass Highlight */}
+          <div 
+            className="absolute inset-x-0 top-0 h-1/2 rounded-t-full pointer-events-none"
+            style={{
+              background: 'linear-gradient(180deg, hsl(var(--foreground) / 0.08) 0%, transparent 100%)',
+            }}
+          />
+
+          {/* Bottom Shadow for depth */}
+          <div 
+            className="absolute inset-x-0 bottom-0 h-1/3 rounded-b-full pointer-events-none"
+            style={{
+              background: 'linear-gradient(0deg, hsl(0 0% 0% / 0.3) 0%, transparent 100%)',
+            }}
+          />
+
+          {/* Subtle Shine Effect */}
+          <div 
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={{
+              background: 'linear-gradient(105deg, transparent 40%, hsl(var(--foreground) / 0.06) 45%, hsl(var(--foreground) / 0.12) 50%, hsl(var(--foreground) / 0.06) 55%, transparent 60%)',
+              animation: 'shimmer 2s infinite',
+            }}
+          />
+
+          {/* Icon */}
+          <Sparkles 
+            size={styles.iconSize} 
+            className="relative z-10 text-foreground/70 group-hover:text-primary transition-colors duration-300" 
+          />
+
+          {/* Text */}
+          <span className={`relative z-10 ${styles.text} font-semibold uppercase tracking-[0.15em] text-foreground/90 group-hover:text-foreground transition-colors duration-300`}>
+            {text}
+          </span>
+        </button>
       </div>
 
-      {/* 2. SOLID INNER BACKGROUND (Ensures content clarity) */}
-      <div className="absolute inset-[0.5px] rounded-full z-0 bg-slate-900" />
-
-      {/* 3. CLICK FEEDBACK WAVE */}
-      <span className={`
-        absolute inset-0 rounded-full pointer-events-none bg-white opacity-0
-        ${isClicked ? 'animate-[ping_0.6s_ease-out_forwards] !opacity-10' : ''}
-      `} />
-
-      {/* 4. BUTTON CONTENT */}
-      <span className="relative z-10 flex items-center gap-3">
-        {icon && <i className={`${icon} text-white/70 group-hover:text-white transition-colors`} />}
-        <span className="font-heading font-semibold tracking-wide">
-          {text}
-        </span>
-      </span>
-    </button>
+      <style>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+      `}</style>
+    </div>
   );
 };
 
