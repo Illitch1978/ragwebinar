@@ -14,7 +14,6 @@ function PricingSection() {
           <div className="pricing-header">
             <h3>Scan</h3>
             <div className="price">$149 <span className="period">one-time</span></div>
-            <p className="pricing-desc">A complete diagnostic.<br />One clear view of performance.<br />Prioritised fixes.</p>
           </div>
           <div className="pricing-includes">
             <span className="includes-label">What it includes</span>
@@ -32,7 +31,6 @@ function PricingSection() {
           <div className="pricing-header">
             <h3>Monitor</h3>
             <div className="price">$49 <span className="period">per month</span></div>
-            <p className="pricing-desc">See where you stand, what works, and what to change.</p>
           </div>
           <div className="pricing-includes">
             <span className="includes-label">What it includes</span>
