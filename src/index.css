@@ -210,13 +210,13 @@
 
 .signup-btn { 
   @apply px-7 py-3 rounded-full no-underline text-sm font-semibold transition-colors;
-  background: hsl(var(--glass-bg)); 
+  background: transparent; 
   color: hsl(var(--foreground)); 
-  border: 1px solid hsl(var(--glass-border)); 
-  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--foreground) / 0.3); 
 }
 .signup-btn:hover { 
-  background: hsl(0 0% 100% / 0.1); 
+  background: hsl(var(--foreground) / 0.1); 
+  border-color: hsl(var(--foreground) / 0.5);
 }
 
 /* === Stage === */
