@@ -40,7 +40,7 @@ function PricingSection() {
               <li><CheckIcon /> Competitor and peer comparison</li>
               <li><CheckIcon /> Sector benchmarks and best practice</li>
               <li><CheckIcon /> AI consultant to pressure test decisions</li>
-              <li><CheckIcon /> Messaging and positioning alignment checks</li>
+              <li><CheckIcon /> Messaging and positioning checks</li>
               <li><CheckIcon /> Impact tracking as changes are made</li>
             </ul>
           </div>
