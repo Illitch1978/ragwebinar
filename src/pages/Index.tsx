@@ -120,10 +120,13 @@ function Index() {
               <div className="protocol-video-overlay"></div>
             </div>
             
-            <div className="protocol-list">
-              {DIMENSIONS.map((dim, idx) => (
-                <ProtocolCard key={dim.id} dim={dim} idx={idx} />
-              ))}
+            <div className="protocol-content">
+              <h2 className="protocol-framework-title">THE SCORING FRAMEWORK</h2>
+              <div className="protocol-list">
+                {DIMENSIONS.map((dim, idx) => (
+                  <ProtocolCard key={dim.id} dim={dim} idx={idx} />
+                ))}
+              </div>
             </div>
           </motion.section>
 

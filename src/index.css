@@ -353,12 +353,26 @@
   );
 }
 
-.protocol-video-section .protocol-list {
+.protocol-video-section .protocol-content {
   position: relative;
   z-index: 1;
   max-width: 900px;
   margin: 0 auto;
   padding: 80px 24px 160px;
+}
+
+.protocol-framework-title {
+  font-family: var(--font-heading);
+  @apply font-extrabold mb-16 tracking-widest text-center;
+  font-size: clamp(0.875rem, 1.5vw, 1rem); 
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+}
+
+.protocol-video-section .protocol-list {
+  position: relative;
+  z-index: 1;
 }
 
 .section-header { 
