@@ -1,24 +1,43 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 
 interface TextRevealProps {
   text: string;
   className?: string;
+  onAnimationComplete?: () => void;
 }
 
-const TextReveal = ({ text, className = '' }: TextRevealProps) => {
+const TextReveal = ({ text, className = '', onAnimationComplete }: TextRevealProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const [animationStarted, setAnimationStarted] = useState(false);
+
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Parallax transforms
+  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.98]);
+  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.8]);
 
   const words = text.split(' ');
+
+  useEffect(() => {
+    if (isInView && !animationStarted) {
+      setAnimationStarted(true);
+    }
+  }, [isInView, animationStarted]);
 
   const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.2,
+        staggerChildren: 0.08,
+        delayChildren: 0.3,
       },
     },
   };
@@ -27,36 +46,50 @@ const TextReveal = ({ text, className = '' }: TextRevealProps) => {
     hidden: {
       opacity: 0,
       y: 20,
-      filter: 'blur(10px)',
+      filter: 'blur(8px)',
     },
     visible: {
       opacity: 1,
       y: 0,
       filter: 'blur(0px)',
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
   };
 
+  const handleAnimationComplete = () => {
+    if (onAnimationComplete) {
+      // Small delay after last word animates
+      setTimeout(onAnimationComplete, 400);
+    }
+  };
+
   return (
     <motion.div
-      ref={containerRef}
-      variants={container}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-      className={className}
+      ref={cardRef}
+      className="text-reveal-card"
+      style={{ y, scale, opacity }}
     >
-      {words.map((word, index) => (
-        <motion.span
-          key={index}
-          variants={wordAnimation}
-          className="inline-block mr-[0.25em]"
-        >
-          {word}
-        </motion.span>
-      ))}
+      <motion.div
+        ref={containerRef}
+        variants={container}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+        onAnimationComplete={handleAnimationComplete}
+        className={className}
+      >
+        {words.map((word, index) => (
+          <motion.span
+            key={index}
+            variants={wordAnimation}
+            className="inline-block mr-[0.25em]"
+          >
+            {word}
+          </motion.span>
+        ))}
+      </motion.div>
     </motion.div>
   );
 };
