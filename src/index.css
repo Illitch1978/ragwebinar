@@ -289,7 +289,7 @@
 }
 .hero-subtext { 
   @apply text-xl mb-16 font-light relative z-10;
-  color: hsl(var(--muted-foreground)); 
+  color: hsl(var(--foreground)); 
   max-width: 800px; 
   line-height: 1.5; 
 }
