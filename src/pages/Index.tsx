@@ -5,6 +5,7 @@ import ProtocolCard from '@/components/landing/ProtocolCard';
 import PricingSection from '@/components/landing/PricingSection';
 import Footer from '@/components/landing/Footer';
 import { INITIAL_PLACEHOLDERS, DIMENSIONS } from '@/lib/constants';
+import heroVideo from '@/assets/hero-video.mp4';
 
 function Index() {
   const [inputValue, setInputValue] = useState('');
@@ -51,6 +52,20 @@ function Index() {
       <div className="stage-container landing-scroll">
         <div className="landing-page">
           <section className="hero-section">
+            {/* Hero Video Background */}
+            <div className="hero-video-container">
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="hero-video"
+              >
+                <source src={heroVideo} type="video/mp4" />
+              </video>
+              <div className="hero-video-overlay"></div>
+            </div>
+            
             <h1>Websites succeed or<br/>fail in seconds.</h1>
             <p className="hero-subtext">Mondro analyzes your digital presence using multi-dimensional AI logic to surface conversion bottlenecks.</p>
             <div className="hero-input-container">
