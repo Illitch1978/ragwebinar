@@ -6,7 +6,7 @@ function PricingSection() {
     <section className="pricing-section">
       <div className="section-header">
         <h2>Clear data. Strategic growth.</h2>
-        <p className="section-desc">Whether you need a one-time diagnostic or continuous improvement guidance, we have you covered.</p>
+        <p className="section-desc">From a single diagnostic to ongoing competitive insight.</p>
       </div>
 
       <div className="pricing-grid two-col">
