@@ -342,17 +342,18 @@
 }
 
 .cycling-tagline {
-  @apply flex items-baseline gap-3 flex-wrap;
+  @apply flex items-baseline gap-2;
   max-width: 900px;
   margin: 0 auto;
   padding: 0 24px;
   width: 100%;
+  flex-wrap: nowrap;
 }
 
 .mondro-static {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: clamp(1.875rem, 4vw, 3rem);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
   letter-spacing: -0.05em;
   display: inline-flex;
   align-items: center;
@@ -370,13 +371,15 @@
   @apply relative;
   display: inline-flex;
   align-items: baseline;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .cycling-phrase {
   @apply inline;
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: clamp(1.875rem, 4vw, 3rem);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
   letter-spacing: -0.02em;
   color: hsl(var(--foreground) / 0.85);
   line-height: 1.3;
