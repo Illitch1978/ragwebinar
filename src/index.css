@@ -321,6 +321,12 @@
   animation: logo-dot-pulse 2s infinite ease-in-out;
 }
 
+.mondro-reveal-line {
+  display: block;
+  width: 100%;
+  margin-top: 0.3em;
+}
+
 /* Protocol Video Section - Full Viewport */
 .protocol-video-section {
   @apply relative w-full overflow-hidden;
