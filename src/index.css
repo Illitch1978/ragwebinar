@@ -373,16 +373,17 @@
 }
 
 .pricing-card.popular {
-  border-color: hsl(var(--brand-blue));
-  background: linear-gradient(180deg, hsl(var(--brand-blue) / 0.08) 0%, hsl(var(--background)) 100%);
+  border-color: hsl(var(--primary));
+  background: linear-gradient(180deg, hsl(var(--primary) / 0.08) 0%, hsl(var(--background)) 100%);
 }
 
 .popular-badge {
-  @apply absolute text-xs font-bold text-foreground;
+  @apply absolute text-xs font-bold;
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: hsl(var(--brand-blue));
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
   padding: 6px 16px;
   border-radius: 6px;
   letter-spacing: 0.03em;
