@@ -6,55 +6,45 @@ function PricingSection() {
     <section className="pricing-section">
       <div className="section-header">
         <h2>Clear data. Strategic growth.</h2>
-        <p className="section-desc">Whether you need a one-time diagnostic or a continuous improvement engine, we have a plan for your stage of growth.</p>
+        <p className="section-desc">Whether you need a one-time diagnostic or continuous improvement guidance, we have you covered.</p>
       </div>
 
-      <div className="pricing-grid">
+      <div className="pricing-grid two-col">
         <div className="pricing-card">
           <div className="pricing-header">
-            <h3>Snapshot</h3>
+            <h3>Scan</h3>
             <div className="price">$149 <span className="period">one-time</span></div>
-            <p className="price-meta">One site. One moment in time. No subscription.</p>
-            <p className="pricing-desc">A single, comprehensive assessment that tells you exactly where your site stands and what to fix first.</p>
+            <p className="pricing-desc">A complete diagnostic. One clear score. Prioritised fixes.</p>
           </div>
-          <ul className="pricing-features">
-            <li><CheckIcon /> Expert diagnostic</li>
-            <li><CheckIcon /> Decision-grade assessment</li>
-            <li><CheckIcon /> Board-ready report (PDF)</li>
-          </ul>
-          <button className="pricing-btn secondary">Get Single Scan</button>
-        </div>
-
-        <div className="pricing-card popular">
-          <div className="popular-badge">POPULAR</div>
-          <div className="pricing-header">
-            <h3>Improvement</h3>
-            <div className="price">$49 <span className="period">/mo</span></div>
-            <p className="price-meta">Billed quarterly. Cancel anytime.</p>
-            <p className="pricing-desc">Ongoing insight and prioritisation so every change you make is intentional and measurable.</p>
+          <div className="pricing-includes">
+            <span className="includes-label">What it includes</span>
+            <ul className="pricing-features">
+              <li><CheckIcon /> Full site scan</li>
+              <li><CheckIcon /> Confidence score</li>
+              <li><CheckIcon /> Competitor snapshot</li>
+              <li><CheckIcon /> Shareable report</li>
+            </ul>
           </div>
-          <ul className="pricing-features">
-            <li><CheckIcon /> <b>Track score evolution</b></li>
-            <li><CheckIcon /> <b>Validate improvements</b></li>
-            <li><CheckIcon /> <b>Benchmarking</b></li>
-            <li><CheckIcon /> <b>Slack Alerts</b></li>
-          </ul>
-          <button className="pricing-btn primary">Start Free Trial</button>
+          <button className="pricing-btn primary">Get Your Score</button>
         </div>
 
         <div className="pricing-card">
           <div className="pricing-header">
-            <h3>Scale</h3>
-            <div className="price">$99 <span className="period">/mo</span></div>
-            <p className="price-meta">Per seat. Volume discounts available.</p>
-            <p className="pricing-desc">A unified diagnostic framework for teams and agencies managing multiple websites.</p>
+            <h3>Monitor</h3>
+            <div className="price">$49 <span className="period">/month</span></div>
+            <p className="pricing-desc">Ongoing insight and improvement guidance.</p>
           </div>
-          <ul className="pricing-features">
-            <li><CheckIcon /> Client-facing credibility</li>
-            <li><CheckIcon /> Repeatable framework</li>
-            <li><CheckIcon /> White-label Reports</li>
-          </ul>
-          <button className="pricing-btn secondary">Contact Sales</button>
+          <div className="pricing-includes">
+            <span className="includes-label">What it includes</span>
+            <ul className="pricing-features">
+              <li><CheckIcon /> Live dashboard</li>
+              <li><CheckIcon /> Score tracking over time</li>
+              <li><CheckIcon /> Competitor tracking</li>
+              <li><CheckIcon /> Sector benchmarks and best practice</li>
+              <li><CheckIcon /> AI consultant to guide improvements</li>
+            </ul>
+          </div>
+          <button className="pricing-btn primary">Start Monitoring</button>
         </div>
       </div>
     </section>
