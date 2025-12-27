@@ -92,7 +92,7 @@ function Index() {
           </section>
 
           <section className="protocol-section protocol-section--light">
-            <div className="section-header">
+            <div className="section-header" style={{ position: 'relative' }}>
               <TextReveal 
                 text="People do not experience websites in parts. They judge them as a whole. In seconds, they register credibility, relevance, speed, and clarity. Most tools break this into fragments and miss the bigger picture."
                 className="section-desc section-desc--dark"
