@@ -119,7 +119,6 @@ function Index() {
                 shouldDissolve={shouldDissolve}
                 onDissolveComplete={() => setShowCyclingTagline(true)}
               />
-              <CyclingTagline isVisible={showCyclingTagline} />
             </div>
           </section>
 
@@ -145,6 +144,7 @@ function Index() {
             </div>
             
             <div className="protocol-content">
+              <CyclingTagline isVisible={showCyclingTagline} />
               <h2 className="protocol-framework-title">THE SCORING FRAMEWORK</h2>
               <div className="protocol-list">
                 {DIMENSIONS.map((dim, idx) => (
