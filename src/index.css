@@ -1152,112 +1152,28 @@
   color: hsl(0 0% 100% / 0.2); 
 }
 
-/* === Signature URL Bar - Glass Morphism === */
-.input-wrapper-glow {
-  position: relative;
-  width: 100%;
-  padding: 2px;
-  border-radius: 9999px;
-  background: linear-gradient(
-    135deg,
-    hsl(var(--primary) / 0.5) 0%,
-    hsl(var(--primary) / 0.15) 50%,
-    hsl(var(--primary) / 0.5) 100%
-  );
-  box-shadow: 
-    0 0 40px hsl(var(--primary) / 0.12),
-    0 8px 32px hsl(0 0% 0% / 0.4);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* === Premium URL Bar === */
+.url-bar-border-active {
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(220 91% 54%), hsl(var(--primary)));
 }
 
-.input-wrapper-glow:focus-within {
-  box-shadow: 
-    0 0 50px hsl(var(--primary) / 0.2),
-    0 12px 40px hsl(0 0% 0% / 0.5);
-}
-
-.input-wrapper {
-  @apply flex items-center rounded-full relative;
-  background: hsl(240 12% 6% / 0.9);
-  padding: 6px 6px 6px 28px;
-  backdrop-filter: blur(40px);
-  border: none;
-  transition: background 0.3s ease;
-  box-shadow: 
-    inset 0 1px 0 hsl(0 0% 100% / 0.06),
-    inset 0 -1px 0 hsl(0 0% 0% / 0.2);
-}
-
-.input-wrapper:focus-within {
-  background: hsl(240 12% 8% / 0.95);
-}
-
-.input-wrapper:focus-within {
-  background: hsl(240 15% 7% / 0.98);
-  border-color: hsl(var(--primary) / 0.5);
-  box-shadow: 
-    0 0 40px hsl(var(--primary) / 0.2),
-    0 0 80px hsl(var(--primary) / 0.1);
-}
-
-.input-wrapper:focus-within .placeholder-with-cursor {
-  opacity: 0;
-}
-
-.input-wrapper input {
-  @apply flex-1 bg-transparent border-none text-lg py-4 outline-none text-foreground;
-  position: relative;
-  z-index: 2;
-}
-.input-wrapper input::placeholder { 
-  color: hsl(0 0% 100% / 0.25); 
-}
-
-/* Placeholder with blinking cursor */
-.placeholder-with-cursor {
-  @apply absolute left-7 flex items-center text-lg pointer-events-none;
-  color: hsl(0 0% 100% / 0.25);
-  transition: opacity 0.2s ease;
-  z-index: 2;
-}
-.blinking-cursor {
-  @apply inline-block w-0.5 h-5 ml-0.5;
-  background: hsl(var(--foreground));
-  animation: blink 1s step-end infinite;
-}
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.hero-send-btn, .send-button {
-  @apply w-14 h-14 rounded-full border-none flex items-center justify-center cursor-pointer relative;
-  background: hsl(var(--foreground));
-  color: hsl(var(--background));
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  z-index: 2;
-}
-.hero-send-btn::before, .send-button::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, hsl(0 0% 100% / 0.3) 0%, hsl(0 0% 100% / 0.05) 50%, hsl(0 0% 100% / 0.15) 100%);
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.url-bar-border-inactive {
+  background: linear-gradient(to right, hsl(var(--foreground) / 0.15), hsl(var(--foreground) / 0.08), hsl(var(--foreground) / 0.15));
 }
 
 /* Input focus glow for CTA scroll */
-.input-wrapper.input-glow::before {
-  animation: border-rotate 2s linear infinite;
+.input-glow .url-bar-border-inactive {
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(220 91% 54%), hsl(var(--primary)));
 }
 
-.hero-send-btn:hover, .send-button:hover {
-  transform: scale(1.05);
-}
-.hero-send-btn:hover::before, .send-button:hover::before {
-  opacity: 1;
+.input-glow::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 16px;
+  background: linear-gradient(to right, hsl(var(--primary) / 0.4), hsl(220 91% 54% / 0.4));
+  filter: blur(12px);
+  animation: pulse-glow 1.5s ease-in-out infinite;
 }
 
 /* === Responsive === */
