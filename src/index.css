@@ -349,7 +349,7 @@
 .tagline-section {
   @apply relative w-full flex items-center justify-center;
   background: hsl(var(--background));
-  padding: 120px 24px;
+  padding: 80px 24px 160px;
 }
 
 /* Cycling Tagline */
