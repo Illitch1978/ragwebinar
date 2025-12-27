@@ -225,17 +225,16 @@
 
 /* === Hero Section === */
 .hero-section {
-  @apply min-h-screen flex flex-col items-center justify-center text-center px-6 relative;
+  @apply h-screen w-full flex flex-col items-center justify-center text-center px-6 relative overflow-hidden;
 }
 
 /* Hero Video Styles */
 .hero-video-container {
-  @apply absolute inset-0 overflow-hidden;
+  @apply absolute inset-0 w-full h-full overflow-hidden;
   z-index: -1;
 }
 .hero-video {
-  @apply w-full h-full object-cover;
-  object-position: center calc(50% + 50px);
+  @apply absolute top-0 left-0 w-full h-full object-cover;
   filter: brightness(0.4) saturate(1.2);
 }
 .hero-video-overlay {
