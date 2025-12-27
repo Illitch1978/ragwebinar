@@ -277,7 +277,6 @@
 }
 .hero-video-overlay {
   @apply absolute inset-0;
-  background: radial-gradient(circle at 50% 50%, transparent 0%, hsl(var(--background) / 0.6) 60%, hsl(var(--background)) 85%);
 }
 
 .hero-section h1 { 
