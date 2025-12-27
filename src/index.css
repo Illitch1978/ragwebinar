@@ -210,83 +210,77 @@
 }
 
 @keyframes hue-shift {
-  0% { filter: blur(18px) hue-rotate(0deg); }
-  50% { filter: blur(22px) hue-rotate(30deg); }
-  100% { filter: blur(18px) hue-rotate(0deg); }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.signup-btn-wrapper {
+  position: relative;
+  display: inline-block;
+  border-radius: 9999px;
+}
+
+/* Outer glow - blurred rotating gradient */
+.signup-btn-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    hsl(var(--primary) / 0.4) 0%,
+    hsl(210 100% 70% / 0.2) 25%,
+    hsl(var(--primary) / 0.4) 50%,
+    hsl(220 100% 65% / 0.2) 75%,
+    hsl(var(--primary) / 0.4) 100%
+  );
+  filter: blur(15px);
+  animation: border-rotate 4s linear infinite, hue-shift 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .signup-btn {
   @apply px-7 py-3 rounded-full no-underline text-sm font-semibold;
-  background: hsl(240 15% 6% / 0.9);
+  background: hsl(240 15% 6% / 0.95);
   color: hsl(var(--foreground)); 
-  border: none;
+  border: 1.5px solid transparent;
   backdrop-filter: blur(20px);
-  transition: background 0.4s ease;
+  transition: background 0.4s ease, border-color 0.4s ease;
   position: relative;
   z-index: 1;
-  isolation: isolate;
-  overflow: hidden;
+  background-clip: padding-box;
 }
 
-/* Rotating gradient - the magic */
+/* Gradient border using background-image */
 .signup-btn::before {
   content: '';
   position: absolute;
-  inset: -150%;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
   background: conic-gradient(
     from 0deg,
     hsl(var(--primary)) 0%,
     hsl(210 100% 70%) 25%,
-    hsl(var(--primary) / 0.3) 50%,
+    hsl(var(--primary) / 0.4) 50%,
     hsl(220 100% 65%) 75%,
     hsl(var(--primary)) 100%
   );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   animation: border-rotate 4s linear infinite;
   pointer-events: none;
 }
 
-/* Inner background to create the border effect */
 .signup-btn > span {
   position: relative;
   z-index: 2;
 }
 
-.signup-btn::after {
-  content: '';
-  position: absolute;
-  inset: 1.5px;
-  border-radius: inherit;
-  background: hsl(240 15% 6% / 0.92);
-  z-index: 1;
-  transition: background 0.4s ease;
-}
-
-/* Outer glow layer - wrapped in a container */
-.signup-btn-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.signup-btn-wrapper::before {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 9999px;
-  background: conic-gradient(
-    from 0deg,
-    hsl(var(--primary) / 0.25) 0%,
-    hsl(210 100% 70% / 0.15) 25%,
-    hsl(var(--primary) / 0.25) 50%,
-    hsl(220 100% 65% / 0.15) 75%,
-    hsl(var(--primary) / 0.25) 100%
-  );
-  animation: border-rotate 4s linear infinite, hue-shift 6s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.signup-btn:hover::after { 
-  background: hsl(240 15% 8% / 0.95);
+.signup-btn:hover { 
+  background: hsl(240 15% 8% / 0.98);
 }
 
 /* === Stage === */
@@ -1066,71 +1060,66 @@
 }
 
 /* === Signature URL Bar - Living Gradient Border === */
-.input-wrapper {
-  @apply flex items-center rounded-full relative;
-  background: hsl(240 15% 8% / 0.85);
-  padding: 6px 6px 6px 28px;
-  backdrop-filter: blur(40px);
-  z-index: 1;
-  border: none;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-/* Rotating gradient border */
-.input-wrapper::before {
-  content: '';
-  position: absolute;
-  inset: -200%;
-  background: conic-gradient(
-    from 0deg,
-    hsl(var(--primary)) 0%,
-    hsl(210 100% 70%) 25%,
-    hsl(var(--primary) / 0.3) 50%,
-    hsl(220 100% 65%) 75%,
-    hsl(var(--primary)) 100%
-  );
-  animation: border-rotate 4s linear infinite;
-  pointer-events: none;
-}
-
-/* Inner background */
-.input-wrapper::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  border-radius: inherit;
-  background: hsl(240 15% 7% / 0.95);
-  z-index: 1;
-  transition: background 0.4s ease;
-}
-
-/* Glow wrapper */
 .input-wrapper-glow {
   position: relative;
   width: 100%;
+  border-radius: 9999px;
 }
 
+/* Outer glow - blurred rotating gradient */
 .input-wrapper-glow::before {
   content: '';
   position: absolute;
-  inset: -6px;
-  border-radius: 9999px;
+  inset: -8px;
+  border-radius: inherit;
   background: conic-gradient(
     from 0deg,
-    hsl(var(--primary) / 0.2) 0%,
-    hsl(210 100% 70% / 0.12) 25%,
-    hsl(var(--primary) / 0.2) 50%,
-    hsl(220 100% 65% / 0.12) 75%,
-    hsl(var(--primary) / 0.2) 100%
+    hsl(var(--primary) / 0.35) 0%,
+    hsl(210 100% 70% / 0.18) 25%,
+    hsl(var(--primary) / 0.35) 50%,
+    hsl(220 100% 65% / 0.18) 75%,
+    hsl(var(--primary) / 0.35) 100%
   );
-  animation: border-rotate 4s linear infinite, hue-shift 6s ease-in-out infinite;
+  filter: blur(20px);
+  animation: border-rotate 4s linear infinite, hue-shift 3s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
 }
 
-.input-wrapper:focus-within::after {
-  background: hsl(240 15% 8% / 0.98);
+.input-wrapper {
+  @apply flex items-center rounded-full relative;
+  background: hsl(240 15% 6% / 0.95);
+  padding: 6px 6px 6px 28px;
+  backdrop-filter: blur(40px);
+  z-index: 1;
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Gradient border using mask */
+.input-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    hsl(var(--primary)) 0%,
+    hsl(210 100% 70%) 25%,
+    hsl(var(--primary) / 0.4) 50%,
+    hsl(220 100% 65%) 75%,
+    hsl(var(--primary)) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-rotate 4s linear infinite;
+  pointer-events: none;
+}
+
+.input-wrapper:focus-within {
+  background: hsl(240 15% 7% / 0.98);
 }
 
 .input-wrapper:focus-within .placeholder-with-cursor {
