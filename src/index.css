@@ -666,13 +666,98 @@
 
 /* === Social Proof Section === */
 .social-proof-section {
-  @apply w-full mx-auto relative;
-  padding: 160px 60px;
-  max-width: 1000px;
+  @apply w-full mx-auto relative flex items-center justify-center;
+  padding: 120px 24px;
+  max-width: 1200px;
+}
+
+/* === Sophisticated Frosted Card === */
+.social-proof-card {
+  @apply relative;
+  padding: 56px 64px;
+  border-radius: 24px;
+  overflow: hidden;
+  max-width: 720px;
+  width: 100%;
+}
+
+/* Base frost layer */
+.card-frost-layer {
+  @apply absolute inset-0;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--foreground) / 0.03) 0%,
+    hsl(var(--foreground) / 0.01) 50%,
+    hsl(var(--foreground) / 0.02) 100%
+  );
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+}
+
+/* Animated gradient border */
+.card-gradient-border {
+  @apply absolute inset-0 pointer-events-none;
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(
+    145deg,
+    hsl(var(--primary) / 0.4) 0%,
+    hsl(var(--foreground) / 0.08) 25%,
+    hsl(var(--foreground) / 0.03) 50%,
+    hsl(var(--foreground) / 0.08) 75%,
+    hsl(var(--primary) / 0.2) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Inner glow effect */
+.card-inner-glow {
+  @apply absolute inset-0 pointer-events-none;
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    hsl(var(--primary) / 0.08) 0%,
+    transparent 60%
+  );
+}
+
+/* Corner accents */
+.card-corner {
+  @apply absolute w-16 h-16 pointer-events-none;
+  opacity: 0.4;
+}
+
+.card-corner-tl {
+  top: 0;
+  left: 0;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.3) 0%, transparent 60%);
+  border-radius: 24px 0 0 0;
+}
+
+.card-corner-br {
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(-45deg, hsl(var(--primary) / 0.15) 0%, transparent 60%);
+  border-radius: 0 0 24px 0;
+}
+
+/* Accent line */
+.card-accent-line {
+  @apply absolute left-8 top-1/4 bottom-1/4 w-px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    hsl(var(--primary) / 0.5) 30%,
+    hsl(var(--primary)) 50%,
+    hsl(var(--primary) / 0.5) 70%,
+    transparent 100%
+  );
+  opacity: 0.6;
 }
 
 .social-proof-content {
-  @apply flex flex-col items-start;
+  @apply relative flex flex-col items-start z-10;
   gap: 12px;
 }
 
@@ -807,12 +892,20 @@
 
 @media (max-width: 768px) {
   .social-proof-section {
-    padding: 100px 24px;
+    padding: 80px 16px;
   }
   
-  .social-proof-headline::before,
-  .social-proof-subtext::before {
-    left: -12px;
+  .social-proof-card {
+    padding: 40px 28px;
+    border-radius: 20px;
+  }
+  
+  .card-accent-line {
+    left: 16px;
+  }
+  
+  .card-corner {
+    @apply w-12 h-12;
   }
 }
 

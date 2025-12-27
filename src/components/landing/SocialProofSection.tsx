@@ -54,41 +54,52 @@ const SocialProofSection = ({ onCtaClick }: SocialProofSectionProps) => {
   return (
     <section className="social-proof-section" ref={sectionRef}>
       <motion.div 
-        className="social-proof-content"
+        className="social-proof-card"
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
       >
+        {/* Frosted glass layers */}
+        <div className="card-frost-layer" />
+        <div className="card-gradient-border" />
+        <div className="card-inner-glow" />
+        
+        {/* Decorative elements */}
+        <div className="card-corner card-corner-tl" />
+        <div className="card-corner card-corner-br" />
+        <div className="card-accent-line" />
+        
+        <div className="social-proof-content">
+          <motion.h2 
+            className="social-proof-headline"
+            variants={itemVariants}
+          >
+            Get your score
+          </motion.h2>
 
-        <motion.h2 
-          className="social-proof-headline"
-          variants={itemVariants}
-        >
-          Get your score
-        </motion.h2>
+          <motion.ul className="social-proof-stats" variants={containerVariants}>
+            {socialProofStats.map((stat, index) => (
+              <motion.li 
+                key={index} 
+                className="social-proof-stat"
+                variants={itemVariants}
+              >
+                {stat.text}
+                {stat.highlight && <span className="stat-highlight">{stat.highlight}</span>}
+                {stat.suffix}
+              </motion.li>
+            ))}
+          </motion.ul>
 
-        <motion.ul className="social-proof-stats" variants={containerVariants}>
-          {socialProofStats.map((stat, index) => (
-            <motion.li 
-              key={index} 
-              className="social-proof-stat"
-              variants={itemVariants}
-            >
-              {stat.text}
-              {stat.highlight && <span className="stat-highlight">{stat.highlight}</span>}
-              {stat.suffix}
-            </motion.li>
-          ))}
-        </motion.ul>
-
-        <motion.button
-          className="social-proof-cta"
-          variants={itemVariants}
-          onClick={onCtaClick}
-        >
-          <span>Run a scan</span>
-          <span className="cta-arrow">→</span>
-        </motion.button>
+          <motion.button
+            className="social-proof-cta"
+            variants={itemVariants}
+            onClick={onCtaClick}
+          >
+            <span>Run a scan</span>
+            <span className="cta-arrow">→</span>
+          </motion.button>
+        </div>
       </motion.div>
     </section>
   );
