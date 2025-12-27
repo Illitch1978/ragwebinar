@@ -3,17 +3,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const phrases = [
   "brings it back together",
-  "shows how your site really performs",
+  "shows how your site performs",
   "measures what visitors notice",
   "turns signals into a clear score",
   "exposes hidden friction",
-  "checks how search and AI see you",
-  "benchmarks you against competitors",
-  "shows where you stand and why",
-  "highlights what helps or hurts",
+  "checks how AI sees you",
+  "benchmarks against competitors",
+  "shows where you stand",
+  "highlights what matters",
   "turns audits into decisions",
-  "reveals what matters in seconds",
-  "replaces guesswork with structure",
+  "reveals gaps in seconds",
+  "replaces guesswork",
 ];
 
 // Fisher-Yates shuffle
