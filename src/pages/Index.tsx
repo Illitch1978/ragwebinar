@@ -24,7 +24,24 @@ function Index() {
     heroInputRef.current?.focus();
   }, []);
 
-  // Scroll-based trigger for dissolve/tagline transition
+  // Scroll gating: allow scrolling to the text-reveal section, but not past it until reveal completes
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const handleScrollGate = () => {
+      if (textRevealComplete) return;
+      const maxBeforeReveal = window.innerHeight; // hero is h-screen
+      if (scrollContainer.scrollTop > maxBeforeReveal) {
+        scrollContainer.scrollTop = maxBeforeReveal;
+      }
+    };
+
+    scrollContainer.addEventListener('scroll', handleScrollGate, { passive: true });
+    return () => scrollContainer.removeEventListener('scroll', handleScrollGate);
+  }, [textRevealComplete]);
+
+  // Scroll-based trigger for dissolve/tagline transition (only after reveal completes)
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer || !textRevealComplete) return;
@@ -67,11 +84,7 @@ function Index() {
 
   return (
     <div className="immersive-app">
-      <div 
-        className="stage-container landing-scroll" 
-        ref={scrollContainerRef}
-        style={{ overflowY: textRevealComplete ? 'auto' : 'hidden' }}
-      >
+      <div className="stage-container landing-scroll" ref={scrollContainerRef}>
         <div className="landing-page">
           <section className="hero-section">
             <div className="hero-top-bar">

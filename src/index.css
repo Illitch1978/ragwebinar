@@ -58,7 +58,7 @@
   }
 
   html, body {
-    @apply h-full m-0 p-0 overflow-hidden;
+    @apply h-full m-0 p-0 overflow-x-hidden overflow-y-auto;
     font-family: var(--font-sans);
   }
 
@@ -290,8 +290,8 @@
 .protocol-section--light {
   background: transparent;
   max-width: none;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   position: relative;
 }
 
