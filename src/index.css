@@ -188,7 +188,10 @@
 /* === Navigation === */
 .landing-nav {
   @apply absolute top-0 left-0 right-0 flex justify-between items-center z-50;
-  padding: 40px 60px;
+  padding: 20px 60px;
+  background: hsl(var(--background) / 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid hsl(var(--glass-border) / 0.3);
 }
 .landing-nav.fade-out { 
   @apply opacity-0 pointer-events-none;
