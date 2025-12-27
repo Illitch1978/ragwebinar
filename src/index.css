@@ -241,7 +241,7 @@
 .hero-video {
   @apply w-full h-full object-cover;
   filter: brightness(0.4) saturate(1.2);
-  transform: translateY(30px);
+  transform: translateY(50px);
 }
 .hero-video-overlay {
   @apply absolute inset-0;
