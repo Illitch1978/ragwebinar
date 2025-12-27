@@ -41,13 +41,15 @@ const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
     return () => clearInterval(interval);
   }, [isVisible]);
 
+  if (!isVisible) return null;
+
   return (
     <motion.div 
       ref={containerRef}
       className="cycling-tagline-container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isVisible ? 1 : 0 }}
-      transition={{ duration: 0.6, delay: 0.3 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       style={{ opacity }}
     >
       <div className="cycling-tagline">
@@ -59,24 +61,21 @@ const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
               className="cycling-phrase"
               initial={{ 
                 opacity: 0, 
-                y: 20,
-                filter: 'blur(8px)',
-                clipPath: 'inset(100% 0 0 0)'
+                y: 12,
+                filter: 'blur(6px)'
               }}
               animate={{ 
                 opacity: 1, 
                 y: 0,
-                filter: 'blur(0px)',
-                clipPath: 'inset(0% 0 0 0)'
+                filter: 'blur(0px)'
               }}
               exit={{ 
                 opacity: 0, 
-                y: -20,
-                filter: 'blur(8px)',
-                clipPath: 'inset(0 0 100% 0)'
+                y: -12,
+                filter: 'blur(6px)'
               }}
               transition={{
-                duration: 0.5,
+                duration: 0.4,
                 ease: [0.22, 1, 0.36, 1]
               }}
             >
