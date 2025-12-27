@@ -393,6 +393,10 @@
   letter-spacing: -0.02em;
 }
 
+.mondro-tagline {
+  margin-top: 0.5em;
+}
+
 .protocol-list { 
   @apply flex flex-col;
   gap: 80px; 
@@ -598,10 +602,10 @@
 
 .social-proof-headline {
   font-family: var(--font-heading);
-  @apply font-bold text-foreground relative;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  letter-spacing: -0.03em;
-  line-height: 1;
+  @apply font-medium text-foreground relative;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.4;
   padding-left: 0;
   transition: color 0.3s ease;
 }

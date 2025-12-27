@@ -66,14 +66,6 @@ const SocialProofSection = ({ onCtaClick }: SocialProofSectionProps) => {
         >
           Get your score
         </motion.h2>
-        
-        <motion.p 
-          className="social-proof-subtext"
-          variants={itemVariants}
-          style={{ opacity: subtextVisible ? undefined : 0.6 }}
-        >
-          Instant preview. No signup.
-        </motion.p>
 
         <motion.ul className="social-proof-stats" variants={containerVariants}>
           {socialProofStats.map((stat, index) => (
