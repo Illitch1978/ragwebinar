@@ -268,6 +268,23 @@
   max-width: 1000px; 
 }
 
+/* Light variant for protocol section */
+.protocol-section--light {
+  background: hsl(0 0% 98%);
+  max-width: none;
+  padding-top: 180px;
+  padding-bottom: 180px;
+}
+
+.protocol-section--light .section-header {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-desc--dark {
+  color: hsl(240 12% 8%);
+}
+
 /* Protocol Video Section - Full Viewport */
 .protocol-video-section {
   @apply relative w-full overflow-hidden;
