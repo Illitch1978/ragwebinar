@@ -74,7 +74,7 @@
 /* === Immersive App Container === */
 .immersive-app {
   @apply h-screen w-screen flex flex-col relative;
-  background: radial-gradient(circle at 50% 50%, hsl(260 50% 8%) 0%, hsl(var(--background)) 100%);
+  background: hsl(var(--background));
 }
 
 /* === Technical Asset PREMIUM ANIMATIONS === */
@@ -262,66 +262,63 @@
 
 /* === Protocol Section === */
 .protocol-section { 
-  @apply mx-auto;
-  padding: 160px 60px 240px; 
-  max-width: 1400px; 
+  @apply mx-auto px-6;
+  padding-top: 120px;
+  padding-bottom: 160px;
+  max-width: 900px; 
 }
+
 .section-header { 
-  @apply text-center mb-20; 
+  @apply text-center mb-24; 
 }
 .section-header h2 { 
   font-family: var(--font-heading); 
-  @apply font-extrabold mb-8;
-  font-size: clamp(3rem, 6vw, 4.5rem); 
+  @apply font-extrabold mb-6;
+  font-size: clamp(2.5rem, 5vw, 3.5rem); 
   letter-spacing: -0.03em; 
 }
 .section-desc { 
-  @apply text-xl mx-auto font-light;
+  @apply text-lg mx-auto font-light;
   color: hsl(var(--muted-foreground)); 
-  max-width: 850px; 
-  line-height: 1.7; 
+  max-width: 700px; 
+  line-height: 1.8; 
 }
 
 .protocol-list { 
   @apply flex flex-col;
-  gap: 160px; 
+  gap: 80px; 
 }
 
 .protocol-glass-card {
-  @apply flex items-center w-full p-0 bg-transparent border-none rounded-none relative overflow-visible;
-  gap: 80px;
-  transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  @apply flex flex-col w-full p-0 bg-transparent border-none rounded-none relative;
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
   opacity: 0;
-  transform: translateY(60px);
+  transform: translateY(40px);
 }
 .protocol-glass-card.is-visible { 
   @apply opacity-100;
   transform: translateY(0); 
 }
 .protocol-glass-card.reverse { 
-  @apply flex-row-reverse; 
+  @apply flex-col; 
 }
 
 .dim-visual-container {
-  @apply relative flex justify-center items-center z-10;
-  flex: 1.2;
-  min-height: 450px;
+  @apply hidden;
 }
 
 .dim-text-container { 
-  @apply flex-1 text-left; 
-}
-.protocol-glass-card.reverse .dim-text-container { 
-  @apply text-left; 
+  @apply w-full; 
 }
 
 .dim-text-container h3 { 
-  @apply text-5xl font-extrabold mb-6;
-  letter-spacing: -0.04em; 
-  line-height: 1; 
+  @apply text-2xl font-bold mb-4;
+  letter-spacing: -0.02em; 
+  line-height: 1.2;
+  color: hsl(var(--foreground));
 }
 .dim-text-container p { 
-  @apply text-lg mb-10;
+  @apply text-base mb-6;
   color: hsl(var(--muted-foreground)); 
   line-height: 1.7; 
   font-weight: 400; 
@@ -329,21 +326,24 @@
 
 /* === Tag Styles === */
 .dim-tags { 
-  @apply flex flex-wrap gap-3; 
+  @apply flex flex-wrap gap-2; 
 }
 .tag {
-  @apply flex items-center gap-3 text-xs font-extrabold uppercase;
-  background: hsl(var(--glass-bg));
-  border: 1px solid hsl(0 0% 100% / 0.1);
-  padding: 10px 24px 10px 18px;
+  @apply flex items-center gap-2 text-xs font-medium uppercase;
+  background: transparent;
+  border: 1px solid hsl(var(--foreground) / 0.15);
+  padding: 6px 14px;
   border-radius: 100px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
+  color: hsl(var(--muted-foreground));
   transition: all 0.3s ease;
 }
+.tag:hover {
+  border-color: hsl(var(--foreground) / 0.3);
+}
 .tag-dot {
-  @apply w-2 h-2 rounded-full flex-shrink-0;
-  background-color: hsl(var(--secondary));
-  box-shadow: 0 0 10px hsl(var(--secondary));
+  @apply w-1.5 h-1.5 rounded-full flex-shrink-0;
+  background-color: hsl(var(--primary));
 }
 
 .dimension-asset-premium { 
