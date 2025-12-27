@@ -277,6 +277,7 @@
 }
 .hero-video-overlay {
   @apply absolute inset-0;
+  background: linear-gradient(to bottom, transparent 0%, transparent 66%, hsl(var(--background)) 100%);
 }
 
 .hero-section h1 { 
