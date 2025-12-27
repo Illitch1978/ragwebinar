@@ -16,11 +16,22 @@ const phrases = [
   "replaces guesswork with structure",
 ];
 
+// Fisher-Yates shuffle
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 interface CyclingTaglineProps {
   isVisible: boolean;
 }
 
 const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
+  const [shuffledPhrases] = useState(() => shuffleArray(phrases));
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -68,7 +79,7 @@ const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
                 ease: [0.25, 0.1, 0.25, 1],
               }}
             >
-              {phrases[currentIndex]}
+              {shuffledPhrases[currentIndex]}
             </motion.span>
           </AnimatePresence>
         </div>
