@@ -5,6 +5,7 @@ import ProtocolCard from '@/components/landing/ProtocolCard';
 import PricingSection from '@/components/landing/PricingSection';
 import Footer from '@/components/landing/Footer';
 import TextReveal from '@/components/landing/TextReveal';
+import CyclingTagline from '@/components/landing/CyclingTagline';
 import SocialProofSection from '@/components/landing/SocialProofSection';
 import { DIMENSIONS } from '@/lib/constants';
 import heroVideo from '@/assets/hero-video.mp4';
@@ -13,6 +14,7 @@ import protocolBgVideo from '@/assets/protocol-bg.mp4';
 function Index() {
   const [inputValue, setInputValue] = useState('');
   const [textRevealComplete, setTextRevealComplete] = useState(false);
+  const [showCyclingTagline, setShowCyclingTagline] = useState(false);
   const heroInputRef = useRef<HTMLInputElement>(null);
   const inputWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -92,10 +94,12 @@ function Index() {
           <section className="protocol-section protocol-section--light">
             <div className="section-header">
               <TextReveal 
-                text="People do not experience websites in parts. They judge them as a whole. In seconds, they register credibility, relevance, speed, and clarity. Most tools break this into fragments and miss the bigger picture. mondro brings it back together."
+                text="People do not experience websites in parts. They judge them as a whole. In seconds, they register credibility, relevance, speed, and clarity. Most tools break this into fragments and miss the bigger picture."
                 className="section-desc section-desc--dark"
                 onAnimationComplete={() => setTextRevealComplete(true)}
+                onDissolveComplete={() => setShowCyclingTagline(true)}
               />
+              <CyclingTagline isVisible={showCyclingTagline} />
             </div>
           </section>
 

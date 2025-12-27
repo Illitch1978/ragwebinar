@@ -5,30 +5,50 @@ interface TextRevealProps {
   text: string;
   className?: string;
   onAnimationComplete?: () => void;
+  onDissolveComplete?: () => void;
 }
 
-const TextReveal = ({ text, className = '', onAnimationComplete }: TextRevealProps) => {
+const TextReveal = ({ text, className = '', onAnimationComplete, onDissolveComplete }: TextRevealProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const [animationStarted, setAnimationStarted] = useState(false);
+  const [dissolveTriggered, setDissolveTriggered] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"]
   });
 
-  // Parallax transforms - gentler effect
+  // Parallax transforms
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.98, 1, 0.99]);
+  
+  // Dissolve effect based on scroll - starts after 20% scroll progress
+  const dissolveOpacity = useTransform(scrollYProgress, [0.15, 0.35], [1, 0]);
+  const dissolveBlur = useTransform(scrollYProgress, [0.15, 0.35], [0, 12]);
+  const dissolveY = useTransform(scrollYProgress, [0.15, 0.35], [0, -30]);
 
-  const words = text.split(' ');
+  // Filter out the mondro tagline from the main text
+  const mainText = text.replace(/mondro brings it back together\.?/i, '').trim();
+  const words = mainText.split(' ');
 
   useEffect(() => {
     if (isInView && !animationStarted) {
       setAnimationStarted(true);
     }
   }, [isInView, animationStarted]);
+
+  // Watch for dissolve completion
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', (value) => {
+      if (value > 0.3 && !dissolveTriggered) {
+        setDissolveTriggered(true);
+        onDissolveComplete?.();
+      }
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress, dissolveTriggered, onDissolveComplete]);
 
   const container = {
     hidden: { opacity: 0 },
@@ -60,7 +80,6 @@ const TextReveal = ({ text, className = '', onAnimationComplete }: TextRevealPro
 
   const handleAnimationComplete = () => {
     if (onAnimationComplete) {
-      // Small delay after last word animates
       setTimeout(onAnimationComplete, 400);
     }
   };
@@ -78,48 +97,21 @@ const TextReveal = ({ text, className = '', onAnimationComplete }: TextRevealPro
         animate={isInView ? 'visible' : 'hidden'}
         onAnimationComplete={handleAnimationComplete}
         className={className}
+        style={{ 
+          opacity: dissolveOpacity,
+          filter: useTransform(dissolveBlur, (v) => `blur(${v}px)`),
+          y: dissolveY
+        }}
       >
-        {(() => {
-          const mondroIndex = words.findIndex(w => w.replace(/[.,]/g, '').toLowerCase() === 'mondro');
-          
-          return words.map((word, index) => {
-            const isMondro = word.replace(/[.,]/g, '').toLowerCase() === 'mondro';
-            const punctuation = word.match(/[.,]$/)?.[0] || '';
-            
-            // If this is mondro, render it with all remaining words on a new line
-            if (isMondro) {
-              const remainingWords = words.slice(index + 1);
-              return (
-                <motion.span
-                  key={index}
-                  variants={wordAnimation}
-                  className="mondro-reveal-line"
-                >
-                  <span className="mondro-inline">mondro<span className="mondro-dot"></span></span>
-                  {punctuation}{' '}
-                  {remainingWords.map((w, i) => (
-                    <span key={i} className="inline-block mr-[0.25em]">{w}</span>
-                  ))}
-                </motion.span>
-              );
-            }
-            
-            // Skip words after mondro (they're rendered with mondro)
-            if (mondroIndex !== -1 && index > mondroIndex) {
-              return null;
-            }
-            
-            return (
-              <motion.span
-                key={index}
-                variants={wordAnimation}
-                className="inline-block mr-[0.25em]"
-              >
-                {word}
-              </motion.span>
-            );
-          });
-        })()}
+        {words.map((word, index) => (
+          <motion.span
+            key={index}
+            variants={wordAnimation}
+            className="inline-block mr-[0.25em]"
+          >
+            {word}
+          </motion.span>
+        ))}
       </motion.div>
     </motion.div>
   );
