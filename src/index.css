@@ -599,7 +599,7 @@
 
 /* === Clean URL Bar with Glow === */
 .input-wrapper {
-  @apply flex items-center rounded-full;
+  @apply flex items-center rounded-full relative;
   background: hsl(240 25% 6% / 0.8);
   border: 1px solid hsl(var(--glass-border));
   padding: 6px 6px 6px 28px;
@@ -612,11 +612,33 @@
   box-shadow: 0 0 40px hsl(var(--secondary) / 0.15), 0 10px 30px hsl(0 0% 0% / 0.4);
   background: hsl(240 25% 6% / 0.95);
 }
+.input-wrapper:focus-within .placeholder-with-cursor {
+  opacity: 0;
+}
 .input-wrapper input {
   @apply flex-1 bg-transparent border-none text-lg py-4 outline-none text-foreground;
+  position: relative;
+  z-index: 2;
 }
 .input-wrapper input::placeholder { 
   color: hsl(0 0% 100% / 0.25); 
+}
+
+/* Placeholder with blinking cursor */
+.placeholder-with-cursor {
+  @apply absolute left-7 flex items-center text-lg pointer-events-none;
+  color: hsl(0 0% 100% / 0.25);
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+.blinking-cursor {
+  @apply inline-block w-0.5 h-5 ml-0.5;
+  background: hsl(var(--foreground));
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .hero-send-btn, .send-button {

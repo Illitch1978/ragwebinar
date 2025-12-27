@@ -9,16 +9,10 @@ import protocolBgVideo from '@/assets/protocol-bg.mp4';
 
 function Index() {
   const [inputValue, setInputValue] = useState('');
-  const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const heroInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     heroInputRef.current?.focus();
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => setPlaceholderIndex(p => (p + 1) % INITIAL_PLACEHOLDERS.length), 4000);
-    return () => clearInterval(interval);
   }, []);
 
   const handleSubmit = () => {
@@ -59,10 +53,13 @@ function Index() {
             <p className="hero-subtext">Mondro combines over fifty signals into one clear score that shows how your website really performs.</p>
             <div className="hero-input-container">
               <div className="input-wrapper">
+                <div className="placeholder-with-cursor">
+                  <span>yourwebsite.com</span>
+                  <span className="blinking-cursor"></span>
+                </div>
                 <input 
                   ref={heroInputRef} 
                   type="text" 
-                  placeholder={INITIAL_PLACEHOLDERS[placeholderIndex]} 
                   value={inputValue} 
                   onChange={(e) => setInputValue(e.target.value)} 
                   onKeyDown={handleKeyDown} 
