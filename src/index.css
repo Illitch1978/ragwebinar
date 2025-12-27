@@ -290,8 +290,8 @@
 .protocol-section--light {
   background: transparent;
   max-width: none;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 24px;
+  padding-bottom: 24px;
   position: relative;
 }
 
