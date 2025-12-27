@@ -49,7 +49,7 @@ function Footer() {
           <a href="#" className="social-link">X</a>
           <a href="#" className="social-link">LinkedIn</a>
         </div>
-        <p className="copyright">© 2025 Mondro Inc.</p>
+        <p className="copyright">© 2026 Mondro Inc.</p>
       </div>
     </footer>
   );
