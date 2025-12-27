@@ -1030,54 +1030,30 @@
   color: hsl(0 0% 100% / 0.2); 
 }
 
-/* === Clean URL Bar with Premium Framer-style Glow Border === */
+/* === Clean URL Bar with Elegant Glow === */
 .input-wrapper {
   @apply flex items-center rounded-full relative;
-  background: hsl(240 25% 4% / 0.9);
-  border: none;
+  background: hsl(240 15% 8% / 0.85);
+  border: 1px solid hsl(var(--primary) / 0.25);
   padding: 6px 6px 6px 28px;
   backdrop-filter: blur(40px);
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: 1;
-}
-.input-wrapper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.4) 50%, hsl(var(--primary) / 0.8) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  transition: all 0.4s ease;
-}
-.input-wrapper::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: inherit;
   box-shadow: 
-    0 0 30px hsl(var(--primary) / 0.35),
-    0 0 60px hsl(var(--primary) / 0.2),
-    0 0 100px hsl(var(--primary) / 0.1);
-  pointer-events: none;
-  z-index: -1;
-  transition: all 0.4s ease;
+    0 0 40px hsl(var(--primary) / 0.12),
+    0 0 80px hsl(var(--primary) / 0.06),
+    inset 0 1px 0 hsl(0 0% 100% / 0.03);
 }
 .input-wrapper:focus-within {
-  background: hsl(240 25% 5% / 0.95);
-}
-.input-wrapper:focus-within::before {
-  padding: 2.5px;
-  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.6) 50%, hsl(var(--primary)) 100%);
-}
-.input-wrapper:focus-within::after {
+  border-color: hsl(var(--primary) / 0.4);
+  background: hsl(240 15% 9% / 0.9);
   box-shadow: 
-    0 0 40px hsl(var(--primary) / 0.5),
-    0 0 80px hsl(var(--primary) / 0.3),
-    0 0 120px hsl(var(--primary) / 0.15);
+    0 0 50px hsl(var(--primary) / 0.2),
+    0 0 100px hsl(var(--primary) / 0.1),
+    inset 0 1px 0 hsl(0 0% 100% / 0.05);
+}
+.input-wrapper:focus-within .placeholder-with-cursor {
+  opacity: 0;
 }
 .input-wrapper:focus-within .placeholder-with-cursor {
   opacity: 0;
@@ -1127,15 +1103,12 @@
 }
 
 /* Input focus glow for CTA scroll */
-.input-wrapper.input-glow::before {
-  padding: 3px;
-  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.7) 50%, hsl(var(--primary)) 100%);
-}
-.input-wrapper.input-glow::after {
+.input-wrapper.input-glow {
+  border-color: hsl(var(--primary) / 0.5);
   box-shadow: 
-    0 0 50px hsl(var(--primary) / 0.6),
-    0 0 100px hsl(var(--primary) / 0.35),
-    0 0 150px hsl(var(--primary) / 0.2);
+    0 0 60px hsl(var(--primary) / 0.25),
+    0 0 120px hsl(var(--primary) / 0.12),
+    inset 0 1px 0 hsl(0 0% 100% / 0.05);
 }
 
 .hero-send-btn:hover, .send-button:hover {
