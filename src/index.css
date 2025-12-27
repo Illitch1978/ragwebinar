@@ -292,9 +292,10 @@
   background: linear-gradient(
     to bottom,
     hsl(var(--background)) 0%,
-    hsl(var(--background) / 0.6) 10%,
-    hsl(var(--background) / 0.4) 50%,
-    hsl(var(--background) / 0.6) 90%,
+    hsl(var(--background) / 0.75) 15%,
+    hsl(var(--background) / 0.85) 40%,
+    hsl(var(--background) / 0.85) 60%,
+    hsl(var(--background) / 0.75) 85%,
     hsl(var(--background)) 100%
   );
 }
