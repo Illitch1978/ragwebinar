@@ -49,7 +49,9 @@ function Index() {
           <section className="hero-section">
             <div className="hero-top-bar">
               <div className="logo">mondro<span className="dot"></span></div>
-              <a href="#" className="signup-btn">Get Started</a>
+              <div className="signup-btn-wrapper">
+                <a href="#" className="signup-btn"><span>Get Started</span></a>
+              </div>
             </div>
             {/* Hero Video Background */}
             <div className="hero-video-container">
@@ -68,21 +70,23 @@ function Index() {
             <h1>Websites succeed or<br/>fail in seconds.</h1>
             <p className="hero-subtext">Get a single score that reflects how your website really performs.</p>
             <div className="hero-input-container">
-              <div className="input-wrapper" ref={inputWrapperRef}>
-                <div className="placeholder-with-cursor">
-                  <span>yourwebsite.com</span>
-                  <span className="blinking-cursor"></span>
+              <div className="input-wrapper-glow">
+                <div className="input-wrapper" ref={inputWrapperRef}>
+                  <div className="placeholder-with-cursor">
+                    <span>yourwebsite.com</span>
+                    <span className="blinking-cursor"></span>
+                  </div>
+                  <input 
+                    ref={heroInputRef} 
+                    type="text" 
+                    value={inputValue} 
+                    onChange={(e) => setInputValue(e.target.value)} 
+                    onKeyDown={handleKeyDown} 
+                  />
+                  <button className="hero-send-btn" onClick={handleSubmit}>
+                    <ArrowRightIcon />
+                  </button>
                 </div>
-                <input 
-                  ref={heroInputRef} 
-                  type="text" 
-                  value={inputValue} 
-                  onChange={(e) => setInputValue(e.target.value)} 
-                  onKeyDown={handleKeyDown} 
-                />
-                <button className="hero-send-btn" onClick={handleSubmit}>
-                  <ArrowRightIcon />
-                </button>
               </div>
             </div>
           </section>
