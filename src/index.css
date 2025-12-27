@@ -357,14 +357,15 @@
   letter-spacing: -0.05em;
   display: inline-flex;
   align-items: center;
-  gap: 0.1em;
+  gap: 0.25em;
   color: hsl(var(--foreground));
   flex-shrink: 0;
 }
 
 .mondro-static .mondro-dot {
-  width: 0.18em;
-  height: 0.18em;
+  width: 0.22em;
+  height: 0.22em;
+  margin-bottom: -0.05em;
 }
 
 .phrase-container {
@@ -387,9 +388,9 @@
 }
 
 .phrase-text {
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 .phrase-text.scrambling {
