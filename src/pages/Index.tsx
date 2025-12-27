@@ -75,7 +75,7 @@ function Index() {
           <section className="protocol-section">
             <div className="section-header">
               <TextReveal 
-                text="People do not experience websites in parts. They experience them as a whole. In seconds, they sense credibility, relevance, speed, clarity, and ease. Most tools break this experience into fragments and miss the big picture. Mondro brings it back together, showing where confidence forms, where it fades, and why decisions never happen."
+                text="People do not experience websites in parts. They experience them as a whole. In seconds, they sense credibility, relevance, speed, clarity, and ease. Most tools break this experience into fragments and miss the big picture. Mondro puts the experience back together."
                 className="section-desc"
               />
             </div>
