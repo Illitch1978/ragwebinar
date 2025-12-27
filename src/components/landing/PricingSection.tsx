@@ -25,7 +25,7 @@ function PricingSection() {
               <li><CheckIcon /> Shareable report</li>
             </ul>
           </div>
-          <button className="pricing-btn primary">Get your report</button>
+          <button className="pricing-btn primary">Run a free scan</button>
         </div>
 
         <div className="pricing-card">
