@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const phrases = [
   "brings it back together",
@@ -22,14 +22,6 @@ interface CyclingTaglineProps {
 
 const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -45,12 +37,10 @@ const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
 
   return (
     <motion.div 
-      ref={containerRef}
       className="cycling-tagline-container"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      style={{ opacity }}
     >
       <div className="cycling-tagline">
         <span className="mondro-static">mondro<span className="mondro-dot"></span></span>
