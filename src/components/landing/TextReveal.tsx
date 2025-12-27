@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 
 interface TextRevealProps {
   text: string;
@@ -10,26 +10,10 @@ interface TextRevealProps {
 
 const TextReveal = ({ text, className = '', onAnimationComplete, onDissolveComplete }: TextRevealProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const [animationStarted, setAnimationStarted] = useState(false);
-  const [dissolveTriggered, setDissolveTriggered] = useState(false);
+  const [dissolveStarted, setDissolveStarted] = useState(false);
 
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"]
-  });
-
-  // Parallax transforms
-  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.98, 1, 0.99]);
-  
-  // Dissolve effect based on scroll - starts after 20% scroll progress
-  const dissolveOpacity = useTransform(scrollYProgress, [0.15, 0.35], [1, 0]);
-  const dissolveBlur = useTransform(scrollYProgress, [0.15, 0.35], [0, 12]);
-  const dissolveY = useTransform(scrollYProgress, [0.15, 0.35], [0, -30]);
-
-  // Filter out the mondro tagline from the main text
   const mainText = text.replace(/mondro brings it back together\.?/i, '').trim();
   const words = mainText.split(' ');
 
@@ -38,17 +22,6 @@ const TextReveal = ({ text, className = '', onAnimationComplete, onDissolveCompl
       setAnimationStarted(true);
     }
   }, [isInView, animationStarted]);
-
-  // Watch for dissolve completion
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (value) => {
-      if (value > 0.3 && !dissolveTriggered) {
-        setDissolveTriggered(true);
-        onDissolveComplete?.();
-      }
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress, dissolveTriggered, onDissolveComplete]);
 
   const container = {
     hidden: { opacity: 0 },
@@ -82,25 +55,38 @@ const TextReveal = ({ text, className = '', onAnimationComplete, onDissolveCompl
     if (onAnimationComplete) {
       setTimeout(onAnimationComplete, 400);
     }
+    // Start dissolve after text reveal completes + small delay
+    setTimeout(() => {
+      setDissolveStarted(true);
+      // Notify parent when dissolve is complete
+      setTimeout(() => {
+        onDissolveComplete?.();
+      }, 800);
+    }, 1500);
   };
 
   return (
     <motion.div
-      ref={cardRef}
-      className="text-reveal-card"
-      style={{ y, scale }}
+      ref={containerRef}
+      variants={container}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+      onAnimationComplete={handleAnimationComplete}
+      className={className}
     >
       <motion.div
-        ref={containerRef}
-        variants={container}
-        initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
-        onAnimationComplete={handleAnimationComplete}
-        className={className}
-        style={{ 
-          opacity: dissolveOpacity,
-          filter: useTransform(dissolveBlur, (v) => `blur(${v}px)`),
-          y: dissolveY
+        animate={dissolveStarted ? {
+          opacity: 0,
+          filter: 'blur(12px)',
+          y: -30,
+        } : {
+          opacity: 1,
+          filter: 'blur(0px)',
+          y: 0,
+        }}
+        transition={{
+          duration: 0.8,
+          ease: [0.22, 1, 0.36, 1],
         }}
       >
         {words.map((word, index) => (
