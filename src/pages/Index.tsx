@@ -42,15 +42,15 @@ function Index() {
         speedScale={0.3} 
       />
 
-      <div className="landing-nav">
-        <div className="logo">mondro<span className="dot"></span></div>
-        <div className="nav-actions">
-          <a href="#" className="signup-btn">Get Started</a>
-        </div>
-      </div>
-
       <div className="stage-container landing-scroll">
         <div className="landing-page">
+          <div className="landing-nav">
+            <div className="logo">mondro<span className="dot"></span></div>
+            <div className="nav-actions">
+              <a href="#" className="signup-btn">Get Started</a>
+            </div>
+          </div>
+
           <section className="hero-section">
             {/* Hero Video Background */}
             <div className="hero-video-container">
