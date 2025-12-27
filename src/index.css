@@ -377,8 +377,8 @@
   @apply w-full;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 2.5%;
+  justify-content: center;
+  padding-left: 0;
 }
 
 .cycling-tagline {
