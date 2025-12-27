@@ -59,12 +59,6 @@ const SocialProofSection = ({ onCtaClick }: SocialProofSectionProps) => {
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
       >
-        <motion.span 
-          className="social-proof-label"
-          variants={itemVariants}
-        >
-          the scoring framework
-        </motion.span>
 
         <motion.h2 
           className="social-proof-headline"
