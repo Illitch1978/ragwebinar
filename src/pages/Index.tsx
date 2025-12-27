@@ -16,6 +16,7 @@ function Index() {
   const [textRevealComplete, setTextRevealComplete] = useState(false);
   const [shouldDissolve, setShouldDissolve] = useState(false);
   const [showCyclingTagline, setShowCyclingTagline] = useState(false);
+  const [showFramework, setShowFramework] = useState(false);
   const heroInputRef = useRef<HTMLInputElement>(null);
   const inputWrapperRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -24,14 +25,14 @@ function Index() {
     heroInputRef.current?.focus();
   }, []);
 
-  // Scroll gating: allow scrolling to the text-reveal section, but not past it until reveal completes
+  // Scroll gating: prevent scrolling past text-reveal until it completes
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
 
     const handleScrollGate = () => {
       if (textRevealComplete) return;
-      const maxBeforeReveal = window.innerHeight; // hero is h-screen
+      const maxBeforeReveal = window.innerHeight;
       if (scrollContainer.scrollTop > maxBeforeReveal) {
         scrollContainer.scrollTop = maxBeforeReveal;
       }
@@ -41,22 +42,25 @@ function Index() {
     return () => scrollContainer.removeEventListener('scroll', handleScrollGate);
   }, [textRevealComplete]);
 
-  // Scroll-based trigger for dissolve/tagline transition (only after reveal completes)
+  // Auto-trigger dissolve after text reveal completes (no scroll needed)
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (!scrollContainer || !textRevealComplete) return;
-
-    const handleScroll = () => {
-      const scrollTop = scrollContainer.scrollTop;
-      // Trigger dissolve when user scrolls past a threshold
-      if (scrollTop > 100 && !shouldDissolve) {
+    if (textRevealComplete && !shouldDissolve) {
+      const timer = setTimeout(() => {
         setShouldDissolve(true);
-      }
-    };
-
-    scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
-    return () => scrollContainer.removeEventListener('scroll', handleScroll);
+      }, 800); // Brief pause after reveal before dissolving
+      return () => clearTimeout(timer);
+    }
   }, [textRevealComplete, shouldDissolve]);
+
+  // Show framework section after tagline has been visible
+  useEffect(() => {
+    if (showCyclingTagline && !showFramework) {
+      const timer = setTimeout(() => {
+        setShowFramework(true);
+      }, 2000); // Let tagline breathe for 2 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [showCyclingTagline, showFramework]);
 
   const handleSubmit = () => {
     if (inputValue.trim()) {
@@ -127,6 +131,7 @@ function Index() {
             </div>
           </section>
 
+          {/* Text reveal section - minimal padding */}
           <section className="protocol-section protocol-section--light">
             <div className="section-header" style={{ position: 'relative' }}>
               <TextReveal 
@@ -139,13 +144,28 @@ function Index() {
             </div>
           </section>
 
-          {/* Full viewport video background section - gated until text reveal completes */}
+          {/* Tagline transition - appears after text dissolves */}
+          <motion.section 
+            className="tagline-transition-section"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: showCyclingTagline ? 1 : 0 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ 
+              pointerEvents: showCyclingTagline ? 'auto' : 'none',
+              height: showCyclingTagline ? 'auto' : 0,
+              overflow: 'hidden'
+            }}
+          >
+            <CyclingTagline isVisible={showCyclingTagline} />
+          </motion.section>
+
+          {/* Framework section - fades in after tagline has been visible */}
           <motion.section 
             className="protocol-video-section"
             initial={{ opacity: 0 }}
-            animate={{ opacity: showCyclingTagline ? 1 : 0 }}
-            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.5 }}
-            style={{ pointerEvents: showCyclingTagline ? 'auto' : 'none' }}
+            animate={{ opacity: showFramework ? 1 : 0 }}
+            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ pointerEvents: showFramework ? 'auto' : 'none' }}
           >
             <div className="protocol-video-container">
               <video 
@@ -161,7 +181,6 @@ function Index() {
             </div>
             
             <div className="protocol-content">
-              <CyclingTagline isVisible={showCyclingTagline} />
               <h2 className="protocol-framework-title">THE SCORING FRAMEWORK</h2>
               <div className="protocol-list">
                 {DIMENSIONS.map((dim, idx) => (
