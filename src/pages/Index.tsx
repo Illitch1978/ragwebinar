@@ -5,11 +5,11 @@ import PricingSection from '@/components/landing/PricingSection';
 import Footer from '@/components/landing/Footer';
 import CyclingTagline from '@/components/landing/CyclingTagline';
 import SocialProofSection from '@/components/landing/SocialProofSection';
+import SocialProofStats from '@/components/landing/SocialProofStats';
 import GlowingButton from '@/components/GlowingButton';
 import { DIMENSIONS } from '@/lib/constants';
 import heroVideo from '@/assets/hero-video.mp4';
 import protocolBgVideo from '@/assets/protocol-bg.mp4';
-
 function Index() {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -144,6 +144,7 @@ function Index() {
 
           <SocialProofSection onCtaClick={handleCtaClick} />
           <PricingSection />
+          <SocialProofStats />
           <Footer />
         </div>
       </div>
