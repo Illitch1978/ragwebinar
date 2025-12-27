@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import DottedGlowBackground from '@/components/DottedGlowBackground';
 import { ArrowRightIcon } from '@/components/Icons';
 import ProtocolCard from '@/components/landing/ProtocolCard';
 import PricingSection from '@/components/landing/PricingSection';
@@ -34,14 +33,6 @@ function Index() {
 
   return (
     <div className="immersive-app">
-      <DottedGlowBackground 
-        gap={24} 
-        radius={1.2} 
-        color="rgba(255, 255, 255, 0.02)" 
-        glowColor="rgba(167, 139, 250, 0.15)" 
-        speedScale={0.3} 
-      />
-
       <div className="stage-container landing-scroll">
         <div className="landing-page">
           <section className="hero-section">
