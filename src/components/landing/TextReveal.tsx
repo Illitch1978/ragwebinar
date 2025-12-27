@@ -11,7 +11,7 @@ interface TextRevealProps {
 
 const TextReveal = ({ text, className = '', onAnimationComplete, shouldDissolve = false, onDissolveComplete }: TextRevealProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const isInView = useInView(containerRef, { once: true, margin: "0px" });
   const [animationStarted, setAnimationStarted] = useState(false);
   const [dissolveTriggered, setDissolveTriggered] = useState(false);
 
