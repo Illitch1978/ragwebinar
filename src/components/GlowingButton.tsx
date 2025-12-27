@@ -79,24 +79,31 @@ const GlowingButton: React.FC<GlowingButtonProps> = ({
 
           {/* Subtle Shine Effect */}
           <div 
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            className="premium-shimmer absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
             style={{
               background: 'linear-gradient(105deg, transparent 40%, hsl(var(--foreground) / 0.06) 45%, hsl(var(--foreground) / 0.12) 50%, hsl(var(--foreground) / 0.06) 55%, transparent 60%)',
-              animation: 'shimmer 2s infinite',
             }}
           />
 
           {/* Text */}
-          <span className={`relative z-10 font-heading ${styles.text} font-semibold uppercase tracking-[0.15em] text-foreground/90 group-hover:text-foreground transition-colors duration-300`}>
+          <span
+            className={`relative z-10 ${styles.text} font-semibold uppercase tracking-[0.15em] text-foreground/90 group-hover:text-foreground transition-colors duration-300`}
+            style={{ fontFamily: 'var(--font-heading)' }}
+          >
             {text}
           </span>
         </button>
       </div>
 
       <style>{`
+        .premium-shimmer {
+          transform: translateX(-120%);
+        }
+        .group:hover .premium-shimmer {
+          animation: shimmer 1.15s ease-out forwards;
+        }
         @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
+          100% { transform: translateX(120%); }
         }
       `}</style>
     </div>
