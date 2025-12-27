@@ -272,10 +272,9 @@
 .protocol-section--light {
   background: hsl(var(--background));
   max-width: none;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 120px;
+  padding-bottom: 120px;
   position: relative;
-  overflow: visible;
 }
 
 .protocol-section--light .section-header {

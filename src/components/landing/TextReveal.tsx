@@ -18,10 +18,9 @@ const TextReveal = ({ text, className = '', onAnimationComplete }: TextRevealPro
     offset: ["start end", "end start"]
   });
 
-  // Parallax transforms
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.98]);
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.8]);
+  // Parallax transforms - gentler effect
+  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.98, 1, 0.99]);
 
   const words = text.split(' ');
 
@@ -70,7 +69,7 @@ const TextReveal = ({ text, className = '', onAnimationComplete }: TextRevealPro
     <motion.div
       ref={cardRef}
       className="text-reveal-card"
-      style={{ y, scale, opacity }}
+      style={{ y, scale }}
     >
       <motion.div
         ref={containerRef}
