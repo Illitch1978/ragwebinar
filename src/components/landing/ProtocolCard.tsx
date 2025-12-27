@@ -27,36 +27,20 @@ function ProtocolCard({ dim, idx }: ProtocolCardProps) {
     return () => observer.disconnect();
   }, []);
 
-  const number = String(idx + 1).padStart(2, '0');
-
   return (
     <div 
       ref={cardRef} 
-      className={`protocol-glass-card ${isVisible ? 'is-visible' : ''}`}
+      className={`protocol-glass-card ${idx % 2 === 1 ? 'reverse' : ''} ${isVisible ? 'is-visible' : ''}`}
     >
-      <div className="dim-number-container">
-        <span className="dim-number">{number}</span>
+      <div className="dim-visual-container">
+        {/* Placeholder for future visual */}
       </div>
       <div className="dim-text-container">
-        <h3 className="dim-title">
-          {dim.title.split('').map((char, i) => (
-            <span 
-              key={i} 
-              className="title-char"
-              style={{ animationDelay: `${i * 0.03}s` }}
-            >
-              {char === ' ' ? '\u00A0' : char}
-            </span>
-          ))}
-        </h3>
+        <h3>{dim.title}</h3>
         <p>{dim.desc}</p>
         <div className="dim-tags">
-          {dim.tags.map((tag: string, tagIdx: number) => (
-            <span 
-              key={tag} 
-              className="tag"
-              style={{ animationDelay: `${0.3 + tagIdx * 0.1}s` }}
-            >
+          {dim.tags.map((tag: string) => (
+            <span key={tag} className="tag">
               <span className="tag-dot"></span>
               {tag}
             </span>

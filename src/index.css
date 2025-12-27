@@ -290,8 +290,7 @@
 }
 
 .protocol-glass-card {
-  @apply flex w-full p-0 bg-transparent border-none rounded-none relative;
-  gap: 24px;
+  @apply flex flex-col w-full p-0 bg-transparent border-none rounded-none relative;
   transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
   opacity: 0;
   transform: translateY(40px);
@@ -300,22 +299,8 @@
   @apply opacity-100;
   transform: translateY(0); 
 }
-
-/* Number styling */
-.dim-number-container {
-  @apply flex-shrink-0;
-}
-
-.dim-number {
-  font-family: var(--font-heading);
-  @apply font-extrabold;
-  font-size: 4rem;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  background: linear-gradient(180deg, hsl(var(--foreground) / 0.15) 0%, hsl(var(--foreground) / 0.05) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.protocol-glass-card.reverse { 
+  @apply flex-col; 
 }
 
 .dim-visual-container {
@@ -326,32 +311,12 @@
   @apply w-full; 
 }
 
-/* Title with character animation */
-.dim-title {
+.dim-text-container h3 { 
   @apply text-2xl font-bold mb-4;
   letter-spacing: -0.02em; 
   line-height: 1.2;
   color: hsl(var(--foreground));
-  overflow: hidden;
 }
-
-.title-char {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.protocol-glass-card.is-visible .title-char {
-  animation: char-reveal 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-@keyframes char-reveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .dim-text-container p { 
   @apply text-base mb-6;
   color: hsl(var(--muted-foreground)); 
@@ -372,21 +337,7 @@
   letter-spacing: 0.03em;
   color: hsl(var(--muted-foreground));
   transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(10px);
 }
-
-.protocol-glass-card.is-visible .tag {
-  animation: tag-reveal 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-@keyframes tag-reveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .tag:hover {
   border-color: hsl(var(--foreground) / 0.3);
 }
@@ -651,15 +602,7 @@
     @apply grid-cols-1 gap-10; 
   }
   .protocol-glass-card { 
-    @apply flex-col gap-6 px-6 py-12; 
-  }
-  .dim-number-container {
-    @apply absolute;
-    top: 0;
-    right: 0;
-  }
-  .dim-number {
-    font-size: 3rem;
+    @apply flex-col gap-10 px-6 py-16 !important; 
   }
   .dim-text-container { 
     @apply items-start text-left; 
@@ -667,8 +610,8 @@
   .dim-visual-container { 
     min-height: 350px; 
   }
-  .dim-title { 
-    @apply text-xl; 
+  .dim-text-container h3 { 
+    @apply text-4xl; 
   }
   .hero-section h1 { 
     @apply text-5xl; 
