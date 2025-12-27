@@ -185,6 +185,12 @@
   100% { transform: scale(1); box-shadow: 0 0 15px hsl(var(--primary)); }
 }
 
+/* Ghost Line Button Rotation */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* === Hero Top Bar === */
 .hero-top-bar {
   @apply absolute top-0 left-0 right-0 flex justify-between items-center z-50;

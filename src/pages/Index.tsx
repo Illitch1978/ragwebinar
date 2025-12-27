@@ -5,6 +5,7 @@ import PricingSection from '@/components/landing/PricingSection';
 import Footer from '@/components/landing/Footer';
 import CyclingTagline from '@/components/landing/CyclingTagline';
 import SocialProofSection from '@/components/landing/SocialProofSection';
+import GlowingButton from '@/components/GlowingButton';
 import { DIMENSIONS } from '@/lib/constants';
 import heroVideo from '@/assets/hero-video.mp4';
 import protocolBgVideo from '@/assets/protocol-bg.mp4';
@@ -49,9 +50,7 @@ function Index() {
           <section className="hero-section">
             <div className="hero-top-bar">
               <div className="logo">mondro<span className="dot"></span></div>
-              <div className="signup-btn-wrapper">
-                <a href="#" className="signup-btn">Get Started</a>
-              </div>
+              <GlowingButton text="Get Started" size="md" />
             </div>
             {/* Hero Video Background */}
             <div className="hero-video-container">
