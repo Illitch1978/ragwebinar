@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Globe } from 'lucide-react';
 import { ArrowRightIcon } from '@/components/Icons';
 import ProtocolCard from '@/components/landing/ProtocolCard';
 import PricingSection from '@/components/landing/PricingSection';
@@ -76,31 +75,16 @@ function Index() {
             {/* Premium URL Input Bar */}
             <div className="hero-input-container">
               <div className="w-full relative group" ref={inputWrapperRef}>
-                {/* Ambient Glow */}
+                {/* Subtle Border */}
                 <div 
-                  className={`absolute -inset-1 rounded-full blur transition-opacity duration-500 
-                  ${isActive ? 'opacity-40' : 'opacity-10 group-hover:opacity-20'}`}
-                  style={{ background: 'linear-gradient(to right, hsl(var(--primary)), hsl(220 91% 54%))' }}
-                />
-
-                {/* Gradient Border Container */}
-                <div 
-                  className={`relative p-[1px] rounded-full overflow-hidden transition-all duration-500
+                  className={`relative p-[1px] rounded-full overflow-hidden transition-all duration-400
                   ${isActive 
-                    ? 'url-bar-border-active' 
-                    : 'url-bar-border-inactive'
+                    ? 'bg-gradient-to-r from-primary/50 via-primary to-primary/50' 
+                    : 'bg-foreground/10 group-hover:bg-foreground/15'
                   }`}
                 >
                   {/* Input Inner Container */}
-                  <div className="relative rounded-full flex items-center px-5 py-3" style={{ background: 'hsl(240 12% 4%)' }}>
-                    {/* Top Glass Highlight */}
-                    <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-full" />
-
-                    {/* Icon */}
-                    <div className={`mr-4 transition-all duration-300 ${isActive ? 'text-primary drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]' : 'text-muted-foreground/50'}`}>
-                      <Globe className="w-5 h-5" />
-                    </div>
-
+                  <div className="relative rounded-full flex items-center pl-7 pr-2 py-2" style={{ background: 'hsl(240 10% 6%)' }}>
                     {/* The Input Field */}
                     <input
                       ref={heroInputRef}
@@ -110,18 +94,15 @@ function Index() {
                       onFocus={() => setIsFocused(true)}
                       onBlur={() => setIsFocused(false)}
                       onKeyDown={handleKeyDown}
-                      placeholder="Enter your website URL..."
-                      className="w-full bg-transparent border-none outline-none text-foreground tracking-wide text-base z-10"
-                      style={{ fontFamily: 'var(--font-sans)', color: 'hsl(var(--foreground))' }}
+                      placeholder="yourwebsite.com"
+                      className="w-full bg-transparent border-none outline-none tracking-wide text-base z-10"
+                      style={{ fontFamily: 'var(--font-sans)', color: 'hsl(var(--foreground) / 0.9)' }}
                     />
 
                     {/* Submit Button */}
                     <button 
                       onClick={handleSubmit}
-                      className="ml-4 w-12 h-12 rounded-full flex items-center justify-center cursor-pointer bg-foreground text-background"
-                      style={{ transition: 'box-shadow 0.3s ease' }}
-                      onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px hsl(var(--foreground) / 0.3)'}
-                      onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
+                      className="ml-3 w-11 h-11 rounded-full flex items-center justify-center cursor-pointer bg-foreground text-background flex-shrink-0"
                     >
                       <ArrowRightIcon />
                     </button>
