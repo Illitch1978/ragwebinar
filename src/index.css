@@ -386,16 +386,14 @@
   white-space: nowrap;
 }
 
-.phrase-glow {
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
-  transform-origin: left center;
-  border-radius: 2px;
-  pointer-events: none;
+.phrase-text {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.phrase-text.scrambling {
+  color: hsl(var(--foreground) / 0.6);
 }
 
 /* Protocol Video Section - Full Viewport */

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const phrases = [
@@ -16,18 +16,70 @@ const phrases = [
   "replaces guesswork with structure",
 ];
 
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+
 interface CyclingTaglineProps {
   isVisible: boolean;
 }
 
+const ScrambleText = ({ text, isActive }: { text: string; isActive: boolean }) => {
+  const [displayText, setDisplayText] = useState(text);
+  const [isScrambling, setIsScrambling] = useState(false);
+
+  const scramble = useCallback(() => {
+    if (!isActive) return;
+    
+    setIsScrambling(true);
+    let iteration = 0;
+    const maxIterations = text.length;
+    
+    const interval = setInterval(() => {
+      setDisplayText(
+        text
+          .split('')
+          .map((char, index) => {
+            if (char === ' ') return ' ';
+            if (index < iteration) return text[index];
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join('')
+      );
+      
+      iteration += 1 / 2;
+      
+      if (iteration >= maxIterations) {
+        clearInterval(interval);
+        setDisplayText(text);
+        setIsScrambling(false);
+      }
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, [text, isActive]);
+
+  useEffect(() => {
+    if (isActive) {
+      scramble();
+    }
+  }, [isActive, scramble]);
+
+  return (
+    <span className={`phrase-text ${isScrambling ? 'scrambling' : ''}`}>
+      {displayText}
+    </span>
+  );
+};
+
 const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [triggerKey, setTriggerKey] = useState(0);
 
   useEffect(() => {
     if (!isVisible) return;
     
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % phrases.length);
+      setTriggerKey((prev) => prev + 1);
     }, 4000);
 
     return () => clearInterval(interval);
@@ -38,9 +90,9 @@ const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
   return (
     <motion.div 
       className="cycling-tagline-container"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
     >
       <div className="cycling-tagline">
         <span className="mondro-static">
@@ -51,45 +103,16 @@ const CyclingTagline = ({ isVisible }: CyclingTaglineProps) => {
             <motion.span
               key={currentIndex}
               className="cycling-phrase"
-              initial={{ 
-                opacity: 0,
-                y: 8,
-                x: -3,
-              }}
-              animate={{ 
-                opacity: [0, 1, 1, 1],
-                y: [8, -2, 1, 0],
-                x: [-3, 2, -1, 0],
-              }}
-              exit={{ 
-                opacity: 0,
-                y: -6,
-                filter: 'blur(4px)',
-              }}
-              transition={{
-                duration: 0.5,
-                times: [0, 0.3, 0.6, 1],
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
-              <motion.span
-                className="phrase-text"
-                animate={{
-                  textShadow: [
-                    '0 0 0 transparent',
-                    '-2px 0 0 hsl(var(--primary) / 0.4), 2px 0 0 hsl(var(--accent) / 0.3)',
-                    '1px 0 0 hsl(var(--primary) / 0.2), -1px 0 0 hsl(var(--accent) / 0.15)',
-                    '0 0 0 transparent',
-                  ],
-                }}
-                transition={{
-                  duration: 0.4,
-                  times: [0, 0.15, 0.3, 1],
-                  ease: 'easeOut',
-                }}
-              >
-                {phrases[currentIndex]}
-              </motion.span>
+              <ScrambleText 
+                text={phrases[currentIndex]} 
+                isActive={true}
+                key={triggerKey}
+              />
             </motion.span>
           </AnimatePresence>
         </div>
