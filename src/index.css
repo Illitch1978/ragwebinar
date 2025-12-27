@@ -599,7 +599,7 @@
   background: hsl(240 12% 4%);
   border: 1px solid hsl(var(--foreground) / 0.08);
   padding: 40px 32px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
@@ -614,14 +614,15 @@
 }
 
 .pricing-card:hover {
-  border-color: hsl(var(--foreground) / 0.15);
+  border-color: hsl(var(--primary) / 0.3);
   box-shadow: 
-    0 20px 40px hsl(0 0% 0% / 0.3),
-    0 0 60px hsl(var(--foreground) / 0.03);
+    0 20px 40px hsl(0 0% 0% / 0.35),
+    0 0 60px hsl(var(--primary) / 0.06),
+    inset 0 1px 0 hsl(var(--foreground) / 0.06);
 }
 
 .pricing-card:hover::after {
-  background: radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--foreground) / 0.04) 0%, transparent 60%);
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--primary) / 0.06) 0%, transparent 60%);
 }
 
 /* Ghost line border trace on hover */
@@ -733,9 +734,11 @@
 }
 .price { 
   @apply text-5xl font-bold text-foreground mb-2;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 .pricing-card:hover .price {
   color: hsl(var(--primary));
+  text-shadow: 0 0 30px hsl(var(--primary) / 0.3);
 }
 .price .period { 
   @apply text-base font-normal;
@@ -765,19 +768,27 @@
 .pricing-features li { 
   @apply flex items-start gap-3 mb-3 text-sm; 
   color: hsl(var(--muted-foreground));
-  transition: all 0.2s ease;
-  transform: translateX(0);
+  transition: all 0.25s ease;
 }
 .pricing-card:hover .pricing-features li {
-  color: hsl(var(--foreground) / 0.7);
+  color: hsl(var(--foreground) / 0.85);
 }
+.pricing-card:hover .pricing-features li:nth-child(1) { transition-delay: 0ms; }
+.pricing-card:hover .pricing-features li:nth-child(2) { transition-delay: 25ms; }
+.pricing-card:hover .pricing-features li:nth-child(3) { transition-delay: 50ms; }
+.pricing-card:hover .pricing-features li:nth-child(4) { transition-delay: 75ms; }
+.pricing-card:hover .pricing-features li:nth-child(5) { transition-delay: 100ms; }
+.pricing-card:hover .pricing-features li:nth-child(6) { transition-delay: 125ms; }
+.pricing-card:hover .pricing-features li:nth-child(7) { transition-delay: 150ms; }
 .pricing-features li svg {
   @apply flex-shrink-0 mt-0.5;
-  color: hsl(var(--primary));
-  transition: transform 0.2s ease;
+  color: hsl(var(--primary) / 0.7);
+  transition: all 0.25s ease;
 }
 .pricing-card:hover .pricing-features li svg {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  color: hsl(var(--primary));
+  filter: drop-shadow(0 0 4px hsl(var(--primary) / 0.4));
 }
 .pricing-features li b {
   @apply font-semibold;
