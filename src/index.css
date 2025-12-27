@@ -262,10 +262,44 @@
 
 /* === Protocol Section === */
 .protocol-section { 
-  @apply mx-auto px-6;
+  @apply mx-auto px-6 relative overflow-hidden;
   padding-top: 120px;
   padding-bottom: 160px;
   max-width: 900px; 
+}
+
+/* Protocol Video Background */
+.protocol-video-container {
+  @apply absolute inset-0 w-full h-full pointer-events-none;
+  z-index: 0;
+}
+
+.protocol-video {
+  @apply absolute w-full h-full object-cover;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0.25;
+}
+
+.protocol-video-overlay {
+  @apply absolute inset-0;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--background)) 0%,
+    hsl(var(--background) / 0.7) 15%,
+    hsl(var(--background) / 0.5) 50%,
+    hsl(var(--background) / 0.7) 85%,
+    hsl(var(--background)) 100%
+  );
+}
+
+.protocol-section .section-header,
+.protocol-section .protocol-list {
+  position: relative;
+  z-index: 1;
 }
 
 .section-header { 

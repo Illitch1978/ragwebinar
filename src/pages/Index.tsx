@@ -5,6 +5,7 @@ import PricingSection from '@/components/landing/PricingSection';
 import Footer from '@/components/landing/Footer';
 import { INITIAL_PLACEHOLDERS, DIMENSIONS } from '@/lib/constants';
 import heroVideo from '@/assets/hero-video.mp4';
+import protocolBgVideo from '@/assets/protocol-bg.mp4';
 
 function Index() {
   const [inputValue, setInputValue] = useState('');
@@ -74,6 +75,20 @@ function Index() {
           </section>
 
           <section className="protocol-section">
+            {/* Protocol Video Background */}
+            <div className="protocol-video-container">
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="protocol-video"
+              >
+                <source src={protocolBgVideo} type="video/mp4" />
+              </video>
+              <div className="protocol-video-overlay"></div>
+            </div>
+            
             <div className="section-header">
               <h2>OUR PROTOCOL</h2>
               <p className="section-desc">
