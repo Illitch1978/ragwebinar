@@ -261,10 +261,10 @@
     0 0 50px hsl(var(--primary) / 0.15);
 }
 
-/* Shimmer overlay - hidden by default, sits on the border */
+/* Shimmer overlay - centered on the border */
 .signup-btn .shimmer {
   position: absolute;
-  inset: 0;
+  inset: -4px;
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
@@ -280,7 +280,6 @@
   mask-size: cover;
   mix-blend-mode: plus-lighter;
   transition: opacity 0.3s ease;
-  overflow: hidden;
 }
 
 /* Activate shimmer on hover */
@@ -293,24 +292,24 @@
 .signup-btn .shimmer::after {
   content: "";
   position: absolute;
-  inset: -2px;
+  inset: 0;
   border-radius: inherit;
   pointer-events: none;
 }
 
 .signup-btn .shimmer::before {
   box-shadow: 
-    inset 0 0 4px 2px hsl(var(--glow-hue) 80% 90%),
-    inset 0 0 10px 4px hsl(var(--glow-hue) 80% 80%),
-    inset 0 0 20px 6px hsl(var(--glow-hue) 100% 70% / 0.5);
+    0 0 3px 1px hsl(var(--glow-hue) 80% 92%),
+    0 0 6px 2px hsl(var(--glow-hue) 80% 80%),
+    0 0 10px 3px hsl(var(--glow-hue) 100% 70% / 0.6);
   z-index: 3;
 }
 
 .signup-btn .shimmer::after {
-  border: 2px solid hsl(var(--glow-hue) 90% 85%);
+  border: 1.5px solid hsl(var(--glow-hue) 90% 90%);
   box-shadow: 
-    0 0 8px 2px hsl(var(--glow-hue) 100% 80% / 0.8),
-    inset 0 0 8px 2px hsl(var(--glow-hue) 100% 80% / 0.5);
+    0 0 4px 1px hsl(var(--glow-hue) 100% 85% / 0.9),
+    inset 0 0 4px 1px hsl(var(--glow-hue) 100% 85% / 0.6);
   z-index: 4;
 }
 
