@@ -67,7 +67,7 @@ function Index() {
             </div>
             
             <h1>Websites succeed or<br/>fail in seconds.</h1>
-            <p className="hero-subtext">Mondro analyzes your digital presence using multi-dimensional AI logic to surface conversion bottlenecks.</p>
+            <p className="hero-subtext">Mondro combines over fifty signals into one clear score that shows how your website really performs.</p>
             <div className="hero-input-container">
               <div className="input-wrapper">
                 <input 
