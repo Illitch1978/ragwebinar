@@ -66,7 +66,7 @@ function Index() {
             </div>
             
             <h1>Websites succeed or<br/>fail in seconds.</h1>
-            <p className="hero-subtext">A single score that reflects how your website really performs.</p>
+            <p className="hero-subtext">Get a single score that reflects how your website really performs.</p>
             <div className="hero-input-container">
               <div className="input-wrapper" ref={inputWrapperRef}>
                 <div className="placeholder-with-cursor">
