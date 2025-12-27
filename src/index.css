@@ -185,15 +185,10 @@
   100% { transform: scale(1); box-shadow: 0 0 15px hsl(var(--primary)); }
 }
 
-/* === Navigation === */
-.landing-nav {
+/* === Hero Top Bar === */
+.hero-top-bar {
   @apply absolute top-0 left-0 right-0 flex justify-between items-center z-50;
   padding: 20px 60px;
-}
-.landing-nav.fade-out { 
-  @apply opacity-0 pointer-events-none;
-  transform: translateY(-20px); 
-  transition: all 0.5s ease; 
 }
 
 .logo { 

@@ -45,11 +45,9 @@ function Index() {
       <div className="stage-container landing-scroll">
         <div className="landing-page">
           <section className="hero-section">
-            <div className="landing-nav">
+            <div className="hero-top-bar">
               <div className="logo">mondro<span className="dot"></span></div>
-              <div className="nav-actions">
-                <a href="#" className="signup-btn">Get Started</a>
-              </div>
+              <a href="#" className="signup-btn">Get Started</a>
             </div>
             {/* Hero Video Background */}
             <div className="hero-video-container">
