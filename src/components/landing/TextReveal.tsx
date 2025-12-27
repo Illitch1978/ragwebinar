@@ -79,34 +79,47 @@ const TextReveal = ({ text, className = '', onAnimationComplete }: TextRevealPro
         onAnimationComplete={handleAnimationComplete}
         className={className}
       >
-        {words.map((word, index) => {
-          // Special styling for "Mondro" - render as logo on its own line
-          const isMondro = word.replace(/[.,]/g, '').toLowerCase() === 'mondro';
-          const punctuation = word.match(/[.,]$/)?.[0] || '';
+        {(() => {
+          const mondroIndex = words.findIndex(w => w.replace(/[.,]/g, '').toLowerCase() === 'mondro');
           
-          if (isMondro) {
+          return words.map((word, index) => {
+            const isMondro = word.replace(/[.,]/g, '').toLowerCase() === 'mondro';
+            const punctuation = word.match(/[.,]$/)?.[0] || '';
+            
+            // If this is mondro, render it with all remaining words on a new line
+            if (isMondro) {
+              const remainingWords = words.slice(index + 1);
+              return (
+                <motion.span
+                  key={index}
+                  variants={wordAnimation}
+                  className="mondro-reveal-line"
+                >
+                  <span className="mondro-inline">mondro<span className="mondro-dot"></span></span>
+                  {punctuation}{' '}
+                  {remainingWords.map((w, i) => (
+                    <span key={i} className="inline-block mr-[0.25em]">{w}</span>
+                  ))}
+                </motion.span>
+              );
+            }
+            
+            // Skip words after mondro (they're rendered with mondro)
+            if (mondroIndex !== -1 && index > mondroIndex) {
+              return null;
+            }
+            
             return (
               <motion.span
                 key={index}
                 variants={wordAnimation}
-                className="mondro-reveal-line"
+                className="inline-block mr-[0.25em]"
               >
-                <span className="mondro-inline">mondro<span className="mondro-dot"></span></span>
-                {punctuation}
+                {word}
               </motion.span>
             );
-          }
-          
-          return (
-            <motion.span
-              key={index}
-              variants={wordAnimation}
-              className="inline-block mr-[0.25em]"
-            >
-              {word}
-            </motion.span>
-          );
-        })}
+          });
+        })()}
       </motion.div>
     </motion.div>
   );
