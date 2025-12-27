@@ -589,6 +589,43 @@
   opacity: 1;
 }
 
+.social-proof-stats {
+  @apply list-none p-0 m-0 mt-8 flex flex-col gap-3;
+}
+
+.social-proof-stat {
+  @apply text-lg font-light relative;
+  color: hsl(0 0% 100% / 0.5);
+  line-height: 1.7;
+  padding-left: 0;
+  transition: color 0.3s ease;
+}
+
+.social-proof-stat::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: hsl(var(--primary));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.social-proof-stat:hover {
+  color: hsl(0 0% 100% / 0.7);
+}
+
+.social-proof-stat:hover::before {
+  opacity: 1;
+}
+
+.stat-highlight {
+  color: hsl(var(--foreground));
+  font-weight: 500;
+}
+
 .social-proof-cta {
   @apply flex items-center gap-3 mt-8 px-0 py-4 bg-transparent cursor-pointer text-lg font-medium;
   color: hsl(var(--foreground));
