@@ -2,18 +2,21 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const phrases = [
-  "brings it back together",
-  "shows how your site performs",
-  "measures what visitors notice",
-  "turns signals into a clear score",
-  "exposes hidden friction",
-  "checks how AI sees you",
-  "benchmarks against competitors",
-  "shows where you stand",
-  "highlights what matters",
-  "turns audits into decisions",
-  "reveals gaps in seconds",
-  "replaces guesswork",
+  "captures strong first impressions",
+  "defines what makes good design",
+  "measures trust signals that matter",
+  "identifies friction and clarity gaps",
+  "assesses content and messaging fit",
+  "shows how content clarity builds trust",
+  "combines seo and geo visibility",
+  "reflects how search and ai see you",
+  "benchmarks your site against peers",
+  "reveals competitor strengths and gaps",
+  "explains what makes you stand out",
+  "highlights where differentiation is lost",
+  "helps prioritise changes that convert",
+  "transforms audits into decisions",
+  "distils signals into a clear score",
 ];
 
 // Fisher-Yates shuffle
