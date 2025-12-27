@@ -375,11 +375,54 @@
 .pricing-card.popular {
   border-color: hsl(var(--primary));
   background: linear-gradient(180deg, hsl(var(--primary) / 0.08) 0%, hsl(var(--background)) 100%);
-  transition: box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.pricing-card.popular:hover {
-  box-shadow: 0 0 30px hsl(var(--primary) / 0.3), 0 0 60px hsl(var(--primary) / 0.15);
+.pricing-card.popular::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 340deg,
+    hsl(var(--primary)) 360deg
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: rotate-glow 3s linear infinite;
+  pointer-events: none;
+}
+
+.pricing-card.popular:hover::before {
+  opacity: 1;
+}
+
+.pricing-card.popular::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  background: linear-gradient(180deg, hsl(var(--primary) / 0.08) 0%, hsl(var(--background)) 100%);
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+.pricing-card.popular > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes rotate-glow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .pricing-card.popular .pricing-features li svg {
