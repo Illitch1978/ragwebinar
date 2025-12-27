@@ -75,6 +75,7 @@ function Index() {
             <div className="hero-input-container">
               <div className="input-wrapper-glow">
                 <div className="input-wrapper" ref={inputWrapperRef}>
+                  <span className="shimmer"></span>
                   <div className="placeholder-with-cursor">
                     <span>yourwebsite.com</span>
                     <span className="blinking-cursor"></span>
