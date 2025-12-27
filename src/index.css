@@ -376,7 +376,7 @@
 }
 
 .cycling-phrase {
-  @apply inline;
+  @apply relative inline-flex;
   font-family: var(--font-heading);
   font-weight: 500;
   font-size: clamp(1.875rem, 4vw, 3rem);
@@ -384,6 +384,18 @@
   color: hsl(var(--foreground) / 0.85);
   line-height: 1.3;
   white-space: nowrap;
+}
+
+.phrase-glow {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+  transform-origin: left center;
+  border-radius: 2px;
+  pointer-events: none;
 }
 
 /* Protocol Video Section - Full Viewport */
