@@ -574,10 +574,10 @@
     @apply grid-cols-1 gap-10; 
   }
   .protocol-glass-card { 
-    @apply flex-col text-center gap-10 px-6 py-16 !important; 
+    @apply flex-col gap-10 px-6 py-16 !important; 
   }
   .dim-text-container { 
-    @apply items-center text-center; 
+    @apply items-start text-left; 
   }
   .dim-visual-container { 
     min-height: 350px; 

@@ -19,7 +19,7 @@ export const DIMENSIONS = [
     id: 'visual', 
     title: 'VISUAL CLARITY', 
     desc: 'Assessing visual language, hierarchy, balance, and first impression to understand how clearly your message comes across.', 
-    tags: ['HIERARCHY', 'LAYOUT', 'CONTRAST', 'CREDIBILITY'] 
+    tags: ['HIERARCHY', 'LAYOUT', 'CONTRAST', 'BRANDING'] 
   },
   { 
     id: 'ux', 
