@@ -142,7 +142,6 @@ function Index() {
             </div>
           </section>
 
-          <SocialProofSection onCtaClick={handleCtaClick} />
           <PricingSection />
           <SocialProofStats />
           <Footer />
