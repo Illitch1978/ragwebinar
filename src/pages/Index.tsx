@@ -67,7 +67,11 @@ function Index() {
 
   return (
     <div className="immersive-app">
-      <div className="stage-container landing-scroll" ref={scrollContainerRef}>
+      <div 
+        className="stage-container landing-scroll" 
+        ref={scrollContainerRef}
+        style={{ overflowY: textRevealComplete ? 'auto' : 'hidden' }}
+      >
         <div className="landing-page">
           <section className="hero-section">
             <div className="hero-top-bar">
