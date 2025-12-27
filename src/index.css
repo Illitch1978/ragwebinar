@@ -263,9 +263,9 @@
 /* === Protocol Section === */
 .protocol-section { 
   @apply mx-auto px-6;
-  padding-top: 120px;
-  padding-bottom: 80px;
-  max-width: 900px; 
+  padding-top: 160px;
+  padding-bottom: 120px;
+  max-width: 1000px; 
 }
 
 /* Protocol Video Section - Full Viewport */
@@ -309,19 +309,21 @@
 }
 
 .section-header { 
-  @apply text-center mb-24; 
+  @apply text-center mb-16; 
 }
 .section-header h2 { 
   font-family: var(--font-heading); 
-  @apply font-extrabold mb-6;
-  font-size: clamp(2.5rem, 5vw, 3.5rem); 
-  letter-spacing: -0.03em; 
+  @apply font-extrabold mb-10 tracking-widest;
+  font-size: clamp(0.875rem, 1.5vw, 1rem); 
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
 }
 .section-desc { 
-  @apply text-lg mx-auto font-light;
-  color: hsl(var(--muted-foreground)); 
-  max-width: 700px; 
-  line-height: 1.8; 
+  @apply text-3xl md:text-4xl lg:text-5xl mx-auto font-medium leading-tight;
+  color: hsl(var(--foreground)); 
+  max-width: 900px; 
+  letter-spacing: -0.02em;
 }
 
 .protocol-list { 
