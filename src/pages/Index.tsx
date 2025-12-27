@@ -14,13 +14,32 @@ import protocolBgVideo from '@/assets/protocol-bg.mp4';
 function Index() {
   const [inputValue, setInputValue] = useState('');
   const [textRevealComplete, setTextRevealComplete] = useState(false);
+  const [shouldDissolve, setShouldDissolve] = useState(false);
   const [showCyclingTagline, setShowCyclingTagline] = useState(false);
   const heroInputRef = useRef<HTMLInputElement>(null);
   const inputWrapperRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     heroInputRef.current?.focus();
   }, []);
+
+  // Scroll-based trigger for dissolve/tagline transition
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer || !textRevealComplete) return;
+
+    const handleScroll = () => {
+      const scrollTop = scrollContainer.scrollTop;
+      // Trigger dissolve when user scrolls past a threshold
+      if (scrollTop > 100 && !shouldDissolve) {
+        setShouldDissolve(true);
+      }
+    };
+
+    scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+    return () => scrollContainer.removeEventListener('scroll', handleScroll);
+  }, [textRevealComplete, shouldDissolve]);
 
   const handleSubmit = () => {
     if (inputValue.trim()) {
@@ -48,7 +67,7 @@ function Index() {
 
   return (
     <div className="immersive-app">
-      <div className="stage-container landing-scroll">
+      <div className="stage-container landing-scroll" ref={scrollContainerRef}>
         <div className="landing-page">
           <section className="hero-section">
             <div className="hero-top-bar">
@@ -97,6 +116,7 @@ function Index() {
                 text="People do not experience websites in parts. They judge them as a whole. In seconds, they register credibility, relevance, speed, and clarity. Most tools break this into fragments and miss the bigger picture."
                 className="section-desc section-desc--dark"
                 onAnimationComplete={() => setTextRevealComplete(true)}
+                shouldDissolve={shouldDissolve}
                 onDissolveComplete={() => setShowCyclingTagline(true)}
               />
               <CyclingTagline isVisible={showCyclingTagline} />

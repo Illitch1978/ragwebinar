@@ -5,14 +5,15 @@ interface TextRevealProps {
   text: string;
   className?: string;
   onAnimationComplete?: () => void;
+  shouldDissolve?: boolean;
   onDissolveComplete?: () => void;
 }
 
-const TextReveal = ({ text, className = '', onAnimationComplete, onDissolveComplete }: TextRevealProps) => {
+const TextReveal = ({ text, className = '', onAnimationComplete, shouldDissolve = false, onDissolveComplete }: TextRevealProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const [animationStarted, setAnimationStarted] = useState(false);
-  const [dissolveStarted, setDissolveStarted] = useState(false);
+  const [dissolveTriggered, setDissolveTriggered] = useState(false);
 
   const mainText = text.replace(/mondro brings it back together\.?/i, '').trim();
   const words = mainText.split(' ');
@@ -22,6 +23,16 @@ const TextReveal = ({ text, className = '', onAnimationComplete, onDissolveCompl
       setAnimationStarted(true);
     }
   }, [isInView, animationStarted]);
+
+  // Trigger dissolve when shouldDissolve prop becomes true
+  useEffect(() => {
+    if (shouldDissolve && !dissolveTriggered) {
+      setDissolveTriggered(true);
+      setTimeout(() => {
+        onDissolveComplete?.();
+      }, 800);
+    }
+  }, [shouldDissolve, dissolveTriggered, onDissolveComplete]);
 
   const container = {
     hidden: { opacity: 0 },
@@ -55,14 +66,6 @@ const TextReveal = ({ text, className = '', onAnimationComplete, onDissolveCompl
     if (onAnimationComplete) {
       setTimeout(onAnimationComplete, 400);
     }
-    // Start dissolve after text reveal completes + small delay
-    setTimeout(() => {
-      setDissolveStarted(true);
-      // Notify parent when dissolve is complete
-      setTimeout(() => {
-        onDissolveComplete?.();
-      }, 800);
-    }, 1500);
   };
 
   return (
@@ -75,7 +78,7 @@ const TextReveal = ({ text, className = '', onAnimationComplete, onDissolveCompl
       className={className}
     >
       <motion.div
-        animate={dissolveStarted ? {
+        animate={dissolveTriggered ? {
           opacity: 0,
           filter: 'blur(12px)',
           y: -30,
