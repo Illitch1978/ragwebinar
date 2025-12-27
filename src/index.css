@@ -539,6 +539,13 @@
   transition: color 0.3s ease;
 }
 
+.social-proof-label {
+  @apply text-xs font-medium uppercase tracking-widest block mb-6;
+  color: hsl(var(--muted-foreground));
+  opacity: 0.5;
+  letter-spacing: 0.15em;
+}
+
 .social-proof-headline::before {
   content: '';
   position: absolute;

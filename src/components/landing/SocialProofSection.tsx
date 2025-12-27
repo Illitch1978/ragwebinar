@@ -59,6 +59,13 @@ const SocialProofSection = ({ onCtaClick }: SocialProofSectionProps) => {
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
       >
+        <motion.span 
+          className="social-proof-label"
+          variants={itemVariants}
+        >
+          the scoring framework
+        </motion.span>
+
         <motion.h2 
           className="social-proof-headline"
           variants={itemVariants}
@@ -93,7 +100,7 @@ const SocialProofSection = ({ onCtaClick }: SocialProofSectionProps) => {
           variants={itemVariants}
           onClick={onCtaClick}
         >
-          <span>Try it now</span>
+          <span>Run a scan</span>
           <span className="cta-arrow">→</span>
         </motion.button>
       </motion.div>
