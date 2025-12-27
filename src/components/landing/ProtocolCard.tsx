@@ -4,7 +4,6 @@ interface Dimension {
   id: string;
   title: string;
   desc: string;
-  Asset: React.ComponentType;
   tags: string[];
 }
 
@@ -34,7 +33,7 @@ function ProtocolCard({ dim, idx }: ProtocolCardProps) {
       className={`protocol-glass-card ${idx % 2 === 1 ? 'reverse' : ''} ${isVisible ? 'is-visible' : ''}`}
     >
       <div className="dim-visual-container">
-        <dim.Asset />
+        {/* Placeholder for future visual */}
       </div>
       <div className="dim-text-container">
         <h3>{dim.title}</h3>
