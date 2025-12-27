@@ -3,7 +3,8 @@ import { ArrowRightIcon } from '@/components/Icons';
 import ProtocolCard from '@/components/landing/ProtocolCard';
 import PricingSection from '@/components/landing/PricingSection';
 import Footer from '@/components/landing/Footer';
-import { INITIAL_PLACEHOLDERS, DIMENSIONS } from '@/lib/constants';
+import TextReveal from '@/components/landing/TextReveal';
+import { DIMENSIONS } from '@/lib/constants';
 import heroVideo from '@/assets/hero-video.mp4';
 import protocolBgVideo from '@/assets/protocol-bg.mp4';
 
@@ -73,14 +74,10 @@ function Index() {
 
           <section className="protocol-section">
             <div className="section-header">
-              <h2>OUR PROTOCOL</h2>
-              <p className="section-desc">
-                People do not experience websites in parts. They experience them as a whole.
-                In seconds, they sense credibility, relevance, speed, clarity, and ease.
-                Most tools break this experience into fragments and miss the big picture.
-                Mondro brings it back together, showing where confidence forms, where it fades,
-                and why decisions never happen.
-              </p>
+              <TextReveal 
+                text="People do not experience websites in parts. They experience them as a whole. In seconds, they sense credibility, relevance, speed, clarity, and ease. Most tools break this experience into fragments and miss the big picture. Mondro brings it back together, showing where confidence forms, where it fades, and why decisions never happen."
+                className="section-desc"
+              />
             </div>
           </section>
 
