@@ -92,7 +92,7 @@ function Index() {
           <section className="protocol-section protocol-section--light">
             <div className="section-header">
               <TextReveal 
-                text="People do not experience websites in parts. They experience them as a whole. In seconds, they sense credibility, relevance, speed, clarity, and ease. Most tools break this experience into fragments and miss the big picture. Mondro puts the experience back together."
+                text="People do not experience websites in parts. They experience them as a whole. In seconds, they sense credibility, relevance, speed and clarity. Most tools break this experience into fragments and miss the big picture. Mondro puts the experience back together."
                 className="section-desc section-desc--dark"
                 onAnimationComplete={() => setTextRevealComplete(true)}
               />
