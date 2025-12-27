@@ -92,13 +92,10 @@ function Index() {
           <section className="protocol-section protocol-section--light">
             <div className="section-header">
               <TextReveal 
-                text="People do not experience websites in parts. They judge them as a whole. In seconds, they register credibility, relevance, speed, and clarity. Most tools break this into fragments and miss the bigger picture."
+                text="People do not experience websites in parts. They judge them as a whole. In seconds, they register credibility, relevance, speed, and clarity. Most tools break this into fragments and miss the bigger picture. mondro brings it back together."
                 className="section-desc section-desc--dark"
                 onAnimationComplete={() => setTextRevealComplete(true)}
               />
-              <p className="section-desc section-desc--dark mondro-tagline">
-                <span className="mondro-inline">mondro<span className="mondro-dot"></span></span> brings it back together.
-              </p>
             </div>
           </section>
 

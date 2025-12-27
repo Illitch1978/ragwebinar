@@ -80,7 +80,7 @@ const TextReveal = ({ text, className = '', onAnimationComplete }: TextRevealPro
         className={className}
       >
         {words.map((word, index) => {
-          // Special styling for "Mondro" - render as logo
+          // Special styling for "Mondro" - render as logo with line break before
           const isMondro = word.replace(/[.,]/g, '').toLowerCase() === 'mondro';
           const punctuation = word.match(/[.,]$/)?.[0] || '';
           
@@ -91,6 +91,7 @@ const TextReveal = ({ text, className = '', onAnimationComplete }: TextRevealPro
                 variants={wordAnimation}
                 className="inline-block mr-[0.25em]"
               >
+                <br />
                 <span className="mondro-inline">mondro<span className="mondro-dot"></span></span>
                 {punctuation}
               </motion.span>
