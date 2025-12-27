@@ -107,9 +107,9 @@ function Index() {
           <motion.section 
             className="protocol-video-section"
             initial={{ opacity: 0 }}
-            animate={{ opacity: textRevealComplete ? 1 : 0 }}
-            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-            style={{ pointerEvents: textRevealComplete ? 'auto' : 'none' }}
+            animate={{ opacity: showCyclingTagline ? 1 : 0 }}
+            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.5 }}
+            style={{ pointerEvents: showCyclingTagline ? 'auto' : 'none' }}
           >
             <div className="protocol-video-container">
               <video 
