@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PositioningSection from "@/components/dashboard/PositioningSection";
 import { 
   Crosshair, 
   Bot, 
@@ -98,13 +99,17 @@ const Dashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
-        <div className="max-w-4xl">
+      <main className="flex-1 p-6 flex flex-col">
+        <div className="mb-4">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
             <span className="text-sm font-semibold text-primary capitalize">
               {activeItem.replace("-", " ")}
             </span>
           </div>
+        </div>
+        
+        <div className="flex-1">
+          {activeItem === "positioning" && <PositioningSection />}
         </div>
       </main>
     </div>
