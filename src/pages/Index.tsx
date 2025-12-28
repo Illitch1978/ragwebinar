@@ -53,7 +53,7 @@ function Index() {
           <section className="hero-section">
             <div className="hero-top-bar">
               <div className="logo">mondro<span className="dot"></span></div>
-              <GlowingButton text="Get Started" size="md" />
+              <a href="#" className="text-foreground hover:text-foreground/80 font-medium transition-colors">Get Started</a>
             </div>
             {/* Hero Video Background */}
             <div className="hero-video-container">
