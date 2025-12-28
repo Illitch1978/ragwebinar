@@ -6,45 +6,45 @@
 
 @layer base {
   :root {
-    /* Mondro Dark Theme */
-    --background: 240 12% 2%;
-    --foreground: 0 0% 100%;
+    /* Mondro Light Theme - Apple/Stripe Inspired */
+    --background: 0 0% 100%;
+    --foreground: 220 15% 15%;
 
-    --card: 240 12% 4%;
-    --card-foreground: 0 0% 100%;
+    --card: 0 0% 99%;
+    --card-foreground: 220 15% 15%;
 
-    --popover: 240 12% 4%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
 
-    --primary: 188 78% 57%;
-    --primary-foreground: 240 12% 2%;
+    --primary: 200 100% 45%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 263 70% 76%;
-    --secondary-foreground: 240 12% 2%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 15% 25%;
 
-    --muted: 0 0% 100% / 0.45;
-    --muted-foreground: 0 0% 100% / 0.45;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 10% 45%;
 
-    --accent: 330 79% 65%;
+    --accent: 263 70% 58%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 100% / 0.08;
-    --input: 0 0% 100% / 0.08;
-    --ring: 188 78% 57%;
+    --border: 220 14% 90%;
+    --input: 220 14% 90%;
+    --ring: 200 100% 45%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     /* Mondro Custom Colors */
-    --accent-glow: 188 78% 57%;
-    --accent-purple: 263 70% 76%;
-    --accent-pink: 330 79% 65%;
+    --accent-glow: 200 100% 45%;
+    --accent-purple: 263 70% 58%;
+    --accent-pink: 330 79% 58%;
     --accent-green: 160 84% 39%;
     --brand-blue: 220 91% 54%;
-    --glass-bg: 0 0% 100% / 0.02;
-    --glass-border: 0 0% 100% / 0.08;
+    --glass-bg: 220 14% 98%;
+    --glass-border: 220 14% 92%;
 
     /* Fonts */
     --font-heading: 'Plus Jakarta Sans', sans-serif;

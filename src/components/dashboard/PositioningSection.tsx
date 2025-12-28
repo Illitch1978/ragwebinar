@@ -7,11 +7,11 @@ const PositioningSection = () => {
   );
 
   const QuadrantItem = ({ title, children }: { title: string; children: React.ReactNode }) => (
-    <div className="space-y-1">
-      <h3 className="text-xs font-semibold text-foreground tracking-wide flex items-center">
+    <div className="space-y-2">
+      <h3 className="text-sm font-semibold text-foreground tracking-tight flex items-center">
         <Bullet /> {title}
       </h3>
-      <p className="text-muted-foreground text-xs leading-relaxed pl-4">{children}</p>
+      <p className="text-muted-foreground text-sm leading-relaxed pl-4">{children}</p>
     </div>
   );
 
@@ -64,19 +64,22 @@ const PositioningSection = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-4">
-      {/* Website Link */}
-      <a 
-        href="https://meridianwest.co.uk/" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="text-primary hover:text-primary/80 transition-colors font-medium text-sm w-fit"
-      >
-        meridianwest.co.uk
-      </a>
+    <div className="flex flex-col gap-8 max-w-4xl">
+      {/* Header with Website Link */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Meridian West</h1>
+        <a 
+          href="https://meridianwest.co.uk/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-primary hover:text-primary/80 transition-colors font-medium text-sm"
+        >
+          Visit website →
+        </a>
+      </div>
 
       {/* Quadrant Grid */}
-      <div className="grid grid-cols-2 gap-3 border border-border/50 rounded-lg p-4 bg-card/30">
+      <div className="grid grid-cols-2 gap-6 p-6 rounded-2xl bg-secondary/50 border border-border">
         <QuadrantItem title="Market Position">
           Specialized "strategic insight partner" for professional services. Deep vertical expertise in law, wealth management, real estate, and accountancy.
         </QuadrantItem>
@@ -95,32 +98,43 @@ const PositioningSection = () => {
       </div>
 
       {/* 5 Key Growth Tips */}
-      <div className="space-y-3">
-        <h2 className="text-xs font-medium uppercase tracking-widest text-primary">
-          5 Key Growth Tips
+      <div className="space-y-6">
+        <h2 className="text-lg font-semibold text-foreground">
+          5 Key Growth Strategies
         </h2>
 
-        <div className="grid gap-2">
+        <div className="space-y-8">
           {growthTips.map((tip, index) => (
             <div 
               key={index}
-              className="group flex items-start gap-3 p-3 rounded-lg border border-border/40 bg-card/20 hover:bg-card/40 hover:border-primary/20 transition-all duration-200"
+              className="group"
             >
-              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-primary/10 text-primary text-xs font-bold shrink-0 mt-0.5">
-                {index + 1}
-              </span>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <h3 className="text-sm font-medium text-foreground leading-tight">{tip.title}</h3>
-                    <p className="text-muted-foreground text-xs mt-0.5">{tip.summary}</p>
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent-purple text-primary-foreground text-sm font-bold shrink-0">
+                  {index + 1}
+                </div>
+                <div className="flex-1 space-y-2">
+                  <div className="flex items-center justify-between gap-4">
+                    <h3 className="text-base font-semibold text-foreground">{tip.title}</h3>
+                    <div className="flex gap-4 text-xs font-medium shrink-0">
+                      <span className={`${tip.complexityColor} bg-secondary px-2 py-0.5 rounded-full`}>
+                        {tip.complexity}
+                      </span>
+                      <span className={`${tip.impactColor} bg-secondary px-2 py-0.5 rounded-full`}>
+                        {tip.impact}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex gap-3 text-[10px] shrink-0 pt-0.5">
-                    <span className={tip.complexityColor}>{tip.complexity}</span>
-                    <span className={tip.impactColor}>{tip.impact}</span>
-                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{tip.summary}</p>
+                  <p className="text-foreground/80 text-sm leading-relaxed">
+                    <span className="font-medium text-primary">Strategy: </span>
+                    {tip.strategy}
+                  </p>
                 </div>
               </div>
+              {index < growthTips.length - 1 && (
+                <div className="ml-4 mt-6 border-l-2 border-border h-4" />
+              )}
             </div>
           ))}
         </div>
