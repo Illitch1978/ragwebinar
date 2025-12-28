@@ -1,29 +1,29 @@
 import { useState } from "react";
 import { 
-  Target, 
-  Bot, 
-  Search, 
-  Eye, 
-  Wrench,
-  FileText,
-  Settings,
-  FolderOpen,
+  Crosshair, 
+  Sparkles, 
+  Radar, 
+  Activity, 
+  Cpu,
+  BarChart3,
+  Settings2,
+  Layers,
   Menu
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const mainNavItems = [
-  { title: "Positioning", icon: Target, id: "positioning" },
-  { title: "AI consultant", icon: Bot, id: "ai-consultant" },
-  { title: "Competitor intel", icon: Search, id: "competitor-intel" },
-  { title: "Visibility", icon: Eye, id: "visibility" },
-  { title: "Technical", icon: Wrench, id: "technical" },
+  { title: "Positioning", icon: Crosshair, id: "positioning" },
+  { title: "AI consultant", icon: Sparkles, id: "ai-consultant" },
+  { title: "Competitor intel", icon: Radar, id: "competitor-intel" },
+  { title: "Visibility", icon: Activity, id: "visibility" },
+  { title: "Technical", icon: Cpu, id: "technical" },
 ];
 
 const bottomNavItems = [
-  { title: "Reports", icon: FileText, id: "reports" },
-  { title: "Settings", icon: Settings, id: "settings" },
-  { title: "Projects", icon: FolderOpen, id: "projects" },
+  { title: "Reports", icon: BarChart3, id: "reports" },
+  { title: "Settings", icon: Settings2, id: "settings" },
+  { title: "Projects", icon: Layers, id: "projects" },
 ];
 
 const Dashboard = () => {
@@ -42,13 +42,13 @@ const Dashboard = () => {
         {/* Logo */}
         <div className="p-4 border-b border-border flex items-center justify-between">
           {!sidebarCollapsed && (
-            <div className="text-lg font-semibold text-foreground">
-              mondro<span className="text-primary">.</span>
+            <div className="logo">
+              mondro<span className="dot"></span>
             </div>
           )}
           <button 
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="p-2 hover:bg-muted rounded-md transition-colors"
+            className="p-2 hover:bg-muted/20 rounded-md transition-colors"
           >
             <Menu className="h-4 w-4 text-muted-foreground" />
           </button>
