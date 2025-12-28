@@ -46,51 +46,99 @@ const PositioningSection = () => {
         </QuadrantItem>
       </div>
 
-      {/* Competitive Advantage - Standout */}
-      <div className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5">
-        <h3 className="text-sm font-semibold text-foreground flex items-center mb-2">
-          <Bullet /> Competitive Advantage
-        </h3>
-        <p className="text-muted-foreground text-xs leading-relaxed pl-4">
-          Their competitive moat is their proprietary benchmarking data (e.g., "Client Listening Benchmarks"). This positions them not just as consultants, but as the standard-bearers or arbiters of quality within the professional services industry, making it difficult for generalist marketing agencies to compete on the same level of authority.
-        </p>
-      </div>
-
-      {/* Growth Tips - Prominent */}
-      <div className="bg-gradient-to-br from-card via-card/80 to-primary/5 border-2 border-primary/30 rounded-xl p-6 shadow-lg shadow-primary/5">
-        <h2 className="text-base font-bold text-foreground mb-4 flex items-center gap-2">
-          <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Recommended</span>
-          Growth Strategy
+      {/* 5 Key Growth Tips */}
+      <div className="space-y-4">
+        <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
+          <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">5 Key</span>
+          Growth Tips
         </h2>
-        
-        <div className="space-y-4">
-          <div>
-            <h4 className="text-sm font-semibold text-foreground flex items-center mb-1">
-              <Bullet /> Growth via "Open" Authority
-            </h4>
-            <p className="text-muted-foreground text-xs leading-relaxed pl-4">
-              Pivot digital positioning from a "brochure" capability showcase to a dynamic Knowledge Hub. Valuable insights (like CLIMB research) currently feel gated behind existing relationships. Adopt a "Gated-Lite" Content Strategy focused on SEO and LinkedIn.
-            </p>
+
+        {/* Tip 1 */}
+        <div className="group bg-gradient-to-br from-card to-card/80 border border-border hover:border-primary/30 rounded-xl p-5 transition-all duration-300">
+          <div className="flex items-start gap-3 mb-3">
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10 text-primary text-sm font-bold shrink-0">1</span>
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">Productize the "AI Readiness" Audit</h3>
+              <p className="text-muted-foreground text-xs mt-1">Move MeridianAI from a broad consulting service to a specific, lower-cost "productized" entry point (e.g., a fixed-price "AI Readiness Scorecard" delivered in 2 weeks).</p>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-3 gap-4 pt-2">
-            <div className="bg-background/50 rounded-lg p-4 border border-border/50">
-              <h4 className="text-xs font-semibold text-foreground mb-2 flex items-center">
-                <Bullet /> Deconstruct Reports
-              </h4>
-              <p className="text-muted-foreground text-[11px] leading-relaxed pl-4">Break high-value Benchmark findings into shareable LinkedIn infographics, targeting "Head of BD" or "Managing Partner" roles.</p>
+          <div className="pl-10 space-y-2">
+            <p className="text-xs text-muted-foreground"><span className="text-foreground font-medium">Strategy:</span> High-ticket consulting sales cycles are long. A productized audit acts as a wedge offer. It gets you through the door, proves competence quickly, and naturally segues into a larger retainer for implementation.</p>
+            <div className="flex gap-4 text-[11px] pt-1">
+              <span className="text-amber-500">Complexity: Medium</span>
+              <span className="text-emerald-500">Impact: High</span>
             </div>
-            <div className="bg-background/50 rounded-lg p-4 border border-border/50">
-              <h4 className="text-xs font-semibold text-foreground mb-2 flex items-center">
-                <Bullet /> MeridianAI as a Hook
-              </h4>
-              <p className="text-muted-foreground text-[11px] leading-relaxed pl-4">Create an interactive landing page with a demo tool to signal innovation and capture modernization-seeking leads.</p>
+          </div>
+        </div>
+
+        {/* Tip 2 */}
+        <div className="group bg-gradient-to-br from-card to-card/80 border border-border hover:border-primary/30 rounded-xl p-5 transition-all duration-300">
+          <div className="flex items-start gap-3 mb-3">
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10 text-primary text-sm font-bold shrink-0">2</span>
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">Weaponize Your Benchmarking Data (PR Strategy)</h3>
+              <p className="text-muted-foreground text-xs mt-1">Stop treating your proprietary data just as "research" for clients and start treating it as "news" for the industry.</p>
             </div>
-            <div className="bg-background/50 rounded-lg p-4 border border-border/50">
-              <h4 className="text-xs font-semibold text-foreground mb-2 flex items-center">
-                <Bullet /> Search Intent
-              </h4>
-              <p className="text-muted-foreground text-[11px] leading-relaxed pl-4">Optimise for "problem-aware" queries (e.g., "improving law firm client retention") to catch prospects earlier in their journey.</p>
+          </div>
+          <div className="pl-10 space-y-2">
+            <p className="text-xs text-muted-foreground"><span className="text-foreground font-medium">Strategy:</span> Release a quarterly "Professional Services Trust Index" and pitch exclusive angles to industry press. Use your data to generate contrarian headlines (e.g., "60% of Law Firm Clients Feel Ignored"). This builds top-of-funnel brand awareness far beyond your current mailing list.</p>
+            <div className="flex gap-4 text-[11px] pt-1">
+              <span className="text-emerald-500">Complexity: Low</span>
+              <span className="text-amber-500">Impact: Medium/High</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Tip 3 */}
+        <div className="group bg-gradient-to-br from-card to-card/80 border border-border hover:border-primary/30 rounded-xl p-5 transition-all duration-300">
+          <div className="flex items-start gap-3 mb-3">
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10 text-primary text-sm font-bold shrink-0">3</span>
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">Build a "Tech + Touch" Partner Ecosystem</h3>
+              <p className="text-muted-foreground text-xs mt-1">Form formal alliances with the vendors your clients are already buying (e.g., Intapp, Salesforce, Peppermint).</p>
+            </div>
+          </div>
+          <div className="pl-10 space-y-2">
+            <p className="text-xs text-muted-foreground"><span className="text-foreground font-medium">Strategy:</span> These vendors sell the tool, but clients often fail due to a lack of strategy. Position Meridian West as the official "Implementation Strategy Partner." They refer you to ensure their software sticks; you get access to their warm leads who are already spending money on modernization.</p>
+            <div className="flex gap-4 text-[11px] pt-1">
+              <span className="text-red-400">Complexity: High</span>
+              <span className="text-emerald-500">Impact: High</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Tip 4 */}
+        <div className="group bg-gradient-to-br from-card to-card/80 border border-border hover:border-primary/30 rounded-xl p-5 transition-all duration-300">
+          <div className="flex items-start gap-3 mb-3">
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10 text-primary text-sm font-bold shrink-0">4</span>
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">Launch a "Client Voice" Accreditation</h3>
+              <p className="text-muted-foreground text-xs mt-1">Create an industry standard or "seal of approval" based on your listening audits.</p>
+            </div>
+          </div>
+          <div className="pl-10 space-y-2">
+            <p className="text-xs text-muted-foreground"><span className="text-foreground font-medium">Strategy:</span> Establish the "Meridian West Client Centricity Standard." Firms that meet certain benchmarks get a digital badge for their marketing. Professional services firms are status-obsessed; if you become the arbiter of "Client Excellence," they will pay you just to be measured against your standard.</p>
+            <div className="flex gap-4 text-[11px] pt-1">
+              <span className="text-red-400">Complexity: Very High</span>
+              <span className="text-amber-500">Impact: High (Long-term)</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Tip 5 */}
+        <div className="group bg-gradient-to-br from-card to-card/80 border border-border hover:border-primary/30 rounded-xl p-5 transition-all duration-300">
+          <div className="flex items-start gap-3 mb-3">
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10 text-primary text-sm font-bold shrink-0">5</span>
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">Account-Based Marketing (ABM) for "Whale" Prospects</h3>
+              <p className="text-muted-foreground text-xs mt-1">Create bespoke "dossiers" for the Managing Partners of your top 50 dream clients.</p>
+            </div>
+          </div>
+          <div className="pl-10 space-y-2">
+            <p className="text-xs text-muted-foreground"><span className="text-foreground font-medium">Strategy:</span> Instead of generic marketing, send a physical, printed report titled "Strategic Opportunities for [Target Firm Name] in 2025," using your outside-in data to highlight 3 specific gaps in their positioning.</p>
+            <div className="flex gap-4 text-[11px] pt-1">
+              <span className="text-amber-500">Complexity: Medium/High</span>
+              <span className="text-emerald-500">Impact: Very High</span>
             </div>
           </div>
         </div>
