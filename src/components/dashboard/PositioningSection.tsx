@@ -1,3 +1,5 @@
+import { BrandRadarChart } from './BrandRadarChart';
+
 const PositioningSection = () => {
   const Bullet = () => (
     <span className="relative flex h-2 w-2 mr-2 mt-1.5 shrink-0">
@@ -66,7 +68,9 @@ const PositioningSection = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8 max-w-4xl">
+    <div className="flex gap-12">
+      {/* Left Column - Main Content */}
+      <div className="flex flex-col gap-8 flex-1 max-w-3xl">
       {/* Header with Website Link */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-foreground tracking-tight">Meridian West</h1>
@@ -136,6 +140,18 @@ const PositioningSection = () => {
               </div>
             </div>
           ))}
+        </div>
+        </div>
+      </div>
+
+      {/* Right Column - Brand Radar Chart */}
+      <div className="w-80 shrink-0 sticky top-8 self-start">
+        <div className="p-6 rounded-2xl bg-secondary/50 border border-border">
+          <h3 className="text-sm font-semibold text-foreground mb-2 text-center">Brand Profile</h3>
+          <p className="text-xs text-muted-foreground text-center mb-4">
+            Current position vs. sector average
+          </p>
+          <BrandRadarChart />
         </div>
       </div>
     </div>
