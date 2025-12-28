@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { 
   Crosshair, 
-  Sparkles, 
+  Bot, 
   Radar, 
-  Activity, 
-  Cpu,
+  Search, 
+  Wrench,
   BarChart3,
   Settings2,
   Layers,
@@ -14,10 +14,10 @@ import { cn } from "@/lib/utils";
 
 const mainNavItems = [
   { title: "Positioning", icon: Crosshair, id: "positioning" },
-  { title: "AI consultant", icon: Sparkles, id: "ai-consultant" },
+  { title: "AI consultant", icon: Bot, id: "ai-consultant" },
   { title: "Competitor intel", icon: Radar, id: "competitor-intel" },
-  { title: "Visibility", icon: Activity, id: "visibility" },
-  { title: "Technical", icon: Cpu, id: "technical" },
+  { title: "Visibility", icon: Search, id: "visibility" },
+  { title: "Technical", icon: Wrench, id: "technical" },
 ];
 
 const bottomNavItems = [
@@ -100,12 +100,11 @@ const Dashboard = () => {
       {/* Main Content */}
       <main className="flex-1 p-8">
         <div className="max-w-4xl">
-          <h1 className="text-3xl font-bold text-foreground capitalize mb-2">
-            {activeItem.replace("-", " ")}
-          </h1>
-          <p className="text-muted-foreground">
-            Select a section from the sidebar to get started.
-          </p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+            <span className="text-sm font-semibold text-primary capitalize">
+              {activeItem.replace("-", " ")}
+            </span>
+          </div>
         </div>
       </main>
     </div>
