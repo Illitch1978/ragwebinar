@@ -32,7 +32,7 @@ const Dashboard = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-background flex dashboard-light">
       {/* Sidebar */}
       <aside 
         className={cn(
