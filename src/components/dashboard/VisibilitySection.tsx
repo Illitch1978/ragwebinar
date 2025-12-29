@@ -17,7 +17,7 @@ const seoOptimization = [
   { label: 'Succession Contingency', highlighted: false },
   { label: 'Alternative Capital Access', highlighted: false },
   { label: 'Regulatory Horizon Scanning', highlighted: false },
-  { label: 'Fixed-Income Optimization', highlighted: true },
+  { label: 'Fixed-Income Optimization', highlighted: false },
   { label: 'Concierge Capital Planning', highlighted: false },
   { label: 'Discretionary Asset Flows', highlighted: false },
 ];
@@ -141,10 +141,9 @@ const VisibilitySection = () => {
         </a>
       </div>
 
-      {/* Executive Summary */}
       <div className="space-y-4">
         <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
-          Executive Summary
+          Visibility Workspace
         </h2>
         
         <div className="grid grid-cols-3 gap-4">
