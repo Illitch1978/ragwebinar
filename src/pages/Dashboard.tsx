@@ -10,8 +10,8 @@ import {
   Settings2,
   Layers,
   Menu,
-  Circle,
-  Activity
+  Shield,
+  Hand
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -20,8 +20,8 @@ const mainNavItems = [
   { title: "AI consultant", icon: Bot, id: "ai-consultant" },
   { title: "Competitor intel", icon: Radar, id: "competitor-intel" },
   { title: "Visibility", icon: Search, id: "visibility" },
-  { title: "Trust", icon: Circle, id: "trust" },
-  { title: "Friction", icon: Activity, id: "friction" },
+  { title: "Trust", icon: Shield, id: "trust" },
+  { title: "Friction", icon: Hand, id: "friction" },
   { title: "Technical", icon: Wrench, id: "technical" },
 ];
 
@@ -40,7 +40,7 @@ const Dashboard = () => {
       {/* Sidebar */}
       <aside 
         className={cn(
-          "bg-card border-r border-border flex flex-col transition-all duration-300",
+          "bg-card border-r border-border flex flex-col transition-all duration-300 font-sans",
           sidebarCollapsed ? "w-16" : "w-64"
         )}
       >
