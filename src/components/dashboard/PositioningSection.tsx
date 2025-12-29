@@ -15,62 +15,36 @@ const PositioningSection = () => {
     </div>
   );
 
-  const growthTips = [
+  const growthStrategies = [
     {
-      title: 'Productize the "AI Readiness" Audit',
-      summary: 'Transform MeridianAI from a bespoke consulting engagement into a fixed-price "AI Readiness Scorecard" delivered within a 2-week sprint. Package includes diagnostic interviews, technology assessment, and prioritized implementation roadmap.',
-      strategy: 'A productized audit serves as the perfect wedge offer—it demonstrates competence quickly at lower client risk, creates a standardized deliverable that can be replicated at scale, and naturally segues into larger retainer relationships once value is proven. Price at £15-25k to signal premium positioning while remaining accessible for budget approval.',
-      complexity: 'Medium',
+      title: 'Vertical Integration of AI Governance',
+      description: 'Reposition as the primary authority on ethical AI implementation within legal and financial sectors to capture early-adopter sentiment.',
+      effort: 'Med',
       impact: 'High',
+      cta: 'Explore Strategy',
     },
     {
-      title: 'Weaponize Benchmarking Data for PR',
-      summary: 'Reframe proprietary research data as "industry news" rather than internal client intelligence. Commission quarterly studies designed specifically for media pickup, with contrarian angles that challenge conventional wisdom in professional services.',
-      strategy: 'Release a quarterly "Trust Index" or "Client Experience Barometer" with deliberately provocative headlines ("72% of AmLaw 100 clients would switch firms for better communication"). Data-driven thought leadership builds top-of-funnel awareness exponentially faster than traditional content marketing. Partner with legal/accounting trade publications for exclusive first access.',
-      complexity: 'Low',
-      impact: 'Medium',
+      title: 'Narrative Arbitrage Optimization',
+      description: 'Identifying communication gaps in competitor messaging to claim white-space keywords and thought leadership territories.',
+      effort: 'Low',
+      impact: 'Med',
+      cta: 'View Roadmap',
     },
     {
-      title: '"Tech + Touch" Partner Ecosystem',
-      summary: 'Establish formal alliance partnerships with the technology vendors your clients already purchase—Intapp for CRM, Salesforce for business development, Peppermint for client feedback automation. Position Meridian as the strategic implementation layer.',
-      strategy: 'Become the "Implementation Strategy Partner" that vendors refer when software purchases stall or fail. Technology companies are incentivized to ensure adoption success but lack consulting capabilities—fill this gap. Revenue share or referral fee arrangements create predictable pipeline. Start with 2-3 vendors where you have existing relationships.',
-      complexity: 'High',
+      title: 'Hyper-Personalized Client Lifecycle',
+      description: 'Development of a proprietary concierge interface for high-net-worth institutional partners to ensure 98% retention rates.',
+      effort: 'High',
       impact: 'High',
+      cta: 'Launch Phase',
     },
     {
-      title: '"Client Voice" Accreditation Program',
-      summary: 'Develop an industry-recognized certification or "seal of approval" based on your proprietary client listening methodology. Firms meeting defined benchmarks earn a digital badge and recognition in annual rankings.',
-      strategy: 'This positions Meridian as the definitive arbiter of "Client Excellence" in professional services—a powerful authority play. Certified firms gain marketing differentiation; non-certified firms feel competitive pressure to engage. Annual recertification creates recurring revenue. Consider launching at a major industry conference with founding member firms.',
-      complexity: 'Very High',
+      title: 'Cross-Channel Semantic Sync',
+      description: 'Unifying the linguistic brand profile across all digital touchpoints to reinforce premium positioning and trust signals.',
+      effort: 'Low',
       impact: 'High',
-    },
-    {
-      title: 'ABM Campaign for "Whale" Prospects',
-      summary: 'Design an ultra-personalized Account-Based Marketing campaign targeting the Managing Partners of your top 50 dream clients. Create bespoke research dossiers analyzing each firm\'s specific competitive position and growth opportunities.',
-      strategy: 'Send physical, premium-quality reports titled "Strategic Opportunities for [Firm Name] in 2025" directly to decision-makers. Include 3-5 actionable insights specific to their firm, demonstrating you\'ve done the work upfront. Follow up with a personalized video from a senior partner. This high-touch approach converts at 5-10x cold outreach rates for enterprise deals.',
-      complexity: 'Medium',
-      impact: 'Very High',
-    },
-    {
-      title: 'The "Future Leaders" Roundtable Series',
-      summary: 'Shift strategic focus beyond the current C-suite to cultivate relationships with "next-generation" partners and directors. Host exclusive, intimate roundtable dinners and workshops designed specifically for rising stars—senior associates and directors on the partnership track at major firms.',
-      strategy: 'These high-potential individuals are systematically neglected by competitors who focus exclusively on Managing Partners. By building loyalty now—giving them a platform, peer networking opportunities, and "future of the industry" insights—you pre-sell to tomorrow\'s decision-makers. When they earn their promotion, Meridian West will be the first call. This isn\'t winning a project; it\'s winning a career-long advocate who will bring you into every firm they touch.',
-      complexity: 'Low-Medium',
-      impact: 'High (Long-term)',
+      cta: 'Analyze Sync',
     },
   ];
-
-  const getComplexityColor = (level: string) => {
-    if (level === 'Low') return 'text-emerald-600 bg-emerald-50 border-emerald-200';
-    if (level === 'Medium') return 'text-amber-600 bg-amber-50 border-amber-200';
-    return 'text-red-600 bg-red-50 border-red-200';
-  };
-
-  const getImpactColor = (level: string) => {
-    if (level.includes('Very High')) return 'text-primary bg-primary/10 border-primary/30';
-    if (level.includes('High')) return 'text-emerald-600 bg-emerald-50 border-emerald-200';
-    return 'text-amber-600 bg-amber-50 border-amber-200';
-  };
 
   return (
     <div className="flex flex-col gap-6 w-full">
@@ -106,39 +80,49 @@ const PositioningSection = () => {
         </QuadrantItem>
       </div>
 
-      {/* Growth Strategies - Full Width */}
+      {/* Growth Strategies - Modern Card Design */}
       <div className="space-y-4">
         <h2 className="text-lg font-semibold text-foreground">
           Growth Strategies
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-          {growthTips.map((tip, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border rounded-xl overflow-hidden border border-border">
+          {growthStrategies.map((strategy, index) => (
             <div 
               key={index}
-              className="p-5 rounded-xl bg-secondary/50 border border-border space-y-3"
+              className="relative p-6 bg-background flex flex-col justify-between min-h-[220px]"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold flex items-center justify-center">
-                    {index + 1}
+              {/* Large Background Number */}
+              <span className="absolute top-4 right-4 text-[80px] font-bold text-muted/20 leading-none select-none pointer-events-none">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+
+              <div className="relative z-10 space-y-4">
+                {/* Badges */}
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full border border-border text-muted-foreground bg-muted/30">
+                    Effort: {strategy.effort}
                   </span>
-                  <h3 className="text-sm font-semibold text-foreground leading-tight">{tip.title}</h3>
+                  <span className="px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-foreground text-background">
+                    Impact: {strategy.impact}
+                  </span>
                 </div>
+
+                {/* Title */}
+                <h3 className="text-lg font-bold text-foreground leading-tight pr-12">
+                  {strategy.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-muted-foreground leading-relaxed pr-8">
+                  {strategy.description}
+                </p>
               </div>
-              <p className="text-muted-foreground text-xs leading-relaxed">{tip.summary}</p>
-              <p className="text-foreground/80 text-xs leading-relaxed">
-                <span className="font-medium text-primary">Strategy: </span>
-                {tip.strategy}
-              </p>
-              <div className="flex gap-2 text-xs font-medium pt-1">
-                <span className={`px-2 py-0.5 rounded border ${getComplexityColor(tip.complexity)}`}>
-                  Effort: {tip.complexity}
-                </span>
-                <span className={`px-2 py-0.5 rounded border ${getImpactColor(tip.impact)}`}>
-                  Impact: {tip.impact}
-                </span>
-              </div>
+
+              {/* CTA Link */}
+              <button className="relative z-10 mt-4 text-sm font-semibold text-foreground underline underline-offset-4 decoration-1 hover:text-primary transition-colors text-left">
+                {strategy.cta}
+              </button>
             </div>
           ))}
         </div>
