@@ -178,18 +178,14 @@ const Dashboard = () => {
               </div>
               
               {/* Client Info */}
-              <div className="flex items-center gap-4">
-                <h1 className="text-lg font-semibold text-foreground font-serif">Meridian West</h1>
-                <a 
-                  href="https://meridianwest.co.uk/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-primary hover:text-primary/80 transition-colors font-medium text-sm uppercase tracking-wide group"
-                >
-                  Visit website 
-                  <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-                </a>
-              </div>
+              <a 
+                href="https://meridianwest.co.uk/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-lg font-semibold text-foreground font-serif hover:text-primary transition-colors"
+              >
+                Meridian West
+              </a>
             </div>
           </div>
         )}
