@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PositioningSection from "@/components/dashboard/PositioningSection";
-import { 
+import VisibilitySection from "@/components/dashboard/VisibilitySection";
+import {
   Crosshair, 
   Bot, 
   Radar, 
@@ -123,6 +124,7 @@ const Dashboard = () => {
       {/* Main Content */}
       <main className="flex-1 p-6 overflow-auto">
         {activeItem === "positioning" && <PositioningSection />}
+        {activeItem === "visibility" && <VisibilitySection />}
       </main>
     </div>
   );
