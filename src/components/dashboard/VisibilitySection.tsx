@@ -108,25 +108,25 @@ const VisibilitySection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
-              Organic Authority Index
+              SEO Performance
             </span>
             <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-6">
               84
             </span>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              This index measures your digital footprint's prestige across institutional networks. A score of 84 indicates dominant market presence, signaling to ultra-high-net-worth clients that your advisory remains the benchmark for sophisticated wealth architecture.
+              This index measures your digital footprint's prestige across institutional networks. A score of 84 indicates dominant market presence, signaling to ultra-high-net-worth clients that your advisory remains the benchmark for sophisticated wealth architecture. In our SEO Optimization analysis below, we have identified key terms and phrases used by leading companies in your sector to achieve increased visibility and organic search dominance.
             </p>
           </div>
           
           <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
-              Generative Context Engine
+              Generative Engine Optimization
             </span>
             <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-6">
               91
             </span>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Current AI-driven search models prioritize deep semantic relevance over legacy link structures. This score reflects your firm's superior ability to occupy the contextual foreground of high-intent queries regarding private equity and risk.
+              Current AI-driven search models prioritize deep semantic relevance over legacy link structures. This score reflects your firm's superior ability to occupy the contextual foreground of high-intent queries regarding private equity and risk. In our Strategic GEO Roadmap below, we have provided targeted action points designed to raise your level of findability across next-generation AI search platforms and conversational discovery engines.
             </p>
           </div>
         </div>
