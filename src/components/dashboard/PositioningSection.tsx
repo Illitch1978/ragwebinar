@@ -1,12 +1,4 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
 
 const positioningData = [
   {
@@ -71,7 +63,6 @@ const growthStrategies = [
 ];
 
 const PositioningSection = () => {
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -146,38 +137,23 @@ const PositioningSection = () => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {positioningData.map((item, index) => (
-            <button 
+            <div 
               key={index}
-              onClick={() => setSelectedCard(index)}
-              className="group text-left p-5 md:p-6 rounded-xl border border-border/50 bg-white hover:border-primary/30 transition-all duration-300 flex flex-col gap-3"
+              className="p-5 md:p-6 rounded-xl border border-border/50 bg-white flex flex-col gap-3"
             >
-              <h3 className="text-base md:text-lg font-semibold text-foreground font-serif tracking-tight group-hover:text-primary transition-colors">
+              <h3 className="text-base md:text-lg font-semibold text-foreground font-serif tracking-tight">
                 {item.title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {item.summary}
               </p>
-              <span className="text-[11px] font-semibold text-primary uppercase tracking-widest mt-auto flex items-center gap-1">
-                Explore Details <span className="text-xs">↓</span>
-              </span>
-            </button>
+              <p className="text-sm text-muted-foreground leading-[1.7]">
+                {item.fullText}
+              </p>
+            </div>
           ))}
         </div>
       </div>
-
-      {/* Dialog for positioning details */}
-      <Dialog open={selectedCard !== null} onOpenChange={() => setSelectedCard(null)}>
-        <DialogContent className="max-w-lg bg-background border-border/60">
-          <DialogHeader>
-            <DialogTitle className="font-serif text-xl tracking-tight">
-              {selectedCard !== null && positioningData[selectedCard].title}
-            </DialogTitle>
-          </DialogHeader>
-          <DialogDescription className="text-muted-foreground leading-[1.7] text-sm">
-            {selectedCard !== null && positioningData[selectedCard].fullText}
-          </DialogDescription>
-        </DialogContent>
-      </Dialog>
 
       {/* Growth Strategies - Premium Editorial Design */}
       <div className="space-y-5">
