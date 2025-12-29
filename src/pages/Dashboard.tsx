@@ -40,7 +40,7 @@ const Dashboard = () => {
       {/* Sidebar */}
       <aside 
         className={cn(
-          "bg-card border-r border-border flex flex-col transition-all duration-300 font-sans",
+          "bg-card border-r border-border flex flex-col transition-all duration-300",
           sidebarCollapsed ? "w-16" : "w-64"
         )}
       >
