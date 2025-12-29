@@ -33,32 +33,22 @@ const positioningData = [
 
 const growthStrategies = [
   {
-    title: 'Vertical Integration of AI Governance',
-    description: 'Reposition as the primary authority on ethical AI implementation within legal and financial sectors to capture early-adopter sentiment.',
+    title: 'Institutional Integration',
+    description: 'Embedding proprietary reporting tools into legacy partner frameworks.',
     effort: 'Med',
-    impact: 'High',
-    cta: 'Explore Strategy',
+    impact: 'V.High',
   },
   {
-    title: 'Narrative Arbitrage Optimization',
-    description: 'Identifying communication gaps in competitor messaging to claim white-space keywords and thought leadership territories.',
-    effort: 'Low',
-    impact: 'Med',
-    cta: 'View Roadmap',
-  },
-  {
-    title: 'Hyper-Personalized Client Lifecycle',
-    description: 'Development of a proprietary concierge interface for high-net-worth institutional partners to ensure 98% retention rates.',
+    title: 'Authority Content',
+    description: 'Bi-annual white papers focused on emerging market vulnerabilities.',
     effort: 'High',
     impact: 'High',
-    cta: 'Launch Phase',
   },
   {
-    title: 'Cross-Channel Semantic Sync',
-    description: 'Unifying the linguistic brand profile across all digital touchpoints to reinforce premium positioning and trust signals.',
+    title: 'Visual Identity Refresh',
+    description: 'Subtle refinement of digital touchpoints to reinforce premium status.',
     effort: 'Low',
     impact: 'High',
-    cta: 'Analyze Sync',
   },
 ];
 
@@ -101,7 +91,7 @@ const PositioningSection = () => {
         </h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-8 md:p-10 rounded-xl border border-border/60 bg-background text-center flex flex-col items-center justify-center min-h-[140px]">
+          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white text-center flex flex-col items-center justify-center min-h-[140px]">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3">
               Authority Score
             </span>
@@ -110,7 +100,7 @@ const PositioningSection = () => {
             </span>
           </div>
           
-          <div className="p-8 md:p-10 rounded-xl border border-border/60 bg-background text-center flex flex-col items-center justify-center min-h-[140px]">
+          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white text-center flex flex-col items-center justify-center min-h-[140px]">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3">
               Strategic Depth
             </span>
@@ -119,7 +109,7 @@ const PositioningSection = () => {
             </span>
           </div>
           
-          <div className="p-8 md:p-10 rounded-xl border border-border/60 bg-background text-center flex flex-col items-center justify-center min-h-[140px]">
+          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white text-center flex flex-col items-center justify-center min-h-[140px]">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3">
               Market Presence
             </span>
@@ -141,7 +131,7 @@ const PositioningSection = () => {
             <button 
               key={index}
               onClick={() => setSelectedCard(index)}
-              className="group text-left p-5 md:p-6 rounded-xl border border-border/60 bg-background hover:border-primary/30 hover:shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all duration-300 flex flex-col gap-3"
+              className="group text-left p-5 md:p-6 rounded-xl border border-border/50 bg-white hover:border-primary/30 transition-all duration-300 flex flex-col gap-3"
             >
               <h3 className="text-base md:text-lg font-semibold text-foreground font-serif tracking-tight group-hover:text-primary transition-colors">
                 {item.title}
@@ -177,60 +167,49 @@ const PositioningSection = () => {
           Growth Strategies
         </h2>
 
-        {/* Slate background container */}
-        <div className="bg-muted/30 rounded-2xl p-5 md:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            {growthStrategies.map((strategy, index) => (
-              <motion.div 
-                key={index}
-                custom={index}
-                initial="hidden"
-                animate="visible"
-                variants={cardVariants}
-                className="group relative bg-background rounded-xl p-6 md:p-8 flex flex-col justify-between min-h-[260px] border border-border/40 transition-all duration-300 hover:border-primary/20 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04),0_4px_10px_rgba(0,0,0,0.02)]"
-                style={{
-                  backdropFilter: 'blur(8px)',
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {growthStrategies.map((strategy, index) => (
+            <motion.div 
+              key={index}
+              custom={index}
+              initial="hidden"
+              animate="visible"
+              variants={cardVariants}
+              className="group relative bg-white rounded-xl p-6 md:p-8 flex flex-col justify-between min-h-[220px] border border-border/50 transition-all duration-300 hover:border-primary/20"
+            >
+              {/* Ghost Numeral */}
+              <span 
+                className="absolute top-4 right-5 text-[72px] md:text-[90px] font-serif font-bold leading-none select-none pointer-events-none tracking-tighter"
+                style={{ 
+                  color: 'hsl(var(--muted-foreground) / 0.08)',
                 }}
               >
-                {/* Ghost Numeral */}
-                <span 
-                  className="absolute top-4 right-5 text-[80px] md:text-[100px] font-serif font-bold leading-none select-none pointer-events-none tracking-tighter"
-                  style={{ 
-                    color: 'hsl(var(--muted-foreground) / 0.06)',
-                  }}
-                >
-                  {String(index + 1).padStart(2, '0')}
+                {String(index + 1).padStart(2, '0')}
+              </span>
+
+              <div className="relative z-10 space-y-3">
+                {/* Title - Serif elegance */}
+                <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug pr-10 font-serif tracking-tight">
+                  {strategy.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-muted-foreground leading-[1.6] pr-8">
+                  {strategy.description}
+                </p>
+              </div>
+
+              {/* Minimalist Pill Tags at bottom */}
+              <div className="relative z-10 flex items-center gap-2 mt-6">
+                <span className="px-2.5 py-1 text-[10px] font-mono font-medium tracking-wide uppercase rounded-md border border-border text-muted-foreground">
+                  Effort: {strategy.effort}
                 </span>
-
-                <div className="relative z-10 space-y-4">
-                  {/* Minimalist Pill Tags */}
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 text-[10px] font-mono font-medium tracking-wide uppercase rounded-md border border-border/80 text-muted-foreground bg-muted/30">
-                      Effort: {strategy.effort}
-                    </span>
-                    <span className="px-2.5 py-1 text-[10px] font-mono font-medium tracking-wide uppercase rounded-md bg-foreground text-background">
-                      Impact: {strategy.impact}
-                    </span>
-                  </div>
-
-                  {/* Title - Serif elegance */}
-                  <h3 className="text-xl md:text-[22px] font-semibold text-foreground leading-snug pr-14 font-serif tracking-tight">
-                    {strategy.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-sm text-muted-foreground leading-[1.65] pr-10">
-                    {strategy.description}
-                  </p>
-                </div>
-
-                {/* CTA Link */}
-                <button className="relative z-10 mt-6 text-[11px] font-semibold text-foreground uppercase tracking-widest underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-primary hover:text-primary transition-all duration-200 text-left w-fit">
-                  {strategy.cta}
-                </button>
-              </motion.div>
-            ))}
-          </div>
+                <span className="px-2.5 py-1 text-[10px] font-mono font-medium tracking-wide uppercase rounded-md border border-foreground bg-foreground text-background">
+                  Impact: {strategy.impact}
+                </span>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
