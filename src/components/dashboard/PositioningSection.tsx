@@ -80,51 +80,54 @@ const PositioningSection = () => {
         </QuadrantItem>
       </div>
 
-      {/* Growth Strategies - Modern Card Design */}
-      <div className="space-y-4">
+      {/* Growth Strategies - Premium Card Design */}
+      <div className="space-y-5">
         <h2 className="text-lg font-semibold text-foreground">
           Growth Strategies
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border rounded-xl overflow-hidden border border-border">
-          {growthStrategies.map((strategy, index) => (
-            <div 
-              key={index}
-              className="relative p-6 bg-background flex flex-col justify-between min-h-[220px]"
-            >
-              {/* Large Background Number */}
-              <span className="absolute top-4 right-4 text-[80px] font-bold text-muted/20 leading-none select-none pointer-events-none">
-                {String(index + 1).padStart(2, '0')}
-              </span>
+        {/* Light gray container with white cards */}
+        <div className="bg-muted/40 rounded-2xl p-4 md:p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+            {growthStrategies.map((strategy, index) => (
+              <div 
+                key={index}
+                className="relative bg-background rounded-xl p-6 md:p-8 flex flex-col justify-between min-h-[240px] shadow-sm"
+              >
+                {/* Large Background Number - positioned top right */}
+                <span className="absolute top-6 right-6 text-[72px] md:text-[90px] font-bold text-muted-foreground/10 leading-none select-none pointer-events-none tracking-tight">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
 
-              <div className="relative z-10 space-y-4">
-                {/* Badges */}
-                <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full border border-border text-muted-foreground bg-muted/30">
-                    Effort: {strategy.effort}
-                  </span>
-                  <span className="px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-foreground text-background">
-                    Impact: {strategy.impact}
-                  </span>
+                <div className="relative z-10 space-y-4">
+                  {/* Badges */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full border border-border/60 text-muted-foreground">
+                      Effort: {strategy.effort}
+                    </span>
+                    <span className="px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-foreground text-background">
+                      Impact: {strategy.impact}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-foreground leading-tight pr-16">
+                    {strategy.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-muted-foreground leading-relaxed pr-12">
+                    {strategy.description}
+                  </p>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-lg font-bold text-foreground leading-tight pr-12">
-                  {strategy.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-sm text-muted-foreground leading-relaxed pr-8">
-                  {strategy.description}
-                </p>
+                {/* CTA Link */}
+                <button className="relative z-10 mt-6 text-xs font-bold text-foreground uppercase tracking-wider underline underline-offset-4 decoration-1 hover:text-primary transition-colors text-left">
+                  {strategy.cta}
+                </button>
               </div>
-
-              {/* CTA Link */}
-              <button className="relative z-10 mt-4 text-sm font-semibold text-foreground underline underline-offset-4 decoration-1 hover:text-primary transition-colors text-left">
-                {strategy.cta}
-              </button>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
