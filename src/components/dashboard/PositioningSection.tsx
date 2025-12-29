@@ -51,6 +51,13 @@ const PositioningSection = () => {
       complexity: 'Medium',
       impact: 'Very High',
     },
+    {
+      title: 'The "Future Leaders" Roundtable Series',
+      summary: 'Shift strategic focus beyond the current C-suite to cultivate relationships with "next-generation" partners and directors. Host exclusive, intimate roundtable dinners and workshops designed specifically for rising stars—senior associates and directors on the partnership track at major firms.',
+      strategy: 'These high-potential individuals are systematically neglected by competitors who focus exclusively on Managing Partners. By building loyalty now—giving them a platform, peer networking opportunities, and "future of the industry" insights—you pre-sell to tomorrow\'s decision-makers. When they earn their promotion, Meridian West will be the first call. This isn\'t winning a project; it\'s winning a career-long advocate who will bring you into every firm they touch.',
+      complexity: 'Low-Medium',
+      impact: 'High (Long-term)',
+    },
   ];
 
   const getComplexityColor = (level: string) => {
