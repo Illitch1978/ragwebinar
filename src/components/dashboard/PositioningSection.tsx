@@ -94,6 +94,42 @@ const PositioningSection = () => {
         </a>
       </div>
 
+      {/* Executive Metrics Section */}
+      <div className="space-y-4">
+        <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
+          Executive Metrics
+        </h2>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="p-8 md:p-10 rounded-xl border border-border/60 bg-background text-center flex flex-col items-center justify-center min-h-[140px]">
+            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3">
+              Authority Score
+            </span>
+            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight">
+              88
+            </span>
+          </div>
+          
+          <div className="p-8 md:p-10 rounded-xl border border-border/60 bg-background text-center flex flex-col items-center justify-center min-h-[140px]">
+            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3">
+              Strategic Depth
+            </span>
+            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight">
+              94
+            </span>
+          </div>
+          
+          <div className="p-8 md:p-10 rounded-xl border border-border/60 bg-background text-center flex flex-col items-center justify-center min-h-[140px]">
+            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3">
+              Market Presence
+            </span>
+            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight">
+              High
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* Core Positioning Section */}
       <div className="space-y-4">
         <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
