@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 const PositioningSection = () => {
   const Bullet = () => (
     <span className="relative flex h-2 w-2 mr-2 mt-1.5 shrink-0">
@@ -11,7 +13,7 @@ const PositioningSection = () => {
       <h3 className="text-sm font-semibold text-foreground tracking-tight flex items-center">
         <Bullet /> {title}
       </h3>
-      <p className="text-muted-foreground text-sm leading-relaxed pl-4">{children}</p>
+      <p className="text-muted-foreground text-sm leading-[1.6] pl-4">{children}</p>
     </div>
   );
 
@@ -46,18 +48,32 @@ const PositioningSection = () => {
     },
   ];
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.4,
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
+      },
+    }),
+  };
+
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-8 w-full">
       {/* Header with Website Link */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Meridian West</h1>
+        <h1 className="text-3xl font-semibold text-foreground tracking-tight font-serif">Meridian West</h1>
         <a 
           href="https://meridianwest.co.uk/" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="text-primary hover:text-primary/80 transition-colors font-medium text-sm"
+          className="inline-flex items-center gap-1.5 text-primary hover:text-primary/80 transition-colors font-medium text-sm group"
         >
-          Visit website →
+          Visit website 
+          <span className="group-hover:translate-x-0.5 transition-transform">→</span>
         </a>
       </div>
 
@@ -80,52 +96,64 @@ const PositioningSection = () => {
         </QuadrantItem>
       </div>
 
-      {/* Growth Strategies - Premium Card Design */}
+      {/* Growth Strategies - Premium Editorial Design */}
       <div className="space-y-5">
-        <h2 className="text-lg font-semibold text-foreground">
+        <h2 className="text-xl font-semibold text-foreground font-serif tracking-tight">
           Growth Strategies
         </h2>
 
-        {/* Light gray container with white cards */}
-        <div className="bg-muted/40 rounded-2xl p-4 md:p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+        {/* Slate background container */}
+        <div className="bg-muted/30 rounded-2xl p-5 md:p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
             {growthStrategies.map((strategy, index) => (
-              <div 
+              <motion.div 
                 key={index}
-                className="relative bg-background rounded-xl p-6 md:p-8 flex flex-col justify-between min-h-[240px] shadow-sm"
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                variants={cardVariants}
+                className="group relative bg-background rounded-xl p-6 md:p-8 flex flex-col justify-between min-h-[260px] border border-border/40 transition-all duration-300 hover:border-primary/20 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04),0_4px_10px_rgba(0,0,0,0.02)]"
+                style={{
+                  backdropFilter: 'blur(8px)',
+                }}
               >
-                {/* Large Background Number - positioned top right */}
-                <span className="absolute top-6 right-6 text-[72px] md:text-[90px] font-bold text-muted-foreground/10 leading-none select-none pointer-events-none tracking-tight">
+                {/* Ghost Numeral */}
+                <span 
+                  className="absolute top-4 right-5 text-[80px] md:text-[100px] font-serif font-bold leading-none select-none pointer-events-none tracking-tighter"
+                  style={{ 
+                    color: 'hsl(var(--muted-foreground) / 0.06)',
+                  }}
+                >
                   {String(index + 1).padStart(2, '0')}
                 </span>
 
                 <div className="relative z-10 space-y-4">
-                  {/* Badges */}
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full border border-border/60 text-muted-foreground">
+                  {/* Minimalist Pill Tags */}
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-1 text-[10px] font-mono font-medium tracking-wide uppercase rounded-md border border-border/80 text-muted-foreground bg-muted/30">
                       Effort: {strategy.effort}
                     </span>
-                    <span className="px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-foreground text-background">
+                    <span className="px-2.5 py-1 text-[10px] font-mono font-medium tracking-wide uppercase rounded-md bg-foreground text-background">
                       Impact: {strategy.impact}
                     </span>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-foreground leading-tight pr-16">
+                  {/* Title - Serif elegance */}
+                  <h3 className="text-xl md:text-[22px] font-semibold text-foreground leading-snug pr-14 font-serif tracking-tight">
                     {strategy.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-muted-foreground leading-relaxed pr-12">
+                  <p className="text-sm text-muted-foreground leading-[1.65] pr-10">
                     {strategy.description}
                   </p>
                 </div>
 
                 {/* CTA Link */}
-                <button className="relative z-10 mt-6 text-xs font-bold text-foreground uppercase tracking-wider underline underline-offset-4 decoration-1 hover:text-primary transition-colors text-left">
+                <button className="relative z-10 mt-6 text-[11px] font-semibold text-foreground uppercase tracking-widest underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-primary hover:text-primary transition-all duration-200 text-left w-fit">
                   {strategy.cta}
                 </button>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

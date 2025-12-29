@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         heading: ['Plus Jakarta Sans', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
         sans: ['Inter', 'sans-serif'],
         mono: ['Roboto Mono', 'monospace'],
       },
