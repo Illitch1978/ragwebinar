@@ -7,7 +7,13 @@ import {
   FileText,
   Menu,
   Settings2,
-  ChevronRight
+  ChevronRight,
+  Crosshair,
+  Radar,
+  Search,
+  Wrench,
+  Shield,
+  Hand
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -32,12 +38,22 @@ const productNavItems = [
   },
 ];
 
+const intelligenceSubTabs = [
+  { title: "Positioning", icon: Crosshair, id: "positioning" },
+  { title: "Visibility", icon: Search, id: "visibility" },
+  { title: "Technical", icon: Wrench, id: "technical" },
+  { title: "Friction", icon: Hand, id: "friction" },
+  { title: "Trust", icon: Shield, id: "trust" },
+  { title: "Competitor Intel", icon: Radar, id: "competitor-intel" },
+];
+
 const bottomNavItems = [
   { title: "Settings", icon: Settings2, id: "settings" },
 ];
 
 const Dashboard = () => {
   const [activeProduct, setActiveProduct] = useState("intelligence");
+  const [activeIntelligenceTab, setActiveIntelligenceTab] = useState("positioning");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
@@ -137,14 +153,74 @@ const Dashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 overflow-auto">
-        {activeProduct === "intelligence" && <PositioningSection />}
-        {activeProduct === "strategy-room" && (
-          <div className="text-muted-foreground">Strategy Room coming soon...</div>
+      <main className="flex-1 overflow-auto">
+        {/* Intelligence Header with Sub-tabs */}
+        {activeProduct === "intelligence" && (
+          <div className="border-b border-border/50 px-6 py-4">
+            <div className="flex items-center justify-between">
+              {/* Sub-tabs */}
+              <div className="flex items-center gap-1">
+                {intelligenceSubTabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveIntelligenceTab(tab.id)}
+                    className={cn(
+                      "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                      activeIntelligenceTab === tab.id
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    )}
+                  >
+                    <tab.icon className="h-4 w-4" />
+                    <span>{tab.title}</span>
+                  </button>
+                ))}
+              </div>
+              
+              {/* Client Info */}
+              <div className="flex items-center gap-4">
+                <h1 className="text-lg font-semibold text-foreground font-serif">Meridian West</h1>
+                <a 
+                  href="https://meridianwest.co.uk/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-primary hover:text-primary/80 transition-colors font-medium text-sm uppercase tracking-wide group"
+                >
+                  Visit website 
+                  <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
         )}
-        {activeProduct === "report" && (
-          <div className="text-muted-foreground">Report view coming soon...</div>
-        )}
+
+        {/* Content Area */}
+        <div className="p-6">
+          {activeProduct === "intelligence" && (
+            <>
+              {activeIntelligenceTab === "positioning" && <PositioningSection />}
+              {activeIntelligenceTab === "visibility" && <VisibilitySection />}
+              {activeIntelligenceTab === "technical" && (
+                <div className="text-muted-foreground">Technical analysis coming soon...</div>
+              )}
+              {activeIntelligenceTab === "friction" && (
+                <div className="text-muted-foreground">Friction analysis coming soon...</div>
+              )}
+              {activeIntelligenceTab === "trust" && (
+                <div className="text-muted-foreground">Trust analysis coming soon...</div>
+              )}
+              {activeIntelligenceTab === "competitor-intel" && (
+                <div className="text-muted-foreground">Competitor Intel coming soon...</div>
+              )}
+            </>
+          )}
+          {activeProduct === "strategy-room" && (
+            <div className="text-muted-foreground">Strategy Room coming soon...</div>
+          )}
+          {activeProduct === "report" && (
+            <div className="text-muted-foreground">Report view coming soon...</div>
+          )}
+        </div>
       </main>
     </div>
   );
