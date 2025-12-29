@@ -7,13 +7,7 @@ import {
   FileText,
   Menu,
   Settings2,
-  ChevronRight,
-  Crosshair,
-  Radar,
-  Search,
-  Wrench,
-  Shield,
-  Hand
+  ChevronRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -39,12 +33,12 @@ const productNavItems = [
 ];
 
 const intelligenceSubTabs = [
-  { title: "Positioning", icon: Crosshair, id: "positioning" },
-  { title: "Visibility", icon: Search, id: "visibility" },
-  { title: "Technical", icon: Wrench, id: "technical" },
-  { title: "Friction", icon: Hand, id: "friction" },
-  { title: "Trust", icon: Shield, id: "trust" },
-  { title: "Competitor Intel", icon: Radar, id: "competitor-intel" },
+  { title: "Positioning", id: "positioning" },
+  { title: "Visibility", id: "visibility" },
+  { title: "Technical", id: "technical" },
+  { title: "Friction", id: "friction" },
+  { title: "Trust", id: "trust" },
+  { title: "Competitor Intel", id: "competitor-intel" },
 ];
 
 const bottomNavItems = [
@@ -90,11 +84,13 @@ const Dashboard = () => {
                 "w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors text-left group",
                 activeProduct === item.id
                   ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                sidebarCollapsed && "justify-center"
               )}
             >
-              <item.icon className="h-5 w-5 flex-shrink-0" />
-              {!sidebarCollapsed && (
+              {sidebarCollapsed ? (
+                <item.icon className="h-5 w-5 flex-shrink-0" />
+              ) : (
                 <div className="flex-1 flex items-center justify-between">
                   <div>
                     <span className="font-medium block">{item.title}</span>
@@ -122,11 +118,13 @@ const Dashboard = () => {
                 "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-left",
                 activeProduct === item.id
                   ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                sidebarCollapsed && "justify-center"
               )}
             >
-              <item.icon className="h-5 w-5 flex-shrink-0" />
-              {!sidebarCollapsed && (
+              {sidebarCollapsed ? (
+                <item.icon className="h-5 w-5 flex-shrink-0" />
+              ) : (
                 <span className="font-medium">{item.title}</span>
               )}
             </button>
@@ -165,14 +163,13 @@ const Dashboard = () => {
                     key={tab.id}
                     onClick={() => setActiveIntelligenceTab(tab.id)}
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                      "px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                       activeIntelligenceTab === tab.id
                         ? "bg-primary/10 text-primary"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground"
                     )}
                   >
-                    <tab.icon className="h-4 w-4" />
-                    <span>{tab.title}</span>
+                    {tab.title}
                   </button>
                 ))}
               </div>
