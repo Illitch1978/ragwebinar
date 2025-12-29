@@ -9,7 +9,9 @@ import {
   BarChart3,
   Settings2,
   Layers,
-  Menu
+  Menu,
+  Circle,
+  Activity
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +20,8 @@ const mainNavItems = [
   { title: "AI consultant", icon: Bot, id: "ai-consultant" },
   { title: "Competitor intel", icon: Radar, id: "competitor-intel" },
   { title: "Visibility", icon: Search, id: "visibility" },
+  { title: "Trust", icon: Circle, id: "trust" },
+  { title: "Friction", icon: Activity, id: "friction" },
   { title: "Technical", icon: Wrench, id: "technical" },
 ];
 
@@ -96,6 +100,24 @@ const Dashboard = () => {
             </button>
           ))}
         </nav>
+
+        {/* User Badge */}
+        <div className="p-3 border-t border-border">
+          <div className={cn(
+            "flex items-center gap-3 px-3 py-2.5 rounded-lg",
+            sidebarCollapsed ? "justify-center" : ""
+          )}>
+            <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
+              <span className="text-sm font-medium text-muted-foreground">JS</span>
+            </div>
+            {!sidebarCollapsed && (
+              <div className="flex flex-col">
+                <span className="font-medium text-foreground text-sm">John Smith</span>
+                <span className="text-xs text-muted-foreground">Senior Partner</span>
+              </div>
+            )}
+          </div>
+        </div>
       </aside>
 
       {/* Main Content */}
