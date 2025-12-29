@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 const seoOptimization = [
   { label: 'Tier-One Wealth Strategy', highlighted: false },
@@ -22,31 +24,49 @@ const seoOptimization = [
 const geoRoadmap = [
   {
     title: 'Semantic Entity Optimization',
-    description: 'Conduct a comprehensive audit of your brand\'s core digital assets and systematically align them with high-value knowledge graph entities. This ensures AI crawlers recognize your firm as an authoritative source within wealth management and private equity verticals.',
+    priority: 'Priority action',
+    description: 'Align brand assets with high-value knowledge graph entities to ensure AI crawlers recognize your firm as authoritative.',
   },
   {
     title: 'Citation Bridge Building',
-    description: 'Develop a robust high-authority backlink architecture by securing placements in tier-one financial press outlets, industry whitepapers, and institutional research publications. Prioritize editorial links from domains with established trust signals in your sector.',
+    priority: 'Recommended next step',
+    description: 'Secure placements in tier-one financial press and institutional publications to build trust signals.',
   },
   {
     title: 'Contextual Authority Scaling',
-    description: 'Deploy localized sub-directories and region-specific landing pages targeting key geographical markets. Tailor content to address jurisdiction-specific regulations, tax frameworks, and investment opportunities to capture high-intent local search traffic.',
+    priority: 'High impact',
+    description: 'Deploy region-specific landing pages addressing jurisdiction-specific regulations and tax frameworks.',
   },
   {
     title: 'Schema Markup Overhaul',
-    description: 'Implement comprehensive JSON-LD structured data across all service pages, team profiles, and case studies. This enables predictive AI crawlers to extract and surface your content accurately in rich snippets and conversational search results.',
+    priority: 'Priority action',
+    description: 'Implement JSON-LD structured data across service pages and profiles for rich snippet visibility.',
   },
   {
     title: 'Generative Answer Capture',
-    description: 'Strategically refactor FAQ sections and knowledge base content using question-answer formatting optimized for AI-driven conversational search. Structure responses to directly address common client queries about wealth preservation and cross-border compliance.',
+    priority: 'Recommended next step',
+    description: 'Refactor FAQ content using question-answer formatting optimized for conversational search.',
   },
   {
     title: 'Synthesized Content Hubs',
-    description: 'Create interconnected thematic content clusters around core practice areas to significantly increase topical depth scores. Link related articles, guides, and insights to establish comprehensive authority pillars that AI models recognize as definitive resources.',
+    priority: 'Strategic initiative',
+    description: 'Create interconnected content clusters to establish authority pillars AI models recognize as definitive.',
   },
 ];
 
+const executiveSummary = [
+  { label: 'Visibility Strength', value: 'High' },
+  { label: 'Search Dominance', value: 'Strong' },
+  { label: 'AI Discoverability', value: 'Emerging' },
+];
+
 const VisibilitySection = () => {
+  const [showFullRoadmap, setShowFullRoadmap] = useState(false);
+  const [showSeoDetail, setShowSeoDetail] = useState(false);
+  const [showGeoDetail, setShowGeoDetail] = useState(false);
+  
+  const visibleRoadmapItems = showFullRoadmap ? geoRoadmap : geoRoadmap.slice(0, 3);
+
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -76,36 +96,92 @@ const VisibilitySection = () => {
         </a>
       </div>
 
-      {/* Visibility Metrics */}
+      {/* Executive Summary */}
       <div className="space-y-4">
         <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
-          Visibility Metrics
+          Executive Summary
         </h2>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
-            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
-              SEO Performance
-            </span>
-            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-6">
-              84
-            </span>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              This index measures your digital footprint's prestige across institutional networks. A score of 84 indicates dominant market presence, signaling to ultra-high-net-worth clients that your advisory remains the benchmark for sophisticated wealth architecture. In our SEO Optimization analysis below, we have identified key terms and phrases used by leading companies in your sector to achieve increased visibility and organic search dominance.
-            </p>
-          </div>
+        <div className="grid grid-cols-3 gap-4">
+          {executiveSummary.map((item, index) => (
+            <div 
+              key={index}
+              className="p-6 rounded-xl border border-border/50 bg-white text-center"
+            >
+              <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest block mb-2">
+                {item.label}
+              </span>
+              <span className="text-2xl font-serif font-medium text-foreground">
+                {item.value}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Current State Divider */}
+      <div className="flex items-center gap-4">
+        <div className="h-px flex-1 bg-border/50" />
+        <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
+          Current State
+        </span>
+        <div className="h-px flex-1 bg-border/50" />
+      </div>
+
+      {/* Visibility Metrics - Verdict First */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* SEO Performance Card */}
+        <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
+          <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
+            SEO Performance
+          </span>
+          <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-3">
+            84
+          </span>
+          <p className="text-base font-medium text-foreground mb-4">
+            Dominant visibility in priority queries
+          </p>
           
-          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
-            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
-              Generative Engine Optimization
-            </span>
-            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-6">
-              91
-            </span>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Current AI-driven search models prioritize deep semantic relevance over legacy link structures. This score reflects your firm's superior ability to occupy the contextual foreground of high-intent queries regarding private equity and risk. In our Strategic GEO Roadmap below, we have provided targeted action points designed to raise your level of findability across next-generation AI search platforms and conversational discovery engines.
+          <button 
+            onClick={() => setShowSeoDetail(!showSeoDetail)}
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 mt-auto"
+          >
+            {showSeoDetail ? 'Hide detail' : 'View detail'}
+            <ChevronDown className={`w-3 h-3 transition-transform ${showSeoDetail ? 'rotate-180' : ''}`} />
+          </button>
+          
+          {showSeoDetail && (
+            <p className="text-sm text-muted-foreground leading-relaxed mt-4 pt-4 border-t border-border/30">
+              Your digital footprint commands institutional presence. Key terms used by leading companies in your sector are identified below.
             </p>
-          </div>
+          )}
+        </div>
+        
+        {/* GEO Performance Card */}
+        <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
+          <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
+            Generative Engine Optimization
+          </span>
+          <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-3">
+            91
+          </span>
+          <p className="text-base font-medium text-foreground mb-4">
+            Strong AI-driven search positioning
+          </p>
+          
+          <button 
+            onClick={() => setShowGeoDetail(!showGeoDetail)}
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 mt-auto"
+          >
+            {showGeoDetail ? 'Hide detail' : 'View detail'}
+            <ChevronDown className={`w-3 h-3 transition-transform ${showGeoDetail ? 'rotate-180' : ''}`} />
+          </button>
+          
+          {showGeoDetail && (
+            <p className="text-sm text-muted-foreground leading-relaxed mt-4 pt-4 border-t border-border/30">
+              Your firm occupies the contextual foreground of high-intent queries. Recommended actions to increase findability are detailed below.
+            </p>
+          )}
         </div>
       </div>
 
@@ -133,6 +209,15 @@ const VisibilitySection = () => {
         </div>
       </div>
 
+      {/* Recommended Actions Divider */}
+      <div className="flex items-center gap-4 mt-4">
+        <div className="h-px flex-1 bg-border/50" />
+        <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
+          Recommended Actions
+        </span>
+        <div className="h-px flex-1 bg-border/50" />
+      </div>
+
       {/* Strategic GEO Roadmap */}
       <div className="space-y-5">
         <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
@@ -140,16 +225,19 @@ const VisibilitySection = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {geoRoadmap.map((item, index) => (
+          {visibleRoadmapItems.map((item, index) => (
             <motion.div 
               key={index}
               custom={index}
               initial="hidden"
               animate="visible"
               variants={cardVariants}
-              className="group relative bg-white rounded-xl p-6 md:p-8 flex flex-col justify-between min-h-[200px] border border-border/50 transition-all duration-300 hover:border-primary/20"
+              className="group relative bg-white rounded-xl p-6 md:p-8 flex flex-col justify-between min-h-[180px] border border-border/50 transition-all duration-300 hover:border-primary/20"
             >
               <div className="relative z-10 space-y-3">
+                <span className="text-[10px] font-semibold text-primary uppercase tracking-widest">
+                  {item.priority}
+                </span>
                 <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight">
                   {item.title}
                 </h3>
@@ -160,6 +248,27 @@ const VisibilitySection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* View Full Roadmap Toggle */}
+        {!showFullRoadmap && (
+          <button
+            onClick={() => setShowFullRoadmap(true)}
+            className="w-full py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-2 border border-border/50 rounded-xl bg-white hover:border-primary/20"
+          >
+            View full roadmap
+            <ChevronDown className="w-4 h-4" />
+          </button>
+        )}
+        
+        {showFullRoadmap && (
+          <button
+            onClick={() => setShowFullRoadmap(false)}
+            className="w-full py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-2"
+          >
+            Show less
+            <ChevronDown className="w-4 h-4 rotate-180" />
+          </button>
+        )}
       </div>
     </div>
   );
