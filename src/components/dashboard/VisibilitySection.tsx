@@ -127,19 +127,6 @@ const VisibilitySection = () => {
 
   return (
     <div className="flex flex-col gap-8 w-full">
-      {/* Header */}
-      <div className="flex items-center justify-between border-b border-border/50 pb-6">
-        <h1 className="text-3xl font-semibold text-foreground tracking-tight font-serif">Meridian West</h1>
-        <a 
-          href="https://meridianwest.co.uk/" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-primary hover:text-primary/80 transition-colors font-medium text-sm uppercase tracking-wide group"
-        >
-          Visit website 
-          <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-        </a>
-      </div>
 
       <div className="space-y-4">
         <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
