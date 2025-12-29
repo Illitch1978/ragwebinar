@@ -79,7 +79,7 @@ const VisibilitySection = () => {
     <div className="flex flex-col gap-8 w-full">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-border/50 pb-6">
-        <h1 className="text-3xl font-semibold text-foreground tracking-tight font-serif">Visibility Analysis</h1>
+        <h1 className="text-3xl font-semibold text-foreground tracking-tight font-serif">Meridian West</h1>
         <a 
           href="https://meridianwest.co.uk/" 
           target="_blank" 
@@ -91,10 +91,10 @@ const VisibilitySection = () => {
         </a>
       </div>
 
-      {/* Authority Metrics */}
+      {/* Visibility Metrics */}
       <div className="space-y-4">
         <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
-          Authority Metrics
+          Visibility Metrics
         </h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
