@@ -50,6 +50,24 @@ const growthStrategies = [
     effort: 'Low',
     impact: 'High',
   },
+  {
+    title: 'Concierge Experience',
+    description: 'Transitioning standard client portals into bespoke executive dashboards.',
+    effort: 'Med',
+    impact: 'V.High',
+  },
+  {
+    title: 'Strategic Hiring',
+    description: 'Acquiring top-tier analysts from competing global firms.',
+    effort: 'High',
+    impact: 'V.High',
+  },
+  {
+    title: 'Regional Expansion',
+    description: 'Establishing a satellite presence in emerging financial hubs.',
+    effort: 'High',
+    impact: 'Med',
+  },
 ];
 
 const PositioningSection = () => {
