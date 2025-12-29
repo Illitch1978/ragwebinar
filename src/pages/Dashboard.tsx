@@ -2,38 +2,42 @@ import { useState } from "react";
 import PositioningSection from "@/components/dashboard/PositioningSection";
 import VisibilitySection from "@/components/dashboard/VisibilitySection";
 import {
-  Crosshair, 
-  Bot, 
-  Radar, 
-  Search, 
-  Wrench,
-  BarChart3,
-  Settings2,
-  Layers,
+  Brain,
+  MessageSquare,
+  FileText,
   Menu,
-  Shield,
-  Hand
+  Settings2,
+  ChevronRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const mainNavItems = [
-  { title: "Positioning", icon: Crosshair, id: "positioning" },
-  { title: "AI consultant", icon: Bot, id: "ai-consultant" },
-  { title: "Competitor intel", icon: Radar, id: "competitor-intel" },
-  { title: "Visibility", icon: Search, id: "visibility" },
-  { title: "Trust", icon: Shield, id: "trust" },
-  { title: "Friction", icon: Hand, id: "friction" },
-  { title: "Technical", icon: Wrench, id: "technical" },
+const productNavItems = [
+  { 
+    title: "Intelligence", 
+    icon: Brain, 
+    id: "intelligence",
+    description: "Positioning, Visibility, Technical, Friction, Trust, Competitor Intel"
+  },
+  { 
+    title: "Strategy Room", 
+    icon: MessageSquare, 
+    id: "strategy-room",
+    description: "AI-powered virtual boardroom with expert personas"
+  },
+  { 
+    title: "Report", 
+    icon: FileText, 
+    id: "report",
+    description: "Snapshot view of your digital presence"
+  },
 ];
 
 const bottomNavItems = [
-  { title: "Reports", icon: BarChart3, id: "reports" },
   { title: "Settings", icon: Settings2, id: "settings" },
-  { title: "Projects", icon: Layers, id: "projects" },
 ];
 
 const Dashboard = () => {
-  const [activeItem, setActiveItem] = useState("positioning");
+  const [activeProduct, setActiveProduct] = useState("intelligence");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
@@ -60,22 +64,33 @@ const Dashboard = () => {
           </button>
         </div>
 
-        {/* Main Navigation */}
+        {/* Product Navigation */}
         <nav className="flex-1 p-3 space-y-1">
-          {mainNavItems.map((item) => (
+          {productNavItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => setActiveItem(item.id)}
+              onClick={() => setActiveProduct(item.id)}
               className={cn(
-                "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-left",
-                activeItem === item.id
+                "w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors text-left group",
+                activeProduct === item.id
                   ? "bg-primary/10 text-primary"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
               <item.icon className="h-5 w-5 flex-shrink-0" />
               {!sidebarCollapsed && (
-                <span className="font-medium">{item.title}</span>
+                <div className="flex-1 flex items-center justify-between">
+                  <div>
+                    <span className="font-medium block">{item.title}</span>
+                    <span className="text-xs text-muted-foreground/70 block mt-0.5 leading-tight">
+                      {item.description}
+                    </span>
+                  </div>
+                  <ChevronRight className={cn(
+                    "h-4 w-4 text-muted-foreground/50 transition-transform",
+                    activeProduct === item.id && "rotate-90"
+                  )} />
+                </div>
               )}
             </button>
           ))}
@@ -86,10 +101,10 @@ const Dashboard = () => {
           {bottomNavItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => setActiveItem(item.id)}
+              onClick={() => setActiveProduct(item.id)}
               className={cn(
                 "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-left",
-                activeItem === item.id
+                activeProduct === item.id
                   ? "bg-primary/10 text-primary"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
@@ -123,8 +138,13 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main className="flex-1 p-6 overflow-auto">
-        {activeItem === "positioning" && <PositioningSection />}
-        {activeItem === "visibility" && <VisibilitySection />}
+        {activeProduct === "intelligence" && <PositioningSection />}
+        {activeProduct === "strategy-room" && (
+          <div className="text-muted-foreground">Strategy Room coming soon...</div>
+        )}
+        {activeProduct === "report" && (
+          <div className="text-muted-foreground">Report view coming soon...</div>
+        )}
       </main>
     </div>
   );
