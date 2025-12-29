@@ -22,39 +22,27 @@ const seoOptimization = [
 const geoRoadmap = [
   {
     title: 'Semantic Entity Optimization',
-    description: 'Align core brand assets with high-value knowledge graph entities.',
-    difficulty: 'Med',
-    impact: 'Critical',
+    description: 'Conduct a comprehensive audit of your brand\'s core digital assets and systematically align them with high-value knowledge graph entities. This ensures AI crawlers recognize your firm as an authoritative source within wealth management and private equity verticals.',
   },
   {
     title: 'Citation Bridge Building',
-    description: 'Develop high-authority backlink architecture through tier-one press.',
-    difficulty: 'High',
-    impact: 'High',
+    description: 'Develop a robust high-authority backlink architecture by securing placements in tier-one financial press outlets, industry whitepapers, and institutional research publications. Prioritize editorial links from domains with established trust signals in your sector.',
   },
   {
     title: 'Contextual Authority Scaling',
-    description: 'Deploy localized sub-directories for specific geographical markets.',
-    difficulty: 'Low',
-    impact: 'High',
+    description: 'Deploy localized sub-directories and region-specific landing pages targeting key geographical markets. Tailor content to address jurisdiction-specific regulations, tax frameworks, and investment opportunities to capture high-intent local search traffic.',
   },
   {
     title: 'Schema Markup Overhaul',
-    description: 'Hardcode JSON-LD snippets for predictive AI crawlers.',
-    difficulty: 'Low',
-    impact: 'Critical',
+    description: 'Implement comprehensive JSON-LD structured data across all service pages, team profiles, and case studies. This enables predictive AI crawlers to extract and surface your content accurately in rich snippets and conversational search results.',
   },
   {
     title: 'Generative Answer Capture',
-    description: 'Refactor FAQs to capture AI-driven conversational search results.',
-    difficulty: 'Med',
-    impact: 'High',
+    description: 'Strategically refactor FAQ sections and knowledge base content using question-answer formatting optimized for AI-driven conversational search. Structure responses to directly address common client queries about wealth preservation and cross-border compliance.',
   },
   {
     title: 'Synthesized Content Hubs',
-    description: 'Cluster thematic topics to increase topical depth scores.',
-    difficulty: 'Med',
-    impact: 'High',
+    description: 'Create interconnected thematic content clusters around core practice areas to significantly increase topical depth scores. Link related articles, guides, and insights to establish comprehensive authority pillars that AI models recognize as definitive resources.',
   },
 ];
 
@@ -70,17 +58,6 @@ const VisibilitySection = () => {
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     }),
-  };
-
-  const getImpactStyle = (impact: string) => {
-    switch (impact.toLowerCase()) {
-      case 'critical':
-        return 'bg-foreground text-background';
-      case 'high':
-        return 'bg-primary text-primary-foreground';
-      default:
-        return 'border border-border text-muted-foreground';
-    }
   };
 
   return (
@@ -179,16 +156,6 @@ const VisibilitySection = () => {
                 <p className="text-sm text-muted-foreground leading-[1.6]">
                   {item.description}
                 </p>
-              </div>
-
-              {/* Difficulty & Impact Pills */}
-              <div className="relative z-10 flex items-center gap-2 mt-6">
-                <span className="px-2.5 py-1 text-[10px] font-mono font-medium tracking-wide uppercase rounded-md border border-border text-muted-foreground">
-                  Difficulty: {item.difficulty}
-                </span>
-                <span className={`px-2.5 py-1 text-[10px] font-mono font-medium tracking-wide uppercase rounded-md ${getImpactStyle(item.impact)}`}>
-                  Impact: {item.impact}
-                </span>
               </div>
             </motion.div>
           ))}
