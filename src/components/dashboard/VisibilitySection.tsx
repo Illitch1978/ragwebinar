@@ -1,14 +1,22 @@
 import { motion } from 'framer-motion';
 
-const semanticLandscape = [
-  { label: 'Asset Modernization', highlighted: false },
-  { label: 'Legacy Transference', highlighted: false },
-  { label: 'Equity Structuring', highlighted: false },
-  { label: 'Market Agility', highlighted: false },
-  { label: 'Risk Neutralization', highlighted: false },
-  { label: 'Sustainable Growth', highlighted: false },
-  { label: 'Fiduciary Excellence', highlighted: false },
-  { label: 'Global Logistics', highlighted: true },
+const seoOptimization = [
+  { label: 'Tier-One Wealth Strategy', highlighted: false },
+  { label: 'Cross-Border Compliance', highlighted: false },
+  { label: 'Sovereign Asset Management', highlighted: false },
+  { label: 'Family Office Governance', highlighted: false },
+  { label: 'Tax-Efficient Liquidity', highlighted: false },
+  { label: 'Multilateral M&A Counsel', highlighted: false },
+  { label: 'Institutional Risk Hedging', highlighted: false },
+  { label: 'ESG Portfolio Alignment', highlighted: false },
+  { label: 'Global Custody Services', highlighted: false },
+  { label: 'Private Equity Diligence', highlighted: false },
+  { label: 'Succession Contingency', highlighted: false },
+  { label: 'Alternative Capital Access', highlighted: false },
+  { label: 'Regulatory Horizon Scanning', highlighted: false },
+  { label: 'Fixed-Income Optimization', highlighted: true },
+  { label: 'Concierge Capital Planning', highlighted: false },
+  { label: 'Discretionary Asset Flows', highlighted: false },
 ];
 
 const geoRoadmap = [
@@ -98,45 +106,41 @@ const VisibilitySection = () => {
         </h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col min-h-[160px]">
+          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
               Organic Authority Index
             </span>
-            <div className="flex items-baseline gap-1">
-              <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight">
-                84
-              </span>
-              <span className="text-xl md:text-2xl font-serif text-muted-foreground/60">
-                /100
-              </span>
-            </div>
+            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-6">
+              84
+            </span>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              This index measures your digital footprint's prestige across institutional networks. A score of 84 indicates dominant market presence, signaling to ultra-high-net-worth clients that your advisory remains the benchmark for sophisticated wealth architecture.
+            </p>
           </div>
           
-          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col min-h-[160px]">
+          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
               Generative Context Engine
             </span>
-            <div className="flex items-baseline gap-1">
-              <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight">
-                92
-              </span>
-              <span className="text-xl md:text-2xl font-serif text-muted-foreground/60">
-                /100
-              </span>
-            </div>
+            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-6">
+              91
+            </span>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Current AI-driven search models prioritize deep semantic relevance over legacy link structures. This score reflects your firm's superior ability to occupy the contextual foreground of high-intent queries regarding private equity and risk.
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Competitive Semantic Landscape */}
+      {/* SEO Optimization */}
       <div className="space-y-4">
         <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
-          Competitive Semantic Landscape
+          SEO Optimization
         </h2>
         
         <div className="p-6 md:p-8 rounded-xl border border-border/50 bg-white">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {semanticLandscape.map((item, index) => (
+            {seoOptimization.map((item, index) => (
               <div 
                 key={index}
                 className={`px-4 py-3 rounded-lg border text-center text-sm font-medium transition-colors ${
