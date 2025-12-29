@@ -26,37 +26,37 @@ const positioningData = [
 const growthStrategies = [
   {
     title: 'Institutional Integration',
-    description: 'Embedding proprietary reporting tools into legacy partner frameworks.',
+    description: 'Embed proprietary analytics dashboards directly into partner management systems, creating dependency through seamless workflow integration and making Meridian West indispensable to daily operations.',
     effort: 'Med',
     impact: 'V.High',
   },
   {
     title: 'Authority Content',
-    description: 'Bi-annual white papers focused on emerging market vulnerabilities.',
+    description: 'Publish bi-annual white papers examining emerging market vulnerabilities and regulatory shifts, positioning the firm as the definitive voice on sector-specific strategic challenges.',
     effort: 'High',
     impact: 'High',
   },
   {
     title: 'Visual Identity Refresh',
-    description: 'Subtle refinement of digital touchpoints to reinforce premium status.',
+    description: 'Execute a subtle refinement of all digital touchpoints—website, reports, presentations—to reinforce premium positioning and align visual language with tier-one client expectations.',
     effort: 'Low',
     impact: 'High',
   },
   {
     title: 'Concierge Experience',
-    description: 'Transitioning standard client portals into bespoke executive dashboards.',
+    description: 'Transform standard client portals into bespoke executive dashboards with personalized insights, real-time data visualization, and white-glove support tailored to each partnership.',
     effort: 'Med',
     impact: 'V.High',
   },
   {
     title: 'Strategic Hiring',
-    description: 'Acquiring top-tier analysts from competing global firms.',
+    description: 'Recruit senior analysts and strategists from competing global consultancies to accelerate capability building, expand sector expertise, and signal market leadership to prospective clients.',
     effort: 'High',
     impact: 'V.High',
   },
   {
     title: 'Regional Expansion',
-    description: 'Establishing a satellite presence in emerging financial hubs.',
+    description: 'Establish satellite presence in emerging financial hubs—Dubai, Singapore, or Zurich—to capture growing demand from internationally-minded professional services firms.',
     effort: 'High',
     impact: 'Med',
   },
