@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Copy, Check } from 'lucide-react';
+import { toast } from 'sonner';
 
 const seoOptimization = [
   { label: 'Tier-One Wealth Strategy', highlighted: false },
@@ -59,6 +60,50 @@ const executiveSummary = [
   { label: 'Search Dominance', value: 'Strong' },
   { label: 'AI Discoverability', value: 'Emerging' },
 ];
+
+const SeoOptimizationSection = ({ keywords }: { keywords: typeof seoOptimization }) => {
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  const handleCopy = (label: string, index: number) => {
+    navigator.clipboard.writeText(label);
+    setCopiedIndex(index);
+    toast.success('Copied to clipboard');
+    setTimeout(() => setCopiedIndex(null), 2000);
+  };
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
+        SEO Optimization
+      </h2>
+      
+      <div className="p-6 md:p-8 rounded-xl border border-border/50 bg-white">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {keywords.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => handleCopy(item.label, index)}
+              className={`px-4 py-3 rounded-lg border text-center text-sm font-medium transition-all cursor-pointer group relative ${
+                item.highlighted 
+                  ? 'border-primary/30 bg-primary/5 text-primary hover:bg-primary/10' 
+                  : 'border-border bg-muted/20 text-foreground hover:border-primary/30 hover:bg-muted/40'
+              }`}
+            >
+              <span className={copiedIndex === index ? 'opacity-0' : 'opacity-100'}>
+                {item.label}
+              </span>
+              <span className={`absolute inset-0 flex items-center justify-center gap-1.5 transition-opacity ${copiedIndex === index ? 'opacity-100' : 'opacity-0'}`}>
+                <Check className="w-3.5 h-3.5" />
+                Copied
+              </span>
+              <Copy className={`absolute top-2 right-2 w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity ${copiedIndex === index ? 'hidden' : ''}`} />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const VisibilitySection = () => {
   const [showFullRoadmap, setShowFullRoadmap] = useState(false);
@@ -151,9 +196,11 @@ const VisibilitySection = () => {
           </button>
           
           {showSeoDetail && (
-            <p className="text-sm text-muted-foreground leading-relaxed mt-4 pt-4 border-t border-border/30">
-              Your digital footprint commands institutional presence. Key terms used by leading companies in your sector are identified below.
-            </p>
+            <div className="text-sm text-muted-foreground leading-relaxed mt-4 pt-4 border-t border-border/30 space-y-3">
+              <p>
+                Your digital footprint commands institutional presence across high-value search queries. Analysis indicates strong alignment with terminology deployed by market leaders. Implementing the recommended keyword optimizations below could increase your SEO Performance score by an estimated <span className="font-semibold text-foreground">+5 points</span>.
+              </p>
+            </div>
           )}
         </div>
         
@@ -178,36 +225,17 @@ const VisibilitySection = () => {
           </button>
           
           {showGeoDetail && (
-            <p className="text-sm text-muted-foreground leading-relaxed mt-4 pt-4 border-t border-border/30">
-              Your firm occupies the contextual foreground of high-intent queries. Recommended actions to increase findability are detailed below.
-            </p>
+            <div className="text-sm text-muted-foreground leading-relaxed mt-4 pt-4 border-t border-border/30 space-y-3">
+              <p>
+                Your firm occupies the contextual foreground of high-intent queries within generative AI search environments. Current positioning demonstrates strong semantic alignment with industry authority signals. Executing the Strategic GEO Roadmap recommendations below could elevate your score by an estimated <span className="font-semibold text-foreground">+4 points</span>.
+              </p>
+            </div>
           )}
         </div>
       </div>
 
       {/* SEO Optimization */}
-      <div className="space-y-4">
-        <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
-          SEO Optimization
-        </h2>
-        
-        <div className="p-6 md:p-8 rounded-xl border border-border/50 bg-white">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {seoOptimization.map((item, index) => (
-              <div 
-                key={index}
-                className={`px-4 py-3 rounded-lg border text-center text-sm font-medium transition-colors ${
-                  item.highlighted 
-                    ? 'border-primary/30 bg-primary/5 text-primary' 
-                    : 'border-border bg-muted/20 text-foreground'
-                }`}
-              >
-                {item.label}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <SeoOptimizationSection keywords={seoOptimization} />
 
       {/* Recommended Actions Divider */}
       <div className="flex items-center gap-4 mt-4">
