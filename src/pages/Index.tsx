@@ -198,7 +198,7 @@ function Index() {
       <section className="pt-24 pb-24 md:pt-40 md:pb-48 bg-card border-y border-border relative shadow-[0_-40px_80px_rgba(0,0,0,0.02)]">
         <div className="container mx-auto px-6 md:px-16 lg:px-24">
           <div className="flex flex-col items-center text-center mb-16 md:mb-32">
-            <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] text-mondro-stone uppercase mb-8 md:mb-12 opacity-30">SYNTHESIS FRAMEWORK</div>
+            <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] text-primary uppercase mb-8 md:mb-12">SYNTHESIS FRAMEWORK</div>
             <h2 className="font-serif text-4xl md:text-6xl lg:text-[5rem] text-mondro-ink leading-[1.1] italic max-w-5xl tracking-tight">
               "Where complexity ends, <br className="hidden md:block"/>authority begins."
             </h2>
@@ -345,7 +345,7 @@ function Index() {
             <div className="lg:col-span-5">
               <EvolvedLogo size="small" />
               <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-md mt-6 md:mt-10 mb-6 md:mb-10 italic">
-                The Luxury of Clarity. <br/>Strategic synthesis for the global standard.
+                The Luxury of Clarity. <br/>We turn digital presence into strategic signal.
               </p>
               <div className="font-mono text-[11px] md:text-[12px] text-mondro-stone font-bold tracking-[0.2em] uppercase flex gap-6 md:gap-10">
                 <a href="#" className="hover:text-mondro-ink border-b border-border pb-2 transition-all">TWITTER</a>
