@@ -4,31 +4,49 @@ import { cn } from "@/lib/utils";
 
 // Sample data - would come from API in production
 const reportData = {
-  score: 60,
+  score: 59,
   healthStatus: "Moderate health",
+  clientName: "Rubiklab.ai",
   clientUrl: "https://www.rubiklab.ai/",
-  generatedDate: "08/12/2025",
-  pillars: [
-    { name: "Clarity", score: 65, tooltip: "Can visitors quickly understand what you do?" },
-    { name: "Relevance", score: 70, tooltip: "Does your offer match your audience?" },
-    { name: "Trust", score: 60, tooltip: "Do you look credible and professional?" },
-    { name: "Friction", score: 55, tooltip: "How easy is it to take action?" },
-    { name: "Actionability", score: 45, tooltip: "Are your CTAs compelling?" },
+  generatedDate: "December 30, 2025",
+  scope: "Independent assessment of digital clarity, credibility, and competitive positioning",
+  
+  // Waterfall chart data
+  waterfall: {
+    potential: 100,
+    losses: [
+      { label: "Intake Friction", value: -15 },
+      { label: "Mobile Latency", value: -10 },
+      { label: "Narrative Gap", value: -16 },
+    ],
+    current: 59
+  },
+
+  // Signal grid data
+  signals: [
+    { label: "Visual Polish", level: "HIGH", score: 4, variant: "default", description: "Design conveys premium authority." },
+    { label: "Value Clarity", level: "LOW", score: 2, variant: "critical", description: "Proposition is buried below fold." },
+    { label: "Credibility", level: "MODERATE", score: 3, variant: "blue", description: "Lack of client logos hurts score." },
+    { label: "Coherence", level: "MODERATE", score: 3, variant: "default", description: "Narrative flow is interrupted." },
   ],
-  mobilePerformance: { desktop: 85, mobile: 45 },
-  searchVisibility: { seo: 60, geo: 75 },
-  benchmarks: [
-    { label: "Content", score: 68, diff: "+3 vs Avg", positive: true },
-    { label: "Visual", score: 65, diff: "On Par", positive: null },
-    { label: "UX", score: 45, diff: "-10 vs Avg", positive: false },
-    { label: "Technical", score: 50, diff: "-10 vs Avg", positive: false },
+
+  // Heatmap data
+  heatmap: [
+    { vector: "Infrastructure", maturity: "full", observation: "Server response in top 5%.", implication: "Strong foundation for scale." },
+    { vector: "User Flow", maturity: "quarter", observation: "Intake requires 8 fields.", implication: "High abandonment (>60%)." },
+    { vector: "Narrative", maturity: "half", observation: '"Process" vs "Outcome".', implication: "Low C-Suite resonance." },
+    { vector: "Mobile UX", maturity: "half", observation: "Unoptimized image payloads.", implication: "SEO Penalty Risk." },
   ],
-  executiveSummary: [
-    "Your visual design is polished and credible, giving visitors immediate confidence that they are dealing with a serious AI partner. The clean layout works well and establishes trust from the first seconds. Your current conversion score of 60 out of 100 reflects a strong foundation with clear room for growth.",
-    "The gap between current performance and potential comes down to three points that are quietly costing you qualified leads. Your value proposition is too broad, making it difficult for visitors to understand what problem you solve and how you differ from other AI consultants. Clarity within seconds is essential, and it is not fully achieved yet.",
-    "Your contact path creates friction, as the form is not immediately visible and forces interested prospects to search for a way to engage. Many will abandon the visit at this point. The feature descriptions rely on generic AI language rather than concrete outcomes that potential clients can imagine and relate to their needs.",
-    "These issues do not require a rebuild. They are targeted optimisations that can be introduced over the coming days. A short action plan will help you prioritise quick wins and reinforce your market position with minimal effort."
+
+  // Matrix chart data
+  matrixItems: [
+    { x: 15, y: 85, label: "Form Reduction", highlight: true },
+    { x: 25, y: 75, label: "Mobile Fixes", highlight: true },
+    { x: 70, y: 80, label: "Rewrite Value Prop", highlight: false },
+    { x: 80, y: 30, label: "Replatform", highlight: false },
+    { x: 45, y: 45, label: "Meta Tags", highlight: false },
   ],
+
   auditSections: [
     {
       title: "Content analysis",
@@ -175,53 +193,81 @@ const tabs = [
   { id: "roadmap", label: "Roadmap" }
 ];
 
+// Slide component for consistent layout
+const Slide = ({ 
+  slideNumber, 
+  children, 
+  className = "" 
+}: { 
+  slideNumber: string; 
+  children: React.ReactNode; 
+  className?: string;
+}) => (
+  <div className={cn(
+    "min-h-[85vh] py-12 px-8 lg:px-16 border-b border-border relative flex flex-col justify-between",
+    className
+  )}>
+    <div className="absolute top-12 right-8 lg:right-16 font-mono text-[10px] text-muted-foreground/50">
+      {slideNumber}
+    </div>
+    {children}
+  </div>
+);
+
+// Eyebrow component
+const SlideEyebrow = ({ children }: { children: React.ReactNode }) => (
+  <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 mb-6 block border-l-2 border-primary pl-3">
+    {children}
+  </span>
+);
+
+// Action title component
+const ActionTitle = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="font-serif font-normal text-3xl lg:text-[2.75rem] leading-[1.1] mb-8 text-foreground max-w-[950px]">
+    {children}
+  </h2>
+);
+
+// Signal bar component
+const SignalBar = ({ score, variant = "default" }: { score: number; variant?: "default" | "critical" | "blue" }) => (
+  <div className="flex gap-1 h-1 w-full mt-4">
+    {[1, 2, 3, 4, 5].map((i) => (
+      <div 
+        key={i} 
+        className={cn(
+          "flex-1",
+          i <= score 
+            ? variant === "critical" 
+              ? "bg-destructive" 
+              : variant === "blue" 
+                ? "bg-primary" 
+                : "bg-foreground"
+            : "bg-muted"
+        )} 
+      />
+    ))}
+  </div>
+);
+
+// Maturity bubble component
+const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => (
+  <div 
+    className={cn(
+      "w-3.5 h-3.5 rounded-full border border-foreground inline-block",
+      level === "full" && "bg-foreground",
+      level === "half" && "bg-[conic-gradient(hsl(var(--foreground))_180deg,transparent_0)]",
+      level === "quarter" && "bg-[conic-gradient(hsl(var(--foreground))_90deg,transparent_0)]"
+    )} 
+  />
+);
+
 const ReportSection = () => {
   const [activeTab, setActiveTab] = useState("summary");
 
   return (
-    <div className="space-y-8">
-      {/* Hero Score Section - Clean, light design */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row items-center justify-between gap-8 pb-8 border-b border-border"
-      >
-        {/* Score */}
-        <div className="flex items-baseline gap-3">
-          <span className="text-8xl md:text-9xl font-serif font-bold text-foreground tracking-tight">
-            {reportData.score}
-          </span>
-          <div className="flex flex-col">
-            <span className="text-xl font-medium text-muted-foreground">/ 100</span>
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-primary mt-1">
-              Mondro Score
-            </span>
-          </div>
-        </div>
-
-        {/* Context */}
-        <div className="text-center md:text-right">
-          <div className="flex items-center gap-2 justify-center md:justify-end mb-2">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-xl font-serif font-bold text-foreground">
-              {reportData.healthStatus}
-            </span>
-          </div>
-          <p className="text-sm text-muted-foreground max-w-sm">
-            Weighted across 32 dimensions covering all key components of a successful website.
-          </p>
-        </div>
-
-        {/* Client Info */}
-        <div className="hidden lg:block text-right border-l border-border pl-8">
-          <p className="text-[10px] font-mono font-bold text-muted-foreground uppercase tracking-wider">Audit for</p>
-          <p className="text-sm font-medium text-foreground mt-1">{reportData.clientUrl}</p>
-          <p className="text-xs text-muted-foreground mt-1">Generated {reportData.generatedDate}</p>
-        </div>
-      </motion.div>
-
+    <div className="space-y-0">
       {/* Tab Navigation - Landing page style */}
-      <div className="flex justify-center">
+      <div className="flex justify-center py-6 border-b border-border bg-background sticky top-0 z-10">
         <div className="flex items-center gap-8 lg:gap-12">
           {tabs.map((tab) => (
             <button
@@ -244,110 +290,367 @@ const ReportSection = () => {
         </div>
       </div>
 
-      {/* Summary Tab */}
+      {/* Summary Tab - Slide-based layout */}
       {activeTab === "summary" && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="bg-background"
         >
-          {/* Executive Analysis & Pillars */}
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* Executive Analysis */}
-            <div className="bg-card rounded-xl border border-border p-8">
-              <h3 className="font-serif font-bold text-lg text-foreground mb-6">Executive analysis</h3>
-              <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-                {reportData.executiveSummary.map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
+          {/* Slide 01: Cover */}
+          <Slide slideNumber="01 / 06" className="justify-center items-center">
+            <div className="max-w-5xl w-full">
+              <div className="mb-12 mt-4">
+                <div className="font-serif text-5xl lg:text-7xl mb-8 tracking-tight text-foreground leading-none">
+                  Defining the <br/>
+                  <span className="text-primary font-normal italic">Digital Standard.</span>
+                </div>
+              </div>
+              
+              <div className="space-y-8 border-t border-foreground pt-10">
+                <div className="grid grid-cols-12 gap-8">
+                  <div className="col-span-2 font-mono text-xs text-muted-foreground uppercase tracking-widest pt-2">Client</div>
+                  <div className="col-span-10 font-serif text-2xl lg:text-3xl">{reportData.clientName}</div>
+                </div>
+                <div className="grid grid-cols-12 gap-8">
+                  <div className="col-span-2 font-mono text-xs text-muted-foreground uppercase tracking-widest pt-2">Scope</div>
+                  <div className="col-span-10 font-serif text-2xl lg:text-3xl">{reportData.scope}</div>
+                </div>
+                <div className="grid grid-cols-12 gap-8">
+                  <div className="col-span-2 font-mono text-xs text-muted-foreground uppercase tracking-widest pt-2">Date</div>
+                  <div className="col-span-10 font-serif text-2xl lg:text-3xl">{reportData.generatedDate}</div>
+                </div>
               </div>
             </div>
+            <div className="absolute bottom-12 left-8 lg:left-16 text-xs text-muted-foreground/50 font-mono">
+              CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
+            </div>
+          </Slide>
 
-            {/* 5 Pillars */}
-            <div className="bg-card rounded-xl border border-border p-8">
-              <div className="flex justify-between items-end mb-8">
-                <h3 className="font-serif font-bold text-lg text-foreground">The 5 conversion pillars</h3>
-                <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-                  Weighted scoring
-                </span>
-              </div>
+          {/* Slide 02: Methodology */}
+          <Slide slideNumber="02 / 06">
+            <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Methodology</SlideEyebrow>
+              <ActionTitle>Reading this assessment.</ActionTitle>
+              
+              <div className="grid md:grid-cols-12 gap-12 lg:gap-20 mt-12">
+                <div className="col-span-7 space-y-6">
+                  <p className="text-lg font-light text-foreground leading-relaxed">
+                    This document is a commissioned strategic assessment, distinct from automated performance reports. It combines large-scale quantitative analysis with structured expert judgement.
+                  </p>
+                  
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Findings are derived from a multi-stage review process covering technical integrity, narrative clarity, user behaviour signals, and market positioning. Each dimension is assessed independently before being synthesised into an overall view.
+                  </p>
 
-              <div className="space-y-5">
-                {reportData.pillars.map((pillar) => (
-                  <div key={pillar.name} className="group">
-                    <div className="flex justify-between text-sm font-medium text-foreground mb-2">
-                      <span>{pillar.name}</span>
-                      <span className="font-mono">{pillar.score}/100</span>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Where scores are provided (0–100), they represent a weighted index calibrated against top-quartile SaaS and professional services benchmarks. Scores are directional indicators designed to guide prioritisation, not absolute measures of success.
+                  </p>
+
+                  <div className="pt-6 mt-4">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">How Judgement is Formed</div>
+                    <ul className="grid grid-cols-2 gap-y-3 gap-x-8 text-sm text-muted-foreground">
+                      <li className="flex items-start gap-3 border-t border-border pt-3">
+                        <span className="text-primary">•</span> Cross-checked across independent signals
+                      </li>
+                      <li className="flex items-start gap-3 border-t border-border pt-3">
+                        <span className="text-primary">•</span> Benchmarked against 1,200+ sites
+                      </li>
+                      <li className="flex items-start gap-3 border-t border-border pt-3">
+                        <span className="text-primary">•</span> Reviewed through sector lenses
+                      </li>
+                      <li className="flex items-start gap-3 border-t border-border pt-3">
+                        <span className="text-primary">•</span> Weighted to reflect decision impact
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="col-span-5 flex items-center">
+                  <div className="bg-muted/30 p-10 border-l-2 border-foreground w-full">
+                    <div className="font-serif text-2xl mb-6 italic text-foreground">
+                      "Data describes the past.<br/>Judgement informs the future."
                     </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${pillar.score}%` }}
-                        transition={{ duration: 1, ease: "easeOut" }}
-                        className="h-full rounded-full bg-primary"
-                      />
+                    <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                      Please interpret findings as diagnostic signals rather than absolute grades. "Critical" flags identify vectors that materially constrain credibility, conversion, or growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 03: Executive Synthesis */}
+          <Slide slideNumber="03 / 06">
+            <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Executive Synthesis</SlideEyebrow>
+              <ActionTitle>Technical solidity is currently undermined by conversion friction.</ActionTitle>
+              
+              <div className="grid md:grid-cols-12 gap-16 mt-8">
+                <div className="col-span-8 text-lg leading-relaxed space-y-8 text-muted-foreground">
+                  <p>
+                    Rubiklab.ai possesses a robust technical foundation. Server response times and uptime stability are within the top 5% of the peer group. The "hard" engineering of the site is sound.
+                  </p>
+                  <p>
+                    However, the "soft" architecture—specifically narrative flow and user intake—is creating significant drag. We observed a disconnect between the complexity of the solution and the clarity of the value proposition. High-intent traffic is being lost at the intake stage due to excessive form friction.
+                  </p>
+                  
+                  <div className="p-6 border border-primary bg-background shadow-sm">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">The Strategic Opportunity</div>
+                    <p className="text-base text-foreground">
+                      By simplifying the intake mechanism and shifting messaging from "process" to "outcome," Rubiklab can unlock an estimated <strong>40% efficiency gain</strong> in the existing funnel without increasing ad spend.
+                    </p>
+                  </div>
+                </div>
+                <div className="col-span-4 flex flex-col justify-between py-2 border-l border-border pl-8 gap-8">
+                  <div>
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Primary Strength</div>
+                    <div className="font-serif text-2xl">Infrastructure</div>
+                    <div className="text-sm text-muted-foreground mt-1">99.9% Uptime / Clean Code</div>
+                  </div>
+                  <div>
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Primary Constraint</div>
+                    <div className="font-serif text-2xl text-destructive">Intake Friction</div>
+                    <div className="text-sm text-muted-foreground mt-1">8-Field Forms (Avg: 3)</div>
+                  </div>
+                  <div>
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Action Priority</div>
+                    <div className="font-serif text-2xl text-primary">Reduce Drag</div>
+                    <div className="text-sm text-muted-foreground mt-1">Immediate Roadmap</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 04: Overall Digital Standing - Waterfall Chart */}
+          <Slide slideNumber="04 / 06">
+            <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
+              <ActionTitle>A 41-point gap exists between potential and reality.</ActionTitle>
+              
+              <p className="text-muted-foreground max-w-3xl mb-4">
+                The chart below bridges the gap from your theoretical potential to your current standing, isolating specific vectors of loss.
+              </p>
+
+              {/* Waterfall Chart */}
+              <div className="flex items-end h-[400px] gap-4 lg:gap-8 pt-16 pb-0 border-b border-border mt-auto mb-auto">
+                {/* Digital Potential */}
+                <div className="flex-1 flex flex-col justify-end relative h-full">
+                  <div className="w-full bg-muted" style={{ height: "100%" }}></div>
+                  <div className="absolute w-full text-center -top-8 font-mono text-sm font-semibold text-foreground">100</div>
+                  <div className="text-center mt-4 border-t border-border pt-3">
+                    <span className="font-sans text-[11px] text-muted-foreground font-medium tracking-wider uppercase">Digital<br/>Potential</span>
+                  </div>
+                </div>
+
+                {/* Loss bars */}
+                {reportData.waterfall.losses.map((loss, index) => {
+                  const prevHeight = 100 + reportData.waterfall.losses.slice(0, index).reduce((acc, l) => acc + l.value, 0);
+                  const barHeight = Math.abs(loss.value);
+                  const spacerHeight = prevHeight - barHeight;
+                  
+                  return (
+                    <div key={loss.label} className="flex-1 flex flex-col justify-end relative h-full">
+                      <div className="w-full bg-transparent" style={{ height: `${spacerHeight}%` }}></div>
+                      <div className="w-full bg-destructive relative" style={{ height: `${barHeight}%` }}>
+                        <div className="absolute inset-0 flex items-center justify-center font-mono text-xs font-semibold text-destructive-foreground">
+                          {loss.value}
+                        </div>
+                      </div>
+                      <div className="text-center mt-4 border-t border-border pt-3">
+                        <span className="font-sans text-[11px] text-muted-foreground font-medium tracking-wider uppercase">
+                          {loss.label.split(" ").map((word, i) => (
+                            <span key={i}>{word}<br/></span>
+                          ))}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {/* Current Score */}
+                <div className="flex-1 flex flex-col justify-end relative h-full">
+                  <div className="w-full bg-primary" style={{ height: `${reportData.waterfall.current}%` }}></div>
+                  <div className="absolute w-full text-center -top-10 font-serif text-2xl font-semibold text-primary">
+                    {reportData.waterfall.current}
+                  </div>
+                  <div className="text-center mt-4 border-t border-border pt-3">
+                    <span className="font-sans text-[11px] text-primary font-semibold tracking-wider uppercase">Current<br/>Score</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex justify-center mt-2">
+                <div className="text-[10px] text-muted-foreground/50 font-mono tracking-wide italic">
+                  * Each reduction represents a structural constraint, not a cosmetic issue.
+                </div>
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 05: Perceived Authority */}
+          <Slide slideNumber="05 / 06">
+            <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Perceived Authority</SlideEyebrow>
+              <ActionTitle>Visuals are premium; clarity is secondary.</ActionTitle>
+              
+              <div className="grid md:grid-cols-12 gap-16 mt-8">
+                <div className="col-span-5 space-y-8">
+                  <div>
+                    <h3 className="font-serif text-xl mb-3">The "Blink Test"</h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      <strong className="text-foreground">Failed.</strong> In the first 3 seconds, a user understands <em>that</em> you are a tech company, but not <em>what</em> specific problem you solve. The headline "Innovating the Future" is a null-statement.
+                    </p>
+                  </div>
+                  <div className="border-t border-border pt-8">
+                    <h3 className="font-serif text-xl mb-3">Aesthetic Strength</h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      <strong className="text-foreground">High.</strong> The minimalist typography successfully conveys "Enterprise SaaS." The site looks expensive, which is a critical trust signal for high-ticket sales.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="col-span-7">
+                  <div className="grid grid-cols-2 gap-6">
+                    {reportData.signals.map((signal) => (
+                      <div 
+                        key={signal.label} 
+                        className={cn(
+                          "border p-6 bg-background",
+                          signal.variant === "critical" 
+                            ? "bg-destructive/5 border-destructive/20" 
+                            : "border-border"
+                        )}
+                      >
+                        <div className="flex justify-between items-end mb-2">
+                          <span className={cn(
+                            "font-serif text-lg",
+                            signal.variant === "critical" && "text-destructive"
+                          )}>
+                            {signal.label}
+                          </span>
+                          <span className={cn(
+                            "font-mono text-xs",
+                            signal.variant === "critical" 
+                              ? "text-destructive/70" 
+                              : signal.variant === "blue" 
+                                ? "text-primary" 
+                                : "text-muted-foreground"
+                          )}>
+                            {signal.level}
+                          </span>
+                        </div>
+                        <SignalBar score={signal.score} variant={signal.variant as "default" | "critical" | "blue"} />
+                        <div className={cn(
+                          "mt-4 text-xs",
+                          signal.variant === "critical" ? "text-destructive/70" : "text-muted-foreground"
+                        )}>
+                          {signal.description}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 06: Strategic Snapshot */}
+          <Slide slideNumber="06 / 06">
+            <div className="max-w-6xl mx-auto w-full h-full flex flex-col">
+              <SlideEyebrow>Strategic Snapshot</SlideEyebrow>
+              <ActionTitle>Granular analysis and immediate prioritization.</ActionTitle>
+              
+              <div className="grid md:grid-cols-12 gap-12 h-full mt-8">
+                {/* Strategic Prioritization Matrix */}
+                <div className="col-span-5 flex flex-col">
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">Strategic Prioritization</div>
+                  
+                  <div className="relative w-full">
+                    <div className="absolute -left-8 top-1/2 -translate-y-1/2 -rotate-90 text-[9px] font-mono text-muted-foreground tracking-widest whitespace-nowrap">
+                      BUSINESS IMPACT
+                    </div>
+                    
+                    <div className="w-full aspect-square border border-border p-4 bg-background relative">
+                      {/* Quadrant lines */}
+                      <div className="absolute left-1/2 top-4 bottom-4 w-px bg-border"></div>
+                      <div className="absolute top-1/2 left-4 right-4 h-px bg-border"></div>
+                      
+                      {/* Quadrant labels */}
+                      <div className="absolute top-6 left-6 text-[9px] font-sans font-bold text-muted-foreground uppercase">Quick Wins</div>
+                      <div className="absolute top-6 right-6 text-[9px] font-sans font-bold text-muted-foreground uppercase text-right">Strategic Bets</div>
+                      <div className="absolute bottom-[52%] left-6 text-[9px] font-sans font-bold text-muted-foreground uppercase">Fill-ins</div>
+                      <div className="absolute bottom-[52%] right-6 text-[9px] font-sans font-bold text-muted-foreground uppercase text-right">Deprioritize</div>
+                      
+                      {/* Data points */}
+                      {reportData.matrixItems.map((item, index) => (
+                        <div
+                          key={index}
+                          className={cn(
+                            "absolute w-3 h-3 rounded-full transform -translate-x-1/2 -translate-y-1/2",
+                            item.highlight ? "bg-primary" : "bg-muted-foreground/30"
+                          )}
+                          style={{ 
+                            left: `${item.x}%`, 
+                            bottom: `${item.y}%` 
+                          }}
+                          title={item.label}
+                        />
+                      ))}
+                    </div>
+
+                    <div className="text-center mt-2 text-[9px] font-mono text-muted-foreground tracking-widest">
+                      IMPLEMENTATION EFFORT
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
 
-          {/* Metrics Row */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Mobile Performance */}
-            <div className="bg-card rounded-xl border border-border p-6">
-              <h3 className="font-serif font-bold text-foreground mb-1">Mobile performance</h3>
-              <p className="text-xs text-muted-foreground mb-4">Lighthouse speed (0-100)</p>
-              <div className="flex items-center justify-between gap-4 py-4">
-                <div className="text-center flex-1">
-                  <span className="text-5xl font-serif font-bold text-foreground">{reportData.mobilePerformance.desktop}</span>
-                  <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">Desktop</span>
-                </div>
-                <div className="h-14 w-px bg-border" />
-                <div className="text-center flex-1">
-                  <span className="text-5xl font-serif font-bold text-foreground">{reportData.mobilePerformance.mobile}</span>
-                  <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">Mobile</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Search & AI Visibility */}
-            <div className="bg-card rounded-xl border border-border p-6">
-              <h3 className="font-serif font-bold text-foreground mb-1">Search & AI visibility</h3>
-              <p className="text-xs text-muted-foreground mb-4">Discovery potential (0-100)</p>
-              <div className="flex items-center justify-between gap-4 py-4">
-                <div className="text-center flex-1">
-                  <span className="text-5xl font-serif font-bold text-foreground">{reportData.searchVisibility.seo}</span>
-                  <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">SEO Score</span>
-                </div>
-                <div className="h-14 w-px bg-border" />
-                <div className="text-center flex-1">
-                  <span className="text-5xl font-serif font-bold text-foreground">{reportData.searchVisibility.geo}</span>
-                  <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">GEO Score</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Industry Benchmarking */}
-            <div className="bg-card rounded-xl border border-border p-6">
-              <h3 className="font-serif font-bold text-foreground mb-1">Industry benchmarking</h3>
-              <p className="text-xs text-muted-foreground mb-4">Comparing against sector averages</p>
-              <div className="grid grid-cols-2 gap-4">
-                {reportData.benchmarks.map((item) => (
-                  <div key={item.label} className="text-center">
-                    <span className="text-3xl font-serif font-bold text-foreground">{item.score}</span>
-                    <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-1">{item.label}</span>
-                    <span className={cn(
-                      "text-[10px] font-mono mt-1 inline-block",
-                      item.positive === true ? "text-primary" :
-                      item.positive === false ? "text-muted-foreground" : "text-muted-foreground"
-                    )}>{item.diff}</span>
+                  <div className="mt-6 bg-muted/30 p-4 border-l-2 border-primary">
+                    <div className="font-bold text-xs text-primary mb-1 uppercase tracking-wide">Quick Wins Strategy</div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      The top-left quadrant represents actions with minimal technical debt but high revenue impact. Prioritizing these creates immediate momentum for the broader roadmap.
+                    </p>
                   </div>
-                ))}
+                </div>
+
+                {/* Capability Heatmap */}
+                <div className="col-span-7 flex flex-col">
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">Capability Heatmap</div>
+                  <div>
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr>
+                          <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground text-left pb-4 border-b-2 border-foreground" style={{ width: "20%" }}>Vector</th>
+                          <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground text-left pb-4 border-b-2 border-foreground" style={{ width: "15%" }}>Maturity</th>
+                          <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground text-left pb-4 border-b-2 border-foreground" style={{ width: "35%" }}>Observation</th>
+                          <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground text-left pb-4 border-b-2 border-foreground" style={{ width: "30%" }}>Implication</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {reportData.heatmap.map((row) => (
+                          <tr key={row.vector}>
+                            <td className="py-4 border-b border-border text-[13px] text-foreground font-bold align-top">{row.vector}</td>
+                            <td className="py-4 border-b border-border align-top"><MaturityBubble level={row.maturity as "full" | "half" | "quarter"} /></td>
+                            <td className="py-4 border-b border-border text-[13px] text-muted-foreground align-top">{row.observation}</td>
+                            <td className="py-4 border-b border-border text-[13px] text-muted-foreground align-top">{row.implication}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                  <div className="mt-4 flex gap-6 justify-start text-[10px] text-muted-foreground uppercase tracking-widest">
+                    <div className="flex items-center gap-2"><MaturityBubble level="full" /> Optimized</div>
+                    <div className="flex items-center gap-2"><MaturityBubble level="half" /> Developing</div>
+                    <div className="flex items-center gap-2"><MaturityBubble level="quarter" /> Critical</div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+            <div className="absolute bottom-6 left-8 lg:left-16 text-xs text-muted-foreground/50 font-mono">
+              CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
+            </div>
+          </Slide>
         </motion.div>
       )}
 
@@ -356,7 +659,7 @@ const ReportSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-6"
+          className="space-y-6 p-8"
         >
           <div className="mb-4">
             <h2 className="text-2xl font-serif font-bold text-foreground">Audit</h2>
@@ -422,7 +725,7 @@ const ReportSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-6"
+          className="space-y-6 p-8"
         >
           <div className="mb-4">
             <h2 className="text-2xl font-serif font-bold text-foreground">Strategic roadmap</h2>
