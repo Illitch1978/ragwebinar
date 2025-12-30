@@ -184,7 +184,7 @@ function Index() {
                 />
                 <button 
                   onClick={handleSubmit}
-                  className="w-full md:w-auto flex items-center justify-center bg-mondro-ink text-card px-10 md:px-12 py-4 md:py-5 rounded-[2px] font-mono text-[10px] md:text-[11px] font-bold tracking-[0.3em] uppercase hover:bg-primary transition-all duration-500 mt-2 md:mt-0"
+                  className="w-full md:w-auto flex items-center justify-center bg-mondro-ink text-card px-10 md:px-12 py-4 md:py-5 rounded-[2px] font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] uppercase hover:bg-primary transition-all duration-500 mt-2 md:mt-0"
                 >
                   Assess
                 </button>
@@ -347,14 +347,14 @@ function Index() {
               <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-md mt-6 md:mt-10 mb-6 md:mb-10 italic">
                 The Luxury of Clarity. <br/>Strategic synthesis for the global standard.
               </p>
-              <div className="font-mono text-[10px] md:text-[11px] text-mondro-stone font-bold tracking-[0.2em] uppercase flex gap-6 md:gap-10">
+              <div className="font-mono text-[11px] md:text-[12px] text-mondro-stone font-bold tracking-[0.2em] uppercase flex gap-6 md:gap-10">
                 <a href="#" className="hover:text-mondro-ink border-b border-border pb-2 transition-all">TWITTER</a>
                 <a href="#" className="hover:text-mondro-ink border-b border-border pb-2 transition-all">LINKEDIN</a>
               </div>
             </div>
             <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
               <div>
-                <div className="font-mono text-[11px] font-bold tracking-[0.3em] text-mondro-ink mb-4 md:mb-6 uppercase">INTELLIGENCE</div>
+                <div className="font-mono text-[12px] md:text-[13px] font-bold tracking-[0.3em] text-mondro-ink mb-4 md:mb-6 uppercase">INTELLIGENCE</div>
                 <ul className="space-y-2 md:space-y-3 text-[14px] md:text-[15px] text-mondro-stone font-light">
                   <li><a href="#" className="hover:text-primary transition-colors">The Synthesis</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Trust Markers</a></li>
@@ -362,7 +362,7 @@ function Index() {
                 </ul>
               </div>
               <div>
-                <div className="font-mono text-[11px] font-bold tracking-[0.3em] text-mondro-ink mb-4 md:mb-6 uppercase">ENGAGEMENT</div>
+                <div className="font-mono text-[12px] md:text-[13px] font-bold tracking-[0.3em] text-mondro-ink mb-4 md:mb-6 uppercase">ENGAGEMENT</div>
                 <ul className="space-y-2 md:space-y-3 text-[14px] md:text-[15px] text-mondro-stone font-light">
                   <li><a href="#" className="hover:text-primary transition-colors">Strategic Briefs</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Partner Access</a></li>
@@ -370,7 +370,7 @@ function Index() {
                 </ul>
               </div>
               <div className="hidden md:block">
-                <div className="font-mono text-[11px] font-bold tracking-[0.3em] text-mondro-ink mb-6 uppercase">CORPORATE</div>
+                <div className="font-mono text-[12px] md:text-[13px] font-bold tracking-[0.3em] text-mondro-ink mb-6 uppercase">CORPORATE</div>
                 <ul className="space-y-3 text-[15px] text-mondro-stone font-light">
                   <li><a href="#" className="hover:text-primary transition-colors">Our Legacy</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Global Hubs</a></li>
@@ -379,7 +379,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className="pt-6 md:pt-10 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 text-[9px] md:text-[10px] font-mono tracking-[0.4em] text-mondro-stone uppercase font-bold">
+          <div className="pt-6 md:pt-10 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 text-[10px] md:text-[11px] font-mono tracking-[0.4em] text-mondro-stone uppercase font-bold">
             <span>© 2026 MONDRO INTELLECTUAL CAPITAL</span>
             <div className="flex gap-8 md:gap-12">
               <span className="opacity-40">LONDON</span>
