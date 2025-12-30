@@ -236,7 +236,7 @@ function Index() {
       {/* Pricing Section */}
       <section id="pricing" className="scroll-mt-40 pt-24 pb-24 md:pt-40 md:pb-48 bg-background relative">
         <div className="container mx-auto px-6 md:px-16 lg:px-24">
-          <div className="flex flex-col items-start text-left mb-16 md:mb-32">
+          <div className="flex flex-col items-center text-center mb-16 md:mb-32">
             <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] text-primary uppercase mb-4 md:mb-6 flex items-center gap-4">
               <span className="w-6 md:w-10 h-px bg-primary/30"></span>
               EXECUTIVE ENGAGEMENT
@@ -244,7 +244,7 @@ function Index() {
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-mondro-ink leading-[1.1] mb-6 md:mb-8 tracking-tight">
               Intelligence Tiers
             </h2>
-            <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl">
+            <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl border-l border-border pl-4 md:pl-6 text-left">
               Select the magnitude of analysis required to sustain institutional authority in high-stakes environments.
             </p>
           </div>
