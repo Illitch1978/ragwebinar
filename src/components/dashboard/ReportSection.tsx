@@ -222,8 +222,8 @@ const SlideEyebrow = ({ children }: { children: React.ReactNode }) => (
 );
 
 // Action title component
-const ActionTitle = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="font-serif font-normal text-4xl lg:text-[3.25rem] leading-[1.1] mb-10 text-foreground max-w-[1000px]">
+const ActionTitle = ({ children, className }: { children: React.ReactNode; className?: string }) => (
+  <h2 className={cn("font-serif font-normal text-4xl lg:text-[3.25rem] leading-[1.1] mb-10 text-foreground max-w-[1000px]", className)}>
     {children}
   </h2>
 );
@@ -557,66 +557,53 @@ const ReportSection = () => {
           </Slide>
 
           {/* Slide 06: Strategic Snapshot */}
-          <Slide slideNumber="06 / 06">
-            <div className="max-w-6xl w-full">
+          <Slide slideNumber="06 / 17">
+            <div className="max-w-6xl w-full h-full flex flex-col">
               <SlideEyebrow>Strategic Snapshot</SlideEyebrow>
-              <ActionTitle>Granular analysis and immediate prioritization.</ActionTitle>
+              <ActionTitle className="mb-12">Granular analysis and immediate prioritization.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-14 mt-10">
-                {/* Strategic Prioritization Matrix */}
+              <div className="grid md:grid-cols-12 gap-16 h-full">
+                {/* Immediate Priorities */}
                 <div className="col-span-5 flex flex-col">
-                  <div className="font-mono text-sm uppercase tracking-widest text-primary mb-5">Strategic Prioritization</div>
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-6">Immediate Priorities (Quick Wins)</div>
                   
-                  <div className="relative w-full">
-                    <div className="absolute -left-10 top-1/2 -translate-y-1/2 -rotate-90 text-[10px] font-mono text-muted-foreground tracking-widest whitespace-nowrap">
-                      BUSINESS IMPACT
+                  <div className="space-y-6">
+                    <div className="p-6 border border-border bg-muted/30">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="font-serif text-lg text-foreground">1. Intake Form Reduction</h3>
+                        <span className="font-mono text-[10px] text-primary bg-background border border-border px-2 py-1">HIGH IMPACT</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        Reduce fields from 8 to 3 (Name, Work Email, Company). Enable browser autofill attributes.
+                      </p>
+                      <div className="flex items-center gap-4 border-t border-border pt-3">
+                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
+                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">UX/Dev</span></div>
+                      </div>
                     </div>
-                    
-                    <div className="w-full aspect-square border border-border p-5 bg-background relative">
-                      {/* Quadrant lines */}
-                      <div className="absolute left-1/2 top-5 bottom-5 w-px bg-border"></div>
-                      <div className="absolute top-1/2 left-5 right-5 h-px bg-border"></div>
-                      
-                      {/* Quadrant labels */}
-                      <div className="absolute top-7 left-7 text-[10px] font-sans font-bold text-muted-foreground uppercase">Quick Wins</div>
-                      <div className="absolute top-7 right-7 text-[10px] font-sans font-bold text-muted-foreground uppercase text-right">Strategic Bets</div>
-                      <div className="absolute bottom-[52%] left-7 text-[10px] font-sans font-bold text-muted-foreground uppercase">Fill-ins</div>
-                      <div className="absolute bottom-[52%] right-7 text-[10px] font-sans font-bold text-muted-foreground uppercase text-right">Deprioritize</div>
-                      
-                      {/* Data points */}
-                      {reportData.matrixItems.map((item, index) => (
-                        <div
-                          key={index}
-                          className={cn(
-                            "absolute w-4 h-4 rounded-full transform -translate-x-1/2 -translate-y-1/2",
-                            item.highlight ? "bg-primary" : "bg-muted-foreground/30"
-                          )}
-                          style={{ 
-                            left: `${item.x}%`, 
-                            bottom: `${item.y}%` 
-                          }}
-                          title={item.label}
-                        />
-                      ))}
-                    </div>
-
-                    <div className="text-center mt-3 text-[10px] font-mono text-muted-foreground tracking-widest">
-                      IMPLEMENTATION EFFORT
+                    <div className="p-6 border border-border bg-muted/30">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="font-serif text-lg text-foreground">2. Mobile Payload Fix</h3>
+                        <span className="font-mono text-[10px] text-muted-foreground bg-background border border-border px-2 py-1">MED IMPACT</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        Convert PNG assets to WebP/AVIF. Implement lazy loading for below-fold content to cut LCP by 1.2s.
+                      </p>
+                      <div className="flex items-center gap-4 border-t border-border pt-3">
+                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
+                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">Tech</span></div>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="mt-8 bg-muted/30 p-6 border-l-2 border-primary">
-                    <div className="font-bold text-sm text-primary mb-2 uppercase tracking-wide">Quick Wins Strategy</div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      The top-left quadrant represents actions with minimal technical debt but high revenue impact. Prioritizing these creates immediate momentum for the broader roadmap.
-                    </p>
+                  <div className="mt-auto text-xs text-muted-foreground/60 font-mono italic pt-6">
+                    * Strategic Strategy: Prioritizing low-effort technical debt removal creates immediate momentum for the broader roadmap.
                   </div>
                 </div>
 
                 {/* Capability Heatmap */}
                 <div className="col-span-7 flex flex-col">
-                  <div className="font-mono text-sm uppercase tracking-widest text-primary mb-5">Capability Heatmap</div>
-                  <div>
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-6">Capability Heatmap</div>
+                  <div className="flex-grow">
                     <table className="w-full border-collapse">
                       <thead>
                         <tr>
@@ -639,15 +626,15 @@ const ReportSection = () => {
                     </table>
                   </div>
                   
-                  <div className="mt-6 flex gap-8 justify-start text-xs text-muted-foreground uppercase tracking-widest">
-                    <div className="flex items-center gap-2"><MaturityBubble level="full" /> Optimized</div>
-                    <div className="flex items-center gap-2"><MaturityBubble level="half" /> Developing</div>
-                    <div className="flex items-center gap-2"><MaturityBubble level="quarter" /> Critical</div>
+                  <div className="mt-6 flex gap-6 justify-start text-[10px] text-muted-foreground uppercase tracking-widest">
+                    <div className="flex items-center gap-2"><div className="scale-75"><MaturityBubble level="full" /></div> Optimized</div>
+                    <div className="flex items-center gap-2"><div className="scale-75"><MaturityBubble level="half" /></div> Developing</div>
+                    <div className="flex items-center gap-2"><div className="scale-75"><MaturityBubble level="quarter" /></div> Critical</div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="absolute bottom-8 left-8 lg:left-20 text-sm text-muted-foreground/50 font-mono">
+            <div className="absolute bottom-6 left-8 lg:left-16 text-xs text-muted-foreground/50 font-mono">
               CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
             </div>
           </Slide>
