@@ -145,13 +145,13 @@ function Index() {
 
       {/* Hero Section */}
       <header className="relative min-h-screen flex items-center justify-center pt-48 pb-64 overflow-hidden">
-        <div className="container mx-auto px-6 md:px-16 relative z-10 flex flex-col items-center">
+        <motion.div style={{ opacity: heroOpacity }} className="container mx-auto px-16 relative z-10 flex flex-col items-center">
           <div className="max-w-6xl mx-auto text-center">
             <motion.h1 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...revealTransition, delay: 0.1 }}
-              className="font-serif text-5xl md:text-7xl lg:text-[10rem] font-normal leading-[1] mb-12 md:mb-16 text-mondro-ink tracking-tight"
+              className="font-serif text-7xl md:text-[10rem] font-normal leading-[1] mb-16 text-mondro-ink tracking-tight"
             >
               Defining the <br/><span className="italic text-mondro-stone/25 font-light">Digital Standard.</span>
             </motion.h1>
@@ -159,7 +159,7 @@ function Index() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...revealTransition, delay: 0.2 }}
-              className="max-w-3xl mx-auto text-xl md:text-2xl lg:text-3xl text-mondro-stone font-light leading-relaxed mb-16 md:mb-24 px-4 opacity-80"
+              className="max-w-3xl mx-auto text-3xl text-mondro-stone font-light leading-relaxed mb-24 px-4 opacity-80"
             >
               Judgment is the final luxury.<br className="hidden md:block" /> 
               We distill digital noise into definitive strategic signal.
@@ -169,28 +169,28 @@ function Index() {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ ...revealTransition, delay: 0.3 }}
-              className="max-w-2xl mx-auto relative"
+              className="max-w-3xl mx-auto relative"
             >
-              <div className="relative flex flex-col md:flex-row items-center p-2 md:p-3 bg-card border border-border shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] rounded-[2px]">
+              <div className="relative flex items-center p-4 bg-white border border-border shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] rounded-[2px]">
                 <input 
                   ref={heroInputRef}
-                  type="text"
+                  type="text" 
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="domain-to-evaluate.com" 
-                  className="w-full bg-transparent px-4 md:px-6 py-4 md:py-5 outline-none font-mono text-base md:text-lg tracking-[0.1em] text-mondro-ink placeholder:text-mondro-stone/30"
+                  className="w-full bg-transparent px-8 py-6 outline-none font-mono text-xl tracking-[0.1em] text-mondro-ink placeholder:text-stone-200"
                 />
-                <button 
+                <button
                   onClick={handleSubmit}
-                  className="w-full md:w-auto flex items-center justify-center gap-4 bg-mondro-ink text-card px-8 md:px-12 py-4 md:py-5 rounded-[2px] font-mono text-[11px] md:text-[13px] font-bold tracking-[0.4em] uppercase hover:bg-primary transition-all duration-500 mt-2 md:mt-0"
+                  className="flex items-center gap-6 bg-mondro-ink text-white px-16 py-6 rounded-[2px] font-mono text-[14px] font-bold tracking-[0.5em] uppercase hover:bg-primary transition-all duration-1000"
                 >
                   Assess
                 </button>
               </div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </header>
 
       {/* Synthesis Framework Section */}
