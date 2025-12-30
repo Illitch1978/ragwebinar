@@ -180,46 +180,43 @@ const ReportSection = () => {
 
   return (
     <div className="space-y-8">
-      {/* Hero Score Card */}
+      {/* Hero Score Section - Clean, light design */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-2xl bg-foreground p-8 md:p-12"
+        className="flex flex-col md:flex-row items-center justify-between gap-8 pb-8 border-b border-border"
       >
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Score */}
-          <div className="flex items-baseline gap-2">
-            <span className="text-7xl md:text-8xl font-serif font-bold text-background tracking-tight">
-              {reportData.score}
-            </span>
-            <span className="text-2xl font-medium text-background/50">/ 100</span>
-          </div>
-
-          {/* Divider */}
-          <div className="hidden md:block w-px h-24 bg-gradient-to-b from-transparent via-background/20 to-transparent" />
-
-          {/* Context */}
-          <div className="text-center md:text-left">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-background/50 mb-2 block">
+        {/* Score */}
+        <div className="flex items-baseline gap-3">
+          <span className="text-8xl md:text-9xl font-serif font-bold text-foreground tracking-tight">
+            {reportData.score}
+          </span>
+          <div className="flex flex-col">
+            <span className="text-xl font-medium text-muted-foreground">/ 100</span>
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-primary mt-1">
               Mondro Score
             </span>
-            <div className="flex items-center gap-3 mb-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_10px_hsl(var(--primary)/0.5)]" />
-              <span className="text-2xl md:text-3xl font-serif font-bold text-background">
-                {reportData.healthStatus}
-              </span>
-            </div>
-            <p className="text-sm text-background/60 max-w-xs">
-              Score weighted across 32 dimensions covering all key components of a successful website.
-            </p>
           </div>
+        </div>
 
-          {/* Client Info */}
-          <div className="hidden lg:block text-right">
-            <p className="text-[10px] font-mono font-bold text-background/50 uppercase tracking-wider">Audit for</p>
-            <p className="text-sm font-medium text-background mt-1">{reportData.clientUrl}</p>
-            <p className="text-xs text-background/50 mt-1">Generated {reportData.generatedDate}</p>
+        {/* Context */}
+        <div className="text-center md:text-right">
+          <div className="flex items-center gap-2 justify-center md:justify-end mb-2">
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            <span className="text-xl font-serif font-bold text-foreground">
+              {reportData.healthStatus}
+            </span>
           </div>
+          <p className="text-sm text-muted-foreground max-w-sm">
+            Weighted across 32 dimensions covering all key components of a successful website.
+          </p>
+        </div>
+
+        {/* Client Info */}
+        <div className="hidden lg:block text-right border-l border-border pl-8">
+          <p className="text-[10px] font-mono font-bold text-muted-foreground uppercase tracking-wider">Audit for</p>
+          <p className="text-sm font-medium text-foreground mt-1">{reportData.clientUrl}</p>
+          <p className="text-xs text-muted-foreground mt-1">Generated {reportData.generatedDate}</p>
         </div>
       </motion.div>
 
@@ -304,12 +301,12 @@ const ReportSection = () => {
               <p className="text-xs text-muted-foreground mb-4">Lighthouse speed (0-100)</p>
               <div className="flex items-center justify-between gap-4 py-4">
                 <div className="text-center flex-1">
-                  <span className="text-4xl font-serif font-bold text-foreground">{reportData.mobilePerformance.desktop}</span>
+                  <span className="text-5xl font-serif font-bold text-foreground">{reportData.mobilePerformance.desktop}</span>
                   <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">Desktop</span>
                 </div>
-                <div className="h-12 w-px bg-border" />
+                <div className="h-14 w-px bg-border" />
                 <div className="text-center flex-1">
-                  <span className="text-4xl font-serif font-bold text-foreground">{reportData.mobilePerformance.mobile}</span>
+                  <span className="text-5xl font-serif font-bold text-foreground">{reportData.mobilePerformance.mobile}</span>
                   <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">Mobile</span>
                 </div>
               </div>
@@ -321,12 +318,12 @@ const ReportSection = () => {
               <p className="text-xs text-muted-foreground mb-4">Discovery potential (0-100)</p>
               <div className="flex items-center justify-between gap-4 py-4">
                 <div className="text-center flex-1">
-                  <span className="text-4xl font-serif font-bold text-foreground">{reportData.searchVisibility.seo}</span>
+                  <span className="text-5xl font-serif font-bold text-foreground">{reportData.searchVisibility.seo}</span>
                   <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">SEO Score</span>
                 </div>
-                <div className="h-12 w-px bg-border" />
+                <div className="h-14 w-px bg-border" />
                 <div className="text-center flex-1">
-                  <span className="text-4xl font-serif font-bold text-foreground">{reportData.searchVisibility.geo}</span>
+                  <span className="text-5xl font-serif font-bold text-foreground">{reportData.searchVisibility.geo}</span>
                   <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">GEO Score</span>
                 </div>
               </div>
@@ -339,7 +336,7 @@ const ReportSection = () => {
               <div className="grid grid-cols-2 gap-4">
                 {reportData.benchmarks.map((item) => (
                   <div key={item.label} className="text-center">
-                    <span className="text-2xl font-serif font-bold text-foreground">{item.score}</span>
+                    <span className="text-3xl font-serif font-bold text-foreground">{item.score}</span>
                     <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-1">{item.label}</span>
                     <span className={cn(
                       "text-[10px] font-mono mt-1 inline-block",
@@ -372,7 +369,7 @@ const ReportSection = () => {
               <div className="px-8 py-6 flex justify-between items-center border-b border-border bg-muted/30">
                 <h3 className="text-xl font-serif font-bold text-foreground">{section.title}</h3>
                 <div className="text-right flex items-center gap-3">
-                  <span className="text-3xl font-serif font-bold text-foreground">{section.score}</span>
+                  <span className="text-4xl font-serif font-bold text-foreground">{section.score}</span>
                   <span className="text-xs font-mono font-bold uppercase tracking-wide text-muted-foreground">
                     {section.status}
                   </span>
