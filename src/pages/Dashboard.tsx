@@ -46,15 +46,17 @@ const bottomNavItems = [
   { title: "Settings", icon: Settings2, id: "settings" },
 ];
 
+import { Link } from "react-router-dom";
+
 // Logo component matching landing page
 const EvolvedLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
-  <div className="flex items-center gap-1.5 group cursor-pointer">
+  <Link to="/" className="flex items-center gap-1.5 group cursor-pointer">
     <span className={`font-serif font-bold tracking-tight text-foreground transition-colors duration-700 group-hover:text-primary ${size === 'small' ? 'text-2xl' : 'text-3xl'}`}>mondro</span>
     <div className="relative flex items-center justify-center">
       <div className={`absolute bg-primary rounded-full animate-ping opacity-20 ${size === 'small' ? 'w-2.5 h-2.5' : 'w-3 h-3'}`}></div>
       <div className={`bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)] ${size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'}`}></div>
     </div>
-  </div>
+  </Link>
 );
 
 const Dashboard = () => {
