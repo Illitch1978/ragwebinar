@@ -1,19 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { 
-  BarChart2, 
-  Info, 
-  CheckCircle, 
-  AlertTriangle, 
-  AlertOctagon,
-  Type,
-  Image,
-  MousePointer2,
-  Cpu,
-  TrendingUp,
-  CheckSquare
-} from "lucide-react";
 
 // Sample data - would come from API in production
 const reportData = {
@@ -31,10 +18,10 @@ const reportData = {
   mobilePerformance: { desktop: 85, mobile: 45 },
   searchVisibility: { seo: 60, geo: 75 },
   benchmarks: [
-    { label: "Content", score: 68, diff: "+3 vs Avg", trend: "up" },
-    { label: "Visual", score: 65, diff: "On Par", trend: "neutral" },
-    { label: "UX", score: 45, diff: "-10 vs Avg", trend: "down" },
-    { label: "Technical", score: 50, diff: "-10 vs Avg", trend: "down" },
+    { label: "Content", score: 68, diff: "+3 vs Avg", positive: true },
+    { label: "Visual", score: 65, diff: "On Par", positive: null },
+    { label: "UX", score: 45, diff: "-10 vs Avg", positive: false },
+    { label: "Technical", score: 50, diff: "-10 vs Avg", positive: false },
   ],
   executiveSummary: [
     "Your visual design is polished and credible, giving visitors immediate confidence that they are dealing with a serious AI partner. The clean layout works well and establishes trust from the first seconds. Your current conversion score of 60 out of 100 reflects a strong foundation with clear room for growth.",
@@ -47,8 +34,6 @@ const reportData = {
       title: "Content analysis",
       score: 65,
       status: "Moderate",
-      color: "blue",
-      icon: Type,
       categories: [
         {
           title: "Clarity & positioning",
@@ -73,8 +58,6 @@ const reportData = {
       title: "Visual analysis",
       score: 60,
       status: "Acceptable",
-      color: "purple",
-      icon: Image,
       categories: [
         {
           title: "Design assessment",
@@ -99,8 +82,6 @@ const reportData = {
       title: "UX & flow",
       score: 45,
       status: "Critical",
-      color: "red",
-      icon: MousePointer2,
       categories: [
         {
           title: "Interaction design",
@@ -125,8 +106,6 @@ const reportData = {
       title: "Technical analysis",
       score: 50,
       status: "Warning",
-      color: "orange",
-      icon: Cpu,
       categories: [
         {
           title: "Performance",
@@ -154,7 +133,6 @@ const reportData = {
       subtitle: "Reduce 8 fields to 3 fields.",
       effort: "Low",
       impact: "High",
-      impactColor: "red",
       tasks: [
         { tag: "DEV", text: "Remove 'Job Title' and 'Phone Number' fields." },
         { tag: "DEV", text: "Enable browser auto-fill attributes." }
@@ -165,7 +143,6 @@ const reportData = {
       subtitle: "Fix button contrast & visibility.",
       effort: "Low",
       impact: "Med",
-      impactColor: "orange",
       tasks: [
         { tag: "CSS", text: "Change primary buttons to high-contrast accent color." }
       ]
@@ -175,7 +152,6 @@ const reportData = {
       subtitle: "Implement 'Problem/Solution' framework.",
       effort: "Med",
       impact: "High",
-      impactColor: "blue",
       tasks: [
         { tag: "COPY", text: "New H1: 'Automate Your Lab Reporting in Half the Time.'" }
       ]
@@ -185,7 +161,6 @@ const reportData = {
       subtitle: "Replace stock photos with UI screens.",
       effort: "High",
       impact: "Med",
-      impactColor: "purple",
       tasks: [
         { tag: "DESIGN", text: "Create 3 high-fidelity product screenshots." },
         { tag: "DEV", text: "Implement responsive image gallery component." }
@@ -200,30 +175,6 @@ const tabs = [
   { id: "roadmap", label: "Roadmap" }
 ];
 
-const getScoreColor = (score: number) => {
-  if (score >= 70) return "text-emerald-600";
-  if (score >= 50) return "text-amber-600";
-  return "text-red-600";
-};
-
-const getPillarGradient = (score: number) => {
-  if (score >= 70) return "from-emerald-400 via-teal-500 to-green-600";
-  if (score >= 55) return "from-amber-300 via-orange-400 to-orange-500";
-  return "from-red-500 via-rose-600 to-pink-700";
-};
-
-const getColorClasses = (color: string) => {
-  const colors: Record<string, { bg: string; border: string; text: string; badge: string }> = {
-    blue: { bg: "bg-blue-50", border: "border-blue-100", text: "text-blue-600", badge: "bg-blue-100 text-blue-700" },
-    purple: { bg: "bg-purple-50", border: "border-purple-100", text: "text-purple-600", badge: "bg-purple-100 text-purple-700" },
-    red: { bg: "bg-red-50", border: "border-red-100", text: "text-red-600", badge: "bg-red-100 text-red-700" },
-    orange: { bg: "bg-orange-50", border: "border-orange-100", text: "text-orange-600", badge: "bg-orange-100 text-orange-700" },
-    green: { bg: "bg-green-50", border: "border-green-100", text: "text-green-600", badge: "bg-green-100 text-green-700" },
-    yellow: { bg: "bg-yellow-50", border: "border-yellow-100", text: "text-yellow-600", badge: "bg-yellow-100 text-yellow-700" }
-  };
-  return colors[color] || colors.blue;
-};
-
 const ReportSection = () => {
   const [activeTab, setActiveTab] = useState("summary");
 
@@ -233,66 +184,64 @@ const ReportSection = () => {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 md:p-12"
+        className="relative overflow-hidden rounded-2xl bg-foreground p-8 md:p-12"
       >
-        {/* Subtle animated glow */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
-        </div>
-
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Score */}
           <div className="flex items-baseline gap-2">
-            <span className="text-7xl md:text-8xl font-serif font-bold text-white tracking-tight">
+            <span className="text-7xl md:text-8xl font-serif font-bold text-background tracking-tight">
               {reportData.score}
             </span>
-            <span className="text-2xl font-medium text-slate-400">/ 100</span>
+            <span className="text-2xl font-medium text-background/50">/ 100</span>
           </div>
 
           {/* Divider */}
-          <div className="hidden md:block w-px h-24 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+          <div className="hidden md:block w-px h-24 bg-gradient-to-b from-transparent via-background/20 to-transparent" />
 
           {/* Context */}
           <div className="text-center md:text-left">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-slate-400 mb-2 block">
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-background/50 mb-2 block">
               Mondro Score
             </span>
             <div className="flex items-center gap-3 mb-3">
-              <span className="w-3 h-3 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_rgba(250,204,21,0.5)]" />
-              <span className="text-2xl md:text-3xl font-serif font-bold text-white">
+              <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_10px_hsl(var(--primary)/0.5)]" />
+              <span className="text-2xl md:text-3xl font-serif font-bold text-background">
                 {reportData.healthStatus}
               </span>
             </div>
-            <p className="text-sm text-slate-400 max-w-xs">
+            <p className="text-sm text-background/60 max-w-xs">
               Score weighted across 32 dimensions covering all key components of a successful website.
             </p>
           </div>
 
           {/* Client Info */}
           <div className="hidden lg:block text-right">
-            <p className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Audit for</p>
-            <p className="text-sm font-medium text-white mt-1">{reportData.clientUrl}</p>
-            <p className="text-xs text-slate-400 mt-1">Generated {reportData.generatedDate}</p>
+            <p className="text-[10px] font-mono font-bold text-background/50 uppercase tracking-wider">Audit for</p>
+            <p className="text-sm font-medium text-background mt-1">{reportData.clientUrl}</p>
+            <p className="text-xs text-background/50 mt-1">Generated {reportData.generatedDate}</p>
           </div>
         </div>
       </motion.div>
 
-      {/* Tab Navigation */}
+      {/* Tab Navigation - Landing page style */}
       <div className="flex justify-center">
-        <div className="inline-flex bg-muted/50 rounded-full p-1 border border-border">
+        <div className="flex items-center gap-8 lg:gap-12">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "px-6 py-2 rounded-full text-sm font-medium transition-all",
+                "relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group",
                 activeTab === tab.id
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-primary"
               )}
             >
               {tab.label}
+              <span className={cn(
+                "absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400",
+                activeTab === tab.id ? "w-full" : "w-0 group-hover:w-full"
+              )} />
             </button>
           ))}
         </div>
@@ -309,12 +258,7 @@ const ReportSection = () => {
           <div className="grid lg:grid-cols-2 gap-6">
             {/* Executive Analysis */}
             <div className="bg-card rounded-xl border border-border p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2.5 bg-primary/10 text-primary rounded-xl">
-                  <BarChart2 className="w-5 h-5" />
-                </div>
-                <h3 className="font-serif font-bold text-lg text-foreground">Executive analysis</h3>
-              </div>
+              <h3 className="font-serif font-bold text-lg text-foreground mb-6">Executive analysis</h3>
               <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
                 {reportData.executiveSummary.map((para, i) => (
                   <p key={i}>{para}</p>
@@ -326,11 +270,9 @@ const ReportSection = () => {
             <div className="bg-card rounded-xl border border-border p-8">
               <div className="flex justify-between items-end mb-8">
                 <h3 className="font-serif font-bold text-lg text-foreground">The 5 conversion pillars</h3>
-                <div className="group relative cursor-pointer">
-                  <span className="text-xs font-medium text-muted-foreground bg-muted px-3 py-1 rounded-full flex items-center gap-1">
-                    Weighted scoring <Info className="w-3 h-3" />
-                  </span>
-                </div>
+                <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                  Weighted scoring
+                </span>
               </div>
 
               <div className="space-y-5">
@@ -338,14 +280,14 @@ const ReportSection = () => {
                   <div key={pillar.name} className="group">
                     <div className="flex justify-between text-sm font-medium text-foreground mb-2">
                       <span>{pillar.name}</span>
-                      <span>{pillar.score}/100</span>
+                      <span className="font-mono">{pillar.score}/100</span>
                     </div>
-                    <div className="h-3 bg-muted rounded-full overflow-hidden">
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${pillar.score}%` }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className={cn("h-full rounded-full bg-gradient-to-r", getPillarGradient(pillar.score))}
+                        className="h-full rounded-full bg-primary"
                       />
                     </div>
                   </div>
@@ -358,21 +300,16 @@ const ReportSection = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Mobile Performance */}
             <div className="bg-card rounded-xl border border-border p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="font-serif font-bold text-foreground mb-1">Mobile performance</h3>
-                  <p className="text-xs text-muted-foreground">Lighthouse speed (0-100)</p>
-                </div>
-                <Info className="w-4 h-4 text-muted-foreground" />
-              </div>
+              <h3 className="font-serif font-bold text-foreground mb-1">Mobile performance</h3>
+              <p className="text-xs text-muted-foreground mb-4">Lighthouse speed (0-100)</p>
               <div className="flex items-center justify-between gap-4 py-4">
                 <div className="text-center flex-1">
-                  <span className="text-4xl font-bold text-emerald-600">{reportData.mobilePerformance.desktop}</span>
+                  <span className="text-4xl font-serif font-bold text-foreground">{reportData.mobilePerformance.desktop}</span>
                   <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">Desktop</span>
                 </div>
                 <div className="h-12 w-px bg-border" />
                 <div className="text-center flex-1">
-                  <span className="text-4xl font-bold text-red-500">{reportData.mobilePerformance.mobile}</span>
+                  <span className="text-4xl font-serif font-bold text-foreground">{reportData.mobilePerformance.mobile}</span>
                   <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">Mobile</span>
                 </div>
               </div>
@@ -380,39 +317,34 @@ const ReportSection = () => {
 
             {/* Search & AI Visibility */}
             <div className="bg-card rounded-xl border border-border p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="font-serif font-bold text-foreground mb-1">Search & AI visibility</h3>
-                  <p className="text-xs text-muted-foreground">Discovery potential (0-100)</p>
-                </div>
-                <Info className="w-4 h-4 text-muted-foreground" />
-              </div>
+              <h3 className="font-serif font-bold text-foreground mb-1">Search & AI visibility</h3>
+              <p className="text-xs text-muted-foreground mb-4">Discovery potential (0-100)</p>
               <div className="flex items-center justify-between gap-4 py-4">
                 <div className="text-center flex-1">
-                  <span className="text-4xl font-bold text-orange-500">{reportData.searchVisibility.seo}</span>
+                  <span className="text-4xl font-serif font-bold text-foreground">{reportData.searchVisibility.seo}</span>
                   <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">SEO Score</span>
                 </div>
                 <div className="h-12 w-px bg-border" />
                 <div className="text-center flex-1">
-                  <span className="text-4xl font-bold text-amber-500">{reportData.searchVisibility.geo}</span>
+                  <span className="text-4xl font-serif font-bold text-foreground">{reportData.searchVisibility.geo}</span>
                   <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-2">GEO Score</span>
                 </div>
               </div>
             </div>
 
             {/* Industry Benchmarking */}
-            <div className="bg-card rounded-xl border border-border p-6 md:col-span-1">
+            <div className="bg-card rounded-xl border border-border p-6">
               <h3 className="font-serif font-bold text-foreground mb-1">Industry benchmarking</h3>
               <p className="text-xs text-muted-foreground mb-4">Comparing against sector averages</p>
               <div className="grid grid-cols-2 gap-4">
                 {reportData.benchmarks.map((item) => (
                   <div key={item.label} className="text-center">
-                    <span className={cn("text-2xl font-bold", getScoreColor(item.score))}>{item.score}</span>
+                    <span className="text-2xl font-serif font-bold text-foreground">{item.score}</span>
                     <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mt-1">{item.label}</span>
                     <span className={cn(
-                      "text-[10px] font-bold px-2 py-0.5 rounded-full mt-1 inline-block",
-                      item.trend === "up" ? "bg-emerald-50 text-emerald-600" :
-                      item.trend === "down" ? "bg-red-50 text-red-600" : "bg-blue-50 text-blue-600"
+                      "text-[10px] font-mono mt-1 inline-block",
+                      item.positive === true ? "text-primary" :
+                      item.positive === false ? "text-muted-foreground" : "text-muted-foreground"
                     )}>{item.diff}</span>
                   </div>
                 ))}
@@ -434,77 +366,57 @@ const ReportSection = () => {
             <p className="text-muted-foreground mt-1">Comprehensive breakdown of performance vectors.</p>
           </div>
 
-          {reportData.auditSections.map((section) => {
-            const colors = getColorClasses(section.color);
-            const IconComponent = section.icon;
-            
-            return (
-              <div key={section.title} className="bg-card rounded-xl border border-border overflow-hidden">
-                {/* Header */}
-                <div className={cn("px-8 py-6 flex justify-between items-center border-b", colors.bg, colors.border)}>
-                  <div className="flex items-center gap-4">
-                    <div className={cn("w-12 h-12 bg-card rounded-xl shadow-sm flex items-center justify-center", colors.text)}>
-                      <IconComponent className="w-6 h-6" />
+          {reportData.auditSections.map((section) => (
+            <div key={section.title} className="bg-card rounded-xl border border-border overflow-hidden">
+              {/* Header */}
+              <div className="px-8 py-6 flex justify-between items-center border-b border-border bg-muted/30">
+                <h3 className="text-xl font-serif font-bold text-foreground">{section.title}</h3>
+                <div className="text-right flex items-center gap-3">
+                  <span className="text-3xl font-serif font-bold text-foreground">{section.score}</span>
+                  <span className="text-xs font-mono font-bold uppercase tracking-wide text-muted-foreground">
+                    {section.status}
+                  </span>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-8">
+                <div className="grid md:grid-cols-2 gap-10 mb-8">
+                  {section.categories.map((category) => (
+                    <div key={category.title}>
+                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground mb-5 pb-2 border-b border-border">
+                        {category.title}
+                      </h4>
+                      <div className="space-y-5">
+                        {category.items.map((item) => (
+                          <div key={item.label}>
+                            <span className="font-medium text-foreground text-sm block mb-1">{item.label}</span>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <h3 className="text-xl font-serif font-bold text-foreground">{section.title}</h3>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-3xl font-bold text-foreground">{section.score}</span>
-                    <span className={cn("text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded ml-2", colors.badge)}>
-                      {section.status}
-                    </span>
-                  </div>
+                  ))}
                 </div>
 
-                {/* Content */}
-                <div className="p-8">
-                  <div className="grid md:grid-cols-2 gap-10 mb-8">
-                    {section.categories.map((category) => (
-                      <div key={category.title}>
-                        <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground mb-5 pb-2 border-b border-border">
-                          {category.title}
-                        </h4>
-                        <div className="space-y-5">
-                          {category.items.map((item) => (
-                            <div key={item.label}>
-                              <span className="font-medium text-foreground text-sm block mb-1">{item.label}</span>
-                              <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+                {/* Strength & Fix */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-muted/30 p-5 rounded-xl border border-border">
+                    <h5 className="text-foreground font-bold text-sm mb-2">
+                      Key strength
+                    </h5>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{section.strength}</p>
                   </div>
-
-                  {/* Strength & Fix */}
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="bg-emerald-50 p-5 rounded-xl border border-emerald-100">
-                      <h5 className="text-emerald-800 font-bold text-sm mb-2 flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4" /> Key strength
-                      </h5>
-                      <p className="text-xs text-emerald-700 leading-relaxed">{section.strength}</p>
-                    </div>
-                    <div className={cn(
-                      "p-5 rounded-xl border",
-                      section.fixLevel === "critical" ? "bg-red-50 border-red-100" : "bg-amber-50 border-amber-100"
-                    )}>
-                      <h5 className={cn(
-                        "font-bold text-sm mb-2 flex items-center gap-2",
-                        section.fixLevel === "critical" ? "text-red-800" : "text-amber-800"
-                      )}>
-                        {section.fixLevel === "critical" ? <AlertOctagon className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
-                        {section.fixLevel === "critical" ? "Critical fix" : "Priority fix"}
-                      </h5>
-                      <p className={cn(
-                        "text-xs leading-relaxed",
-                        section.fixLevel === "critical" ? "text-red-700" : "text-amber-700"
-                      )}>{section.fix}</p>
-                    </div>
+                  <div className="bg-muted/30 p-5 rounded-xl border border-border">
+                    <h5 className="text-foreground font-bold text-sm mb-2">
+                      {section.fixLevel === "critical" ? "Critical fix" : "Priority fix"}
+                    </h5>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{section.fix}</p>
                   </div>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </motion.div>
       )}
 
@@ -521,65 +433,57 @@ const ReportSection = () => {
           </div>
 
           <div className="space-y-0">
-            {reportData.roadmap.map((item, index) => {
-              const colors = getColorClasses(item.impactColor);
-              const isFirst = index === 0;
-              
-              return (
-                <div key={item.title} className="flex gap-6 relative group">
-                  {/* Timeline */}
-                  <div className="flex flex-col items-center shrink-0 w-16">
-                    <div className={cn(
-                      "w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl z-10 transition-transform group-hover:scale-110",
-                      isFirst 
-                        ? `bg-${item.impactColor}-600 text-white shadow-lg` 
-                        : `bg-card border-2 border-${item.impactColor}-400 ${colors.text}`
-                    )}>
-                      {index + 1}
-                    </div>
-                    {index < reportData.roadmap.length - 1 && (
-                      <div className="w-0.5 h-full bg-border absolute top-12 left-8" />
-                    )}
-                  </div>
-
-                  {/* Card */}
+            {reportData.roadmap.map((item, index) => (
+              <div key={item.title} className="flex gap-6 relative group">
+                {/* Timeline */}
+                <div className="flex flex-col items-center shrink-0 w-16">
                   <div className={cn(
-                    "bg-card rounded-xl border border-border p-6 w-full mb-6 border-l-4",
-                    `border-l-${item.impactColor}-500`
+                    "w-12 h-12 rounded-full flex items-center justify-center font-serif font-bold text-xl z-10",
+                    index === 0 
+                      ? "bg-primary text-primary-foreground" 
+                      : "bg-card border-2 border-border text-foreground"
                   )}>
-                    <div className="flex flex-col sm:flex-row justify-between items-start mb-4">
-                      <div>
-                        <h3 className="font-serif font-bold text-foreground text-lg">{item.title}</h3>
-                        <p className="text-sm text-muted-foreground">{item.subtitle}</p>
-                      </div>
-                      <div className="flex gap-2 mt-2 sm:mt-0">
-                        <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-bold uppercase tracking-wide">
-                          Effort: {item.effort}
-                        </span>
-                        <span className={cn("px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide", colors.badge)}>
-                          Impact: {item.impact}
-                        </span>
-                      </div>
+                    {index + 1}
+                  </div>
+                  {index < reportData.roadmap.length - 1 && (
+                    <div className="w-px h-full bg-border absolute top-12 left-8" />
+                  )}
+                </div>
+
+                {/* Card */}
+                <div className="bg-card rounded-xl border border-border p-6 w-full mb-6">
+                  <div className="flex flex-col sm:flex-row justify-between items-start mb-4">
+                    <div>
+                      <h3 className="font-serif font-bold text-foreground text-lg">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">{item.subtitle}</p>
                     </div>
-                    <div className="bg-muted/50 rounded-lg p-4">
-                      <ul className="space-y-3">
-                        {item.tasks.map((task, taskIndex) => (
-                          <li key={taskIndex} className="flex items-start gap-3 text-sm text-muted-foreground">
-                            <CheckSquare className="w-4 h-4 mt-0.5 text-muted-foreground/50" />
-                            <span>
-                              <strong className="text-xs bg-muted px-1.5 py-0.5 rounded text-muted-foreground mr-2">
-                                {task.tag}
-                              </strong>
-                              {task.text}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="flex gap-2 mt-2 sm:mt-0">
+                      <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-mono font-bold uppercase tracking-wide">
+                        Effort: {item.effort}
+                      </span>
+                      <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-mono font-bold uppercase tracking-wide">
+                        Impact: {item.impact}
+                      </span>
                     </div>
+                  </div>
+                  <div className="bg-muted/50 rounded-lg p-4">
+                    <ul className="space-y-3">
+                      {item.tasks.map((task, taskIndex) => (
+                        <li key={taskIndex} className="flex items-start gap-3 text-sm text-muted-foreground">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                          <span>
+                            <strong className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-muted-foreground mr-2">
+                              {task.tag}
+                            </strong>
+                            {task.text}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </motion.div>
       )}
