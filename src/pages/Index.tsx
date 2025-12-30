@@ -48,20 +48,20 @@ function Index() {
     description: string,
     tags: string[]
   }) => (
-    <div className="group p-10 md:p-16 border border-border hover:border-primary transition-all duration-700 bg-card/70 backdrop-blur-2xl rounded-[2px] relative overflow-hidden flex flex-col h-full shadow-[0_10px_40px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)]">
-      <div className="font-mono text-[13px] font-bold tracking-[0.3em] text-mondro-stone uppercase mb-8 md:mb-12 opacity-50 flex items-center gap-3">
+    <div className="group p-16 border border-border hover:border-primary transition-all duration-700 bg-card/70 backdrop-blur-2xl rounded-[2px] relative overflow-hidden flex flex-col h-full shadow-[0_10px_40px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)]">
+      <div className="font-mono text-[13px] font-bold tracking-[0.3em] text-mondro-stone uppercase mb-12 opacity-50 flex items-center gap-3">
         <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
         {label}
       </div>
-      <h3 className="font-serif text-3xl md:text-[2.75rem] text-mondro-ink mb-6 md:mb-8 leading-tight">
+      <h3 className="font-serif text-[2.75rem] text-mondro-ink mb-8 leading-tight">
         {title}
       </h3>
-      <p className="text-mondro-stone text-lg md:text-xl leading-relaxed mb-12 md:mb-16 font-light flex-grow">
+      <p className="text-mondro-stone text-xl leading-relaxed mb-16 font-light flex-grow">
         {description}
       </p>
-      <div className="flex flex-wrap gap-3 md:gap-4">
+      <div className="flex flex-wrap gap-4">
         {tags.map(tag => (
-          <span key={tag} className="px-4 md:px-6 py-2 md:py-2.5 bg-secondary text-mondro-ink text-[10px] md:text-[11px] font-mono font-bold tracking-[0.2em] rounded-[2px] border border-border uppercase group-hover:border-primary/30 transition-colors">
+          <span key={tag} className="px-6 py-2.5 bg-secondary text-mondro-ink text-[11px] font-mono font-bold tracking-[0.2em] rounded-[2px] border border-border uppercase group-hover:border-primary/30 transition-colors">
             {tag}
           </span>
         ))}
@@ -77,22 +77,22 @@ function Index() {
     cta: string,
     isPrimary?: boolean
   }) => (
-    <div className={`p-8 md:p-12 lg:p-16 rounded-[2px] border ${isPrimary ? 'border-primary bg-card shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] z-10' : 'border-border bg-card/40'} flex flex-col h-full transition-all duration-1000 group`}>
-      <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] text-mondro-stone uppercase mb-6">{type}</div>
-      <div className="flex items-baseline gap-3 mb-3">
-        <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-mondro-ink font-normal tracking-tighter">{price}</span>
-        <span className="text-mondro-stone text-sm md:text-base font-light italic">{subtitle}</span>
+    <div className={`p-24 rounded-[2px] border ${isPrimary ? 'border-primary bg-card shadow-[0_60px_100px_-30px_rgba(0,0,0,0.12)] scale-[1.03] z-10' : 'border-border bg-card/40'} flex flex-col h-full transition-all duration-1000 group`}>
+      <div className="font-mono text-[13px] font-bold tracking-[0.4em] text-mondro-stone uppercase mb-8">{type}</div>
+      <div className="flex items-baseline gap-4 mb-4">
+        <span className="font-serif text-[5.5rem] text-mondro-ink font-normal tracking-tighter">{price}</span>
+        <span className="text-mondro-stone text-lg font-light italic">{subtitle}</span>
       </div>
-      <div className={`w-16 h-px ${isPrimary ? 'bg-primary' : 'bg-border'} my-6 md:my-8 transition-all duration-1000 group-hover:w-full`}></div>
-      <ul className="space-y-4 md:space-y-5 mb-8 md:mb-12 flex-grow">
+      <div className={`w-24 h-px ${isPrimary ? 'bg-primary' : 'bg-border'} my-14 transition-all duration-1000 group-hover:w-full`}></div>
+      <ul className="space-y-8 mb-24 flex-grow">
         {features.map(f => (
-          <li key={f} className="flex items-start gap-3 md:gap-4 text-base md:text-lg text-mondro-ink font-light border-b border-border/20 pb-4 md:pb-5 last:border-0">
-            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary/30 mt-2"></span>
+          <li key={f} className="flex items-start gap-6 text-xl text-mondro-ink font-light border-b border-border/20 pb-8 last:border-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-primary/30 mt-2.5"></span>
             <span>{f}</span>
           </li>
         ))}
       </ul>
-      <button className={`w-full py-4 md:py-5 px-8 rounded-[2px] font-mono text-[10px] md:text-[11px] font-bold tracking-[0.3em] uppercase transition-all duration-700 ${isPrimary ? 'bg-primary text-primary-foreground hover:bg-mondro-ink' : 'border border-mondro-ink text-mondro-ink hover:bg-mondro-ink hover:text-card'}`}>
+      <button className={`w-full py-7 px-10 rounded-[2px] font-mono text-[14px] font-bold tracking-[0.4em] uppercase transition-all duration-700 ${isPrimary ? 'bg-primary text-primary-foreground hover:bg-mondro-ink' : 'border border-mondro-ink text-mondro-ink hover:bg-mondro-ink hover:text-card'}`}>
         {cta}
       </button>
     </div>
