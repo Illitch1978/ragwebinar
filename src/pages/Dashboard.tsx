@@ -2,9 +2,6 @@ import { useState } from "react";
 import PositioningSection from "@/components/dashboard/PositioningSection";
 import VisibilitySection from "@/components/dashboard/VisibilitySection";
 import {
-  Brain,
-  MessageSquare,
-  FileText,
   Menu,
   Settings2,
   ChevronRight
@@ -14,19 +11,19 @@ import { cn } from "@/lib/utils";
 const productNavItems = [
   { 
     title: "Intelligence", 
-    icon: Brain, 
+    monogram: "I",
     id: "intelligence",
     description: "Positioning, Visibility, Technical, Friction, Trust, Competitor Intel"
   },
   { 
     title: "Strategy Room", 
-    icon: MessageSquare, 
+    monogram: "S",
     id: "strategy-room",
     description: "AI-powered virtual boardroom with expert personas"
   },
   { 
     title: "Report", 
-    icon: FileText, 
+    monogram: "R",
     id: "report",
     description: "Snapshot view of your digital presence"
   },
@@ -96,7 +93,7 @@ const Dashboard = () => {
               )}
             >
               {sidebarCollapsed ? (
-                <item.icon className="h-5 w-5 flex-shrink-0" />
+                <span className="font-serif text-lg font-semibold text-current">{item.monogram}</span>
               ) : (
                 <div className="flex-1 flex items-center justify-between">
                   <div>
