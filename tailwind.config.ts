@@ -63,12 +63,16 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Mondro custom colors
+        // Mondro Strategic Synthesis colors
+        mondro: {
+          blue: "hsl(var(--mondro-blue))",
+          ink: "hsl(var(--mondro-ink))",
+          stone: "hsl(var(--mondro-stone))",
+          creme: "hsl(var(--mondro-creme))",
+        },
         glow: "hsl(var(--accent-glow))",
         purple: "hsl(var(--accent-purple))",
-        pink: "hsl(var(--accent-pink))",
         green: "hsl(var(--accent-green))",
-        brand: "hsl(var(--brand-blue))",
       },
       borderRadius: {
         lg: "var(--radius)",
