@@ -236,7 +236,7 @@ function Index() {
       {/* Pricing Section */}
       <section id="pricing" className="scroll-mt-40 pt-24 pb-24 md:pt-40 md:pb-48 bg-background relative">
         <div className="container mx-auto px-6 md:px-16 lg:px-24">
-          <div className="flex flex-col items-center text-center mb-16 md:mb-32">
+          <div className="flex flex-col items-start text-left mb-16 md:mb-32">
             <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] text-primary uppercase mb-4 md:mb-6 flex items-center gap-4">
               <span className="w-6 md:w-10 h-px bg-primary/30"></span>
               EXECUTIVE ENGAGEMENT
@@ -244,7 +244,7 @@ function Index() {
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-mondro-ink leading-[1.1] mb-6 md:mb-8 tracking-tight">
               Intelligence Tiers
             </h2>
-            <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl border-l border-border pl-4 md:pl-6">
+            <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl">
               Select the magnitude of analysis required to sustain institutional authority in high-stakes environments.
             </p>
           </div>
@@ -321,10 +321,10 @@ function Index() {
             <div className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto items-stretch">
               <input 
                 type="email" 
-                placeholder="Institutional email address" 
-                className="flex-grow bg-card/5 border border-card/15 px-6 md:px-8 py-5 md:py-6 outline-none font-mono text-sm md:text-base tracking-wide text-card placeholder:text-card/40 focus:border-primary transition-all rounded-[2px]"
+                placeholder="Institutional email" 
+                className="flex-grow bg-card/5 border border-card/15 px-6 md:px-8 py-5 md:py-6 outline-none font-mono text-sm md:text-base tracking-wide text-card placeholder:text-card/40 focus:border-primary transition-all rounded-[2px] min-w-0"
               />
-              <button className="bg-card text-mondro-ink px-10 md:px-14 py-5 md:py-6 font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-500 rounded-[2px] whitespace-nowrap">
+              <button className="bg-card text-mondro-ink px-10 md:px-14 py-5 md:py-6 font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-500 rounded-[2px] whitespace-nowrap flex-shrink-0">
                 Subscribe
               </button>
             </div>
