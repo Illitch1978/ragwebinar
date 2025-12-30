@@ -146,30 +146,23 @@ function Index() {
       {/* Hero Section */}
       <header className="relative min-h-screen flex items-center justify-center pb-24 md:pb-32 overflow-hidden">
         <div className="container mx-auto px-6 md:px-16 relative z-10 flex flex-col items-center">
-          <div className="max-w-5xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto text-center">
             <motion.h1 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...revealTransition, delay: 0.1 }}
-              className="font-serif text-5xl md:text-6xl lg:text-8xl font-normal leading-[1.05] mb-2 md:mb-4 text-mondro-ink tracking-tight"
+              className="font-serif text-5xl md:text-7xl lg:text-[9rem] font-normal leading-[1] mb-10 md:mb-12 text-mondro-ink tracking-tight"
             >
-              Defining the
-            </motion.h1>
-            <motion.h1 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...revealTransition, delay: 0.15 }}
-              className="font-serif text-5xl md:text-6xl lg:text-8xl font-light leading-[1.05] mb-8 md:mb-12 text-mondro-stone/20 tracking-tight italic"
-            >
-              Digital Standard.
+              Defining the<br />
+              <span className="block italic font-light text-mondro-stone/20 md:whitespace-nowrap">Digital Standard.</span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...revealTransition, delay: 0.2 }}
-              className="max-w-2xl mx-auto text-lg md:text-xl text-mondro-stone font-light leading-relaxed mb-10 md:mb-14 px-4"
+              className="max-w-2xl mx-auto text-base md:text-lg text-mondro-stone font-light leading-relaxed mb-12 md:mb-16 px-4"
             >
-              Judgment is the final luxury.<br className="hidden md:block" /> 
+              Judgment is the final luxury.<br className="hidden md:block" />
               We distill digital noise into definitive strategic signal.
             </motion.p>
             
