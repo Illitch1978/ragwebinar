@@ -8,14 +8,13 @@
 
 | Purpose | Font Family | Weight | Tailwind Class |
 |---------|-------------|--------|----------------|
-| **Headings & Logo** | Plus Jakarta Sans | 800 (extrabold) | `font-heading` |
-| **Serif Accents** | Playfair Display | 400-700 | `font-serif` |
+| **Headings & Logo** | Playfair Display | 700 (bold) | `font-serif` |
 | **Body & UI Text** | Inter | 300-600 | `font-sans` |
 | **Monospace/Data** | Roboto Mono | 400-500 | `font-mono` |
 
 ### Usage Guidelines
 
-- **Logo**: Plus Jakarta Sans, lowercase with pulsing dot
+- **Logo**: Playfair Display, lowercase, bold (700), with pulsing dot
 - **Dashboard Titles**: Playfair Display (e.g., "Meridian West", "Market Position")
 - **Section Headers**: Inter, uppercase, letter-spacing: widest
 - **Body Text**: Inter, 14px, leading relaxed
@@ -86,22 +85,52 @@
 mondro•
 ```
 
-- **Font**: Plus Jakarta Sans, 800 weight
-- **Case**: lowercase
-- **Letter Spacing**: -0.05em
-- **Dot**: Pulsing blue circle with glow
-  - Size: 12px (0.75rem)
-  - Color: `hsl(200 100% 45%)`
-  - Animation: 2s infinite pulse with box-shadow glow
+### Logo Structure
 
-### Logo Animation (CSS)
+| Element | Specification |
+|---------|---------------|
+| **Text "mondro"** | |
+| Font | Playfair Display |
+| Weight | 700 (bold) |
+| Case | lowercase |
+| Letter Spacing | `tracking-tight` (-0.025em) |
+| Size (Default) | `text-3xl` (30px) |
+| Size (Small) | `text-2xl` (24px) |
+| Color | `text-foreground` (adapts to theme) |
+| Hover Color | `text-primary` (brand blue) |
+| Transition | `duration-700` (0.7s) |
+| **Dot "•"** | |
+| Shape | Circle (rounded-full) |
+| Size (Default) | `w-2.5 h-2.5` (10px) |
+| Size (Small) | `w-2 h-2` (8px) |
+| Color | `bg-primary` (brand blue: `hsl(200 100% 45%)`) |
+| Glow | `shadow-[0_0_12px_hsl(var(--primary)/0.3)]` |
+| Animation | Ping effect with `animate-ping` on outer ring |
+| Ping Ring Size (Default) | `w-3 h-3` (12px) |
+| Ping Ring Size (Small) | `w-2.5 h-2.5` (10px) |
+| Ping Opacity | `opacity-20` |
+| **Layout** | |
+| Gap | `gap-1.5` (6px) between text and dot |
+| Alignment | `items-center` (vertically centered) |
 
-```css
-@keyframes logo-dot-pulse {
-  0% { transform: scale(1); box-shadow: 0 0 15px hsl(200 100% 45%); }
-  50% { transform: scale(1.2); box-shadow: 0 0 25px hsl(200 100% 45%), 0 0 40px hsl(200 100% 45% / 0.4); }
-  100% { transform: scale(1); box-shadow: 0 0 15px hsl(200 100% 45%); }
-}
+### Logo Component Reference
+
+```tsx
+const EvolvedLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
+  <Link to="/" className="flex items-center gap-1.5 group cursor-pointer">
+    <span className={`font-serif font-bold tracking-tight text-foreground 
+      transition-colors duration-700 group-hover:text-primary 
+      ${size === 'small' ? 'text-2xl' : 'text-3xl'}`}>
+      mondro
+    </span>
+    <div className="relative flex items-center justify-center">
+      <div className={`absolute bg-primary rounded-full animate-ping opacity-20 
+        ${size === 'small' ? 'w-2.5 h-2.5' : 'w-3 h-3'}`} />
+      <div className={`bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)] 
+        ${size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'}`} />
+    </div>
+  </Link>
+);
 ```
 
 ---
