@@ -285,25 +285,31 @@ function Index() {
       </section>
 
       {/* Institutional Briefing CTA */}
-      <section className="py-24 md:py-48 bg-mondro-ink text-card relative">
-        <div className="absolute inset-0 opacity-[0.1] pointer-events-none" style={{
+      <section className="py-32 md:py-48 lg:py-64 bg-mondro-ink text-card relative">
+        <div className="absolute inset-0 opacity-[0.08] pointer-events-none" style={{
           backgroundImage: 'radial-gradient(hsl(var(--primary)) 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }}></div>
         <div className="container mx-auto px-6 md:px-16 relative z-10 text-center">
           <div className="max-w-4xl mx-auto">
-            <div className="font-mono text-[10px] md:text-[12px] font-bold tracking-[0.6em] text-primary uppercase mb-6 md:mb-10">PRIVATE BRIEFING</div>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-8 md:mb-12 leading-[0.95] tracking-tight">The future of trust <br/><span className="italic text-primary">is synthesized.</span></h2>
-            <p className="text-card/60 text-base md:text-xl font-light mb-10 md:mb-16 leading-relaxed max-w-xl mx-auto italic">
-              Subscribe to the private memorandum. Intelligence for the global elite.
+            <div className="font-mono text-[11px] md:text-[13px] font-bold tracking-[0.6em] text-primary uppercase mb-10 md:mb-14">PRIVATE BRIEFING</div>
+            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-0 leading-[1.05] tracking-tight text-card">
+              The future of trust
+            </h2>
+            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-10 md:mb-14 leading-[1.05] tracking-tight italic text-primary">
+              is synthesized.
+            </h2>
+            <p className="text-card/50 text-lg md:text-xl font-light mb-12 md:mb-16 leading-relaxed max-w-lg mx-auto italic">
+              Subscribe to the private memorandum.<br/>
+              Intelligence for the global elite.
             </p>
-            <div className="flex flex-col md:flex-row gap-3 md:gap-4 max-w-2xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto items-stretch">
               <input 
                 type="email" 
                 placeholder="Institutional email address" 
-                className="flex-grow bg-card/5 border border-card/10 px-5 md:px-8 py-4 md:py-5 outline-none font-mono text-sm md:text-base tracking-widest focus:border-primary transition-all rounded-[2px]"
+                className="flex-grow bg-card/5 border border-card/15 px-6 md:px-8 py-5 md:py-6 outline-none font-mono text-sm md:text-base tracking-wide text-card placeholder:text-card/40 focus:border-primary transition-all rounded-[2px]"
               />
-              <button className="bg-card text-mondro-ink px-8 md:px-12 py-4 md:py-5 font-mono text-[10px] md:text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-700 rounded-[2px]">
+              <button className="bg-card text-mondro-ink px-10 md:px-14 py-5 md:py-6 font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-500 rounded-[2px] whitespace-nowrap">
                 Subscribe
               </button>
             </div>
