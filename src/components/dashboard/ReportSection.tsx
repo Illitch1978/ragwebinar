@@ -1061,13 +1061,13 @@ const ReportSection = () => {
                 We benchmarked Rubiklab against three market archetypes: The Legacy Incumbent (e.g., Qualtrics), The Speed Disruptor (e.g., Yabble), and The Low-End Synthetic.
               </p>
 
-              <div className="w-full max-w-5xl mt-8 space-y-12">
+              <div className="w-full max-w-5xl mt-8 space-y-16">
                 
                 {/* Proposition Clarity */}
-                <div>
-                  <div className="flex justify-between font-mono text-sm text-muted-foreground mb-4 uppercase tracking-widest">
+                <div className="pb-4">
+                  <div className="flex justify-between items-center font-mono text-sm text-muted-foreground mb-6 uppercase tracking-widest">
                     <span>Obscure</span>
-                    <span className="text-foreground font-bold">Proposition Clarity</span>
+                    <span className="px-4 py-1.5 bg-muted border border-border text-foreground text-xs">Proposition Clarity</span>
                     <span>Crystal Clear</span>
                   </div>
                   <div className="relative h-16 border-b border-border flex items-center">
@@ -1086,10 +1086,10 @@ const ReportSection = () => {
                 </div>
 
                 {/* Technical Authority */}
-                <div>
-                  <div className="flex justify-between font-mono text-sm text-muted-foreground mb-4 uppercase tracking-widest">
+                <div className="pb-4">
+                  <div className="flex justify-between items-center font-mono text-sm text-muted-foreground mb-6 uppercase tracking-widest">
                     <span>Superficial</span>
-                    <span className="text-foreground font-bold">Technical Authority</span>
+                    <span className="px-4 py-1.5 bg-muted border border-border text-foreground text-xs">Technical Authority</span>
                     <span>Deep Expertise</span>
                   </div>
                   <div className="relative h-16 border-b border-border flex items-center">
@@ -1108,10 +1108,10 @@ const ReportSection = () => {
                 </div>
 
                 {/* Market Presence */}
-                <div>
-                  <div className="flex justify-between font-mono text-sm text-muted-foreground mb-4 uppercase tracking-widest">
+                <div className="pb-4">
+                  <div className="flex justify-between items-center font-mono text-sm text-muted-foreground mb-6 uppercase tracking-widest">
                     <span>Invisible</span>
-                    <span className="text-foreground font-bold">Market Presence</span>
+                    <span className="px-4 py-1.5 bg-muted border border-border text-foreground text-xs">Market Presence</span>
                     <span>Ubiquitous</span>
                   </div>
                   <div className="relative h-16 border-b border-border flex items-center">
