@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PositioningSection from "@/components/dashboard/PositioningSection";
 import VisibilitySection from "@/components/dashboard/VisibilitySection";
+import ReportSection from "@/components/dashboard/ReportSection";
 import {
   Layers,
   MessageSquare,
@@ -222,7 +223,7 @@ const Dashboard = () => {
             <div className="text-muted-foreground">Strategy Room coming soon...</div>
           )}
           {activeProduct === "report" && (
-            <div className="text-muted-foreground">Report view coming soon...</div>
+            <ReportSection />
           )}
         </div>
       </main>
