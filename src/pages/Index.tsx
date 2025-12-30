@@ -105,11 +105,11 @@ function Index() {
       }}></div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-1000 ${scrolled ? 'bg-card/95 backdrop-blur-2xl border-b border-border py-4 md:py-6' : 'bg-transparent py-8 md:py-14'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-1000 ${scrolled ? 'bg-white/95 backdrop-blur-2xl border-b border-mondro-ink/10 py-4 md:py-6' : 'bg-transparent py-8 md:py-14'}`}>
         <div className="container mx-auto px-6 md:px-16 flex justify-between items-center">
           <EvolvedLogo />
           
-          <div className="hidden md:flex items-center gap-12 lg:gap-24 text-[15px] font-mono font-bold tracking-[0.4em] text-mondro-stone">
+          <div className="hidden md:flex items-center gap-10 lg:gap-20 text-[13px] lg:text-[15px] font-mono font-bold tracking-[0.4em] text-mondro-stone">
             <a href="#framework" className="relative hover:text-primary transition-colors uppercase group">
               Synthesis
               <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-primary transition-all duration-400 group-hover:w-full"></span>
@@ -118,11 +118,15 @@ function Index() {
               Engagements
               <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-primary transition-all duration-400 group-hover:w-full"></span>
             </a>
-            <a href="/dashboard" className="px-8 lg:px-14 py-4 bg-mondro-ink text-card rounded-[2px] hover:bg-primary transition-all duration-1000 shadow-xl uppercase tracking-[0.6em] text-[11px]">Initiate Audit</a>
+            <a href="#" className="relative hover:text-primary transition-colors uppercase group">
+              Archives
+              <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-primary transition-all duration-400 group-hover:w-full"></span>
+            </a>
+            <a href="/dashboard" className="px-8 lg:px-14 py-3 lg:py-4 bg-mondro-ink text-white rounded-[2px] hover:bg-primary transition-all duration-1000 shadow-xl uppercase tracking-[0.5em] lg:tracking-[0.6em] text-[10px] lg:text-[11px]">Initiate Audit</a>
           </div>
 
           {/* Mobile menu button */}
-          <a href="/dashboard" className="md:hidden px-6 py-3 bg-mondro-ink text-card rounded-[2px] text-[10px] font-mono font-bold tracking-[0.3em] uppercase">
+          <a href="/dashboard" className="md:hidden px-6 py-3 bg-mondro-ink text-white rounded-[2px] text-[10px] font-mono font-bold tracking-[0.3em] uppercase">
             Audit
           </a>
         </div>
