@@ -179,7 +179,7 @@ function Index() {
       </header>
 
       {/* Synthesis Framework Section */}
-      <section className="py-24 md:py-48 bg-card border-y border-border relative shadow-[0_-40px_80px_rgba(0,0,0,0.02)]">
+      <section className="pt-44 pb-24 md:pt-72 md:pb-48 bg-card border-y border-border relative shadow-[0_-40px_80px_rgba(0,0,0,0.02)]">
         <div className="container mx-auto px-6 md:px-16 lg:px-24">
           <div className="flex flex-col items-center text-center mb-16 md:mb-32">
             <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] text-mondro-stone uppercase mb-8 md:mb-12 opacity-30">SYNTHESIS FRAMEWORK</div>
@@ -189,7 +189,7 @@ function Index() {
             <div className="w-px h-16 md:h-32 bg-primary/30 mt-10 md:mt-16"></div>
           </div>
 
-          <div id="framework" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
+          <div id="framework" className="scroll-mt-40 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
             <CapabilityBlock 
               label="VERDICT 01"
               title="Technical Integrity."
@@ -219,7 +219,7 @@ function Index() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-24 md:py-48 bg-background relative">
+      <section id="pricing" className="pt-44 pb-24 md:pt-72 md:pb-48 bg-background relative">
         <div className="container mx-auto px-6 md:px-16 lg:px-24">
           <div className="flex flex-col items-center text-center mb-16 md:mb-32">
             <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] text-primary uppercase mb-4 md:mb-6 flex items-center gap-4">
