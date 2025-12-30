@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 function Index() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,6 +11,7 @@ function Index() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -105,26 +107,39 @@ function Index() {
       }}></div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-1000 ${scrolled ? 'bg-white backdrop-blur-2xl border-b border-mondro-ink/10 py-4 md:py-6 shadow-sm' : 'bg-transparent py-8 md:py-14'}`}>
+      <nav className={`sticky top-0 z-50 transition-all duration-1000 ${scrolled ? 'bg-white/95 backdrop-blur-2xl border-b border-mondro-ink/10 py-4 md:py-6 shadow-sm' : 'bg-transparent py-8 md:py-14'}`}>
         <div className="container mx-auto px-6 md:px-16 flex justify-between items-center">
           <EvolvedLogo />
           
           <div className="hidden md:flex items-center gap-10 lg:gap-20 text-[13px] lg:text-[15px] font-mono font-bold tracking-[0.4em] text-mondro-stone">
-            <a href="#framework" className="relative hover:text-primary transition-colors uppercase group">
+            <button
+              type="button"
+              onClick={() => document.getElementById('framework')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              className="relative hover:text-primary transition-colors uppercase group"
+            >
               Synthesis
               <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-primary transition-all duration-400 group-hover:w-full"></span>
-            </a>
-            <a href="#pricing" className="relative hover:text-primary transition-colors uppercase group">
+            </button>
+            <button
+              type="button"
+              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              className="relative hover:text-primary transition-colors uppercase group"
+            >
               Engagements
               <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-primary transition-all duration-400 group-hover:w-full"></span>
-            </a>
-            <a href="/dashboard" className="px-8 lg:px-14 py-3 lg:py-4 bg-mondro-ink text-white rounded-[2px] hover:bg-primary transition-all duration-1000 shadow-xl uppercase tracking-[0.5em] lg:tracking-[0.6em] text-[10px] lg:text-[11px]">Initiate Audit</a>
+            </button>
+            <Link
+              to="/dashboard"
+              className="px-8 lg:px-14 py-3 lg:py-4 bg-mondro-ink text-white rounded-[2px] hover:bg-primary transition-all duration-1000 shadow-xl uppercase tracking-[0.5em] lg:tracking-[0.6em] text-[10px] lg:text-[11px]"
+            >
+              Initiate Audit
+            </Link>
           </div>
 
           {/* Mobile menu button */}
-          <a href="/dashboard" className="md:hidden px-6 py-3 bg-mondro-ink text-white rounded-[2px] text-[10px] font-mono font-bold tracking-[0.3em] uppercase">
+          <Link to="/dashboard" className="md:hidden px-6 py-3 bg-mondro-ink text-white rounded-[2px] text-[10px] font-mono font-bold tracking-[0.3em] uppercase">
             Audit
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -179,7 +194,7 @@ function Index() {
       </header>
 
       {/* Synthesis Framework Section */}
-      <section className="pt-44 pb-24 md:pt-72 md:pb-48 bg-card border-y border-border relative shadow-[0_-40px_80px_rgba(0,0,0,0.02)]">
+      <section className="pt-24 pb-24 md:pt-40 md:pb-48 bg-card border-y border-border relative shadow-[0_-40px_80px_rgba(0,0,0,0.02)]">
         <div className="container mx-auto px-6 md:px-16 lg:px-24">
           <div className="flex flex-col items-center text-center mb-16 md:mb-32">
             <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] text-mondro-stone uppercase mb-8 md:mb-12 opacity-30">SYNTHESIS FRAMEWORK</div>
@@ -219,7 +234,7 @@ function Index() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="pt-44 pb-24 md:pt-72 md:pb-48 bg-background relative">
+      <section id="pricing" className="scroll-mt-40 pt-24 pb-24 md:pt-40 md:pb-48 bg-background relative">
         <div className="container mx-auto px-6 md:px-16 lg:px-24">
           <div className="flex flex-col items-center text-center mb-16 md:mb-32">
             <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] text-primary uppercase mb-4 md:mb-6 flex items-center gap-4">
@@ -266,7 +281,7 @@ function Index() {
       </section>
 
       {/* Performance Ledger (Metrics) */}
-      <section className="bg-card border-y border-border overflow-hidden">
+      <section className="scroll-mt-40 bg-card border-y border-border overflow-hidden">
         <div className="container mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4">
              {[
