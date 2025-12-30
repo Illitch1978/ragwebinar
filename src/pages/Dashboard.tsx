@@ -45,6 +45,17 @@ const bottomNavItems = [
   { title: "Settings", icon: Settings2, id: "settings" },
 ];
 
+// Logo component matching landing page
+const EvolvedLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
+  <div className="flex items-center gap-1.5 group cursor-pointer">
+    <span className={`font-serif font-bold tracking-tight text-foreground transition-colors duration-700 group-hover:text-primary ${size === 'small' ? 'text-xl' : 'text-2xl'}`}>mondro</span>
+    <div className="relative flex items-center justify-center">
+      <div className={`absolute bg-primary rounded-full animate-ping opacity-20 ${size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'}`}></div>
+      <div className={`bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)] ${size === 'small' ? 'w-1.5 h-1.5' : 'w-2 h-2'}`}></div>
+    </div>
+  </div>
+);
+
 const Dashboard = () => {
   const [activeProduct, setActiveProduct] = useState("intelligence");
   const [activeIntelligenceTab, setActiveIntelligenceTab] = useState("positioning");
@@ -61,11 +72,7 @@ const Dashboard = () => {
       >
         {/* Logo */}
         <div className="p-4 border-b border-border flex items-center justify-between">
-          {!sidebarCollapsed && (
-            <div className="logo">
-              mondro<span className="dot"></span>
-            </div>
-          )}
+          {!sidebarCollapsed && <EvolvedLogo size="small" />}
           <button 
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             className="p-2 hover:bg-muted/20 rounded-md transition-colors"
@@ -154,22 +161,26 @@ const Dashboard = () => {
       <main className="flex-1 overflow-auto">
         {/* Intelligence Header with Sub-tabs */}
         {activeProduct === "intelligence" && (
-          <div className="border-b border-border/50 px-6 py-4">
+          <div className="border-b border-border/50 px-6 py-5">
             <div className="flex items-center justify-between">
-              {/* Sub-tabs */}
-              <div className="flex items-center gap-1">
+              {/* Sub-tabs - matching landing page nav style */}
+              <div className="flex items-center gap-8 lg:gap-12">
                 {intelligenceSubTabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveIntelligenceTab(tab.id)}
                     className={cn(
-                      "px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                      "relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group",
                       activeIntelligenceTab === tab.id
-                        ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-primary"
                     )}
                   >
                     {tab.title}
+                    <span className={cn(
+                      "absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400",
+                      activeIntelligenceTab === tab.id ? "w-full" : "w-0 group-hover:w-full"
+                    )}></span>
                   </button>
                 ))}
               </div>
