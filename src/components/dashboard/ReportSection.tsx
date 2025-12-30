@@ -189,8 +189,9 @@ const reportData = {
 
 const tabs = [
   { id: "summary", label: "Summary" },
-  { id: "audit", label: "Audit" },
-  { id: "roadmap", label: "Roadmap" }
+  { id: "diagnosis", label: "Diagnosis" },
+  { id: "competitive-context", label: "Competitive Context" },
+  { id: "next-order-effects", label: "Next-Order Effects" }
 ];
 
 // Slide component for consistent layout
