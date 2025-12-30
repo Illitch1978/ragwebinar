@@ -106,11 +106,11 @@ function Index() {
         backgroundSize: '80px 80px'
       }}></div>
 
-      {/* Navigation (fixed; reserves space via spacer below) */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-1000 ${scrolled ? 'bg-white/95 backdrop-blur-2xl border-b border-mondro-ink/10 py-4 md:py-6 shadow-sm' : 'bg-transparent py-8 md:py-14'}`}>
+      {/* Navigation */}
+      <nav className={`sticky top-0 z-50 transition-all duration-1000 ${scrolled ? 'bg-white/95 backdrop-blur-2xl border-b border-mondro-ink/10 py-4 md:py-6 shadow-sm' : 'bg-transparent py-8 md:py-14'}`}>
         <div className="container mx-auto px-6 md:px-16 flex justify-between items-center">
           <EvolvedLogo />
-
+          
           <div className="hidden md:flex items-center gap-10 lg:gap-20 text-[13px] lg:text-[15px] font-mono font-bold tracking-[0.4em] text-mondro-stone">
             <button
               type="button"
@@ -143,11 +143,8 @@ function Index() {
         </div>
       </nav>
 
-      {/* Spacer to prevent fixed nav from covering content */}
-      <div aria-hidden className="h-24 md:h-32" />
-
       {/* Hero Section */}
-      <header className="relative min-h-[calc(100vh-6rem)] flex items-center justify-center pb-16 md:pb-32 overflow-hidden">
+      <header className="relative min-h-screen flex items-center justify-center pt-24 md:pt-32 pb-16 md:pb-32 overflow-hidden">
         <div className="container mx-auto px-6 md:px-16 relative z-10 flex flex-col items-center">
           <div className="max-w-6xl mx-auto text-center">
             <motion.h1 
