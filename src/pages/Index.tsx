@@ -244,7 +244,7 @@ function Index() {
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-mondro-ink leading-[1.1] mb-6 md:mb-8 tracking-tight">
               Intelligence Tiers
             </h2>
-            <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl border-l border-border pl-4 md:pl-6 text-left">
+            <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl border-l border-border pl-4 md:pl-6 text-center">
               Select the magnitude of analysis required to sustain institutional authority in high-stakes environments.
             </p>
           </div>
