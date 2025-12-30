@@ -198,7 +198,7 @@ function Index() {
         <div className="container mx-auto px-6 md:px-16 lg:px-24">
           <div className="flex flex-col items-center text-center mb-16 md:mb-32">
             <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] text-mondro-stone uppercase mb-8 md:mb-12 opacity-30">SYNTHESIS FRAMEWORK</div>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-mondro-ink leading-tight italic max-w-4xl tracking-tight">
+            <h2 className="font-serif text-4xl md:text-6xl lg:text-[5rem] text-mondro-ink leading-[1.1] italic max-w-5xl tracking-tight">
               "Where complexity ends, <br className="hidden md:block"/>authority begins."
             </h2>
             <div className="w-px h-16 md:h-32 bg-primary/30 mt-10 md:mt-16"></div>
@@ -241,7 +241,7 @@ function Index() {
               <span className="w-6 md:w-10 h-px bg-primary/30"></span>
               EXECUTIVE ENGAGEMENT
             </div>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-mondro-ink leading-[1.1] mb-6 md:mb-8 tracking-tight">
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-mondro-ink leading-[1.1] mb-6 md:mb-8 tracking-tight">
               Intelligence Tiers
             </h2>
             <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl border-l border-border pl-4 md:pl-6">
@@ -308,10 +308,10 @@ function Index() {
         <div className="container mx-auto px-6 md:px-16 relative z-10 text-center">
           <div className="max-w-4xl mx-auto">
             <div className="font-mono text-[11px] md:text-[13px] font-bold tracking-[0.6em] text-primary uppercase mb-10 md:mb-14">PRIVATE BRIEFING</div>
-            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-0 leading-[1.05] tracking-tight text-card">
+            <h2 className="font-serif text-6xl md:text-8xl lg:text-[9rem] mb-0 leading-[1] tracking-tight text-card">
               The future of trust
             </h2>
-            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-10 md:mb-14 leading-[1.05] tracking-tight italic text-primary">
+            <h2 className="font-serif text-6xl md:text-8xl lg:text-[9rem] mb-10 md:mb-14 leading-[1] tracking-tight italic text-primary">
               is synthesized.
             </h2>
             <p className="text-card/50 text-lg md:text-xl font-light mb-12 md:mb-16 leading-relaxed max-w-lg mx-auto italic">
