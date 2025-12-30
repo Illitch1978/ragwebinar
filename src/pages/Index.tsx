@@ -151,17 +151,20 @@ function Index() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...revealTransition, delay: 0.1 }}
-              className="font-serif text-5xl md:text-7xl lg:text-[8rem] font-normal leading-[0.95] mb-8 md:mb-12 text-mondro-ink tracking-tight"
+              className="font-serif text-5xl md:text-7xl lg:text-[8rem] font-normal leading-[1.1] mb-10 md:mb-14 text-mondro-ink tracking-tight"
             >
-              Defining the <br/><span className="italic text-mondro-stone/30 font-light">Digital Standard.</span>
+              Defining the
+              <br />
+              <span className="italic text-mondro-stone/30 font-light">Digital Standard.</span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...revealTransition, delay: 0.2 }}
-              className="max-w-2xl mx-auto text-lg md:text-2xl text-mondro-stone font-light leading-relaxed mb-12 md:mb-16 px-4"
+              className="max-w-2xl mx-auto text-lg md:text-xl text-mondro-stone font-light leading-relaxed mb-12 md:mb-16 px-4"
             >
-              Judgment is the final luxury.<br className="hidden md:block" /> 
+              Judgment is the final luxury.
+              <br />
               We distill digital noise into definitive strategic signal.
             </motion.p>
             
