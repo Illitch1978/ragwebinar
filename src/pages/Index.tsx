@@ -30,12 +30,12 @@ function Index() {
 
   const revealTransition = { duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
 
-  const EvolvedLogo = () => (
+  const EvolvedLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
     <div className="flex items-center gap-1.5 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-      <span className="font-serif font-bold text-4xl md:text-5xl tracking-tight text-mondro-ink transition-colors duration-700 group-hover:text-primary">mondro</span>
+      <span className={`font-serif font-bold tracking-tight text-mondro-ink transition-colors duration-700 group-hover:text-primary ${size === 'small' ? 'text-2xl md:text-3xl' : 'text-3xl md:text-4xl'}`}>mondro</span>
       <div className="relative flex items-center justify-center">
-        <div className="absolute w-4 h-4 bg-primary rounded-full animate-ping opacity-20"></div>
-        <div className="w-3.5 h-3.5 bg-primary rounded-full shadow-[0_0_15px_hsl(var(--primary)/0.3)]"></div>
+        <div className={`absolute bg-primary rounded-full animate-ping opacity-20 ${size === 'small' ? 'w-2.5 h-2.5' : 'w-3 h-3'}`}></div>
+        <div className={`bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)] ${size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'}`}></div>
       </div>
     </div>
   );
@@ -75,22 +75,22 @@ function Index() {
     cta: string,
     isPrimary?: boolean
   }) => (
-    <div className={`p-12 md:p-24 rounded-[2px] border ${isPrimary ? 'border-primary bg-card shadow-[0_60px_100px_-30px_rgba(0,0,0,0.12)] scale-100 md:scale-[1.03] z-10' : 'border-border bg-card/40'} flex flex-col h-full transition-all duration-1000 group`}>
-      <div className="font-mono text-[13px] font-bold tracking-[0.4em] text-mondro-stone uppercase mb-8">{type}</div>
-      <div className="flex items-baseline gap-4 mb-4">
-        <span className="font-serif text-5xl md:text-[5.5rem] text-mondro-ink font-normal tracking-tighter">{price}</span>
-        <span className="text-mondro-stone text-lg font-light italic">{subtitle}</span>
+    <div className={`p-8 md:p-12 lg:p-16 rounded-[2px] border ${isPrimary ? 'border-primary bg-card shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] z-10' : 'border-border bg-card/40'} flex flex-col h-full transition-all duration-1000 group`}>
+      <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] text-mondro-stone uppercase mb-6">{type}</div>
+      <div className="flex items-baseline gap-3 mb-3">
+        <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-mondro-ink font-normal tracking-tighter">{price}</span>
+        <span className="text-mondro-stone text-sm md:text-base font-light italic">{subtitle}</span>
       </div>
-      <div className={`w-24 h-px ${isPrimary ? 'bg-primary' : 'bg-border'} my-10 md:my-14 transition-all duration-1000 group-hover:w-full`}></div>
-      <ul className="space-y-6 md:space-y-8 mb-16 md:mb-24 flex-grow">
+      <div className={`w-16 h-px ${isPrimary ? 'bg-primary' : 'bg-border'} my-6 md:my-8 transition-all duration-1000 group-hover:w-full`}></div>
+      <ul className="space-y-4 md:space-y-5 mb-8 md:mb-12 flex-grow">
         {features.map(f => (
-          <li key={f} className="flex items-start gap-4 md:gap-6 text-lg md:text-xl text-mondro-ink font-light border-b border-border/20 pb-6 md:pb-8 last:border-0">
-            <span className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-primary/30 mt-2 md:mt-2.5"></span>
+          <li key={f} className="flex items-start gap-3 md:gap-4 text-base md:text-lg text-mondro-ink font-light border-b border-border/20 pb-4 md:pb-5 last:border-0">
+            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary/30 mt-2"></span>
             <span>{f}</span>
           </li>
         ))}
       </ul>
-      <button className={`w-full py-5 md:py-7 px-10 rounded-[2px] font-mono text-[12px] md:text-[14px] font-bold tracking-[0.4em] uppercase transition-all duration-700 ${isPrimary ? 'bg-primary text-primary-foreground hover:bg-mondro-ink' : 'border border-mondro-ink text-mondro-ink hover:bg-mondro-ink hover:text-card'}`}>
+      <button className={`w-full py-4 md:py-5 px-8 rounded-[2px] font-mono text-[10px] md:text-[11px] font-bold tracking-[0.3em] uppercase transition-all duration-700 ${isPrimary ? 'bg-primary text-primary-foreground hover:bg-mondro-ink' : 'border border-mondro-ink text-mondro-ink hover:bg-mondro-ink hover:text-card'}`}>
         {cta}
       </button>
     </div>
@@ -179,17 +179,17 @@ function Index() {
       </header>
 
       {/* Synthesis Framework Section */}
-      <section className="py-32 md:py-96 bg-card border-y border-border relative shadow-[0_-80px_150px_rgba(0,0,0,0.03)]">
-        <div className="container mx-auto px-6 md:px-16 lg:px-32">
-          <div className="flex flex-col items-center text-center mb-32 md:mb-64">
-            <div className="font-mono text-[12px] md:text-[14px] font-bold tracking-[0.6em] text-mondro-stone uppercase mb-12 md:mb-20 opacity-30">SYNTHESIS FRAMEWORK</div>
-            <h2 className="font-serif text-4xl md:text-6xl lg:text-[7.5rem] text-mondro-ink leading-tight italic max-w-[80rem] tracking-tight">
+      <section className="py-24 md:py-48 bg-card border-y border-border relative shadow-[0_-40px_80px_rgba(0,0,0,0.02)]">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24">
+          <div className="flex flex-col items-center text-center mb-16 md:mb-32">
+            <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] text-mondro-stone uppercase mb-8 md:mb-12 opacity-30">SYNTHESIS FRAMEWORK</div>
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-mondro-ink leading-tight italic max-w-4xl tracking-tight">
               "Where complexity ends, <br className="hidden md:block"/>authority begins."
             </h2>
-            <div className="w-px h-32 md:h-64 bg-primary/30 mt-16 md:mt-24"></div>
+            <div className="w-px h-16 md:h-32 bg-primary/30 mt-10 md:mt-16"></div>
           </div>
 
-          <div id="framework" className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-24">
+          <div id="framework" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
             <CapabilityBlock 
               label="VERDICT 01"
               title="Technical Integrity."
@@ -219,22 +219,22 @@ function Index() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-32 md:py-96 bg-background relative">
-        <div className="container mx-auto px-6 md:px-16 lg:px-32">
-          <div className="flex flex-col items-center text-center mb-32 md:mb-64">
-            <div className="font-mono text-[12px] md:text-[14px] font-bold tracking-[0.4em] text-primary uppercase mb-6 md:mb-8 flex items-center gap-6">
-              <span className="w-8 md:w-12 h-px bg-primary/30"></span>
+      <section id="pricing" className="py-24 md:py-48 bg-background relative">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24">
+          <div className="flex flex-col items-center text-center mb-16 md:mb-32">
+            <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] text-primary uppercase mb-4 md:mb-6 flex items-center gap-4">
+              <span className="w-6 md:w-10 h-px bg-primary/30"></span>
               EXECUTIVE ENGAGEMENT
             </div>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-[5.5rem] text-mondro-ink leading-[1.05] mb-8 md:mb-10 tracking-tight">
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-mondro-ink leading-[1.1] mb-6 md:mb-8 tracking-tight">
               Intelligence Tiers
             </h2>
-            <p className="text-xl md:text-2xl text-mondro-stone font-light leading-relaxed max-w-3xl border-l border-border pl-6 md:pl-10">
+            <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl border-l border-border pl-4 md:pl-6">
               Select the magnitude of analysis required to sustain institutional authority in high-stakes environments.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-24 max-w-[100rem] mx-auto items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 max-w-5xl mx-auto items-stretch">
             <PricingCard 
               type="STRATEGIC AUDIT"
               price="$3,500"
@@ -275,9 +275,9 @@ function Index() {
                { val: "0.4s", label: "Synthesis Latency" },
                { val: "99%", label: "Verdict Accuracy" }
              ].map((s, i) => (
-               <div key={i} className="text-center py-16 md:py-28 px-6 md:px-16 border-r border-border last:border-0 group hover:bg-secondary transition-all duration-700">
-                  <div className="font-serif text-4xl md:text-7xl text-mondro-ink mb-4 md:mb-6 transition-transform duration-1000 group-hover:scale-110 tracking-tighter">{s.val}</div>
-                  <div className="font-mono text-[10px] md:text-[13px] text-mondro-stone tracking-[0.3em] md:tracking-[0.5em] uppercase font-bold opacity-40">{s.label}</div>
+               <div key={i} className="text-center py-12 md:py-20 px-4 md:px-12 border-r border-border last:border-0 group hover:bg-secondary transition-all duration-700">
+                  <div className="font-serif text-3xl md:text-5xl text-mondro-ink mb-3 md:mb-4 tracking-tighter">{s.val}</div>
+                  <div className="font-mono text-[9px] md:text-[11px] text-mondro-stone tracking-[0.2em] md:tracking-[0.4em] uppercase font-bold opacity-40">{s.label}</div>
                </div>
              ))}
           </div>
@@ -285,25 +285,25 @@ function Index() {
       </section>
 
       {/* Institutional Briefing CTA */}
-      <section className="py-48 md:py-80 bg-mondro-ink text-card relative">
+      <section className="py-24 md:py-48 bg-mondro-ink text-card relative">
         <div className="absolute inset-0 opacity-[0.1] pointer-events-none" style={{
           backgroundImage: 'radial-gradient(hsl(var(--primary)) 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }}></div>
         <div className="container mx-auto px-6 md:px-16 relative z-10 text-center">
-          <div className="max-w-5xl mx-auto">
-            <div className="font-mono text-[12px] md:text-[14px] font-bold tracking-[0.8em] text-primary uppercase mb-10 md:mb-16">PRIVATE BRIEFING</div>
-            <h2 className="font-serif text-5xl md:text-7xl lg:text-[10rem] mb-12 md:mb-20 leading-[0.9] tracking-tighter">The future of trust <br/><span className="italic text-primary">is synthesized.</span></h2>
-            <p className="text-muted-foreground text-xl md:text-3xl font-light mb-16 md:mb-24 leading-relaxed max-w-2xl mx-auto opacity-60 italic">
+          <div className="max-w-4xl mx-auto">
+            <div className="font-mono text-[10px] md:text-[12px] font-bold tracking-[0.6em] text-primary uppercase mb-6 md:mb-10">PRIVATE BRIEFING</div>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-8 md:mb-12 leading-[0.95] tracking-tight">The future of trust <br/><span className="italic text-primary">is synthesized.</span></h2>
+            <p className="text-card/60 text-base md:text-xl font-light mb-10 md:mb-16 leading-relaxed max-w-xl mx-auto italic">
               Subscribe to the private memorandum. Intelligence for the global elite.
             </p>
-            <div className="flex flex-col md:flex-row gap-4 md:gap-8 max-w-3xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-3 md:gap-4 max-w-2xl mx-auto">
               <input 
                 type="email" 
                 placeholder="Institutional email address" 
-                className="flex-grow bg-card/5 border border-card/10 px-6 md:px-10 py-5 md:py-8 outline-none font-mono text-base md:text-xl tracking-widest focus:border-primary transition-all rounded-[2px]"
+                className="flex-grow bg-card/5 border border-card/10 px-5 md:px-8 py-4 md:py-5 outline-none font-mono text-sm md:text-base tracking-widest focus:border-primary transition-all rounded-[2px]"
               />
-              <button className="bg-card text-mondro-ink px-10 md:px-16 py-5 md:py-8 font-mono text-[12px] md:text-[14px] font-bold tracking-[0.5em] uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-1000 rounded-[2px]">
+              <button className="bg-card text-mondro-ink px-8 md:px-12 py-4 md:py-5 font-mono text-[10px] md:text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-700 rounded-[2px]">
                 Subscribe
               </button>
             </div>
@@ -312,39 +312,39 @@ function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-background py-32 md:py-64 border-t border-border">
+      <footer className="bg-background py-16 md:py-32 border-t border-border">
         <div className="container mx-auto px-6 md:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-40 mb-24 md:mb-48">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24 mb-12 md:mb-24">
             <div className="lg:col-span-5">
-              <EvolvedLogo />
-              <p className="text-xl md:text-2xl text-mondro-stone font-light leading-relaxed max-w-lg mt-10 md:mt-16 mb-10 md:mb-16 italic">
+              <EvolvedLogo size="small" />
+              <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-md mt-6 md:mt-10 mb-6 md:mb-10 italic">
                 The Luxury of Clarity. <br/>Strategic synthesis for the global standard.
               </p>
-              <div className="font-mono text-[12px] text-mondro-stone font-bold tracking-[0.3em] uppercase flex gap-10 md:gap-16">
-                <a href="#" className="hover:text-mondro-ink border-b border-border pb-3 transition-all">TWITTER</a>
-                <a href="#" className="hover:text-mondro-ink border-b border-border pb-3 transition-all">LINKEDIN</a>
+              <div className="font-mono text-[10px] md:text-[11px] text-mondro-stone font-bold tracking-[0.2em] uppercase flex gap-6 md:gap-10">
+                <a href="#" className="hover:text-mondro-ink border-b border-border pb-2 transition-all">TWITTER</a>
+                <a href="#" className="hover:text-mondro-ink border-b border-border pb-2 transition-all">LINKEDIN</a>
               </div>
             </div>
-            <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-24">
+            <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
               <div>
-                <div className="font-mono text-[13px] font-bold tracking-[0.4em] text-mondro-ink mb-8 md:mb-12 uppercase">INTELLIGENCE</div>
-                <ul className="space-y-4 md:space-y-6 text-[15px] md:text-[17px] text-mondro-stone font-light">
+                <div className="font-mono text-[11px] font-bold tracking-[0.3em] text-mondro-ink mb-4 md:mb-6 uppercase">INTELLIGENCE</div>
+                <ul className="space-y-2 md:space-y-3 text-[14px] md:text-[15px] text-mondro-stone font-light">
                   <li><a href="#" className="hover:text-primary transition-colors">The Synthesis</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Trust Markers</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Audit Ledger</a></li>
                 </ul>
               </div>
               <div>
-                <div className="font-mono text-[13px] font-bold tracking-[0.4em] text-mondro-ink mb-8 md:mb-12 uppercase">ENGAGEMENT</div>
-                <ul className="space-y-4 md:space-y-6 text-[15px] md:text-[17px] text-mondro-stone font-light">
+                <div className="font-mono text-[11px] font-bold tracking-[0.3em] text-mondro-ink mb-4 md:mb-6 uppercase">ENGAGEMENT</div>
+                <ul className="space-y-2 md:space-y-3 text-[14px] md:text-[15px] text-mondro-stone font-light">
                   <li><a href="#" className="hover:text-primary transition-colors">Strategic Briefs</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Partner Access</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Privacy Protocol</a></li>
                 </ul>
               </div>
               <div className="hidden md:block">
-                <div className="font-mono text-[13px] font-bold tracking-[0.4em] text-mondro-ink mb-12 uppercase">CORPORATE</div>
-                <ul className="space-y-6 text-[17px] text-mondro-stone font-light">
+                <div className="font-mono text-[11px] font-bold tracking-[0.3em] text-mondro-ink mb-6 uppercase">CORPORATE</div>
+                <ul className="space-y-3 text-[15px] text-mondro-stone font-light">
                   <li><a href="#" className="hover:text-primary transition-colors">Our Legacy</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Global Hubs</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Governance</a></li>
@@ -352,9 +352,9 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className="pt-10 md:pt-16 border-t border-border flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12 text-[10px] md:text-[12px] font-mono tracking-[0.5em] text-mondro-stone uppercase font-bold">
+          <div className="pt-6 md:pt-10 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 text-[9px] md:text-[10px] font-mono tracking-[0.4em] text-mondro-stone uppercase font-bold">
             <span>© 2026 MONDRO INTELLECTUAL CAPITAL</span>
-            <div className="flex gap-10 md:gap-20">
+            <div className="flex gap-8 md:gap-12">
               <span className="opacity-40">LONDON</span>
               <span className="opacity-40">DUBAI</span>
             </div>
