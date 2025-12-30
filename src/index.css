@@ -82,6 +82,11 @@
     font-family: var(--font-sans);
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 140px;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
