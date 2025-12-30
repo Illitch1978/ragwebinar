@@ -651,11 +651,11 @@ const ReportSection = () => {
         >
           {/* Slide 07: System-Level Diagnosis */}
           <Slide slideNumber="07 / 17">
-            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
               <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
               <ActionTitle>The site functions as pages, but fails as a decision system.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-24 mt-12">
+              <div className="grid md:grid-cols-12 gap-16 mt-12">
                 <div className="col-span-5 text-2xl leading-relaxed text-muted-foreground space-y-10">
                   <p>
                     A high-performing digital asset operates as an integrated system where clarity, logic, and flow compound to drive decisions.
@@ -709,11 +709,11 @@ const ReportSection = () => {
 
           {/* Slide 08: Intake & Conversion */}
           <Slide slideNumber="08 / 17">
-            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
               <SlideEyebrow>Intake & Conversion</SlideEyebrow>
               <ActionTitle>Motivated users are stalling at the point of highest intent.</ActionTitle>
               
-              <p className="text-2xl text-muted-foreground max-w-4xl mb-16">
+              <p className="text-2xl text-muted-foreground max-w-5xl mb-16">
                 We mapped the high-intent user journey from "Solution Discovery" to "Inquiry." The data reveals a specific rupture in the intake sequence where effort exceeds motivation.
               </p>
 
@@ -763,11 +763,11 @@ const ReportSection = () => {
 
           {/* Slide 09: Narrative Positioning */}
           <Slide slideNumber="09 / 17">
-            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
               <SlideEyebrow>Narrative Positioning</SlideEyebrow>
               <ActionTitle>The "Process vs. Outcome" disconnect.</ActionTitle>
               
-              <div className="grid md:grid-cols-2 gap-28 mt-16">
+              <div className="grid md:grid-cols-2 gap-16 mt-16">
                 <div className="text-2xl leading-relaxed text-muted-foreground space-y-10">
                   <p>
                     Your internal teams understand the nuance of your technology ("Human-in-the-loop AI"). However, this nuance is lost in translation.
@@ -826,11 +826,11 @@ const ReportSection = () => {
 
           {/* Slide 10: Trust Architecture */}
           <Slide slideNumber="10 / 17">
-            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
               <SlideEyebrow>Trust Architecture</SlideEyebrow>
               <ActionTitle>Credibility is currently implicit, rather than explicit.</ActionTitle>
               
-              <p className="text-2xl text-muted-foreground max-w-4xl mb-16">
+              <p className="text-2xl text-muted-foreground max-w-5xl mb-16">
                 In high-value B2B transactions, trust must be established before logic can be applied. Your current architecture asks the user to "trust the code" without providing the necessary social and institutional signals.
               </p>
 
@@ -879,11 +879,11 @@ const ReportSection = () => {
 
           {/* Slide 11: Technical Constraints */}
           <Slide slideNumber="11 / 17">
-            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
               <SlideEyebrow>Technical Constraints</SlideEyebrow>
               <ActionTitle>Cosmetic issues are degrading the perception of stability.</ActionTitle>
               
-              <div className="grid md:grid-cols-3 gap-12 mt-16">
+              <div className="grid md:grid-cols-3 gap-10 mt-16">
                 {/* Vector 01 */}
                 <div className="border border-border p-12 bg-muted/30 flex flex-col justify-between h-full">
                   <div>
@@ -941,7 +941,7 @@ const ReportSection = () => {
 
           {/* Slide 12: Diagnosis Summary */}
           <Slide slideNumber="12 / 17">
-            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
               <SlideEyebrow>Diagnosis Summary</SlideEyebrow>
               <ActionTitle className="mb-16">Three dominant forces are actively suppressing revenue.</ActionTitle>
               
