@@ -144,7 +144,7 @@ function Index() {
       </nav>
 
       {/* Hero Section */}
-      <header className="relative min-h-screen flex items-center justify-center pb-24 md:pb-32 overflow-hidden">
+      <header className="relative min-h-screen flex items-center justify-center pb-24 md:pb-32 overflow-hidden -mt-8">
         <div className="container mx-auto px-6 md:px-16 relative z-10 flex flex-col items-center">
           <div className="max-w-6xl mx-auto text-center">
             <motion.h1 
@@ -160,7 +160,7 @@ function Index() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...revealTransition, delay: 0.2 }}
-              className="max-w-2xl mx-auto text-base md:text-lg text-mondro-stone font-light leading-relaxed mb-12 md:mb-16 px-4"
+              className="max-w-2xl mx-auto text-lg md:text-xl text-mondro-stone font-light leading-relaxed mb-12 md:mb-16 px-4"
             >
               Judgment is the final luxury.<br className="hidden md:block" />
               We distill digital noise into definitive strategic signal.
@@ -170,9 +170,9 @@ function Index() {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ ...revealTransition, delay: 0.3 }}
-              className="max-w-xl mx-auto relative"
+              className="max-w-2xl mx-auto relative"
             >
-              <div className="relative flex flex-col md:flex-row items-center p-2 bg-card border border-border shadow-[0_20px_60px_-15px_rgba(0,0,0,0.06)] rounded-[2px]">
+              <div className="relative flex flex-col md:flex-row items-center p-2 md:p-3 bg-card border border-border shadow-[0_20px_60px_-15px_rgba(0,0,0,0.06)] rounded-[2px]">
                 <input 
                   ref={heroInputRef}
                   type="text"
@@ -180,11 +180,11 @@ function Index() {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="domain-to-evaluate.com" 
-                  className="w-full bg-transparent px-4 md:px-5 py-3 md:py-4 outline-none font-mono text-sm md:text-base tracking-[0.05em] text-mondro-ink placeholder:text-mondro-stone/40"
+                  className="w-full bg-transparent px-4 md:px-6 py-4 md:py-5 outline-none font-mono text-sm md:text-base tracking-[0.05em] text-mondro-ink placeholder:text-mondro-stone/40"
                 />
                 <button 
                   onClick={handleSubmit}
-                  className="w-full md:w-auto flex items-center justify-center bg-mondro-ink text-card px-8 md:px-10 py-3 md:py-4 rounded-[2px] font-mono text-[10px] md:text-[11px] font-bold tracking-[0.3em] uppercase hover:bg-primary transition-all duration-500 mt-2 md:mt-0"
+                  className="w-full md:w-auto flex items-center justify-center bg-mondro-ink text-card px-10 md:px-12 py-4 md:py-5 rounded-[2px] font-mono text-[10px] md:text-[11px] font-bold tracking-[0.3em] uppercase hover:bg-primary transition-all duration-500 mt-2 md:mt-0"
                 >
                   Assess
                 </button>
