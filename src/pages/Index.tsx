@@ -144,7 +144,7 @@ function Index() {
       </nav>
 
       {/* Hero Section */}
-      <header className="relative min-h-screen flex items-center justify-center pt-24 md:pt-32 pb-16 md:pb-32 overflow-hidden">
+      <header className="relative min-h-screen flex items-center justify-center -mt-20 md:-mt-28 pb-16 md:pb-32 overflow-hidden">
         <div className="container mx-auto px-6 md:px-16 relative z-10 flex flex-col items-center">
           <div className="max-w-6xl mx-auto text-center">
             <motion.h1 
