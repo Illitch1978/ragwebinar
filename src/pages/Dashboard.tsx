@@ -2,7 +2,7 @@ import { useState } from "react";
 import PositioningSection from "@/components/dashboard/PositioningSection";
 import VisibilitySection from "@/components/dashboard/VisibilitySection";
 import {
-  Gem,
+  Layers,
   MessageSquare,
   FileText,
   Menu,
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 const productNavItems = [
   { 
     title: "Intelligence", 
-    icon: Gem, 
+    icon: Layers, 
     id: "intelligence",
     description: "Positioning, Visibility, Technical, Friction, Trust, Competitor Intel"
   },
