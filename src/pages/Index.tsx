@@ -244,9 +244,14 @@ function Index() {
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-mondro-ink leading-[1.1] mb-6 md:mb-8 tracking-tight">
               Intelligence Tiers
             </h2>
-            <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl border-l border-border pl-4 md:pl-6">
-              Select the magnitude of analysis required to sustain institutional authority in high-stakes environments.
-            </p>
+            <div className="mx-auto">
+              <div className="grid grid-cols-[1px_1fr] items-center gap-5">
+                <span aria-hidden="true" className="h-10 w-px bg-border"></span>
+                <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed text-center max-w-2xl">
+                  Select the magnitude of analysis required to sustain institutional authority in high-stakes environments.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 max-w-5xl mx-auto items-stretch">
