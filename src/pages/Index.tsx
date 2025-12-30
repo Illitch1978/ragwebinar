@@ -48,20 +48,20 @@ function Index() {
     description: string,
     tags: string[]
   }) => (
-    <div className="group p-16 border border-border hover:border-primary transition-all duration-700 bg-card/70 backdrop-blur-2xl rounded-[2px] relative overflow-hidden flex flex-col h-full shadow-[0_10px_40px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)]">
-      <div className="font-mono text-[13px] font-bold tracking-[0.3em] text-mondro-stone uppercase mb-12 opacity-50 flex items-center gap-3">
+    <div className="group p-10 md:p-16 border border-border hover:border-primary transition-all duration-700 bg-card/70 backdrop-blur-2xl rounded-[2px] relative overflow-hidden flex flex-col h-full shadow-[0_10px_40px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)]">
+      <div className="font-mono text-[13px] font-bold tracking-[0.3em] text-mondro-stone uppercase mb-8 md:mb-12 opacity-50 flex items-center gap-3">
         <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
         {label}
       </div>
-      <h3 className="font-serif text-[2.75rem] text-mondro-ink mb-8 leading-tight">
+      <h3 className="font-serif text-3xl md:text-[2.75rem] text-mondro-ink mb-6 md:mb-8 leading-tight">
         {title}
       </h3>
-      <p className="text-mondro-stone text-xl leading-relaxed mb-16 font-light flex-grow">
+      <p className="text-mondro-stone text-lg md:text-xl leading-relaxed mb-12 md:mb-16 font-light flex-grow">
         {description}
       </p>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-3 md:gap-4">
         {tags.map(tag => (
-          <span key={tag} className="px-6 py-2.5 bg-secondary text-mondro-ink text-[11px] font-mono font-bold tracking-[0.2em] rounded-[2px] border border-border uppercase group-hover:border-primary/30 transition-colors">
+          <span key={tag} className="px-4 md:px-6 py-2 md:py-2.5 bg-secondary text-mondro-ink text-[10px] md:text-[11px] font-mono font-bold tracking-[0.2em] rounded-[2px] border border-border uppercase group-hover:border-primary/30 transition-colors">
             {tag}
           </span>
         ))}
@@ -77,22 +77,22 @@ function Index() {
     cta: string,
     isPrimary?: boolean
   }) => (
-    <div className={`p-24 rounded-[2px] border ${isPrimary ? 'border-primary bg-card shadow-[0_60px_100px_-30px_rgba(0,0,0,0.12)] scale-[1.03] z-10' : 'border-border bg-card/40'} flex flex-col h-full transition-all duration-1000 group`}>
-      <div className="font-mono text-[13px] font-bold tracking-[0.4em] text-mondro-stone uppercase mb-8">{type}</div>
-      <div className="flex items-baseline gap-4 mb-4">
-        <span className="font-serif text-[5.5rem] text-mondro-ink font-normal tracking-tighter">{price}</span>
-        <span className="text-mondro-stone text-lg font-light italic">{subtitle}</span>
+    <div className={`p-8 md:p-12 lg:p-16 rounded-[2px] border ${isPrimary ? 'border-primary bg-card shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] z-10' : 'border-border bg-card/40'} flex flex-col h-full transition-all duration-1000 group`}>
+      <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] text-mondro-stone uppercase mb-6">{type}</div>
+      <div className="flex items-baseline gap-3 mb-3">
+        <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-mondro-ink font-normal tracking-tighter">{price}</span>
+        <span className="text-mondro-stone text-sm md:text-base font-light italic">{subtitle}</span>
       </div>
-      <div className={`w-24 h-px ${isPrimary ? 'bg-primary' : 'bg-border'} my-14 transition-all duration-1000 group-hover:w-full`}></div>
-      <ul className="space-y-8 mb-24 flex-grow">
+      <div className={`w-16 h-px ${isPrimary ? 'bg-primary' : 'bg-border'} my-6 md:my-8 transition-all duration-1000 group-hover:w-full`}></div>
+      <ul className="space-y-4 md:space-y-5 mb-8 md:mb-12 flex-grow">
         {features.map(f => (
-          <li key={f} className="flex items-start gap-6 text-xl text-mondro-ink font-light border-b border-border/20 pb-8 last:border-0">
-            <span className="w-2.5 h-2.5 rounded-full bg-primary/30 mt-2.5"></span>
+          <li key={f} className="flex items-start gap-3 md:gap-4 text-base md:text-lg text-mondro-ink font-light border-b border-border/20 pb-4 md:pb-5 last:border-0">
+            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary/30 mt-2"></span>
             <span>{f}</span>
           </li>
         ))}
       </ul>
-      <button className={`w-full py-7 px-10 rounded-[2px] font-mono text-[14px] font-bold tracking-[0.4em] uppercase transition-all duration-700 ${isPrimary ? 'bg-primary text-primary-foreground hover:bg-mondro-ink' : 'border border-mondro-ink text-mondro-ink hover:bg-mondro-ink hover:text-card'}`}>
+      <button className={`w-full py-4 md:py-5 px-8 rounded-[2px] font-mono text-[10px] md:text-[11px] font-bold tracking-[0.3em] uppercase transition-all duration-700 ${isPrimary ? 'bg-primary text-primary-foreground hover:bg-mondro-ink' : 'border border-mondro-ink text-mondro-ink hover:bg-mondro-ink hover:text-card'}`}>
         {cta}
       </button>
     </div>
@@ -144,14 +144,14 @@ function Index() {
       </nav>
 
       {/* Hero Section */}
-      <header className="relative min-h-screen flex items-center justify-center pt-48 pb-64 overflow-hidden">
-        <motion.div style={{ opacity: heroOpacity }} className="container mx-auto px-16 relative z-10 flex flex-col items-center">
+      <header className="relative min-h-screen flex items-center justify-center pt-24 md:pt-32 pb-16 md:pb-32 overflow-hidden">
+        <div className="container mx-auto px-6 md:px-16 relative z-10 flex flex-col items-center">
           <div className="max-w-6xl mx-auto text-center">
             <motion.h1 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...revealTransition, delay: 0.1 }}
-              className="font-serif text-7xl md:text-[10rem] font-normal leading-[1] mb-16 text-mondro-ink tracking-tight"
+              className="font-serif text-5xl md:text-7xl lg:text-[10rem] font-normal leading-[1] mb-12 md:mb-16 text-mondro-ink tracking-tight"
             >
               Defining the <br/><span className="italic text-mondro-stone/25 font-light">Digital Standard.</span>
             </motion.h1>
@@ -159,7 +159,7 @@ function Index() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...revealTransition, delay: 0.2 }}
-              className="max-w-3xl mx-auto text-3xl text-mondro-stone font-light leading-relaxed mb-24 px-4 opacity-80"
+              className="max-w-3xl mx-auto text-xl md:text-2xl lg:text-3xl text-mondro-stone font-light leading-relaxed mb-16 md:mb-24 px-4 opacity-80"
             >
               Judgment is the final luxury.<br className="hidden md:block" /> 
               We distill digital noise into definitive strategic signal.
@@ -169,42 +169,42 @@ function Index() {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ ...revealTransition, delay: 0.3 }}
-              className="max-w-3xl mx-auto relative"
+              className="max-w-2xl mx-auto relative"
             >
-              <div className="relative flex items-center p-4 bg-white border border-border shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] rounded-[2px]">
+              <div className="relative flex flex-col md:flex-row items-center p-2 md:p-3 bg-card border border-border shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] rounded-[2px]">
                 <input 
                   ref={heroInputRef}
-                  type="text" 
+                  type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="domain-to-evaluate.com" 
-                  className="w-full bg-transparent px-8 py-6 outline-none font-mono text-xl tracking-[0.1em] text-mondro-ink placeholder:text-stone-200"
+                  className="w-full bg-transparent px-4 md:px-6 py-4 md:py-5 outline-none font-mono text-base md:text-lg tracking-[0.1em] text-mondro-ink placeholder:text-mondro-stone/30"
                 />
-                <button
+                <button 
                   onClick={handleSubmit}
-                  className="flex items-center gap-6 bg-mondro-ink text-white px-16 py-6 rounded-[2px] font-mono text-[14px] font-bold tracking-[0.5em] uppercase hover:bg-primary transition-all duration-1000"
+                  className="w-full md:w-auto flex items-center justify-center gap-4 bg-mondro-ink text-card px-8 md:px-12 py-4 md:py-5 rounded-[2px] font-mono text-[11px] md:text-[13px] font-bold tracking-[0.4em] uppercase hover:bg-primary transition-all duration-500 mt-2 md:mt-0"
                 >
                   Assess
                 </button>
               </div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       </header>
 
       {/* Synthesis Framework Section */}
-      <section className="py-96 bg-card border-y border-border relative shadow-[0_-80px_150px_rgba(0,0,0,0.03)]">
-        <div className="container mx-auto px-16 md:px-32">
-          <div className="flex flex-col items-center text-center mb-64">
-            <div className="font-mono text-[14px] font-bold tracking-[0.6em] text-mondro-stone uppercase mb-20 opacity-30">SYNTHESIS FRAMEWORK</div>
-            <h2 className="font-serif text-6xl md:text-[7.5rem] text-mondro-ink leading-tight italic max-w-[80rem] tracking-tight">
-              "Where complexity ends, <br/>authority begins."
+      <section className="pt-24 pb-24 md:pt-40 md:pb-48 bg-card border-y border-border relative shadow-[0_-40px_80px_rgba(0,0,0,0.02)]">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24">
+          <div className="flex flex-col items-center text-center mb-16 md:mb-32">
+            <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] text-mondro-stone uppercase mb-8 md:mb-12 opacity-30">SYNTHESIS FRAMEWORK</div>
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-mondro-ink leading-tight italic max-w-4xl tracking-tight">
+              "Where complexity ends, <br className="hidden md:block"/>authority begins."
             </h2>
-            <div className="w-px h-64 bg-primary/30 mt-24"></div>
+            <div className="w-px h-16 md:h-32 bg-primary/30 mt-10 md:mt-16"></div>
           </div>
 
-          <div id="framework" className="scroll-mt-40 grid grid-cols-1 md:grid-cols-2 gap-24">
+          <div id="framework" className="scroll-mt-40 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
             <CapabilityBlock 
               label="VERDICT 01"
               title="Technical Integrity."
@@ -234,24 +234,22 @@ function Index() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="scroll-mt-40 py-96 bg-background relative">
-        <div className="container mx-auto px-16 md:px-32">
-          <div className="flex flex-col items-center text-center mb-64">
-            <div className="max-w-5xl mb-32">
-              <div className="font-mono text-[14px] font-bold text-primary uppercase tracking-[0.4em] mb-8 flex items-center gap-6">
-                <span className="w-12 h-px bg-primary/30"></span>
-                EXECUTIVE ENGAGEMENT
-              </div>
-              <h2 className="font-serif text-5xl md:text-[5.5rem] text-mondro-ink leading-[1.05] mb-10 tracking-tight">
-                Intelligence Tiers
-              </h2>
-              <p className="text-2xl text-mondro-stone font-light leading-relaxed max-w-3xl border-l border-border pl-10">
-                Select the magnitude of analysis required to sustain institutional authority in high-stakes environments.
-              </p>
+      <section id="pricing" className="scroll-mt-40 pt-24 pb-24 md:pt-40 md:pb-48 bg-background relative">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24">
+          <div className="flex flex-col items-center text-center mb-16 md:mb-32">
+            <div className="font-mono text-[11px] md:text-[12px] font-bold tracking-[0.3em] text-primary uppercase mb-4 md:mb-6 flex items-center gap-4">
+              <span className="w-6 md:w-10 h-px bg-primary/30"></span>
+              EXECUTIVE ENGAGEMENT
             </div>
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-mondro-ink leading-[1.1] mb-6 md:mb-8 tracking-tight">
+              Intelligence Tiers
+            </h2>
+            <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-2xl border-l border-border pl-4 md:pl-6">
+              Select the magnitude of analysis required to sustain institutional authority in high-stakes environments.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 max-w-[100rem] mx-auto items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 max-w-5xl mx-auto items-stretch">
             <PricingCard 
               type="STRATEGIC AUDIT"
               price="$3,500"
@@ -285,16 +283,16 @@ function Index() {
       {/* Performance Ledger (Metrics) */}
       <section className="scroll-mt-40 bg-card border-y border-border overflow-hidden">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
              {[
                { val: "2.4k", label: "Managed Portfolios" },
                { val: "48M", label: "Signals Synthesized" },
                { val: "0.4s", label: "Synthesis Latency" },
                { val: "99%", label: "Verdict Accuracy" }
              ].map((s, i) => (
-               <div key={i} className="text-center py-28 px-16 border-r border-border last:border-0 group hover:bg-secondary transition-all duration-700">
-                  <div className="font-serif text-7xl text-mondro-ink mb-6 tracking-tighter">{s.val}</div>
-                  <div className="font-mono text-[13px] text-mondro-stone tracking-[0.5em] uppercase font-bold opacity-40">{s.label}</div>
+               <div key={i} className="text-center py-12 md:py-20 px-4 md:px-12 border-r border-border last:border-0 group hover:bg-secondary transition-all duration-700">
+                  <div className="font-serif text-3xl md:text-5xl text-mondro-ink mb-3 md:mb-4 tracking-tighter">{s.val}</div>
+                  <div className="font-mono text-[9px] md:text-[11px] text-mondro-stone tracking-[0.2em] md:tracking-[0.4em] uppercase font-bold opacity-40">{s.label}</div>
                </div>
              ))}
           </div>
@@ -302,25 +300,31 @@ function Index() {
       </section>
 
       {/* Institutional Briefing CTA */}
-      <section className="py-80 bg-mondro-ink text-card relative">
-        <div className="absolute inset-0 opacity-[0.1] pointer-events-none" style={{
+      <section className="py-32 md:py-48 lg:py-64 bg-mondro-ink text-card relative">
+        <div className="absolute inset-0 opacity-[0.08] pointer-events-none" style={{
           backgroundImage: 'radial-gradient(hsl(var(--primary)) 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }}></div>
-        <div className="container mx-auto px-16 relative z-10 text-center">
-          <div className="max-w-5xl mx-auto">
-            <div className="font-mono text-[14px] font-bold tracking-[0.8em] text-primary uppercase mb-16">PRIVATE BRIEFING</div>
-            <h2 className="font-serif text-7xl md:text-[10rem] mb-20 leading-[0.9] tracking-tighter">The future of trust <br/><span className="italic text-primary">is synthesized.</span></h2>
-            <p className="text-stone-400 text-3xl font-light mb-24 leading-relaxed max-w-2xl mx-auto opacity-60 italic">
-              Subscribe to the private memorandum. Intelligence for the global elite.
+        <div className="container mx-auto px-6 md:px-16 relative z-10 text-center">
+          <div className="max-w-4xl mx-auto">
+            <div className="font-mono text-[11px] md:text-[13px] font-bold tracking-[0.6em] text-primary uppercase mb-10 md:mb-14">PRIVATE BRIEFING</div>
+            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-0 leading-[1.05] tracking-tight text-card">
+              The future of trust
+            </h2>
+            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-10 md:mb-14 leading-[1.05] tracking-tight italic text-primary">
+              is synthesized.
+            </h2>
+            <p className="text-card/50 text-lg md:text-xl font-light mb-12 md:mb-16 leading-relaxed max-w-lg mx-auto italic">
+              Subscribe to the private memorandum.<br/>
+              Intelligence for the global elite.
             </p>
-            <div className="flex flex-col md:flex-row gap-8 max-w-3xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto items-stretch">
               <input 
                 type="email" 
                 placeholder="Institutional email address" 
-                className="flex-grow bg-white/5 border border-white/10 px-10 py-8 outline-none font-mono text-xl tracking-widest text-card placeholder:text-card/40 focus:border-primary transition-all"
+                className="flex-grow bg-card/5 border border-card/15 px-6 md:px-8 py-5 md:py-6 outline-none font-mono text-sm md:text-base tracking-wide text-card placeholder:text-card/40 focus:border-primary transition-all rounded-[2px]"
               />
-              <button className="bg-card text-mondro-ink px-16 py-8 font-mono text-[14px] font-bold tracking-[0.5em] uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-1000">
+              <button className="bg-card text-mondro-ink px-10 md:px-14 py-5 md:py-6 font-mono text-[11px] md:text-[12px] font-bold tracking-[0.5em] uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-500 rounded-[2px] whitespace-nowrap">
                 Subscribe
               </button>
             </div>
