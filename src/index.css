@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Roboto+Mono&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -47,7 +47,7 @@
     --accent-green: 160 84% 39%;
 
     /* Fonts */
-    --font-heading: 'Plus Jakarta Sans', sans-serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
     --font-serif: 'Playfair Display', Georgia, serif;
     --font-sans: 'Inter', sans-serif;
     --font-mono: 'Roboto Mono', monospace;

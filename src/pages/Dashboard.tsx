@@ -48,10 +48,10 @@ const bottomNavItems = [
 // Logo component matching landing page
 const EvolvedLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
   <div className="flex items-center gap-1.5 group cursor-pointer">
-    <span className={`font-serif font-bold tracking-tight text-foreground transition-colors duration-700 group-hover:text-primary ${size === 'small' ? 'text-xl' : 'text-2xl'}`}>mondro</span>
+    <span className={`font-serif font-bold tracking-tight text-foreground transition-colors duration-700 group-hover:text-primary ${size === 'small' ? 'text-2xl' : 'text-3xl'}`}>mondro</span>
     <div className="relative flex items-center justify-center">
-      <div className={`absolute bg-primary rounded-full animate-ping opacity-20 ${size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'}`}></div>
-      <div className={`bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)] ${size === 'small' ? 'w-1.5 h-1.5' : 'w-2 h-2'}`}></div>
+      <div className={`absolute bg-primary rounded-full animate-ping opacity-20 ${size === 'small' ? 'w-2.5 h-2.5' : 'w-3 h-3'}`}></div>
+      <div className={`bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)] ${size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'}`}></div>
     </div>
   </div>
 );
@@ -100,7 +100,7 @@ const Dashboard = () => {
               ) : (
                 <div className="flex-1 flex items-center justify-between">
                   <div>
-                    <span className="font-medium block">{item.title}</span>
+                    <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase block">{item.title}</span>
                     <span className="text-xs text-muted-foreground/70 block mt-0.5 leading-tight">
                       {item.description}
                     </span>
