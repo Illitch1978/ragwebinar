@@ -996,17 +996,331 @@ const ReportSection = () => {
         </motion.div>
       )}
 
-      {/* Competitive Context Tab - Placeholder */}
+      {/* Competitive Context Tab */}
       {activeTab === "competitive-context" && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="min-h-[60vh] flex items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="bg-background"
         >
-          <div className="text-center">
-            <h2 className="text-3xl font-serif text-foreground mb-4">Competitive Context</h2>
-            <p className="text-muted-foreground">Content coming soon.</p>
-          </div>
+          {/* Slide 13: The Competitive Reality */}
+          <Slide slideNumber="13 / 18">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>The Competitive Reality</SlideEyebrow>
+              <ActionTitle>The category has split into "Legacy Trust" and "AI Velocity".</ActionTitle>
+              
+              <div className="grid md:grid-cols-12 gap-16 mt-8">
+                <div className="col-span-6 text-xl leading-relaxed text-muted-foreground space-y-8">
+                  <p className="text-2xl text-foreground">
+                    You are not just competing against other research tools. You are competing against the "Good Enough" economy of generalist AI (ChatGPT) and the entrenched inertia of legacy agencies.
+                  </p>
+                  <p className="text-lg">
+                    Attention in the sector has concentrated around two poles:
+                    <br/>1. <strong className="text-foreground">Reliability:</strong> Old-guard players adding AI wrappers to protect their moat.
+                    <br/>2. <strong className="text-foreground">Speed:</strong> Product-led disruptors selling "insights in minutes."
+                  </p>
+                  <div className="pt-8 mt-4 border-t border-border">
+                    <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-4">The Rubiklab Position</div>
+                    <div className="font-serif text-2xl italic text-muted-foreground">
+                      "Stuck in the middle." Technically superior to the disruptors, but narratively quieter than the legacy players.
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-span-6">
+                  <div className="bg-muted/30 p-12 h-full flex flex-col justify-center border-l-2 border-foreground">
+                    <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-8">Buyer Decision Criteria</div>
+                    
+                    <ul className="space-y-8">
+                      <li className="flex justify-between items-center pb-6 border-b border-border">
+                        <span className="font-serif text-2xl">Speed to Insight</span>
+                        <span className="font-mono text-sm text-primary uppercase tracking-widest">Dominant Factor</span>
+                      </li>
+                      <li className="flex justify-between items-center pb-6 border-b border-border">
+                        <span className="font-serif text-2xl">Methodology Trust</span>
+                        <span className="font-mono text-sm text-muted-foreground uppercase tracking-widest">Hygiene Factor</span>
+                      </li>
+                      <li className="flex justify-between items-center pb-6 border-b border-border">
+                        <span className="font-serif text-2xl">Platform vs Service</span>
+                        <span className="font-mono text-sm text-muted-foreground uppercase tracking-widest">Platform Preferred</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 14: Peer Positioning Snapshot */}
+          <Slide slideNumber="14 / 18">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Peer Positioning Snapshot</SlideEyebrow>
+              <ActionTitle>High authority on "Tech", invisible on "Trust".</ActionTitle>
+              
+              <p className="text-xl text-muted-foreground max-w-4xl mb-12">
+                We benchmarked Rubiklab against three market archetypes: The Legacy Incumbent (e.g., Qualtrics), The Speed Disruptor (e.g., Yabble), and The Low-End Synthetic.
+              </p>
+
+              <div className="w-full max-w-5xl mt-8 space-y-12">
+                
+                {/* Proposition Clarity */}
+                <div>
+                  <div className="flex justify-between font-mono text-sm text-muted-foreground mb-4 uppercase tracking-widest">
+                    <span>Obscure</span>
+                    <span className="text-foreground font-bold">Proposition Clarity</span>
+                    <span>Crystal Clear</span>
+                  </div>
+                  <div className="relative h-16 border-b border-border flex items-center">
+                    <div className="w-full h-0.5 bg-muted relative">
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "80%" }}>
+                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
+                      </div>
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "60%" }}>
+                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
+                      </div>
+                      <div className="absolute w-4 h-4 rounded-full bg-primary border-2 border-background shadow-[0_0_0_2px_hsl(var(--primary))] top-1/2 -translate-y-1/2" style={{ left: "30%" }}>
+                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-primary font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Technical Authority */}
+                <div>
+                  <div className="flex justify-between font-mono text-sm text-muted-foreground mb-4 uppercase tracking-widest">
+                    <span>Superficial</span>
+                    <span className="text-foreground font-bold">Technical Authority</span>
+                    <span>Deep Expertise</span>
+                  </div>
+                  <div className="relative h-16 border-b border-border flex items-center">
+                    <div className="w-full h-0.5 bg-muted relative">
+                      <div className="absolute w-4 h-4 rounded-full bg-primary border-2 border-background shadow-[0_0_0_2px_hsl(var(--primary))] top-1/2 -translate-y-1/2" style={{ left: "85%" }}>
+                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-primary font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                      </div>
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "70%" }}>
+                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
+                      </div>
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "40%" }}>
+                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Market Presence */}
+                <div>
+                  <div className="flex justify-between font-mono text-sm text-muted-foreground mb-4 uppercase tracking-widest">
+                    <span>Invisible</span>
+                    <span className="text-foreground font-bold">Market Presence</span>
+                    <span>Ubiquitous</span>
+                  </div>
+                  <div className="relative h-16 border-b border-border flex items-center">
+                    <div className="w-full h-0.5 bg-muted relative">
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "90%" }}>
+                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
+                      </div>
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "65%" }}>
+                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
+                      </div>
+                      <div className="absolute w-4 h-4 rounded-full bg-primary border-2 border-background shadow-[0_0_0_2px_hsl(var(--primary))] top-1/2 -translate-y-1/2" style={{ left: "15%" }}>
+                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-primary font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 15: Differentiation Signals */}
+          <Slide slideNumber="15 / 18">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Differentiation Signals</SlideEyebrow>
+              <ActionTitle>Winners are selling "Outcomes", not "Models".</ActionTitle>
+              
+              <div className="grid md:grid-cols-12 gap-16 mt-8">
+                <div className="col-span-4 text-lg text-muted-foreground">
+                  <p className="mb-8">
+                    A clear pattern has emerged among high-growth peers. They have systematically scrubbed "AI Process" language from their headlines, replacing it with "Business Impact" language.
+                  </p>
+                  <div className="font-mono text-base text-muted-foreground uppercase tracking-widest mt-10">The Shift</div>
+                  <div className="font-serif text-3xl mt-3 text-foreground">From "How" to "Why".</div>
+                </div>
+
+                <div className="col-span-8">
+                  <div className="border-t border-border">
+                    
+                    {/* Signal Row 1 */}
+                    <div className="grid grid-cols-2 border-b border-border py-8">
+                      <div className="pr-10">
+                        <div className="font-mono text-sm text-muted-foreground uppercase tracking-widest mb-3">Competitor Pattern</div>
+                        <div className="font-serif text-2xl text-foreground">"Answers in Minutes"</div>
+                        <div className="text-sm text-muted-foreground mt-2">Focus on time-to-value.</div>
+                      </div>
+                      <div className="pl-10 border-l border-border">
+                        <div className="font-mono text-sm text-primary uppercase tracking-widest mb-3">Rubiklab Approach</div>
+                        <div className="font-serif text-2xl text-muted-foreground">"Semantic Processing"</div>
+                        <div className="text-sm text-destructive mt-2">Focus on technical method.</div>
+                      </div>
+                    </div>
+
+                    {/* Signal Row 2 */}
+                    <div className="grid grid-cols-2 border-b border-border py-8">
+                      <div className="pr-10">
+                        <div className="font-mono text-sm text-muted-foreground uppercase tracking-widest mb-3">Competitor Pattern</div>
+                        <div className="font-serif text-2xl text-foreground">"Synthetic + Human"</div>
+                        <div className="text-sm text-muted-foreground mt-2">Validating accuracy.</div>
+                      </div>
+                      <div className="pl-10 border-l border-border">
+                        <div className="font-mono text-sm text-primary uppercase tracking-widest mb-3">Rubiklab Approach</div>
+                        <div className="font-serif text-2xl text-muted-foreground">"AI Innovation"</div>
+                        <div className="text-sm text-destructive mt-2">Generic buzzwords.</div>
+                      </div>
+                    </div>
+
+                    {/* Signal Row 3 */}
+                    <div className="grid grid-cols-2 border-b border-border py-8">
+                      <div className="pr-10">
+                        <div className="font-mono text-sm text-muted-foreground uppercase tracking-widest mb-3">Competitor Pattern</div>
+                        <div className="font-serif text-2xl text-foreground">"Product Sandbox"</div>
+                        <div className="text-sm text-muted-foreground mt-2">Show, don't tell.</div>
+                      </div>
+                      <div className="pl-10 border-l border-border">
+                        <div className="font-mono text-sm text-primary uppercase tracking-widest mb-3">Rubiklab Approach</div>
+                        <div className="font-serif text-2xl text-muted-foreground">"Book a Demo"</div>
+                        <div className="text-sm text-destructive mt-2">Gatekeeping the value.</div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 16: Visibility & Discoverability */}
+          <Slide slideNumber="16 / 18">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Visibility & Discoverability</SlideEyebrow>
+              <ActionTitle>Invisible to the new arbiters of trust.</ActionTitle>
+              
+              <p className="text-xl text-muted-foreground max-w-4xl mb-12">
+                In 2025, visibility is not just about Google Rankings; it is about <strong className="text-foreground">Generative Presence</strong>. Does ChatGPT cite you as a leader? Currently, the answer is no.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-12 mt-8">
+                
+                <div className="border border-border p-10 bg-muted/30">
+                  <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-6">Search Engine Presence</div>
+                  <div className="font-serif text-5xl mb-6 text-muted-foreground">Low-Tier</div>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    You rank for your own brand name, but have near-zero visibility for high-intent non-branded terms like "AI Consumer Insights." You are relying entirely on outbound sales or paid acquisition.
+                  </p>
+                </div>
+
+                <div className="border border-border p-10 bg-background border-l-4 border-l-destructive shadow-sm">
+                  <div className="font-mono text-base uppercase tracking-widest text-primary mb-6">Generative AI Index</div>
+                  <div className="font-serif text-5xl mb-6 text-foreground">Absent</div>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    When LLMs (ChatGPT, Perplexity, Claude) are asked to "List top AI research tools," Rubiklab is consistently omitted. This is due to a lack of schema markup and authoritative backlinks.
+                  </p>
+                  <div className="mt-6 text-sm font-mono text-destructive uppercase tracking-widest">Critical Exposure</div>
+                </div>
+
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 17: Competitive Balance */}
+          <Slide slideNumber="17 / 18">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Competitive Balance</SlideEyebrow>
+              <ActionTitle>A defensible engine inside an indefensible fortress.</ActionTitle>
+              
+              <div className="grid md:grid-cols-2 h-[500px] border border-border mt-12">
+                
+                {/* Moat - Strength */}
+                <div className="bg-muted/30 border-r border-border p-12 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex items-center gap-3 mb-8">
+                      <div className="w-3 h-3 bg-primary rounded-full"></div>
+                      <span className="font-mono text-sm uppercase tracking-widest text-primary">Relative Strength</span>
+                    </div>
+                    <h3 className="font-serif text-4xl mb-6 text-foreground">Technical Depth</h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      Unlike the "thin wrapper" competitors who rely solely on OpenAI APIs, Rubiklab possesses proprietary processing layers. This "Human-in-the-Loop" architecture is a genuine differentiator that delivers higher accuracy data.
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-8 border-t border-border">
+                    <span className="font-mono text-xs uppercase text-muted-foreground tracking-widest">Verdict</span>
+                    <div className="text-lg font-medium mt-2 text-foreground">The product is ready to win.</div>
+                  </div>
+                </div>
+
+                {/* Flank - Exposure */}
+                <div className="bg-background p-12 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex items-center gap-3 mb-8">
+                      <div className="w-3 h-3 bg-destructive rounded-full"></div>
+                      <span className="font-mono text-sm uppercase tracking-widest text-destructive">Market Exposure</span>
+                    </div>
+                    <h3 className="font-serif text-4xl mb-6 text-foreground">Commercial Silence</h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      Competitors are out-shouting you 10:1. Their websites promise specific ROI, feature client logos, and offer instant demos. Rubiklab's "Black Box" approach makes the superior technology feel riskier to buy.
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-8 border-t border-border">
+                    <span className="font-mono text-xs uppercase text-muted-foreground tracking-widest">Verdict</span>
+                    <div className="text-lg font-medium mt-2 text-destructive">The story is losing.</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 18: Strategic Implications */}
+          <Slide slideNumber="18 / 18">
+            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Strategic Implications</SlideEyebrow>
+              <ActionTitle>Inaction leads to commoditisation.</ActionTitle>
+              
+              <div className="grid md:grid-cols-3 gap-12 mt-16">
+                
+                <div>
+                  <div className="text-6xl font-serif text-muted/50 mb-6">01</div>
+                  <div className="border-t-2 border-foreground pt-6 mb-6"></div>
+                  <h3 className="font-serif text-2xl mb-4 text-foreground">Erosion of Premium</h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    If the "High Fidelity" advantage is not articulated clearly, buyers will default to price comparison. You risk being bucketed with cheap synthetic data tools.
+                  </p>
+                </div>
+
+                <div>
+                  <div className="text-6xl font-serif text-muted/50 mb-6">02</div>
+                  <div className="border-t-2 border-foreground pt-6 mb-6"></div>
+                  <h3 className="font-serif text-2xl mb-4 text-foreground">Compounding Invisibility</h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Every month that passes without schema optimization and authoritative content publishing widens the gap in AI discoverability. Catching up becomes exponentially harder.
+                  </p>
+                </div>
+
+                <div>
+                  <div className="text-6xl font-serif text-muted/50 mb-6">03</div>
+                  <div className="border-t-2 border-foreground pt-6 mb-6"></div>
+                  <h3 className="font-serif text-2xl mb-4 text-foreground">The "Best Kept Secret" Trap</h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Continuing to rely on product superiority without narrative support will result in lower-quality competitors capturing your rightful market share.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono">
+              CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
+            </div>
+          </Slide>
         </motion.div>
       )}
 
