@@ -642,136 +642,371 @@ const ReportSection = () => {
         </motion.div>
       )}
 
-      {/* Audit Tab */}
-      {activeTab === "audit" && (
+      {/* Diagnosis Tab */}
+      {activeTab === "diagnosis" && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-6 p-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="bg-background"
         >
-          <div className="mb-4">
-            <h2 className="text-2xl font-serif font-bold text-foreground">Audit</h2>
-            <p className="text-muted-foreground mt-1">Comprehensive breakdown of performance vectors.</p>
-          </div>
-
-          {reportData.auditSections.map((section) => (
-            <div key={section.title} className="bg-card rounded-xl border border-border overflow-hidden">
-              {/* Header */}
-              <div className="px-8 py-6 flex justify-between items-center border-b border-border bg-muted/30">
-                <h3 className="text-xl font-serif font-bold text-foreground">{section.title}</h3>
-                <div className="text-right flex items-center gap-3">
-                  <span className="text-4xl font-serif font-bold text-foreground">{section.score}</span>
-                  <span className="text-xs font-mono font-bold uppercase tracking-wide text-muted-foreground">
-                    {section.status}
-                  </span>
+          {/* Slide 07: System-Level Diagnosis */}
+          <Slide slideNumber="07 / 17">
+            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
+              <ActionTitle>The site functions as pages, but fails as a decision system.</ActionTitle>
+              
+              <div className="grid md:grid-cols-12 gap-20 mt-10">
+                <div className="col-span-5 text-xl leading-relaxed text-muted-foreground space-y-8">
+                  <p>
+                    A high-performing digital asset operates as an integrated system where clarity, logic, and flow compound to drive decisions.
+                  </p>
+                  <p>
+                    Currently, Rubiklab.ai suffers from <strong className="text-foreground">Systemic Decay</strong>. While individual pages are visually polished, the connective tissue—the logic that moves a user from "Interest" to "Action"—is fractured.
+                  </p>
+                  <div className="pt-8 border-t border-border">
+                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-3">Composite Diagnostic</div>
+                    <div className="font-serif text-4xl text-foreground">Fragmented</div>
+                  </div>
                 </div>
-              </div>
 
-              {/* Content */}
-              <div className="p-8">
-                <div className="grid md:grid-cols-2 gap-10 mb-8">
-                  {section.categories.map((category) => (
-                    <div key={category.title}>
-                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground mb-5 pb-2 border-b border-border">
-                        {category.title}
-                      </h4>
-                      <div className="space-y-5">
-                        {category.items.map((item) => (
-                          <div key={item.label}>
-                            <span className="font-medium text-foreground text-sm block mb-1">{item.label}</span>
-                            <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-                          </div>
-                        ))}
+                <div className="col-span-7">
+                  <div className="bg-muted/30 p-10 h-full flex flex-col justify-center">
+                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-8">Decision System Health Stack</div>
+                    
+                    <div className="space-y-5">
+                      {/* Critical */}
+                      <div className="border border-border p-6 flex justify-between items-center bg-background border-l-4 border-l-destructive">
+                        <div>
+                          <div className="font-serif text-xl text-foreground">Conversion Logic</div>
+                          <div className="text-sm text-muted-foreground mt-1">Does the site ask for the right thing at the right time?</div>
+                        </div>
+                        <div className="font-mono text-xs text-destructive uppercase tracking-widest bg-destructive/10 px-3 py-1.5">Failing</div>
+                      </div>
+
+                      {/* Stable */}
+                      <div className="border border-border p-6 flex justify-between items-center bg-background border-l-4 border-l-muted-foreground/30">
+                        <div>
+                          <div className="font-serif text-xl text-foreground">Information Hierarchy</div>
+                          <div className="text-sm text-muted-foreground mt-1">Is the most important information most visible?</div>
+                        </div>
+                        <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest bg-muted px-3 py-1.5">Stable</div>
+                      </div>
+
+                      {/* Optimal */}
+                      <div className="border border-border p-6 flex justify-between items-center bg-background border-l-4 border-l-primary">
+                        <div>
+                          <div className="font-serif text-xl text-foreground">Visual Clarity</div>
+                          <div className="text-sm text-muted-foreground mt-1">Is the interface legible and professional?</div>
+                        </div>
+                        <div className="font-mono text-xs text-primary uppercase tracking-widest bg-primary/10 px-3 py-1.5">Optimized</div>
                       </div>
                     </div>
-                  ))}
-                </div>
-
-                {/* Strength & Fix */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-muted/30 p-5 rounded-xl border border-border">
-                    <h5 className="text-foreground font-bold text-sm mb-2">
-                      Key strength
-                    </h5>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{section.strength}</p>
-                  </div>
-                  <div className="bg-muted/30 p-5 rounded-xl border border-border">
-                    <h5 className="text-foreground font-bold text-sm mb-2">
-                      {section.fixLevel === "critical" ? "Critical fix" : "Priority fix"}
-                    </h5>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{section.fix}</p>
                   </div>
                 </div>
               </div>
             </div>
-          ))}
-        </motion.div>
-      )}
+          </Slide>
 
-      {/* Roadmap Tab */}
-      {activeTab === "roadmap" && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-6 p-8"
-        >
-          <div className="mb-4">
-            <h2 className="text-2xl font-serif font-bold text-foreground">Strategic roadmap</h2>
-            <p className="text-muted-foreground mt-1">Prioritized sprint plan for immediate execution.</p>
-          </div>
+          {/* Slide 08: Intake & Conversion */}
+          <Slide slideNumber="08 / 17">
+            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Intake & Conversion</SlideEyebrow>
+              <ActionTitle>Motivated users are stalling at the point of highest intent.</ActionTitle>
+              
+              <p className="text-xl text-muted-foreground max-w-4xl mb-14">
+                We mapped the high-intent user journey from "Solution Discovery" to "Inquiry." The data reveals a specific rupture in the intake sequence where effort exceeds motivation.
+              </p>
 
-          <div className="space-y-0">
-            {reportData.roadmap.map((item, index) => (
-              <div key={item.title} className="flex gap-6 relative group">
-                {/* Timeline */}
-                <div className="flex flex-col items-center shrink-0 w-16">
-                  <div className={cn(
-                    "w-12 h-12 rounded-full flex items-center justify-center font-serif font-bold text-xl z-10",
-                    index === 0 
-                      ? "bg-primary text-primary-foreground" 
-                      : "bg-card border-2 border-border text-foreground"
-                  )}>
-                    {index + 1}
-                  </div>
-                  {index < reportData.roadmap.length - 1 && (
-                    <div className="w-px h-full bg-border absolute top-12 left-8" />
-                  )}
+              <div className="grid grid-cols-4 gap-5 w-full mt-8">
+                {/* Step 1 */}
+                <div className="border-t-2 border-border pt-6 relative">
+                  <div className="absolute -top-[7px] left-0 w-3 h-3 rounded-full bg-border" />
+                  <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-3">01. Discovery</div>
+                  <div className="font-serif text-2xl mb-3">Landing</div>
+                  <p className="text-base text-muted-foreground">User arrives via direct search. Intent is high.</p>
                 </div>
 
-                {/* Card */}
-                <div className="bg-card rounded-xl border border-border p-6 w-full mb-6">
-                  <div className="flex flex-col sm:flex-row justify-between items-start mb-4">
-                    <div>
-                      <h3 className="font-serif font-bold text-foreground text-lg">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground">{item.subtitle}</p>
+                {/* Step 2 */}
+                <div className="border-t-2 border-border pt-6 relative">
+                  <div className="absolute -top-[7px] left-0 w-3 h-3 rounded-full bg-border" />
+                  <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-3">02. Consideration</div>
+                  <div className="font-serif text-2xl mb-3">Solutions</div>
+                  <p className="text-base text-muted-foreground">Content consumption is healthy (2m 30s avg).</p>
+                </div>
+
+                {/* Step 3 - Friction */}
+                <div className="border-t-2 border-destructive pt-6 relative">
+                  <div className="absolute -top-[7px] left-0 w-3 h-3 rounded-full bg-destructive" />
+                  <div className="font-mono text-sm uppercase tracking-widest text-destructive mb-3">03. The Stall</div>
+                  <div className="font-serif text-2xl mb-3 text-destructive">The Form</div>
+                  <p className="text-base text-muted-foreground mb-4">User is confronted with 8 mandatory fields including "Phone" and "Job Title".</p>
+                  <div className="bg-destructive/10 text-destructive text-xs uppercase tracking-widest px-3 py-1.5 inline-block font-mono">65% Drop-off</div>
+                </div>
+
+                {/* Step 4 */}
+                <div className="border-t-2 border-border pt-6 relative">
+                  <div className="absolute -top-[7px] left-0 w-3 h-3 rounded-full bg-border" />
+                  <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-3">04. Goal</div>
+                  <div className="font-serif text-2xl mb-3 text-muted-foreground/60">Confirmation</div>
+                  <p className="text-base text-muted-foreground">Only 5% of click-throughs complete the sequence.</p>
+                </div>
+              </div>
+
+              <div className="mt-16 border-t border-border pt-8 flex gap-10">
+                <div className="font-mono text-sm uppercase tracking-widest text-primary">Diagnosis</div>
+                <div className="text-lg text-muted-foreground max-w-3xl">
+                  The friction is artificial. By demanding data enrichment fields (Job Title, Phone) before establishing value, you are actively repelling qualified leads.
+                </div>
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 09: Narrative Positioning */}
+          <Slide slideNumber="09 / 17">
+            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Narrative Positioning</SlideEyebrow>
+              <ActionTitle>The "Process vs. Outcome" disconnect.</ActionTitle>
+              
+              <div className="grid md:grid-cols-2 gap-24 mt-14">
+                <div className="text-xl leading-relaxed text-muted-foreground space-y-8">
+                  <p>
+                    Your internal teams understand the nuance of your technology ("Human-in-the-loop AI"). However, this nuance is lost in translation.
+                  </p>
+                  <p>
+                    The website currently explains <em>how</em> the sausage is made, rather than <em>why</em> it tastes good. This alienates the executive buyer who is purchasing velocity and accuracy, not algorithms.
+                  </p>
+                </div>
+
+                <div className="border border-border">
+                  <div className="grid grid-cols-2">
+                    <div className="p-5 border-b border-r border-border bg-muted/30">
+                      <span className="font-mono text-sm uppercase tracking-widest text-muted-foreground">Intended Message</span>
                     </div>
-                    <div className="flex gap-2 mt-2 sm:mt-0">
-                      <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-mono font-bold uppercase tracking-wide">
-                        Effort: {item.effort}
-                      </span>
-                      <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-mono font-bold uppercase tracking-wide">
-                        Impact: {item.impact}
-                      </span>
+                    <div className="p-5 border-b border-border bg-muted/30">
+                      <span className="font-mono text-sm uppercase tracking-widest text-primary">Received Reality</span>
                     </div>
-                  </div>
-                  <div className="bg-muted/50 rounded-lg p-4">
-                    <ul className="space-y-3">
-                      {item.tasks.map((task, taskIndex) => (
-                        <li key={taskIndex} className="flex items-start gap-3 text-sm text-muted-foreground">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                          <span>
-                            <strong className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-muted-foreground mr-2">
-                              {task.tag}
-                            </strong>
-                            {task.text}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+
+                    <div className="p-8 border-b border-r border-border">
+                      <div className="font-serif text-xl">"We Innovate"</div>
+                      <div className="text-sm text-muted-foreground/70 mt-2">Generic Aspiration</div>
+                    </div>
+                    <div className="p-8 border-b border-border">
+                      <div className="font-serif text-xl text-muted-foreground">"What do you actually do?"</div>
+                      <div className="text-sm text-destructive mt-2">Confusion</div>
+                    </div>
+
+                    <div className="p-8 border-b border-r border-border">
+                      <div className="font-serif text-xl">"Semantic Search"</div>
+                      <div className="text-sm text-muted-foreground/70 mt-2">Technical Feature</div>
+                    </div>
+                    <div className="p-8 border-b border-border">
+                      <div className="font-serif text-xl text-muted-foreground">"Is this for developers?"</div>
+                      <div className="text-sm text-destructive mt-2">Misalignment</div>
+                    </div>
+
+                    <div className="p-8 border-r border-border">
+                      <div className="font-serif text-xl">"Hybrid AI Model"</div>
+                      <div className="text-sm text-muted-foreground/70 mt-2">Differentiation</div>
+                    </div>
+                    <div className="p-8">
+                      <div className="font-serif text-xl text-muted-foreground">"Sounds expensive/slow."</div>
+                      <div className="text-sm text-destructive mt-2">Friction</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
+          </Slide>
+
+          {/* Slide 10: Trust Architecture */}
+          <Slide slideNumber="10 / 17">
+            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Trust Architecture</SlideEyebrow>
+              <ActionTitle>Credibility is currently implicit, rather than explicit.</ActionTitle>
+              
+              <p className="text-xl text-muted-foreground max-w-3xl mb-14">
+                In high-value B2B transactions, trust must be established before logic can be applied. Your current architecture asks the user to "trust the code" without providing the necessary social and institutional signals.
+              </p>
+
+              <div className="w-full">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr>
+                      <th className="font-mono text-sm uppercase tracking-widest text-muted-foreground pb-5 border-b-2 border-foreground" style={{ width: "25%" }}>Signal Category</th>
+                      <th className="font-mono text-sm uppercase tracking-widest text-muted-foreground pb-5 border-b-2 border-foreground" style={{ width: "20%" }}>Status</th>
+                      <th className="font-mono text-sm uppercase tracking-widest text-muted-foreground pb-5 border-b-2 border-foreground" style={{ width: "55%" }}>Audit Finding</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="py-7 border-b border-border font-serif text-xl">Social Proof</td>
+                      <td className="py-7 border-b border-border">
+                        <span className="font-mono text-xs text-destructive bg-destructive/10 px-3 py-1.5 uppercase tracking-widest">Absent</span>
+                      </td>
+                      <td className="py-7 border-b border-border text-base text-muted-foreground">
+                        Zero client logos, case study snapshots, or testimonials on the homepage. The site feels "empty" of customers.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-7 border-b border-border font-serif text-xl">Authority Cues</td>
+                      <td className="py-7 border-b border-border">
+                        <span className="font-mono text-xs text-muted-foreground bg-muted px-3 py-1.5 uppercase tracking-widest">Implicit</span>
+                      </td>
+                      <td className="py-7 border-b border-border text-base text-muted-foreground">
+                        Deep technical content implies expertise, but there are no "Badges of Honor" (Awards, Certifications, Partnerships).
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-7 border-b border-border font-serif text-xl">Humanity</td>
+                      <td className="py-7 border-b border-border">
+                        <span className="font-mono text-xs text-destructive bg-destructive/10 px-3 py-1.5 uppercase tracking-widest">Critical Gap</span>
+                      </td>
+                      <td className="py-7 border-b border-border text-base text-muted-foreground">
+                        No "Team" page. No faces. In a "Human-in-the-loop" service, the absence of humans is a paradox.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 11: Technical Constraints */}
+          <Slide slideNumber="11 / 17">
+            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Technical Constraints</SlideEyebrow>
+              <ActionTitle>Cosmetic issues are degrading the perception of stability.</ActionTitle>
+              
+              <div className="grid md:grid-cols-3 gap-10 mt-14">
+                {/* Vector 01 */}
+                <div className="border border-border p-10 bg-muted/30 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="font-mono text-sm uppercase tracking-widest text-destructive mb-5">Vector 01</div>
+                    <h3 className="font-serif text-3xl mb-5">Mobile Latency</h3>
+                    <p className="text-base text-muted-foreground leading-relaxed">
+                      High-resolution PNGs are unoptimized for 4G networks. This causes a 2.4s load delay on mobile devices.
+                    </p>
+                  </div>
+                  <div className="mt-10 pt-5 border-t border-border">
+                    <span className="font-mono text-xs text-muted-foreground uppercase">Perception Impact</span>
+                    <div className="text-base font-medium mt-2">"The platform feels heavy."</div>
+                  </div>
+                </div>
+
+                {/* Vector 02 */}
+                <div className="border border-border p-10 bg-muted/30 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-5">Vector 02</div>
+                    <h3 className="font-serif text-3xl mb-5">Cumulative Shift</h3>
+                    <p className="text-base text-muted-foreground leading-relaxed">
+                      Font loading behaviors cause the navigation bar to "jump" 20px after initial paint.
+                    </p>
+                  </div>
+                  <div className="mt-10 pt-5 border-t border-border">
+                    <span className="font-mono text-xs text-muted-foreground uppercase">Perception Impact</span>
+                    <div className="text-base font-medium mt-2">"The engineering is unpolished."</div>
+                  </div>
+                </div>
+
+                {/* Vector 03 */}
+                <div className="border border-border p-10 bg-muted/30 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-5">Vector 03</div>
+                    <h3 className="font-serif text-3xl mb-5">Dead Ends</h3>
+                    <p className="text-base text-muted-foreground leading-relaxed">
+                      Three sub-service pages resolve to 404 errors or empty templates.
+                    </p>
+                  </div>
+                  <div className="mt-10 pt-5 border-t border-border">
+                    <span className="font-mono text-xs text-muted-foreground uppercase">Perception Impact</span>
+                    <div className="text-base font-medium mt-2">"Is this company active?"</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Slide>
+
+          {/* Slide 12: Diagnosis Summary */}
+          <Slide slideNumber="12 / 17">
+            <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+              <SlideEyebrow>Diagnosis Summary</SlideEyebrow>
+              <ActionTitle className="mb-14">Three dominant forces are actively suppressing revenue.</ActionTitle>
+              
+              <div className="space-y-0">
+                {/* Item 01 */}
+                <div className="grid grid-cols-12 py-10 border-t-2 border-foreground items-center group hover:bg-muted/30 transition-colors">
+                  <div className="col-span-1 font-mono text-base text-muted-foreground">01</div>
+                  <div className="col-span-8">
+                    <div className="font-serif text-4xl mb-3 text-foreground">Artificial Friction</div>
+                    <p className="text-base text-muted-foreground max-w-2xl">
+                      The intake form structure prioritizes data enrichment over user acquisition, causing a 65% drop-off at the moment of highest intent.
+                    </p>
+                  </div>
+                  <div className="col-span-3 text-right">
+                    <span className="font-mono text-xs uppercase tracking-widest text-destructive border border-destructive/30 px-4 py-2">Critical Impact</span>
+                  </div>
+                </div>
+
+                {/* Item 02 */}
+                <div className="grid grid-cols-12 py-10 border-t border-border items-center group hover:bg-muted/30 transition-colors">
+                  <div className="col-span-1 font-mono text-base text-muted-foreground">02</div>
+                  <div className="col-span-8">
+                    <div className="font-serif text-4xl mb-3 text-foreground">Narrative Obscurity</div>
+                    <p className="text-base text-muted-foreground max-w-2xl">
+                      Messaging focuses on technical processes rather than business outcomes, reducing resonance with C-Suite decision makers.
+                    </p>
+                  </div>
+                  <div className="col-span-3 text-right">
+                    <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground border border-border px-4 py-2">High Impact</span>
+                  </div>
+                </div>
+
+                {/* Item 03 */}
+                <div className="grid grid-cols-12 py-10 border-t border-b border-border items-center group hover:bg-muted/30 transition-colors">
+                  <div className="col-span-1 font-mono text-base text-muted-foreground">03</div>
+                  <div className="col-span-8">
+                    <div className="font-serif text-4xl mb-3 text-foreground">Trust Deficit</div>
+                    <p className="text-base text-muted-foreground max-w-2xl">
+                      The absence of explicit social proof and human elements forces users to "guess" at credibility, lengthening the sales cycle.
+                    </p>
+                  </div>
+                  <div className="col-span-3 text-right">
+                    <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground border border-border px-4 py-2">High Impact</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono">
+              CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
+            </div>
+          </Slide>
+        </motion.div>
+      )}
+
+      {/* Competitive Context Tab - Placeholder */}
+      {activeTab === "competitive-context" && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="min-h-[60vh] flex items-center justify-center"
+        >
+          <div className="text-center">
+            <h2 className="text-3xl font-serif text-foreground mb-4">Competitive Context</h2>
+            <p className="text-muted-foreground">Content coming soon.</p>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Next-Order Effects Tab - Placeholder */}
+      {activeTab === "next-order-effects" && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="min-h-[60vh] flex items-center justify-center"
+        >
+          <div className="text-center">
+            <h2 className="text-3xl font-serif text-foreground mb-4">Next-Order Effects</h2>
+            <p className="text-muted-foreground">Content coming soon.</p>
           </div>
         </motion.div>
       )}
