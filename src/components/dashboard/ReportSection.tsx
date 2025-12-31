@@ -252,35 +252,74 @@ const SignalBar = ({ score, variant = "default" }: { score: number; variant?: "d
   </div>
 );
 
-// Maturity bubble component
-const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => (
-  <div 
-    className={cn(
-      "w-3.5 h-3.5 rounded-full border border-foreground inline-block",
-      level === "full" && "bg-foreground",
-      level === "half" && "bg-[conic-gradient(hsl(var(--foreground))_180deg,transparent_0)]",
-      level === "quarter" && "bg-[conic-gradient(hsl(var(--foreground))_90deg,transparent_0)]"
-    )} 
-  />
-);
+// Maturity bubble component - using SVG for PDF compatibility
+const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => {
+  if (level === "full") {
+    return <div className="w-3.5 h-3.5 rounded-full bg-foreground border border-foreground inline-block" />;
+  }
+  
+  // Use SVG pie slices for half and quarter - works with html2canvas
+  const percentage = level === "half" ? 50 : 25;
+  const angle = (percentage / 100) * 360;
+  const radians = (angle - 90) * (Math.PI / 180);
+  const x = 50 + 50 * Math.cos(radians);
+  const y = 50 + 50 * Math.sin(radians);
+  const largeArc = angle > 180 ? 1 : 0;
+  
+  return (
+    <svg 
+      width="14" 
+      height="14" 
+      viewBox="0 0 100 100" 
+      className="inline-block"
+      style={{ verticalAlign: 'middle' }}
+    >
+      <circle 
+        cx="50" 
+        cy="50" 
+        r="46" 
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="8"
+        className="text-foreground"
+      />
+      <path 
+        d={`M 50 50 L 50 0 A 50 50 0 ${largeArc} 1 ${x} ${y} Z`}
+        className="fill-foreground"
+      />
+    </svg>
+  );
+};
 
 const ReportSection = () => {
   const [activeTab, setActiveTab] = useState("summary");
   const [isExporting, setIsExporting] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // Create a divider canvas for PDF export
+  // Create a divider canvas for PDF export - enhanced design
   const createDividerCanvas = async (title: string, subtitle: string): Promise<HTMLCanvasElement> => {
     const div = document.createElement('div');
-    div.style.cssText = 'width:1920px;height:1080px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:#f8f8f8;position:absolute;left:-9999px;';
+    div.style.cssText = 'width:1920px;height:1080px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);position:absolute;left:-9999px;';
     div.innerHTML = `
-      <div style="text-align:center;">
-        <div style="font-family:ui-monospace,monospace;font-size:14px;text-transform:uppercase;letter-spacing:0.3em;color:hsl(199,89%,48%);margin-bottom:32px;">${subtitle}</div>
-        <h2 style="font-family:Playfair Display,serif;font-size:96px;color:#1a1a1a;margin:0;">${title}</h2>
+      <div style="text-align:center;position:relative;">
+        <!-- Decorative line -->
+        <div style="width:80px;height:2px;background:#1a1a1a;margin:0 auto 48px;"></div>
+        
+        <!-- Subtitle -->
+        <div style="font-family:ui-monospace,monospace;font-size:16px;text-transform:uppercase;letter-spacing:0.4em;color:hsl(199,89%,48%);margin-bottom:24px;font-weight:600;">${subtitle}</div>
+        
+        <!-- Title -->
+        <h2 style="font-family:Playfair Display,serif;font-size:120px;color:#1a1a1a;margin:0;font-weight:400;letter-spacing:-0.02em;">${title}</h2>
+        
+        <!-- Decorative line -->
+        <div style="width:80px;height:2px;background:#1a1a1a;margin:48px auto 0;"></div>
+        
+        <!-- Footer badge -->
+        <div style="position:absolute;bottom:-120px;left:50%;transform:translateX(-50%);font-family:ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.3em;color:#999;">Mondro • Strategic Synthesis</div>
       </div>
     `;
     document.body.appendChild(div);
-    const canvas = await html2canvas(div, { scale: 2, backgroundColor: "#f8f8f8", logging: false, width: 1920, height: 1080 });
+    const canvas = await html2canvas(div, { scale: 1.5, backgroundColor: "#ffffff", logging: false, width: 1920, height: 1080 });
     document.body.removeChild(div);
     return canvas;
   };
