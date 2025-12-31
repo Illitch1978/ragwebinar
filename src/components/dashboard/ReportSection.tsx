@@ -1426,7 +1426,7 @@ const ReportSection = () => {
                     LOW ←— BUSINESS IMPACT —→ HIGH
                   </div>
                   
-                  <div className="flex flex-col -ml-[60px]">
+                  <div className="flex flex-col -ml-[80px]">
                     {/* Matrix Chart - Square */}
                     <div className="relative w-[560px] h-[560px] border border-border">
                       
