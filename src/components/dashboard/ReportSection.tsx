@@ -269,51 +269,133 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => (
   />
 );
 
-// Section divider for PDF export
-const SectionDivider = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <div 
-    className="hidden"
-    data-slide="true"
-  >
-    <div className="text-center">
-      <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary mb-8">{subtitle}</div>
-      <h2 className="font-serif text-6xl lg:text-8xl text-foreground">{title}</h2>
-    </div>
-  </div>
-);
-
 const ReportSection = () => {
   const [activeTab, setActiveTab] = useState("summary");
   const [isExporting, setIsExporting] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  // Create a divider canvas for PDF export
+  const createDividerCanvas = async (title: string, subtitle: string): Promise<HTMLCanvasElement> => {
+    const div = document.createElement('div');
+    div.style.cssText = 'width:1920px;height:1080px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:#f8f8f8;position:absolute;left:-9999px;';
+    div.innerHTML = `
+      <div style="text-align:center;">
+        <div style="font-family:ui-monospace,monospace;font-size:14px;text-transform:uppercase;letter-spacing:0.3em;color:hsl(199,89%,48%);margin-bottom:32px;">${subtitle}</div>
+        <h2 style="font-family:Playfair Display,serif;font-size:96px;color:#1a1a1a;margin:0;">${title}</h2>
+      </div>
+    `;
+    document.body.appendChild(div);
+    const canvas = await html2canvas(div, { scale: 2, backgroundColor: "#f8f8f8", logging: false, width: 1920, height: 1080 });
+    document.body.removeChild(div);
+    return canvas;
+  };
 
   const handleDownload = async () => {
     setIsExporting(true);
     setProgress(0);
     
     try {
-      // Get all visible slides from the current view
-      const allSlides = document.querySelectorAll('[data-slide]');
-      if (allSlides.length === 0) {
-        console.error("No slides found");
-        return;
-      }
-
+      // Get all section containers
+      const summarySection = document.querySelector('[data-section="summary"]');
+      const diagnosisSection = document.querySelector('[data-section="diagnosis"]');
+      const competitiveSection = document.querySelector('[data-section="competitive-context"]');
+      const nextOrderSection = document.querySelector('[data-section="next-order-effects"]');
+      
+      // Temporarily show all sections
+      const sections = [summarySection, diagnosisSection, competitiveSection, nextOrderSection];
+      const originalDisplay: string[] = [];
+      sections.forEach((section, i) => {
+        if (section) {
+          originalDisplay[i] = (section as HTMLElement).style.display;
+          (section as HTMLElement).classList.remove('hidden');
+          (section as HTMLElement).style.display = 'block';
+        }
+      });
+      
+      // Wait for DOM update
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Collect slides by section
+      const summarySlides = summarySection?.querySelectorAll('[data-slide]') || [];
+      const diagnosisSlides = diagnosisSection?.querySelectorAll('[data-slide]') || [];
+      const competitiveSlides = competitiveSection?.querySelectorAll('[data-slide]') || [];
+      const nextOrderSlides = nextOrderSection?.querySelectorAll('[data-slide]') || [];
+      
+      const totalItems = summarySlides.length + diagnosisSlides.length + competitiveSlides.length + nextOrderSlides.length + 3; // +3 for dividers
+      let currentItem = 0;
+      
       const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
       
-      for (let i = 0; i < allSlides.length; i++) {
-        setProgress(Math.round(((i + 1) / allSlides.length) * 100));
-        
-        const canvas = await html2canvas(allSlides[i] as HTMLElement, {
+      // Helper to add slides
+      const addSlides = async (slides: NodeListOf<Element> | Element[]) => {
+        for (const slide of Array.from(slides)) {
+          currentItem++;
+          setProgress(Math.round((currentItem / totalItems) * 100));
+          const canvas = await html2canvas(slide as HTMLElement, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: "#ffffff",
+            logging: false,
+          });
+          pdf.addPage();
+          pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+        }
+      };
+      
+      // Summary slides (first page doesn't need addPage)
+      for (let i = 0; i < summarySlides.length; i++) {
+        currentItem++;
+        setProgress(Math.round((currentItem / totalItems) * 100));
+        const canvas = await html2canvas(summarySlides[i] as HTMLElement, {
           scale: 2,
           useCORS: true,
           backgroundColor: "#ffffff",
           logging: false,
         });
-        
         if (i > 0) pdf.addPage();
         pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
       }
+      
+      // Diagnosis divider + slides
+      if (diagnosisSlides.length > 0) {
+        currentItem++;
+        setProgress(Math.round((currentItem / totalItems) * 100));
+        const dividerCanvas = await createDividerCanvas("Diagnosis", "Part Two");
+        pdf.addPage();
+        pdf.addImage(dividerCanvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+        await addSlides(diagnosisSlides);
+      }
+      
+      // Competitive Context divider + slides
+      if (competitiveSlides.length > 0) {
+        currentItem++;
+        setProgress(Math.round((currentItem / totalItems) * 100));
+        const dividerCanvas = await createDividerCanvas("Competitive Context", "Part Three");
+        pdf.addPage();
+        pdf.addImage(dividerCanvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+        await addSlides(competitiveSlides);
+      }
+      
+      // Next-Order Effects divider + slides
+      if (nextOrderSlides.length > 0) {
+        currentItem++;
+        setProgress(Math.round((currentItem / totalItems) * 100));
+        const dividerCanvas = await createDividerCanvas("Next-Order Effects", "Part Four");
+        pdf.addPage();
+        pdf.addImage(dividerCanvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+        await addSlides(nextOrderSlides);
+      }
+      
+      // Restore original visibility
+      sections.forEach((section, i) => {
+        if (section) {
+          if (originalDisplay[i]) {
+            (section as HTMLElement).style.display = originalDisplay[i];
+          } else {
+            (section as HTMLElement).style.display = '';
+          }
+        }
+      });
       
       pdf.save("Strategic-Synthesis-Report.pdf");
     } catch (error) {
@@ -373,7 +455,7 @@ const ReportSection = () => {
       </div>
 
       {/* Summary Tab - Slide-based layout */}
-      <div className={cn(activeTab !== "summary" && "hidden print:block")}>
+      <div data-section="summary" className={cn(activeTab !== "summary" && "hidden print:block")}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -723,11 +805,9 @@ const ReportSection = () => {
         </motion.div>
       </div>
 
-      {/* Print-only Divider: Diagnosis */}
-      <SectionDivider title="Diagnosis" subtitle="Part Two" />
 
       {/* Diagnosis Tab */}
-      <div className={cn(activeTab !== "diagnosis" && "hidden print:block")}>
+      <div data-section="diagnosis" className={cn(activeTab !== "diagnosis" && "hidden print:block")}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1080,11 +1160,9 @@ const ReportSection = () => {
         </motion.div>
       </div>
 
-      {/* Print-only Divider: Competitive Context */}
-      <SectionDivider title="Competitive Context" subtitle="Part Three" />
 
       {/* Competitive Context Tab */}
-      <div className={cn(activeTab !== "competitive-context" && "hidden print:block")}>
+      <div data-section="competitive-context" className={cn(activeTab !== "competitive-context" && "hidden print:block")}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1420,11 +1498,9 @@ const ReportSection = () => {
         </motion.div>
       </div>
 
-      {/* Print-only Divider: Next-Order Effects */}
-      <SectionDivider title="Next-Order Effects" subtitle="Part Four" />
 
       {/* Next-Order Effects Tab */}
-      <div className={cn(activeTab !== "next-order-effects" && "hidden print:block")}>
+      <div data-section="next-order-effects" className={cn(activeTab !== "next-order-effects" && "hidden print:block")}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
