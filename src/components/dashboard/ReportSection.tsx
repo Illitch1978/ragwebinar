@@ -2,7 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Download } from "lucide-react";
+import { Download, Loader2 } from "lucide-react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 // Sample data - would come from API in production
 const reportData = {
@@ -200,17 +202,20 @@ const tabs = [
 const Slide = ({ 
   slideNumber, 
   children, 
-  className = "" 
+  className = ""
 }: { 
   slideNumber: string; 
   children: React.ReactNode; 
   className?: string;
 }) => (
-  <div className={cn(
-    "min-h-[90vh] py-16 px-8 lg:px-20 border-b border-border relative flex flex-col justify-center items-center print:min-h-0 print:h-[100vh] print:break-after-page print:border-b-0",
-    className
-  )}>
-    <div className="absolute top-12 right-8 lg:right-20 font-mono text-[11px] text-muted-foreground/50 print-hide">
+  <div 
+    className={cn(
+      "min-h-[90vh] py-16 px-8 lg:px-20 border-b border-border relative flex flex-col justify-center items-center bg-background",
+      className
+    )}
+    data-slide="true"
+  >
+    <div className="absolute top-12 right-8 lg:right-20 font-mono text-[11px] text-muted-foreground/50">
       {slideNumber}
     </div>
     {children}
@@ -264,9 +269,12 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => (
   />
 );
 
-// Print-only section divider
+// Section divider for PDF export
 const SectionDivider = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <div className="print-only h-[100vh] py-16 px-8 lg:px-20 flex flex-col justify-center items-center bg-muted/30 break-after-page">
+  <div 
+    className="hidden"
+    data-slide="true"
+  >
     <div className="text-center">
       <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary mb-8">{subtitle}</div>
       <h2 className="font-serif text-6xl lg:text-8xl text-foreground">{title}</h2>
@@ -276,50 +284,48 @@ const SectionDivider = ({ title, subtitle }: { title: string; subtitle: string }
 
 const ReportSection = () => {
   const [activeTab, setActiveTab] = useState("summary");
+  const [isExporting, setIsExporting] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  const handleDownload = () => {
-    window.print();
+  const handleDownload = async () => {
+    setIsExporting(true);
+    setProgress(0);
+    
+    try {
+      // Get all visible slides from the current view
+      const allSlides = document.querySelectorAll('[data-slide]');
+      if (allSlides.length === 0) {
+        console.error("No slides found");
+        return;
+      }
+
+      const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
+      
+      for (let i = 0; i < allSlides.length; i++) {
+        setProgress(Math.round(((i + 1) / allSlides.length) * 100));
+        
+        const canvas = await html2canvas(allSlides[i] as HTMLElement, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#ffffff",
+          logging: false,
+        });
+        
+        if (i > 0) pdf.addPage();
+        pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+      }
+      
+      pdf.save("Strategic-Synthesis-Report.pdf");
+    } catch (error) {
+      console.error("PDF export failed:", error);
+    } finally {
+      setIsExporting(false);
+      setProgress(0);
+    }
   };
 
   return (
     <div className="space-y-0">
-      {/* Print styles for landscape orientation */}
-      <style>{`
-        @media print {
-          @page {
-            size: landscape;
-            margin: 0;
-          }
-          html, body {
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-            margin: 0 !important;
-            padding: 0 !important;
-          }
-          .no-print, 
-          [data-sidebar], 
-          aside,
-          nav {
-            display: none !important;
-          }
-          .print-hide {
-            display: none !important;
-          }
-          .print-only {
-            display: flex !important;
-          }
-          main {
-            margin-left: 0 !important;
-            padding-left: 0 !important;
-            width: 100% !important;
-          }
-        }
-        @media screen {
-          .print-only {
-            display: none !important;
-          }
-        }
-      `}</style>
 
       {/* Tab Navigation - Landing page style */}
       <div className="flex justify-between items-center py-6 px-8 lg:px-20 border-b border-border bg-background sticky top-0 z-10 no-print">
@@ -347,10 +353,20 @@ const ReportSection = () => {
         <div className="flex-1 flex justify-end">
           <button
             onClick={handleDownload}
-            className="relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group text-muted-foreground hover:text-primary flex items-center gap-2"
+            disabled={isExporting}
+            className="relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group text-muted-foreground hover:text-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Download className="h-4 w-4" />
-            Download
+            {isExporting ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Exporting {progress}%
+              </>
+            ) : (
+              <>
+                <Download className="h-4 w-4" />
+                Download
+              </>
+            )}
             <span className="absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400 w-0 group-hover:w-full" />
           </button>
         </div>
