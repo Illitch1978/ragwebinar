@@ -1061,46 +1061,52 @@ const ReportSection = () => {
                 We benchmarked Rubiklab against three market archetypes: The Legacy Incumbent (e.g., Qualtrics), The Speed Disruptor (e.g., Yabble), and The Low-End Synthetic.
               </p>
 
-              <div className="w-full max-w-5xl mt-8 space-y-16">
+              <div className="w-full max-w-5xl mt-8 space-y-6">
                 
                 {/* Proposition Clarity */}
-                <div className="pb-4">
-                  <div className="flex justify-between items-center font-mono text-sm text-muted-foreground mb-6 uppercase tracking-widest">
+                <div className="bg-card border border-border p-6 rounded-lg">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-1 h-8 bg-amber-500 rounded-full" />
+                    <span className="font-mono text-sm text-foreground uppercase tracking-widest">Proposition Clarity</span>
+                  </div>
+                  <div className="flex justify-between font-mono text-xs text-muted-foreground mb-4 uppercase tracking-wider px-1">
                     <span>Obscure</span>
-                    <span className="px-4 py-1.5 bg-muted border border-border text-foreground text-xs">Proposition Clarity</span>
                     <span>Crystal Clear</span>
                   </div>
-                  <div className="relative h-16 border-b border-border flex items-center">
-                    <div className="w-full h-0.5 bg-muted relative">
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "80%" }}>
+                  <div className="relative h-12 flex items-center px-1">
+                    <div className="w-full h-1 bg-muted rounded-full relative">
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "80%" }}>
                         <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
                       </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "60%" }}>
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "60%" }}>
                         <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
                       </div>
-                      <div className="absolute w-4 h-4 rounded-full bg-primary border-2 border-background shadow-[0_0_0_2px_hsl(var(--primary))] top-1/2 -translate-y-1/2" style={{ left: "30%" }}>
-                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-primary font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                      <div className="absolute w-4 h-4 rounded-full bg-amber-500 border-2 border-background shadow-[0_0_0_2px_rgb(245,158,11)] top-1/2 -translate-y-1/2" style={{ left: "30%" }}>
+                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-amber-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Technical Authority */}
-                <div className="pb-4">
-                  <div className="flex justify-between items-center font-mono text-sm text-muted-foreground mb-6 uppercase tracking-widest">
+                <div className="bg-card border border-border p-6 rounded-lg">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-1 h-8 bg-emerald-500 rounded-full" />
+                    <span className="font-mono text-sm text-foreground uppercase tracking-widest">Technical Authority</span>
+                  </div>
+                  <div className="flex justify-between font-mono text-xs text-muted-foreground mb-4 uppercase tracking-wider px-1">
                     <span>Superficial</span>
-                    <span className="px-4 py-1.5 bg-muted border border-border text-foreground text-xs">Technical Authority</span>
                     <span>Deep Expertise</span>
                   </div>
-                  <div className="relative h-16 border-b border-border flex items-center">
-                    <div className="w-full h-0.5 bg-muted relative">
-                      <div className="absolute w-4 h-4 rounded-full bg-primary border-2 border-background shadow-[0_0_0_2px_hsl(var(--primary))] top-1/2 -translate-y-1/2" style={{ left: "85%" }}>
-                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-primary font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                  <div className="relative h-12 flex items-center px-1">
+                    <div className="w-full h-1 bg-muted rounded-full relative">
+                      <div className="absolute w-4 h-4 rounded-full bg-emerald-500 border-2 border-background shadow-[0_0_0_2px_rgb(16,185,129)] top-1/2 -translate-y-1/2" style={{ left: "85%" }}>
+                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-emerald-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
                       </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "70%" }}>
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "70%" }}>
                         <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
                       </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "40%" }}>
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "40%" }}>
                         <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
                       </div>
                     </div>
@@ -1108,22 +1114,25 @@ const ReportSection = () => {
                 </div>
 
                 {/* Market Presence */}
-                <div className="pb-4">
-                  <div className="flex justify-between items-center font-mono text-sm text-muted-foreground mb-6 uppercase tracking-widest">
+                <div className="bg-card border border-border p-6 rounded-lg">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-1 h-8 bg-rose-500 rounded-full" />
+                    <span className="font-mono text-sm text-foreground uppercase tracking-widest">Market Presence</span>
+                  </div>
+                  <div className="flex justify-between font-mono text-xs text-muted-foreground mb-4 uppercase tracking-wider px-1">
                     <span>Invisible</span>
-                    <span className="px-4 py-1.5 bg-muted border border-border text-foreground text-xs">Market Presence</span>
                     <span>Ubiquitous</span>
                   </div>
-                  <div className="relative h-16 border-b border-border flex items-center">
-                    <div className="w-full h-0.5 bg-muted relative">
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "90%" }}>
+                  <div className="relative h-12 flex items-center px-1">
+                    <div className="w-full h-1 bg-muted rounded-full relative">
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "90%" }}>
                         <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
                       </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/50 top-1/2 -translate-y-1/2" style={{ left: "65%" }}>
+                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "65%" }}>
                         <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
                       </div>
-                      <div className="absolute w-4 h-4 rounded-full bg-primary border-2 border-background shadow-[0_0_0_2px_hsl(var(--primary))] top-1/2 -translate-y-1/2" style={{ left: "15%" }}>
-                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-primary font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                      <div className="absolute w-4 h-4 rounded-full bg-rose-500 border-2 border-background shadow-[0_0_0_2px_rgb(244,63,94)] top-1/2 -translate-y-1/2" style={{ left: "15%" }}>
+                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-rose-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
                       </div>
                     </div>
                   </div>
