@@ -1420,8 +1420,8 @@ const ReportSection = () => {
               <div className="flex gap-16 mt-10 items-start">
                 
                 {/* Chart Area with Y-axis label */}
-                <div className="flex items-center gap-6">
-                  {/* Y-Axis Label - Outside */}
+                <div className="flex items-center gap-3">
+                  {/* Y-Axis Label - Outside, closer to chart */}
                   <div className="-rotate-90 text-[11px] font-mono text-primary font-bold tracking-widest whitespace-nowrap">
                     LOW ←— BUSINESS IMPACT —→ HIGH
                   </div>
@@ -1436,14 +1436,15 @@ const ReportSection = () => {
                       
                       {/* Quadrant Labels */}
                       <div className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold">Quick Wins</div>
-                      <div className="absolute top-4 right-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold">Strategic Bets</div>
+                      <div className="absolute top-4 right-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold text-right">Strategic Bets</div>
                       <div className="absolute bottom-4 left-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold">Fill-ins</div>
-                      <div className="absolute bottom-4 right-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold">Distractions</div>
+                      <div className="absolute bottom-4 right-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold text-right">Distractions</div>
                       
-                      {/* Data Points with Tooltips */}
+                      {/* Data Points with Tooltips - Spaced to avoid overlap */}
+                      {/* Quick Wins Quadrant (top-left) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[15%] top-[10%] flex items-center gap-3 cursor-pointer group">
+                          <div className="absolute left-[12%] top-[12%] flex items-center gap-3 cursor-pointer group">
                             <div className="w-5 h-5 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
                             <span className="text-sm font-bold text-foreground">Intake Fix</span>
                           </div>
@@ -1455,7 +1456,7 @@ const ReportSection = () => {
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[25%] top-[20%] flex items-center gap-3 cursor-pointer group">
+                          <div className="absolute left-[18%] top-[26%] flex items-center gap-3 cursor-pointer group">
                             <div className="w-5 h-5 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
                             <span className="text-sm font-bold text-foreground">Trust Injection</span>
                           </div>
@@ -1465,75 +1466,78 @@ const ReportSection = () => {
                         </TooltipContent>
                       </Tooltip>
                       
+                      {/* Strategic Bets Quadrant (top-right) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[75%] top-[15%] flex items-center gap-3 cursor-pointer group">
+                          <div className="absolute left-[58%] top-[12%] flex items-center gap-3 cursor-pointer group">
                             <div className="w-5 h-5 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
                             <span className="text-sm font-bold text-foreground">Product Sandbox</span>
                           </div>
                         </TooltipTrigger>
-                        <TooltipContent side="left" className="max-w-xs">
+                        <TooltipContent side="right" className="max-w-xs">
                           <p className="text-sm">Interactive demo environment showing real output quality. High effort, high reward.</p>
                         </TooltipContent>
                       </Tooltip>
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[70%] top-[30%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                            <span className="text-sm font-bold text-foreground">Verticalization</span>
-                          </div>
-                        </TooltipTrigger>
-                        <TooltipContent side="left" className="max-w-xs">
-                          <p className="text-sm">Industry-specific landing pages and case studies for top 3 verticals.</p>
-                        </TooltipContent>
-                      </Tooltip>
-                      
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <div className="absolute left-[60%] top-[20%] flex items-center gap-3 cursor-pointer group">
+                          <div className="absolute left-[55%] top-[26%] flex items-center gap-3 cursor-pointer group">
                             <div className="w-5 h-5 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
                             <span className="text-sm font-bold text-foreground">Outcome Narrative</span>
                           </div>
                         </TooltipTrigger>
-                        <TooltipContent side="left" className="max-w-xs">
+                        <TooltipContent side="right" className="max-w-xs">
                           <p className="text-sm">Reframe messaging from "how it works" to "what you achieve."</p>
                         </TooltipContent>
                       </Tooltip>
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[80%] top-[80%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
-                            <span className="text-sm font-bold text-foreground">Full Rebranding</span>
+                          <div className="absolute left-[60%] top-[40%] flex items-center gap-3 cursor-pointer group">
+                            <div className="w-5 h-5 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
+                            <span className="text-sm font-bold text-foreground">Verticalization</span>
                           </div>
                         </TooltipTrigger>
-                        <TooltipContent side="left" className="max-w-xs">
-                          <p className="text-sm">Complete visual identity overhaul. High cost, low immediate impact. Avoid.</p>
+                        <TooltipContent side="right" className="max-w-xs">
+                          <p className="text-sm">Industry-specific landing pages and case studies for top 3 verticals.</p>
                         </TooltipContent>
                       </Tooltip>
                       
+                      {/* Fill-ins Quadrant (bottom-left) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[70%] top-[70%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
-                            <span className="text-sm font-bold text-foreground">Custom CMS</span>
-                          </div>
-                        </TooltipTrigger>
-                        <TooltipContent side="left" className="max-w-xs">
-                          <p className="text-sm">Building bespoke content management. Engineering distraction from core product.</p>
-                        </TooltipContent>
-                      </Tooltip>
-                      
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <div className="absolute left-[30%] top-[70%] flex items-center gap-3 cursor-pointer group">
+                          <div className="absolute left-[22%] top-[62%] flex items-center gap-3 cursor-pointer group">
                             <div className="w-5 h-5 rounded-full bg-muted-foreground/50 transition-all group-hover:ring-4 group-hover:ring-muted-foreground/20"></div>
                             <span className="text-sm font-bold text-muted-foreground">Footer Cleanup</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
                           <p className="text-sm">Minor cosmetic improvements. Low priority fill-in work.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
+                      {/* Distractions Quadrant (bottom-right) */}
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="absolute left-[58%] top-[62%] flex items-center gap-3 cursor-pointer group">
+                            <div className="w-5 h-5 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
+                            <span className="text-sm font-bold text-foreground">Custom CMS</span>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-xs">
+                          <p className="text-sm">Building bespoke content management. Engineering distraction from core product.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="absolute left-[62%] top-[76%] flex items-center gap-3 cursor-pointer group">
+                            <div className="w-5 h-5 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
+                            <span className="text-sm font-bold text-foreground">Full Rebranding</span>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-xs">
+                          <p className="text-sm">Complete visual identity overhaul. High cost, low immediate impact. Avoid.</p>
                         </TooltipContent>
                       </Tooltip>
                     </div>
