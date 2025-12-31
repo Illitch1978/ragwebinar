@@ -264,6 +264,16 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => (
   />
 );
 
+// Print-only section divider
+const SectionDivider = ({ title, subtitle }: { title: string; subtitle: string }) => (
+  <div className="print-only min-h-[90vh] py-16 px-8 lg:px-20 border-b border-border flex flex-col justify-center items-center bg-muted/30">
+    <div className="text-center">
+      <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary mb-8">{subtitle}</div>
+      <h2 className="font-serif text-6xl lg:text-8xl text-foreground">{title}</h2>
+    </div>
+  </div>
+);
+
 const ReportSection = () => {
   const [activeTab, setActiveTab] = useState("summary");
 
@@ -293,10 +303,21 @@ const ReportSection = () => {
           .print-hide {
             display: none !important;
           }
+          .print-only {
+            display: flex !important;
+          }
+          .screen-only {
+            display: block !important;
+          }
           main {
             margin-left: 0 !important;
             padding-left: 0 !important;
             width: 100% !important;
+          }
+        }
+        @media screen {
+          .print-only {
+            display: none !important;
           }
         }
       `}</style>
@@ -337,7 +358,7 @@ const ReportSection = () => {
       </div>
 
       {/* Summary Tab - Slide-based layout */}
-      {activeTab === "summary" && (
+      <div className={cn(activeTab !== "summary" && "hidden print:block")}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -685,10 +706,13 @@ const ReportSection = () => {
             </div>
           </Slide>
         </motion.div>
-      )}
+      </div>
+
+      {/* Print-only Divider: Diagnosis */}
+      <SectionDivider title="Diagnosis" subtitle="Part Two" />
 
       {/* Diagnosis Tab */}
-      {activeTab === "diagnosis" && (
+      <div className={cn(activeTab !== "diagnosis" && "hidden print:block")}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1039,10 +1063,13 @@ const ReportSection = () => {
             </div>
           </Slide>
         </motion.div>
-      )}
+      </div>
+
+      {/* Print-only Divider: Competitive Context */}
+      <SectionDivider title="Competitive Context" subtitle="Part Three" />
 
       {/* Competitive Context Tab */}
-      {activeTab === "competitive-context" && (
+      <div className={cn(activeTab !== "competitive-context" && "hidden print:block")}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1376,10 +1403,13 @@ const ReportSection = () => {
             </div>
           </Slide>
         </motion.div>
-      )}
+      </div>
+
+      {/* Print-only Divider: Next-Order Effects */}
+      <SectionDivider title="Next-Order Effects" subtitle="Part Four" />
 
       {/* Next-Order Effects Tab */}
-      {activeTab === "next-order-effects" && (
+      <div className={cn(activeTab !== "next-order-effects" && "hidden print:block")}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1795,7 +1825,7 @@ const ReportSection = () => {
             </div>
           </Slide>
         </motion.div>
-      )}
+      </div>
     </div>
   );
 };
