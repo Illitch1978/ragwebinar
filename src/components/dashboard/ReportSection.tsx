@@ -326,19 +326,24 @@ const ReportSection = () => {
       
       const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
       
-      // Helper to add slides
+      // Helper to add slides - using JPEG at lower scale to reduce file size
+      const captureSlide = async (slide: Element): Promise<string> => {
+        const canvas = await html2canvas(slide as HTMLElement, {
+          scale: 1.5, // Reduced from 2 for smaller file size
+          useCORS: true,
+          backgroundColor: "#ffffff",
+          logging: false,
+        });
+        return canvas.toDataURL("image/jpeg", 0.85); // JPEG with 85% quality instead of PNG
+      };
+      
       const addSlides = async (slides: NodeListOf<Element> | Element[]) => {
         for (const slide of Array.from(slides)) {
           currentItem++;
           setProgress(Math.round((currentItem / totalItems) * 100));
-          const canvas = await html2canvas(slide as HTMLElement, {
-            scale: 2,
-            useCORS: true,
-            backgroundColor: "#ffffff",
-            logging: false,
-          });
+          const imgData = await captureSlide(slide);
           pdf.addPage();
-          pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+          pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
         }
       };
       
@@ -346,14 +351,9 @@ const ReportSection = () => {
       for (let i = 0; i < summarySlides.length; i++) {
         currentItem++;
         setProgress(Math.round((currentItem / totalItems) * 100));
-        const canvas = await html2canvas(summarySlides[i] as HTMLElement, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: "#ffffff",
-          logging: false,
-        });
+        const imgData = await captureSlide(summarySlides[i]);
         if (i > 0) pdf.addPage();
-        pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+        pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
       }
       
       // Diagnosis divider + slides
@@ -362,7 +362,7 @@ const ReportSection = () => {
         setProgress(Math.round((currentItem / totalItems) * 100));
         const dividerCanvas = await createDividerCanvas("Diagnosis", "Part Two");
         pdf.addPage();
-        pdf.addImage(dividerCanvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+        pdf.addImage(dividerCanvas.toDataURL("image/jpeg", 0.85), "JPEG", 0, 0, 1920, 1080);
         await addSlides(diagnosisSlides);
       }
       
@@ -372,7 +372,7 @@ const ReportSection = () => {
         setProgress(Math.round((currentItem / totalItems) * 100));
         const dividerCanvas = await createDividerCanvas("Competitive Context", "Part Three");
         pdf.addPage();
-        pdf.addImage(dividerCanvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+        pdf.addImage(dividerCanvas.toDataURL("image/jpeg", 0.85), "JPEG", 0, 0, 1920, 1080);
         await addSlides(competitiveSlides);
       }
       
@@ -382,7 +382,7 @@ const ReportSection = () => {
         setProgress(Math.round((currentItem / totalItems) * 100));
         const dividerCanvas = await createDividerCanvas("Next-Order Effects", "Part Four");
         pdf.addPage();
-        pdf.addImage(dividerCanvas.toDataURL("image/png"), "PNG", 0, 0, 1920, 1080);
+        pdf.addImage(dividerCanvas.toDataURL("image/jpeg", 0.85), "JPEG", 0, 0, 1920, 1080);
         await addSlides(nextOrderSlides);
       }
       
