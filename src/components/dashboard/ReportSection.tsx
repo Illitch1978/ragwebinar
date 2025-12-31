@@ -207,10 +207,10 @@ const Slide = ({
   className?: string;
 }) => (
   <div className={cn(
-    "min-h-[90vh] py-16 px-8 lg:px-20 border-b border-border relative flex flex-col justify-center items-center",
+    "min-h-[90vh] py-16 px-8 lg:px-20 border-b border-border relative flex flex-col justify-center items-center print:min-h-0 print:h-[100vh] print:break-after-page print:border-b-0",
     className
   )}>
-    <div className="absolute top-12 right-8 lg:right-20 font-mono text-[11px] text-muted-foreground/50">
+    <div className="absolute top-12 right-8 lg:right-20 font-mono text-[11px] text-muted-foreground/50 print-hide">
       {slideNumber}
     </div>
     {children}
@@ -266,7 +266,7 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => (
 
 // Print-only section divider
 const SectionDivider = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <div className="print-only min-h-[90vh] py-16 px-8 lg:px-20 border-b border-border flex flex-col justify-center items-center bg-muted/30">
+  <div className="print-only h-[100vh] py-16 px-8 lg:px-20 flex flex-col justify-center items-center bg-muted/30 break-after-page">
     <div className="text-center">
       <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary mb-8">{subtitle}</div>
       <h2 className="font-serif text-6xl lg:text-8xl text-foreground">{title}</h2>
@@ -288,11 +288,13 @@ const ReportSection = () => {
         @media print {
           @page {
             size: landscape;
-            margin: 0.5in;
+            margin: 0;
           }
-          body {
+          html, body {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+            margin: 0 !important;
+            padding: 0 !important;
           }
           .no-print, 
           [data-sidebar], 
@@ -305,9 +307,6 @@ const ReportSection = () => {
           }
           .print-only {
             display: flex !important;
-          }
-          .screen-only {
-            display: block !important;
           }
           main {
             margin-left: 0 !important;
