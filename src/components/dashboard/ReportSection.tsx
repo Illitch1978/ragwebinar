@@ -296,30 +296,27 @@ const ReportSection = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // Create a divider canvas for PDF export - enhanced design
+  // Create a divider canvas for PDF export - dark theme matching landing page
   const createDividerCanvas = async (title: string, subtitle: string): Promise<HTMLCanvasElement> => {
     const div = document.createElement('div');
-    div.style.cssText = 'width:1920px;height:1080px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);position:absolute;left:-9999px;';
+    div.style.cssText = 'width:1920px;height:1080px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:#1a1a1a;position:absolute;left:-9999px;';
     div.innerHTML = `
       <div style="text-align:center;position:relative;">
         <!-- Decorative line -->
-        <div style="width:80px;height:2px;background:#1a1a1a;margin:0 auto 48px;"></div>
+        <div style="width:60px;height:1px;background:#0ea5e9;margin:0 auto 56px;"></div>
         
         <!-- Subtitle -->
-        <div style="font-family:ui-monospace,monospace;font-size:16px;text-transform:uppercase;letter-spacing:0.4em;color:hsl(199,89%,48%);margin-bottom:24px;font-weight:600;">${subtitle}</div>
+        <div style="font-family:ui-monospace,monospace;font-size:14px;text-transform:uppercase;letter-spacing:0.4em;color:#0ea5e9;margin-bottom:32px;font-weight:500;">${subtitle}</div>
         
         <!-- Title -->
-        <h2 style="font-family:Playfair Display,serif;font-size:120px;color:#1a1a1a;margin:0;font-weight:400;letter-spacing:-0.02em;">${title}</h2>
+        <h2 style="font-family:Playfair Display,serif;font-size:140px;color:#ffffff;margin:0;font-weight:400;letter-spacing:-0.02em;font-style:italic;">${title}</h2>
         
         <!-- Decorative line -->
-        <div style="width:80px;height:2px;background:#1a1a1a;margin:48px auto 0;"></div>
-        
-        <!-- Footer badge -->
-        <div style="position:absolute;bottom:-120px;left:50%;transform:translateX(-50%);font-family:ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.3em;color:#999;">Mondro • Strategic Synthesis</div>
+        <div style="width:60px;height:1px;background:#0ea5e9;margin:56px auto 0;"></div>
       </div>
     `;
     document.body.appendChild(div);
-    const canvas = await html2canvas(div, { scale: 1.5, backgroundColor: "#ffffff", logging: false, width: 1920, height: 1080 });
+    const canvas = await html2canvas(div, { scale: 1.5, backgroundColor: "#1a1a1a", logging: false, width: 1920, height: 1080 });
     document.body.removeChild(div);
     return canvas;
   };
