@@ -2,9 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Download, Share2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { toast } from "@/hooks/use-toast";
+import { Download } from "lucide-react";
 
 // Sample data - would come from API in production
 const reportData = {
@@ -273,27 +271,6 @@ const ReportSection = () => {
     window.print();
   };
 
-  const handleShare = async () => {
-    const url = window.location.href;
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `Digital Presence Report - ${reportData.clientName}`,
-          text: reportData.scope,
-          url: url,
-        });
-      } catch (err) {
-        // User cancelled or error
-      }
-    } else {
-      await navigator.clipboard.writeText(url);
-      toast({
-        title: "Link copied",
-        description: "Report link has been copied to clipboard.",
-      });
-    }
-  };
-
   return (
     <div className="space-y-0">
       {/* Print styles for landscape orientation */}
@@ -307,8 +284,19 @@ const ReportSection = () => {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
           }
-          .no-print {
+          .no-print, 
+          [data-sidebar], 
+          aside,
+          nav {
             display: none !important;
+          }
+          .print-hide {
+            display: none !important;
+          }
+          main {
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+            width: 100% !important;
           }
         }
       `}</style>
@@ -336,33 +324,15 @@ const ReportSection = () => {
             </button>
           ))}
         </div>
-        <div className="flex-1 flex justify-end gap-2">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={handleShare}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <Share2 className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Share report</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={handleDownload}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <Download className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Download PDF</TooltipContent>
-          </Tooltip>
+        <div className="flex-1 flex justify-end">
+          <button
+            onClick={handleDownload}
+            className="relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group text-muted-foreground hover:text-primary flex items-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Download
+            <span className="absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400 w-0 group-hover:w-full" />
+          </button>
         </div>
       </div>
 
@@ -398,7 +368,7 @@ const ReportSection = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute bottom-12 left-8 lg:left-20 text-base text-muted-foreground/50 font-mono">
+            <div className="absolute bottom-12 left-8 lg:left-20 text-base text-muted-foreground/50 font-mono print-hide">
               CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
             </div>
           </Slide>
@@ -710,7 +680,7 @@ const ReportSection = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono">
+            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono print-hide">
               CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
             </div>
           </Slide>
@@ -1064,7 +1034,7 @@ const ReportSection = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono">
+            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono print-hide">
               CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
             </div>
           </Slide>
@@ -1401,7 +1371,7 @@ const ReportSection = () => {
 
               </div>
             </div>
-            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono">
+            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono print-hide">
               CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
             </div>
           </Slide>
@@ -1820,7 +1790,7 @@ const ReportSection = () => {
               </div>
 
             </div>
-            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono">
+            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono print-hide">
               CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
             </div>
           </Slide>
