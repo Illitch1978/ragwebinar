@@ -2,6 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Download, Share2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
 
 // Sample data - would come from API in production
 const reportData = {
@@ -266,10 +269,53 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => (
 const ReportSection = () => {
   const [activeTab, setActiveTab] = useState("summary");
 
+  const handleDownload = () => {
+    window.print();
+  };
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Digital Presence Report - ${reportData.clientName}`,
+          text: reportData.scope,
+          url: url,
+        });
+      } catch (err) {
+        // User cancelled or error
+      }
+    } else {
+      await navigator.clipboard.writeText(url);
+      toast({
+        title: "Link copied",
+        description: "Report link has been copied to clipboard.",
+      });
+    }
+  };
+
   return (
     <div className="space-y-0">
+      {/* Print styles for landscape orientation */}
+      <style>{`
+        @media print {
+          @page {
+            size: landscape;
+            margin: 0.5in;
+          }
+          body {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          .no-print {
+            display: none !important;
+          }
+        }
+      `}</style>
+
       {/* Tab Navigation - Landing page style */}
-      <div className="flex justify-center py-6 border-b border-border bg-background sticky top-0 z-10">
+      <div className="flex justify-between items-center py-6 px-8 lg:px-20 border-b border-border bg-background sticky top-0 z-10 no-print">
+        <div className="flex-1" />
         <div className="flex items-center gap-8 lg:gap-12">
           {tabs.map((tab) => (
             <button
@@ -289,6 +335,34 @@ const ReportSection = () => {
               )} />
             </button>
           ))}
+        </div>
+        <div className="flex-1 flex justify-end gap-2">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={handleShare}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Share2 className="h-4 w-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Share report</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={handleDownload}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Download className="h-4 w-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Download PDF</TooltipContent>
+          </Tooltip>
         </div>
       </div>
 
