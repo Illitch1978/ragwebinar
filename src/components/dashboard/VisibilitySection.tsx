@@ -153,15 +153,21 @@ const VisibilitySection = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Resonance Status */}
+          {/* System Judgement */}
           <div className="bg-card border border-primary/30 p-8 h-full flex flex-col">
-            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary mb-4">Resonance Status</div>
-            <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight mb-4">Fragmented</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed flex-grow">
-              <strong className="text-foreground">System Judgement:</strong> Your resonance is technically visible but socially quiet. While the brand channel is active, the lack of human amplification limits reach to "Paid" rather than "Earned."
-            </p>
-            <div className="mt-4 pt-4 border-t border-primary/10 text-[10px] uppercase tracking-widest text-muted-foreground">
-              Question: Is the market hearing us? <span className="text-foreground">Partially.</span>
+            <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight mb-4">System Judgement</h3>
+            <div className="space-y-4 flex-grow">
+              <div>
+                <div className="text-xs font-bold text-foreground uppercase tracking-wide mb-1">Finding: Fragmented Resonance</div>
+                <p className="text-xs text-muted-foreground">Your resonance is technically visible but socially quiet. The brand channel is active, yet lacks human amplification.</p>
+              </div>
+              <div>
+                <div className="text-xs font-bold text-foreground uppercase tracking-wide mb-1">Impact: Limited Reach</div>
+                <p className="text-xs text-muted-foreground">Current positioning generates "Paid" visibility rather than "Earned" authority. The market sees the logo, not the leaders.</p>
+              </div>
+            </div>
+            <div className="mt-auto pt-4 border-t border-primary/10">
+              <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary">Question: Is the market hearing us? Partially.</span>
             </div>
           </div>
 
