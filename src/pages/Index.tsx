@@ -209,25 +209,25 @@ function Index() {
             <CapabilityBlock 
               label="VECTOR 01"
               title="Authority."
-              description="Credibility is instantaneous. We assess the signals that establish trust before logic applies—from value clarity and tone seniority to the undeniable weight of perceived leadership."
+              description="Credibility is instantaneous. We assess the signals that establish trust before logic applies: value clarity, tone seniority, and the undeniable weight of perceived leadership."
               tags={['TRUST SIGNALS', 'TONE', 'CLARITY']}
             />
             <CapabilityBlock 
               label="VECTOR 02"
               title="Visibility."
-              description="Relevance requires presence. We map your digital footprint beyond traditional search—evaluating semantic authority, generative citation, and market ubiquity."
+              description="Relevance requires presence. We map your digital footprint beyond traditional search, evaluating semantic authority, generative citation, and market ubiquity."
               tags={['GENERATIVE', 'SEMANTIC', 'SOCIAL']}
             />
             <CapabilityBlock 
               label="VECTOR 03"
               title="Standing."
-              description="Performance is relative. We benchmark your reality against category leaders and direct peers to expose gaps, arbitrage opportunities, and the true cost of inaction."
+              description="Performance is relative. We benchmark your position against category leaders and direct peers to expose gaps, arbitrage opportunities, and the true cost of inaction."
               tags={['MARKET DELTA', 'PEERS', 'GAPS']}
             />
             <CapabilityBlock 
               label="VECTOR 04"
               title="Integrity."
-              description="Friction destroys value. We audit the structural soundness of the experience—from technical velocity to UX reliability—ensuring the foundation holds under scrutiny."
+              description="Friction destroys value. We audit the structural soundness of the experience, from technical velocity to UX reliability, ensuring the foundation holds under scrutiny."
               tags={['TECHNICAL', 'UX FLOW', 'HEALTH']}
             />
           </div>
