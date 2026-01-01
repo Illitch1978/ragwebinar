@@ -1,288 +1,309 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { ChevronDown, Copy, Check } from 'lucide-react';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { toast } from "sonner";
 
-const seoOptimization = [
-  { label: 'Tier-One Wealth Strategy', highlighted: false },
-  { label: 'Cross-Border Compliance', highlighted: false },
-  { label: 'Sovereign Asset Management', highlighted: false },
-  { label: 'Family Office Governance', highlighted: false },
-  { label: 'Tax-Efficient Liquidity', highlighted: false },
-  { label: 'Multilateral M&A Counsel', highlighted: false },
-  { label: 'Institutional Risk Hedging', highlighted: false },
-  { label: 'ESG Portfolio Alignment', highlighted: false },
-  { label: 'Global Custody Services', highlighted: false },
-  { label: 'Private Equity Diligence', highlighted: false },
-  { label: 'Succession Contingency', highlighted: false },
-  { label: 'Alternative Capital Access', highlighted: false },
-  { label: 'Regulatory Horizon Scanning', highlighted: false },
-  { label: 'Fixed-Income Optimization', highlighted: false },
-  { label: 'Concierge Capital Planning', highlighted: false },
-  { label: 'Discretionary Asset Flows', highlighted: false },
-];
+// Harvey Ball Component
+const HarveyBall = ({ type }: { type: 'full' | 'half' | 'empty' | 'none' }) => {
+  const baseClasses = "w-3 h-3 rounded-full inline-block border";
+  
+  switch (type) {
+    case 'full':
+      return <div className={`${baseClasses} border-foreground bg-foreground`} />;
+    case 'half':
+      return <div className={`${baseClasses} border-foreground`} style={{ background: 'linear-gradient(90deg, hsl(var(--foreground)) 50%, transparent 50%)' }} />;
+    case 'empty':
+      return <div className={`${baseClasses} border-foreground bg-transparent`} />;
+    case 'none':
+      return <div className={`${baseClasses} border-muted-foreground/30 bg-muted`} />;
+    default:
+      return null;
+  }
+};
 
-const geoRoadmap = [
-  {
-    title: 'Semantic Entity Optimization',
-    priority: 'Priority action',
-    description: 'Align brand assets with high-value knowledge graph entities to ensure AI crawlers recognize your firm as authoritative.',
-  },
-  {
-    title: 'Citation Bridge Building',
-    priority: 'Recommended next step',
-    description: 'Secure placements in tier-one financial press and institutional publications to build trust signals.',
-  },
-  {
-    title: 'Contextual Authority Scaling',
-    priority: 'High impact',
-    description: 'Deploy region-specific landing pages addressing jurisdiction-specific regulations and tax frameworks.',
-  },
-  {
-    title: 'Schema Markup Overhaul',
-    priority: 'Priority action',
-    description: 'Implement JSON-LD structured data across service pages and profiles for rich snippet visibility.',
-  },
-  {
-    title: 'Generative Answer Capture',
-    priority: 'Recommended next step',
-    description: 'Refactor FAQ content using question-answer formatting optimized for conversational search.',
-  },
-  {
-    title: 'Synthesized Content Hubs',
-    priority: 'Strategic initiative',
-    description: 'Create interconnected content clusters to establish authority pillars AI models recognize as definitive.',
-  },
-];
+// Data Row Component
+const DataRow = ({ label, status, type }: { label: string; status: string; type: 'full' | 'half' | 'empty' | 'none' }) => (
+  <div className="flex justify-between items-center py-3 border-b border-muted/50 last:border-b-0 text-[13px]">
+    <span>{label}</span>
+    <div className="flex items-center gap-2">
+      <span className={`text-xs ${type === 'none' ? 'text-muted-foreground/40' : type === 'half' ? 'text-muted-foreground/60' : 'text-muted-foreground'}`}>
+        {status}
+      </span>
+      <HarveyBall type={type} />
+    </div>
+  </div>
+);
 
-const executiveSummary = [
-  { label: 'Visibility Strength', value: 'High' },
-  { label: 'Search Dominance', value: 'Strong' },
-  { label: 'AI Discoverability', value: 'Emerging' },
-];
+// Keyword Pill Component
+const KeywordPill = ({ keyword }: { keyword: string }) => {
+  const [copied, setCopied] = useState(false);
 
-const SeoOptimizationSection = ({ keywords }: { keywords: typeof seoOptimization }) => {
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-
-  const handleCopy = (label: string, index: number) => {
-    navigator.clipboard.writeText(label);
-    setCopiedIndex(index);
-    toast.success('Copied to clipboard');
-    setTimeout(() => setCopiedIndex(null), 2000);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(keyword);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
   };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
-        SEO Optimization
-      </h2>
-      
-      <div className="p-6 md:p-8 rounded-xl border border-border/50 bg-white">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {keywords.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => handleCopy(item.label, index)}
-              className={`px-4 py-3 rounded-lg border text-center text-sm font-medium transition-all cursor-pointer group relative ${
-                item.highlighted 
-                  ? 'border-primary/30 bg-primary/5 text-primary hover:bg-primary/10' 
-                  : 'border-border bg-muted/20 text-foreground hover:border-primary/30 hover:bg-muted/40'
-              }`}
-            >
-              <span className={copiedIndex === index ? 'opacity-0' : 'opacity-100'}>
-                {item.label}
-              </span>
-              <span className={`absolute inset-0 flex items-center justify-center gap-1.5 transition-opacity ${copiedIndex === index ? 'opacity-100' : 'opacity-0'}`}>
-                <Check className="w-3.5 h-3.5" />
-                Copied
-              </span>
-              <Copy className={`absolute top-2 right-2 w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity ${copiedIndex === index ? 'hidden' : ''}`} />
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
+    <button
+      onClick={handleCopy}
+      className={`
+        border p-4 text-xs text-center transition-all cursor-copy relative overflow-hidden
+        ${copied 
+          ? 'bg-primary text-primary-foreground border-primary' 
+          : 'bg-card border-border text-muted-foreground hover:border-primary hover:text-primary hover:shadow-md'
+        }
+      `}
+    >
+      {copied ? 'Copied' : keyword}
+    </button>
   );
 };
 
-const VisibilitySection = () => {
-  const [showFullRoadmap, setShowFullRoadmap] = useState(false);
-  const [showSeoDetail, setShowSeoDetail] = useState(false);
-  const [showGeoDetail, setShowGeoDetail] = useState(false);
-  
-  const visibleRoadmapItems = showFullRoadmap ? geoRoadmap : geoRoadmap.slice(0, 3);
+// SEO Keywords
+const seoKeywords = [
+  "Tier-One Wealth Strategy",
+  "Cross-Border Compliance",
+  "Sovereign Asset Management",
+  "Family Office Governance",
+  "Tax-Efficient Liquidity",
+  "Multilateral M&A Counsel",
+  "Institutional Risk Hedging",
+  "ESG Portfolio Alignment",
+  "Global Custody Services",
+  "Private Equity Diligence",
+  "Succession Contingency",
+  "Alternative Capital Access",
+];
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
-      },
-    }),
+// Strategic Roadmap Items
+const roadmapItems = [
+  {
+    priority: true,
+    title: "Semantic Entity Optimization",
+    description: "Map brand assets to specific Knowledge Graph IDs to verify identity. Ensure 'About' pages and Crunchbase profiles explicitly define entity relationships (e.g., \"Subsidiary of,\" \"Founded by\") to validate authority for AI crawlers like Google SGE and Perplexity."
+  },
+  {
+    priority: false,
+    title: "Citation Bridge Building",
+    description: "Prioritize co-occurrence in high-authority corpora (Tier 1 Press, Academic Journals, Government Directories). LLMs use these 'neighborhoods' to calculate trust scores. A mention in WSJ carries 50x the vector weight of a standard press release."
+  },
+  {
+    priority: true,
+    title: "Schema Markup Overhaul",
+    description: "Deploy nested JSON-LD Organization and Person schemas. Explicitly link 'sameAs' properties to all social profiles and Wikidata entries. This disambiguates the brand entity from generic terms and secures rich snippets in generative results."
+  },
+  {
+    priority: false,
+    title: "Generative Answer Capture",
+    description: "Restructure core service pages into 'Problem-Solution' tuplets. Use succinct, direct definitions (<40 words) immediately following headers (H2/H3) to capture 'Zero-Click' snippets. This formatting is optimized for conversational extraction by LLMs."
+  },
+];
+
+const VisibilitySection = () => {
+  const handleCopyAll = () => {
+    const allKeywords = seoKeywords.join("\n");
+    navigator.clipboard.writeText(allKeywords);
+    toast.success("All keywords copied to clipboard");
   };
 
   return (
-    <div className="flex flex-col gap-8 w-full">
-
-      <div className="space-y-4">
-        <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
-          Visibility Workspace
-        </h2>
-        
-        <div className="grid grid-cols-3 gap-4">
-          {executiveSummary.map((item, index) => (
-            <div 
-              key={index}
-              className="p-6 rounded-xl border border-border/50 bg-white text-center"
-            >
-              <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest block mb-2">
-                {item.label}
-              </span>
-              <span className="text-2xl font-serif font-medium text-foreground">
-                {item.value}
-              </span>
-            </div>
-          ))}
-        </div>
+    <div className="pb-32">
+      {/* Header */}
+      <div className="max-w-7xl mx-auto mb-12 border-b border-border pb-6">
+        <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-foreground mb-2">Visibility Workspace</div>
+        <h1 className="font-serif text-4xl text-foreground">Total Market Presence</h1>
       </div>
 
-      {/* Current State Divider */}
-      <div className="flex items-center gap-4">
-        <div className="h-px flex-1 bg-border/50" />
-        <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
+      {/* Current State Section */}
+      <div className="max-w-7xl mx-auto mb-4">
+        <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pb-4 mb-8">
           Current State
-        </span>
-        <div className="h-px flex-1 bg-border/50" />
-      </div>
-
-      {/* Visibility Metrics - Verdict First */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* SEO Performance Card */}
-        <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
-          <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
-            SEO Performance
-          </span>
-          <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-3">
-            84
-          </span>
-          <p className="text-base font-medium text-foreground mb-4">
-            Dominant visibility in priority queries
-          </p>
-          
-          <button 
-            onClick={() => setShowSeoDetail(!showSeoDetail)}
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 mt-auto"
-          >
-            {showSeoDetail ? 'Hide detail' : 'View detail'}
-            <ChevronDown className={`w-3 h-3 transition-transform ${showSeoDetail ? 'rotate-180' : ''}`} />
-          </button>
-          
-          {showSeoDetail && (
-            <div className="text-sm text-muted-foreground leading-relaxed mt-4 pt-4 border-t border-border/30 space-y-3">
-              <p>
-                Your digital footprint commands institutional presence across high-value search queries. Analysis indicates strong alignment with terminology deployed by market leaders. Implementing the recommended keyword optimizations below could increase your SEO Performance score by an estimated <span className="font-semibold text-foreground">+5 points</span>.
-              </p>
-            </div>
-          )}
         </div>
         
-        {/* GEO Performance Card */}
-        <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white flex flex-col">
-          <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-4">
-            Generative Engine Optimization
-          </span>
-          <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight mb-3">
-            91
-          </span>
-          <p className="text-base font-medium text-foreground mb-4">
-            Strong AI-driven search positioning
-          </p>
-          
-          <button 
-            onClick={() => setShowGeoDetail(!showGeoDetail)}
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 mt-auto"
-          >
-            {showGeoDetail ? 'Hide detail' : 'View detail'}
-            <ChevronDown className={`w-3 h-3 transition-transform ${showGeoDetail ? 'rotate-180' : ''}`} />
-          </button>
-          
-          {showGeoDetail && (
-            <div className="text-sm text-muted-foreground leading-relaxed mt-4 pt-4 border-t border-border/30 space-y-3">
-              <p>
-                Your firm occupies the contextual foreground of high-intent queries within generative AI search environments. Current positioning demonstrates strong semantic alignment with industry authority signals. Executing the Strategic GEO Roadmap recommendations below could elevate your score by an estimated <span className="font-semibold text-foreground">+4 points</span>.
-              </p>
-            </div>
-          )}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* SEO Performance Card */}
+          <div className="bg-card border border-border p-8 hover:border-muted-foreground/30 transition-colors h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">SEO Performance</div>
+            <div className="font-serif text-6xl text-foreground mb-2">84</div>
+            <div className="text-sm font-medium mb-6">Dominant visibility</div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Your digital footprint commands institutional presence across high-value search queries. Strong alignment with market leader terminology.
+            </p>
+          </div>
+
+          {/* Generative Optimization Card */}
+          <div className="bg-card border border-border p-8 hover:border-muted-foreground/30 transition-colors h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">Generative Optimization</div>
+            <div className="font-serif text-6xl text-foreground mb-2">91</div>
+            <div className="text-sm font-medium mb-6">AI-driven positioning</div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Your firm occupies the contextual foreground of high-intent queries within LLMs. Semantic alignment is optimal.
+            </p>
+          </div>
+
+          {/* Social Resonance Card - Highlighted */}
+          <div className="bg-primary/5 border border-primary/20 p-8 hover:border-primary/30 transition-colors h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary mb-4">Social Resonance</div>
+            <div className="font-serif text-4xl text-primary mb-4 mt-2">Fragmented</div>
+            <div className="text-sm font-medium mb-6 text-primary">Emerging Authority</div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              High brand polish but low executive participation creates an authority vacuum. The market sees the logo, not the leaders.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* SEO Optimization */}
-      <SeoOptimizationSection keywords={seoOptimization} />
+      {/* Social Resonance Diagnostic Section */}
+      <div className="max-w-7xl mx-auto">
+        <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-primary pb-4 border-b border-border mb-8 mt-16 flex justify-between items-end">
+          <span>Social Resonance Diagnostic</span>
+        </div>
 
-      {/* Recommended Actions Divider */}
-      <div className="flex items-center gap-4 mt-4">
-        <div className="h-px flex-1 bg-border/50" />
-        <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
-          Recommended Actions
-        </span>
-        <div className="h-px flex-1 bg-border/50" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* 01. Resonance Status */}
+          <div className="bg-card border border-primary/30 p-8 h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary mb-4">01. Resonance Status</div>
+            <h3 className="font-serif text-2xl mb-4">Fragmented</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed flex-grow">
+              <strong className="text-foreground">System Judgement:</strong> Your resonance is technically visible but socially quiet. While the brand channel is active, the lack of human amplification limits reach to "Paid" rather than "Earned."
+            </p>
+            <div className="mt-4 pt-4 border-t border-primary/10 text-[10px] uppercase tracking-widest text-muted-foreground">
+              Question: Is the market hearing us? <span className="text-foreground">Partially.</span>
+            </div>
+          </div>
+
+          {/* 02. Strategic Gaps */}
+          <div className="bg-muted/50 border border-border p-8 h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">02. Strategic Gaps</div>
+            <div className="space-y-4 flex-grow">
+              <div>
+                <div className="text-xs font-bold text-foreground uppercase tracking-wide mb-1">Gap: Authority Silo</div>
+                <p className="text-xs text-muted-foreground">Credibility is locked in the brand page. It is not being carried by individual leaders.</p>
+              </div>
+              <div>
+                <div className="text-xs font-bold text-foreground uppercase tracking-wide mb-1">Gap: Narrative Fracture</div>
+                <p className="text-xs text-muted-foreground">LinkedIn content (technical) does not match Website content (commercial).</p>
+              </div>
+            </div>
+            <div className="mt-auto pt-4 border-t border-border">
+              <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-destructive">Implication: Trust Deficit</span>
+            </div>
+          </div>
+
+          {/* 03. Platform Presence */}
+          <div className="bg-card border border-border p-8 h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">03. Platform Presence</div>
+            <div className="flex-grow">
+              <DataRow label="LinkedIn (Company)" status="Mature" type="full" />
+              <DataRow label="LinkedIn (Execs)" status="Silent" type="half" />
+              <DataRow label="X / Twitter" status="No Signal" type="none" />
+              <DataRow label="Review Sites" status="Emerging" type="half" />
+            </div>
+          </div>
+
+          {/* 04. Leadership Voice */}
+          <div className="bg-card border border-border p-8 h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">04. Leadership Voice</div>
+            <div className="flex-grow flex flex-col justify-center">
+              <div className="mb-4">
+                <div className="flex justify-between text-xs mb-1">
+                  <span className="text-muted-foreground">Brand Channel Activity</span>
+                  <span>High Volume</span>
+                </div>
+                <div className="w-full bg-muted h-1">
+                  <div className="bg-foreground h-1" style={{ width: '85%' }} />
+                </div>
+              </div>
+              <div className="mb-2">
+                <div className="flex justify-between text-xs mb-1">
+                  <span className="text-muted-foreground">Executive Activity</span>
+                  <span className="text-muted-foreground">Low Volume</span>
+                </div>
+                <div className="w-full bg-muted h-1">
+                  <div className="bg-muted-foreground h-1" style={{ width: '15%' }} />
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-4 italic">
+                "Authority is currently institutional, not personal. In premium B2B, this limits trust transfer."
+              </p>
+            </div>
+          </div>
+
+          {/* 05. Content Assessment */}
+          <div className="bg-card border border-border p-8 h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">05. Content Assessment</div>
+            <div className="space-y-3">
+              <div className="border-l-2 border-border pl-3">
+                <span className="text-[10px] uppercase text-muted-foreground">Clarity</span>
+                <p className="text-xs font-medium">Strong. Technical concepts are explained well.</p>
+              </div>
+              <div className="border-l-2 border-border pl-3">
+                <span className="text-[10px] uppercase text-muted-foreground">Point of View</span>
+                <p className="text-xs font-medium text-muted-foreground">Weak. Content feels safe. Lacks a distinct "Way".</p>
+              </div>
+              <div className="border-l-2 border-border pl-3">
+                <span className="text-[10px] uppercase text-muted-foreground">Confidence</span>
+                <p className="text-xs font-medium">Moderate. Too much hedging language.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 06. External Validation */}
+          <div className="bg-card border border-border p-8 h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">06. External Validation</div>
+            <div className="flex-grow flex flex-col justify-center text-center">
+              <div className="font-serif text-4xl text-muted-foreground/30 mb-2">Insufficient Data</div>
+              <p className="text-xs text-muted-foreground max-w-[200px] mx-auto">
+                Review volume (n&lt;10) is too low to infer market sentiment.
+              </p>
+              <div className="mt-6 inline-block bg-muted px-3 py-1 text-[10px] uppercase tracking-widest text-muted-foreground rounded mx-auto">
+                Finding: Neutral Risk
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Strategic GEO Roadmap */}
-      <div className="space-y-5">
-        <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
-          Strategic GEO Roadmap
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {visibleRoadmapItems.map((item, index) => (
-            <motion.div 
-              key={index}
-              custom={index}
-              initial="hidden"
-              animate="visible"
-              variants={cardVariants}
-              className="group relative bg-white rounded-xl p-6 md:p-8 flex flex-col justify-between min-h-[180px] border border-border/50 transition-all duration-300 hover:border-primary/20"
-            >
-              <div className="relative z-10 space-y-3">
-                <span className="text-[10px] font-semibold text-primary uppercase tracking-widest">
-                  {item.priority}
-                </span>
-                <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-[1.6]">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
+      {/* SEO Optimization Targets Section */}
+      <div className="max-w-7xl mx-auto">
+        <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pb-4 border-b border-border mb-8 mt-16 flex justify-between items-end">
+          <span>SEO Optimization Targets</span>
+          <button 
+            onClick={handleCopyAll}
+            className="text-[10px] border border-border px-3 py-1 hover:border-primary hover:text-primary transition-colors"
+          >
+            Copy List
+          </button>
+        </div>
+        
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {seoKeywords.map((keyword, index) => (
+            <KeywordPill key={index} keyword={keyword} />
           ))}
         </div>
+      </div>
 
-        {/* View Full Roadmap Toggle */}
-        {!showFullRoadmap && (
-          <button
-            onClick={() => setShowFullRoadmap(true)}
-            className="w-full py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-2 border border-border/50 rounded-xl bg-white hover:border-primary/20"
-          >
-            View full roadmap
-            <ChevronDown className="w-4 h-4" />
-          </button>
-        )}
-        
-        {showFullRoadmap && (
-          <button
-            onClick={() => setShowFullRoadmap(false)}
-            className="w-full py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-2"
-          >
-            Show less
-            <ChevronDown className="w-4 h-4 rotate-180" />
-          </button>
-        )}
+      {/* Strategic GEO Roadmap Section */}
+      <div className="max-w-7xl mx-auto">
+        <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pb-4 border-b border-border mb-8 mt-16">
+          Strategic GEO Roadmap
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {roadmapItems.map((item, index) => (
+            <div 
+              key={index} 
+              className="bg-card border border-border p-8 hover:border-primary transition-colors group h-full flex flex-col"
+            >
+              <div className={`font-mono text-[10px] uppercase tracking-[0.1em] mb-2 ${item.priority ? 'text-primary' : 'text-muted-foreground'}`}>
+                {item.priority ? 'Priority Action' : 'Next Step'}
+              </div>
+              <h3 className="font-serif text-xl mb-3 group-hover:text-primary transition-colors">{item.title}</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
