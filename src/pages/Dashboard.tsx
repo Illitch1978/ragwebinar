@@ -156,38 +156,37 @@ const Dashboard = () => {
       <main className="flex-1 overflow-auto">
         {/* Intelligence Header with Sub-tabs */}
         {activeProduct === "intelligence" && (
-          <div className="border-b border-border/50 px-6 py-5">
-            <div className="flex items-center justify-between">
-              {/* Sub-tabs - matching landing page nav style */}
-              <div className="flex items-center gap-8 lg:gap-12">
-                {intelligenceSubTabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveIntelligenceTab(tab.id)}
-                    className={cn(
-                      "relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group",
-                      activeIntelligenceTab === tab.id
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-primary"
-                    )}
-                  >
-                    {tab.title}
-                    <span className={cn(
-                      "absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400",
-                      activeIntelligenceTab === tab.id ? "w-full" : "w-0 group-hover:w-full"
-                    )}></span>
-                  </button>
-                ))}
-              </div>
-              
-              {/* Client Info */}
+          <div className="flex justify-between items-center py-6 px-8 lg:px-20 border-b border-border bg-background sticky top-0 z-10">
+            <div className="flex-1" />
+            <div className="flex items-center gap-8 lg:gap-12">
+              {intelligenceSubTabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveIntelligenceTab(tab.id)}
+                  className={cn(
+                    "relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group",
+                    activeIntelligenceTab === tab.id
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-primary"
+                  )}
+                >
+                  {tab.title}
+                  <span className={cn(
+                    "absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400",
+                    activeIntelligenceTab === tab.id ? "w-full" : "w-0 group-hover:w-full"
+                  )}></span>
+                </button>
+              ))}
+            </div>
+            <div className="flex-1 flex justify-end">
               <a 
                 href="https://meridianwest.co.uk/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-lg font-semibold text-foreground font-serif hover:text-primary transition-colors"
+                className="relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group text-muted-foreground hover:text-primary"
               >
                 Meridian West
+                <span className="absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400 w-0 group-hover:w-full"></span>
               </a>
             </div>
           </div>
