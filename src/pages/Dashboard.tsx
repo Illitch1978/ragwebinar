@@ -66,8 +66,8 @@ const Dashboard = () => {
         )}
       >
         {/* Logo */}
-        <div className="p-4 border-b border-border flex items-center justify-between">
-          {!sidebarCollapsed && <EvolvedLogo size="small" />}
+        <div className="py-[52px] px-4 border-b border-border flex items-center justify-between">
+          {!sidebarCollapsed && <EvolvedLogo />}
           <button 
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             className="p-2 hover:bg-muted/20 rounded-md transition-colors"
