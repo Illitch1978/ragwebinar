@@ -207,28 +207,28 @@ function Index() {
 
           <div id="framework" className="scroll-mt-40 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
             <CapabilityBlock 
-              label="VERDICT 01"
-              title="Technical Integrity."
-              description="The physical infrastructure of your digital presence is your primary trust signal. We measure velocity and resilience at the atomic level."
-              tags={['LATENCY', 'STRUCTURE', 'COMPLIANCE']}
+              label="VECTOR 01"
+              title="Authority."
+              description="Credibility is instantaneous. We assess the signals that establish trust before logic applies—from value clarity and tone seniority to the undeniable weight of perceived leadership."
+              tags={['TRUST SIGNALS', 'TONE', 'CLARITY']}
             />
             <CapabilityBlock 
-              label="VERDICT 02"
-              title="Cognitive Perception."
-              description="Authority is felt before it is read. We analyze the visual grammar and hierarchy to optimize for senior stakeholder reception."
-              tags={['HIERARCHY', 'BALANCE', 'TONE']}
+              label="VECTOR 02"
+              title="Visibility."
+              description="Relevance requires presence. We map your digital footprint beyond traditional search—evaluating semantic authority, generative citation, and market ubiquity."
+              tags={['GENERATIVE', 'SEMANTIC', 'SOCIAL']}
             />
             <CapabilityBlock 
-              label="VERDICT 03"
-              title="Logical Flow."
-              description="Assess the friction between high-intent inquiry and definitive conclusion. Your digital experience must facilitate instantaneous synthesis."
-              tags={['CONVERSION', 'USABILITY', 'RETENTION']}
+              label="VECTOR 03"
+              title="Standing."
+              description="Performance is relative. We benchmark your reality against category leaders and direct peers to expose gaps, arbitrage opportunities, and the true cost of inaction."
+              tags={['MARKET DELTA', 'PEERS', 'GAPS']}
             />
             <CapabilityBlock 
-              label="VERDICT 04"
-              title="Market Arbitrage."
-              description="Identify the delta between market noise and your unique position. Our synthesis provides the leverage for definitive dominance."
-              tags={['POSITION', 'VALUE', 'DIFFERENCE']}
+              label="VECTOR 04"
+              title="Integrity."
+              description="Friction destroys value. We audit the structural soundness of the experience—from technical velocity to UX reliability—ensuring the foundation holds under scrutiny."
+              tags={['TECHNICAL', 'UX FLOW', 'HEALTH']}
             />
           </div>
         </div>
