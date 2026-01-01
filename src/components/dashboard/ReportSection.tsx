@@ -208,7 +208,7 @@ const Slide = ({
 }) => (
   <div 
     className={cn(
-      "min-h-[90vh] py-16 px-8 lg:px-20 border-b border-border relative flex flex-col justify-center items-center bg-background",
+      "min-h-[90vh] py-16 px-4 lg:px-10 border-b border-border relative flex flex-col justify-center items-center bg-background",
       className
     )}
     data-slide="true"
