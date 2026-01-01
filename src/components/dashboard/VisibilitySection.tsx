@@ -106,18 +106,12 @@ const VisibilitySection = () => {
   };
 
   return (
-    <div className="pb-32">
-      {/* Header */}
-      <div className="max-w-7xl mx-auto mb-12 border-b border-border pb-6">
-        <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-foreground mb-2">Visibility Workspace</div>
-        <h1 className="font-serif text-4xl text-foreground">Total Market Presence</h1>
-      </div>
-
+    <div className="flex flex-col gap-8 w-full">
       {/* Current State Section */}
-      <div className="max-w-7xl mx-auto mb-4">
-        <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pb-4 mb-8">
+      <div className="space-y-4">
+        <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
           Current State
-        </div>
+        </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* SEO Performance Card */}
@@ -153,10 +147,10 @@ const VisibilitySection = () => {
       </div>
 
       {/* Social Resonance Diagnostic Section */}
-      <div className="max-w-7xl mx-auto">
-        <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-primary pb-4 border-b border-border mb-8 mt-16 flex justify-between items-end">
-          <span>Social Resonance Diagnostic</span>
-        </div>
+      <div className="space-y-4 mt-8">
+        <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
+          Social Resonance Diagnostic
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* 01. Resonance Status */}
@@ -264,9 +258,11 @@ const VisibilitySection = () => {
       </div>
 
       {/* SEO Optimization Targets Section */}
-      <div className="max-w-7xl mx-auto">
-        <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pb-4 border-b border-border mb-8 mt-16 flex justify-between items-end">
-          <span>SEO Optimization Targets</span>
+      <div className="space-y-4 mt-8">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
+            SEO Optimization Targets
+          </h2>
           <button 
             onClick={handleCopyAll}
             className="text-[10px] border border-border px-3 py-1 hover:border-primary hover:text-primary transition-colors"
@@ -283,10 +279,10 @@ const VisibilitySection = () => {
       </div>
 
       {/* Strategic GEO Roadmap Section */}
-      <div className="max-w-7xl mx-auto">
-        <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pb-4 border-b border-border mb-8 mt-16">
+      <div className="space-y-4 mt-8">
+        <h2 className="text-xs font-semibold text-primary uppercase tracking-widest">
           Strategic GEO Roadmap
-        </div>
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {roadmapItems.map((item, index) => (
