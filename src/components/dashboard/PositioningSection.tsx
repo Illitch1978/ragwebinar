@@ -85,32 +85,32 @@ const PositioningSection = () => {
           Executive Metrics
         </h2>
         
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white text-center flex flex-col items-center justify-center min-h-[140px]">
-            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3">
-              Authority Score
-            </span>
-            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight">
-              88
-            </span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-card border border-border p-8 hover:border-muted-foreground/30 transition-colors h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">Authority Score</div>
+            <div className="font-serif text-6xl text-foreground mb-2">88</div>
+            <div className="text-sm font-medium mb-6">Established credibility</div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Strong trust signals across digital touchpoints. Value clarity and tone seniority align with tier-one expectations.
+            </p>
           </div>
           
-          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white text-center flex flex-col items-center justify-center min-h-[140px]">
-            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3">
-              Strategic Depth
-            </span>
-            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight">
-              94
-            </span>
+          <div className="bg-card border border-border p-8 hover:border-muted-foreground/30 transition-colors h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">Strategic Depth</div>
+            <div className="font-serif text-6xl text-foreground mb-2">94</div>
+            <div className="text-sm font-medium mb-6">Exceptional insight</div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Content demonstrates sophisticated understanding of sector dynamics and client challenges at the partnership level.
+            </p>
           </div>
           
-          <div className="p-8 md:p-10 rounded-xl border border-border/50 bg-white text-center flex flex-col items-center justify-center min-h-[140px]">
-            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3">
-              Market Presence
-            </span>
-            <span className="text-5xl md:text-6xl font-serif font-normal text-foreground tracking-tight">
-              High
-            </span>
+          <div className="bg-primary/5 border border-primary/20 p-8 hover:border-primary/30 transition-colors h-full flex flex-col">
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary mb-4">Market Presence</div>
+            <div className="font-serif text-4xl text-primary mb-4 mt-2">High</div>
+            <div className="text-sm font-medium mb-6 text-primary">Category leader</div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Recognized positioning within professional services advisory. Sustained visibility across key decision-maker channels.
+            </p>
           </div>
         </div>
       </div>
