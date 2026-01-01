@@ -156,7 +156,7 @@ const Dashboard = () => {
       <main className="flex-1 overflow-auto">
         {/* Intelligence Header with Sub-tabs */}
         {activeProduct === "intelligence" && (
-          <div className="pt-[23px] px-6">
+          <div className="pt-[22px] px-6">
             <div className="flex justify-center items-center py-8 px-8 lg:px-20 border-b border-border">
               <div className="flex items-center gap-8 lg:gap-12">
                 {intelligenceSubTabs.map((tab) => (
