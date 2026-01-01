@@ -4,7 +4,6 @@ import VisibilitySection from "@/components/dashboard/VisibilitySection";
 import ReportSection from "@/components/dashboard/ReportSection";
 import {
   Layers,
-  MessageSquare,
   FileText,
   Menu,
   Settings2,
@@ -17,13 +16,7 @@ const productNavItems = [
     title: "Intelligence", 
     icon: Layers, 
     id: "intelligence",
-    description: "Positioning, Visibility, Technical, Friction, Trust, Competitor Intel"
-  },
-  { 
-    title: "Strategy Room", 
-    icon: MessageSquare, 
-    id: "strategy-room",
-    description: "AI-powered virtual boardroom with expert personas"
+    description: "Growth, Visibility, Brand Equity, Competitor Intel, Technical"
   },
   { 
     title: "Report", 
@@ -34,12 +27,11 @@ const productNavItems = [
 ];
 
 const intelligenceSubTabs = [
-  { title: "Positioning", id: "positioning" },
+  { title: "Growth", id: "positioning" },
   { title: "Visibility", id: "visibility" },
-  { title: "Technical", id: "technical" },
-  { title: "Friction", id: "friction" },
-  { title: "Trust", id: "trust" },
+  { title: "Brand Equity", id: "brand-equity" },
   { title: "Competitor Intel", id: "competitor-intel" },
+  { title: "Technical", id: "technical" },
 ];
 
 const bottomNavItems = [
