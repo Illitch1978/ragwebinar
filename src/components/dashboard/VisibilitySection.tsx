@@ -153,10 +153,10 @@ const VisibilitySection = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* 01. Resonance Status */}
+          {/* Resonance Status */}
           <div className="bg-card border border-primary/30 p-8 h-full flex flex-col">
-            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary mb-4">01. Resonance Status</div>
-            <h3 className="font-serif text-2xl mb-4">Fragmented</h3>
+            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary mb-4">Resonance Status</div>
+            <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight mb-4">Fragmented</h3>
             <p className="text-sm text-muted-foreground leading-relaxed flex-grow">
               <strong className="text-foreground">System Judgement:</strong> Your resonance is technically visible but socially quiet. While the brand channel is active, the lack of human amplification limits reach to "Paid" rather than "Earned."
             </p>
@@ -165,9 +165,9 @@ const VisibilitySection = () => {
             </div>
           </div>
 
-          {/* 02. Strategic Gaps */}
+          {/* Strategic Gaps */}
           <div className="bg-muted/50 border border-border p-8 h-full flex flex-col">
-            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">02. Strategic Gaps</div>
+            <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight mb-4">Strategic Gaps</h3>
             <div className="space-y-4 flex-grow">
               <div>
                 <div className="text-xs font-bold text-foreground uppercase tracking-wide mb-1">Gap: Authority Silo</div>
@@ -183,9 +183,9 @@ const VisibilitySection = () => {
             </div>
           </div>
 
-          {/* 03. Platform Presence */}
+          {/* Platform Presence */}
           <div className="bg-card border border-border p-8 h-full flex flex-col">
-            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">03. Platform Presence</div>
+            <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight mb-4">Platform Presence</h3>
             <div className="flex-grow">
               <DataRow label="LinkedIn (Company)" status="Mature" type="full" />
               <DataRow label="LinkedIn (Execs)" status="Silent" type="half" />
@@ -194,9 +194,9 @@ const VisibilitySection = () => {
             </div>
           </div>
 
-          {/* 04. Leadership Voice */}
+          {/* Leadership Voice */}
           <div className="bg-card border border-border p-8 h-full flex flex-col">
-            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">04. Leadership Voice</div>
+            <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight mb-4">Leadership Voice</h3>
             <div className="flex-grow flex flex-col justify-center">
               <div className="mb-4">
                 <div className="flex justify-between text-xs mb-1">
@@ -222,9 +222,9 @@ const VisibilitySection = () => {
             </div>
           </div>
 
-          {/* 05. Content Assessment */}
+          {/* Content Assessment */}
           <div className="bg-card border border-border p-8 h-full flex flex-col">
-            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">05. Content Assessment</div>
+            <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight mb-4">Content Assessment</h3>
             <div className="space-y-3">
               <div className="border-l-2 border-border pl-3">
                 <span className="text-[10px] uppercase text-muted-foreground">Clarity</span>
@@ -241,9 +241,9 @@ const VisibilitySection = () => {
             </div>
           </div>
 
-          {/* 06. External Validation */}
+          {/* External Validation */}
           <div className="bg-card border border-border p-8 h-full flex flex-col">
-            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-4">06. External Validation</div>
+            <h3 className="text-lg md:text-xl font-semibold text-foreground leading-snug font-serif tracking-tight mb-4">External Validation</h3>
             <div className="flex-grow flex flex-col justify-center text-center">
               <div className="font-serif text-4xl text-muted-foreground/30 mb-2">Insufficient Data</div>
               <p className="text-xs text-muted-foreground max-w-[200px] mx-auto">
