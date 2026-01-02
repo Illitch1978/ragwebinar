@@ -204,7 +204,7 @@ const Slide = ({
 }) => (
   <div 
     className={cn(
-      "w-screen h-screen flex-shrink-0 pt-20 pb-12 px-4 lg:px-10 relative flex flex-col items-center bg-background overflow-y-auto overflow-x-hidden",
+      "w-screen h-screen flex-shrink-0 pt-16 pb-8 px-4 lg:px-10 relative flex flex-col items-center bg-background overflow-hidden",
       className
     )}
     data-slide="true"
@@ -215,14 +215,14 @@ const Slide = ({
 
 // Eyebrow component
 const SlideEyebrow = ({ children }: { children: React.ReactNode }) => (
-  <span className="font-sans text-[13px] uppercase tracking-[0.2em] text-muted-foreground/60 mb-8 block border-l-2 border-primary pl-4">
+  <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60 mb-3 block border-l-2 border-primary pl-3">
     {children}
   </span>
 );
 
 // Action title component
 const ActionTitle = ({ children, className }: { children: React.ReactNode; className?: string }) => (
-  <h2 className={cn("font-serif font-normal text-5xl lg:text-[4rem] leading-[1.1] mb-12 text-foreground max-w-[1100px]", className)}>
+  <h2 className={cn("font-serif font-normal text-4xl lg:text-5xl leading-[1.15] mb-6 text-foreground max-w-[1000px]", className)}>
     {children}
   </h2>
 );
@@ -719,33 +719,33 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Methodology</SlideEyebrow>
               <ActionTitle>Reading this assessment.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-14 lg:gap-24 mt-14">
-                <div className="col-span-7 space-y-10">
-                  <p className="text-2xl font-light text-foreground leading-relaxed">
+              <div className="grid md:grid-cols-12 gap-10 lg:gap-16">
+                <div className="col-span-7 space-y-5">
+                  <p className="text-xl font-light text-foreground leading-relaxed">
                     This document is a commissioned strategic assessment, distinct from automated performance reports. It combines large-scale quantitative analysis with structured expert judgement.
                   </p>
                   
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-base text-muted-foreground leading-relaxed">
                     Findings are derived from a multi-stage review process covering technical integrity, narrative clarity, user behaviour signals, and market positioning. Each dimension is assessed independently before being synthesised into an overall view.
                   </p>
 
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-base text-muted-foreground leading-relaxed">
                     Where scores are provided (0–100), they represent a weighted index calibrated against top-quartile SaaS and professional services benchmarks. Scores are directional indicators designed to guide prioritisation, not absolute measures of success.
                   </p>
 
-                  <div className="pt-8 mt-4">
-                    <div className="font-mono text-base uppercase tracking-widest text-primary mb-6">How Judgement is Formed</div>
-                    <ul className="grid grid-cols-2 gap-y-5 gap-x-12 text-lg text-muted-foreground">
-                      <li className="flex items-start gap-3 border-t border-border pt-5">
+                  <div className="pt-5 mt-2">
+                    <div className="font-mono text-sm uppercase tracking-widest text-primary mb-4">How Judgement is Formed</div>
+                    <ul className="grid grid-cols-2 gap-y-3 gap-x-8 text-base text-muted-foreground">
+                      <li className="flex items-start gap-2 border-t border-border pt-3">
                         <span className="text-primary">•</span> Cross-checked across independent signals
                       </li>
-                      <li className="flex items-start gap-3 border-t border-border pt-5">
+                      <li className="flex items-start gap-2 border-t border-border pt-3">
                         <span className="text-primary">•</span> Benchmarked against 1,200+ sites
                       </li>
-                      <li className="flex items-start gap-3 border-t border-border pt-5">
+                      <li className="flex items-start gap-2 border-t border-border pt-3">
                         <span className="text-primary">•</span> Reviewed through sector lenses
                       </li>
-                      <li className="flex items-start gap-3 border-t border-border pt-5">
+                      <li className="flex items-start gap-2 border-t border-border pt-3">
                         <span className="text-primary">•</span> Weighted to reflect decision impact
                       </li>
                     </ul>
@@ -753,11 +753,11 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
                 
                 <div className="col-span-5 flex items-center">
-                  <div className="bg-muted/30 p-14 border-l-2 border-foreground w-full">
-                    <div className="font-serif text-3xl lg:text-4xl mb-8 italic text-foreground leading-snug">
+                  <div className="bg-muted/30 p-8 border-l-2 border-foreground w-full">
+                    <div className="font-serif text-2xl lg:text-3xl mb-5 italic text-foreground leading-snug">
                       "Data describes the past.<br/>Judgement informs the future."
                     </div>
-                    <p className="text-lg text-muted-foreground leading-relaxed font-light">
+                    <p className="text-base text-muted-foreground leading-relaxed font-light">
                       Please interpret findings as diagnostic signals rather than absolute grades. "Critical" flags identify vectors that materially constrain credibility, conversion, or growth.
                     </p>
                   </div>
@@ -771,8 +771,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <div className="max-w-7xl w-full">
               <SlideEyebrow>Executive Synthesis</SlideEyebrow>
               <ActionTitle>Technical solidity is currently undermined by conversion friction.</ActionTitle>
-              <div className="grid md:grid-cols-12 gap-20 mt-12">
-                <div className="col-span-8 text-2xl leading-relaxed space-y-10 text-muted-foreground">
+              <div className="grid md:grid-cols-12 gap-12">
+                <div className="col-span-8 text-lg leading-relaxed space-y-5 text-muted-foreground">
                   <p>
                     Rubiklab.ai possesses a robust technical foundation. Server response times and uptime stability are within the top 5% of the peer group. The "hard" engineering of the site is sound.
                   </p>
@@ -780,28 +780,28 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     However, the "soft" architecture—specifically narrative flow and user intake—is creating significant drag. We observed a disconnect between the complexity of the solution and the clarity of the value proposition. High-intent traffic is being lost at the intake stage due to excessive form friction.
                   </p>
                   
-                  <div className="p-10 border border-primary bg-background shadow-sm">
-                    <div className="font-mono text-base uppercase tracking-widest text-primary mb-4">The Strategic Opportunity</div>
-                    <p className="text-xl text-foreground">
+                  <div className="p-6 border border-primary bg-background shadow-sm">
+                    <div className="font-mono text-sm uppercase tracking-widest text-primary mb-3">The Strategic Opportunity</div>
+                    <p className="text-base text-foreground">
                       By simplifying the intake mechanism and shifting messaging from "process" to "outcome," Rubiklab can unlock an estimated <strong>40% efficiency gain</strong> in the existing funnel without increasing ad spend.
                     </p>
                   </div>
                 </div>
-                <div className="col-span-4 flex flex-col justify-between py-2 border-l border-border pl-12 gap-12">
+                <div className="col-span-4 flex flex-col justify-between py-2 border-l border-border pl-8 gap-6">
                   <div>
-                    <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-3">Primary Strength</div>
-                    <div className="font-serif text-4xl">Infrastructure</div>
-                    <div className="text-lg text-muted-foreground mt-3">99.9% Uptime / Clean Code</div>
+                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-2">Primary Strength</div>
+                    <div className="font-serif text-3xl">Infrastructure</div>
+                    <div className="text-base text-muted-foreground mt-2">99.9% Uptime / Clean Code</div>
                   </div>
                   <div>
-                    <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-3">Primary Constraint</div>
-                    <div className="font-serif text-4xl text-destructive">Intake Friction</div>
-                    <div className="text-lg text-muted-foreground mt-3">8-Field Forms (Avg: 3)</div>
+                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-2">Primary Constraint</div>
+                    <div className="font-serif text-3xl text-destructive">Intake Friction</div>
+                    <div className="text-base text-muted-foreground mt-2">8-Field Forms (Avg: 3)</div>
                   </div>
                   <div>
-                    <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-3">Action Priority</div>
-                    <div className="font-serif text-4xl text-primary">Reduce Drag</div>
-                    <div className="text-lg text-muted-foreground mt-3">Immediate Roadmap</div>
+                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-2">Action Priority</div>
+                    <div className="font-serif text-3xl text-primary">Reduce Drag</div>
+                    <div className="text-base text-muted-foreground mt-2">Immediate Roadmap</div>
                   </div>
               </div>
             </div>
@@ -813,18 +813,18 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <div className="max-w-7xl w-full">
               <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
               <ActionTitle>A 41-point gap exists between potential and reality.</ActionTitle>
-              <p className="text-xl text-muted-foreground max-w-4xl mb-8">
+              <p className="text-base text-muted-foreground max-w-4xl mb-4">
                 The chart below bridges the gap from your theoretical potential to your current standing, isolating specific vectors of loss.
               </p>
 
               {/* Waterfall Chart */}
-              <div className="flex items-end h-[480px] gap-8 lg:gap-12 pt-20 pb-0 border-b border-border mt-10">
+              <div className="flex items-end h-[380px] gap-6 lg:gap-10 pt-12 pb-0 border-b border-border">
                 {/* Digital Potential */}
                 <div className="flex-1 flex flex-col justify-end relative h-full">
                   <div className="w-full bg-muted" style={{ height: "100%" }}></div>
-                  <div className="absolute w-full text-center -top-12 font-mono text-lg font-semibold text-foreground">100</div>
-                  <div className="text-center mt-6 border-t border-border pt-5">
-                    <span className="font-sans text-sm text-muted-foreground font-medium tracking-wider uppercase">Digital<br/>Potential</span>
+                  <div className="absolute w-full text-center -top-8 font-mono text-base font-semibold text-foreground">100</div>
+                  <div className="text-center mt-4 border-t border-border pt-3">
+                    <span className="font-sans text-xs text-muted-foreground font-medium tracking-wider uppercase">Digital<br/>Potential</span>
                   </div>
                 </div>
 
@@ -838,12 +838,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <div key={loss.label} className="flex-1 flex flex-col justify-end relative h-full">
                       <div className="w-full bg-transparent" style={{ height: `${spacerHeight}%` }}></div>
                       <div className="w-full bg-destructive relative" style={{ height: `${barHeight}%` }}>
-                        <div className="absolute inset-0 flex items-center justify-center font-mono text-base font-semibold text-destructive-foreground">
+                        <div className="absolute inset-0 flex items-center justify-center font-mono text-sm font-semibold text-destructive-foreground">
                           {loss.value}
                         </div>
                       </div>
-                      <div className="text-center mt-6 border-t border-border pt-5">
-                        <span className="font-sans text-sm text-muted-foreground font-medium tracking-wider uppercase">
+                      <div className="text-center mt-4 border-t border-border pt-3">
+                        <span className="font-sans text-xs text-muted-foreground font-medium tracking-wider uppercase">
                           {loss.label.split(" ").map((word, i) => (
                             <span key={i}>{word}<br/></span>
                           ))}
@@ -856,17 +856,17 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 {/* Current Score */}
                 <div className="flex-1 flex flex-col justify-end relative h-full">
                   <div className="w-full bg-primary" style={{ height: `${reportData.waterfall.current}%` }}></div>
-                  <div className="absolute w-full text-center -top-14 font-serif text-4xl font-semibold text-primary">
+                  <div className="absolute w-full text-center -top-10 font-serif text-3xl font-semibold text-primary">
                     {reportData.waterfall.current}
                   </div>
-                  <div className="text-center mt-6 border-t border-border pt-5">
-                    <span className="font-sans text-sm text-primary font-semibold tracking-wider uppercase">Current<br/>Score</span>
+                  <div className="text-center mt-4 border-t border-border pt-3">
+                    <span className="font-sans text-xs text-primary font-semibold tracking-wider uppercase">Current<br/>Score</span>
                   </div>
                 </div>
               </div>
               
-              <div className="flex justify-center mt-6">
-                <div className="text-sm text-muted-foreground/50 font-mono tracking-wide italic">
+              <div className="flex justify-center mt-4">
+                <div className="text-xs text-muted-foreground/50 font-mono tracking-wide italic">
                   * Each reduction represents a structural constraint, not a cosmetic issue.
                 </div>
               </div>
@@ -878,43 +878,43 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <div className="max-w-7xl w-full">
               <SlideEyebrow>Perceived Authority</SlideEyebrow>
               <ActionTitle>Visuals are premium; clarity is secondary.</ActionTitle>
-              <div className="grid md:grid-cols-12 gap-20 mt-12">
-                <div className="col-span-5 space-y-12">
+              <div className="grid md:grid-cols-12 gap-12">
+                <div className="col-span-5 space-y-6">
                   <div>
-                    <h3 className="font-serif text-3xl mb-5">The "Blink Test"</h3>
-                    <p className="text-lg leading-relaxed text-muted-foreground">
+                    <h3 className="font-serif text-2xl mb-3">The "Blink Test"</h3>
+                    <p className="text-base leading-relaxed text-muted-foreground">
                       <strong className="text-foreground">Failed.</strong> In the first 3 seconds, a user understands <em>that</em> you are a tech company, but not <em>what</em> specific problem you solve. The headline "Innovating the Future" is a null-statement.
                     </p>
                   </div>
-                  <div className="border-t border-border pt-12">
-                    <h3 className="font-serif text-3xl mb-5">Aesthetic Strength</h3>
-                    <p className="text-lg leading-relaxed text-muted-foreground">
+                  <div className="border-t border-border pt-6">
+                    <h3 className="font-serif text-2xl mb-3">Aesthetic Strength</h3>
+                    <p className="text-base leading-relaxed text-muted-foreground">
                       <strong className="text-foreground">High.</strong> The minimalist typography successfully conveys "Enterprise SaaS." The site looks expensive, which is a critical trust signal for high-ticket sales.
                     </p>
                   </div>
                 </div>
 
                 <div className="col-span-7">
-                  <div className="grid grid-cols-2 gap-8">
+                  <div className="grid grid-cols-2 gap-5">
                     {reportData.signals.map((signal) => (
                       <div 
                         key={signal.label} 
                         className={cn(
-                          "border p-10 bg-background",
+                          "border p-5 bg-background",
                           signal.variant === "critical" 
                             ? "bg-destructive/5 border-destructive/20" 
                             : "border-border"
                         )}
                       >
-                        <div className="flex justify-between items-end mb-4">
+                        <div className="flex justify-between items-end mb-2">
                           <span className={cn(
-                            "font-serif text-2xl",
+                            "font-serif text-lg",
                             signal.variant === "critical" && "text-destructive"
                           )}>
                             {signal.label}
                           </span>
                           <span className={cn(
-                            "font-mono text-sm",
+                            "font-mono text-xs",
                             signal.variant === "critical" 
                               ? "text-destructive/70" 
                               : signal.variant === "blue" 
@@ -926,7 +926,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                         </div>
                         <SignalBar score={signal.score} variant={signal.variant as "default" | "critical" | "blue"} />
                         <div className={cn(
-                          "mt-6 text-base",
+                          "mt-3 text-sm",
                           signal.variant === "critical" ? "text-destructive/70" : "text-muted-foreground"
                         )}>
                           {signal.description}
@@ -943,73 +943,73 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           <Slide>
             <div className="max-w-7xl w-full">
               <SlideEyebrow>Strategic Snapshot</SlideEyebrow>
-              <ActionTitle className="mb-12">Granular analysis and immediate prioritization.</ActionTitle>
+              <ActionTitle className="mb-4">Granular analysis and immediate prioritization.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-20 h-full">
+              <div className="grid md:grid-cols-12 gap-12">
                 {/* Immediate Priorities */}
                 <div className="col-span-5 flex flex-col">
-                  <div className="font-mono text-sm uppercase tracking-widest text-primary mb-8">Immediate Priorities (Quick Wins)</div>
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">Immediate Priorities (Quick Wins)</div>
                   
-                  <div className="space-y-8">
-                    <div className="p-8 border border-border bg-muted/30">
-                      <div className="flex justify-between items-start mb-3">
-                        <h3 className="font-serif text-xl text-foreground">1. Intake Form Reduction</h3>
-                        <span className="font-mono text-xs text-primary bg-background border border-border px-3 py-1.5">HIGH IMPACT</span>
+                  <div className="space-y-4">
+                    <div className="p-5 border border-border bg-muted/30">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="font-serif text-lg text-foreground">1. Intake Form Reduction</h3>
+                        <span className="font-mono text-[10px] text-primary bg-background border border-border px-2 py-1">HIGH IMPACT</span>
                       </div>
-                      <p className="text-base text-muted-foreground leading-relaxed mb-5">
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                         Reduce fields from 8 to 3 (Name, Work Email, Company). Enable browser autofill attributes.
                       </p>
-                      <div className="flex items-center gap-6 border-t border-border pt-4">
-                        <div className="font-mono text-xs text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
-                        <div className="font-mono text-xs text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">UX/Dev</span></div>
+                      <div className="flex items-center gap-4 border-t border-border pt-3">
+                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
+                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">UX/Dev</span></div>
                       </div>
                     </div>
-                    <div className="p-8 border border-border bg-muted/30">
-                      <div className="flex justify-between items-start mb-3">
-                        <h3 className="font-serif text-xl text-foreground">2. Mobile Payload Fix</h3>
-                        <span className="font-mono text-xs text-muted-foreground bg-background border border-border px-3 py-1.5">MED IMPACT</span>
+                    <div className="p-5 border border-border bg-muted/30">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="font-serif text-lg text-foreground">2. Mobile Payload Fix</h3>
+                        <span className="font-mono text-[10px] text-muted-foreground bg-background border border-border px-2 py-1">MED IMPACT</span>
                       </div>
-                      <p className="text-base text-muted-foreground leading-relaxed mb-5">
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                         Convert PNG assets to WebP/AVIF. Implement lazy loading for below-fold content to cut LCP by 1.2s.
                       </p>
-                      <div className="flex items-center gap-6 border-t border-border pt-4">
-                        <div className="font-mono text-xs text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
-                        <div className="font-mono text-xs text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">Tech</span></div>
+                      <div className="flex items-center gap-4 border-t border-border pt-3">
+                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
+                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">Tech</span></div>
                       </div>
                     </div>
                   </div>
-                  <div className="mt-auto text-sm text-muted-foreground/60 font-mono italic pt-8">
-                    * Strategic Strategy: Prioritizing low-effort technical debt removal creates immediate momentum for the broader roadmap.
+                  <div className="mt-auto text-xs text-muted-foreground/60 font-mono italic pt-4">
+                    * Prioritizing low-effort technical debt removal creates immediate momentum.
                   </div>
                 </div>
 
                 {/* Capability Heatmap */}
                 <div className="col-span-7 flex flex-col">
-                  <div className="font-mono text-sm uppercase tracking-widest text-primary mb-8">Capability Heatmap</div>
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">Capability Heatmap</div>
                   <div className="flex-grow">
                     <table className="w-full border-collapse">
                       <thead>
                         <tr>
-                          <th className="font-mono text-sm uppercase tracking-[0.1em] text-muted-foreground text-left pb-6 border-b-2 border-foreground" style={{ width: "20%" }}>Vector</th>
-                          <th className="font-mono text-sm uppercase tracking-[0.1em] text-muted-foreground text-left pb-6 border-b-2 border-foreground" style={{ width: "15%" }}>Maturity</th>
-                          <th className="font-mono text-sm uppercase tracking-[0.1em] text-muted-foreground text-left pb-6 border-b-2 border-foreground" style={{ width: "35%" }}>Observation</th>
-                          <th className="font-mono text-sm uppercase tracking-[0.1em] text-muted-foreground text-left pb-6 border-b-2 border-foreground" style={{ width: "30%" }}>Implication</th>
+                          <th className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground text-left pb-3 border-b-2 border-foreground" style={{ width: "20%" }}>Vector</th>
+                          <th className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground text-left pb-3 border-b-2 border-foreground" style={{ width: "15%" }}>Maturity</th>
+                          <th className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground text-left pb-3 border-b-2 border-foreground" style={{ width: "35%" }}>Observation</th>
+                          <th className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground text-left pb-3 border-b-2 border-foreground" style={{ width: "30%" }}>Implication</th>
                         </tr>
                       </thead>
                       <tbody>
                         {reportData.heatmap.map((row) => (
                           <tr key={row.vector}>
-                            <td className="py-6 border-b border-border text-base text-foreground font-bold align-top">{row.vector}</td>
-                            <td className="py-6 border-b border-border align-top"><MaturityBubble level={row.maturity as "full" | "half" | "quarter"} /></td>
-                            <td className="py-6 border-b border-border text-base text-muted-foreground align-top">{row.observation}</td>
-                            <td className="py-6 border-b border-border text-base text-muted-foreground align-top">{row.implication}</td>
+                            <td className="py-4 border-b border-border text-sm text-foreground font-bold align-top">{row.vector}</td>
+                            <td className="py-4 border-b border-border align-top"><MaturityBubble level={row.maturity as "full" | "half" | "quarter"} /></td>
+                            <td className="py-4 border-b border-border text-sm text-muted-foreground align-top">{row.observation}</td>
+                            <td className="py-4 border-b border-border text-sm text-muted-foreground align-top">{row.implication}</td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
                   
-                  <div className="mt-8 flex gap-8 justify-start text-xs text-muted-foreground uppercase tracking-widest">
+                  <div className="mt-4 flex gap-6 justify-start text-[10px] text-muted-foreground uppercase tracking-widest">
                     <div className="flex items-center gap-2"><div className="scale-75"><MaturityBubble level="full" /></div> Optimized</div>
                     <div className="flex items-center gap-2"><div className="scale-75"><MaturityBubble level="half" /></div> Developing</div>
                     <div className="flex items-center gap-2"><div className="scale-75"><MaturityBubble level="quarter" /></div> Critical</div>
@@ -1033,50 +1033,50 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
               <ActionTitle>The site functions as pages, but fails as a decision system.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-16 mt-12">
-                <div className="col-span-5 text-2xl leading-relaxed text-muted-foreground space-y-10">
+              <div className="grid md:grid-cols-12 gap-10">
+                <div className="col-span-5 text-lg leading-relaxed text-muted-foreground space-y-5">
                   <p>
                     A high-performing digital asset operates as an integrated system where clarity, logic, and flow compound to drive decisions.
                   </p>
                   <p>
                     Currently, Rubiklab.ai suffers from <strong className="text-foreground">Systemic Decay</strong>. While individual pages are visually polished, the connective tissue—the logic that moves a user from "Interest" to "Action"—is fractured.
                   </p>
-                  <div className="pt-10 border-t border-border">
-                    <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-4">Composite Diagnostic</div>
-                    <div className="font-serif text-5xl text-foreground">Fragmented</div>
+                  <div className="pt-5 border-t border-border">
+                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-3">Composite Diagnostic</div>
+                    <div className="font-serif text-4xl text-foreground">Fragmented</div>
                   </div>
                 </div>
 
                 <div className="col-span-7">
-                  <div className="bg-muted/30 p-12 h-full flex flex-col justify-center">
-                    <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-10">Decision System Health Stack</div>
+                  <div className="bg-muted/30 p-8">
+                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-5">Decision System Health Stack</div>
                     
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                       {/* Critical */}
-                      <div className="border border-border p-8 flex justify-between items-center bg-background border-l-4 border-l-destructive">
+                      <div className="border border-border p-5 flex justify-between items-center bg-background border-l-4 border-l-destructive">
                         <div>
-                          <div className="font-serif text-2xl text-foreground">Conversion Logic</div>
-                          <div className="text-base text-muted-foreground mt-2">Does the site ask for the right thing at the right time?</div>
+                          <div className="font-serif text-xl text-foreground">Conversion Logic</div>
+                          <div className="text-sm text-muted-foreground mt-1">Does the site ask for the right thing at the right time?</div>
                         </div>
-                        <div className="font-mono text-sm text-destructive uppercase tracking-widest bg-destructive/10 px-4 py-2">Failing</div>
+                        <div className="font-mono text-xs text-destructive uppercase tracking-widest bg-destructive/10 px-3 py-1.5">Failing</div>
                       </div>
 
                       {/* Stable */}
-                      <div className="border border-border p-8 flex justify-between items-center bg-background border-l-4 border-l-muted-foreground/30">
+                      <div className="border border-border p-5 flex justify-between items-center bg-background border-l-4 border-l-muted-foreground/30">
                         <div>
-                          <div className="font-serif text-2xl text-foreground">Information Hierarchy</div>
-                          <div className="text-base text-muted-foreground mt-2">Is the most important information most visible?</div>
+                          <div className="font-serif text-xl text-foreground">Information Hierarchy</div>
+                          <div className="text-sm text-muted-foreground mt-1">Is the most important information most visible?</div>
                         </div>
-                        <div className="font-mono text-sm text-muted-foreground uppercase tracking-widest bg-muted px-4 py-2">Stable</div>
+                        <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest bg-muted px-3 py-1.5">Stable</div>
                       </div>
 
                       {/* Optimal */}
-                      <div className="border border-border p-8 flex justify-between items-center bg-background border-l-4 border-l-primary">
+                      <div className="border border-border p-5 flex justify-between items-center bg-background border-l-4 border-l-primary">
                         <div>
-                          <div className="font-serif text-2xl text-foreground">Visual Clarity</div>
-                          <div className="text-base text-muted-foreground mt-2">Is the interface legible and professional?</div>
+                          <div className="font-serif text-xl text-foreground">Visual Clarity</div>
+                          <div className="text-sm text-muted-foreground mt-1">Is the interface legible and professional?</div>
                         </div>
-                        <div className="font-mono text-sm text-primary uppercase tracking-widest bg-primary/10 px-4 py-2">Optimized</div>
+                        <div className="font-mono text-xs text-primary uppercase tracking-widest bg-primary/10 px-3 py-1.5">Optimized</div>
                       </div>
                     </div>
                   </div>
@@ -1091,48 +1091,48 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Intake & Conversion</SlideEyebrow>
               <ActionTitle>Motivated users are stalling at the point of highest intent.</ActionTitle>
               
-              <p className="text-2xl text-muted-foreground max-w-5xl mb-16">
+              <p className="text-base text-muted-foreground max-w-4xl mb-6">
                 We mapped the high-intent user journey from "Solution Discovery" to "Inquiry." The data reveals a specific rupture in the intake sequence where effort exceeds motivation.
               </p>
 
-              <div className="grid grid-cols-4 gap-6 w-full mt-10">
+              <div className="grid grid-cols-4 gap-4 w-full">
                 {/* Step 1 */}
-                <div className="border-t-2 border-border pt-8 relative">
-                  <div className="absolute -top-[7px] left-0 w-3 h-3 rounded-full bg-border" />
-                  <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-4">01. Discovery</div>
-                  <div className="font-serif text-3xl mb-4">Landing</div>
-                  <p className="text-lg text-muted-foreground">User arrives via direct search. Intent is high.</p>
+                <div className="border-t-2 border-border pt-5 relative">
+                  <div className="absolute -top-[5px] left-0 w-2.5 h-2.5 rounded-full bg-border" />
+                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">01. Discovery</div>
+                  <div className="font-serif text-2xl mb-2">Landing</div>
+                  <p className="text-sm text-muted-foreground">User arrives via direct search. Intent is high.</p>
                 </div>
 
                 {/* Step 2 */}
-                <div className="border-t-2 border-border pt-8 relative">
-                  <div className="absolute -top-[7px] left-0 w-3 h-3 rounded-full bg-border" />
-                  <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-4">02. Consideration</div>
-                  <div className="font-serif text-3xl mb-4">Solutions</div>
-                  <p className="text-lg text-muted-foreground">Content consumption is healthy (2m 30s avg).</p>
+                <div className="border-t-2 border-border pt-5 relative">
+                  <div className="absolute -top-[5px] left-0 w-2.5 h-2.5 rounded-full bg-border" />
+                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">02. Consideration</div>
+                  <div className="font-serif text-2xl mb-2">Solutions</div>
+                  <p className="text-sm text-muted-foreground">Content consumption is healthy (2m 30s avg).</p>
                 </div>
 
                 {/* Step 3 - Friction */}
-                <div className="border-t-2 border-destructive pt-8 relative">
-                  <div className="absolute -top-[7px] left-0 w-3 h-3 rounded-full bg-destructive" />
-                  <div className="font-mono text-base uppercase tracking-widest text-destructive mb-4">03. The Stall</div>
-                  <div className="font-serif text-3xl mb-4 text-destructive">The Form</div>
-                  <p className="text-lg text-muted-foreground mb-5">User is confronted with 8 mandatory fields including "Phone" and "Job Title".</p>
-                  <div className="bg-destructive/10 text-destructive text-sm uppercase tracking-widest px-4 py-2 inline-block font-mono">65% Drop-off</div>
+                <div className="border-t-2 border-destructive pt-5 relative">
+                  <div className="absolute -top-[5px] left-0 w-2.5 h-2.5 rounded-full bg-destructive" />
+                  <div className="font-mono text-xs uppercase tracking-widest text-destructive mb-2">03. The Stall</div>
+                  <div className="font-serif text-2xl mb-2 text-destructive">The Form</div>
+                  <p className="text-sm text-muted-foreground mb-3">User is confronted with 8 mandatory fields including "Phone" and "Job Title".</p>
+                  <div className="bg-destructive/10 text-destructive text-xs uppercase tracking-widest px-3 py-1.5 inline-block font-mono">65% Drop-off</div>
                 </div>
 
                 {/* Step 4 */}
-                <div className="border-t-2 border-border pt-8 relative">
-                  <div className="absolute -top-[7px] left-0 w-3 h-3 rounded-full bg-border" />
-                  <div className="font-mono text-base uppercase tracking-widest text-muted-foreground mb-4">04. Goal</div>
-                  <div className="font-serif text-3xl mb-4 text-muted-foreground/60">Confirmation</div>
-                  <p className="text-lg text-muted-foreground">Only 5% of click-throughs complete the sequence.</p>
+                <div className="border-t-2 border-border pt-5 relative">
+                  <div className="absolute -top-[5px] left-0 w-2.5 h-2.5 rounded-full bg-border" />
+                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">04. Goal</div>
+                  <div className="font-serif text-2xl mb-2 text-muted-foreground/60">Confirmation</div>
+                  <p className="text-sm text-muted-foreground">Only 5% of click-throughs complete the sequence.</p>
                 </div>
               </div>
 
-              <div className="mt-20 border-t border-border pt-10 flex gap-12">
-                <div className="font-mono text-base uppercase tracking-widest text-primary">Diagnosis</div>
-                <div className="text-xl text-muted-foreground max-w-3xl">
+              <div className="mt-8 border-t border-border pt-5 flex gap-8">
+                <div className="font-mono text-sm uppercase tracking-widest text-primary">Diagnosis</div>
+                <div className="text-base text-muted-foreground max-w-3xl">
                   The friction is artificial. By demanding data enrichment fields (Job Title, Phone) before establishing value, you are actively repelling qualified leads.
                 </div>
               </div>
