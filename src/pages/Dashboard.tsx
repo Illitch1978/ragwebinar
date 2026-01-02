@@ -51,9 +51,15 @@ const EvolvedLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
   </Link>
 );
 
+const reportTabs = [
+  { title: "Summary", id: "summary" },
+  { title: "Diagnosis", id: "diagnosis" },
+];
+
 const Dashboard = () => {
   const [activeProduct, setActiveProduct] = useState("intelligence");
   const [activeIntelligenceTab, setActiveIntelligenceTab] = useState("positioning");
+  const [activeReportTab, setActiveReportTab] = useState("summary");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
@@ -182,6 +188,34 @@ const Dashboard = () => {
           </div>
         )}
 
+        {/* Report Header with Sub-tabs */}
+        {activeProduct === "report" && (
+          <div className="pt-[22px] px-6">
+            <div className="flex justify-center items-center py-8 px-8 lg:px-20 border-b border-border">
+              <div className="flex items-center gap-8 lg:gap-12">
+                {reportTabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveReportTab(tab.id)}
+                    className={cn(
+                      "relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group",
+                      activeReportTab === tab.id
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-primary"
+                    )}
+                  >
+                    {tab.title}
+                    <span className={cn(
+                      "absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400",
+                      activeReportTab === tab.id ? "w-full" : "w-0 group-hover:w-full"
+                    )}></span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Content Area */}
         <div className={cn(activeProduct === "report" ? "p-0" : "p-6")}>
           {activeProduct === "intelligence" && (
@@ -206,7 +240,7 @@ const Dashboard = () => {
             <div className="text-muted-foreground">Strategy Room coming soon...</div>
           )}
           {activeProduct === "report" && (
-            <ReportSection />
+            <ReportSection activeTab={activeReportTab} setActiveTab={setActiveReportTab} />
           )}
         </div>
       </main>
