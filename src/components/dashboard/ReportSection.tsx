@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Download, Loader2 } from "lucide-react";
+import { Download, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -193,7 +193,7 @@ const reportData = {
 
 // Tabs removed - report shows as continuous scroll
 
-// Slide component for consistent layout
+// Slide component for consistent layout - now full viewport for horizontal sliding
 const Slide = ({ 
   children, 
   className = ""
@@ -203,7 +203,7 @@ const Slide = ({
 }) => (
   <div 
     className={cn(
-      "min-h-[90vh] py-16 px-4 lg:px-10 border-b border-border relative flex flex-col justify-center items-center bg-background",
+      "w-screen h-screen flex-shrink-0 py-16 px-4 lg:px-10 relative flex flex-col justify-center items-center bg-background overflow-hidden",
       className
     )}
     data-slide="true"
@@ -288,7 +288,7 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => {
 
 // Dark cover slide for the report
 const CoverSlide = () => (
-  <div className="min-h-screen bg-[#050505] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
+  <div data-cover="true" className="w-screen h-screen flex-shrink-0 bg-[#050505] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
     {/* Grid background */}
     <div 
       className="absolute inset-0 pointer-events-none opacity-20"
@@ -374,7 +374,7 @@ const SectionDivider = ({
   subtitle: React.ReactNode; 
   align?: 'left' | 'center' | 'right' | 'top'
 }) => (
-  <div className="h-screen bg-[#000000] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
+  <div data-divider="true" className="w-screen h-screen flex-shrink-0 bg-[#000000] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
     {/* Grid background */}
     <div 
       className="absolute inset-0 pointer-events-none opacity-20"
@@ -460,6 +460,90 @@ const SectionDivider = ({
 const ReportSection = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isAnimating = useRef(false);
+  
+  // Count total slides (will be calculated after render)
+  const [totalSlides, setTotalSlides] = useState(0);
+  
+  useEffect(() => {
+    if (containerRef.current) {
+      const slides = containerRef.current.querySelectorAll('[data-slide="true"], [data-cover="true"], [data-divider="true"]');
+      setTotalSlides(slides.length);
+    }
+  }, []);
+  
+  const navigateToSlide = useCallback((index: number) => {
+    if (isAnimating.current) return;
+    const clampedIndex = Math.max(0, Math.min(index, totalSlides - 1));
+    if (clampedIndex !== currentSlide) {
+      isAnimating.current = true;
+      setCurrentSlide(clampedIndex);
+      setTimeout(() => {
+        isAnimating.current = false;
+      }, 500);
+    }
+  }, [currentSlide, totalSlides]);
+  
+  const nextSlide = useCallback(() => {
+    navigateToSlide(currentSlide + 1);
+  }, [currentSlide, navigateToSlide]);
+  
+  const prevSlide = useCallback(() => {
+    navigateToSlide(currentSlide - 1);
+  }, [currentSlide, navigateToSlide]);
+  
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        prevSlide();
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [nextSlide, prevSlide]);
+  
+  // Mouse wheel navigation
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    
+    let wheelTimeout: ReturnType<typeof setTimeout>;
+    
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      
+      clearTimeout(wheelTimeout);
+      wheelTimeout = setTimeout(() => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          if (e.deltaY > 20) {
+            nextSlide();
+          } else if (e.deltaY < -20) {
+            prevSlide();
+          }
+        } else {
+          if (e.deltaX > 20) {
+            nextSlide();
+          } else if (e.deltaX < -20) {
+            prevSlide();
+          }
+        }
+      }, 50);
+    };
+    
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+      clearTimeout(wheelTimeout);
+    };
+  }, [nextSlide, prevSlide]);
 
   // Create a divider canvas for PDF export - dark theme matching landing page
   const createDividerCanvas = async (title: string, subtitle: string): Promise<HTMLCanvasElement> => {
@@ -606,17 +690,20 @@ const ReportSection = () => {
   };
 
   return (
-    <div className="space-y-0">
-      {/* Cover Page - Dark Theme */}
-      <CoverSlide />
-      
-      {/* Summary Section */}
-      <div data-section="summary">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="bg-background"
-        >
+    <div 
+      ref={containerRef}
+      className="h-screen w-screen overflow-hidden relative bg-background"
+      tabIndex={0}
+    >
+      {/* Horizontal sliding container */}
+      <div 
+        className="flex h-full transition-transform duration-500 ease-out"
+        style={{ transform: `translateX(-${currentSlide * 100}vw)` }}
+      >
+        {/* Cover Page - Dark Theme */}
+        <CoverSlide />
+        
+        {/* All slides in a horizontal row */}
 
           {/* Slide 02: Methodology */}
           <Slide>
@@ -926,9 +1013,6 @@ const ReportSection = () => {
               </div>
             </div>
           </Slide>
-        </motion.div>
-      </div>
-
 
       {/* Diagnosis Section Divider */}
       <SectionDivider 
@@ -938,12 +1022,6 @@ const ReportSection = () => {
       />
 
       {/* Diagnosis Section */}
-      <div data-section="diagnosis">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="bg-background"
-        >
           {/* Slide 07: System-Level Diagnosis */}
           <Slide>
             <div className="max-w-7xl w-full h-full flex flex-col justify-center">
@@ -1285,9 +1363,6 @@ const ReportSection = () => {
               </div>
             </div>
           </Slide>
-        </motion.div>
-      </div>
-
 
       {/* Market Context Section Divider */}
       <SectionDivider 
@@ -1297,12 +1372,6 @@ const ReportSection = () => {
       />
 
       {/* Competitive Context Section */}
-      <div data-section="competitive-context">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="bg-background"
-        >
           {/* Slide 13: The Competitive Reality */}
           <Slide>
             <div className="max-w-7xl w-full h-full flex flex-col justify-center">
@@ -1627,9 +1696,6 @@ const ReportSection = () => {
               </div>
             </div>
           </Slide>
-        </motion.div>
-      </div>
-
 
       {/* Next-Order Effects Section Divider */}
       <SectionDivider 
@@ -1639,12 +1705,6 @@ const ReportSection = () => {
       />
 
       {/* Next-Order Effects Section */}
-      <div data-section="next-order-effects">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="bg-background"
-        >
           {/* Slide 19: Strategic Inflection */}
           <Slide>
             <div className="max-w-7xl w-full h-full flex flex-col justify-center">
@@ -2051,8 +2111,40 @@ const ReportSection = () => {
 
             </div>
           </Slide>
-        </motion.div>
       </div>
+      
+      {/* Navigation Controls */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 print-hide">
+        <button 
+          onClick={prevSlide}
+          disabled={currentSlide === 0}
+          className="p-3 bg-background/90 backdrop-blur-sm border border-border rounded-full hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        
+        <div className="px-4 py-2 bg-background/90 backdrop-blur-sm border border-border rounded-full font-mono text-sm shadow-lg">
+          {currentSlide + 1} / {totalSlides || '...'}
+        </div>
+        
+        <button 
+          onClick={nextSlide}
+          disabled={currentSlide >= totalSlides - 1}
+          className="p-3 bg-background/90 backdrop-blur-sm border border-border rounded-full hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+      
+      {/* Keyboard hint */}
+      <div className="fixed bottom-8 right-8 z-50 font-mono text-[10px] text-muted-foreground uppercase tracking-widest print-hide opacity-50">
+        ← → to navigate
+      </div>
+      
+      {/* Hidden export button trigger */}
+      <button data-export-trigger className="hidden" onClick={handleDownload} />
     </div>
   );
 };

@@ -58,6 +58,23 @@ const Dashboard = () => {
   const [activeIntelligenceTab, setActiveIntelligenceTab] = useState("positioning");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
+  // Report view takes full screen without sidebar
+  if (activeProduct === "report") {
+    return (
+      <div className="min-h-screen bg-background dashboard-light">
+        {/* Back button */}
+        <button 
+          onClick={() => setActiveProduct("intelligence")}
+          className="fixed top-8 left-8 z-50 flex items-center gap-2 px-4 py-2 bg-background/90 backdrop-blur-sm border border-border rounded-full font-mono text-xs uppercase tracking-widest hover:bg-muted transition-all shadow-lg print-hide"
+        >
+          <ChevronRight className="w-4 h-4 rotate-180" />
+          Exit Report
+        </button>
+        <ReportSection />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background flex dashboard-light">
       {/* Sidebar */}
@@ -156,64 +173,59 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
-        {/* Intelligence Header with Sub-tabs */}
-        {activeProduct === "intelligence" && (
-          <div className="pt-[22px] px-6">
-            <div className="flex justify-center items-center py-8 px-8 lg:px-20 border-b border-border">
-              <div className="flex items-center gap-8 lg:gap-12">
-                {intelligenceSubTabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveIntelligenceTab(tab.id)}
-                    className={cn(
-                      "relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group",
-                      activeIntelligenceTab === tab.id
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-primary"
-                    )}
-                  >
-                    {tab.title}
-                    <span className={cn(
-                      "absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400",
-                      activeIntelligenceTab === tab.id ? "w-full" : "w-0 group-hover:w-full"
-                    )}></span>
-                  </button>
-                ))}
+          {/* Intelligence Header with Sub-tabs */}
+          {activeProduct === "intelligence" && (
+            <div className="pt-[22px] px-6">
+              <div className="flex justify-center items-center py-8 px-8 lg:px-20 border-b border-border">
+                <div className="flex items-center gap-8 lg:gap-12">
+                  {intelligenceSubTabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveIntelligenceTab(tab.id)}
+                      className={cn(
+                        "relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group",
+                        activeIntelligenceTab === tab.id
+                          ? "text-primary"
+                          : "text-muted-foreground hover:text-primary"
+                      )}
+                    >
+                      {tab.title}
+                      <span className={cn(
+                        "absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400",
+                        activeIntelligenceTab === tab.id ? "w-full" : "w-0 group-hover:w-full"
+                      )}></span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
+          )}
+
+          {/* Content Area */}
+          <div className="p-6">
+            {activeProduct === "intelligence" && (
+              <>
+                {activeIntelligenceTab === "positioning" && <PositioningSection />}
+                {activeIntelligenceTab === "visibility" && <VisibilitySection />}
+                {activeIntelligenceTab === "technical" && (
+                  <div className="text-muted-foreground">Technical analysis coming soon...</div>
+                )}
+                {activeIntelligenceTab === "friction" && (
+                  <div className="text-muted-foreground">Friction analysis coming soon...</div>
+                )}
+                {activeIntelligenceTab === "trust" && (
+                  <div className="text-muted-foreground">Trust analysis coming soon...</div>
+                )}
+                {activeIntelligenceTab === "competitor-intel" && (
+                  <div className="text-muted-foreground">Competitor Intel coming soon...</div>
+                )}
+              </>
+            )}
+            {activeProduct === "strategy-room" && (
+              <div className="text-muted-foreground">Strategy Room coming soon...</div>
+            )}
           </div>
-        )}
-
-        {/* Report has no sub-tabs - shows full continuous report */}
-
-        {/* Content Area */}
-        <div className={cn(activeProduct === "report" ? "p-0" : "p-6")}>
-          {activeProduct === "intelligence" && (
-            <>
-              {activeIntelligenceTab === "positioning" && <PositioningSection />}
-              {activeIntelligenceTab === "visibility" && <VisibilitySection />}
-              {activeIntelligenceTab === "technical" && (
-                <div className="text-muted-foreground">Technical analysis coming soon...</div>
-              )}
-              {activeIntelligenceTab === "friction" && (
-                <div className="text-muted-foreground">Friction analysis coming soon...</div>
-              )}
-              {activeIntelligenceTab === "trust" && (
-                <div className="text-muted-foreground">Trust analysis coming soon...</div>
-              )}
-              {activeIntelligenceTab === "competitor-intel" && (
-                <div className="text-muted-foreground">Competitor Intel coming soon...</div>
-              )}
-            </>
-          )}
-          {activeProduct === "strategy-room" && (
-            <div className="text-muted-foreground">Strategy Room coming soon...</div>
-          )}
-          {activeProduct === "report" && (
-            <ReportSection />
-          )}
-        </div>
-      </main>
+        </main>
     </div>
   );
 };
