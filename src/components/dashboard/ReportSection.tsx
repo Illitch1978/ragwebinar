@@ -359,7 +359,7 @@ const SectionDivider = ({
   subtitle: string; 
   align?: 'left' | 'center' | 'right' 
 }) => (
-  <div className="min-h-screen bg-[#050505] text-white relative flex flex-col p-12 lg:p-16 overflow-hidden">
+  <div className="min-h-screen bg-[#000000] text-white relative flex flex-col p-12 lg:p-16 overflow-hidden">
     {/* Grid background */}
     <div 
       className="absolute inset-0 pointer-events-none opacity-20"
@@ -372,26 +372,42 @@ const SectionDivider = ({
     <div className={cn(
       "relative z-10 h-full flex flex-col",
       align === 'center' ? "justify-center items-center text-center" : 
-      align === 'right' ? "justify-start items-end text-right" : 
+      align === 'right' ? "justify-start items-end text-right pt-16" : 
       "justify-end items-start"
     )}>
-      <div className={align === 'right' ? "" : "max-w-2xl"}>
-        <div className={cn(
-          "w-12 h-1 mb-8",
-          align === 'center' ? "bg-white mx-auto" : 
-          align === 'right' ? "bg-[#0099E6] ml-auto" : 
-          "bg-white"
-        )} />
-        <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6 whitespace-nowrap">
-          {title}<span className="text-[#0099E6]">.</span>
-        </h2>
-        <p className={cn(
-          "font-sans text-xl text-gray-400 font-light leading-relaxed",
-          align === 'right' ? "" : "max-w-lg"
-        )}>
-          {subtitle}
-        </p>
-      </div>
+      {align === 'center' ? (
+        <div className="flex flex-col items-center">
+          {/* Vertical line for center */}
+          <div className="w-[1px] h-12 bg-white mb-8" />
+          <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6 whitespace-nowrap">
+            {title}<span className="text-[#0099E6]">.</span>
+          </h2>
+          <p className="font-sans text-xl text-gray-400 font-light leading-relaxed max-w-lg">
+            {subtitle}
+          </p>
+        </div>
+      ) : align === 'right' ? (
+        <div className="text-right">
+          {/* Horizontal line for right */}
+          <div className="w-16 h-1 bg-[#0099E6] ml-auto mb-8" />
+          <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6 leading-[0.95]">
+            {title}<span className="text-[#0099E6]">.</span>
+          </h2>
+          <p className="font-sans text-xl text-gray-400 font-light leading-relaxed">
+            {subtitle}
+          </p>
+        </div>
+      ) : (
+        <div className="max-w-2xl">
+          <div className="w-12 h-1 bg-white mb-8" />
+          <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6">
+            {title}<span className="text-[#0099E6]">.</span>
+          </h2>
+          <p className="font-sans text-xl text-gray-400 font-light max-w-lg leading-relaxed">
+            {subtitle}
+          </p>
+        </div>
+      )}
     </div>
   </div>
 );
