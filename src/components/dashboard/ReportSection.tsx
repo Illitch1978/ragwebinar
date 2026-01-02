@@ -2119,13 +2119,6 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             </div>
           </Slide>
       </div>
-      
-      {/* Keyboard hints */}
-      <div className="fixed bottom-8 right-8 z-50 font-mono text-[10px] text-muted-foreground uppercase tracking-widest print-hide opacity-50 text-right">
-        <div>← → to navigate</div>
-        <div className="mt-1">esc to exit</div>
-      </div>
-      
       {/* Hidden export button trigger */}
       <button data-export-trigger className="hidden" onClick={handleDownload} />
     </div>
