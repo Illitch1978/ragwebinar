@@ -64,16 +64,6 @@ const Dashboard = () => {
     
     return (
       <div className="min-h-screen bg-background dashboard-light">
-        {/* Back button - subtle text link with underline on hover */}
-        <button 
-          onClick={handleExitReport}
-          className="fixed top-8 left-8 z-50 font-mono text-[11px] text-muted-foreground uppercase tracking-widest print-hide group"
-        >
-          <span className="relative">
-            ← Back to Dashboard
-            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </span>
-        </button>
         <ReportSection onExit={handleExitReport} />
       </div>
     );
