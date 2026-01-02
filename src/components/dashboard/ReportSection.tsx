@@ -701,7 +701,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Methodology</SlideEyebrow>
               <ActionTitle>Reading this assessment.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-10 lg:gap-16 flex-1">
+              <div className="grid md:grid-cols-12 gap-10 lg:gap-16">
                 <div className="col-span-7 space-y-6">
                   <p className="font-serif text-xl text-foreground leading-relaxed">
                     This document is a commissioned strategic assessment, distinct from automated performance reports. It combines large-scale quantitative analysis with structured expert judgement.
@@ -715,7 +715,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     Where scores are provided (0–100), they represent a weighted index calibrated against top-quartile SaaS and professional services benchmarks. Scores are directional indicators designed to guide prioritisation, not absolute measures of success.
                   </p>
 
-                  <div className="pt-6 mt-auto">
+                  <div className="pt-6">
                     <div className="font-mono text-sm uppercase tracking-widest text-primary mb-5">How Judgement is Formed</div>
                     <ul className="grid grid-cols-2 gap-y-4 gap-x-8 text-base text-muted-foreground">
                       <li className="flex items-start gap-2 border-t border-border pt-4">
@@ -734,7 +734,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
                 
-                <div className="col-span-5 flex items-center">
+                <div className="col-span-5">
                   <div className="bg-muted/30 p-8 border-l-2 border-foreground w-full">
                     <div className="font-serif text-2xl lg:text-3xl mb-5 italic text-foreground leading-snug">
                       "Data describes the past.<br/>Judgement informs the future."
@@ -754,8 +754,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Executive Synthesis</SlideEyebrow>
               <ActionTitle>Technical solidity is currently undermined by conversion friction.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-10 flex-1">
-                <div className="col-span-8 flex flex-col gap-8">
+              <div className="grid md:grid-cols-12 gap-10">
+                <div className="col-span-8 space-y-8">
                   {/* Key Findings as 4 bullet points */}
                   <ul className="text-lg leading-relaxed space-y-4 text-muted-foreground list-none">
                     <li className="flex gap-4">
@@ -784,7 +784,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
                 
-                <div className="col-span-4 flex flex-col justify-center border-l border-border pl-8 gap-8">
+                <div className="col-span-4 border-l border-border pl-8 space-y-8">
                   <div>
                     <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-2">Primary Strength</div>
                     <div className="font-serif text-3xl">Infrastructure</div>
@@ -811,14 +811,14 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
               <ActionTitle>A 41-point gap exists between potential and reality.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-10 flex-1">
-                <div className="col-span-8 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-10">
+                <div className="col-span-8">
                   <p className="text-base text-muted-foreground max-w-3xl mb-6">
                     The chart below bridges the gap from your theoretical potential to your current standing, isolating specific vectors of loss.
                   </p>
 
                   {/* Waterfall Chart */}
-                  <div className="flex items-end h-[320px] gap-4 lg:gap-6 pt-8 pb-0 border-b border-border flex-1">
+                  <div className="flex items-end h-[320px] gap-4 lg:gap-6 pt-8 pb-0 border-b border-border">
                     {/* Digital Potential */}
                     <div className="flex-1 flex flex-col justify-end relative h-full">
                       <div className="w-full bg-muted" style={{ height: "100%" }}></div>
@@ -871,7 +871,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
 
                 {/* Right side prescriptive insight */}
-                <div className="col-span-4 flex flex-col justify-center border-l border-border pl-8 gap-6">
+                <div className="col-span-4 border-l border-border pl-8 space-y-6">
                   <div>
                     <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Score Interpretation</div>
                     <div className="font-serif text-3xl text-foreground mb-2">59 / 100</div>
@@ -900,8 +900,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Perceived Authority</SlideEyebrow>
               <ActionTitle>Visuals are premium; clarity is secondary.</ActionTitle>
-              <div className="grid md:grid-cols-12 gap-10 flex-1">
-                <div className="col-span-5 flex flex-col gap-5">
+              <div className="grid md:grid-cols-12 gap-10">
+                <div className="col-span-5 space-y-5">
                   <div>
                     <h3 className="font-serif text-xl mb-2">The "Blink Test"</h3>
                     <p className="text-sm leading-relaxed text-muted-foreground">
@@ -914,7 +914,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       <strong className="text-foreground">High.</strong> The minimalist typography successfully conveys "Enterprise SaaS." The site looks expensive, which is a critical trust signal for high-ticket sales.
                     </p>
                   </div>
-                  <div className="border-t border-border pt-5 mt-auto">
+                  <div className="border-t border-border pt-5">
                     <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Prescription</div>
                     <p className="text-sm text-foreground leading-relaxed">
                       Replace abstract aspiration with concrete outcome language. A/B test "Innovating the Future" against "Consumer Insights in 48 Hours."
@@ -980,12 +980,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Strategic Snapshot</SlideEyebrow>
               <ActionTitle>Granular analysis and immediate prioritization.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-8 flex-1">
+              <div className="grid md:grid-cols-12 gap-8">
                 {/* Immediate Priorities */}
-                <div className="col-span-5 flex flex-col">
+                <div className="col-span-5">
                   <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">Immediate Priorities (Quick Wins)</div>
                   
-                  <div className="space-y-3 flex-1">
+                  <div className="space-y-3">
                     <div className="p-4 border border-border bg-muted/30">
                       <div className="flex justify-between items-start mb-1">
                         <h3 className="font-serif text-base text-foreground">1. Intake Form Reduction</h3>
@@ -1032,9 +1032,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
 
                 {/* Capability Heatmap */}
-                <div className="col-span-7 flex flex-col">
+                <div className="col-span-7">
                   <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">Capability Heatmap</div>
-                  <div className="flex-1">
+                  <div>
                     <table className="w-full border-collapse">
                       <thead>
                         <tr>
@@ -1081,21 +1081,21 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
               <ActionTitle>The site functions as pages, but fails as a decision system.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-8 flex-1">
-                <div className="col-span-5 flex flex-col gap-4">
+              <div className="grid md:grid-cols-12 gap-8">
+                <div className="col-span-5 space-y-4">
                   <p className="text-base leading-relaxed text-muted-foreground">
                     A high-performing digital asset operates as an integrated system where clarity, logic, and flow compound to drive decisions.
                   </p>
                   <p className="text-base leading-relaxed text-muted-foreground">
                     Currently, Rubiklab.ai suffers from <strong className="text-foreground">Systemic Decay</strong>. While individual pages are visually polished, the connective tissue (the logic that moves a user from "Interest" to "Action") is fractured.
                   </p>
-                  <div className="pt-4 border-t border-border mt-auto">
+                  <div className="pt-4 border-t border-border">
                     <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Composite Diagnostic</div>
                     <div className="font-serif text-3xl text-foreground mb-2">Fragmented</div>
                     <p className="text-sm text-muted-foreground">Pages work in isolation; they fail as a journey.</p>
                   </div>
                   
-                  <div className="p-4 bg-primary/5 border-l-2 border-primary mt-2">
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
                     <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Prescription</div>
                     <p className="text-sm text-foreground leading-relaxed">
                       Map the user journey as a linear decision funnel. Remove steps that do not directly advance conversion intent.
@@ -1104,10 +1104,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
 
                 <div className="col-span-7">
-                  <div className="bg-muted/30 p-6 h-full flex flex-col">
+                  <div className="bg-muted/30 p-6">
                     <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">Decision System Health Stack</div>
                     
-                    <div className="space-y-3 flex-1">
+                    <div className="space-y-3">
                       {/* Critical */}
                       <div className="border border-border p-4 flex justify-between items-center bg-background border-l-4 border-l-destructive">
                         <div>
@@ -1219,15 +1219,15 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Narrative Positioning</SlideEyebrow>
               <ActionTitle>The "Process vs. Outcome" disconnect.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-8 flex-1">
-                <div className="col-span-5 text-base leading-relaxed text-muted-foreground space-y-4 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-8">
+                <div className="col-span-5 text-base leading-relaxed text-muted-foreground space-y-4">
                   <p>
                     Your internal teams understand the nuance of your technology ("Human-in-the-loop AI"). However, this nuance is lost in translation.
                   </p>
                   <p>
                     The website currently explains <em>how</em> the sausage is made, rather than <em>why</em> it tastes good. This alienates the executive buyer who is purchasing velocity and accuracy, not algorithms.
                   </p>
-                  <div className="pt-5 border-t border-border mt-auto">
+                  <div className="pt-5 border-t border-border">
                     <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">Prescription</div>
                     <p className="text-sm text-foreground leading-relaxed">
                       Reframe the narrative from capability description to outcome articulation. Lead with the business impact (faster decisions, reduced risk, measurable ROI) and relegate technical methodology to a secondary "How it Works" section.
@@ -1235,7 +1235,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
 
-                <div className="col-span-7 border border-border flex flex-col">
+                <div className="col-span-7 border border-border">
                   <div className="grid grid-cols-2">
                     <div className="p-4 border-b border-r border-border bg-muted/30">
                       <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Intended Message</span>
@@ -1273,7 +1273,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                   
                   {/* Added insight row */}
-                  <div className="p-4 border-t border-border bg-primary/5 mt-auto">
+                  <div className="p-4 border-t border-border bg-primary/5">
                     <div className="flex items-center gap-2">
                       <span className="font-mono text-[10px] uppercase tracking-widest text-primary">Pattern:</span>
                       <span className="text-sm text-foreground">Every "Process" headline triggers a "What's the outcome?" question.</span>
@@ -1290,8 +1290,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Trust Architecture</SlideEyebrow>
               <ActionTitle>Credibility is currently implicit, rather than explicit.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-8 flex-1">
-                <div className="col-span-8 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-8">
+                <div className="col-span-8">
                   <p className="text-sm text-muted-foreground mb-5">
                     In high-value B2B transactions, trust must be established before logic can be applied. Your current architecture asks the user to "trust the code" without providing the necessary social and institutional signals.
                   </p>
@@ -1336,8 +1336,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </table>
                 </div>
                 
-                <div className="col-span-4 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-5 border-l-2 border-foreground flex-1">
+                <div className="col-span-4 space-y-4">
+                  <div className="bg-muted/30 p-5 border-l-2 border-foreground">
                     <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Trust Deficit Impact</div>
                     <div className="font-serif text-3xl mb-2 text-foreground">+2 Weeks</div>
                     <p className="text-sm text-muted-foreground">Estimated additional sales cycle length due to credibility establishment burden falling on the SDR team.</p>
@@ -1360,50 +1360,50 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Technical Constraints</SlideEyebrow>
               <ActionTitle>Cosmetic issues are degrading the perception of stability.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-6 flex-1">
+              <div className="grid md:grid-cols-12 gap-6">
                 <div className="col-span-9 grid md:grid-cols-3 gap-5">
                   {/* Vector 01 */}
-                  <div className="border border-border p-5 bg-muted/30 flex flex-col">
+                  <div className="border border-border p-5 bg-muted/30">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-2">Vector 01</div>
                     <h3 className="font-serif text-xl mb-2">Mobile Latency</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                       High-resolution PNGs are unoptimized for 4G networks. This causes a 2.4s load delay on mobile devices.
                     </p>
-                    <div className="mt-4 pt-3 border-t border-border">
+                    <div className="pt-3 border-t border-border">
                       <span className="font-mono text-[10px] text-muted-foreground uppercase">Perception Impact</span>
                       <div className="text-sm font-medium mt-1">"The platform feels heavy."</div>
                     </div>
                   </div>
 
                   {/* Vector 02 */}
-                  <div className="border border-border p-5 bg-muted/30 flex flex-col">
+                  <div className="border border-border p-5 bg-muted/30">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Vector 02</div>
                     <h3 className="font-serif text-xl mb-2">Cumulative Shift</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                       Font loading behaviors cause the navigation bar to "jump" 20px after initial paint.
                     </p>
-                    <div className="mt-4 pt-3 border-t border-border">
+                    <div className="pt-3 border-t border-border">
                       <span className="font-mono text-[10px] text-muted-foreground uppercase">Perception Impact</span>
                       <div className="text-sm font-medium mt-1">"The engineering is unpolished."</div>
                     </div>
                   </div>
 
                   {/* Vector 03 */}
-                  <div className="border border-border p-5 bg-muted/30 flex flex-col">
+                  <div className="border border-border p-5 bg-muted/30">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Vector 03</div>
                     <h3 className="font-serif text-xl mb-2">Dead Ends</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                       Three sub-service pages resolve to 404 errors or empty templates.
                     </p>
-                    <div className="mt-4 pt-3 border-t border-border">
+                    <div className="pt-3 border-t border-border">
                       <span className="font-mono text-[10px] text-muted-foreground uppercase">Perception Impact</span>
                       <div className="text-sm font-medium mt-1">"Is this company active?"</div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="col-span-3 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-5 border-l-2 border-foreground flex-1">
+                <div className="col-span-3 space-y-4">
+                  <div className="bg-muted/30 p-5 border-l-2 border-foreground">
                     <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Composite Score</div>
                     <div className="font-serif text-4xl mb-2 text-foreground">45<span className="text-lg text-muted-foreground">/100</span></div>
                     <p className="text-xs text-muted-foreground">PageSpeed Mobile. Passing threshold is 90+.</p>
@@ -1428,8 +1428,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Diagnosis Summary</SlideEyebrow>
               <ActionTitle className="mb-6">Three dominant forces are actively suppressing revenue.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-8 flex-1">
-                <div className="col-span-8 space-y-0 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-8">
+                <div className="col-span-8 space-y-0">
                   {/* Item 01 */}
                   <div className="grid grid-cols-12 py-5 border-t-2 border-foreground items-start">
                     <div className="col-span-1 font-mono text-sm text-muted-foreground">01</div>
@@ -1473,14 +1473,14 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
                 
-                <div className="col-span-4 flex flex-col gap-4">
+                <div className="col-span-4 space-y-4">
                   <div className="bg-muted/30 p-5 border-l-2 border-foreground">
                     <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Combined Revenue Impact</div>
                     <div className="font-serif text-4xl text-destructive mb-1">-40%</div>
                     <p className="text-xs text-muted-foreground">Estimated conversion efficiency loss compared to optimized peer benchmark.</p>
                   </div>
                   
-                  <div className="p-5 bg-primary/5 border-l-2 border-primary flex-1">
+                  <div className="p-5 bg-primary/5 border-l-2 border-primary">
                     <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Path Forward</div>
                     <p className="text-sm text-foreground leading-relaxed">
                       These three forces are addressable. The following section (Market Context) will position the diagnosis against competitive reality before the roadmap.
@@ -1505,8 +1505,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>The Competitive Reality</SlideEyebrow>
               <ActionTitle>The category has split into "Legacy Trust" and "AI Velocity".</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-8 flex-1">
-                <div className="col-span-6 text-base leading-relaxed text-muted-foreground space-y-4 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-8">
+                <div className="col-span-6 text-base leading-relaxed text-muted-foreground space-y-4">
                   <p className="text-base text-foreground">
                     You are not just competing against other research tools. You are competing against the "Good Enough" economy of generalist AI (ChatGPT) and the entrenched inertia of legacy agencies.
                   </p>
@@ -1515,7 +1515,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <br/>1. <strong className="text-foreground">Reliability:</strong> Old-guard players adding AI wrappers to protect their moat.
                     <br/>2. <strong className="text-foreground">Speed:</strong> Product-led disruptors selling "insights in minutes."
                   </p>
-                  <div className="pt-5 mt-auto border-t border-border">
+                  <div className="pt-5 border-t border-border">
                     <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">The Rubiklab Position</div>
                     <div className="font-serif text-lg italic text-muted-foreground">
                       "Stuck in the middle." Technically superior to the disruptors, but narratively quieter than the legacy players.
@@ -1523,8 +1523,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
 
-                <div className="col-span-6 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-5 border-l-2 border-foreground flex-1">
+                <div className="col-span-6 space-y-4">
+                  <div className="bg-muted/30 p-5 border-l-2 border-foreground">
                     <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Buyer Decision Criteria</div>
                     
                     <ul className="space-y-3">
@@ -1564,7 +1564,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 We benchmarked Rubiklab against three market archetypes: The Legacy Incumbent (e.g., Qualtrics), The Speed Disruptor (e.g., Yabble), and The Low-End Synthetic.
               </p>
 
-              <div className="grid md:grid-cols-12 gap-6 flex-1">
+              <div className="grid md:grid-cols-12 gap-6">
                 <div className="col-span-9 space-y-3">
                   {/* Proposition Clarity */}
                   <div className="bg-card border border-border p-4 rounded-lg">
@@ -1642,8 +1642,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
 
-                <div className="col-span-3 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                <div className="col-span-3 space-y-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
                     <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Summary Reading</div>
                     <div className="font-serif text-xl mb-2 text-foreground">Asymmetric</div>
                     <p className="text-xs text-muted-foreground">Technical strength is not translating into market perception or proposition clarity.</p>
@@ -1666,12 +1666,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Differentiation Signals</SlideEyebrow>
               <ActionTitle>Winners are selling "Outcomes", not "Models".</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-8 flex-1">
-                <div className="col-span-4 text-sm text-muted-foreground flex flex-col">
-                  <p className="mb-4">
+              <div className="grid md:grid-cols-12 gap-8">
+                <div className="col-span-4 text-sm text-muted-foreground space-y-4">
+                  <p>
                     A clear pattern has emerged among high-growth peers. They have systematically scrubbed "AI Process" language from their headlines, replacing it with "Business Impact" language.
                   </p>
-                  <div className="mt-auto pt-5 border-t border-border">
+                  <div className="pt-5 border-t border-border">
                     <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest mb-2">The Shift</div>
                     <div className="font-serif text-2xl text-foreground">From "How" to "Why".</div>
                   </div>
@@ -1745,36 +1745,36 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 In 2025, visibility is not just about Google Rankings; it is about <strong className="text-foreground">Generative Presence</strong>. Does ChatGPT cite you as a leader? Currently, the answer is no.
               </p>
 
-              <div className="grid md:grid-cols-12 gap-6 flex-1">
-                <div className="col-span-5 border border-border p-5 bg-muted/30 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-6">
+                <div className="col-span-5 border border-border p-5 bg-muted/30">
                   <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Search Engine Presence</div>
                   <div className="font-serif text-2xl mb-2 text-muted-foreground">Low-Tier</div>
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                     You rank for your own brand name, but have near-zero visibility for high-intent non-branded terms like "AI Consumer Insights." You are relying entirely on outbound sales or paid acquisition.
                   </p>
-                  <div className="mt-4 pt-3 border-t border-border">
+                  <div className="pt-3 border-t border-border">
                     <span className="font-mono text-[10px] text-muted-foreground uppercase">Organic Traffic Share</span>
                     <div className="text-lg font-medium mt-1 text-muted-foreground">~5%</div>
                   </div>
                 </div>
 
-                <div className="col-span-5 border border-border p-5 bg-background border-l-4 border-l-destructive flex flex-col">
+                <div className="col-span-5 border border-border p-5 bg-background border-l-4 border-l-destructive">
                   <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Generative AI Index</div>
                   <div className="font-serif text-2xl mb-2 text-foreground">Absent</div>
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                     When LLMs (ChatGPT, Perplexity, Claude) are asked to "List top AI research tools," Rubiklab is consistently omitted. This is due to a lack of schema markup and authoritative backlinks.
                   </p>
-                  <div className="mt-4 pt-3 border-t border-border">
+                  <div className="pt-3 border-t border-border">
                     <span className="font-mono text-[10px] text-destructive uppercase tracking-widest">Critical Exposure</span>
                   </div>
                 </div>
                 
-                <div className="col-span-2 flex flex-col gap-3">
-                  <div className="bg-primary/5 p-4 border-l-2 border-primary flex-1">
+                <div className="col-span-2 space-y-3">
+                  <div className="bg-primary/5 p-4 border-l-2 border-primary">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">Fix: Schema</div>
                     <p className="text-xs text-foreground">Add JSON-LD Organization and Product schema to all pages.</p>
                   </div>
-                  <div className="bg-primary/5 p-4 border-l-2 border-primary flex-1">
+                  <div className="bg-primary/5 p-4 border-l-2 border-primary">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">Fix: Content</div>
                     <p className="text-xs text-foreground">Publish "State of AI Research" reports to build citation authority.</p>
                   </div>
@@ -1789,39 +1789,39 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Competitive Balance</SlideEyebrow>
               <ActionTitle>A defensible engine inside an indefensible fortress.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-6 flex-1">
-                <div className="col-span-5 bg-muted/30 border border-border p-5 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-6">
+                <div className="col-span-5 bg-muted/30 border border-border p-5">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-2.5 h-2.5 bg-primary rounded-full"></div>
                     <span className="font-mono text-xs uppercase tracking-widest text-primary">Relative Strength</span>
                   </div>
                   <h3 className="font-serif text-xl mb-2 text-foreground">Technical Depth</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                     Unlike the "thin wrapper" competitors who rely solely on OpenAI APIs, Rubiklab possesses proprietary processing layers. This "Human-in-the-Loop" architecture is a genuine differentiator.
                   </p>
-                  <div className="mt-auto pt-4 border-t border-border">
+                  <div className="pt-4 border-t border-border">
                     <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-widest">Verdict</span>
                     <div className="text-sm font-medium mt-1 text-foreground">The product is ready to win.</div>
                   </div>
                 </div>
 
-                <div className="col-span-5 bg-background border border-border border-l-4 border-l-destructive p-5 flex flex-col">
+                <div className="col-span-5 bg-background border border-border border-l-4 border-l-destructive p-5">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-2.5 h-2.5 bg-destructive rounded-full"></div>
                     <span className="font-mono text-xs uppercase tracking-widest text-destructive">Market Exposure</span>
                   </div>
                   <h3 className="font-serif text-xl mb-2 text-foreground">Commercial Silence</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                     Competitors are out-shouting you 10:1. Their websites promise specific ROI, feature client logos, and offer instant demos. Rubiklab's "Black Box" approach makes the superior technology feel riskier.
                   </p>
-                  <div className="mt-auto pt-4 border-t border-border">
+                  <div className="pt-4 border-t border-border">
                     <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-widest">Verdict</span>
                     <div className="text-sm font-medium mt-1 text-destructive">The story is losing.</div>
                   </div>
                 </div>
                 
-                <div className="col-span-2 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                <div className="col-span-2 space-y-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Net Position</div>
                     <div className="font-serif text-2xl text-foreground mb-1">Imbalanced</div>
                     <p className="text-xs text-muted-foreground">Capability outpaces perception.</p>
@@ -1844,38 +1844,38 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Strategic Implications</SlideEyebrow>
               <ActionTitle>Inaction leads to commoditisation.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-6 flex-1">
+              <div className="grid md:grid-cols-12 gap-6">
                 <div className="col-span-9 grid md:grid-cols-3 gap-5">
-                  <div className="flex flex-col">
+                  <div>
                     <div className="text-3xl font-serif text-muted/50 mb-2">01</div>
                     <div className="border-t-2 border-foreground pt-4 mb-3"></div>
                     <h3 className="font-serif text-lg mb-2 text-foreground">Erosion of Premium</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       If the "High Fidelity" advantage is not articulated clearly, buyers will default to price comparison. You risk being bucketed with cheap synthetic data tools.
                     </p>
                   </div>
 
-                  <div className="flex flex-col">
+                  <div>
                     <div className="text-3xl font-serif text-muted/50 mb-2">02</div>
                     <div className="border-t-2 border-foreground pt-4 mb-3"></div>
                     <h3 className="font-serif text-lg mb-2 text-foreground">Compounding Invisibility</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       Every month that passes without schema optimization and authoritative content publishing widens the gap in AI discoverability.
                     </p>
                   </div>
 
-                  <div className="flex flex-col">
+                  <div>
                     <div className="text-3xl font-serif text-muted/50 mb-2">03</div>
                     <div className="border-t-2 border-foreground pt-4 mb-3"></div>
                     <h3 className="font-serif text-lg mb-2 text-foreground">The "Best Kept Secret" Trap</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       Continuing to rely on product superiority without narrative support will result in lower-quality competitors capturing market share.
                     </p>
                   </div>
                 </div>
                 
-                <div className="col-span-3 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                <div className="col-span-3 space-y-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Window of Opportunity</div>
                     <div className="font-serif text-3xl text-foreground mb-1">6-12 Mo</div>
                     <p className="text-xs text-muted-foreground">Before incumbents close the AI velocity gap with acquisitions.</p>
@@ -1906,8 +1906,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Strategic Inflection</SlideEyebrow>
               <ActionTitle>Inaction is an active decision to optimize for obscurity.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-8 flex-1">
-                <div className="col-span-5 text-sm text-muted-foreground space-y-4 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-8">
+                <div className="col-span-5 text-sm text-muted-foreground space-y-4">
                   <p className="text-base font-light text-foreground">
                     The current digital state is not stable. It is <strong>diverging</strong> relative to market velocity.
                   </p>
@@ -1915,7 +1915,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     Continuing with the current "feature-first" roadmap optimizes Rubiklab for technical validation, but fails to capture market share.
                   </p>
                   
-                  <div className="bg-primary/5 border-l-2 border-primary p-5 mt-auto">
+                  <div className="bg-primary/5 border-l-2 border-primary p-5">
                     <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">The Pivot Window</div>
                     <p className="text-sm text-foreground leading-relaxed">
                       The technology is ready, but market positioning is lagging. The cost of this shift doubles every quarter it is delayed.
@@ -1923,7 +1923,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
 
-                <div className="col-span-5 border-l-2 border-foreground pl-6 flex flex-col justify-center gap-6">
+                <div className="col-span-5 border-l-2 border-foreground pl-6 space-y-6">
                   <div>
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Path A: Status Quo</div>
                     <div className="font-serif text-xl text-muted-foreground">Incremental Feature Release</div>
@@ -1936,8 +1936,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
                 
-                <div className="col-span-2 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                <div className="col-span-2 space-y-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Cost of Delay</div>
                     <div className="font-serif text-3xl text-destructive mb-1">2×</div>
                     <p className="text-xs text-muted-foreground">Per quarter. Compounding.</p>
@@ -1960,45 +1960,45 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Focus Themes</SlideEyebrow>
               <ActionTitle>Collapsing complexity into three mandates.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-6 flex-1">
+              <div className="grid md:grid-cols-12 gap-6">
                 <div className="col-span-9 grid md:grid-cols-3 gap-5">
-                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                  <div className="border-t-2 border-foreground pt-4">
                     <div className="font-mono text-xs text-primary mb-2">01</div>
                     <h3 className="font-serif text-xl mb-2 text-foreground">Friction Removal</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                       Systematically dismantling every barrier between user intent and value realization.
                     </p>
-                    <div className="mt-4 pt-3 border-t border-border">
+                    <div className="pt-3 border-t border-border">
                       <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Target</div>
                       <div className="text-sm text-foreground">Intake, Forms, CTAs</div>
                     </div>
                   </div>
-                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                  <div className="border-t-2 border-foreground pt-4">
                     <div className="font-mono text-xs text-primary mb-2">02</div>
                     <h3 className="font-serif text-xl mb-2 text-foreground">Narrative Authority</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                       Shifting language from "Technical Process" (How it works) to "Executive Outcome" (Why it wins).
                     </p>
-                    <div className="mt-4 pt-3 border-t border-border">
+                    <div className="pt-3 border-t border-border">
                       <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Target</div>
                       <div className="text-sm text-foreground">Headlines, Value Prop</div>
                     </div>
                   </div>
-                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                  <div className="border-t-2 border-foreground pt-4">
                     <div className="font-mono text-xs text-primary mb-2">03</div>
                     <h3 className="font-serif text-xl mb-2 text-foreground">Trust Visibility</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                       Moving credibility from "Implicit" (trust the code) to "Explicit" (trust the evidence).
                     </p>
-                    <div className="mt-4 pt-3 border-t border-border">
+                    <div className="pt-3 border-t border-border">
                       <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Target</div>
                       <div className="text-sm text-foreground">Logos, Reviews, Team</div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="col-span-3 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                <div className="col-span-3 space-y-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Execution Horizon</div>
                     <div className="font-serif text-3xl text-foreground mb-1">90 Days</div>
                     <p className="text-xs text-muted-foreground">Full deployment of all three mandates.</p>
@@ -2188,17 +2188,17 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Near-Term Value</SlideEyebrow>
               <ActionTitle>Momentum: Operationalizing the 'Quick Wins'.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-6 flex-1">
-                <div className="col-span-9 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-6">
+                <div className="col-span-9">
                   <p className="text-sm text-muted-foreground max-w-3xl mb-5">
                     These actions correspond directly to the top-left quadrant of the leverage matrix. They are designed to be deployed within 30 days to create immediate lift.
                   </p>
 
-                  <div className="grid md:grid-cols-3 gap-4 flex-1">
-                    <div className="bg-primary/5 p-4 border-l-4 border-primary flex flex-col">
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="bg-primary/5 p-4 border-l-4 border-primary">
                       <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">01. Friction</div>
                       <div className="font-serif text-lg mb-2 text-foreground">Intake Simplification</div>
-                      <p className="text-xs text-muted-foreground mb-3 flex-1">
+                      <p className="text-xs text-muted-foreground mb-3">
                         <strong className="text-foreground">Action:</strong> Remove "Job Title" and "Phone" fields. Move qualification to the second step (post-click).
                       </p>
                       <div className="pt-2 border-t border-primary/20">
@@ -2207,10 +2207,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       </div>
                     </div>
 
-                    <div className="bg-primary/5 p-4 border-l-4 border-primary flex flex-col">
+                    <div className="bg-primary/5 p-4 border-l-4 border-primary">
                       <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">02. Credibility</div>
                       <div className="font-serif text-lg mb-2 text-foreground">Trust Injection</div>
-                      <p className="text-xs text-muted-foreground mb-3 flex-1">
+                      <p className="text-xs text-muted-foreground mb-3">
                         <strong className="text-foreground">Action:</strong> Aggregate G2/Capterra reviews and place a "Trust Strip" below the hero CTA.
                       </p>
                       <div className="pt-2 border-t border-primary/20">
@@ -2219,10 +2219,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       </div>
                     </div>
 
-                    <div className="bg-muted/30 p-4 border-l-4 border-muted flex flex-col">
+                    <div className="bg-muted/30 p-4 border-l-4 border-muted">
                       <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">03. Perception</div>
                       <div className="font-serif text-lg mb-2 text-foreground">Headline Refinement</div>
-                      <p className="text-xs text-muted-foreground mb-3 flex-1">
+                      <p className="text-xs text-muted-foreground mb-3">
                         <strong className="text-foreground">Action:</strong> A/B test "Outcomes" (Speed/Accuracy) against current "Innovation" messaging.
                       </p>
                       <div className="pt-2 border-t border-border">
@@ -2233,8 +2233,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
                 
-                <div className="col-span-3 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                <div className="col-span-3 space-y-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Total Timeline</div>
                     <div className="font-serif text-3xl text-foreground mb-1">30 Days</div>
                     <p className="text-xs text-muted-foreground">All three wins can be deployed in parallel.</p>
@@ -2257,41 +2257,41 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Structural Evolution</SlideEyebrow>
               <ActionTitle>Sustain: Changing the capability baseline.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-6 flex-1">
+              <div className="grid md:grid-cols-12 gap-6">
                 <div className="col-span-9 grid md:grid-cols-3 gap-5">
-                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                  <div className="border-t-2 border-foreground pt-4">
                     <div className="font-serif text-lg mb-2 text-foreground">From "Gatekeeper" to "Product-Led"</div>
-                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                       <strong className="text-foreground">The Move:</strong> Transition the primary CTA from a sales form to an interactive "Data Sandbox." Allow users to taste the speed of the AI before asking for marriage.
                     </p>
-                    <div className="mt-4 pt-3 border-t border-border">
+                    <div className="pt-3 border-t border-border">
                       <div className="font-mono text-[10px] text-primary uppercase">Why: Matches market velocity.</div>
                     </div>
                   </div>
 
-                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                  <div className="border-t-2 border-foreground pt-4">
                     <div className="font-serif text-lg mb-2 text-foreground">From "Generic" to "Verticalized"</div>
-                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                       <strong className="text-foreground">The Move:</strong> Build dedicated landing pages for "CPG," "Finance," and "Tech." Address the "Audience Alignment" gap by speaking specific dialects.
                     </p>
-                    <div className="mt-4 pt-3 border-t border-border">
+                    <div className="pt-3 border-t border-border">
                       <div className="font-mono text-[10px] text-primary uppercase">Why: Increases relevance score.</div>
                     </div>
                   </div>
 
-                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                  <div className="border-t-2 border-foreground pt-4">
                     <div className="font-serif text-lg mb-2 text-foreground">From "Invisible" to "Referenced"</div>
-                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                       <strong className="text-foreground">The Move:</strong> Implement structured schema markup and publish "State of AI Insights" data. Train LLMs to cite Rubiklab as the authority.
                     </p>
-                    <div className="mt-4 pt-3 border-t border-border">
+                    <div className="pt-3 border-t border-border">
                       <div className="font-mono text-[10px] text-primary uppercase">Why: Secures future discovery.</div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="col-span-3 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                <div className="col-span-3 space-y-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Investment Horizon</div>
                     <div className="font-serif text-3xl text-foreground mb-1">Q2-Q3</div>
                     <p className="text-xs text-muted-foreground">These are 60-90 day builds requiring dedicated resources.</p>
@@ -2314,8 +2314,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Governance Signals</SlideEyebrow>
               <ActionTitle>How to judge progress without vanity metrics.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-6 flex-1">
-                <div className="col-span-9 space-y-0 flex flex-col">
+              <div className="grid md:grid-cols-12 gap-6">
+                <div className="col-span-9 space-y-0">
                   <div className="flex items-start gap-6 py-4 border-t border-border">
                     <div className="w-1/4">
                       <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">01. Clarity Signal</div>
@@ -2368,8 +2368,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
                 
-                <div className="col-span-3 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                <div className="col-span-3 space-y-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Review Cadence</div>
                     <div className="font-serif text-3xl text-foreground mb-1">Bi-Weekly</div>
                     <p className="text-xs text-muted-foreground">Qualitative signals should be reviewed in sales standups.</p>
