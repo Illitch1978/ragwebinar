@@ -191,12 +191,7 @@ const reportData = {
   ]
 };
 
-const tabs = [
-  { id: "summary", label: "Summary" },
-  { id: "diagnosis", label: "Diagnosis" },
-  { id: "competitive-context", label: "Competitive Context" },
-  { id: "next-order-effects", label: "Next-Order Effects" }
-];
+// Tabs removed - report shows as continuous scroll
 
 // Slide component for consistent layout
 const Slide = ({ 
@@ -291,15 +286,114 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => {
   );
 };
 
-interface ReportSectionProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-  onDownload?: () => void;
-  isExporting?: boolean;
-  exportProgress?: number;
-}
+// Dark cover slide for the report
+const CoverSlide = () => (
+  <div className="min-h-screen bg-[#050505] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
+    {/* Grid background */}
+    <div 
+      className="absolute inset-0 pointer-events-none opacity-20"
+      style={{
+        backgroundImage: 'linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)',
+        backgroundSize: '120px 120px'
+      }}
+    />
+    
+    {/* Top metadata */}
+    <div className="relative z-10 grid grid-cols-4 gap-8 font-mono text-[9px] text-gray-500 uppercase tracking-widest border-t border-gray-900 pt-6">
+      <div>Classified</div>
+      <div>{reportData.clientName}</div>
+      <div>Gap Analysis</div>
+      <div className="text-right text-[#0099E6]">v.Final</div>
+    </div>
 
-const ReportSection = ({ activeTab, setActiveTab }: ReportSectionProps) => {
+    {/* Main content */}
+    <div className="relative z-10 flex-grow flex flex-col justify-center">
+      <div className="border-l-4 border-[#0099E6] pl-12 py-4">
+        <h1 className="font-serif text-7xl md:text-8xl lg:text-9xl text-white leading-[0.9] tracking-tight mb-4">
+          Defining the <br />
+          <span className="italic text-[#0099E6]">Digital Standard.</span>
+        </h1>
+      </div>
+
+      <div className="grid grid-cols-2 gap-32 pl-16 mt-24 max-w-4xl">
+        <div>
+          <span className="block font-mono text-[9px] text-gray-500 uppercase tracking-widest mb-3">Scope</span>
+          <p className="font-sans text-sm text-gray-400 font-light leading-relaxed">
+            {reportData.scope}
+          </p>
+        </div>
+        <div>
+          <span className="block font-mono text-[9px] text-gray-500 uppercase tracking-widest mb-3">Status</span>
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+            <span className="font-sans text-sm text-gray-400 font-light">Analysis Complete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Footer */}
+    <div className="relative z-10 flex justify-between items-end">
+      <div className="flex items-center gap-2">
+        <span className="font-serif font-bold text-3xl tracking-tight lowercase text-white">mondro</span>
+        <span className="relative flex h-3 w-3 pt-1">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0099E6] opacity-30" />
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-[#0099E6] shadow-[0_0_12px_rgba(0,153,230,0.5)]" />
+        </span>
+      </div>
+      
+      <div className="font-mono text-[10px] text-gray-600 uppercase tracking-widest">
+        Mondro Intelligence Capital © 2026
+      </div>
+    </div>
+  </div>
+);
+
+// Section divider component
+const SectionDivider = ({ 
+  title, 
+  subtitle, 
+  align = 'left' 
+}: { 
+  title: string; 
+  subtitle: string; 
+  align?: 'left' | 'center' | 'right' 
+}) => (
+  <div className="min-h-screen bg-[#050505] text-white relative flex flex-col p-12 lg:p-16 overflow-hidden">
+    {/* Grid background */}
+    <div 
+      className="absolute inset-0 pointer-events-none opacity-20"
+      style={{
+        backgroundImage: 'linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)',
+        backgroundSize: '120px 120px'
+      }}
+    />
+    
+    <div className={cn(
+      "relative z-10 h-full flex flex-col",
+      align === 'center' ? "justify-center items-center text-center" : 
+      align === 'right' ? "justify-start items-end text-right" : 
+      "justify-end items-start"
+    )}>
+      <div className="max-w-2xl">
+        <div className={cn(
+          "w-12 h-1 mb-8",
+          align === 'center' ? "bg-white mx-auto" : 
+          align === 'right' ? "bg-[#0099E6] ml-auto" : 
+          "bg-white"
+        )} />
+        <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6">
+          {title}<span className="text-[#0099E6]">.</span>
+        </h2>
+        <p className="font-sans text-xl text-gray-400 font-light max-w-lg leading-relaxed">
+          {subtitle}
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
+const ReportSection = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -449,42 +543,16 @@ const ReportSection = ({ activeTab, setActiveTab }: ReportSectionProps) => {
 
   return (
     <div className="space-y-0">
-      {/* Summary Tab - Slide-based layout */}
-      <div data-section="summary" className={cn(activeTab !== "summary" && "hidden print:block")}>
+      {/* Cover Page - Dark Theme */}
+      <CoverSlide />
+      
+      {/* Summary Section */}
+      <div data-section="summary">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="bg-background"
         >
-          {/* Slide 01: Cover */}
-          <Slide>
-            <div className="max-w-6xl w-full">
-              <div className="mb-12 mt-4">
-                <div className="font-serif text-5xl md:text-7xl lg:text-8xl mb-8 tracking-tight text-foreground leading-[1.1]">
-                  Defining the <br/>
-                  <span className="text-primary font-normal italic">Digital Standard.</span>
-                </div>
-              </div>
-              
-              <div className="space-y-6 border-t border-foreground pt-10">
-                <div className="grid grid-cols-12 gap-4 md:gap-6">
-                  <div className="col-span-3 md:col-span-2 font-mono text-xs md:text-sm text-muted-foreground uppercase tracking-widest pt-1">Client</div>
-                  <div className="col-span-9 md:col-span-10 font-serif text-xl md:text-2xl lg:text-3xl">{reportData.clientName}</div>
-                </div>
-                <div className="grid grid-cols-12 gap-4 md:gap-6">
-                  <div className="col-span-3 md:col-span-2 font-mono text-xs md:text-sm text-muted-foreground uppercase tracking-widest pt-1">Scope</div>
-                  <div className="col-span-9 md:col-span-10 font-serif text-xl md:text-2xl lg:text-3xl leading-snug">{reportData.scope}</div>
-                </div>
-                <div className="grid grid-cols-12 gap-4 md:gap-6">
-                  <div className="col-span-3 md:col-span-2 font-mono text-xs md:text-sm text-muted-foreground uppercase tracking-widest pt-1">Date</div>
-                  <div className="col-span-9 md:col-span-10 font-serif text-xl md:text-2xl lg:text-3xl">{reportData.generatedDate}</div>
-                </div>
-              </div>
-            </div>
-            <div className="absolute bottom-8 left-6 lg:left-20 right-6 lg:right-20 text-[10px] md:text-xs text-muted-foreground/40 font-mono tracking-wider print-hide">
-              CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
-            </div>
-          </Slide>
 
           {/* Slide 02: Methodology */}
           <Slide>
@@ -801,8 +869,15 @@ const ReportSection = ({ activeTab, setActiveTab }: ReportSectionProps) => {
       </div>
 
 
-      {/* Diagnosis Tab */}
-      <div data-section="diagnosis" className={cn(activeTab !== "diagnosis" && "hidden print:block")}>
+      {/* Diagnosis Section Divider */}
+      <SectionDivider 
+        title="Diagnosis" 
+        subtitle="A systemic breakdown of friction, gaps, and lost revenue opportunities."
+        align="left"
+      />
+
+      {/* Diagnosis Section */}
+      <div data-section="diagnosis">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1156,8 +1231,15 @@ const ReportSection = ({ activeTab, setActiveTab }: ReportSectionProps) => {
       </div>
 
 
-      {/* Competitive Context Tab */}
-      <div data-section="competitive-context" className={cn(activeTab !== "competitive-context" && "hidden print:block")}>
+      {/* Market Context Section Divider */}
+      <SectionDivider 
+        title="Market Context" 
+        subtitle="Contextualizing internal performance against external competitive reality."
+        align="center"
+      />
+
+      {/* Competitive Context Section */}
+      <div data-section="competitive-context">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1494,8 +1576,15 @@ const ReportSection = ({ activeTab, setActiveTab }: ReportSectionProps) => {
       </div>
 
 
-      {/* Next-Order Effects Tab */}
-      <div data-section="next-order-effects" className={cn(activeTab !== "next-order-effects" && "hidden print:block")}>
+      {/* Next-Order Effects Section Divider */}
+      <SectionDivider 
+        title="The Next Order" 
+        subtitle="The strategic pivots required to transition from obscurity to authority."
+        align="right"
+      />
+
+      {/* Next-Order Effects Section */}
+      <div data-section="next-order-effects">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
