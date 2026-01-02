@@ -355,9 +355,9 @@ const SectionDivider = ({
   subtitle, 
   align = 'left' 
 }: { 
-  title: string; 
-  subtitle: string; 
-  align?: 'left' | 'center' | 'right' 
+  title: React.ReactNode; 
+  subtitle: React.ReactNode; 
+  align?: 'left' | 'center' | 'right'
 }) => (
   <div className="min-h-screen bg-[#000000] text-white relative flex flex-col p-12 lg:p-16 overflow-hidden">
     {/* Grid background */}
@@ -1597,8 +1597,8 @@ const ReportSection = () => {
 
       {/* Next-Order Effects Section Divider */}
       <SectionDivider 
-        title="The Next Order" 
-        subtitle="The strategic pivots required to transition from obscurity to authority."
+        title={<>Next-Order<br />Effects</>} 
+        subtitle={<>The critical pivots required<br />to align digital reality with business ambition.</>}
         align="right"
       />
 
