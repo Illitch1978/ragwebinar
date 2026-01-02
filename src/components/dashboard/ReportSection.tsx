@@ -444,7 +444,7 @@ const ReportSection = () => {
     <div className="space-y-0">
 
       {/* Tab Navigation - Landing page style */}
-      <div className="flex justify-between items-center pt-[22px] pb-6 px-8 lg:px-20 border-b border-border bg-background sticky top-0 z-10 no-print">
+      <div className="flex justify-between items-center pt-[35px] pb-6 px-8 lg:px-20 border-b border-border bg-background sticky top-0 z-10 no-print">
         <div className="flex-1" />
         <div className="flex items-center gap-8 lg:gap-12">
           {tabs.map((tab) => (
