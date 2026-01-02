@@ -60,17 +60,18 @@ const Dashboard = () => {
 
   // Report view takes full screen without sidebar
   if (activeProduct === "report") {
+    const handleExitReport = () => setActiveProduct("intelligence");
+    
     return (
       <div className="min-h-screen bg-background dashboard-light">
-        {/* Back button */}
+        {/* Back button - subtle text link */}
         <button 
-          onClick={() => setActiveProduct("intelligence")}
-          className="fixed top-8 left-8 z-50 flex items-center gap-2 px-4 py-2 bg-background/90 backdrop-blur-sm border border-border rounded-full font-mono text-xs uppercase tracking-widest hover:bg-muted transition-all shadow-lg print-hide"
+          onClick={handleExitReport}
+          className="fixed top-8 left-8 z-50 font-mono text-[10px] text-muted-foreground uppercase tracking-widest hover:text-foreground transition-colors print-hide opacity-50 hover:opacity-100"
         >
-          <ChevronRight className="w-4 h-4 rotate-180" />
-          Exit Report
+          ← Back to Dashboard
         </button>
-        <ReportSection />
+        <ReportSection onExit={handleExitReport} />
       </div>
     );
   }
