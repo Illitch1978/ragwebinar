@@ -715,6 +715,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 02: Methodology */}
           <Slide>
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Methodology</SlideEyebrow>
               <ActionTitle>Reading this assessment.</ActionTitle>
               
@@ -762,10 +763,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
               </div>
+            </div>
           </Slide>
 
           {/* Slide 03: Executive Synthesis */}
           <Slide>
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Executive Synthesis</SlideEyebrow>
               <ActionTitle>Technical solidity is currently undermined by conversion friction.</ActionTitle>
               <div className="grid md:grid-cols-12 gap-20 mt-12">
@@ -802,10 +805,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
               </div>
             </div>
+            </div>
           </Slide>
 
           {/* Slide 04: Overall Digital Standing - Waterfall Chart */}
           <Slide>
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
               <ActionTitle>A 41-point gap exists between potential and reality.</ActionTitle>
               <p className="text-xl text-muted-foreground max-w-4xl mb-8">
@@ -865,13 +870,14 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   * Each reduction represents a structural constraint, not a cosmetic issue.
                 </div>
               </div>
+            </div>
           </Slide>
 
           {/* Slide 05: Perceived Authority */}
           <Slide>
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Perceived Authority</SlideEyebrow>
               <ActionTitle>Visuals are premium; clarity is secondary.</ActionTitle>
-              
               <div className="grid md:grid-cols-12 gap-20 mt-12">
                 <div className="col-span-5 space-y-12">
                   <div>
@@ -930,11 +936,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
               </div>
+            </div>
           </Slide>
 
           {/* Slide 06: Strategic Snapshot */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Strategic Snapshot</SlideEyebrow>
               <ActionTitle className="mb-12">Granular analysis and immediate prioritization.</ActionTitle>
               
