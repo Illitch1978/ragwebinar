@@ -1902,36 +1902,52 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       {/* Next-Order Effects Section */}
           {/* Slide 19: Strategic Inflection */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Strategic Inflection</SlideEyebrow>
               <ActionTitle>Inaction is an active decision to optimize for obscurity.</ActionTitle>
               
-              <div className="grid md:grid-cols-2 gap-12">
-                <div className="text-sm text-muted-foreground space-y-4">
-                  <p className="text-lg font-light text-foreground">
+              <div className="grid md:grid-cols-12 gap-8 flex-1">
+                <div className="col-span-5 text-sm text-muted-foreground space-y-4 flex flex-col">
+                  <p className="text-base font-light text-foreground">
                     The current digital state is not stable. It is <strong>diverging</strong> relative to market velocity.
                   </p>
-                  <p>
+                  <p className="text-sm">
                     Continuing with the current "feature-first" roadmap optimizes Rubiklab for technical validation, but fails to capture market share.
                   </p>
                   
-                  <div className="bg-primary/5 border-l-2 border-primary p-5 mt-3">
+                  <div className="bg-primary/5 border-l-2 border-primary p-5 mt-auto">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">The Pivot Window</div>
                     <p className="text-sm text-foreground leading-relaxed">
-                      <strong>The Pivot Window:</strong> The technology is ready, but market positioning is lagging. The cost of this shift doubles every quarter it is delayed.
+                      The technology is ready, but market positioning is lagging. The cost of this shift doubles every quarter it is delayed.
                     </p>
                   </div>
                 </div>
 
-                <div className="border-l-2 border-foreground pl-8 flex flex-col justify-center gap-8">
+                <div className="col-span-5 border-l-2 border-foreground pl-6 flex flex-col justify-center gap-6">
                   <div>
-                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Path A: Status Quo</div>
-                    <div className="font-serif text-2xl text-muted-foreground">Incremental Feature Release</div>
-                    <p className="text-sm text-muted-foreground mt-2">Result: Commoditisation by lower-cost synthetics.</p>
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Path A: Status Quo</div>
+                    <div className="font-serif text-xl text-muted-foreground">Incremental Feature Release</div>
+                    <p className="text-xs text-muted-foreground mt-1">Result: Commoditisation by lower-cost synthetics.</p>
                   </div>
                   <div>
-                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Path B: Correction</div>
-                    <div className="font-serif text-2xl text-primary">Authority & Flow Pivot</div>
-                    <p className="text-sm text-muted-foreground mt-2">Result: Pricing power and pipeline velocity.</p>
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Path B: Correction</div>
+                    <div className="font-serif text-xl text-primary">Authority & Flow Pivot</div>
+                    <p className="text-xs text-muted-foreground mt-1">Result: Pricing power and pipeline velocity.</p>
+                  </div>
+                </div>
+                
+                <div className="col-span-2 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Cost of Delay</div>
+                    <div className="font-serif text-3xl text-destructive mb-1">2×</div>
+                    <p className="text-xs text-muted-foreground">Per quarter. Compounding.</p>
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Recommended</div>
+                    <p className="text-xs text-foreground font-medium">
+                      Path B: Immediate
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1940,31 +1956,60 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 20: Focus Themes */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Focus Themes</SlideEyebrow>
               <ActionTitle>Collapsing complexity into three mandates.</ActionTitle>
               
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="border-t-2 border-foreground pt-5">
-                  <div className="font-mono text-xs text-primary mb-3">01</div>
-                  <h3 className="font-serif text-2xl mb-3 text-foreground">Friction Removal</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Systematically dismantling every barrier between user intent and value realization.
-                  </p>
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-9 grid md:grid-cols-3 gap-5">
+                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                    <div className="font-mono text-xs text-primary mb-2">01</div>
+                    <h3 className="font-serif text-xl mb-2 text-foreground">Friction Removal</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                      Systematically dismantling every barrier between user intent and value realization.
+                    </p>
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Target</div>
+                      <div className="text-sm text-foreground">Intake, Forms, CTAs</div>
+                    </div>
+                  </div>
+                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                    <div className="font-mono text-xs text-primary mb-2">02</div>
+                    <h3 className="font-serif text-xl mb-2 text-foreground">Narrative Authority</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                      Shifting language from "Technical Process" (How it works) to "Executive Outcome" (Why it wins).
+                    </p>
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Target</div>
+                      <div className="text-sm text-foreground">Headlines, Value Prop</div>
+                    </div>
+                  </div>
+                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                    <div className="font-mono text-xs text-primary mb-2">03</div>
+                    <h3 className="font-serif text-xl mb-2 text-foreground">Trust Visibility</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                      Moving credibility from "Implicit" (trust the code) to "Explicit" (trust the evidence).
+                    </p>
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Target</div>
+                      <div className="text-sm text-foreground">Logos, Reviews, Team</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="border-t-2 border-foreground pt-5">
-                  <div className="font-mono text-xs text-primary mb-3">02</div>
-                  <h3 className="font-serif text-2xl mb-3 text-foreground">Narrative Authority</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Shifting language from "Technical Process" (How it works) to "Executive Outcome" (Why it wins).
-                  </p>
-                </div>
-                <div className="border-t-2 border-foreground pt-5">
-                  <div className="font-mono text-xs text-primary mb-3">03</div>
-                  <h3 className="font-serif text-2xl mb-3 text-foreground">Trust Visibility</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Moving credibility from "Implicit" (trust the code) to "Explicit" (trust the evidence).
-                  </p>
+                
+                <div className="col-span-3 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Execution Horizon</div>
+                    <div className="font-serif text-3xl text-foreground mb-1">90 Days</div>
+                    <p className="text-xs text-muted-foreground">Full deployment of all three mandates.</p>
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Sequencing</div>
+                    <p className="text-xs text-foreground">
+                      Friction first (Days 1-30). Narrative second (Days 31-60). Trust third (Days 61-90).
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2134,174 +2179,242 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 22: Near-Term Value */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Near-Term Value</SlideEyebrow>
               <ActionTitle>Momentum: Operationalizing the 'Quick Wins'.</ActionTitle>
               
-              <p className="text-base text-muted-foreground max-w-4xl mb-6">
-                These actions correspond directly to the top-left quadrant of the leverage matrix. They are designed to be deployed within 30 days to create immediate lift.
-              </p>
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-9 flex flex-col">
+                  <p className="text-sm text-muted-foreground max-w-3xl mb-5">
+                    These actions correspond directly to the top-left quadrant of the leverage matrix. They are designed to be deployed within 30 days to create immediate lift.
+                  </p>
 
-              <div className="grid md:grid-cols-3 gap-6">
+                  <div className="grid md:grid-cols-3 gap-4 flex-1">
+                    <div className="bg-primary/5 p-4 border-l-4 border-primary flex flex-col">
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">01. Friction</div>
+                      <div className="font-serif text-lg mb-2 text-foreground">Intake Simplification</div>
+                      <p className="text-xs text-muted-foreground mb-3 flex-1">
+                        <strong className="text-foreground">Action:</strong> Remove "Job Title" and "Phone" fields. Move qualification to the second step (post-click).
+                      </p>
+                      <div className="pt-2 border-t border-primary/20">
+                        <div className="font-mono text-[9px] text-muted-foreground uppercase">Impact</div>
+                        <div className="text-sm font-bold text-primary">+40% Conversion</div>
+                      </div>
+                    </div>
+
+                    <div className="bg-primary/5 p-4 border-l-4 border-primary flex flex-col">
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">02. Credibility</div>
+                      <div className="font-serif text-lg mb-2 text-foreground">Trust Injection</div>
+                      <p className="text-xs text-muted-foreground mb-3 flex-1">
+                        <strong className="text-foreground">Action:</strong> Aggregate G2/Capterra reviews and place a "Trust Strip" below the hero CTA.
+                      </p>
+                      <div className="pt-2 border-t border-primary/20">
+                        <div className="font-mono text-[9px] text-muted-foreground uppercase">Impact</div>
+                        <div className="text-sm font-bold text-primary">-15% Bounce Rate</div>
+                      </div>
+                    </div>
+
+                    <div className="bg-muted/30 p-4 border-l-4 border-muted flex flex-col">
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">03. Perception</div>
+                      <div className="font-serif text-lg mb-2 text-foreground">Headline Refinement</div>
+                      <p className="text-xs text-muted-foreground mb-3 flex-1">
+                        <strong className="text-foreground">Action:</strong> A/B test "Outcomes" (Speed/Accuracy) against current "Innovation" messaging.
+                      </p>
+                      <div className="pt-2 border-t border-border">
+                        <div className="font-mono text-[9px] text-muted-foreground uppercase">Impact</div>
+                        <div className="text-sm font-bold text-muted-foreground">Relevance Signal</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 
-                <div className="bg-primary/5 p-5 border-l-4 border-primary h-full flex flex-col">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">01. Friction</div>
-                  <div className="font-serif text-xl mb-3 text-foreground">Intake Simplification</div>
-                  <p className="text-sm text-muted-foreground mb-4 flex-grow">
-                    <strong className="text-foreground">Action:</strong> Remove "Job Title" and "Phone" fields. Move qualification to the second step (post-click).
-                  </p>
-                  <div className="pt-3 border-t border-primary/20">
-                    <div className="font-mono text-[10px] text-muted-foreground uppercase">Impact</div>
-                    <div className="text-base font-bold text-primary">+40% Conversion Vol.</div>
+                <div className="col-span-3 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Total Timeline</div>
+                    <div className="font-serif text-3xl text-foreground mb-1">30 Days</div>
+                    <p className="text-xs text-muted-foreground">All three wins can be deployed in parallel.</p>
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Combined ROI</div>
+                    <p className="text-xs text-foreground">
+                      Estimated +55% funnel efficiency before any strategic bets are deployed.
+                    </p>
                   </div>
                 </div>
-
-                <div className="bg-primary/5 p-5 border-l-4 border-primary h-full flex flex-col">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">02. Credibility</div>
-                  <div className="font-serif text-xl mb-3 text-foreground">Trust Injection</div>
-                  <p className="text-sm text-muted-foreground mb-4 flex-grow">
-                    <strong className="text-foreground">Action:</strong> Aggregate existing G2/Capterra reviews and place a "Trust Strip" immediately below the hero CTA. Do not hide proof in the footer.
-                  </p>
-                  <div className="pt-3 border-t border-primary/20">
-                    <div className="font-mono text-[10px] text-muted-foreground uppercase">Impact</div>
-                    <div className="text-base font-bold text-primary">Reduced Bounce Rate</div>
-                  </div>
-                </div>
-
-                <div className="bg-muted/30 p-5 border-l-4 border-muted h-full flex flex-col">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">03. Perception</div>
-                  <div className="font-serif text-xl mb-3 text-foreground">Headline Refinement</div>
-                  <p className="text-sm text-muted-foreground mb-4 flex-grow">
-                    <strong className="text-foreground">Action:</strong> A/B test "Outcomes" (Speed/Accuracy) against the current "Innovation" messaging.
-                  </p>
-                  <div className="pt-3 border-t border-border">
-                    <div className="font-mono text-[10px] text-muted-foreground uppercase">Impact</div>
-                    <div className="text-base font-bold text-muted-foreground">Relevance Signal</div>
-                  </div>
-                </div>
-
               </div>
             </div>
           </Slide>
 
           {/* Slide 23: Structural Evolution */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Structural Evolution</SlideEyebrow>
               <ActionTitle>Sustain: Changing the capability baseline.</ActionTitle>
               
-              <div className="grid md:grid-cols-3 gap-8 mt-6">
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-9 grid md:grid-cols-3 gap-5">
+                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                    <div className="font-serif text-lg mb-2 text-foreground">From "Gatekeeper" to "Product-Led"</div>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                      <strong className="text-foreground">The Move:</strong> Transition the primary CTA from a sales form to an interactive "Data Sandbox." Allow users to taste the speed of the AI before asking for marriage.
+                    </p>
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <div className="font-mono text-[10px] text-primary uppercase">Why: Matches market velocity.</div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                    <div className="font-serif text-lg mb-2 text-foreground">From "Generic" to "Verticalized"</div>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                      <strong className="text-foreground">The Move:</strong> Build dedicated landing pages for "CPG," "Finance," and "Tech." Address the "Audience Alignment" gap by speaking specific dialects.
+                    </p>
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <div className="font-mono text-[10px] text-primary uppercase">Why: Increases relevance score.</div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-foreground pt-4 flex flex-col">
+                    <div className="font-serif text-lg mb-2 text-foreground">From "Invisible" to "Referenced"</div>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                      <strong className="text-foreground">The Move:</strong> Implement structured schema markup and publish "State of AI Insights" data. Train LLMs to cite Rubiklab as the authority.
+                    </p>
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <div className="font-mono text-[10px] text-primary uppercase">Why: Secures future discovery.</div>
+                    </div>
+                  </div>
+                </div>
                 
-                <div className="border-t-2 border-foreground pt-5">
-                  <div className="font-serif text-xl mb-3 text-foreground">From "Gatekeeper" to "Product-Led"</div>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                    <strong className="text-foreground">The Move:</strong> Transition the primary CTA from a sales form to an interactive "Data Sandbox." Allow users to taste the speed of the AI before asking for marriage.
-                  </p>
-                  <div className="font-mono text-xs text-primary uppercase">Why: Matches market velocity.</div>
+                <div className="col-span-3 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Investment Horizon</div>
+                    <div className="font-serif text-3xl text-foreground mb-1">Q2-Q3</div>
+                    <p className="text-xs text-muted-foreground">These are 60-90 day builds requiring dedicated resources.</p>
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Sequencing</div>
+                    <p className="text-xs text-foreground">
+                      Sandbox first (differentiator). Verticals second (relevance). Schema third (durability).
+                    </p>
+                  </div>
                 </div>
-
-                <div className="border-t-2 border-foreground pt-5">
-                  <div className="font-serif text-xl mb-3 text-foreground">From "Generic" to "Verticalized"</div>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                    <strong className="text-foreground">The Move:</strong> Build dedicated landing pages for "CPG," "Finance," and "Tech." Address the "Audience Alignment" gap by speaking specific dialects to specific buyers.
-                  </p>
-                  <div className="font-mono text-xs text-primary uppercase">Why: Increases relevance score.</div>
-                </div>
-
-                <div className="border-t-2 border-foreground pt-5">
-                  <div className="font-serif text-xl mb-3 text-foreground">From "Invisible" to "Referenced"</div>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                    <strong className="text-foreground">The Move:</strong> Implement structured schema markup and publish definitive "State of AI Insights" data. Train the LLMs (ChatGPT/Perplexity) to cite Rubiklab as the authority.
-                  </p>
-                  <div className="font-mono text-xs text-primary uppercase">Why: Secures future discovery.</div>
-                </div>
-
               </div>
             </div>
           </Slide>
 
           {/* Slide 24: Governance Signals */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Governance Signals</SlideEyebrow>
               <ActionTitle>How to judge progress without vanity metrics.</ActionTitle>
               
-              <div className="mt-6 space-y-0">
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-9 space-y-0 flex flex-col">
+                  <div className="flex items-start gap-6 py-4 border-t border-border">
+                    <div className="w-1/4">
+                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">01. Clarity Signal</div>
+                      <div className="font-serif text-lg text-foreground">The Sales Conversation</div>
+                    </div>
+                    <div className="w-3/4 grid grid-cols-2 gap-6">
+                      <div>
+                        <div className="font-mono text-[9px] text-muted-foreground uppercase mb-1">Success State</div>
+                        <p className="text-xs text-muted-foreground">Prospects ask "How does implementation work?" (They already understand 'What' it is).</p>
+                      </div>
+                      <div>
+                        <div className="font-mono text-[9px] text-destructive uppercase mb-1">Red Flag</div>
+                        <p className="text-xs text-muted-foreground">Sales team spends first 15 mins explaining the product definition.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-6 py-4 border-t border-border">
+                    <div className="w-1/4">
+                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">02. Efficiency Signal</div>
+                      <div className="font-serif text-lg text-foreground">Velocity Ratio</div>
+                    </div>
+                    <div className="w-3/4 grid grid-cols-2 gap-6">
+                      <div>
+                        <div className="font-mono text-[9px] text-muted-foreground uppercase mb-1">Success State</div>
+                        <p className="text-xs text-muted-foreground">The gap between 'Landing' and 'Inquiry' compresses to under 60 seconds.</p>
+                      </div>
+                      <div>
+                        <div className="font-mono text-[9px] text-destructive uppercase mb-1">Red Flag</div>
+                        <p className="text-xs text-muted-foreground">High time-on-site but low conversion (Analysis Paralysis).</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-6 py-4 border-t border-b border-border">
+                    <div className="w-1/4">
+                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">03. Authority Signal</div>
+                      <div className="font-serif text-lg text-foreground">Comparison Set</div>
+                    </div>
+                    <div className="w-3/4 grid grid-cols-2 gap-6">
+                      <div>
+                        <div className="font-mono text-[9px] text-muted-foreground uppercase mb-1">Success State</div>
+                        <p className="text-xs text-muted-foreground">Buyers compare you to premium consultants or enterprise suites.</p>
+                      </div>
+                      <div>
+                        <div className="font-mono text-[9px] text-destructive uppercase mb-1">Red Flag</div>
+                        <p className="text-xs text-muted-foreground">Buyers compare you to $50/mo self-serve tools.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 
-                <div className="flex items-start gap-8 py-6 border-t border-border">
-                  <div className="w-1/4">
-                    <div className="font-mono text-xs text-primary uppercase tracking-widest mb-1">01. Clarity Signal</div>
-                    <div className="font-serif text-xl text-foreground">The Sales Conversation</div>
+                <div className="col-span-3 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Review Cadence</div>
+                    <div className="font-serif text-3xl text-foreground mb-1">Bi-Weekly</div>
+                    <p className="text-xs text-muted-foreground">Qualitative signals should be reviewed in sales standups.</p>
                   </div>
-                  <div className="w-3/4 grid grid-cols-2 gap-8">
-                    <div>
-                      <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Success State</div>
-                      <p className="text-sm text-muted-foreground">Prospects ask "How does implementation work?" (They already understand 'What' it is).</p>
-                    </div>
-                    <div>
-                      <div className="font-mono text-[10px] text-destructive uppercase mb-1">Red Flag</div>
-                      <p className="text-sm text-muted-foreground">Sales team spends first 15 mins explaining the product definition.</p>
-                    </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Key Principle</div>
+                    <p className="text-xs text-foreground">
+                      If conversion rises but comparison set degrades, you are winning the wrong race.
+                    </p>
                   </div>
                 </div>
-
-                <div className="flex items-start gap-8 py-6 border-t border-border">
-                  <div className="w-1/4">
-                    <div className="font-mono text-xs text-primary uppercase tracking-widest mb-1">02. Efficiency Signal</div>
-                    <div className="font-serif text-xl text-foreground">Velocity Ratio</div>
-                  </div>
-                  <div className="w-3/4 grid grid-cols-2 gap-8">
-                    <div>
-                      <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Success State</div>
-                      <p className="text-sm text-muted-foreground">The gap between 'Landing' and 'Inquiry' compresses to under 60 seconds.</p>
-                    </div>
-                    <div>
-                      <div className="font-mono text-[10px] text-destructive uppercase mb-1">Red Flag</div>
-                      <p className="text-sm text-muted-foreground">High time-on-site but low conversion (Analysis Paralysis).</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-8 py-6 border-t border-border">
-                  <div className="w-1/4">
-                    <div className="font-mono text-xs text-primary uppercase tracking-widest mb-1">03. Authority Signal</div>
-                    <div className="font-serif text-xl text-foreground">Comparison Set</div>
-                  </div>
-                  <div className="w-3/4 grid grid-cols-2 gap-8">
-                    <div>
-                      <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Success State</div>
-                      <p className="text-sm text-muted-foreground">Buyers compare you to premium consultants or enterprise suites.</p>
-                    </div>
-                    <div>
-                      <div className="font-mono text-[10px] text-destructive uppercase mb-1">Red Flag</div>
-                      <p className="text-sm text-muted-foreground">Buyers compare you to $50/mo self-serve tools.</p>
-                    </div>
-                  </div>
-                </div>
-
               </div>
             </div>
           </Slide>
 
           {/* Slide 25: Closing */}
           <Slide>
-            <div className="max-w-4xl w-full text-center">
+            <div className="max-w-7xl w-full h-full flex flex-col items-center justify-center">
               
-              <div className="mb-10">
-                <h2 className="font-serif text-5xl lg:text-6xl text-foreground mb-6 leading-tight">
+              <div className="text-center max-w-4xl">
+                <div className="w-16 h-[2px] bg-primary mx-auto mb-10" />
+                
+                <h2 className="font-serif text-5xl lg:text-6xl text-foreground mb-8 leading-tight">
                   Where complexity ends,<br/> <span className="italic text-primary">authority begins.</span>
                 </h2>
-                <p className="font-sans text-muted-foreground text-lg font-light leading-relaxed max-w-2xl mx-auto">
+                
+                <p className="font-sans text-muted-foreground text-base font-light leading-relaxed max-w-2xl mx-auto mb-10">
                   This assessment is not an indictment of capability; it is a roadmap to recognition. The market is waiting for a high-fidelity leader. Rubiklab is positioned to take that mantle, if it chooses to speak clearly.
                 </p>
-              </div>
+                
+                <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground border-t border-border pt-8 max-w-md mx-auto">
+                  <div className="text-center">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 mb-1">Prepared By</div>
+                    <div className="font-serif text-lg text-foreground">Mondro Intelligence</div>
+                  </div>
+                  <div className="w-px h-10 bg-border" />
+                  <div className="text-center">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 mb-1">Engagement</div>
+                    <div className="font-serif text-lg text-foreground">Strategic Assessment</div>
+                  </div>
+                </div>
 
-              <div className="flex items-center justify-center gap-2 text-foreground mt-10">
-                <span className="font-serif font-bold text-3xl tracking-tight lowercase">mondro</span>
-                <span className="relative flex h-3 w-3 pt-1">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-20"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></span>
-                </span>
+                <div className="flex items-center justify-center gap-2 text-foreground mt-12">
+                  <span className="font-serif font-bold text-3xl tracking-tight lowercase">mondro</span>
+                  <span className="relative flex h-3 w-3 pt-1">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-20"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></span>
+                  </span>
+                </div>
               </div>
 
             </div>
