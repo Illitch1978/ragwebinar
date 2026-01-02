@@ -2017,22 +2017,22 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 21: Leverage & Allocation */}
           <Slide>
-            <div className="max-w-[90rem] w-full px-6">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Leverage & Allocation</SlideEyebrow>
               <ActionTitle>Where effort produces disproportionate return.</ActionTitle>
               
-              <div className="flex gap-10 mt-6 items-start">
-                
-                {/* Chart Area with Y-axis label */}
-                <div className="flex items-center gap-3">
-                  {/* Y-Axis Label - Outside, closer to chart */}
-                  <div className="-rotate-90 text-[11px] font-mono text-primary font-bold tracking-widest whitespace-nowrap">
-                    LOW ← BUSINESS IMPACT → HIGH
-                  </div>
-                  
-                  <div className="flex flex-col -ml-[90px]">
-                    {/* Matrix Chart - Square */}
-                    <div className="relative w-[560px] h-[560px] border border-border">
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-8 flex flex-col">
+                  {/* Matrix Chart */}
+                  <div className="flex items-center gap-3 flex-1">
+                    {/* Y-Axis Label */}
+                    <div className="-rotate-90 text-[10px] font-mono text-primary font-bold tracking-widest whitespace-nowrap -ml-6">
+                      LOW ← IMPACT → HIGH
+                    </div>
+                    
+                    <div className="flex flex-col flex-1 -ml-8">
+                      {/* Matrix Chart - Responsive */}
+                      <div className="relative w-full aspect-square max-h-[480px] border border-border">
                       
                       {/* Quadrant Lines */}
                       <div className="absolute left-1/2 top-0 h-full w-px bg-border"></div>
@@ -2048,131 +2048,136 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       {/* Quick Wins Quadrant (top-left) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[12%] top-[12%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
-                            <span className="text-sm font-bold text-foreground">Intake Fix</span>
+                          <div className="absolute left-[10%] top-[10%] flex items-center gap-2 cursor-pointer group">
+                            <div className="w-4 h-4 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
+                            <span className="text-xs font-bold text-foreground">Intake Fix</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
-                          <p className="text-sm">Simplify demo request flow from 5 clicks to 1. Highest ROI immediate action.</p>
+                          <p className="text-sm">Simplify demo request flow. Highest ROI action.</p>
                         </TooltipContent>
                       </Tooltip>
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[18%] top-[26%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
-                            <span className="text-sm font-bold text-foreground">Trust Injection</span>
+                          <div className="absolute left-[15%] top-[24%] flex items-center gap-2 cursor-pointer group">
+                            <div className="w-4 h-4 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
+                            <span className="text-xs font-bold text-foreground">Trust Injection</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
-                          <p className="text-sm">Add client logos, testimonials, and security badges to key conversion points.</p>
+                          <p className="text-sm">Add client logos and testimonials.</p>
                         </TooltipContent>
                       </Tooltip>
                       
                       {/* Strategic Bets Quadrant (top-right) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[58%] top-[12%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                            <span className="text-sm font-bold text-foreground">Product Sandbox</span>
+                          <div className="absolute left-[55%] top-[10%] flex items-center gap-2 cursor-pointer group">
+                            <div className="w-4 h-4 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
+                            <span className="text-xs font-bold text-foreground">Product Sandbox</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
-                          <p className="text-sm">Interactive demo environment showing real output quality. High effort, high reward.</p>
+                          <p className="text-sm">Interactive demo environment.</p>
                         </TooltipContent>
                       </Tooltip>
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[55%] top-[26%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                            <span className="text-sm font-bold text-foreground">Outcome Narrative</span>
+                          <div className="absolute left-[58%] top-[24%] flex items-center gap-2 cursor-pointer group">
+                            <div className="w-4 h-4 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
+                            <span className="text-xs font-bold text-foreground">Outcome Narrative</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
-                          <p className="text-sm">Reframe messaging from "how it works" to "what you achieve."</p>
+                          <p className="text-sm">Reframe messaging to outcomes.</p>
                         </TooltipContent>
                       </Tooltip>
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[60%] top-[40%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                            <span className="text-sm font-bold text-foreground">Verticalization</span>
+                          <div className="absolute left-[62%] top-[38%] flex items-center gap-2 cursor-pointer group">
+                            <div className="w-4 h-4 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
+                            <span className="text-xs font-bold text-foreground">Verticalization</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
-                          <p className="text-sm">Industry-specific landing pages and case studies for top 3 verticals.</p>
+                          <p className="text-sm">Industry-specific landing pages.</p>
                         </TooltipContent>
                       </Tooltip>
                       
                       {/* Fill-ins Quadrant (bottom-left) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[22%] top-[62%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-muted-foreground/50 transition-all group-hover:ring-4 group-hover:ring-muted-foreground/20"></div>
-                            <span className="text-sm font-bold text-muted-foreground">Footer Cleanup</span>
+                          <div className="absolute left-[18%] top-[60%] flex items-center gap-2 cursor-pointer group">
+                            <div className="w-4 h-4 rounded-full bg-muted-foreground/50 transition-all group-hover:ring-4 group-hover:ring-muted-foreground/20"></div>
+                            <span className="text-xs font-bold text-muted-foreground">Footer Cleanup</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
-                          <p className="text-sm">Minor cosmetic improvements. Low priority fill-in work.</p>
+                          <p className="text-sm">Minor cosmetic improvements.</p>
                         </TooltipContent>
                       </Tooltip>
                       
                       {/* Distractions Quadrant (bottom-right) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[58%] top-[62%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
-                            <span className="text-sm font-bold text-foreground">Custom CMS</span>
+                          <div className="absolute left-[55%] top-[60%] flex items-center gap-2 cursor-pointer group">
+                            <div className="w-4 h-4 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
+                            <span className="text-xs font-bold text-foreground">Custom CMS</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
-                          <p className="text-sm">Building bespoke content management. Engineering distraction from core product.</p>
+                          <p className="text-sm">Engineering distraction.</p>
                         </TooltipContent>
                       </Tooltip>
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[62%] top-[76%] flex items-center gap-3 cursor-pointer group">
-                            <div className="w-5 h-5 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
-                            <span className="text-sm font-bold text-foreground">Full Rebranding</span>
+                          <div className="absolute left-[60%] top-[74%] flex items-center gap-2 cursor-pointer group">
+                            <div className="w-4 h-4 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
+                            <span className="text-xs font-bold text-foreground">Full Rebranding</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
-                          <p className="text-sm">Complete visual identity overhaul. High cost, low immediate impact. Avoid.</p>
+                          <p className="text-sm">High cost, low immediate impact.</p>
                         </TooltipContent>
                       </Tooltip>
                     </div>
-                    
-                    {/* X-Axis Label - Outside */}
-                    <div className="text-center mt-6 text-[11px] font-mono text-primary font-bold tracking-widest">
-                      LOW ← EFFORT / COMPLEXITY → HIGH
+                      
+                      {/* X-Axis Label */}
+                      <div className="text-center mt-4 text-[10px] font-mono text-primary font-bold tracking-widest">
+                        LOW ← EFFORT → HIGH
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Strategic Avoidance - Right side */}
-                <div className="flex-shrink-0 w-[340px] flex flex-col justify-center">
-                  <div className="bg-muted/50 p-6 border-l-4 border-destructive">
-                    <div className="font-mono text-xs uppercase tracking-widest text-destructive mb-3">Strategic Avoidance</div>
-                    <p className="text-sm text-muted-foreground mb-5">
-                      To protect capacity for high-leverage moves, we explicitly recommend <strong className="text-foreground">pausing</strong> these high-effort, low-yield initiatives:
+                <div className="col-span-4 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Reading the Chart</div>
+                    <p className="text-xs text-muted-foreground">
+                      <strong className="text-primary">Blue dots</strong> = prioritized actions. <strong className="text-foreground">Gray dots</strong> = strategic bets. <strong className="text-destructive">Red dots</strong> = distractions.
                     </p>
-                    <ul className="space-y-3 text-sm">
-                      <li className="flex items-start gap-4">
-                        <span className="text-destructive font-bold text-xl">×</span>
-                        <span><strong className="text-foreground">Full Rebranding:</strong> <span className="text-muted-foreground">Cosmetic changes without structural fixes will not improve conversion.</span></span>
+                  </div>
+                  
+                  <div className="bg-muted/50 p-4 border-l-4 border-destructive flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-2">Strategic Avoidance</div>
+                    <ul className="space-y-2 text-xs">
+                      <li className="flex items-start gap-2">
+                        <span className="text-destructive font-bold">×</span>
+                        <span><strong className="text-foreground">Full Rebranding</strong></span>
                       </li>
-                      <li className="flex items-start gap-4">
-                        <span className="text-destructive font-bold text-xl">×</span>
-                        <span><strong className="text-foreground">Custom CMS Build:</strong> <span className="text-muted-foreground">Migration consumes dev cycles better spent on the Product Sandbox.</span></span>
+                      <li className="flex items-start gap-2">
+                        <span className="text-destructive font-bold">×</span>
+                        <span><strong className="text-foreground">Custom CMS Build</strong></span>
                       </li>
                     </ul>
+                    <p className="text-[10px] text-muted-foreground mt-2">High effort, low yield. Protect capacity for leverage plays.</p>
                   </div>
                 </div>
-
               </div>
             </div>
           </Slide>
@@ -2422,6 +2427,36 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       </div>
       {/* Hidden export button trigger */}
       <button data-export-trigger className="hidden" onClick={handleDownload} />
+      
+      {/* Subtle progress indicator - bottom right */}
+      {totalSlides > 0 && (
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 print-hide">
+          {/* Progress bar */}
+          <div className="w-24 h-[2px] bg-muted overflow-hidden">
+            <div 
+              className="h-full bg-primary transition-all duration-500 ease-out"
+              style={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
+            />
+          </div>
+          {/* Slide counter */}
+          <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+            {String(currentSlide + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
+          </span>
+        </div>
+      )}
+      
+      {/* Back to Dashboard link - top left */}
+      {onExit && (
+        <button 
+          onClick={onExit}
+          className="fixed top-6 left-6 z-50 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors group print-hide"
+        >
+          <span className="relative">
+            ← Back to Dashboard
+            <span className="absolute left-0 -bottom-0.5 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
+          </span>
+        </button>
+      )}
     </div>
   );
 };
