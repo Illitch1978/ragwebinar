@@ -183,7 +183,7 @@ const Dashboard = () => {
         )}
 
         {/* Content Area */}
-        <div className="p-6">
+        <div className={cn(activeProduct === "report" ? "p-0" : "p-6")}>
           {activeProduct === "intelligence" && (
             <>
               {activeIntelligenceTab === "positioning" && <PositioningSection />}

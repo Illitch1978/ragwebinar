@@ -442,49 +442,50 @@ const ReportSection = () => {
 
   return (
     <div className="space-y-0">
-
       {/* Tab Navigation - Landing page style */}
-      <div className="flex justify-between items-center pt-[54px] pb-6 px-8 lg:px-20 border-b border-border bg-background sticky top-0 z-10 no-print">
-        <div className="flex-1" />
-        <div className="flex items-center gap-8 lg:gap-12">
-          {tabs.map((tab) => (
+      <div className="bg-background sticky top-0 z-10 no-print pt-[22px] px-6">
+        <div className="flex justify-between items-center py-8 px-8 lg:px-20 border-b border-border">
+          <div className="flex-1" />
+          <div className="flex items-center gap-8 lg:gap-12">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={cn(
+                  "relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group",
+                  activeTab === tab.id
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                )}
+              >
+                {tab.label}
+                <span className={cn(
+                  "absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400",
+                  activeTab === tab.id ? "w-full" : "w-0 group-hover:w-full"
+                )} />
+              </button>
+            ))}
+          </div>
+          <div className="flex-1 flex justify-end">
             <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={cn(
-                "relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group",
-                activeTab === tab.id
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-primary"
-              )}
+              onClick={handleDownload}
+              disabled={isExporting}
+              className="relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group text-muted-foreground hover:text-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {tab.label}
-              <span className={cn(
-                "absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400",
-                activeTab === tab.id ? "w-full" : "w-0 group-hover:w-full"
-              )} />
+              {isExporting ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Exporting {progress}%
+                </>
+              ) : (
+                <>
+                  <Download className="h-4 w-4" />
+                  Download
+                </>
+              )}
+              <span className="absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400 w-0 group-hover:w-full" />
             </button>
-          ))}
-        </div>
-        <div className="flex-1 flex justify-end">
-          <button
-            onClick={handleDownload}
-            disabled={isExporting}
-            className="relative font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.3em] uppercase transition-colors group text-muted-foreground hover:text-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isExporting ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Exporting {progress}%
-              </>
-            ) : (
-              <>
-                <Download className="h-4 w-4" />
-                Download
-              </>
-            )}
-            <span className="absolute bottom-[-4px] left-0 h-px bg-primary transition-all duration-400 w-0 group-hover:w-full" />
-          </button>
+          </div>
         </div>
       </div>
 
