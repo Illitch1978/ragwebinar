@@ -307,13 +307,13 @@ const CoverSlide = () => (
         <div className="text-[#0099E6]">v.Final</div>
       </div>
       <button 
-        className="flex items-center gap-2 px-4 py-2 bg-[#0099E6] hover:bg-[#0088cc] text-white text-xs font-mono uppercase tracking-wider rounded transition-colors print-hide"
+        className="flex items-center gap-2.5 px-5 py-2.5 border border-gray-700 hover:border-[#0099E6] text-gray-400 hover:text-white text-[10px] font-mono uppercase tracking-widest transition-all duration-300 print-hide group"
         onClick={() => {
           const exportButton = document.querySelector('[data-export-trigger]') as HTMLButtonElement;
           if (exportButton) exportButton.click();
         }}
       >
-        <Download className="w-3.5 h-3.5" />
+        <Download className="w-3.5 h-3.5 group-hover:text-[#0099E6] transition-colors" />
         Download Report
       </button>
     </div>
@@ -338,8 +338,8 @@ const CoverSlide = () => (
           <span className="block font-mono text-[9px] text-gray-500 uppercase tracking-widest mb-3">Status</span>
           <div className="flex items-center gap-2">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: '#22c55e' }} />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ backgroundColor: '#22c55e' }} />
             </span>
             <span className="font-sans text-sm text-gray-400 font-light">Analysis Complete</span>
           </div>
@@ -390,7 +390,7 @@ const SectionDivider = ({
     {/* Main content */}
     <div className={cn(
       "relative z-10 flex-grow flex flex-col",
-      align === 'center' ? "justify-center items-center text-center pb-20" : 
+      align === 'center' ? "justify-center items-center text-center -mt-20" : 
       align === 'right' ? "justify-start items-end text-right pt-16" : 
       "justify-end items-start"
     )}>
