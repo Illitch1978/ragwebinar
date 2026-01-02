@@ -194,6 +194,7 @@ const reportData = {
 // Tabs removed - report shows as continuous scroll
 
 // Slide component for consistent layout - now full viewport for horizontal sliding
+// Uses fixed top padding to ensure headers are always in the same position
 const Slide = ({ 
   children, 
   className = ""
@@ -203,7 +204,7 @@ const Slide = ({
 }) => (
   <div 
     className={cn(
-      "w-screen h-screen flex-shrink-0 py-16 px-4 lg:px-10 relative flex flex-col justify-center items-center bg-background overflow-hidden",
+      "w-screen h-screen flex-shrink-0 pt-20 pb-12 px-4 lg:px-10 relative flex flex-col items-center bg-background overflow-y-auto overflow-x-hidden",
       className
     )}
     data-slide="true"
@@ -714,7 +715,6 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 02: Methodology */}
           <Slide>
-            <div className="max-w-7xl w-full">
               <SlideEyebrow>Methodology</SlideEyebrow>
               <ActionTitle>Reading this assessment.</ActionTitle>
               
@@ -762,15 +762,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
               </div>
-            </div>
           </Slide>
 
           {/* Slide 03: Executive Synthesis */}
           <Slide>
-            <div className="max-w-7xl w-full">
               <SlideEyebrow>Executive Synthesis</SlideEyebrow>
               <ActionTitle>Technical solidity is currently undermined by conversion friction.</ActionTitle>
-              
               <div className="grid md:grid-cols-12 gap-20 mt-12">
                 <div className="col-span-8 text-2xl leading-relaxed space-y-10 text-muted-foreground">
                   <p>
@@ -803,17 +800,14 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <div className="font-serif text-4xl text-primary">Reduce Drag</div>
                     <div className="text-lg text-muted-foreground mt-3">Immediate Roadmap</div>
                   </div>
-                </div>
               </div>
             </div>
           </Slide>
 
           {/* Slide 04: Overall Digital Standing - Waterfall Chart */}
           <Slide>
-            <div className="max-w-7xl w-full">
               <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
               <ActionTitle>A 41-point gap exists between potential and reality.</ActionTitle>
-              
               <p className="text-xl text-muted-foreground max-w-4xl mb-8">
                 The chart below bridges the gap from your theoretical potential to your current standing, isolating specific vectors of loss.
               </p>
@@ -871,12 +865,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   * Each reduction represents a structural constraint, not a cosmetic issue.
                 </div>
               </div>
-            </div>
           </Slide>
 
           {/* Slide 05: Perceived Authority */}
           <Slide>
-            <div className="max-w-7xl w-full">
               <SlideEyebrow>Perceived Authority</SlideEyebrow>
               <ActionTitle>Visuals are premium; clarity is secondary.</ActionTitle>
               
@@ -938,7 +930,6 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
               </div>
-            </div>
           </Slide>
 
           {/* Slide 06: Strategic Snapshot */}
@@ -1031,7 +1022,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       {/* Diagnosis Section */}
           {/* Slide 07: System-Level Diagnosis */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
               <ActionTitle>The site functions as pages, but fails as a decision system.</ActionTitle>
               
@@ -1089,7 +1080,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 08: Intake & Conversion */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Intake & Conversion</SlideEyebrow>
               <ActionTitle>Motivated users are stalling at the point of highest intent.</ActionTitle>
               
@@ -1143,7 +1134,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 09: Narrative Positioning */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Narrative Positioning</SlideEyebrow>
               <ActionTitle>The "Process vs. Outcome" disconnect.</ActionTitle>
               
@@ -1206,7 +1197,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 10: Trust Architecture */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Trust Architecture</SlideEyebrow>
               <ActionTitle>Credibility is currently implicit, rather than explicit.</ActionTitle>
               
@@ -1259,7 +1250,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 11: Technical Constraints */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Technical Constraints</SlideEyebrow>
               <ActionTitle>Cosmetic issues are degrading the perception of stability.</ActionTitle>
               
@@ -1321,7 +1312,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 12: Diagnosis Summary */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Diagnosis Summary</SlideEyebrow>
               <ActionTitle className="mb-16">Three dominant forces are actively suppressing revenue.</ActionTitle>
               
@@ -1381,7 +1372,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       {/* Competitive Context Section */}
           {/* Slide 13: The Competitive Reality */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>The Competitive Reality</SlideEyebrow>
               <ActionTitle>The category has split into "Legacy Trust" and "AI Velocity".</ActionTitle>
               
@@ -1429,7 +1420,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 14: Peer Positioning Snapshot */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Peer Positioning Snapshot</SlideEyebrow>
               <ActionTitle>High authority on "Tech", invisible on "Trust".</ActionTitle>
               
@@ -1520,7 +1511,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 15: Differentiation Signals */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Differentiation Signals</SlideEyebrow>
               <ActionTitle>Winners are selling "Outcomes", not "Models".</ActionTitle>
               
@@ -1586,7 +1577,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 16: Visibility & Discoverability */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Visibility & Discoverability</SlideEyebrow>
               <ActionTitle>Invisible to the new arbiters of trust.</ActionTitle>
               
@@ -1619,7 +1610,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 17: Competitive Balance */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Competitive Balance</SlideEyebrow>
               <ActionTitle>A defensible engine inside an indefensible fortress.</ActionTitle>
               
@@ -1667,7 +1658,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 18: Strategic Implications */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Strategic Implications</SlideEyebrow>
               <ActionTitle>Inaction leads to commoditisation.</ActionTitle>
               
@@ -1714,7 +1705,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       {/* Next-Order Effects Section */}
           {/* Slide 19: Strategic Inflection */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Strategic Inflection</SlideEyebrow>
               <ActionTitle>Inaction is an active decision to optimize for obscurity.</ActionTitle>
               
@@ -1752,7 +1743,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 20: Focus Themes */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Focus Themes</SlideEyebrow>
               <ActionTitle>Collapsing complexity into three mandates.</ActionTitle>
               
@@ -1784,7 +1775,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 21: Leverage & Allocation */}
           <Slide>
-            <div className="max-w-[90rem] w-full h-full flex flex-col justify-center px-8">
+            <div className="max-w-[90rem] w-full px-8">
               <SlideEyebrow>Leverage & Allocation</SlideEyebrow>
               <ActionTitle>Where effort produces disproportionate return.</ActionTitle>
               
@@ -1946,7 +1937,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 22: Near-Term Value */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Near-Term Value</SlideEyebrow>
               <ActionTitle>Momentum: Operationalizing the 'Quick Wins'.</ActionTitle>
               
@@ -1998,7 +1989,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 23: Structural Evolution */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Structural Evolution</SlideEyebrow>
               <ActionTitle>Sustain: Changing the capability baseline.</ActionTitle>
               
@@ -2034,7 +2025,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 24: Governance Signals */}
           <Slide>
-            <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="max-w-7xl w-full">
               <SlideEyebrow>Governance Signals</SlideEyebrow>
               <ActionTitle>How to judge progress without vanity metrics.</ActionTitle>
               
