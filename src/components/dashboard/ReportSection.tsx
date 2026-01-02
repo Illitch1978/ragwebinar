@@ -2151,36 +2151,37 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Leverage & Allocation</SlideEyebrow>
               <ActionTitle>Where effort produces disproportionate return.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-6">
+              <div className="grid md:grid-cols-12 gap-6 -mt-4">
                 <div className="col-span-8">
                   {/* Matrix Chart */}
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-start gap-3">
                     {/* Y-Axis Label */}
-                    <div className="-rotate-90 text-[10px] font-mono text-primary font-bold tracking-widest whitespace-nowrap -ml-6">
-                      LOW ← IMPACT → HIGH
+                    <div className="flex items-center justify-center h-[320px] -ml-2">
+                      <div className="-rotate-90 text-[10px] font-mono text-primary font-bold tracking-widest whitespace-nowrap">
+                        LOW ← IMPACT → HIGH
+                      </div>
                     </div>
                     
-                    <div className="flex flex-col -ml-8">
-                      {/* Matrix Chart - Responsive */}
-                      <div className="relative w-full aspect-square max-h-[400px] border border-border">
+                    <div className="flex flex-col flex-1">
+                      {/* Matrix Chart */}
+                      <div className="relative w-full h-[320px] border border-border bg-background">
                       
                       {/* Quadrant Lines */}
                       <div className="absolute left-1/2 top-0 h-full w-px bg-border"></div>
                       <div className="absolute top-1/2 left-0 w-full h-px bg-border"></div>
                       
                       {/* Quadrant Labels */}
-                      <div className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold">Quick Wins</div>
-                      <div className="absolute top-4 right-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold text-right">Strategic Bets</div>
-                      <div className="absolute bottom-4 left-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold">Fill-ins</div>
-                      <div className="absolute bottom-4 right-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground font-bold text-right">Distractions</div>
+                      <div className="absolute top-3 left-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">Quick Wins</div>
+                      <div className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 text-right">Strategic Bets</div>
+                      <div className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">Fill-ins</div>
+                      <div className="absolute bottom-3 right-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 text-right">Distractions</div>
                       
-                      {/* Data Points with Tooltips - Spaced to avoid overlap */}
-                      {/* Quick Wins Quadrant (top-left) */}
+                      {/* Data Points - Quick Wins (top-left) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[10%] top-[10%] flex items-center gap-2 cursor-pointer group">
-                            <div className="w-4 h-4 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
-                            <span className="text-xs font-bold text-foreground">Intake Fix</span>
+                          <div className="absolute left-[8%] top-[18%] flex items-center gap-1.5 cursor-pointer group">
+                            <div className="w-3 h-3 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
+                            <span className="text-[11px] font-medium text-foreground">Intake Fix</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
@@ -2190,9 +2191,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[15%] top-[24%] flex items-center gap-2 cursor-pointer group">
-                            <div className="w-4 h-4 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
-                            <span className="text-xs font-bold text-foreground">Trust Injection</span>
+                          <div className="absolute left-[8%] top-[30%] flex items-center gap-1.5 cursor-pointer group">
+                            <div className="w-3 h-3 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
+                            <span className="text-[11px] font-medium text-foreground">Trust Injection</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
@@ -2200,12 +2201,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                         </TooltipContent>
                       </Tooltip>
                       
-                      {/* Strategic Bets Quadrant (top-right) */}
+                      {/* Strategic Bets (top-right) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[55%] top-[10%] flex items-center gap-2 cursor-pointer group">
-                            <div className="w-4 h-4 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                            <span className="text-xs font-bold text-foreground">Product Sandbox</span>
+                          <div className="absolute left-[54%] top-[18%] flex items-center gap-1.5 cursor-pointer group">
+                            <div className="w-3 h-3 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
+                            <span className="text-[11px] font-medium text-foreground">Product Sandbox</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
@@ -2215,9 +2216,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[58%] top-[24%] flex items-center gap-2 cursor-pointer group">
-                            <div className="w-4 h-4 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                            <span className="text-xs font-bold text-foreground">Outcome Narrative</span>
+                          <div className="absolute left-[54%] top-[30%] flex items-center gap-1.5 cursor-pointer group">
+                            <div className="w-3 h-3 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
+                            <span className="text-[11px] font-medium text-foreground">Outcome Narrative</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
@@ -2227,9 +2228,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[62%] top-[38%] flex items-center gap-2 cursor-pointer group">
-                            <div className="w-4 h-4 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                            <span className="text-xs font-bold text-foreground">Verticalization</span>
+                          <div className="absolute left-[54%] top-[42%] flex items-center gap-1.5 cursor-pointer group">
+                            <div className="w-3 h-3 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
+                            <span className="text-[11px] font-medium text-foreground">Verticalization</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
@@ -2237,12 +2238,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                         </TooltipContent>
                       </Tooltip>
                       
-                      {/* Fill-ins Quadrant (bottom-left) */}
+                      {/* Fill-ins (bottom-left) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[18%] top-[60%] flex items-center gap-2 cursor-pointer group">
-                            <div className="w-4 h-4 rounded-full bg-muted-foreground/50 transition-all group-hover:ring-4 group-hover:ring-muted-foreground/20"></div>
-                            <span className="text-xs font-bold text-muted-foreground">Footer Cleanup</span>
+                          <div className="absolute left-[8%] top-[58%] flex items-center gap-1.5 cursor-pointer group">
+                            <div className="w-3 h-3 rounded-full bg-muted-foreground/50 transition-all group-hover:ring-4 group-hover:ring-muted-foreground/20"></div>
+                            <span className="text-[11px] font-medium text-muted-foreground">Footer Cleanup</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
@@ -2250,12 +2251,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                         </TooltipContent>
                       </Tooltip>
                       
-                      {/* Distractions Quadrant (bottom-right) */}
+                      {/* Distractions (bottom-right) */}
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[55%] top-[60%] flex items-center gap-2 cursor-pointer group">
-                            <div className="w-4 h-4 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
-                            <span className="text-xs font-bold text-foreground">Custom CMS</span>
+                          <div className="absolute left-[54%] top-[58%] flex items-center gap-1.5 cursor-pointer group">
+                            <div className="w-3 h-3 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
+                            <span className="text-[11px] font-medium text-foreground">Custom CMS</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
@@ -2265,9 +2266,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="absolute left-[60%] top-[74%] flex items-center gap-2 cursor-pointer group">
-                            <div className="w-4 h-4 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
-                            <span className="text-xs font-bold text-foreground">Full Rebranding</span>
+                          <div className="absolute left-[54%] top-[70%] flex items-center gap-1.5 cursor-pointer group">
+                            <div className="w-3 h-3 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
+                            <span className="text-[11px] font-medium text-foreground">Full Rebranding</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs">
@@ -2277,7 +2278,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     </div>
                       
                       {/* X-Axis Label */}
-                      <div className="text-center mt-4 text-[10px] font-mono text-primary font-bold tracking-widest">
+                      <div className="text-center mt-3 text-[10px] font-mono text-primary font-bold tracking-widest">
                         LOW ← EFFORT → HIGH
                       </div>
                     </div>
