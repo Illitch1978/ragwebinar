@@ -2155,15 +2155,15 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
 
                 {/* Strategic Avoidance - Right side */}
-                <div className="col-span-4 flex flex-col gap-4">
-                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                <div className="col-span-4 space-y-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Reading the Chart</div>
                     <p className="text-xs text-muted-foreground">
                       <strong className="text-primary">Blue dots</strong> = prioritized actions. <strong className="text-foreground">Gray dots</strong> = strategic bets. <strong className="text-destructive">Red dots</strong> = distractions.
                     </p>
                   </div>
                   
-                  <div className="bg-muted/50 p-4 border-l-4 border-destructive flex-1">
+                  <div className="bg-muted/50 p-4 border-l-4 border-destructive">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-2">Strategic Avoidance</div>
                     <ul className="space-y-2 text-xs">
                       <li className="flex items-start gap-2">
@@ -2176,6 +2176,13 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       </li>
                     </ul>
                     <p className="text-[10px] text-muted-foreground mt-2">High effort, low yield. Protect capacity for leverage plays.</p>
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Priority Sequence</div>
+                    <p className="text-xs text-foreground">
+                      Blue (immediate) → Gray (Q2) → Avoid Red entirely.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -2261,9 +2268,19 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 <div className="col-span-9 grid md:grid-cols-3 gap-5">
                   <div className="border-t-2 border-foreground pt-4">
                     <div className="font-serif text-lg mb-2 text-foreground">From "Gatekeeper" to "Product-Led"</div>
-                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                       <strong className="text-foreground">The Move:</strong> Transition the primary CTA from a sales form to an interactive "Data Sandbox." Allow users to taste the speed of the AI before asking for marriage.
                     </p>
+                    <div className="space-y-2 text-xs text-muted-foreground mb-3">
+                      <div className="flex items-start gap-2">
+                        <span className="text-primary">•</span>
+                        <span>Build interactive demo environment</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-primary">•</span>
+                        <span>Gate advanced features, not access</span>
+                      </div>
+                    </div>
                     <div className="pt-3 border-t border-border">
                       <div className="font-mono text-[10px] text-primary uppercase">Why: Matches market velocity.</div>
                     </div>
@@ -2271,9 +2288,19 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
                   <div className="border-t-2 border-foreground pt-4">
                     <div className="font-serif text-lg mb-2 text-foreground">From "Generic" to "Verticalized"</div>
-                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                       <strong className="text-foreground">The Move:</strong> Build dedicated landing pages for "CPG," "Finance," and "Tech." Address the "Audience Alignment" gap by speaking specific dialects.
                     </p>
+                    <div className="space-y-2 text-xs text-muted-foreground mb-3">
+                      <div className="flex items-start gap-2">
+                        <span className="text-primary">•</span>
+                        <span>3 vertical pages with unique copy</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-primary">•</span>
+                        <span>Industry-specific case studies</span>
+                      </div>
+                    </div>
                     <div className="pt-3 border-t border-border">
                       <div className="font-mono text-[10px] text-primary uppercase">Why: Increases relevance score.</div>
                     </div>
@@ -2281,9 +2308,19 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
                   <div className="border-t-2 border-foreground pt-4">
                     <div className="font-serif text-lg mb-2 text-foreground">From "Invisible" to "Referenced"</div>
-                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                       <strong className="text-foreground">The Move:</strong> Implement structured schema markup and publish "State of AI Insights" data. Train LLMs to cite Rubiklab as the authority.
                     </p>
+                    <div className="space-y-2 text-xs text-muted-foreground mb-3">
+                      <div className="flex items-start gap-2">
+                        <span className="text-primary">•</span>
+                        <span>Schema.org markup on all pages</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-primary">•</span>
+                        <span>Quarterly industry benchmark reports</span>
+                      </div>
+                    </div>
                     <div className="pt-3 border-t border-border">
                       <div className="font-mono text-[10px] text-primary uppercase">Why: Secures future discovery.</div>
                     </div>
@@ -2302,6 +2339,24 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <p className="text-xs text-foreground">
                       Sandbox first (differentiator). Verticals second (relevance). Schema third (durability).
                     </p>
+                  </div>
+                  
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Resource Estimate</div>
+                    <div className="space-y-2 text-xs">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Sandbox</span>
+                        <span className="text-foreground font-medium">2-3 FTE months</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Verticals</span>
+                        <span className="text-foreground font-medium">1 FTE month</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Schema</span>
+                        <span className="text-foreground font-medium">0.5 FTE month</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
