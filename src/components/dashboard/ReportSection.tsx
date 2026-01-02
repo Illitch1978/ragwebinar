@@ -372,7 +372,7 @@ const SectionDivider = ({
 }: { 
   title: React.ReactNode; 
   subtitle: React.ReactNode; 
-  align?: 'left' | 'center' | 'right'
+  align?: 'left' | 'center' | 'right' | 'top'
 }) => (
   <div className="h-screen bg-[#000000] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
     {/* Grid background */}
@@ -392,6 +392,7 @@ const SectionDivider = ({
       "relative z-10 flex-grow flex flex-col",
       align === 'center' ? "justify-center items-center text-center -mt-20" : 
       align === 'right' ? "justify-start items-end text-right pt-16" : 
+      align === 'top' ? "justify-start items-start pt-24" :
       "justify-end items-start"
     )}>
       {align === 'center' ? (
@@ -413,6 +414,16 @@ const SectionDivider = ({
             {title}<span className="text-[#0099E6]">.</span>
           </h2>
           <p className="font-sans text-xl text-gray-400 font-light leading-relaxed">
+            {subtitle}
+          </p>
+        </div>
+      ) : align === 'top' ? (
+        <div className="max-w-2xl">
+          <div className="w-12 h-1 bg-white mb-8" />
+          <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6">
+            {title}<span className="text-[#0099E6]">.</span>
+          </h2>
+          <p className="font-sans text-xl text-gray-400 font-light max-w-lg leading-relaxed">
             {subtitle}
           </p>
         </div>
@@ -923,7 +934,7 @@ const ReportSection = () => {
       <SectionDivider 
         title="Diagnosis" 
         subtitle="A systemic breakdown of friction, gaps, and lost revenue opportunities."
-        align="left"
+        align="top"
       />
 
       {/* Diagnosis Section */}
