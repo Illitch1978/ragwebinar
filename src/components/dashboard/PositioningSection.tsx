@@ -4,7 +4,7 @@ const positioningData = [
   {
     title: 'Market Position',
     summary: 'Tier-1 Boutique Consultancy',
-    fullText: 'Specialized "strategic insight partner" exclusively serving professional services firms. Deep vertical expertise spanning elite law firms, wealth management practices, real estate advisory, and accountancy firms. Positioned as trusted advisors who intimately understand sector-specific dynamics, competitive pressures, and the unique challenges of partnership structures. Not a generalist consultancy—a specialist that speaks the language of professional services.',
+    fullText: 'Specialized "strategic insight partner" exclusively serving professional services firms. Deep vertical expertise spanning elite law firms, wealth management practices, real estate advisory, and accountancy firms. Positioned as trusted advisors who intimately understand sector-specific dynamics, competitive pressures, and the unique challenges of partnership structures. Not a generalist consultancy: a specialist that speaks the language of professional services.',
   },
   {
     title: 'Target Market',
@@ -14,12 +14,12 @@ const positioningData = [
   {
     title: 'Value Prop',
     summary: 'Unrivaled Analytical Precision',
-    fullText: 'The convergence of rigorous evidence and strategic insight—not just data, but judgment. Three core pillars: "Client Insight" through systematic listening programs that surface unspoken client needs; "Thought Leadership" via proprietary research that shapes industry conversation; and "Growth Strategies" that translate findings into actionable recommendations with measurable outcomes. Every engagement minimizes decision risk through evidence-based guidance.',
+    fullText: 'The convergence of rigorous evidence and strategic insight (not just data, but judgment). Three core pillars: "Client Insight" through systematic listening programs that surface unspoken client needs; "Thought Leadership" via proprietary research that shapes industry conversation; and "Growth Strategies" that translate findings into actionable recommendations with measurable outcomes. Every engagement minimizes decision risk through evidence-based guidance.',
   },
   {
     title: 'Brand Personality',
     summary: 'Quietly Authoritative & Refined',
-    fullText: 'The "Sage" archetype—sophisticated, restrained, and quietly authoritative. Language mirrors clients\' own professional demeanor: measured confidence rather than aggressive claims, precision over hyperbole. Visual identity emphasizes understated elegance befitting advisory relationships built on trust and discretion. Avoids consultant clichés; projects the gravitas expected by senior partners at elite firms.',
+    fullText: 'The "Sage" archetype: sophisticated, restrained, and quietly authoritative. Language mirrors clients\' own professional demeanor: measured confidence rather than aggressive claims, precision over hyperbole. Visual identity emphasizes understated elegance befitting advisory relationships built on trust and discretion. Avoids consultant clichés; projects the gravitas expected by senior partners at elite firms.',
   },
 ];
 
@@ -38,7 +38,7 @@ const growthStrategies = [
   },
   {
     title: 'Visual Identity Refresh',
-    description: 'Execute a subtle refinement of all digital touchpoints—website, reports, presentations—to reinforce premium positioning and align visual language with tier-one client expectations.',
+    description: 'Execute a subtle refinement of all digital touchpoints (website, reports, presentations) to reinforce premium positioning and align visual language with tier-one client expectations.',
     effort: 'Low',
     impact: 'High',
   },
@@ -56,7 +56,7 @@ const growthStrategies = [
   },
   {
     title: 'Regional Expansion',
-    description: 'Establish satellite presence in emerging financial hubs—Dubai, Singapore, or Zurich—to capture growing demand from internationally-minded professional services firms.',
+    description: 'Establish satellite presence in emerging financial hubs (Dubai, Singapore, or Zurich) to capture growing demand from internationally-minded professional services firms.',
     effort: 'High',
     impact: 'Med',
   },

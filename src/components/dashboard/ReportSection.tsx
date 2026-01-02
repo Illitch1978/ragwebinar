@@ -754,18 +754,29 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <SlideEyebrow>Executive Synthesis</SlideEyebrow>
               <ActionTitle>Technical solidity is currently undermined by conversion friction.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-12 flex-1">
-                <div className="col-span-8 flex flex-col">
-                  <div className="text-lg leading-relaxed space-y-6 text-muted-foreground">
-                    <p>
-                      Rubiklab.ai possesses a robust technical foundation. Server response times and uptime stability are within the top 5% of the peer group. The "hard" engineering of the site is sound.
-                    </p>
-                    <p>
-                      However, the "soft" architecture—specifically narrative flow and user intake—is creating significant drag. We observed a disconnect between the complexity of the solution and the clarity of the value proposition. High-intent traffic is being lost at the intake stage due to excessive form friction.
-                    </p>
-                  </div>
+              <div className="grid md:grid-cols-12 gap-10 flex-1">
+                <div className="col-span-8 flex flex-col gap-8">
+                  {/* Key Findings as 4 bullet points */}
+                  <ul className="text-lg leading-relaxed space-y-4 text-muted-foreground list-none">
+                    <li className="flex gap-4">
+                      <span className="text-primary font-mono text-sm mt-1">01</span>
+                      <span>Infrastructure excellence places Rubiklab.ai in the top 5% for server response times and uptime stability. The technical foundation is enterprise-grade.</span>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="text-primary font-mono text-sm mt-1">02</span>
+                      <span>Narrative architecture creates disconnect between solution complexity and value proposition clarity. Visitors cannot immediately identify the business outcome.</span>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="text-primary font-mono text-sm mt-1">03</span>
+                      <span>Intake friction at the form stage is causing abandonment of high-intent traffic. Eight required fields exceed industry benchmarks by 166%.</span>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="text-primary font-mono text-sm mt-1">04</span>
+                      <span>Mobile experience degrades conversion potential. Unoptimized payloads and hidden CTAs compound the friction identified on desktop.</span>
+                    </li>
+                  </ul>
                   
-                  <div className="p-6 border border-primary bg-background shadow-sm mt-auto">
+                  <div className="p-6 border border-primary bg-background shadow-sm">
                     <div className="font-mono text-sm uppercase tracking-widest text-primary mb-3">The Strategic Opportunity</div>
                     <p className="text-base text-foreground">
                       By simplifying the intake mechanism and shifting messaging from "process" to "outcome," Rubiklab can unlock an estimated <strong>40% efficiency gain</strong> in the existing funnel without increasing ad spend.
@@ -1025,7 +1036,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     A high-performing digital asset operates as an integrated system where clarity, logic, and flow compound to drive decisions.
                   </p>
                   <p>
-                    Currently, Rubiklab.ai suffers from <strong className="text-foreground">Systemic Decay</strong>. While individual pages are visually polished, the connective tissue—the logic that moves a user from "Interest" to "Action"—is fractured.
+                    Currently, Rubiklab.ai suffers from <strong className="text-foreground">Systemic Decay</strong>. While individual pages are visually polished, the connective tissue (the logic that moves a user from "Interest" to "Action") is fractured.
                   </p>
                   <div className="pt-5 border-t border-border">
                     <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-3">Composite Diagnostic</div>
@@ -1142,7 +1153,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <div className="pt-5 border-t border-border">
                     <div className="font-mono text-sm uppercase tracking-widest text-primary mb-3">Prescription</div>
                     <p className="text-sm text-foreground leading-relaxed">
-                      Reframe the narrative from capability description to outcome articulation. Lead with the business impact—faster decisions, reduced risk, measurable ROI—and relegate technical methodology to a secondary "How it Works" section.
+                      Reframe the narrative from capability description to outcome articulation. Lead with the business impact (faster decisions, reduced risk, measurable ROI) and relegate technical methodology to a secondary "How it Works" section.
                     </p>
                   </div>
                 </div>
@@ -1778,7 +1789,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 <div className="flex items-center gap-3">
                   {/* Y-Axis Label - Outside, closer to chart */}
                   <div className="-rotate-90 text-[11px] font-mono text-primary font-bold tracking-widest whitespace-nowrap">
-                    LOW ←— BUSINESS IMPACT —→ HIGH
+                    LOW ← BUSINESS IMPACT → HIGH
                   </div>
                   
                   <div className="flex flex-col -ml-[90px]">
@@ -1899,7 +1910,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     
                     {/* X-Axis Label - Outside */}
                     <div className="text-center mt-6 text-[11px] font-mono text-primary font-bold tracking-widest">
-                      LOW ←— EFFORT / COMPLEXITY —→ HIGH
+                      LOW ← EFFORT / COMPLEXITY → HIGH
                     </div>
                   </div>
                 </div>
