@@ -5,6 +5,23 @@
 @tailwind utilities;
 
 @layer base {
+  /* Scale up root font for large displays */
+  html {
+    font-size: 16px;
+  }
+  
+  @media (min-width: 1536px) {
+    html {
+      font-size: 17px;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    html {
+      font-size: 18px;
+    }
+  }
+  
   :root {
     /* Mondro Strategic Synthesis Theme - Light Creme */
     --background: 30 33% 99%;
