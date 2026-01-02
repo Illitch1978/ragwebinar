@@ -1215,27 +1215,27 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 09: Narrative Positioning */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Narrative Positioning</SlideEyebrow>
               <ActionTitle>The "Process vs. Outcome" disconnect.</ActionTitle>
               
-              <div className="grid md:grid-cols-2 gap-10">
-                <div className="text-base leading-relaxed text-muted-foreground space-y-4">
+              <div className="grid md:grid-cols-12 gap-8 flex-1">
+                <div className="col-span-5 text-base leading-relaxed text-muted-foreground space-y-4 flex flex-col">
                   <p>
                     Your internal teams understand the nuance of your technology ("Human-in-the-loop AI"). However, this nuance is lost in translation.
                   </p>
                   <p>
                     The website currently explains <em>how</em> the sausage is made, rather than <em>why</em> it tastes good. This alienates the executive buyer who is purchasing velocity and accuracy, not algorithms.
                   </p>
-                  <div className="pt-5 border-t border-border">
-                    <div className="font-mono text-sm uppercase tracking-widest text-primary mb-3">Prescription</div>
+                  <div className="pt-5 border-t border-border mt-auto">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">Prescription</div>
                     <p className="text-sm text-foreground leading-relaxed">
                       Reframe the narrative from capability description to outcome articulation. Lead with the business impact (faster decisions, reduced risk, measurable ROI) and relegate technical methodology to a secondary "How it Works" section.
                     </p>
                   </div>
                 </div>
 
-                <div className="border border-border">
+                <div className="col-span-7 border border-border flex flex-col">
                   <div className="grid grid-cols-2">
                     <div className="p-4 border-b border-r border-border bg-muted/30">
                       <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Intended Message</span>
@@ -1244,31 +1244,39 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       <span className="font-mono text-xs uppercase tracking-widest text-primary">Received Reality</span>
                     </div>
 
-                    <div className="p-5 border-b border-r border-border">
+                    <div className="p-4 border-b border-r border-border">
                       <div className="font-serif text-lg">"We Innovate"</div>
-                      <div className="text-sm text-muted-foreground/70 mt-1">Generic Aspiration</div>
+                      <div className="text-xs text-muted-foreground/70 mt-1">Generic Aspiration</div>
                     </div>
-                    <div className="p-5 border-b border-border">
+                    <div className="p-4 border-b border-border">
                       <div className="font-serif text-lg text-muted-foreground">"What do you actually do?"</div>
-                      <div className="text-sm text-destructive mt-1">Confusion</div>
+                      <div className="text-xs text-destructive mt-1">Confusion</div>
                     </div>
 
-                    <div className="p-5 border-b border-r border-border">
+                    <div className="p-4 border-b border-r border-border">
                       <div className="font-serif text-lg">"Semantic Search"</div>
-                      <div className="text-sm text-muted-foreground/70 mt-1">Technical Feature</div>
+                      <div className="text-xs text-muted-foreground/70 mt-1">Technical Feature</div>
                     </div>
-                    <div className="p-5 border-b border-border">
+                    <div className="p-4 border-b border-border">
                       <div className="font-serif text-lg text-muted-foreground">"Is this for developers?"</div>
-                      <div className="text-sm text-destructive mt-1">Misalignment</div>
+                      <div className="text-xs text-destructive mt-1">Misalignment</div>
                     </div>
 
-                    <div className="p-5 border-r border-border">
+                    <div className="p-4 border-r border-border">
                       <div className="font-serif text-lg">"Hybrid AI Model"</div>
-                      <div className="text-sm text-muted-foreground/70 mt-1">Differentiation</div>
+                      <div className="text-xs text-muted-foreground/70 mt-1">Differentiation</div>
                     </div>
-                    <div className="p-5">
+                    <div className="p-4">
                       <div className="font-serif text-lg text-muted-foreground">"Sounds expensive/slow."</div>
-                      <div className="text-sm text-destructive mt-1">Friction</div>
+                      <div className="text-xs text-destructive mt-1">Friction</div>
+                    </div>
+                  </div>
+                  
+                  {/* Added insight row */}
+                  <div className="p-4 border-t border-border bg-primary/5 mt-auto">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-primary">Pattern:</span>
+                      <span className="text-sm text-foreground">Every "Process" headline triggers a "What's the outcome?" question.</span>
                     </div>
                   </div>
                 </div>
@@ -1278,114 +1286,137 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 10: Trust Architecture */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Trust Architecture</SlideEyebrow>
               <ActionTitle>Credibility is currently implicit, rather than explicit.</ActionTitle>
               
-              <p className="text-base text-muted-foreground max-w-4xl mb-6">
-                In high-value B2B transactions, trust must be established before logic can be applied. Your current architecture asks the user to "trust the code" without providing the necessary social and institutional signals.
-              </p>
+              <div className="grid md:grid-cols-12 gap-8 flex-1">
+                <div className="col-span-8 flex flex-col">
+                  <p className="text-sm text-muted-foreground mb-5">
+                    In high-value B2B transactions, trust must be established before logic can be applied. Your current architecture asks the user to "trust the code" without providing the necessary social and institutional signals.
+                  </p>
 
-              <div className="w-full">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr>
-                      <th className="font-mono text-xs uppercase tracking-widest text-muted-foreground pb-4 border-b-2 border-foreground" style={{ width: "25%" }}>Signal Category</th>
-                      <th className="font-mono text-xs uppercase tracking-widest text-muted-foreground pb-4 border-b-2 border-foreground" style={{ width: "20%" }}>Status</th>
-                      <th className="font-mono text-xs uppercase tracking-widest text-muted-foreground pb-4 border-b-2 border-foreground" style={{ width: "55%" }}>Audit Finding</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="py-5 border-b border-border font-serif text-xl">Social Proof</td>
-                      <td className="py-5 border-b border-border">
-                        <span className="font-mono text-xs text-destructive bg-destructive/10 px-3 py-1.5 uppercase tracking-widest">Absent</span>
-                      </td>
-                      <td className="py-5 border-b border-border text-sm text-muted-foreground">
-                        Zero client logos, case study snapshots, or testimonials on the homepage. The site feels "empty" of customers.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-5 border-b border-border font-serif text-xl">Authority Cues</td>
-                      <td className="py-5 border-b border-border">
-                        <span className="font-mono text-xs text-muted-foreground bg-muted px-3 py-1.5 uppercase tracking-widest">Implicit</span>
-                      </td>
-                      <td className="py-5 border-b border-border text-sm text-muted-foreground">
-                        Deep technical content implies expertise, but there are no "Badges of Honor" (Awards, Certifications, Partnerships).
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-5 border-b border-border font-serif text-xl">Humanity</td>
-                      <td className="py-5 border-b border-border">
-                        <span className="font-mono text-xs text-destructive bg-destructive/10 px-3 py-1.5 uppercase tracking-widest">Critical Gap</span>
-                      </td>
-                      <td className="py-5 border-b border-border text-sm text-muted-foreground">
-                        No "Team" page. No faces. In a "Human-in-the-loop" service, the absence of humans is a paradox.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground pb-3 border-b-2 border-foreground" style={{ width: "22%" }}>Signal Category</th>
+                        <th className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground pb-3 border-b-2 border-foreground" style={{ width: "18%" }}>Status</th>
+                        <th className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground pb-3 border-b-2 border-foreground" style={{ width: "60%" }}>Audit Finding</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="py-4 border-b border-border font-serif text-lg">Social Proof</td>
+                        <td className="py-4 border-b border-border">
+                          <span className="font-mono text-[10px] text-destructive bg-destructive/10 px-2 py-1 uppercase tracking-widest">Absent</span>
+                        </td>
+                        <td className="py-4 border-b border-border text-xs text-muted-foreground">
+                          Zero client logos, case study snapshots, or testimonials on the homepage. The site feels "empty" of customers.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="py-4 border-b border-border font-serif text-lg">Authority Cues</td>
+                        <td className="py-4 border-b border-border">
+                          <span className="font-mono text-[10px] text-muted-foreground bg-muted px-2 py-1 uppercase tracking-widest">Implicit</span>
+                        </td>
+                        <td className="py-4 border-b border-border text-xs text-muted-foreground">
+                          Deep technical content implies expertise, but there are no "Badges of Honor" (Awards, Certifications, Partnerships).
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="py-4 border-b border-border font-serif text-lg">Humanity</td>
+                        <td className="py-4 border-b border-border">
+                          <span className="font-mono text-[10px] text-destructive bg-destructive/10 px-2 py-1 uppercase tracking-widest">Critical Gap</span>
+                        </td>
+                        <td className="py-4 border-b border-border text-xs text-muted-foreground">
+                          No "Team" page. No faces. In a "Human-in-the-loop" service, the absence of humans is a paradox.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div className="col-span-4 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-5 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Trust Deficit Impact</div>
+                    <div className="font-serif text-3xl mb-2 text-foreground">+2 Weeks</div>
+                    <p className="text-sm text-muted-foreground">Estimated additional sales cycle length due to credibility establishment burden falling on the SDR team.</p>
+                  </div>
+                  
+                  <div className="p-5 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Prescription</div>
+                    <p className="text-sm text-foreground leading-relaxed">
+                      Add a "Trust Strip" below the hero: 3 client logos, an industry award, and a G2 rating badge. Move team photos to the homepage footer.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </Slide>
 
           {/* Slide 11: Technical Constraints */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Technical Constraints</SlideEyebrow>
               <ActionTitle>Cosmetic issues are degrading the perception of stability.</ActionTitle>
               
-              <div className="grid md:grid-cols-3 gap-6">
-                {/* Vector 01 */}
-                <div className="border border-border p-6 bg-muted/30 flex flex-col justify-between">
-                  <div>
-                    <div className="font-mono text-xs uppercase tracking-widest text-destructive mb-3">Vector 01</div>
-                    <h3 className="font-serif text-2xl mb-3">Mobile Latency</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-9 grid md:grid-cols-3 gap-5">
+                  {/* Vector 01 */}
+                  <div className="border border-border p-5 bg-muted/30 flex flex-col">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-2">Vector 01</div>
+                    <h3 className="font-serif text-xl mb-2">Mobile Latency</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
                       High-resolution PNGs are unoptimized for 4G networks. This causes a 2.4s load delay on mobile devices.
                     </p>
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <span className="font-mono text-[10px] text-muted-foreground uppercase">Perception Impact</span>
+                      <div className="text-sm font-medium mt-1">"The platform feels heavy."</div>
+                    </div>
                   </div>
-                  <div className="mt-5 pt-4 border-t border-border">
-                    <span className="font-mono text-xs text-muted-foreground uppercase">Perception Impact</span>
-                    <div className="text-sm font-medium mt-1">"The platform feels heavy."</div>
-                  </div>
-                </div>
 
-                {/* Vector 02 */}
-                <div className="border border-border p-6 bg-muted/30 flex flex-col justify-between">
-                  <div>
-                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Vector 02</div>
-                    <h3 className="font-serif text-2xl mb-3">Cumulative Shift</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                  {/* Vector 02 */}
+                  <div className="border border-border p-5 bg-muted/30 flex flex-col">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Vector 02</div>
+                    <h3 className="font-serif text-xl mb-2">Cumulative Shift</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
                       Font loading behaviors cause the navigation bar to "jump" 20px after initial paint.
                     </p>
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <span className="font-mono text-[10px] text-muted-foreground uppercase">Perception Impact</span>
+                      <div className="text-sm font-medium mt-1">"The engineering is unpolished."</div>
+                    </div>
                   </div>
-                  <div className="mt-5 pt-4 border-t border-border">
-                    <span className="font-mono text-xs text-muted-foreground uppercase">Perception Impact</span>
-                    <div className="text-sm font-medium mt-1">"The engineering is unpolished."</div>
-                  </div>
-                </div>
 
-                {/* Vector 03 */}
-                <div className="border border-border p-6 bg-muted/30 flex flex-col justify-between">
-                  <div>
-                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Vector 03</div>
-                    <h3 className="font-serif text-2xl mb-3">Dead Ends</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                  {/* Vector 03 */}
+                  <div className="border border-border p-5 bg-muted/30 flex flex-col">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Vector 03</div>
+                    <h3 className="font-serif text-xl mb-2">Dead Ends</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
                       Three sub-service pages resolve to 404 errors or empty templates.
                     </p>
-                  </div>
-                  <div className="mt-5 pt-4 border-t border-border">
-                    <span className="font-mono text-xs text-muted-foreground uppercase">Perception Impact</span>
-                    <div className="text-sm font-medium mt-1">"Is this company active?"</div>
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <span className="font-mono text-[10px] text-muted-foreground uppercase">Perception Impact</span>
+                      <div className="text-sm font-medium mt-1">"Is this company active?"</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="mt-6 border-t border-border pt-5 flex gap-8">
-                <div className="font-mono text-sm uppercase tracking-widest text-primary">Recommended Action</div>
-                <div className="text-sm text-muted-foreground max-w-3xl">
-                  Prioritize a focused technical sprint addressing these three vectors. Resolve 404 errors immediately, implement WebP image conversion with lazy loading, and apply font-display swap to eliminate layout shift.
+                
+                <div className="col-span-3 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-5 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Composite Score</div>
+                    <div className="font-serif text-4xl mb-2 text-foreground">45<span className="text-lg text-muted-foreground">/100</span></div>
+                    <p className="text-xs text-muted-foreground">PageSpeed Mobile. Passing threshold is 90+.</p>
+                  </div>
+                  
+                  <div className="p-5 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Sprint Focus</div>
+                    <ul className="text-xs text-foreground space-y-1.5">
+                      <li>• Resolve 404 errors (Day 1)</li>
+                      <li>• WebP conversion + lazy load (Day 2-3)</li>
+                      <li>• Font-display swap (Day 4)</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1393,50 +1424,67 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 12: Diagnosis Summary */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Diagnosis Summary</SlideEyebrow>
               <ActionTitle className="mb-6">Three dominant forces are actively suppressing revenue.</ActionTitle>
               
-              <div className="space-y-0">
-                {/* Item 01 */}
-                <div className="grid grid-cols-12 py-6 border-t-2 border-foreground items-center">
-                  <div className="col-span-1 font-mono text-base text-muted-foreground">01</div>
-                  <div className="col-span-8">
-                    <div className="font-serif text-3xl mb-2 text-foreground">Artificial Friction</div>
-                    <p className="text-sm text-muted-foreground max-w-2xl">
-                      The intake form structure prioritizes data enrichment over user acquisition, causing a 65% drop-off at the moment of highest intent.
-                    </p>
+              <div className="grid md:grid-cols-12 gap-8 flex-1">
+                <div className="col-span-8 space-y-0 flex flex-col">
+                  {/* Item 01 */}
+                  <div className="grid grid-cols-12 py-5 border-t-2 border-foreground items-start">
+                    <div className="col-span-1 font-mono text-sm text-muted-foreground">01</div>
+                    <div className="col-span-8">
+                      <div className="font-serif text-2xl mb-1 text-foreground">Artificial Friction</div>
+                      <p className="text-sm text-muted-foreground">
+                        The intake form structure prioritizes data enrichment over user acquisition, causing a 65% drop-off at the moment of highest intent.
+                      </p>
+                    </div>
+                    <div className="col-span-3 text-right">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-destructive border border-destructive/30 px-2 py-1">Critical</span>
+                    </div>
                   </div>
-                  <div className="col-span-3 text-right">
-                    <span className="font-mono text-xs uppercase tracking-widest text-destructive border border-destructive/30 px-3 py-1.5">Critical Impact</span>
+
+                  {/* Item 02 */}
+                  <div className="grid grid-cols-12 py-5 border-t border-border items-start">
+                    <div className="col-span-1 font-mono text-sm text-muted-foreground">02</div>
+                    <div className="col-span-8">
+                      <div className="font-serif text-2xl mb-1 text-foreground">Narrative Obscurity</div>
+                      <p className="text-sm text-muted-foreground">
+                        Messaging focuses on technical processes rather than business outcomes, reducing resonance with C-Suite decision makers.
+                      </p>
+                    </div>
+                    <div className="col-span-3 text-right">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground border border-border px-2 py-1">High</span>
+                    </div>
+                  </div>
+
+                  {/* Item 03 */}
+                  <div className="grid grid-cols-12 py-5 border-t border-b border-border items-start">
+                    <div className="col-span-1 font-mono text-sm text-muted-foreground">03</div>
+                    <div className="col-span-8">
+                      <div className="font-serif text-2xl mb-1 text-foreground">Trust Deficit</div>
+                      <p className="text-sm text-muted-foreground">
+                        The absence of explicit social proof and human elements forces users to "guess" at credibility, lengthening the sales cycle.
+                      </p>
+                    </div>
+                    <div className="col-span-3 text-right">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground border border-border px-2 py-1">High</span>
+                    </div>
                   </div>
                 </div>
-
-                {/* Item 02 */}
-                <div className="grid grid-cols-12 py-6 border-t border-border items-center">
-                  <div className="col-span-1 font-mono text-base text-muted-foreground">02</div>
-                  <div className="col-span-8">
-                    <div className="font-serif text-3xl mb-2 text-foreground">Narrative Obscurity</div>
-                    <p className="text-sm text-muted-foreground max-w-2xl">
-                      Messaging focuses on technical processes rather than business outcomes, reducing resonance with C-Suite decision makers.
+                
+                <div className="col-span-4 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-5 border-l-2 border-foreground">
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Combined Revenue Impact</div>
+                    <div className="font-serif text-4xl text-destructive mb-1">-40%</div>
+                    <p className="text-xs text-muted-foreground">Estimated conversion efficiency loss compared to optimized peer benchmark.</p>
+                  </div>
+                  
+                  <div className="p-5 bg-primary/5 border-l-2 border-primary flex-1">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Path Forward</div>
+                    <p className="text-sm text-foreground leading-relaxed">
+                      These three forces are addressable. The following section (Market Context) will position the diagnosis against competitive reality before the roadmap.
                     </p>
-                  </div>
-                  <div className="col-span-3 text-right">
-                    <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground border border-border px-3 py-1.5">High Impact</span>
-                  </div>
-                </div>
-
-                {/* Item 03 */}
-                <div className="grid grid-cols-12 py-6 border-t border-b border-border items-center">
-                  <div className="col-span-1 font-mono text-base text-muted-foreground">03</div>
-                  <div className="col-span-8">
-                    <div className="font-serif text-3xl mb-2 text-foreground">Trust Deficit</div>
-                    <p className="text-sm text-muted-foreground max-w-2xl">
-                      The absence of explicit social proof and human elements forces users to "guess" at credibility, lengthening the sales cycle.
-                    </p>
-                  </div>
-                  <div className="col-span-3 text-right">
-                    <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground border border-border px-3 py-1.5">High Impact</span>
                   </div>
                 </div>
               </div>
@@ -1453,13 +1501,13 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       {/* Competitive Context Section */}
           {/* Slide 13: The Competitive Reality */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>The Competitive Reality</SlideEyebrow>
               <ActionTitle>The category has split into "Legacy Trust" and "AI Velocity".</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-10">
-                <div className="col-span-6 text-base leading-relaxed text-muted-foreground space-y-4">
-                  <p className="text-lg text-foreground">
+              <div className="grid md:grid-cols-12 gap-8 flex-1">
+                <div className="col-span-6 text-base leading-relaxed text-muted-foreground space-y-4 flex flex-col">
+                  <p className="text-base text-foreground">
                     You are not just competing against other research tools. You are competing against the "Good Enough" economy of generalist AI (ChatGPT) and the entrenched inertia of legacy agencies.
                   </p>
                   <p className="text-sm">
@@ -1467,32 +1515,39 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <br/>1. <strong className="text-foreground">Reliability:</strong> Old-guard players adding AI wrappers to protect their moat.
                     <br/>2. <strong className="text-foreground">Speed:</strong> Product-led disruptors selling "insights in minutes."
                   </p>
-                  <div className="pt-5 mt-2 border-t border-border">
-                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-2">The Rubiklab Position</div>
+                  <div className="pt-5 mt-auto border-t border-border">
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">The Rubiklab Position</div>
                     <div className="font-serif text-lg italic text-muted-foreground">
                       "Stuck in the middle." Technically superior to the disruptors, but narratively quieter than the legacy players.
                     </div>
                   </div>
                 </div>
 
-                <div className="col-span-6">
-                  <div className="bg-muted/30 p-6 border-l-2 border-foreground">
-                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">Buyer Decision Criteria</div>
+                <div className="col-span-6 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-5 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Buyer Decision Criteria</div>
                     
-                    <ul className="space-y-4">
-                      <li className="flex justify-between items-center pb-4 border-b border-border">
-                        <span className="font-serif text-lg">Speed to Insight</span>
-                        <span className="font-mono text-xs text-primary uppercase tracking-widest">Dominant Factor</span>
+                    <ul className="space-y-3">
+                      <li className="flex justify-between items-center pb-3 border-b border-border">
+                        <span className="font-serif text-base">Speed to Insight</span>
+                        <span className="font-mono text-[10px] text-primary uppercase tracking-widest">Dominant Factor</span>
                       </li>
-                      <li className="flex justify-between items-center pb-4 border-b border-border">
-                        <span className="font-serif text-lg">Methodology Trust</span>
-                        <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest">Hygiene Factor</span>
+                      <li className="flex justify-between items-center pb-3 border-b border-border">
+                        <span className="font-serif text-base">Methodology Trust</span>
+                        <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">Hygiene Factor</span>
                       </li>
-                      <li className="flex justify-between items-center pb-4 border-b border-border">
-                        <span className="font-serif text-lg">Platform vs Service</span>
-                        <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest">Platform Preferred</span>
+                      <li className="flex justify-between items-center pb-3 border-b border-border">
+                        <span className="font-serif text-base">Platform vs Service</span>
+                        <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">Platform Preferred</span>
                       </li>
                     </ul>
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Strategic Implication</div>
+                    <p className="text-sm text-foreground">
+                      Rubiklab must claim the "Premium Speed" position before incumbents close the velocity gap.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1501,155 +1556,179 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 14: Peer Positioning Snapshot */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Peer Positioning Snapshot</SlideEyebrow>
               <ActionTitle>High authority on "Tech", invisible on "Trust".</ActionTitle>
               
-              <p className="text-sm text-muted-foreground max-w-4xl mb-6">
+              <p className="text-sm text-muted-foreground max-w-4xl mb-5">
                 We benchmarked Rubiklab against three market archetypes: The Legacy Incumbent (e.g., Qualtrics), The Speed Disruptor (e.g., Yabble), and The Low-End Synthetic.
               </p>
 
-              <div className="w-full max-w-5xl space-y-4">
-                
-                {/* Proposition Clarity */}
-                <div className="bg-card border border-border p-4 rounded-lg">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-1 h-6 bg-amber-500 rounded-full" />
-                    <span className="font-mono text-xs text-foreground uppercase tracking-widest">Proposition Clarity</span>
-                  </div>
-                  <div className="flex justify-between font-mono text-[10px] text-muted-foreground mb-2 uppercase tracking-wider px-1">
-                    <span>Obscure</span>
-                    <span>Crystal Clear</span>
-                  </div>
-                  <div className="relative h-10 flex items-center px-1">
-                    <div className="w-full h-1 bg-muted rounded-full relative">
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "80%" }}>
-                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-9 space-y-3">
+                  {/* Proposition Clarity */}
+                  <div className="bg-card border border-border p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-1 h-5 bg-amber-500 rounded-full" />
+                      <span className="font-mono text-[10px] text-foreground uppercase tracking-widest">Proposition Clarity</span>
+                    </div>
+                    <div className="flex justify-between font-mono text-[9px] text-muted-foreground mb-1.5 uppercase tracking-wider px-1">
+                      <span>Obscure</span>
+                      <span>Crystal Clear</span>
+                    </div>
+                    <div className="relative h-8 flex items-center px-1">
+                      <div className="w-full h-1 bg-muted rounded-full relative">
+                        <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "80%" }}>
+                          <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
+                        </div>
+                        <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "60%" }}>
+                          <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
+                        </div>
+                        <div className="absolute w-3 h-3 rounded-full bg-amber-500 border-2 border-background shadow-[0_0_0_2px_rgb(245,158,11)] top-1/2 -translate-y-1/2" style={{ left: "30%" }}>
+                          <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-[9px] text-amber-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                        </div>
                       </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "60%" }}>
-                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
+                    </div>
+                  </div>
+
+                  {/* Technical Authority */}
+                  <div className="bg-card border border-border p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-1 h-5 bg-emerald-500 rounded-full" />
+                      <span className="font-mono text-[10px] text-foreground uppercase tracking-widest">Technical Authority</span>
+                    </div>
+                    <div className="flex justify-between font-mono text-[9px] text-muted-foreground mb-1.5 uppercase tracking-wider px-1">
+                      <span>Superficial</span>
+                      <span>Deep Expertise</span>
+                    </div>
+                    <div className="relative h-8 flex items-center px-1">
+                      <div className="w-full h-1 bg-muted rounded-full relative">
+                        <div className="absolute w-3 h-3 rounded-full bg-emerald-500 border-2 border-background shadow-[0_0_0_2px_rgb(16,185,129)] top-1/2 -translate-y-1/2" style={{ left: "85%" }}>
+                          <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-[9px] text-emerald-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                        </div>
+                        <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "70%" }}>
+                          <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
+                        </div>
+                        <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "40%" }}>
+                          <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
+                        </div>
                       </div>
-                      <div className="absolute w-4 h-4 rounded-full bg-amber-500 border-2 border-background shadow-[0_0_0_2px_rgb(245,158,11)] top-1/2 -translate-y-1/2" style={{ left: "30%" }}>
-                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-amber-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                    </div>
+                  </div>
+
+                  {/* Market Presence */}
+                  <div className="bg-card border border-border p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-1 h-5 bg-rose-500 rounded-full" />
+                      <span className="font-mono text-[10px] text-foreground uppercase tracking-widest">Market Presence</span>
+                    </div>
+                    <div className="flex justify-between font-mono text-[9px] text-muted-foreground mb-1.5 uppercase tracking-wider px-1">
+                      <span>Invisible</span>
+                      <span>Ubiquitous</span>
+                    </div>
+                    <div className="relative h-8 flex items-center px-1">
+                      <div className="w-full h-1 bg-muted rounded-full relative">
+                        <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "90%" }}>
+                          <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
+                        </div>
+                        <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "65%" }}>
+                          <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
+                        </div>
+                        <div className="absolute w-3 h-3 rounded-full bg-rose-500 border-2 border-background shadow-[0_0_0_2px_rgb(244,63,94)] top-1/2 -translate-y-1/2" style={{ left: "15%" }}>
+                          <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-[9px] text-rose-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Technical Authority */}
-                <div className="bg-card border border-border p-4 rounded-lg">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-1 h-6 bg-emerald-500 rounded-full" />
-                    <span className="font-mono text-xs text-foreground uppercase tracking-widest">Technical Authority</span>
+                <div className="col-span-3 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Summary Reading</div>
+                    <div className="font-serif text-xl mb-2 text-foreground">Asymmetric</div>
+                    <p className="text-xs text-muted-foreground">Technical strength is not translating into market perception or proposition clarity.</p>
                   </div>
-                  <div className="flex justify-between font-mono text-[10px] text-muted-foreground mb-2 uppercase tracking-wider px-1">
-                    <span>Superficial</span>
-                    <span>Deep Expertise</span>
-                  </div>
-                  <div className="relative h-10 flex items-center px-1">
-                    <div className="w-full h-1 bg-muted rounded-full relative">
-                      <div className="absolute w-4 h-4 rounded-full bg-emerald-500 border-2 border-background shadow-[0_0_0_2px_rgb(16,185,129)] top-1/2 -translate-y-1/2" style={{ left: "85%" }}>
-                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-emerald-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
-                      </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "70%" }}>
-                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
-                      </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "40%" }}>
-                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
-                      </div>
-                    </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Priority Gap</div>
+                    <p className="text-sm text-foreground">
+                      Close the "Proposition Clarity" gap first. Technical authority is already strong.
+                    </p>
                   </div>
                 </div>
-
-                {/* Market Presence */}
-                <div className="bg-card border border-border p-4 rounded-lg">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-1 h-6 bg-rose-500 rounded-full" />
-                    <span className="font-mono text-xs text-foreground uppercase tracking-widest">Market Presence</span>
-                  </div>
-                  <div className="flex justify-between font-mono text-[10px] text-muted-foreground mb-2 uppercase tracking-wider px-1">
-                    <span>Invisible</span>
-                    <span>Ubiquitous</span>
-                  </div>
-                  <div className="relative h-10 flex items-center px-1">
-                    <div className="w-full h-1 bg-muted rounded-full relative">
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "90%" }}>
-                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
-                      </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "65%" }}>
-                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
-                      </div>
-                      <div className="absolute w-4 h-4 rounded-full bg-rose-500 border-2 border-background shadow-[0_0_0_2px_rgb(244,63,94)] top-1/2 -translate-y-1/2" style={{ left: "15%" }}>
-                        <span className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-rose-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
               </div>
             </div>
           </Slide>
 
           {/* Slide 15: Differentiation Signals */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Differentiation Signals</SlideEyebrow>
               <ActionTitle>Winners are selling "Outcomes", not "Models".</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-10">
-                <div className="col-span-4 text-sm text-muted-foreground">
+              <div className="grid md:grid-cols-12 gap-8 flex-1">
+                <div className="col-span-4 text-sm text-muted-foreground flex flex-col">
                   <p className="mb-4">
                     A clear pattern has emerged among high-growth peers. They have systematically scrubbed "AI Process" language from their headlines, replacing it with "Business Impact" language.
                   </p>
-                  <div className="font-mono text-sm text-muted-foreground uppercase tracking-widest mt-6">The Shift</div>
-                  <div className="font-serif text-2xl mt-2 text-foreground">From "How" to "Why".</div>
+                  <div className="mt-auto pt-5 border-t border-border">
+                    <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest mb-2">The Shift</div>
+                    <div className="font-serif text-2xl text-foreground">From "How" to "Why".</div>
+                  </div>
                 </div>
 
                 <div className="col-span-8">
                   <div className="border-t border-border">
                     
                     {/* Signal Row 1 */}
-                    <div className="grid grid-cols-2 border-b border-border py-4">
-                      <div className="pr-6">
-                        <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest mb-2">Competitor Pattern</div>
-                        <div className="font-serif text-lg text-foreground">"Answers in Minutes"</div>
-                        <div className="text-xs text-muted-foreground mt-1">Focus on time-to-value.</div>
+                    <div className="grid grid-cols-2 border-b border-border py-3">
+                      <div className="pr-5">
+                        <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Competitor Pattern</div>
+                        <div className="font-serif text-base text-foreground">"Answers in Minutes"</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">Focus on time-to-value.</div>
                       </div>
-                      <div className="pl-6 border-l border-border">
-                        <div className="font-mono text-xs text-primary uppercase tracking-widest mb-2">Rubiklab Approach</div>
-                        <div className="font-serif text-lg text-muted-foreground">"Semantic Processing"</div>
-                        <div className="text-xs text-destructive mt-1">Focus on technical method.</div>
+                      <div className="pl-5 border-l border-border">
+                        <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">Rubiklab Approach</div>
+                        <div className="font-serif text-base text-muted-foreground">"Semantic Processing"</div>
+                        <div className="text-xs text-destructive mt-0.5">Focus on technical method.</div>
                       </div>
                     </div>
 
                     {/* Signal Row 2 */}
-                    <div className="grid grid-cols-2 border-b border-border py-4">
-                      <div className="pr-6">
-                        <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest mb-2">Competitor Pattern</div>
-                        <div className="font-serif text-lg text-foreground">"Synthetic + Human"</div>
-                        <div className="text-xs text-muted-foreground mt-1">Validating accuracy.</div>
+                    <div className="grid grid-cols-2 border-b border-border py-3">
+                      <div className="pr-5">
+                        <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Competitor Pattern</div>
+                        <div className="font-serif text-base text-foreground">"Synthetic + Human"</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">Validating accuracy.</div>
                       </div>
-                      <div className="pl-6 border-l border-border">
-                        <div className="font-mono text-xs text-primary uppercase tracking-widest mb-2">Rubiklab Approach</div>
-                        <div className="font-serif text-lg text-muted-foreground">"AI Innovation"</div>
-                        <div className="text-xs text-destructive mt-1">Generic buzzwords.</div>
+                      <div className="pl-5 border-l border-border">
+                        <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">Rubiklab Approach</div>
+                        <div className="font-serif text-base text-muted-foreground">"AI Innovation"</div>
+                        <div className="text-xs text-destructive mt-0.5">Generic buzzwords.</div>
                       </div>
                     </div>
 
                     {/* Signal Row 3 */}
-                    <div className="grid grid-cols-2 border-b border-border py-4">
-                      <div className="pr-6">
-                        <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest mb-2">Competitor Pattern</div>
-                        <div className="font-serif text-lg text-foreground">"Product Sandbox"</div>
-                        <div className="text-xs text-muted-foreground mt-1">Show, don't tell.</div>
+                    <div className="grid grid-cols-2 border-b border-border py-3">
+                      <div className="pr-5">
+                        <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Competitor Pattern</div>
+                        <div className="font-serif text-base text-foreground">"Product Sandbox"</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">Show, don't tell.</div>
                       </div>
-                      <div className="pl-6 border-l border-border">
-                        <div className="font-mono text-xs text-primary uppercase tracking-widest mb-2">Rubiklab Approach</div>
-                        <div className="font-serif text-lg text-muted-foreground">"Book a Demo"</div>
-                        <div className="text-xs text-destructive mt-1">Gatekeeping the value.</div>
+                      <div className="pl-5 border-l border-border">
+                        <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">Rubiklab Approach</div>
+                        <div className="font-serif text-base text-muted-foreground">"Book a Demo"</div>
+                        <div className="text-xs text-destructive mt-0.5">Gatekeeping the value.</div>
                       </div>
                     </div>
 
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary mt-4">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Prescription</div>
+                    <p className="text-sm text-foreground">
+                      Replace "Semantic Processing" with "Research in 24hrs, not 24 days." Lead with the outcome, not the engine.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1658,120 +1737,157 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 16: Visibility & Discoverability */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Visibility & Discoverability</SlideEyebrow>
               <ActionTitle>Invisible to the new arbiters of trust.</ActionTitle>
               
-              <p className="text-sm text-muted-foreground max-w-4xl mb-6">
+              <p className="text-sm text-muted-foreground max-w-4xl mb-5">
                 In 2025, visibility is not just about Google Rankings; it is about <strong className="text-foreground">Generative Presence</strong>. Does ChatGPT cite you as a leader? Currently, the answer is no.
               </p>
 
-              <div className="grid md:grid-cols-2 gap-8">
-                
-                <div className="border border-border p-6 bg-muted/30">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Search Engine Presence</div>
-                  <div className="font-serif text-3xl mb-3 text-muted-foreground">Low-Tier</div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-5 border border-border p-5 bg-muted/30 flex flex-col">
+                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Search Engine Presence</div>
+                  <div className="font-serif text-2xl mb-2 text-muted-foreground">Low-Tier</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
                     You rank for your own brand name, but have near-zero visibility for high-intent non-branded terms like "AI Consumer Insights." You are relying entirely on outbound sales or paid acquisition.
                   </p>
+                  <div className="mt-4 pt-3 border-t border-border">
+                    <span className="font-mono text-[10px] text-muted-foreground uppercase">Organic Traffic Share</span>
+                    <div className="text-lg font-medium mt-1 text-muted-foreground">~5%</div>
+                  </div>
                 </div>
 
-                <div className="border border-border p-6 bg-background border-l-4 border-l-destructive shadow-sm">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">Generative AI Index</div>
-                  <div className="font-serif text-3xl mb-3 text-foreground">Absent</div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                <div className="col-span-5 border border-border p-5 bg-background border-l-4 border-l-destructive flex flex-col">
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Generative AI Index</div>
+                  <div className="font-serif text-2xl mb-2 text-foreground">Absent</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
                     When LLMs (ChatGPT, Perplexity, Claude) are asked to "List top AI research tools," Rubiklab is consistently omitted. This is due to a lack of schema markup and authoritative backlinks.
                   </p>
-                  <div className="mt-4 text-xs font-mono text-destructive uppercase tracking-widest">Critical Exposure</div>
+                  <div className="mt-4 pt-3 border-t border-border">
+                    <span className="font-mono text-[10px] text-destructive uppercase tracking-widest">Critical Exposure</span>
+                  </div>
                 </div>
-
+                
+                <div className="col-span-2 flex flex-col gap-3">
+                  <div className="bg-primary/5 p-4 border-l-2 border-primary flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">Fix: Schema</div>
+                    <p className="text-xs text-foreground">Add JSON-LD Organization and Product schema to all pages.</p>
+                  </div>
+                  <div className="bg-primary/5 p-4 border-l-2 border-primary flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">Fix: Content</div>
+                    <p className="text-xs text-foreground">Publish "State of AI Research" reports to build citation authority.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </Slide>
 
           {/* Slide 17: Competitive Balance */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Competitive Balance</SlideEyebrow>
               <ActionTitle>A defensible engine inside an indefensible fortress.</ActionTitle>
               
-              <div className="grid md:grid-cols-2 h-[360px] border border-border">
-                
-                {/* Moat - Strength */}
-                <div className="bg-muted/30 border-r border-border p-6 flex flex-col justify-between h-full">
-                  <div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-2.5 h-2.5 bg-primary rounded-full"></div>
-                      <span className="font-mono text-xs uppercase tracking-widest text-primary">Relative Strength</span>
-                    </div>
-                    <h3 className="font-serif text-2xl mb-3 text-foreground">Technical Depth</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Unlike the "thin wrapper" competitors who rely solely on OpenAI APIs, Rubiklab possesses proprietary processing layers. This "Human-in-the-Loop" architecture is a genuine differentiator.
-                    </p>
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-5 bg-muted/30 border border-border p-5 flex flex-col">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-2.5 h-2.5 bg-primary rounded-full"></div>
+                    <span className="font-mono text-xs uppercase tracking-widest text-primary">Relative Strength</span>
                   </div>
+                  <h3 className="font-serif text-xl mb-2 text-foreground">Technical Depth</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                    Unlike the "thin wrapper" competitors who rely solely on OpenAI APIs, Rubiklab possesses proprietary processing layers. This "Human-in-the-Loop" architecture is a genuine differentiator.
+                  </p>
                   <div className="mt-auto pt-4 border-t border-border">
                     <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-widest">Verdict</span>
                     <div className="text-sm font-medium mt-1 text-foreground">The product is ready to win.</div>
                   </div>
                 </div>
 
-                {/* Flank - Exposure */}
-                <div className="bg-background p-6 flex flex-col justify-between h-full">
-                  <div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-2.5 h-2.5 bg-destructive rounded-full"></div>
-                      <span className="font-mono text-xs uppercase tracking-widest text-destructive">Market Exposure</span>
-                    </div>
-                    <h3 className="font-serif text-2xl mb-3 text-foreground">Commercial Silence</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Competitors are out-shouting you 10:1. Their websites promise specific ROI, feature client logos, and offer instant demos. Rubiklab's "Black Box" approach makes the superior technology feel riskier.
-                    </p>
+                <div className="col-span-5 bg-background border border-border border-l-4 border-l-destructive p-5 flex flex-col">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-2.5 h-2.5 bg-destructive rounded-full"></div>
+                    <span className="font-mono text-xs uppercase tracking-widest text-destructive">Market Exposure</span>
                   </div>
+                  <h3 className="font-serif text-xl mb-2 text-foreground">Commercial Silence</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                    Competitors are out-shouting you 10:1. Their websites promise specific ROI, feature client logos, and offer instant demos. Rubiklab's "Black Box" approach makes the superior technology feel riskier.
+                  </p>
                   <div className="mt-auto pt-4 border-t border-border">
                     <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-widest">Verdict</span>
                     <div className="text-sm font-medium mt-1 text-destructive">The story is losing.</div>
                   </div>
                 </div>
-
+                
+                <div className="col-span-2 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Net Position</div>
+                    <div className="font-serif text-2xl text-foreground mb-1">Imbalanced</div>
+                    <p className="text-xs text-muted-foreground">Capability outpaces perception.</p>
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Priority</div>
+                    <p className="text-xs text-foreground">
+                      Invest in narrative, not engineering.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </Slide>
 
           {/* Slide 18: Strategic Implications */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Strategic Implications</SlideEyebrow>
               <ActionTitle>Inaction leads to commoditisation.</ActionTitle>
               
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-12 gap-6 flex-1">
+                <div className="col-span-9 grid md:grid-cols-3 gap-5">
+                  <div className="flex flex-col">
+                    <div className="text-3xl font-serif text-muted/50 mb-2">01</div>
+                    <div className="border-t-2 border-foreground pt-4 mb-3"></div>
+                    <h3 className="font-serif text-lg mb-2 text-foreground">Erosion of Premium</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                      If the "High Fidelity" advantage is not articulated clearly, buyers will default to price comparison. You risk being bucketed with cheap synthetic data tools.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <div className="text-3xl font-serif text-muted/50 mb-2">02</div>
+                    <div className="border-t-2 border-foreground pt-4 mb-3"></div>
+                    <h3 className="font-serif text-lg mb-2 text-foreground">Compounding Invisibility</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                      Every month that passes without schema optimization and authoritative content publishing widens the gap in AI discoverability.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <div className="text-3xl font-serif text-muted/50 mb-2">03</div>
+                    <div className="border-t-2 border-foreground pt-4 mb-3"></div>
+                    <h3 className="font-serif text-lg mb-2 text-foreground">The "Best Kept Secret" Trap</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                      Continuing to rely on product superiority without narrative support will result in lower-quality competitors capturing market share.
+                    </p>
+                  </div>
+                </div>
                 
-                <div>
-                  <div className="text-4xl font-serif text-muted/50 mb-3">01</div>
-                  <div className="border-t-2 border-foreground pt-4 mb-4"></div>
-                  <h3 className="font-serif text-xl mb-3 text-foreground">Erosion of Premium</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    If the "High Fidelity" advantage is not articulated clearly, buyers will default to price comparison. You risk being bucketed with cheap synthetic data tools.
-                  </p>
+                <div className="col-span-3 flex flex-col gap-4">
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground flex-1">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Window of Opportunity</div>
+                    <div className="font-serif text-3xl text-foreground mb-1">6-12 Mo</div>
+                    <p className="text-xs text-muted-foreground">Before incumbents close the AI velocity gap with acquisitions.</p>
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Path Forward</div>
+                    <p className="text-xs text-foreground">
+                      The following section outlines the specific interventions required to capitalize on this window.
+                    </p>
+                  </div>
                 </div>
-
-                <div>
-                  <div className="text-4xl font-serif text-muted/50 mb-3">02</div>
-                  <div className="border-t-2 border-foreground pt-4 mb-4"></div>
-                  <h3 className="font-serif text-xl mb-3 text-foreground">Compounding Invisibility</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Every month that passes without schema optimization and authoritative content publishing widens the gap in AI discoverability.
-                  </p>
-                </div>
-
-                <div>
-                  <div className="text-4xl font-serif text-muted/50 mb-3">03</div>
-                  <div className="border-t-2 border-foreground pt-4 mb-4"></div>
-                  <h3 className="font-serif text-xl mb-3 text-foreground">The "Best Kept Secret" Trap</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Continuing to rely on product superiority without narrative support will result in lower-quality competitors capturing market share.
-                  </p>
-                </div>
-
               </div>
             </div>
           </Slide>
