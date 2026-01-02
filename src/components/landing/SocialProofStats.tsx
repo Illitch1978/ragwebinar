@@ -2,10 +2,10 @@ import { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 
 const stats = [
-  { top: "1,200+", bottom: "sites benchmarked" },
-  { top: "10,000+", bottom: "real world audits analysed" },
-  { top: "50+", bottom: "signals combined per scan" },
-  { top: "seconds", bottom: "to form first impressions" },
+  { top: "2.4k", bottom: "audits completed" },
+  { top: "48M+", bottom: "signals synthesized" },
+  { top: "<24h", bottom: "to strategic insight" },
+  { top: "1,200+", bottom: "B2B sites benchmarked" },
 ];
 
 const SocialProofStats = () => {
