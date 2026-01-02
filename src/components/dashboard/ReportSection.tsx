@@ -458,30 +458,30 @@ const ReportSection = ({ activeTab, setActiveTab }: ReportSectionProps) => {
         >
           {/* Slide 01: Cover */}
           <Slide>
-            <div className="max-w-7xl w-full">
-              <div className="mb-16 mt-4">
-                <div className="font-serif text-7xl lg:text-9xl mb-12 tracking-tight text-foreground leading-none">
+            <div className="max-w-6xl w-full">
+              <div className="mb-12 mt-4">
+                <div className="font-serif text-5xl md:text-7xl lg:text-8xl mb-8 tracking-tight text-foreground leading-[1.1]">
                   Defining the <br/>
                   <span className="text-primary font-normal italic">Digital Standard.</span>
                 </div>
               </div>
               
-              <div className="space-y-12 border-t border-foreground pt-14">
-                <div className="grid grid-cols-12 gap-8">
-                  <div className="col-span-2 font-mono text-base text-muted-foreground uppercase tracking-widest pt-2">Client</div>
-                  <div className="col-span-10 font-serif text-4xl lg:text-5xl">{reportData.clientName}</div>
+              <div className="space-y-6 border-t border-foreground pt-10">
+                <div className="grid grid-cols-12 gap-4 md:gap-6">
+                  <div className="col-span-3 md:col-span-2 font-mono text-xs md:text-sm text-muted-foreground uppercase tracking-widest pt-1">Client</div>
+                  <div className="col-span-9 md:col-span-10 font-serif text-xl md:text-2xl lg:text-3xl">{reportData.clientName}</div>
                 </div>
-                <div className="grid grid-cols-12 gap-8">
-                  <div className="col-span-2 font-mono text-base text-muted-foreground uppercase tracking-widest pt-2">Scope</div>
-                  <div className="col-span-10 font-serif text-4xl lg:text-5xl">{reportData.scope}</div>
+                <div className="grid grid-cols-12 gap-4 md:gap-6">
+                  <div className="col-span-3 md:col-span-2 font-mono text-xs md:text-sm text-muted-foreground uppercase tracking-widest pt-1">Scope</div>
+                  <div className="col-span-9 md:col-span-10 font-serif text-xl md:text-2xl lg:text-3xl leading-snug">{reportData.scope}</div>
                 </div>
-                <div className="grid grid-cols-12 gap-8">
-                  <div className="col-span-2 font-mono text-base text-muted-foreground uppercase tracking-widest pt-2">Date</div>
-                  <div className="col-span-10 font-serif text-4xl lg:text-5xl">{reportData.generatedDate}</div>
+                <div className="grid grid-cols-12 gap-4 md:gap-6">
+                  <div className="col-span-3 md:col-span-2 font-mono text-xs md:text-sm text-muted-foreground uppercase tracking-widest pt-1">Date</div>
+                  <div className="col-span-9 md:col-span-10 font-serif text-xl md:text-2xl lg:text-3xl">{reportData.generatedDate}</div>
                 </div>
               </div>
             </div>
-            <div className="absolute bottom-12 left-8 lg:left-20 text-base text-muted-foreground/50 font-mono print-hide">
+            <div className="absolute bottom-8 left-6 lg:left-20 right-6 lg:right-20 text-[10px] md:text-xs text-muted-foreground/40 font-mono tracking-wider print-hide">
               CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
             </div>
           </Slide>
