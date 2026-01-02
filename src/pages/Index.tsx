@@ -112,22 +112,6 @@ function Index() {
           <EvolvedLogo />
           
           <div className="hidden md:flex items-center gap-10 lg:gap-20 text-[13px] lg:text-[15px] font-mono font-bold tracking-[0.4em] text-mondro-stone">
-            <button
-              type="button"
-              onClick={() => document.getElementById('framework')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              className="relative hover:text-primary transition-colors uppercase group"
-            >
-              Synthesis
-              <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-primary transition-all duration-400 group-hover:w-full"></span>
-            </button>
-            <button
-              type="button"
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              className="relative hover:text-primary transition-colors uppercase group"
-            >
-              Engagements
-              <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-primary transition-all duration-400 group-hover:w-full"></span>
-            </button>
             <Link
               to="/dashboard"
               className="px-8 lg:px-14 py-3 lg:py-4 bg-mondro-ink text-white rounded-[2px] hover:bg-primary transition-all duration-1000 shadow-xl uppercase tracking-[0.5em] lg:tracking-[0.6em] text-[10px] lg:text-[11px]"
@@ -345,7 +329,7 @@ function Index() {
             <div className="lg:col-span-5">
               <EvolvedLogo size="small" />
               <p className="text-base md:text-lg text-mondro-stone font-light leading-relaxed max-w-md mt-6 md:mt-10 mb-6 md:mb-10 italic">
-                The Luxury of Clarity. <br/>We turn digital presence into strategic signal.
+                The luxury of clarity. <br/>We turn digital presence into strategic signal.
               </p>
               <div className="font-mono text-[11px] md:text-[12px] text-mondro-stone font-bold tracking-[0.2em] uppercase flex gap-6 md:gap-10">
                 <a href="#" className="hover:text-mondro-ink border-b border-border pb-2 transition-all">TWITTER</a>
