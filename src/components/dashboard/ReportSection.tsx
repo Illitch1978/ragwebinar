@@ -375,17 +375,20 @@ const SectionDivider = ({
       align === 'right' ? "justify-start items-end text-right" : 
       "justify-end items-start"
     )}>
-      <div className="max-w-2xl">
+      <div className={align === 'right' ? "" : "max-w-2xl"}>
         <div className={cn(
           "w-12 h-1 mb-8",
           align === 'center' ? "bg-white mx-auto" : 
           align === 'right' ? "bg-[#0099E6] ml-auto" : 
           "bg-white"
         )} />
-        <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6">
+        <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6 whitespace-nowrap">
           {title}<span className="text-[#0099E6]">.</span>
         </h2>
-        <p className="font-sans text-xl text-gray-400 font-light max-w-lg leading-relaxed">
+        <p className={cn(
+          "font-sans text-xl text-gray-400 font-light leading-relaxed",
+          align === 'right' ? "" : "max-w-lg"
+        )}>
           {subtitle}
         </p>
       </div>
