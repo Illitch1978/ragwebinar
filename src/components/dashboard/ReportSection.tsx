@@ -1850,27 +1850,36 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <div className="text-3xl font-serif text-muted/50 mb-2">01</div>
                     <div className="border-t-2 border-foreground pt-4 mb-3"></div>
                     <h3 className="font-serif text-lg mb-2 text-foreground">Erosion of Premium</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                       If the "High Fidelity" advantage is not articulated clearly, buyers will default to price comparison. You risk being bucketed with cheap synthetic data tools.
                     </p>
+                    <div className="pt-3 border-t border-border">
+                      <div className="font-mono text-[9px] text-destructive uppercase tracking-widest">Risk: Margin Compression</div>
+                    </div>
                   </div>
 
                   <div>
                     <div className="text-3xl font-serif text-muted/50 mb-2">02</div>
                     <div className="border-t-2 border-foreground pt-4 mb-3"></div>
                     <h3 className="font-serif text-lg mb-2 text-foreground">Compounding Invisibility</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                       Every month that passes without schema optimization and authoritative content publishing widens the gap in AI discoverability.
                     </p>
+                    <div className="pt-3 border-t border-border">
+                      <div className="font-mono text-[9px] text-destructive uppercase tracking-widest">Risk: Structural Obscurity</div>
+                    </div>
                   </div>
 
                   <div>
                     <div className="text-3xl font-serif text-muted/50 mb-2">03</div>
                     <div className="border-t-2 border-foreground pt-4 mb-3"></div>
                     <h3 className="font-serif text-lg mb-2 text-foreground">The "Best Kept Secret" Trap</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                       Continuing to rely on product superiority without narrative support will result in lower-quality competitors capturing market share.
                     </p>
+                    <div className="pt-3 border-t border-border">
+                      <div className="font-mono text-[9px] text-destructive uppercase tracking-widest">Risk: Market Share Loss</div>
+                    </div>
                   </div>
                 </div>
                 
@@ -1886,6 +1895,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <p className="text-xs text-foreground">
                       The following section outlines the specific interventions required to capitalize on this window.
                     </p>
+                  </div>
+                  
+                  <div className="bg-destructive/10 p-4 border-l-2 border-destructive">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-2">Inaction Cost</div>
+                    <div className="font-serif text-xl text-destructive mb-1">-$2.4M ARR</div>
+                    <p className="text-xs text-muted-foreground">Estimated revenue at risk over 18 months.</p>
                   </div>
                 </div>
               </div>
@@ -1948,6 +1963,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <p className="text-xs text-foreground font-medium">
                       Path B: Immediate
                     </p>
+                  </div>
+                  
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Decision Owner</div>
+                    <div className="font-serif text-lg text-foreground mb-1">CMO / CEO</div>
+                    <p className="text-xs text-muted-foreground">Requires executive mandate to shift resource allocation.</p>
                   </div>
                 </div>
               </div>
@@ -2436,6 +2457,24 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       If conversion rises but comparison set degrades, you are winning the wrong race.
                     </p>
                   </div>
+                  
+                  <div className="bg-muted/30 p-4 border-l-2 border-foreground">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Tracking Method</div>
+                    <div className="space-y-2 text-xs">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Quantitative</span>
+                        <span className="text-foreground">GA4 / HubSpot</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Qualitative</span>
+                        <span className="text-foreground">Sales Feedback</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Perception</span>
+                        <span className="text-foreground">Win/Loss Analysis</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2452,9 +2491,25 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   Where complexity ends,<br/> <span className="italic text-primary">authority begins.</span>
                 </h2>
                 
-                <p className="font-sans text-muted-foreground text-base font-light leading-relaxed max-w-2xl mx-auto mb-10">
+                <p className="font-sans text-muted-foreground text-base font-light leading-relaxed max-w-2xl mx-auto mb-8">
                   This assessment is not an indictment of capability; it is a roadmap to recognition. The market is waiting for a high-fidelity leader. Rubiklab is positioned to take that mantle, if it chooses to speak clearly.
                 </p>
+                
+                {/* Next Steps */}
+                <div className="flex justify-center gap-4 mb-10 max-w-2xl mx-auto">
+                  <div className="flex-1 p-4 bg-muted/30 border border-border text-left">
+                    <div className="font-mono text-[9px] uppercase tracking-widest text-primary mb-1">Week 1</div>
+                    <div className="text-sm text-foreground">Intake form reduction</div>
+                  </div>
+                  <div className="flex-1 p-4 bg-muted/30 border border-border text-left">
+                    <div className="font-mono text-[9px] uppercase tracking-widest text-primary mb-1">Week 2-3</div>
+                    <div className="text-sm text-foreground">Trust strip + CTA contrast</div>
+                  </div>
+                  <div className="flex-1 p-4 bg-muted/30 border border-border text-left">
+                    <div className="font-mono text-[9px] uppercase tracking-widest text-primary mb-1">Week 4</div>
+                    <div className="text-sm text-foreground">Headline A/B testing</div>
+                  </div>
+                </div>
                 
                 <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground border-t border-border pt-8 max-w-md mx-auto">
                   <div className="text-center">
@@ -2468,7 +2523,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 text-foreground mt-12">
+                <div className="flex items-center justify-center gap-2 text-foreground mt-10">
                   <span className="font-serif font-bold text-3xl tracking-tight lowercase">mondro</span>
                   <span className="relative flex h-3 w-3 pt-1">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-20"></span>
