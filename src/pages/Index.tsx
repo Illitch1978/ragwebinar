@@ -291,10 +291,10 @@ function Index() {
         <div className="container mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4">
              {[
-               { val: "2.4k", label: "Managed Portfolios" },
-               { val: "48M", label: "Signals Synthesized" },
-               { val: "0.4s", label: "Synthesis Latency" },
-               { val: "99%", label: "Verdict Accuracy" }
+               { val: "2,400+", label: "Audits Completed" },
+               { val: "48M+", label: "Signals Synthesized" },
+               { val: "<24h", label: "To Strategic Insight" },
+               { val: "1,200+", label: "B2B Sites Benchmarked" }
              ].map((s, i) => (
                <div key={i} className="text-center py-12 md:py-20 px-4 md:px-12 border-r border-border last:border-0 group hover:bg-secondary transition-all duration-700">
                   <div className="font-serif text-3xl md:text-5xl text-mondro-ink mb-3 md:mb-4 tracking-tighter">{s.val}</div>
