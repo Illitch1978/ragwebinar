@@ -220,9 +220,9 @@ const SlideEyebrow = ({ children }: { children: React.ReactNode }) => (
   </span>
 );
 
-// Action title component
+// Action title component - increased bottom margin for more breathing room
 const ActionTitle = ({ children, className }: { children: React.ReactNode; className?: string }) => (
-  <h2 className={cn("font-serif font-normal text-4xl lg:text-5xl leading-[1.15] mb-6 text-foreground max-w-[1000px]", className)}>
+  <h2 className={cn("font-serif font-normal text-4xl lg:text-5xl leading-[1.15] mb-10 text-foreground max-w-[1000px]", className)}>
     {children}
   </h2>
 );
@@ -328,24 +328,6 @@ const CoverSlide = () => (
         </h1>
       </div>
 
-      <div className="grid grid-cols-2 gap-32 pl-16 mt-24 max-w-4xl">
-        <div>
-          <span className="block font-mono text-[9px] text-gray-500 uppercase tracking-widest mb-3">Scope</span>
-          <p className="font-sans text-sm text-gray-400 font-light leading-relaxed">
-            {reportData.scope}
-          </p>
-        </div>
-        <div>
-          <span className="block font-mono text-[9px] text-gray-500 uppercase tracking-widest mb-3">Status</span>
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: '#22c55e' }} />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ backgroundColor: '#22c55e' }} />
-            </span>
-            <span className="font-sans text-sm text-gray-400 font-light">Analysis Complete</span>
-          </div>
-        </div>
-      </div>
     </div>
 
     {/* Footer */}
@@ -715,13 +697,13 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 02: Methodology */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Methodology</SlideEyebrow>
               <ActionTitle>Reading this assessment.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-10 lg:gap-16">
-                <div className="col-span-7 space-y-5">
-                  <p className="text-xl font-light text-foreground leading-relaxed">
+              <div className="grid md:grid-cols-12 gap-10 lg:gap-16 flex-1">
+                <div className="col-span-7 space-y-6">
+                  <p className="font-serif text-xl text-foreground leading-relaxed">
                     This document is a commissioned strategic assessment, distinct from automated performance reports. It combines large-scale quantitative analysis with structured expert judgement.
                   </p>
                   
@@ -733,19 +715,19 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     Where scores are provided (0–100), they represent a weighted index calibrated against top-quartile SaaS and professional services benchmarks. Scores are directional indicators designed to guide prioritisation, not absolute measures of success.
                   </p>
 
-                  <div className="pt-5 mt-2">
-                    <div className="font-mono text-sm uppercase tracking-widest text-primary mb-4">How Judgement is Formed</div>
-                    <ul className="grid grid-cols-2 gap-y-3 gap-x-8 text-base text-muted-foreground">
-                      <li className="flex items-start gap-2 border-t border-border pt-3">
+                  <div className="pt-6 mt-auto">
+                    <div className="font-mono text-sm uppercase tracking-widest text-primary mb-5">How Judgement is Formed</div>
+                    <ul className="grid grid-cols-2 gap-y-4 gap-x-8 text-base text-muted-foreground">
+                      <li className="flex items-start gap-2 border-t border-border pt-4">
                         <span className="text-primary">•</span> Cross-checked across independent signals
                       </li>
-                      <li className="flex items-start gap-2 border-t border-border pt-3">
+                      <li className="flex items-start gap-2 border-t border-border pt-4">
                         <span className="text-primary">•</span> Benchmarked against 1,200+ sites
                       </li>
-                      <li className="flex items-start gap-2 border-t border-border pt-3">
+                      <li className="flex items-start gap-2 border-t border-border pt-4">
                         <span className="text-primary">•</span> Reviewed through sector lenses
                       </li>
-                      <li className="flex items-start gap-2 border-t border-border pt-3">
+                      <li className="flex items-start gap-2 border-t border-border pt-4">
                         <span className="text-primary">•</span> Weighted to reflect decision impact
                       </li>
                     </ul>
@@ -768,26 +750,30 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 03: Executive Synthesis */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Executive Synthesis</SlideEyebrow>
               <ActionTitle>Technical solidity is currently undermined by conversion friction.</ActionTitle>
-              <div className="grid md:grid-cols-12 gap-12">
-                <div className="col-span-8 text-lg leading-relaxed space-y-5 text-muted-foreground">
-                  <p>
-                    Rubiklab.ai possesses a robust technical foundation. Server response times and uptime stability are within the top 5% of the peer group. The "hard" engineering of the site is sound.
-                  </p>
-                  <p>
-                    However, the "soft" architecture—specifically narrative flow and user intake—is creating significant drag. We observed a disconnect between the complexity of the solution and the clarity of the value proposition. High-intent traffic is being lost at the intake stage due to excessive form friction.
-                  </p>
+              
+              <div className="grid md:grid-cols-12 gap-12 flex-1">
+                <div className="col-span-8 flex flex-col">
+                  <div className="text-lg leading-relaxed space-y-6 text-muted-foreground">
+                    <p>
+                      Rubiklab.ai possesses a robust technical foundation. Server response times and uptime stability are within the top 5% of the peer group. The "hard" engineering of the site is sound.
+                    </p>
+                    <p>
+                      However, the "soft" architecture—specifically narrative flow and user intake—is creating significant drag. We observed a disconnect between the complexity of the solution and the clarity of the value proposition. High-intent traffic is being lost at the intake stage due to excessive form friction.
+                    </p>
+                  </div>
                   
-                  <div className="p-6 border border-primary bg-background shadow-sm">
+                  <div className="p-6 border border-primary bg-background shadow-sm mt-auto">
                     <div className="font-mono text-sm uppercase tracking-widest text-primary mb-3">The Strategic Opportunity</div>
                     <p className="text-base text-foreground">
                       By simplifying the intake mechanism and shifting messaging from "process" to "outcome," Rubiklab can unlock an estimated <strong>40% efficiency gain</strong> in the existing funnel without increasing ad spend.
                     </p>
                   </div>
                 </div>
-                <div className="col-span-4 flex flex-col justify-between py-2 border-l border-border pl-8 gap-6">
+                
+                <div className="col-span-4 flex flex-col justify-center border-l border-border pl-8 gap-8">
                   <div>
                     <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-2">Primary Strength</div>
                     <div className="font-serif text-3xl">Infrastructure</div>
@@ -803,8 +789,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <div className="font-serif text-3xl text-primary">Reduce Drag</div>
                     <div className="text-base text-muted-foreground mt-2">Immediate Roadmap</div>
                   </div>
+                </div>
               </div>
-            </div>
             </div>
           </Slide>
 
