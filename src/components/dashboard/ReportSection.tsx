@@ -299,11 +299,23 @@ const CoverSlide = () => (
     />
     
     {/* Top metadata */}
-    <div className="relative z-10 grid grid-cols-4 gap-8 font-mono text-[9px] text-gray-500 uppercase tracking-widest border-t border-gray-900 pt-6">
-      <div>Classified</div>
-      <div>{reportData.clientName}</div>
-      <div>Gap Analysis</div>
-      <div className="text-right text-[#0099E6]">v.Final</div>
+    <div className="relative z-10 flex justify-between items-start border-t border-gray-900 pt-6">
+      <div className="grid grid-cols-4 gap-8 font-mono text-[9px] text-gray-500 uppercase tracking-widest">
+        <div>Classified</div>
+        <div>{reportData.clientName}</div>
+        <div>Gap Analysis</div>
+        <div className="text-[#0099E6]">v.Final</div>
+      </div>
+      <button 
+        className="flex items-center gap-2 px-4 py-2 bg-[#0099E6] hover:bg-[#0088cc] text-white text-xs font-mono uppercase tracking-wider rounded transition-colors print-hide"
+        onClick={() => {
+          const exportButton = document.querySelector('[data-export-trigger]') as HTMLButtonElement;
+          if (exportButton) exportButton.click();
+        }}
+      >
+        <Download className="w-3.5 h-3.5" />
+        Download Report
+      </button>
     </div>
 
     {/* Main content */}
@@ -325,7 +337,10 @@ const CoverSlide = () => (
         <div>
           <span className="block font-mono text-[9px] text-gray-500 uppercase tracking-widest mb-3">Status</span>
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+            </span>
             <span className="font-sans text-sm text-gray-400 font-light">Analysis Complete</span>
           </div>
         </div>
@@ -375,7 +390,7 @@ const SectionDivider = ({
     {/* Main content */}
     <div className={cn(
       "relative z-10 flex-grow flex flex-col",
-      align === 'center' ? "justify-center items-center text-center" : 
+      align === 'center' ? "justify-center items-center text-center pb-20" : 
       align === 'right' ? "justify-start items-end text-right pt-16" : 
       "justify-end items-start"
     )}>
