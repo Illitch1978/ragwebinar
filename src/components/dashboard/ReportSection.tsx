@@ -807,64 +807,89 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 04: Overall Digital Standing - Waterfall Chart */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
               <ActionTitle>A 41-point gap exists between potential and reality.</ActionTitle>
-              <p className="text-base text-muted-foreground max-w-4xl mb-4">
-                The chart below bridges the gap from your theoretical potential to your current standing, isolating specific vectors of loss.
-              </p>
+              
+              <div className="grid md:grid-cols-12 gap-10 flex-1">
+                <div className="col-span-8 flex flex-col">
+                  <p className="text-base text-muted-foreground max-w-3xl mb-6">
+                    The chart below bridges the gap from your theoretical potential to your current standing, isolating specific vectors of loss.
+                  </p>
 
-              {/* Waterfall Chart */}
-              <div className="flex items-end h-[380px] gap-6 lg:gap-10 pt-12 pb-0 border-b border-border">
-                {/* Digital Potential */}
-                <div className="flex-1 flex flex-col justify-end relative h-full">
-                  <div className="w-full bg-muted" style={{ height: "100%" }}></div>
-                  <div className="absolute w-full text-center -top-8 font-mono text-base font-semibold text-foreground">100</div>
-                  <div className="text-center mt-4 border-t border-border pt-3">
-                    <span className="font-sans text-xs text-muted-foreground font-medium tracking-wider uppercase">Digital<br/>Potential</span>
-                  </div>
-                </div>
-
-                {/* Loss bars */}
-                {reportData.waterfall.losses.map((loss, index) => {
-                  const prevHeight = 100 + reportData.waterfall.losses.slice(0, index).reduce((acc, l) => acc + l.value, 0);
-                  const barHeight = Math.abs(loss.value);
-                  const spacerHeight = prevHeight - barHeight;
-                  
-                  return (
-                    <div key={loss.label} className="flex-1 flex flex-col justify-end relative h-full">
-                      <div className="w-full bg-transparent" style={{ height: `${spacerHeight}%` }}></div>
-                      <div className="w-full bg-destructive relative" style={{ height: `${barHeight}%` }}>
-                        <div className="absolute inset-0 flex items-center justify-center font-mono text-sm font-semibold text-destructive-foreground">
-                          {loss.value}
-                        </div>
-                      </div>
-                      <div className="text-center mt-4 border-t border-border pt-3">
-                        <span className="font-sans text-xs text-muted-foreground font-medium tracking-wider uppercase">
-                          {loss.label.split(" ").map((word, i) => (
-                            <span key={i}>{word}<br/></span>
-                          ))}
-                        </span>
+                  {/* Waterfall Chart */}
+                  <div className="flex items-end h-[320px] gap-4 lg:gap-6 pt-8 pb-0 border-b border-border flex-1">
+                    {/* Digital Potential */}
+                    <div className="flex-1 flex flex-col justify-end relative h-full">
+                      <div className="w-full bg-muted" style={{ height: "100%" }}></div>
+                      <div className="absolute w-full text-center -top-7 font-mono text-sm font-semibold text-foreground">100</div>
+                      <div className="text-center mt-3 border-t border-border pt-2">
+                        <span className="font-sans text-[10px] text-muted-foreground font-medium tracking-wider uppercase">Digital<br/>Potential</span>
                       </div>
                     </div>
-                  );
-                })}
 
-                {/* Current Score */}
-                <div className="flex-1 flex flex-col justify-end relative h-full">
-                  <div className="w-full bg-primary" style={{ height: `${reportData.waterfall.current}%` }}></div>
-                  <div className="absolute w-full text-center -top-10 font-serif text-3xl font-semibold text-primary">
-                    {reportData.waterfall.current}
+                    {/* Loss bars */}
+                    {reportData.waterfall.losses.map((loss, index) => {
+                      const prevHeight = 100 + reportData.waterfall.losses.slice(0, index).reduce((acc, l) => acc + l.value, 0);
+                      const barHeight = Math.abs(loss.value);
+                      const spacerHeight = prevHeight - barHeight;
+                      
+                      return (
+                        <div key={loss.label} className="flex-1 flex flex-col justify-end relative h-full">
+                          <div className="w-full bg-transparent" style={{ height: `${spacerHeight}%` }}></div>
+                          <div className="w-full bg-destructive relative" style={{ height: `${barHeight}%` }}>
+                            <div className="absolute inset-0 flex items-center justify-center font-mono text-xs font-semibold text-destructive-foreground">
+                              {loss.value}
+                            </div>
+                          </div>
+                          <div className="text-center mt-3 border-t border-border pt-2">
+                            <span className="font-sans text-[10px] text-muted-foreground font-medium tracking-wider uppercase">
+                              {loss.label.split(" ").map((word, i) => (
+                                <span key={i}>{word}<br/></span>
+                              ))}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {/* Current Score */}
+                    <div className="flex-1 flex flex-col justify-end relative h-full">
+                      <div className="w-full bg-primary" style={{ height: `${reportData.waterfall.current}%` }}></div>
+                      <div className="absolute w-full text-center -top-8 font-serif text-2xl font-semibold text-primary">
+                        {reportData.waterfall.current}
+                      </div>
+                      <div className="text-center mt-3 border-t border-border pt-2">
+                        <span className="font-sans text-[10px] text-primary font-semibold tracking-wider uppercase">Current<br/>Score</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-center mt-4 border-t border-border pt-3">
-                    <span className="font-sans text-xs text-primary font-semibold tracking-wider uppercase">Current<br/>Score</span>
+                  
+                  <div className="text-[10px] text-muted-foreground/50 font-mono tracking-wide italic mt-3">
+                    * Each reduction represents a structural constraint, not a cosmetic issue.
                   </div>
                 </div>
-              </div>
-              
-              <div className="flex justify-center mt-4">
-                <div className="text-xs text-muted-foreground/50 font-mono tracking-wide italic">
-                  * Each reduction represents a structural constraint, not a cosmetic issue.
+
+                {/* Right side prescriptive insight */}
+                <div className="col-span-4 flex flex-col justify-center border-l border-border pl-8 gap-6">
+                  <div>
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Score Interpretation</div>
+                    <div className="font-serif text-3xl text-foreground mb-2">59 / 100</div>
+                    <div className="text-sm text-muted-foreground">"Moderate Health" indicates structural issues that can be addressed without major overhaul.</div>
+                  </div>
+                  
+                  <div className="p-5 bg-primary/5 border-l-2 border-primary">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Key Insight</div>
+                    <p className="text-sm text-foreground leading-relaxed">
+                      The largest single loss (Narrative Gap: 16 points) is also the least expensive to fix. Copywriting changes require no engineering resources.
+                    </p>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-border">
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Recovery Potential</div>
+                    <div className="font-serif text-2xl text-primary">+26 points</div>
+                    <div className="text-sm text-muted-foreground mt-1">Achievable within 90-day remediation window</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -872,46 +897,52 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 05: Perceived Authority */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Perceived Authority</SlideEyebrow>
               <ActionTitle>Visuals are premium; clarity is secondary.</ActionTitle>
-              <div className="grid md:grid-cols-12 gap-12">
-                <div className="col-span-5 space-y-6">
+              <div className="grid md:grid-cols-12 gap-10 flex-1">
+                <div className="col-span-5 flex flex-col gap-5">
                   <div>
-                    <h3 className="font-serif text-2xl mb-3">The "Blink Test"</h3>
-                    <p className="text-base leading-relaxed text-muted-foreground">
+                    <h3 className="font-serif text-xl mb-2">The "Blink Test"</h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
                       <strong className="text-foreground">Failed.</strong> In the first 3 seconds, a user understands <em>that</em> you are a tech company, but not <em>what</em> specific problem you solve. The headline "Innovating the Future" is a null-statement.
                     </p>
                   </div>
-                  <div className="border-t border-border pt-6">
-                    <h3 className="font-serif text-2xl mb-3">Aesthetic Strength</h3>
-                    <p className="text-base leading-relaxed text-muted-foreground">
+                  <div className="border-t border-border pt-5">
+                    <h3 className="font-serif text-xl mb-2">Aesthetic Strength</h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
                       <strong className="text-foreground">High.</strong> The minimalist typography successfully conveys "Enterprise SaaS." The site looks expensive, which is a critical trust signal for high-ticket sales.
+                    </p>
+                  </div>
+                  <div className="border-t border-border pt-5 mt-auto">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Prescription</div>
+                    <p className="text-sm text-foreground leading-relaxed">
+                      Replace abstract aspiration with concrete outcome language. A/B test "Innovating the Future" against "Consumer Insights in 48 Hours."
                     </p>
                   </div>
                 </div>
 
                 <div className="col-span-7">
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-2 gap-4">
                     {reportData.signals.map((signal) => (
                       <div 
                         key={signal.label} 
                         className={cn(
-                          "border p-5 bg-background",
+                          "border p-4 bg-background",
                           signal.variant === "critical" 
                             ? "bg-destructive/5 border-destructive/20" 
                             : "border-border"
                         )}
                       >
-                        <div className="flex justify-between items-end mb-2">
+                        <div className="flex justify-between items-end mb-1">
                           <span className={cn(
-                            "font-serif text-lg",
+                            "font-serif text-base",
                             signal.variant === "critical" && "text-destructive"
                           )}>
                             {signal.label}
                           </span>
                           <span className={cn(
-                            "font-mono text-xs",
+                            "font-mono text-[10px]",
                             signal.variant === "critical" 
                               ? "text-destructive/70" 
                               : signal.variant === "blue" 
@@ -923,13 +954,20 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                         </div>
                         <SignalBar score={signal.score} variant={signal.variant as "default" | "critical" | "blue"} />
                         <div className={cn(
-                          "mt-3 text-sm",
+                          "mt-2 text-xs",
                           signal.variant === "critical" ? "text-destructive/70" : "text-muted-foreground"
                         )}>
                           {signal.description}
                         </div>
                       </div>
                     ))}
+                  </div>
+                  
+                  <div className="mt-5 p-4 bg-muted/30 border border-border">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Reading the Grid</div>
+                    <p className="text-xs text-muted-foreground">
+                      Bars represent signal strength (1-5). A "Critical" flag on any dimension creates disproportionate drag on overall conversion.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -938,78 +976,91 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 06: Strategic Snapshot */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Strategic Snapshot</SlideEyebrow>
-              <ActionTitle className="mb-4">Granular analysis and immediate prioritization.</ActionTitle>
+              <ActionTitle>Granular analysis and immediate prioritization.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-12">
+              <div className="grid md:grid-cols-12 gap-8 flex-1">
                 {/* Immediate Priorities */}
                 <div className="col-span-5 flex flex-col">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">Immediate Priorities (Quick Wins)</div>
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">Immediate Priorities (Quick Wins)</div>
                   
-                  <div className="space-y-4">
-                    <div className="p-5 border border-border bg-muted/30">
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-serif text-lg text-foreground">1. Intake Form Reduction</h3>
-                        <span className="font-mono text-[10px] text-primary bg-background border border-border px-2 py-1">HIGH IMPACT</span>
+                  <div className="space-y-3 flex-1">
+                    <div className="p-4 border border-border bg-muted/30">
+                      <div className="flex justify-between items-start mb-1">
+                        <h3 className="font-serif text-base text-foreground">1. Intake Form Reduction</h3>
+                        <span className="font-mono text-[9px] text-primary bg-background border border-border px-1.5 py-0.5">HIGH IMPACT</span>
                       </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-2">
                         Reduce fields from 8 to 3 (Name, Work Email, Company). Enable browser autofill attributes.
                       </p>
-                      <div className="flex items-center gap-4 border-t border-border pt-3">
-                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
-                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">UX/Dev</span></div>
+                      <div className="flex items-center gap-3 border-t border-border pt-2">
+                        <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
+                        <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">UX/Dev</span></div>
                       </div>
                     </div>
-                    <div className="p-5 border border-border bg-muted/30">
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-serif text-lg text-foreground">2. Mobile Payload Fix</h3>
-                        <span className="font-mono text-[10px] text-muted-foreground bg-background border border-border px-2 py-1">MED IMPACT</span>
+                    <div className="p-4 border border-border bg-muted/30">
+                      <div className="flex justify-between items-start mb-1">
+                        <h3 className="font-serif text-base text-foreground">2. Mobile Payload Fix</h3>
+                        <span className="font-mono text-[9px] text-muted-foreground bg-background border border-border px-1.5 py-0.5">MED IMPACT</span>
                       </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-2">
                         Convert PNG assets to WebP/AVIF. Implement lazy loading for below-fold content to cut LCP by 1.2s.
                       </p>
-                      <div className="flex items-center gap-4 border-t border-border pt-3">
-                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
-                        <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">Tech</span></div>
+                      <div className="flex items-center gap-3 border-t border-border pt-2">
+                        <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
+                        <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">Tech</span></div>
+                      </div>
+                    </div>
+                    <div className="p-4 border border-border bg-muted/30">
+                      <div className="flex justify-between items-start mb-1">
+                        <h3 className="font-serif text-base text-foreground">3. CTA Visibility</h3>
+                        <span className="font-mono text-[9px] text-muted-foreground bg-background border border-border px-1.5 py-0.5">MED IMPACT</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                        Increase button contrast ratio. Add hover states with tactile feedback to drive click impulse.
+                      </p>
+                      <div className="flex items-center gap-3 border-t border-border pt-2">
+                        <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-widest">Effort: <span className="text-foreground">Low</span></div>
+                        <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-widest">Type: <span className="text-foreground">CSS</span></div>
                       </div>
                     </div>
                   </div>
-                  <div className="mt-auto text-xs text-muted-foreground/60 font-mono italic pt-4">
+                  <div className="text-[10px] text-muted-foreground/60 font-mono italic pt-3">
                     * Prioritizing low-effort technical debt removal creates immediate momentum.
                   </div>
                 </div>
 
                 {/* Capability Heatmap */}
                 <div className="col-span-7 flex flex-col">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">Capability Heatmap</div>
-                  <div className="flex-grow">
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">Capability Heatmap</div>
+                  <div className="flex-1">
                     <table className="w-full border-collapse">
                       <thead>
                         <tr>
-                          <th className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground text-left pb-3 border-b-2 border-foreground" style={{ width: "20%" }}>Vector</th>
-                          <th className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground text-left pb-3 border-b-2 border-foreground" style={{ width: "15%" }}>Maturity</th>
-                          <th className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground text-left pb-3 border-b-2 border-foreground" style={{ width: "35%" }}>Observation</th>
-                          <th className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground text-left pb-3 border-b-2 border-foreground" style={{ width: "30%" }}>Implication</th>
+                          <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground text-left pb-2 border-b-2 border-foreground" style={{ width: "18%" }}>Vector</th>
+                          <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground text-left pb-2 border-b-2 border-foreground" style={{ width: "12%" }}>Maturity</th>
+                          <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground text-left pb-2 border-b-2 border-foreground" style={{ width: "35%" }}>Observation</th>
+                          <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground text-left pb-2 border-b-2 border-foreground" style={{ width: "35%" }}>Implication</th>
                         </tr>
                       </thead>
                       <tbody>
                         {reportData.heatmap.map((row) => (
                           <tr key={row.vector}>
-                            <td className="py-4 border-b border-border text-sm text-foreground font-bold align-top">{row.vector}</td>
-                            <td className="py-4 border-b border-border align-top"><MaturityBubble level={row.maturity as "full" | "half" | "quarter"} /></td>
-                            <td className="py-4 border-b border-border text-sm text-muted-foreground align-top">{row.observation}</td>
-                            <td className="py-4 border-b border-border text-sm text-muted-foreground align-top">{row.implication}</td>
+                            <td className="py-3 border-b border-border text-xs text-foreground font-bold align-top">{row.vector}</td>
+                            <td className="py-3 border-b border-border align-top"><MaturityBubble level={row.maturity as "full" | "half" | "quarter"} /></td>
+                            <td className="py-3 border-b border-border text-xs text-muted-foreground align-top">{row.observation}</td>
+                            <td className="py-3 border-b border-border text-xs text-muted-foreground align-top">{row.implication}</td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
                   
-                  <div className="mt-4 flex gap-6 justify-start text-[10px] text-muted-foreground uppercase tracking-widest">
-                    <div className="flex items-center gap-2"><div className="scale-75"><MaturityBubble level="full" /></div> Optimized</div>
-                    <div className="flex items-center gap-2"><div className="scale-75"><MaturityBubble level="half" /></div> Developing</div>
-                    <div className="flex items-center gap-2"><div className="scale-75"><MaturityBubble level="quarter" /></div> Critical</div>
+                  <div className="mt-3 flex gap-5 justify-start text-[9px] text-muted-foreground uppercase tracking-widest">
+                    <div className="flex items-center gap-1.5"><div className="scale-75"><MaturityBubble level="full" /></div> Optimized</div>
+                    <div className="flex items-center gap-1.5"><div className="scale-75"><MaturityBubble level="half" /></div> Developing</div>
+                    <div className="flex items-center gap-1.5"><div className="scale-75"><MaturityBubble level="quarter" /></div> Critical</div>
                   </div>
                 </div>
               </div>
@@ -1026,54 +1077,71 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       {/* Diagnosis Section */}
           {/* Slide 07: System-Level Diagnosis */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
               <ActionTitle>The site functions as pages, but fails as a decision system.</ActionTitle>
               
-              <div className="grid md:grid-cols-12 gap-10">
-                <div className="col-span-5 text-lg leading-relaxed text-muted-foreground space-y-5">
-                  <p>
+              <div className="grid md:grid-cols-12 gap-8 flex-1">
+                <div className="col-span-5 flex flex-col gap-4">
+                  <p className="text-base leading-relaxed text-muted-foreground">
                     A high-performing digital asset operates as an integrated system where clarity, logic, and flow compound to drive decisions.
                   </p>
-                  <p>
+                  <p className="text-base leading-relaxed text-muted-foreground">
                     Currently, Rubiklab.ai suffers from <strong className="text-foreground">Systemic Decay</strong>. While individual pages are visually polished, the connective tissue (the logic that moves a user from "Interest" to "Action") is fractured.
                   </p>
-                  <div className="pt-5 border-t border-border">
-                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-3">Composite Diagnostic</div>
-                    <div className="font-serif text-4xl text-foreground">Fragmented</div>
+                  <div className="pt-4 border-t border-border mt-auto">
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Composite Diagnostic</div>
+                    <div className="font-serif text-3xl text-foreground mb-2">Fragmented</div>
+                    <p className="text-sm text-muted-foreground">Pages work in isolation; they fail as a journey.</p>
+                  </div>
+                  
+                  <div className="p-4 bg-primary/5 border-l-2 border-primary mt-2">
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Prescription</div>
+                    <p className="text-sm text-foreground leading-relaxed">
+                      Map the user journey as a linear decision funnel. Remove steps that do not directly advance conversion intent.
+                    </p>
                   </div>
                 </div>
 
                 <div className="col-span-7">
-                  <div className="bg-muted/30 p-8">
-                    <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-5">Decision System Health Stack</div>
+                  <div className="bg-muted/30 p-6 h-full flex flex-col">
+                    <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">Decision System Health Stack</div>
                     
-                    <div className="space-y-4">
+                    <div className="space-y-3 flex-1">
                       {/* Critical */}
-                      <div className="border border-border p-5 flex justify-between items-center bg-background border-l-4 border-l-destructive">
+                      <div className="border border-border p-4 flex justify-between items-center bg-background border-l-4 border-l-destructive">
                         <div>
-                          <div className="font-serif text-xl text-foreground">Conversion Logic</div>
-                          <div className="text-sm text-muted-foreground mt-1">Does the site ask for the right thing at the right time?</div>
+                          <div className="font-serif text-lg text-foreground">Conversion Logic</div>
+                          <div className="text-xs text-muted-foreground mt-0.5">Does the site ask for the right thing at the right time?</div>
                         </div>
-                        <div className="font-mono text-xs text-destructive uppercase tracking-widest bg-destructive/10 px-3 py-1.5">Failing</div>
+                        <div className="font-mono text-[10px] text-destructive uppercase tracking-widest bg-destructive/10 px-2 py-1">Failing</div>
                       </div>
 
                       {/* Stable */}
-                      <div className="border border-border p-5 flex justify-between items-center bg-background border-l-4 border-l-muted-foreground/30">
+                      <div className="border border-border p-4 flex justify-between items-center bg-background border-l-4 border-l-muted-foreground/30">
                         <div>
-                          <div className="font-serif text-xl text-foreground">Information Hierarchy</div>
-                          <div className="text-sm text-muted-foreground mt-1">Is the most important information most visible?</div>
+                          <div className="font-serif text-lg text-foreground">Information Hierarchy</div>
+                          <div className="text-xs text-muted-foreground mt-0.5">Is the most important information most visible?</div>
                         </div>
-                        <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest bg-muted px-3 py-1.5">Stable</div>
+                        <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest bg-muted px-2 py-1">Stable</div>
                       </div>
 
                       {/* Optimal */}
-                      <div className="border border-border p-5 flex justify-between items-center bg-background border-l-4 border-l-primary">
+                      <div className="border border-border p-4 flex justify-between items-center bg-background border-l-4 border-l-primary">
                         <div>
-                          <div className="font-serif text-xl text-foreground">Visual Clarity</div>
-                          <div className="text-sm text-muted-foreground mt-1">Is the interface legible and professional?</div>
+                          <div className="font-serif text-lg text-foreground">Visual Clarity</div>
+                          <div className="text-xs text-muted-foreground mt-0.5">Is the interface legible and professional?</div>
                         </div>
-                        <div className="font-mono text-xs text-primary uppercase tracking-widest bg-primary/10 px-3 py-1.5">Optimized</div>
+                        <div className="font-mono text-[10px] text-primary uppercase tracking-widest bg-primary/10 px-2 py-1">Optimized</div>
+                      </div>
+                      
+                      {/* Trust Signals - New */}
+                      <div className="border border-border p-4 flex justify-between items-center bg-background border-l-4 border-l-destructive">
+                        <div>
+                          <div className="font-serif text-lg text-foreground">Trust Signals</div>
+                          <div className="text-xs text-muted-foreground mt-0.5">Are credibility markers visible at decision points?</div>
+                        </div>
+                        <div className="font-mono text-[10px] text-destructive uppercase tracking-widest bg-destructive/10 px-2 py-1">Absent</div>
                       </div>
                     </div>
                   </div>
@@ -1084,53 +1152,62 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
           {/* Slide 08: Intake & Conversion */}
           <Slide>
-            <div className="max-w-7xl w-full">
+            <div className="max-w-7xl w-full h-full flex flex-col">
               <SlideEyebrow>Intake & Conversion</SlideEyebrow>
               <ActionTitle>Motivated users are stalling at the point of highest intent.</ActionTitle>
               
-              <p className="text-base text-muted-foreground max-w-4xl mb-6">
+              <p className="text-sm text-muted-foreground max-w-4xl mb-5">
                 We mapped the high-intent user journey from "Solution Discovery" to "Inquiry." The data reveals a specific rupture in the intake sequence where effort exceeds motivation.
               </p>
 
-              <div className="grid grid-cols-4 gap-4 w-full">
+              <div className="grid grid-cols-4 gap-3 w-full mb-6">
                 {/* Step 1 */}
-                <div className="border-t-2 border-border pt-5 relative">
-                  <div className="absolute -top-[5px] left-0 w-2.5 h-2.5 rounded-full bg-border" />
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">01. Discovery</div>
-                  <div className="font-serif text-2xl mb-2">Landing</div>
-                  <p className="text-sm text-muted-foreground">User arrives via direct search. Intent is high.</p>
+                <div className="border-t-2 border-border pt-4 relative">
+                  <div className="absolute -top-[4px] left-0 w-2 h-2 rounded-full bg-border" />
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">01. Discovery</div>
+                  <div className="font-serif text-xl mb-1">Landing</div>
+                  <p className="text-xs text-muted-foreground">User arrives via direct search. Intent is high.</p>
                 </div>
 
                 {/* Step 2 */}
-                <div className="border-t-2 border-border pt-5 relative">
-                  <div className="absolute -top-[5px] left-0 w-2.5 h-2.5 rounded-full bg-border" />
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">02. Consideration</div>
-                  <div className="font-serif text-2xl mb-2">Solutions</div>
-                  <p className="text-sm text-muted-foreground">Content consumption is healthy (2m 30s avg).</p>
+                <div className="border-t-2 border-border pt-4 relative">
+                  <div className="absolute -top-[4px] left-0 w-2 h-2 rounded-full bg-border" />
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">02. Consideration</div>
+                  <div className="font-serif text-xl mb-1">Solutions</div>
+                  <p className="text-xs text-muted-foreground">Content consumption is healthy (2m 30s avg).</p>
                 </div>
 
                 {/* Step 3 - Friction */}
-                <div className="border-t-2 border-destructive pt-5 relative">
-                  <div className="absolute -top-[5px] left-0 w-2.5 h-2.5 rounded-full bg-destructive" />
-                  <div className="font-mono text-xs uppercase tracking-widest text-destructive mb-2">03. The Stall</div>
-                  <div className="font-serif text-2xl mb-2 text-destructive">The Form</div>
-                  <p className="text-sm text-muted-foreground mb-3">User is confronted with 8 mandatory fields including "Phone" and "Job Title".</p>
-                  <div className="bg-destructive/10 text-destructive text-xs uppercase tracking-widest px-3 py-1.5 inline-block font-mono">65% Drop-off</div>
+                <div className="border-t-2 border-destructive pt-4 relative">
+                  <div className="absolute -top-[4px] left-0 w-2 h-2 rounded-full bg-destructive" />
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-1">03. The Stall</div>
+                  <div className="font-serif text-xl mb-1 text-destructive">The Form</div>
+                  <p className="text-xs text-muted-foreground mb-2">User is confronted with 8 mandatory fields including "Phone" and "Job Title".</p>
+                  <div className="bg-destructive/10 text-destructive text-[10px] uppercase tracking-widest px-2 py-1 inline-block font-mono">65% Drop-off</div>
                 </div>
 
                 {/* Step 4 */}
-                <div className="border-t-2 border-border pt-5 relative">
-                  <div className="absolute -top-[5px] left-0 w-2.5 h-2.5 rounded-full bg-border" />
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">04. Goal</div>
-                  <div className="font-serif text-2xl mb-2 text-muted-foreground/60">Confirmation</div>
-                  <p className="text-sm text-muted-foreground">Only 5% of click-throughs complete the sequence.</p>
+                <div className="border-t-2 border-border pt-4 relative">
+                  <div className="absolute -top-[4px] left-0 w-2 h-2 rounded-full bg-border" />
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">04. Goal</div>
+                  <div className="font-serif text-xl mb-1 text-muted-foreground/60">Confirmation</div>
+                  <p className="text-xs text-muted-foreground">Only 5% of click-throughs complete the sequence.</p>
                 </div>
               </div>
 
-              <div className="mt-8 border-t border-border pt-5 flex gap-8">
-                <div className="font-mono text-sm uppercase tracking-widest text-primary">Diagnosis</div>
-                <div className="text-base text-muted-foreground max-w-3xl">
-                  The friction is artificial. By demanding data enrichment fields (Job Title, Phone) before establishing value, you are actively repelling qualified leads.
+              <div className="grid md:grid-cols-2 gap-6 mt-auto">
+                <div className="border-t border-border pt-4 flex gap-6">
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary whitespace-nowrap">Diagnosis</div>
+                  <div className="text-sm text-muted-foreground">
+                    The friction is artificial. By demanding data enrichment fields (Job Title, Phone) before establishing value, you are actively repelling qualified leads.
+                  </div>
+                </div>
+                
+                <div className="p-4 bg-primary/5 border-l-2 border-primary">
+                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Prescription</div>
+                  <p className="text-sm text-foreground leading-relaxed">
+                    Reduce to 3 fields: Name, Email, Company. Move qualification questions to a post-submission "enrichment" step where the user has already committed.
+                  </p>
                 </div>
               </div>
             </div>
