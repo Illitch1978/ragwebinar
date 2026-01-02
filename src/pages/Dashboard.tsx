@@ -54,8 +54,8 @@ const EvolvedLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
 const reportTabs = [
   { title: "Summary", id: "summary" },
   { title: "Diagnosis", id: "diagnosis" },
-  { title: "Competitive Context", id: "competitive-context" },
-  { title: "Next-Order Effects", id: "next-order-effects" },
+  { title: "Market", id: "competitive-context" },
+  { title: "Next-Order", id: "next-order-effects" },
 ];
 
 const Dashboard = () => {
