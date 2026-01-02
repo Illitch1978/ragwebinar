@@ -359,7 +359,7 @@ const SectionDivider = ({
   subtitle: React.ReactNode; 
   align?: 'left' | 'center' | 'right'
 }) => (
-  <div className="min-h-screen bg-[#000000] text-white relative flex flex-col p-12 lg:p-16 overflow-hidden">
+  <div className="h-screen bg-[#000000] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
     {/* Grid background */}
     <div 
       className="absolute inset-0 pointer-events-none opacity-20"
@@ -369,8 +369,12 @@ const SectionDivider = ({
       }}
     />
     
+    {/* Spacer for top */}
+    <div className="relative z-10" />
+    
+    {/* Main content */}
     <div className={cn(
-      "relative z-10 h-full flex flex-col",
+      "relative z-10 flex-grow flex flex-col",
       align === 'center' ? "justify-center items-center text-center" : 
       align === 'right' ? "justify-start items-end text-right pt-16" : 
       "justify-end items-start"
@@ -408,6 +412,21 @@ const SectionDivider = ({
           </p>
         </div>
       )}
+    </div>
+    
+    {/* Footer with logo - same as cover page */}
+    <div className="relative z-10 flex justify-between items-end">
+      <div className="flex items-center gap-2">
+        <span className="font-serif font-bold text-3xl tracking-tight lowercase text-white">mondro</span>
+        <span className="relative flex h-3 w-3 pt-1">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0099E6] opacity-30" />
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-[#0099E6] shadow-[0_0_12px_rgba(0,153,230,0.5)]" />
+        </span>
+      </div>
+      
+      <div className="font-mono text-[10px] text-gray-600 uppercase tracking-widest">
+        Mondro Intelligence Capital © 2026
+      </div>
     </div>
   </div>
 );
@@ -880,9 +899,6 @@ const ReportSection = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono print-hide">
-              CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
-            </div>
           </Slide>
         </motion.div>
       </div>
@@ -1242,9 +1258,6 @@ const ReportSection = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono print-hide">
-              CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
-            </div>
           </Slide>
         </motion.div>
       </div>
@@ -1586,9 +1599,6 @@ const ReportSection = () => {
                 </div>
 
               </div>
-            </div>
-            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono print-hide">
-              CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
             </div>
           </Slide>
         </motion.div>
@@ -2013,9 +2023,6 @@ const ReportSection = () => {
                 </span>
               </div>
 
-            </div>
-            <div className="absolute bottom-8 left-8 lg:left-16 text-sm text-muted-foreground/50 font-mono print-hide">
-              CONFIDENTIAL • MONDRO INTELLIGENCE CAPITAL
             </div>
           </Slide>
         </motion.div>
