@@ -457,7 +457,11 @@ const SectionDivider = ({
   </div>
 );
 
-const ReportSection = () => {
+interface ReportSectionProps {
+  onExit?: () => void;
+}
+
+const ReportSection = ({ onExit }: ReportSectionProps) => {
   const [isExporting, setIsExporting] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -503,12 +507,15 @@ const ReportSection = () => {
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
         prevSlide();
+      } else if (e.key === 'Escape' && onExit) {
+        e.preventDefault();
+        onExit();
       }
     };
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nextSlide, prevSlide]);
+  }, [nextSlide, prevSlide, onExit]);
   
   // Mouse wheel navigation
   useEffect(() => {
@@ -2113,34 +2120,10 @@ const ReportSection = () => {
           </Slide>
       </div>
       
-      {/* Navigation Controls */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 print-hide">
-        <button 
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          className="p-3 bg-background/90 backdrop-blur-sm border border-border rounded-full hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        
-        <div className="px-4 py-2 bg-background/90 backdrop-blur-sm border border-border rounded-full font-mono text-sm shadow-lg">
-          {currentSlide + 1} / {totalSlides || '...'}
-        </div>
-        
-        <button 
-          onClick={nextSlide}
-          disabled={currentSlide >= totalSlides - 1}
-          className="p-3 bg-background/90 backdrop-blur-sm border border-border rounded-full hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
-      
-      {/* Keyboard hint */}
-      <div className="fixed bottom-8 right-8 z-50 font-mono text-[10px] text-muted-foreground uppercase tracking-widest print-hide opacity-50">
-        ← → to navigate
+      {/* Keyboard hints */}
+      <div className="fixed bottom-8 right-8 z-50 font-mono text-[10px] text-muted-foreground uppercase tracking-widest print-hide opacity-50 text-right">
+        <div>← → to navigate</div>
+        <div className="mt-1">esc to exit</div>
       </div>
       
       {/* Hidden export button trigger */}
