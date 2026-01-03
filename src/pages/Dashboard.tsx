@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 const productNavItems = [
   { 
-    title: "Intelligence", 
+    title: "Dashboard", 
     icon: Layers, 
     id: "intelligence",
     description: "Growth, Visibility, Competitor Intel, Technical"
