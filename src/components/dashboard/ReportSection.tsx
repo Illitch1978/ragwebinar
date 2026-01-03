@@ -2414,6 +2414,76 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* APPENDIX (Slides A, B, C)                      */}
         {/* ============================================== */}
 
+        {/* Appendix Divider */}
+        <div data-divider="true" className="w-screen h-screen flex-shrink-0 bg-background relative flex flex-col overflow-hidden">
+          {/* Subtle grid background */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="w-full h-full border-l border-r border-border/30 mx-auto max-w-6xl grid grid-cols-12">
+              <div className="col-span-2 border-r border-border/30 h-full"></div>
+              <div className="col-span-8 border-r border-border/30 h-full"></div>
+              <div className="col-span-2 h-full"></div>
+            </div>
+            <div className="absolute top-24 w-full border-b border-border/30"></div>
+            <div className="absolute bottom-32 w-full border-b border-border/30"></div>
+          </div>
+
+          <div className="relative z-10 h-full flex flex-col max-w-6xl mx-auto px-8 w-full">
+            {/* Header */}
+            <div className="h-24 flex items-end pb-6 justify-between">
+              <div className="flex items-center gap-1.5 text-foreground">
+                <span className="font-serif font-bold text-xl tracking-tight lowercase">mondro</span>
+                <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              </div>
+              <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+                Reference Material
+              </div>
+            </div>
+
+            {/* Main content */}
+            <div className="flex-grow flex flex-col justify-center">
+              <div className="grid grid-cols-12 gap-8">
+                <div className="col-span-2 text-right pt-4">
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block transform -rotate-90 origin-top-right translate-x-4">
+                    Supporting Data
+                  </span>
+                </div>
+                
+                <div className="col-span-10">
+                  <h1 className="font-serif text-7xl lg:text-8xl text-foreground leading-[0.9] tracking-tighter mb-8">
+                    Operational <br/>
+                    <span className="text-primary italic pr-4">Detail.</span>
+                  </h1>
+                  <p className="font-sans text-lg font-light text-muted-foreground max-w-md leading-relaxed ml-2 border-l border-primary pl-6">
+                    Granular analysis, technical constraints, and near-term value calculations.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer - Appendix sections */}
+            <div className="h-32 grid grid-cols-12 gap-8 items-start pt-8">
+              <div className="col-span-2"></div>
+              <div className="col-span-3">
+                <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">Appendix A</div>
+                <div className="font-serif text-lg text-foreground leading-tight">Immediate Priorities</div>
+                <div className="font-sans text-[10px] text-muted-foreground mt-1">Quick wins & granular fixes</div>
+              </div>
+              
+              <div className="col-span-3">
+                <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Appendix B</div>
+                <div className="font-serif text-lg text-foreground leading-tight">Technical Constraints</div>
+                <div className="font-sans text-[10px] text-muted-foreground mt-1">Latency, Code, & Core Web Vitals</div>
+              </div>
+              
+              <div className="col-span-4">
+                <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Appendix C</div>
+                <div className="font-serif text-lg text-foreground leading-tight">Near-Term Value</div>
+                <div className="font-sans text-[10px] text-muted-foreground mt-1">ROI Modeling</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Appendix A: Immediate Priorities (moved from old Slide 06) */}
         <Slide>
           <div className="max-w-7xl w-full h-full flex flex-col">
