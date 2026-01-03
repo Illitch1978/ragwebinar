@@ -1103,48 +1103,79 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 09: Visibility & Discoverability */}
+        {/* Slide 10: Visibility & Discoverability */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Visibility & Discoverability</SlideEyebrow>
-            <ActionTitle>Invisible to the new arbiters of trust.</ActionTitle>
-            
-            <p className="text-sm text-muted-foreground max-w-4xl mb-5">
-              In 2025, visibility is not just about Google Rankings; it is about <strong className="text-foreground">Generative Presence</strong>. Does ChatGPT cite you as a leader? Currently, the answer is no.
-            </p>
+          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="mb-12">
+              <SlideEyebrow>Visibility & Discoverability</SlideEyebrow>
+              <ActionTitle>"They show up, but they don't speak up."</ActionTitle>
+              <p className="text-sm text-muted-foreground max-w-3xl leading-relaxed">
+                Mavrix is physically present (Conferences) but digitally silent (Zero Assets). <br />
+                You are <strong className="text-foreground">renting attention</strong> via booths instead of <strong className="text-foreground">owning authority</strong> via content.
+              </p>
+            </div>
 
-            <div className="grid md:grid-cols-12 gap-6">
-              <div className="col-span-5 border border-border p-5 bg-muted/30">
-                <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Search Engine Presence</div>
-                <div className="font-serif text-2xl mb-2 text-muted-foreground">Low-Tier</div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  You rank for your own brand name, but have near-zero visibility for high-intent non-branded terms like "AI Consumer Insights." You are relying entirely on outbound sales or paid acquisition.
-                </p>
-                <div className="pt-3 border-t border-border">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase">Organic Traffic Share</span>
-                  <div className="text-lg font-medium mt-1 text-muted-foreground">~5%</div>
+            <div className="grid grid-cols-3 gap-8 h-[420px]">
+              {/* Search Presence Card */}
+              <div className="flex flex-col h-full border border-border">
+                <div className="border border-border p-8 flex flex-col justify-between h-full bg-background">
+                  <div>
+                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-amber-50 text-amber-600 border border-amber-200">Low-Tier Visibility</span>
+                    <h3 className="font-serif text-2xl mb-3 text-foreground">Search Presence</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                      Ranking for "Mavrix" is vanity. Ranking for "Global Fieldwork" is value. Currently, you are invisible to high-intent buyers who don't know your name.
+                    </p>
+                  </div>
+                  <div className="border-t border-border pt-6 mt-auto">
+                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Organic Traffic Share</span>
+                    <span className="font-serif text-4xl text-foreground">~5%</span>
+                  </div>
+                </div>
+                <div className="bg-muted/50 px-6 py-4 border-t border-border">
+                  <span className="font-mono text-[10px] text-muted-foreground font-semibold uppercase tracking-widest block mb-1">Priority Fix</span>
+                  <p className="text-xs text-primary font-medium leading-relaxed">Target "Problem-Aware" Keywords (e.g., "Multi-Country Data Collection").</p>
                 </div>
               </div>
 
-              <div className="col-span-5 border border-border p-5 bg-background border-l-4 border-l-destructive">
-                <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Generative AI Index</div>
-                <div className="font-serif text-2xl mb-2 text-foreground">Absent</div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  When LLMs (ChatGPT, Perplexity, Claude) are asked to "List top AI research tools," Rubiklab is consistently omitted. This is due to a lack of schema markup and authoritative backlinks.
-                </p>
-                <div className="pt-3 border-t border-border">
-                  <span className="font-mono text-[10px] text-destructive uppercase tracking-widest">Critical Exposure</span>
+              {/* Generative AI Card */}
+              <div className="flex flex-col h-full border border-border">
+                <div className="border border-border p-8 flex flex-col justify-between h-full bg-background">
+                  <div>
+                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200">Absent from Index</span>
+                    <h3 className="font-serif text-2xl mb-3 text-foreground">Generative AI</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                      If you aren't in the training data, you aren't in the consideration set. ChatGPT lists Dynata and Kantar as leaders; Mavrix is omitted.
+                    </p>
+                  </div>
+                  <div className="border-t border-border pt-6 mt-auto">
+                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Citation Authority</span>
+                    <span className="font-serif text-4xl text-destructive">Zero</span>
+                  </div>
+                </div>
+                <div className="bg-muted/50 px-6 py-4 border-t border-border">
+                  <span className="font-mono text-[10px] text-muted-foreground font-semibold uppercase tracking-widest block mb-1">Priority Fix</span>
+                  <p className="text-xs text-primary font-medium leading-relaxed">Publish "State of Data" reports to force citation in LLM training data.</p>
                 </div>
               </div>
-              
-              <div className="col-span-2 space-y-3">
-                <div className="bg-primary/5 p-4 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">Fix: Schema</div>
-                  <p className="text-xs text-foreground">Add JSON-LD Organization and Product schema to all pages.</p>
+
+              {/* Commercial Balance Card - Highlighted */}
+              <div className="flex flex-col h-full border border-red-100 bg-red-50/10">
+                <div className="border border-red-100 p-8 flex flex-col justify-between h-full bg-red-50/10">
+                  <div>
+                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200">Renting Attention</span>
+                    <h3 className="font-serif text-2xl mb-3 text-foreground">Commercial Balance</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                      The booth closes at 5 PM. Content sells 24/7. You are currently dependent on physical events rather than digital leverage.
+                    </p>
+                  </div>
+                  <div className="border-t border-red-100 pt-6 mt-auto">
+                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Owned Asset Value</span>
+                    <span className="font-serif text-4xl text-destructive">None</span>
+                  </div>
                 </div>
-                <div className="bg-primary/5 p-4 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">Fix: Content</div>
-                  <p className="text-xs text-foreground">Publish "State of AI Research" reports to build citation authority.</p>
+                <div className="bg-red-50/30 px-6 py-4 border-t border-red-100">
+                  <span className="font-mono text-[10px] text-red-400 font-semibold uppercase tracking-widest block mb-1">Strategic Pivot</span>
+                  <p className="text-xs text-red-600 font-medium leading-relaxed">Shift budget from "Event Attendance" to "Event Hosting" (Webinars).</p>
                 </div>
               </div>
             </div>
