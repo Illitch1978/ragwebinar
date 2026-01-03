@@ -1182,127 +1182,90 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 10: Competitive Balance */}
+        {/* Slide 11: Competitive Balance */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Competitive Balance</SlideEyebrow>
-            <ActionTitle>A defensible engine inside an indefensible fortress.</ActionTitle>
-            
-            <div className="grid md:grid-cols-12 gap-6">
-              <div className="col-span-5 bg-muted/30 border border-border p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2.5 h-2.5 bg-primary rounded-full"></div>
-                  <span className="font-mono text-xs uppercase tracking-widest text-primary">Relative Strength</span>
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col">
+            <div className="mb-4">
+              <SlideEyebrow>Competitive Balance</SlideEyebrow>
+              <ActionTitle className="mb-4">The "Unit Economics" Problem.</ActionTitle>
+              <p className="font-sans font-light text-muted-foreground max-w-3xl leading-relaxed">
+                Mavrix is carrying the heavy fixed costs of a Global Operation, but missing the high-margin leverage of a Digital Brand. You are paying "Analog Rates" for every win.
+              </p>
+            </div>
+
+            {/* Balance Container - Two Column Grid */}
+            <div className="grid grid-cols-[1fr_1px_1fr] gap-16 my-8 min-h-[380px]">
+              
+              {/* Left Column: Operational Assets */}
+              <div>
+                <span className="font-mono text-xs uppercase tracking-wider text-primary block mb-10 pb-2 border-b-2 border-primary">
+                  Operational Assets (High Value)
+                </span>
+                
+                <div className="flex justify-between items-baseline pb-4 mb-6 border-b border-dashed border-border">
+                  <span className="text-base text-muted-foreground font-light">Market Position</span>
+                  <span className="font-sans font-semibold text-base text-foreground">Mid-Market Tier</span>
                 </div>
-                <h3 className="font-serif text-xl mb-2 text-foreground">Technical Depth</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  Unlike the "thin wrapper" competitors who rely solely on OpenAI APIs, Rubiklab possesses proprietary processing layers. This "Human-in-the-Loop" architecture is a genuine differentiator.
-                </p>
-                <div className="pt-4 border-t border-border">
-                  <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-widest">Verdict</span>
-                  <div className="text-sm font-medium mt-1 text-foreground">The product is ready to win.</div>
+                <div className="flex justify-between items-baseline pb-4 mb-6 border-b border-dashed border-border">
+                  <span className="text-base text-muted-foreground font-light">Global Infrastructure</span>
+                  <span className="font-sans font-semibold text-base text-foreground">85+ Countries</span>
+                </div>
+                <div className="flex justify-between items-baseline pb-4 mb-6 border-b border-dashed border-border">
+                  <span className="text-base text-muted-foreground font-light">Human Capital</span>
+                  <span className="font-sans font-semibold text-base text-foreground">200-500 Bracket</span>
+                </div>
+                <div className="flex justify-between items-baseline pb-4 mb-6">
+                  <span className="text-base text-muted-foreground font-light">Service Depth</span>
+                  <span className="font-sans font-semibold text-base text-primary">High-Touch Fieldwork</span>
                 </div>
               </div>
 
-              <div className="col-span-5 bg-background border border-border border-l-4 border-l-destructive p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2.5 h-2.5 bg-destructive rounded-full"></div>
-                  <span className="font-mono text-xs uppercase tracking-widest text-destructive">Market Exposure</span>
+              {/* Divider */}
+              <div className="h-full w-px bg-border"></div>
+
+              {/* Right Column: Digital Leverage */}
+              <div>
+                <span className="font-mono text-xs uppercase tracking-wider text-destructive block mb-10 pb-2 border-b-2 border-destructive">
+                  Digital Leverage (Zero Efficiency)
+                </span>
+                
+                <div className="flex justify-between items-baseline pb-4 mb-6 border-b border-dashed border-border">
+                  <span className="text-base text-muted-foreground font-light">Thought Leadership</span>
+                  <span className="font-sans font-semibold text-base text-destructive">0 Published Assets</span>
                 </div>
-                <h3 className="font-serif text-xl mb-2 text-foreground">Commercial Silence</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  Competitors are out-shouting you 10:1. Their websites promise specific ROI, feature client logos, and offer instant demos. Rubiklab's "Black Box" approach makes the superior technology feel riskier.
-                </p>
-                <div className="pt-4 border-t border-border">
-                  <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-widest">Verdict</span>
-                  <div className="text-sm font-medium mt-1 text-destructive">The story is losing.</div>
+                <div className="flex justify-between items-baseline pb-4 mb-6 border-b border-dashed border-border">
+                  <span className="text-base text-muted-foreground font-light">Inbound Engine</span>
+                  <span className="font-sans font-semibold text-base text-destructive">Dormant</span>
+                </div>
+                <div className="flex justify-between items-baseline pb-4 mb-6 border-b border-dashed border-border">
+                  <span className="text-base text-muted-foreground font-light">Trust Verification</span>
+                  <span className="font-sans font-semibold text-base text-destructive">Self-Reported Only</span>
+                </div>
+                <div className="flex justify-between items-baseline pb-4 mb-6">
+                  <span className="text-base text-muted-foreground font-light">Acquisition Mode</span>
+                  <span className="font-sans font-semibold text-base text-destructive">100% Manual Outbound</span>
                 </div>
               </div>
-              
-              <div className="col-span-2 space-y-4">
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Net Position</div>
-                  <div className="font-serif text-2xl text-foreground mb-1">Imbalanced</div>
-                  <p className="text-xs text-muted-foreground">Capability outpaces perception.</p>
-                </div>
-                
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Priority</div>
-                  <p className="text-xs text-foreground">
-                    Invest in narrative, not engineering.
+
+            </div>
+
+            {/* Insight Footer */}
+            <div className="bg-muted/50 p-8 border-l-4 border-destructive mt-auto mb-4">
+              <div className="flex justify-between items-end">
+                <div>
+                  <span className="font-mono text-[10px] text-red-400 uppercase tracking-widest block mb-3">Structural Risk</span>
+                  <p className="font-serif text-xl text-foreground leading-tight max-w-2xl">
+                    Competitors acquire customers via <span className="italic text-muted-foreground">Content</span> (Scalable). <br />
+                    Mavrix acquires customers via <span className="italic text-muted-foreground">People</span> (Linear).
                   </p>
+                </div>
+                <div className="text-right">
+                  <span className="block font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Impact</span>
+                  <span className="font-medium text-destructive">Margin Compression</span>
                 </div>
               </div>
             </div>
-          </div>
-        </Slide>
 
-        {/* Slide 11: Strategic Implications */}
-        <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Strategic Implications</SlideEyebrow>
-            <ActionTitle>Inaction leads to commoditisation.</ActionTitle>
-            
-            <div className="grid md:grid-cols-12 gap-6">
-              <div className="col-span-9 grid md:grid-cols-3 gap-5">
-                <div>
-                  <div className="text-3xl font-serif text-muted/50 mb-2">01</div>
-                  <div className="border-t-2 border-foreground pt-4 mb-3"></div>
-                  <h3 className="font-serif text-lg mb-2 text-foreground">Erosion of Premium</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                    If the "High Fidelity" advantage is not articulated clearly, buyers will default to price comparison. You risk being bucketed with cheap synthetic data tools.
-                  </p>
-                  <div className="pt-3 border-t border-border">
-                    <div className="font-mono text-[9px] text-destructive uppercase tracking-widest">Risk: Margin Compression</div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="text-3xl font-serif text-muted/50 mb-2">02</div>
-                  <div className="border-t-2 border-foreground pt-4 mb-3"></div>
-                  <h3 className="font-serif text-lg mb-2 text-foreground">Compounding Invisibility</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                    Every month that passes without schema optimization and authoritative content publishing widens the gap in AI discoverability.
-                  </p>
-                  <div className="pt-3 border-t border-border">
-                    <div className="font-mono text-[9px] text-destructive uppercase tracking-widest">Risk: Structural Obscurity</div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="text-3xl font-serif text-muted/50 mb-2">03</div>
-                  <div className="border-t-2 border-foreground pt-4 mb-3"></div>
-                  <h3 className="font-serif text-lg mb-2 text-foreground">The "Best Kept Secret" Trap</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                    Continuing to rely on product superiority without narrative support will result in lower-quality competitors capturing market share.
-                  </p>
-                  <div className="pt-3 border-t border-border">
-                    <div className="font-mono text-[9px] text-destructive uppercase tracking-widest">Risk: Market Share Loss</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="col-span-3 space-y-4">
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Window of Opportunity</div>
-                  <div className="font-serif text-3xl text-foreground mb-1">6-12 Mo</div>
-                  <p className="text-xs text-muted-foreground">Before incumbents close the AI velocity gap with acquisitions.</p>
-                </div>
-                
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Path Forward</div>
-                  <p className="text-xs text-foreground">
-                    The following section outlines the specific interventions required to capitalize on this window.
-                  </p>
-                </div>
-                
-                <div className="bg-destructive/10 p-4 border-l-2 border-destructive">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-2">Inaction Cost</div>
-                  <div className="font-serif text-xl text-destructive mb-1">-$2.4M ARR</div>
-                  <p className="text-xs text-muted-foreground">Estimated revenue at risk over 18 months.</p>
-                </div>
-              </div>
-            </div>
           </div>
         </Slide>
 
