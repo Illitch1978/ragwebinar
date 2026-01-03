@@ -857,58 +857,71 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           layout="center"
         />
 
-        {/* Slide 06: The Competitive Reality */}
+        {/* Slide 07: The Competitive Reality */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
             <SlideEyebrow>The Competitive Reality</SlideEyebrow>
-            <ActionTitle>The category has split into "Legacy Trust" and "AI Velocity".</ActionTitle>
-            
-            <div className="grid md:grid-cols-12 gap-8">
-              <div className="col-span-6 text-base leading-relaxed text-muted-foreground space-y-4">
-                <p className="text-base text-foreground">
-                  You are not just competing against other research tools. You are competing against the "Good Enough" economy of generalist AI (ChatGPT) and the entrenched inertia of legacy agencies.
+            <ActionTitle>The category has split into "Automated Velocity" and "Legacy Scale."</ActionTitle>
+            <p className="font-sans font-light text-muted-foreground max-w-3xl mb-8">
+              Mavrix is fighting a two-front war. On one side, AI platforms (Zappi) are driving the cost of simple data to zero. On the other, giants (Dynata) are winning on sheer volume.
+            </p>
+
+            {/* Spectrum Container */}
+            <div className="flex justify-between items-stretch h-[380px] mt-8 relative">
+              
+              {/* Pole 01: The Commodity */}
+              <div className="w-[30%] p-8 flex flex-col border border-border bg-muted/30 relative">
+                <span className="font-mono text-xs uppercase tracking-[0.1em] text-destructive mb-4">Pole 01: The Commodity</span>
+                <h3 className="font-serif text-3xl leading-none mb-4 text-foreground">Automated<br/>Velocity.</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                  Tech-first platforms selling "Insights in Minutes." They drive marginal cost to zero but introduce high risk (synthetic fraud, hallucinations).
                 </p>
-                <p className="text-sm">
-                  Attention in the sector has concentrated around two poles:
-                  <br/>1. <strong className="text-foreground">Reliability:</strong> Old-guard players adding AI wrappers to protect their moat.
-                  <br/>2. <strong className="text-foreground">Speed:</strong> Product-led disruptors selling "insights in minutes."
-                </p>
-                <div className="pt-5 border-t border-border">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">The Rubiklab Position</div>
-                  <div className="font-serif text-lg italic text-muted-foreground">
-                    "Stuck in the middle." Technically superior to the disruptors, but narratively quieter than the legacy players.
-                  </div>
+                <div className="mt-auto text-xs text-muted-foreground/60 border-t border-border pt-4">
+                  <strong className="text-foreground">Adversaries:</strong><br/>Zappi, Suzy, Lucid, Pollfish
                 </div>
               </div>
 
-              <div className="col-span-6 space-y-4">
-                <div className="bg-muted/30 p-5 border-l-2 border-foreground">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Buyer Decision Criteria</div>
-                  
-                  <ul className="space-y-3">
-                    <li className="flex justify-between items-center pb-3 border-b border-border">
-                      <span className="font-serif text-base">Speed to Insight</span>
-                      <span className="font-mono text-[10px] text-primary uppercase tracking-widest">Dominant Factor</span>
-                    </li>
-                    <li className="flex justify-between items-center pb-3 border-b border-border">
-                      <span className="font-serif text-base">Methodology Trust</span>
-                      <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">Hygiene Factor</span>
-                    </li>
-                    <li className="flex justify-between items-center pb-3 border-b border-border">
-                      <span className="font-serif text-base">Platform vs Service</span>
-                      <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">Platform Preferred</span>
-                    </li>
-                  </ul>
-                </div>
+              {/* Middle Zone: Mavrix Position */}
+              <div className="w-[40%] flex flex-col justify-center items-center text-center bg-background z-10 shadow-[0_0_40px_rgba(0,0,0,0.05)] border border-border px-8">
+                <div className="w-4 h-4 bg-primary rounded-full shadow-[0_0_0_4px_hsl(var(--primary)/0.2)] mb-4" />
+                <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Current Position</span>
+                <h3 className="font-serif text-2xl text-foreground mb-2">"Heavy Service"</h3>
+                <p className="text-xs text-muted-foreground max-w-[240px] leading-relaxed">
+                  Operationally deeper than the disruptors (Verified Fieldwork), but digitally invisible compared to the incumbents.
+                </p>
                 
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Strategic Implication</div>
-                  <p className="text-sm text-foreground">
-                    Rubiklab must claim the "Premium Speed" position before incumbents close the velocity gap.
+                <div className="mt-6 border-t border-border pt-4 w-full">
+                  <span className="block font-mono text-[9px] text-destructive uppercase tracking-widest mb-1">Strategic Friction</span>
+                  <p className="text-xs font-medium text-foreground">
+                    Trying to sell "Manual Rigor" in a market obsessed with "One-Click Speed."
                   </p>
                 </div>
               </div>
+
+              {/* Pole 02: The Safe Choice */}
+              <div className="w-[30%] p-8 flex flex-col border border-border bg-muted/30 relative">
+                <span className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground mb-4">Pole 02: The Safe Choice</span>
+                <h3 className="font-serif text-3xl leading-none mb-4 text-foreground">Legacy<br/>Scale.</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                  Massive infrastructure players selling "Global Reach." They offer safety but suffer from bloat, opacity, and slow turnaround times.
+                </p>
+                <div className="mt-auto text-xs text-muted-foreground/60 border-t border-border pt-4">
+                  <strong className="text-foreground">Adversaries:</strong><br/>Dynata, Kantar, Ipsos
+                </div>
+              </div>
+
             </div>
+            
+            {/* Footer Stats */}
+            <div className="mt-8 flex justify-between border-t border-border pt-4">
+              <div className="text-xs text-muted-foreground font-mono">
+                <span className="text-foreground font-semibold">Buying Criteria:</span> Speed vs. Certainty
+              </div>
+              <div className="text-xs text-muted-foreground font-mono">
+                <span className="text-foreground font-semibold">Threat Level:</span> High (Squeezed Middle)
+              </div>
+            </div>
+
           </div>
         </Slide>
 
