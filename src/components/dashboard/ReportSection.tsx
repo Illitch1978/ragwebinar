@@ -698,7 +698,71 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 04: Overall Digital Standing */}
+        {/* Slide 04: Report Architecture */}
+        <Slide className="bg-[#050505]">
+          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="mb-16">
+              <span className="font-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-4 block">Navigation</span>
+              <h2 className="font-serif text-5xl text-white">Report Architecture</h2>
+            </div>
+
+            <div className="grid grid-cols-3 gap-12 h-[500px]">
+              {/* Section 01: Market Context */}
+              <div className="border-l border-white/10 pl-8 h-full flex flex-col">
+                <span className="font-mono text-xs text-primary uppercase tracking-widest mb-4">Section 01</span>
+                <h3 className="font-serif text-3xl text-white mb-2">Market Context.</h3>
+                <p className="text-xs text-gray-500 mb-8 italic">The External Reality</p>
+                
+                <ul className="mt-6 font-sans font-light text-[0.85rem] text-gray-400 leading-[2] space-y-2">
+                  <li className="border-b border-white/5 pb-2">Competitive Reality</li>
+                  <li className="border-b border-white/5 pb-2">Peer Positioning Snapshot</li>
+                  <li className="border-b border-white/5 pb-2">Differentiation Signals</li>
+                  <li className="border-b border-white/5 pb-2">Visibility & Discoverability</li>
+                  <li className="border-b border-white/5 pb-2">Competitive Balance</li>
+                  <li className="border-b border-white/5 pb-2">Strategic Implications</li>
+                </ul>
+              </div>
+
+              {/* Section 02: Diagnosis */}
+              <div className="border-l border-white/10 pl-8 h-full flex flex-col">
+                <span className="font-mono text-xs text-primary uppercase tracking-widest mb-4">Section 02</span>
+                <h3 className="font-serif text-3xl text-white mb-2">Diagnosis.</h3>
+                <p className="text-xs text-gray-500 mb-8 italic">The Internal Reality</p>
+                
+                <ul className="mt-6 font-sans font-light text-[0.85rem] text-gray-400 leading-[2] space-y-2">
+                  <li className="border-b border-white/5 pb-2">System-Level Diagnosis</li>
+                  <li className="border-b border-white/5 pb-2">Perceived Authority</li>
+                  <li className="border-b border-white/5 pb-2">Narrative Positioning</li>
+                  <li className="border-b border-white/5 pb-2">Trust Architecture</li>
+                  <li className="border-b border-white/5 pb-2">Revenue Leakage Analysis</li>
+                  <li className="border-b border-white/5 pb-2">Diagnosis Synthesis</li>
+                </ul>
+              </div>
+
+              {/* Section 03: The Pivot */}
+              <div className="border-l border-white/10 pl-8 h-full flex flex-col">
+                <span className="font-mono text-xs text-primary uppercase tracking-widest mb-4">Section 03</span>
+                <h3 className="font-serif text-3xl text-white mb-2">The Pivot.</h3>
+                <p className="text-xs text-gray-500 mb-8 italic">The Strategic Move</p>
+                
+                <ul className="mt-6 font-sans font-light text-[0.85rem] text-gray-400 leading-[2] space-y-2">
+                  <li className="border-b border-white/5 pb-2">Strategic Inflection</li>
+                  <li className="border-b border-white/5 pb-2">Focus Themes</li>
+                  <li className="border-b border-white/5 pb-2">Leverage Matrix</li>
+                  <li className="border-b border-white/5 pb-2">Structural Evolution</li>
+                  <li className="border-b border-white/5 pb-2">Governance Signals</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-auto border-t border-white/10 pt-6 flex justify-between text-xs text-gray-500 font-mono uppercase tracking-widest">
+              <div>Appendix: Technical Constraints & Quick Wins</div>
+              <div>Total Slides: 28</div>
+            </div>
+          </div>
+        </Slide>
+
+        {/* Slide 05: Overall Digital Standing */}
         <Slide>
           <div className="max-w-7xl w-full h-full flex flex-col">
             <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
@@ -792,10 +856,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SECTION 1: MARKET CONTEXT (Slides 05-11)      */}
         {/* ============================================== */}
 
-        {/* Slide 05: Divider (Market Context) - Center Focus */}
+        {/* Slide 06: Divider (Market Context) - Center Focus */}
         <SectionDivider 
           title="Market Context" 
-          subtitle="Contextualizing internal performance against external competitive reality."
+          subtitle="The External Reality"
           layout="center"
         />
 
@@ -1211,11 +1275,11 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SECTION 2: DIAGNOSIS (Slides 12-18)           */}
         {/* ============================================== */}
 
-        {/* Slide 12: Divider (Diagnosis) - Bottom-Left Focus */}
+        {/* Slide 13: Divider (Diagnosis) - Center Focus */}
         <SectionDivider 
           title="Diagnosis" 
-          subtitle="A systemic breakdown of friction, gaps, and lost revenue opportunities."
-          layout="bottom-left"
+          subtitle="The Internal Reality"
+          layout="center"
         />
 
         {/* Slide 13: System-Level Diagnosis */}
@@ -1628,11 +1692,11 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SECTION 3: STRATEGY (Slides 19-25)            */}
         {/* ============================================== */}
 
-        {/* Slide 19: Divider (The Next Order) - Top-Right Focus */}
+        {/* Slide 20: Divider (The Pivot) - Center Focus */}
         <SectionDivider 
-          title={<>Next-Order<br />Effects</>} 
-          subtitle={<>The critical pivots required<br />to align digital reality with business ambition.</>}
-          layout="top-right"
+          title="The Pivot" 
+          subtitle="The Strategic Move"
+          layout="center"
         />
 
         {/* Slide 20: Strategic Inflection */}
