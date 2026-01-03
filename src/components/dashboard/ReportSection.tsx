@@ -1781,123 +1781,79 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 21: Focus Themes */}
+        {/* Slide 21: Strategic Inflection */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Focus Themes</SlideEyebrow>
-            <ActionTitle>Collapsing complexity into three mandates.</ActionTitle>
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+            <SlideEyebrow>Strategic Inflection</SlideEyebrow>
+            <ActionTitle>Your narrative choice determines which war you fight.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-6">
-              <div className="col-span-9 grid md:grid-cols-3 gap-5">
-                <div className="border-t-2 border-foreground pt-4">
-                  <div className="font-mono text-xs text-primary mb-2">01</div>
-                  <h3 className="font-serif text-xl mb-2 text-foreground">Friction Removal</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                    Systematically dismantling every barrier between user intent and value realization.
-                  </p>
-                  <div className="space-y-2 text-xs text-muted-foreground mb-3">
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Reduce form fields from 8 to 3</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Improve CTA visibility and contrast</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Optimize mobile experience</span>
-                    </div>
-                  </div>
-                  <div className="pt-3 border-t border-border">
-                    <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Target</div>
-                    <div className="text-sm text-foreground">Intake, Forms, CTAs</div>
-                  </div>
-                </div>
-                <div className="border-t-2 border-foreground pt-4">
-                  <div className="font-mono text-xs text-primary mb-2">02</div>
-                  <h3 className="font-serif text-xl mb-2 text-foreground">Narrative Authority</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                    Shifting language from "Technical Process" (How it works) to "Executive Outcome" (Why it wins).
-                  </p>
-                  <div className="space-y-2 text-xs text-muted-foreground mb-3">
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Rewrite hero with outcome focus</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Lead with ROI, not features</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Executive-tier vocabulary</span>
-                    </div>
-                  </div>
-                  <div className="pt-3 border-t border-border">
-                    <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Target</div>
-                    <div className="text-sm text-foreground">Headlines, Value Prop</div>
-                  </div>
-                </div>
-                <div className="border-t-2 border-foreground pt-4">
-                  <div className="font-mono text-xs text-primary mb-2">03</div>
-                  <h3 className="font-serif text-xl mb-2 text-foreground">Trust Visibility</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                    Moving credibility from "Implicit" (trust the code) to "Explicit" (trust the evidence).
-                  </p>
-                  <div className="space-y-2 text-xs text-muted-foreground mb-3">
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Add client logo strip below hero</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Display G2/Capterra ratings</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Feature team on homepage</span>
-                    </div>
-                  </div>
-                  <div className="pt-3 border-t border-border">
-                    <div className="font-mono text-[10px] text-muted-foreground uppercase mb-1">Target</div>
-                    <div className="text-sm text-foreground">Logos, Reviews, Team</div>
-                  </div>
-                </div>
-              </div>
+            <p className="text-sm text-muted-foreground font-light max-w-3xl mb-12">
+              This is not just about "Growth." It is about choosing your adversary. Sticking to the current path forces you to fight a price war you cannot win. The pivot allows you to fight a value war you are destined to win.
+            </p>
+
+            <div className="grid grid-cols-2 gap-12 h-[420px]">
               
-              <div className="col-span-3 space-y-4">
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Execution Horizon</div>
-                  <div className="font-serif text-3xl text-foreground mb-1">90 Days</div>
-                  <p className="text-xs text-muted-foreground">Full deployment of all three mandates.</p>
-                </div>
-                
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Sequencing</div>
-                  <p className="text-xs text-foreground">
-                    Friction first (Days 1-30). Narrative second (Days 31-60). Trust third (Days 61-90).
+              {/* Path A: Status Quo */}
+              <div className="border border-border bg-muted/30 p-8 flex flex-col h-full">
+                <div className="mb-8">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2 block">Path A: Status Quo</span>
+                  <h3 className="font-serif text-3xl text-muted-foreground mb-2">The "Wrapper" War</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    If you sell "Process" (how it works), buyers bucket you with cheap AI tools. You compete on cost against infinite supply.
                   </p>
                 </div>
-                
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Resource Allocation</div>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Friction</span>
-                      <span className="text-foreground font-medium">Dev + UX</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Narrative</span>
-                      <span className="text-foreground font-medium">Copy + Design</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Trust</span>
-                      <span className="text-foreground font-medium">Marketing</span>
-                    </div>
+
+                <div className="mt-auto space-y-0">
+                  <div className="flex justify-between items-center py-3 border-b border-border">
+                    <span className="text-xs uppercase tracking-wide text-muted-foreground">Primary Adversary</span>
+                    <span className="text-sm text-muted-foreground font-medium">Cheap AI Wrappers ($50/mo)</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-border">
+                    <span className="text-xs uppercase tracking-wide text-muted-foreground">Buyer Psychology</span>
+                    <span className="text-sm text-muted-foreground font-medium">"Is this a risky experiment?"</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-border">
+                    <span className="text-xs uppercase tracking-wide text-muted-foreground">Sales Friction</span>
+                    <span className="text-sm text-destructive font-medium">High (Justifying Existence)</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3">
+                    <span className="text-xs uppercase tracking-wide text-muted-foreground">Winning Metric</span>
+                    <span className="text-sm text-muted-foreground font-medium">Lowest Price</span>
                   </div>
                 </div>
               </div>
+
+              {/* Path B: Correction */}
+              <div className="border border-primary bg-background p-8 flex flex-col h-full relative overflow-hidden shadow-lg shadow-primary/10">
+                <div className="absolute top-0 left-0 w-full h-1 bg-primary" />
+                <div className="mb-8">
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2 block">Path B: Correction</span>
+                  <h3 className="font-serif text-3xl text-foreground mb-2">The "Agency" War</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    If you sell "Outcome" (certainty), buyers bucket you with premium consultancies. You compete on speed against slow incumbents.
+                  </p>
+                </div>
+
+                <div className="mt-auto space-y-0">
+                  <div className="flex justify-between items-center py-3 border-b border-muted">
+                    <span className="text-xs uppercase tracking-wide text-primary font-semibold">Primary Adversary</span>
+                    <span className="text-sm text-foreground font-semibold">Legacy Agencies (Slow/Expensive)</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-muted">
+                    <span className="text-xs uppercase tracking-wide text-primary font-semibold">Buyer Psychology</span>
+                    <span className="text-sm text-foreground font-semibold">"This is a faster standard."</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-muted">
+                    <span className="text-xs uppercase tracking-wide text-primary font-semibold">Sales Friction</span>
+                    <span className="text-sm text-green-500 font-semibold">Low (Obvious ROI)</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3">
+                    <span className="text-xs uppercase tracking-wide text-primary font-semibold">Winning Metric</span>
+                    <span className="text-sm text-foreground font-semibold">Highest Velocity</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </Slide>
