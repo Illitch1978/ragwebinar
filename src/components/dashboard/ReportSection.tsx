@@ -10,8 +10,8 @@ import jsPDF from "jspdf";
 const reportData = {
   score: 59,
   healthStatus: "Moderate health",
-  clientName: "Rubiklab.ai",
-  clientUrl: "https://www.rubiklab.ai/",
+  clientName: "Mavrix Data",
+  clientUrl: "https://www.mavrixdata.com/",
   generatedDate: "December 30, 2025",
   scope: "Independent assessment of digital clarity, credibility, and competitive positioning",
   
@@ -641,57 +641,53 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 03: Executive Synthesis */}
         <Slide>
-          <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
             <SlideEyebrow>Executive Synthesis</SlideEyebrow>
-            <ActionTitle>Technical maturity is currently outpacing commercial performance.</ActionTitle>
+            <ActionTitle>Operational maturity is currently invisible to the modern buyer.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-16 mt-8">
+            <p className="font-sans font-light text-lg text-muted-foreground max-w-4xl mb-16 leading-relaxed">
+              Mavrix possesses a "Ferrari Engine" (22 years of Azure Knowledge infrastructure) inside a "Stealth Chassis." The 2025 rebrand has structurally reset digital authority, creating a disconnect between actual capability and perceived market relevance.
+            </p>
+
+            <div className="grid grid-cols-3 gap-12 h-[320px] border-t border-foreground pt-10">
               
-              <div className="col-span-7 space-y-8">
-                
-                <p className="font-serif text-2xl leading-relaxed text-foreground">
-                  Rubiklab possesses a rare "Defensible Engine." The underlying infrastructure is enterprise-grade, surpassing 95% of peers in stability and velocity. The product is ready for market dominance.
+              {/* Column 1: Primary Asset */}
+              <div className="flex flex-col">
+                <div className="font-mono text-xs uppercase tracking-widest text-primary mb-6">01. Primary Asset</div>
+                <h3 className="font-serif text-2xl mb-4">The Global Engine</h3>
+                <p className="text-sm text-muted-foreground mb-8 flex-grow leading-relaxed">
+                  With 85+ countries, 40+ languages, and a 22-year legacy, the "Hard Stuff" (Infrastructure) is solved. This allows for complex, multi-market execution that pure-play tech disruptors cannot replicate.
                 </p>
-                
-                <div className="space-y-6 text-base leading-relaxed text-muted-foreground font-light">
-                  <p>
-                    However, this asset is currently constrained by <strong className="text-foreground">Commercial Friction</strong>. The digital experience prioritizes technical validation over buyer enablement. Current intake protocols and narrative positioning are actively suppressing revenue realization.
-                  </p>
-                  <div className="bg-primary/5 p-6 border-l-2 border-primary">
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">The Opportunity</div>
-                    <p className="text-sm text-foreground">
-                      The gap is not capability; it is translation. By shifting the digital architecture from "Gatekeeper" to "Accelerator," Rubiklab can unlock an estimated <strong>40% efficiency gain</strong> in the existing funnel without increasing ad spend.
-                    </p>
-                  </div>
+                <div>
+                  <div className="font-serif text-5xl leading-none text-foreground mb-1">22 Yrs</div>
+                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Operational Heritage</div>
                 </div>
               </div>
 
-              <div className="col-span-5 space-y-8">
-                
-                <div className="border-t border-border pt-6">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary mb-2 block">Primary Asset</span>
-                  <h3 className="font-serif text-2xl mb-2">Enterprise Readiness</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Infrastructure resilience is elite (Top 5% quartile). The platform carries zero technical debt risk for scaling.
-                  </p>
+              {/* Column 2: Primary Constraint */}
+              <div className="border-l border-border pl-8 flex flex-col">
+                <div className="font-mono text-xs uppercase tracking-widest text-destructive mb-6">02. Primary Constraint</div>
+                <h3 className="font-serif text-2xl mb-4">The "Trust" Vacuum</h3>
+                <p className="text-sm text-muted-foreground mb-8 flex-grow leading-relaxed">
+                  The digital presence relies on "Self-Reported" trust signals (e.g., "95% Satisfaction") without third-party verification. The rebrand reset 20 years of SEO equity, leaving Mavrix invisible to organic search and AI discovery.
+                </p>
+                <div>
+                  <div className="font-serif text-5xl leading-none text-destructive/60 mb-1">Low</div>
+                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Domain Authority (Reset)</div>
                 </div>
+              </div>
 
-                <div className="border-t border-border pt-6">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-destructive mb-2 block">Primary Constraint</span>
-                  <h3 className="font-serif text-2xl mb-2">Revenue Suppression</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Intake architecture is designed for "Data Enrichment" rather than "Pipeline Velocity," causing high-intent abandonment.
-                  </p>
+              {/* Column 3: The Pivot */}
+              <div className="border-l border-border pl-8 flex flex-col">
+                <div className="font-mono text-xs uppercase tracking-widest text-primary mb-6">03. The Pivot</div>
+                <h3 className="font-serif text-2xl mb-4">Integrity Assurance</h3>
+                <p className="text-sm text-muted-foreground mb-8 flex-grow leading-relaxed">
+                  Stop competing on "AI Speed" (a commodity war against Zappi/Lucid). Pivot to "Verified Human Truth." Own the complexity that AI cannot solve: hard-to-reach B2B and multi-country compliance.
+                </p>
+                <div>
+                  <div className="font-serif text-5xl leading-none text-primary mb-1">Premium</div>
+                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Target Positioning</div>
                 </div>
-
-                <div className="border-t border-border pt-6">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-2 block">Strategic Lever</span>
-                  <h3 className="font-serif text-2xl mb-2">Narrative Arbitrage</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Moving from "Process" language to "Outcome" language is the lowest-cost, highest-yield lever available to close the perception gap.
-                  </p>
-                </div>
-
               </div>
 
             </div>
