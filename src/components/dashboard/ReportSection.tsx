@@ -565,107 +565,40 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
     setProgress(0);
     
     try {
-      // Get all section containers
-      const summarySection = document.querySelector('[data-section="summary"]');
-      const diagnosisSection = document.querySelector('[data-section="diagnosis"]');
-      const competitiveSection = document.querySelector('[data-section="competitive-context"]');
-      const nextOrderSection = document.querySelector('[data-section="next-order-effects"]');
+      if (!containerRef.current) return;
       
-      // Temporarily show all sections
-      const sections = [summarySection, diagnosisSection, competitiveSection, nextOrderSection];
-      const originalDisplay: string[] = [];
-      sections.forEach((section, i) => {
-        if (section) {
-          originalDisplay[i] = (section as HTMLElement).style.display;
-          (section as HTMLElement).classList.remove('hidden');
-          (section as HTMLElement).style.display = 'block';
-        }
-      });
+      // Get all slides directly from the container (cover, slides, and dividers)
+      const allSlides = containerRef.current.querySelectorAll('[data-slide="true"], [data-cover="true"], [data-divider="true"]');
       
-      // Wait for DOM update
-      await new Promise(resolve => setTimeout(resolve, 100));
+      if (allSlides.length === 0) {
+        console.error("No slides found for export");
+        return;
+      }
       
-      // Collect slides by section
-      const summarySlides = summarySection?.querySelectorAll('[data-slide]') || [];
-      const diagnosisSlides = diagnosisSection?.querySelectorAll('[data-slide]') || [];
-      const competitiveSlides = competitiveSection?.querySelectorAll('[data-slide]') || [];
-      const nextOrderSlides = nextOrderSection?.querySelectorAll('[data-slide]') || [];
-      
-      const totalItems = summarySlides.length + diagnosisSlides.length + competitiveSlides.length + nextOrderSlides.length + 3; // +3 for dividers
+      const totalSlideCount = allSlides.length;
       let currentItem = 0;
       
       const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
       
-      // Helper to add slides - using JPEG at lower scale to reduce file size
+      // Helper to capture slide - using JPEG at lower scale to reduce file size
       const captureSlide = async (slide: Element): Promise<string> => {
         const canvas = await html2canvas(slide as HTMLElement, {
-          scale: 1.5, // Reduced from 2 for smaller file size
+          scale: 1.5,
           useCORS: true,
-          backgroundColor: "#ffffff",
+          backgroundColor: "#0a0a0a", // Dark background matching the slides
           logging: false,
         });
-        return canvas.toDataURL("image/jpeg", 0.85); // JPEG with 85% quality instead of PNG
+        return canvas.toDataURL("image/jpeg", 0.85);
       };
       
-      const addSlides = async (slides: NodeListOf<Element> | Element[]) => {
-        for (const slide of Array.from(slides)) {
-          currentItem++;
-          setProgress(Math.round((currentItem / totalItems) * 100));
-          const imgData = await captureSlide(slide);
-          pdf.addPage();
-          pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
-        }
-      };
-      
-      // Summary slides (first page doesn't need addPage)
-      for (let i = 0; i < summarySlides.length; i++) {
+      // Capture all slides sequentially
+      for (let i = 0; i < allSlides.length; i++) {
         currentItem++;
-        setProgress(Math.round((currentItem / totalItems) * 100));
-        const imgData = await captureSlide(summarySlides[i]);
+        setProgress(Math.round((currentItem / totalSlideCount) * 100));
+        const imgData = await captureSlide(allSlides[i]);
         if (i > 0) pdf.addPage();
         pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
       }
-      
-      // Diagnosis divider + slides
-      if (diagnosisSlides.length > 0) {
-        currentItem++;
-        setProgress(Math.round((currentItem / totalItems) * 100));
-        const dividerCanvas = await createDividerCanvas("Diagnosis", "Part Two");
-        pdf.addPage();
-        pdf.addImage(dividerCanvas.toDataURL("image/jpeg", 0.85), "JPEG", 0, 0, 1920, 1080);
-        await addSlides(diagnosisSlides);
-      }
-      
-      // Competitive Context divider + slides
-      if (competitiveSlides.length > 0) {
-        currentItem++;
-        setProgress(Math.round((currentItem / totalItems) * 100));
-        const dividerCanvas = await createDividerCanvas("Competitive Context", "Part Three");
-        pdf.addPage();
-        pdf.addImage(dividerCanvas.toDataURL("image/jpeg", 0.85), "JPEG", 0, 0, 1920, 1080);
-        await addSlides(competitiveSlides);
-      }
-      
-      // Next-Order Effects divider + slides
-      if (nextOrderSlides.length > 0) {
-        currentItem++;
-        setProgress(Math.round((currentItem / totalItems) * 100));
-        const dividerCanvas = await createDividerCanvas("Next-Order Effects", "Part Four");
-        pdf.addPage();
-        pdf.addImage(dividerCanvas.toDataURL("image/jpeg", 0.85), "JPEG", 0, 0, 1920, 1080);
-        await addSlides(nextOrderSlides);
-      }
-      
-      // Restore original visibility
-      sections.forEach((section, i) => {
-        if (section) {
-          if (originalDisplay[i]) {
-            (section as HTMLElement).style.display = originalDisplay[i];
-          } else {
-            (section as HTMLElement).style.display = '';
-          }
-        }
-      });
       
       // Format filename: Mondro_report_ClientName_YYYY-MM-DD
       const clientSlug = reportData.clientName.replace(/[^a-zA-Z0-9]/g, "-").replace(/-+/g, "-");
