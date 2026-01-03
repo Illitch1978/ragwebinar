@@ -1025,77 +1025,80 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 08: Differentiation Signals */}
+        {/* Slide 09: Differentiation Signals */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
             <SlideEyebrow>Differentiation Signals</SlideEyebrow>
-            <ActionTitle>Winners are selling "Outcomes", not "Models".</ActionTitle>
-            
-            <div className="grid md:grid-cols-12 gap-8">
-              <div className="col-span-4 text-sm text-muted-foreground space-y-4">
-                <p>
-                  A clear pattern has emerged among high-growth peers. They have systematically scrubbed "AI Process" language from their headlines, replacing it with "Business Impact" language.
-                </p>
-                <div className="pt-5 border-t border-border">
-                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest mb-2">The Shift</div>
-                  <div className="font-serif text-2xl text-foreground">From "How" to "Why".</div>
-                </div>
-              </div>
+            <ActionTitle>Winners are selling "Certainty," not just "Speed."</ActionTitle>
+            <p className="font-sans font-light text-muted-foreground max-w-3xl mb-12">
+              The market is flooded with "AI Velocity" claims. Mavrix is currently echoing this noise instead of owning the "Integrity" counter-narrative.
+            </p>
 
-              <div className="col-span-8">
-                <div className="border-t border-border">
-                  
-                  {/* Signal Row 1 */}
-                  <div className="grid grid-cols-2 border-b border-border py-3">
-                    <div className="pr-5">
-                      <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Competitor Pattern</div>
-                      <div className="font-serif text-base text-foreground">"Answers in Minutes"</div>
-                      <div className="text-xs text-muted-foreground mt-0.5">Focus on time-to-value.</div>
-                    </div>
-                    <div className="pl-5 border-l border-border">
-                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">Rubiklab Approach</div>
-                      <div className="font-serif text-base text-muted-foreground">"Semantic Processing"</div>
-                      <div className="text-xs text-destructive mt-0.5">Focus on technical method.</div>
-                    </div>
-                  </div>
-
-                  {/* Signal Row 2 */}
-                  <div className="grid grid-cols-2 border-b border-border py-3">
-                    <div className="pr-5">
-                      <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Competitor Pattern</div>
-                      <div className="font-serif text-base text-foreground">"Synthetic + Human"</div>
-                      <div className="text-xs text-muted-foreground mt-0.5">Validating accuracy.</div>
-                    </div>
-                    <div className="pl-5 border-l border-border">
-                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">Rubiklab Approach</div>
-                      <div className="font-serif text-base text-muted-foreground">"AI Innovation"</div>
-                      <div className="text-xs text-destructive mt-0.5">Generic buzzwords.</div>
-                    </div>
-                  </div>
-
-                  {/* Signal Row 3 */}
-                  <div className="grid grid-cols-2 border-b border-border py-3">
-                    <div className="pr-5">
-                      <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Competitor Pattern</div>
-                      <div className="font-serif text-base text-foreground">"Product Sandbox"</div>
-                      <div className="text-xs text-muted-foreground mt-0.5">Show, don't tell.</div>
-                    </div>
-                    <div className="pl-5 border-l border-border">
-                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">Rubiklab Approach</div>
-                      <div className="font-serif text-base text-muted-foreground">"Book a Demo"</div>
-                      <div className="text-xs text-destructive mt-0.5">Gatekeeping the value.</div>
-                    </div>
-                  </div>
-
-                </div>
+            <div className="grid grid-cols-3 gap-8 h-[380px]">
+              
+              {/* Card 1: Competitor Pattern */}
+              <div className="border border-border p-8 h-full flex flex-col bg-muted/30">
+                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground mb-4">The Competitor Pattern</span>
+                <h3 className="font-serif text-[1.75rem] leading-[1.2] text-muted-foreground italic mb-4">"Insights in Minutes."</h3>
                 
-                <div className="p-4 bg-primary/5 border-l-2 border-primary mt-4">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Prescription</div>
-                  <p className="text-sm text-foreground">
-                    Replace "Semantic Processing" with "Research in 24hrs, not 24 days." Lead with the outcome, not the engine.
-                  </p>
+                <div className="mt-auto space-y-4">
+                  <div>
+                    <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider block mb-1">Focus</span>
+                    <p className="text-xs text-muted-foreground">Time-to-Value (Speed)</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider block mb-1">Implicit Risk</span>
+                    <p className="text-xs text-muted-foreground">"Is this data real or synthetic?"</p>
+                  </div>
+                  <div className="pt-4 border-t border-border">
+                    <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider">Signals</span>
+                    <p className="text-xs text-muted-foreground/80 mt-1">Zappi, Suzy, Lucid</p>
+                  </div>
                 </div>
               </div>
+
+              {/* Card 2: Current Mavrix Position */}
+              <div className="border border-destructive border-l-4 p-8 h-full flex flex-col bg-background">
+                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-destructive mb-4">Current Positioning</span>
+                <h3 className="font-serif text-[1.75rem] leading-[1.2] text-foreground mb-4">"Smart Technology Meets Human Insight."</h3>
+                
+                <div className="mt-auto space-y-4">
+                  <div>
+                    <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider block mb-1">Focus</span>
+                    <p className="text-xs text-muted-foreground">Process (How it works)</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider block mb-1">The Problem</span>
+                    <p className="text-xs text-destructive">Generic. It tries to sound like a tech platform but lacks the proprietary IP to back it up.</p>
+                  </div>
+                  <div className="pt-4 border-t border-border">
+                    <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider">Result</span>
+                    <p className="text-xs text-muted-foreground/80 mt-1">Comparability (Commodity)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: The White Space */}
+              <div className="border border-primary border-l-4 p-8 h-full flex flex-col bg-primary/5">
+                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-primary mb-4">The White Space</span>
+                <h3 className="font-serif text-[1.75rem] leading-[1.2] text-primary mb-4">"Zero-Risk Execution."</h3>
+                
+                <div className="mt-auto space-y-4">
+                  <div>
+                    <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider block mb-1">Focus</span>
+                    <p className="text-xs text-muted-foreground">Outcome Assurance (Safety)</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider block mb-1">The Pivot</span>
+                    <p className="text-xs text-primary">"AI finds the data. We ensure it's true."</p>
+                  </div>
+                  <div className="pt-4 border-t border-primary/20">
+                    <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider">Target Emotion</span>
+                    <p className="text-xs text-muted-foreground/80 mt-1">Relief & Confidence</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </Slide>
