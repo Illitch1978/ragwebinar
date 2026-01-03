@@ -16,7 +16,7 @@ const productNavItems = [
     title: "Intelligence", 
     icon: Layers, 
     id: "intelligence",
-    description: "Growth, Visibility, Brand Equity, Competitor Intel, Technical"
+    description: "Growth, Visibility, Competitor Intel, Technical"
   },
   { 
     title: "Report", 
@@ -29,7 +29,6 @@ const productNavItems = [
 const intelligenceSubTabs = [
   { title: "Growth", id: "positioning" },
   { title: "Visibility", id: "visibility" },
-  { title: "Brand Equity", id: "brand-equity" },
   { title: "Competitor Intel", id: "competitor-intel" },
   { title: "Technical", id: "technical" },
 ];
