@@ -641,56 +641,59 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 03: Executive Synthesis */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
+          <div className="max-w-6xl w-full h-full flex flex-col justify-center">
             <SlideEyebrow>Executive Synthesis</SlideEyebrow>
-            <ActionTitle>Technical solidity is currently undermined by conversion friction.</ActionTitle>
+            <ActionTitle>Technical maturity is currently outpacing commercial performance.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-10">
-              <div className="col-span-8 space-y-8">
-                <ul className="text-lg leading-relaxed space-y-4 text-muted-foreground list-none">
-                  <li className="flex gap-4">
-                    <span className="text-primary font-mono text-sm mt-1">01</span>
-                    <span>Infrastructure excellence places Rubiklab.ai in the top 5% for server response times and uptime stability. The technical foundation is enterprise-grade.</span>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="text-primary font-mono text-sm mt-1">02</span>
-                    <span>Narrative architecture creates disconnect between solution complexity and value proposition clarity. Visitors cannot immediately identify the business outcome.</span>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="text-primary font-mono text-sm mt-1">03</span>
-                    <span>Intake friction at the form stage is causing abandonment of high-intent traffic. Eight required fields exceed industry benchmarks by 166%.</span>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="text-primary font-mono text-sm mt-1">04</span>
-                    <span>Mobile experience degrades conversion potential. Unoptimized payloads and hidden CTAs compound the friction identified on desktop.</span>
-                  </li>
-                </ul>
+            <div className="grid md:grid-cols-12 gap-16 mt-8">
+              
+              <div className="col-span-7 space-y-8">
                 
-                <div className="p-6 border border-primary bg-background shadow-sm">
-                  <div className="font-mono text-sm uppercase tracking-widest text-primary mb-3">The Strategic Opportunity</div>
-                  <p className="text-base text-foreground">
-                    By simplifying the intake mechanism and shifting messaging from "process" to "outcome," Rubiklab can unlock an estimated <strong>40% efficiency gain</strong> in the existing funnel without increasing ad spend.
+                <p className="font-serif text-2xl leading-relaxed text-foreground">
+                  Rubiklab possesses a rare "Defensible Engine." The underlying infrastructure is enterprise-grade, surpassing 95% of peers in stability and velocity. The product is ready for market dominance.
+                </p>
+                
+                <div className="space-y-6 text-base leading-relaxed text-muted-foreground font-light">
+                  <p>
+                    However, this asset is currently constrained by <strong className="text-foreground">Commercial Friction</strong>. The digital experience prioritizes technical validation over buyer enablement. Current intake protocols and narrative positioning are actively suppressing revenue realization.
+                  </p>
+                  <div className="bg-primary/5 p-6 border-l-2 border-primary">
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">The Opportunity</div>
+                    <p className="text-sm text-foreground">
+                      The gap is not capability; it is translation. By shifting the digital architecture from "Gatekeeper" to "Accelerator," Rubiklab can unlock an estimated <strong>40% efficiency gain</strong> in the existing funnel without increasing ad spend.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-span-5 space-y-8">
+                
+                <div className="border-t border-border pt-6">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary mb-2 block">Primary Asset</span>
+                  <h3 className="font-serif text-2xl mb-2">Enterprise Readiness</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Infrastructure resilience is elite (Top 5% quartile). The platform carries zero technical debt risk for scaling.
                   </p>
                 </div>
+
+                <div className="border-t border-border pt-6">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-destructive mb-2 block">Primary Constraint</span>
+                  <h3 className="font-serif text-2xl mb-2">Revenue Suppression</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Intake architecture is designed for "Data Enrichment" rather than "Pipeline Velocity," causing high-intent abandonment.
+                  </p>
+                </div>
+
+                <div className="border-t border-border pt-6">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground mb-2 block">Strategic Lever</span>
+                  <h3 className="font-serif text-2xl mb-2">Narrative Arbitrage</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Moving from "Process" language to "Outcome" language is the lowest-cost, highest-yield lever available to close the perception gap.
+                  </p>
+                </div>
+
               </div>
-              
-              <div className="col-span-4 border-l border-border pl-8 space-y-8">
-                <div>
-                  <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-2">Primary Strength</div>
-                  <div className="font-serif text-3xl">Infrastructure</div>
-                  <div className="text-base text-muted-foreground mt-2">99.9% Uptime / Clean Code</div>
-                </div>
-                <div>
-                  <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-2">Primary Constraint</div>
-                  <div className="font-serif text-3xl text-destructive">Intake Friction</div>
-                  <div className="text-base text-muted-foreground mt-2">8-Field Forms (Avg: 3)</div>
-                </div>
-                <div>
-                  <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground mb-2">Action Priority</div>
-                  <div className="font-serif text-3xl text-primary">Reduce Drag</div>
-                  <div className="text-base text-muted-foreground mt-2">Immediate Roadmap</div>
-                </div>
-              </div>
+
             </div>
           </div>
         </Slide>
@@ -1509,162 +1512,115 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 17: Revenue Leakage Analysis (moved from old Slide 09) */}
+        {/* Slide 17: Revenue Leakage Analysis */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Revenue Leakage Analysis</SlideEyebrow>
-            <ActionTitle>Motivated users are stalling at the point of highest intent.</ActionTitle>
+          <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+            <SlideEyebrow>Revenue Architecture</SlideEyebrow>
+            <ActionTitle>The "Commercial Pathway" is currently undefined.</ActionTitle>
             
-            <p className="text-sm text-muted-foreground max-w-4xl mb-5">
-              We mapped the high-intent user journey from "Solution Discovery" to "Inquiry." The data reveals a specific rupture in the intake sequence where effort exceeds motivation.
+            <p className="text-base leading-relaxed text-muted-foreground font-light max-w-4xl mb-12">
+              The digital environment functions as a technical showcase rather than a commercial engine. We observed a structural failure to guide high-intent users toward a transaction. The site currently lacks a dedicated mechanism to facilitate enterprise engagement.
             </p>
 
-            <div className="grid md:grid-cols-12 gap-6">
-              <div className="col-span-9">
-                <div className="grid grid-cols-4 gap-3 w-full mb-6">
-                  {/* Step 1 */}
-                  <div className="border-t-2 border-border pt-4 relative">
-                    <div className="absolute -top-[4px] left-0 w-2 h-2 rounded-full bg-border" />
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">01. Discovery</div>
-                    <div className="font-serif text-xl mb-1">Landing</div>
-                    <p className="text-xs text-muted-foreground">User arrives via direct search. Intent is high.</p>
-                  </div>
-
-                  {/* Step 2 */}
-                  <div className="border-t-2 border-border pt-4 relative">
-                    <div className="absolute -top-[4px] left-0 w-2 h-2 rounded-full bg-border" />
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">02. Consideration</div>
-                    <div className="font-serif text-xl mb-1">Solutions</div>
-                    <p className="text-xs text-muted-foreground">Content consumption is healthy (2m 30s avg).</p>
-                  </div>
-
-                  {/* Step 3 - Friction */}
-                  <div className="border-t-2 border-destructive pt-4 relative">
-                    <div className="absolute -top-[4px] left-0 w-2 h-2 rounded-full bg-destructive" />
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-1">03. The Stall</div>
-                    <div className="font-serif text-xl mb-1 text-destructive">The Form</div>
-                    <p className="text-xs text-muted-foreground mb-2">User is confronted with 8 mandatory fields including "Phone" and "Job Title".</p>
-                    <div className="bg-destructive/10 text-destructive text-[10px] uppercase tracking-widest px-2 py-1 inline-block font-mono">65% Drop-off</div>
-                  </div>
-
-                  {/* Step 4 */}
-                  <div className="border-t-2 border-border pt-4 relative">
-                    <div className="absolute -top-[4px] left-0 w-2 h-2 rounded-full bg-border" />
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">04. Goal</div>
-                    <div className="font-serif text-xl mb-1 text-muted-foreground/60">Confirmation</div>
-                    <p className="text-xs text-muted-foreground">Only 5% of click-throughs complete the sequence.</p>
-                  </div>
-                </div>
-
-                {/* Diagnosis and Prescription Row */}
-                <div className="grid md:grid-cols-2 gap-6 mt-4">
-                  <div className="border-t border-border pt-4 flex gap-6">
-                    <div className="font-mono text-xs uppercase tracking-widest text-primary whitespace-nowrap">Diagnosis</div>
-                    <div className="text-sm text-muted-foreground">
-                      The friction is artificial. By demanding data enrichment fields (Job Title, Phone) before establishing value, you are actively repelling qualified leads.
-                    </div>
-                  </div>
-                  
-                  <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                    <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Prescription</div>
-                    <p className="text-sm text-foreground leading-relaxed">
-                      Reduce to 3 fields: Name, Email, Company. Move qualification questions to a post-submission "enrichment" step where the user has already committed.
-                    </p>
-                  </div>
+            <div className="grid grid-cols-3 gap-12 h-[380px] border-t border-foreground pt-8">
+              
+              <div className="flex flex-col">
+                <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">01. The Offer</div>
+                <h3 className="font-serif text-2xl mb-4">Commercial Obscurity</h3>
+                <p className="text-sm text-muted-foreground mb-6 flex-grow">
+                  There is no commercial deck or explicit "Outcome" definition available. Buyers can see the technology, but they cannot see the <em>deal structure</em>. This forces them to speculate on value rather than evaluate a proposal.
+                </p>
+                <div className="bg-muted/30 p-4 border-l-2 border-muted-foreground/30">
+                  <span className="block font-mono text-[9px] text-muted-foreground uppercase mb-1">Observation</span>
+                  <span className="text-sm font-medium">Missing "Business Case" Assets</span>
                 </div>
               </div>
 
-              {/* Right sidebar with metrics */}
-              <div className="col-span-3 space-y-4">
-                <div className="bg-destructive/10 p-4 border-l-2 border-destructive">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-2">Conversion Loss</div>
-                  <div className="font-serif text-3xl text-destructive mb-1">65%</div>
-                  <p className="text-xs text-muted-foreground">Qualified leads abandoning at the form stage.</p>
-                </div>
-                
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Industry Benchmark</div>
-                  <div className="font-serif text-2xl text-foreground mb-1">25-35%</div>
-                  <p className="text-xs text-muted-foreground">Expected drop-off for simplified 3-field forms.</p>
-                </div>
-                
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Recovery Potential</div>
-                  <p className="text-xs text-foreground">
-                    Estimated 2× increase in demo requests with form simplification alone.
-                  </p>
+              <div className="border-l border-border pl-8 flex flex-col">
+                <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">02. The Validation</div>
+                <h3 className="font-serif text-2xl mb-4">Authority Vacuum</h3>
+                <p className="text-sm text-muted-foreground mb-6 flex-grow">
+                  The absence of Tier-1 press references or visible industry benchmarks isolates Rubiklab. Without external validation, the "Safe Choice" drivers (Risk Mitigation) are inactive, leaving only "High Risk" drivers (Innovation) active.
+                </p>
+                <div className="bg-muted/30 p-4 border-l-2 border-muted-foreground/30">
+                  <span className="block font-mono text-[9px] text-muted-foreground uppercase mb-1">Observation</span>
+                  <span className="text-sm font-medium">Implicit vs. Explicit Trust</span>
                 </div>
               </div>
+
+              <div className="border-l border-border pl-8 flex flex-col">
+                <div className="font-mono text-xs uppercase tracking-widest text-destructive mb-4">03. The Mechanism</div>
+                <h3 className="font-serif text-2xl mb-4 text-foreground">Undefined RFQ Path</h3>
+                <p className="text-sm text-muted-foreground mb-6 flex-grow">
+                  The site lacks a clear mechanism for commercial inquiry. Instead of a streamlined RFQ (Request for Quote) pathway, users encounter a generic contact gate. The route to "Doing Business" is technically open but commercially obscure.
+                </p>
+                <div className="bg-muted/30 p-4 border-l-2 border-destructive">
+                  <span className="block font-mono text-[9px] text-destructive uppercase mb-1">Critical Gap</span>
+                  <span className="text-sm font-medium text-destructive">No Enterprise Hand-Raise</span>
+                </div>
+              </div>
+
             </div>
           </div>
         </Slide>
 
         {/* Slide 18: Diagnosis Summary */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Diagnosis Summary</SlideEyebrow>
-            <ActionTitle className="mb-6">Three dominant forces are actively suppressing revenue.</ActionTitle>
+          <div className="max-w-6xl w-full h-full flex flex-col justify-center">
+            <SlideEyebrow>Diagnosis Synthesis</SlideEyebrow>
+            <ActionTitle>Three structural anchors are suppressing commercial velocity.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-8">
-              <div className="col-span-8 space-y-0">
-                {/* Item 01 */}
-                <div className="grid grid-cols-12 py-5 border-t-2 border-foreground items-start">
-                  <div className="col-span-1 font-mono text-sm text-muted-foreground">01</div>
-                  <div className="col-span-8">
-                    <div className="font-serif text-2xl mb-1 text-foreground">Artificial Friction</div>
-                    <p className="text-sm text-muted-foreground">
-                      The intake form structure prioritizes data enrichment over user acquisition, causing a 65% drop-off at the moment of highest intent.
-                    </p>
-                  </div>
-                  <div className="col-span-3 text-right">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-destructive border border-destructive/30 px-2 py-1">Critical</span>
-                  </div>
-                </div>
+            <p className="font-light text-lg text-muted-foreground max-w-3xl mb-12">
+              These are not isolated technical errors. They are interlinked commercial constraints that collectively reduce the efficiency of every dollar spent on acquisition.
+            </p>
 
-                {/* Item 02 */}
-                <div className="grid grid-cols-12 py-5 border-t border-border items-start">
-                  <div className="col-span-1 font-mono text-sm text-muted-foreground">02</div>
-                  <div className="col-span-8">
-                    <div className="font-serif text-2xl mb-1 text-foreground">Narrative Obscurity</div>
-                    <p className="text-sm text-muted-foreground">
-                      Messaging focuses on technical processes rather than business outcomes, reducing resonance with C-Suite decision makers.
-                    </p>
-                  </div>
-                  <div className="col-span-3 text-right">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground border border-border px-2 py-1">High</span>
-                  </div>
-                </div>
-
-                {/* Item 03 */}
-                <div className="grid grid-cols-12 py-5 border-t border-b border-border items-start">
-                  <div className="col-span-1 font-mono text-sm text-muted-foreground">03</div>
-                  <div className="col-span-8">
-                    <div className="font-serif text-2xl mb-1 text-foreground">Trust Deficit</div>
-                    <p className="text-sm text-muted-foreground">
-                      The absence of explicit social proof and human elements forces users to "guess" at credibility, lengthening the sales cycle.
-                    </p>
-                  </div>
-                  <div className="col-span-3 text-right">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground border border-border px-2 py-1">High</span>
-                  </div>
+            <div className="grid grid-cols-3 gap-12 mb-16">
+              
+              <div className="border-l-4 border-destructive pl-8">
+                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-destructive bg-destructive/10 px-2 py-1 inline-block mb-4">Critical Drag</span>
+                <h3 className="font-serif text-2xl mb-3">Pathway Failure</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  The "Commercial Mechanism" is undefined. High-intent enterprise traffic hits a dead end where an RFQ pathway should exist.
+                </p>
+                <div className="text-xs text-destructive font-medium">
+                  Result: 65% Leakage at Intent
                 </div>
               </div>
-              
-              <div className="col-span-4 space-y-4">
-                <div className="bg-muted/30 p-5 border-l-2 border-foreground">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Combined Revenue Impact</div>
-                  <div className="font-serif text-4xl text-destructive mb-1">-40%</div>
-                  <p className="text-xs text-muted-foreground">Estimated conversion efficiency loss compared to optimized peer benchmark.</p>
+
+              <div className="border-l-4 border-orange-500 pl-8">
+                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-orange-500 bg-orange-500/10 px-2 py-1 inline-block mb-4">High Drag</span>
+                <h3 className="font-serif text-2xl mb-3">Value Obscurity</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Messaging explains the "Engine" (Process) but obscures the "Destination" (Outcome). This creates a Clarity Tax that repels C-Suite buyers.
+                </p>
+                <div className="text-xs text-orange-500 font-medium">
+                  Result: Low Relevance Signal
                 </div>
-                
-                <div className="p-5 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Path Forward</div>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    These three forces are addressable. The following section (Strategy) will outline the specific interventions required.
-                  </p>
+              </div>
+
+              <div className="border-l-4 border-orange-500 pl-8">
+                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-orange-500 bg-orange-500/10 px-2 py-1 inline-block mb-4">High Drag</span>
+                <h3 className="font-serif text-2xl mb-3">Validation Void</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  The absence of explicit authority signals (Logos, Benchmarks, Tiers) frames the solution as "High Risk" rather than "Safe Standard."
+                </p>
+                <div className="text-xs text-orange-500 font-medium">
+                  Result: Extended Sales Cycle
                 </div>
+              </div>
+
+            </div>
+
+            <div className="bg-muted/30 p-8 border border-border flex items-center justify-between">
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Cumulative Impact</div>
+                <div className="font-serif text-2xl">Funnel Efficiency Loss</div>
+              </div>
+              <div className="text-right">
+                <div className="font-serif text-5xl text-foreground opacity-30">-40%</div>
               </div>
             </div>
+
           </div>
         </Slide>
 
