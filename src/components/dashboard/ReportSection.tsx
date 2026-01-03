@@ -925,108 +925,102 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 07: Peer Positioning Snapshot */}
+        {/* Slide 08: Peer Positioning Snapshot */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
             <SlideEyebrow>Peer Positioning Snapshot</SlideEyebrow>
-            <ActionTitle>High authority on "Tech", invisible on "Trust".</ActionTitle>
-            
-            <p className="text-sm text-muted-foreground max-w-4xl mb-5">
-              We benchmarked Rubiklab against three market archetypes: The Legacy Incumbent (e.g., Qualtrics), The Speed Disruptor (e.g., Yabble), and The Low-End Synthetic.
+            <ActionTitle>High authority on "Fieldwork", invisible on "Innovation".</ActionTitle>
+            <p className="font-sans font-light text-muted-foreground max-w-3xl mb-12">
+              We benchmarked Mavrix against three market archetypes: The Legacy Incumbent (e.g., Dynata), The Tech Disruptor (e.g., Zappi), and The Specialist (e.g., Ronin).
             </p>
 
-            <div className="grid md:grid-cols-12 gap-6">
-              <div className="col-span-9 space-y-3">
-                {/* Proposition Clarity */}
-                <div className="bg-card border border-border p-4 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-1 h-5 bg-amber-500 rounded-full" />
-                    <span className="font-mono text-[10px] text-foreground uppercase tracking-widest">Proposition Clarity</span>
-                  </div>
-                  <div className="flex justify-between font-mono text-[9px] text-muted-foreground mb-1.5 uppercase tracking-wider px-1">
-                    <span>Obscure</span>
-                    <span>Crystal Clear</span>
-                  </div>
-                  <div className="relative h-8 flex items-center px-1">
-                    <div className="w-full h-1 bg-muted rounded-full relative">
-                      <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "80%" }}>
-                        <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
-                      </div>
-                      <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "60%" }}>
-                        <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
-                      </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-amber-500 border-2 border-background shadow-[0_0_0_2px_rgb(245,158,11)] top-1/2 -translate-y-1/2" style={{ left: "30%" }}>
-                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-[9px] text-amber-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Technical Authority */}
-                <div className="bg-card border border-border p-4 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-1 h-5 bg-emerald-500 rounded-full" />
-                    <span className="font-mono text-[10px] text-foreground uppercase tracking-widest">Technical Authority</span>
-                  </div>
-                  <div className="flex justify-between font-mono text-[9px] text-muted-foreground mb-1.5 uppercase tracking-wider px-1">
-                    <span>Shallow</span>
-                    <span>Deep</span>
-                  </div>
-                  <div className="relative h-8 flex items-center px-1">
-                    <div className="w-full h-1 bg-muted rounded-full relative">
-                      <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "40%" }}>
-                        <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
-                      </div>
-                      <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "75%" }}>
-                        <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
-                      </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-emerald-500 border-2 border-background shadow-[0_0_0_2px_rgb(16,185,129)] top-1/2 -translate-y-1/2" style={{ left: "85%" }}>
-                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-[9px] text-emerald-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Trust Signals */}
-                <div className="bg-card border border-border p-4 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-1 h-5 bg-rose-500 rounded-full" />
-                    <span className="font-mono text-[10px] text-foreground uppercase tracking-widest">Trust Signals</span>
-                  </div>
-                  <div className="flex justify-between font-mono text-[9px] text-muted-foreground mb-1.5 uppercase tracking-wider px-1">
-                    <span>Absent</span>
-                    <span>Saturated</span>
-                  </div>
-                  <div className="relative h-8 flex items-center px-1">
-                    <div className="w-full h-1 bg-muted rounded-full relative">
-                      <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "55%" }}>
-                        <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Disruptor</span>
-                      </div>
-                      <div className="absolute w-2.5 h-2.5 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "90%" }}>
-                        <span className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground uppercase whitespace-nowrap">Incumbent</span>
-                      </div>
-                      <div className="absolute w-3 h-3 rounded-full bg-rose-500 border-2 border-background shadow-[0_0_0_2px_rgb(244,63,94)] top-1/2 -translate-y-1/2" style={{ left: "15%" }}>
-                        <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-[9px] text-rose-600 font-bold uppercase whitespace-nowrap">Rubiklab</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-span-3 space-y-4">
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Summary Reading</div>
-                  <div className="font-serif text-xl mb-2 text-foreground">Asymmetric</div>
-                  <p className="text-xs text-muted-foreground">Technical strength is not translating into market perception or proposition clarity.</p>
-                </div>
+            <div className="grid grid-cols-12 gap-16">
+              
+              {/* Slider Section */}
+              <div className="col-span-8 pt-4 space-y-10">
                 
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Priority Gap</div>
-                  <p className="text-sm text-foreground">
-                    Close the "Proposition Clarity" gap first. Technical authority is already strong.
+                {/* Service Intensity Slider */}
+                <div className="relative">
+                  <span className="font-mono text-xs text-muted-foreground uppercase tracking-[0.1em] mb-3 block border-l-2 border-primary pl-2.5">Service Intensity (Human Touch)</span>
+                  <div className="flex justify-between text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider mb-2">
+                    <span>Automated</span>
+                    <span>White Glove</span>
+                  </div>
+                  <div className="w-full h-px bg-border relative mt-4">
+                    <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "10%" }}>
+                      <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground/60 whitespace-nowrap">Disruptor</span>
+                    </div>
+                    <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/60 top-1/2 -translate-y-1/2" style={{ left: "60%" }}>
+                      <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground/60 whitespace-nowrap">Incumbent</span>
+                    </div>
+                    <div className="absolute w-3 h-3 rounded-full bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] top-1/2 -translate-y-1/2 z-10" style={{ left: "85%" }}>
+                      <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-primary whitespace-nowrap">Mavrix</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Brand Visibility Slider */}
+                <div className="relative">
+                  <span className="font-mono text-xs text-muted-foreground uppercase tracking-[0.1em] mb-3 block border-l-2 border-primary pl-2.5">Brand Visibility (SEO & Voice)</span>
+                  <div className="flex justify-between text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider mb-2">
+                    <span>Invisible</span>
+                    <span>Ubiquitous</span>
+                  </div>
+                  <div className="w-full h-px bg-border relative mt-4">
+                    <div className="absolute w-3 h-3 rounded-full bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] top-1/2 -translate-y-1/2 z-10" style={{ left: "5%" }}>
+                      <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-primary whitespace-nowrap">Mavrix</span>
+                    </div>
+                    <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "55%" }}>
+                      <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground/60 whitespace-nowrap">Disruptor</span>
+                    </div>
+                    <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/60 top-1/2 -translate-y-1/2" style={{ left: "95%" }}>
+                      <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground/60 whitespace-nowrap">Incumbent</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Perceived Velocity Slider */}
+                <div className="relative">
+                  <span className="font-mono text-xs text-muted-foreground uppercase tracking-[0.1em] mb-3 block border-l-2 border-primary pl-2.5">Perceived Velocity (Tech Speed)</span>
+                  <div className="flex justify-between text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider mb-2">
+                    <span>Labor-Heavy</span>
+                    <span>Instant</span>
+                  </div>
+                  <div className="w-full h-px bg-border relative mt-4">
+                    <div className="absolute w-3 h-3 rounded-full bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] top-1/2 -translate-y-1/2 z-10" style={{ left: "20%" }}>
+                      <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-primary whitespace-nowrap">Mavrix</span>
+                    </div>
+                    <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/60 top-1/2 -translate-y-1/2" style={{ left: "45%" }}>
+                      <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground/60 whitespace-nowrap">Incumbent</span>
+                    </div>
+                    <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "90%" }}>
+                      <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground/60 whitespace-nowrap">Disruptor</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Summary Box */}
+              <div className="col-span-4 h-full">
+                <div className="bg-muted/30 p-8 h-full relative">
+                  <div className="absolute left-0 top-8 bottom-8 w-1 bg-primary" />
+                  
+                  <span className="font-mono text-[10px] text-muted-foreground/60 uppercase tracking-widest mb-4 block">Summary Reading</span>
+                  <h3 className="font-serif text-2xl text-foreground mb-4">Asymmetric Position</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                    Mavrix is operationally heavier than the disruptors (Verified Fieldwork), but digitally quieter than the incumbents.
                   </p>
+                  
+                  <div className="bg-background p-4 shadow-sm border border-border">
+                    <span className="font-mono text-[9px] text-primary uppercase tracking-widest block mb-1">Priority Gap</span>
+                    <p className="text-xs text-muted-foreground font-medium">
+                      The "Fieldwork" asset is currently priced as a liability (Slowness) rather than a premium (Rigor).
+                    </p>
+                  </div>
                 </div>
               </div>
+
             </div>
           </div>
         </Slide>
