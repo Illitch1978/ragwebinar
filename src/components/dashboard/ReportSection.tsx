@@ -760,91 +760,89 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 05: Overall Digital Standing */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col">
             <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
-            <ActionTitle>A 41-point gap exists between potential and reality.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-10">
-              <div className="col-span-8">
-                <p className="text-base text-muted-foreground max-w-3xl mb-6">
-                  The chart below bridges the gap from your theoretical potential to your current standing, isolating specific vectors of loss.
+            <div className="flex justify-between items-end mb-8">
+              <ActionTitle className="max-w-3xl">A 60-point gap exists between operational potential and digital reality.</ActionTitle>
+              
+              <div className="bg-muted/30 border-l-2 border-primary p-6 max-w-sm mb-8">
+                <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-2">Primary Drag</span>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  The "Trust Deficit" (unverified claims, missing social proof) is the single largest weight on performance, costing 30 points of conversion potential.
                 </p>
-
-                {/* Waterfall Chart */}
-                <div className="flex items-end h-[320px] gap-4 lg:gap-6 pt-8 pb-0 border-b border-border">
-                  {/* Digital Potential */}
-                  <div className="flex-1 flex flex-col justify-end relative h-full">
-                    <div className="w-full bg-muted" style={{ height: "100%" }}></div>
-                    <div className="absolute w-full text-center -top-7 font-mono text-sm font-semibold text-foreground">100</div>
-                    <div className="text-center mt-3 border-t border-border pt-2">
-                      <span className="font-sans text-[10px] text-muted-foreground font-medium tracking-wider uppercase">Digital<br/>Potential</span>
-                    </div>
-                  </div>
-
-                  {/* Loss bars */}
-                  {reportData.waterfall.losses.map((loss, index) => {
-                    const prevHeight = 100 + reportData.waterfall.losses.slice(0, index).reduce((acc, l) => acc + l.value, 0);
-                    const barHeight = Math.abs(loss.value);
-                    const spacerHeight = prevHeight - barHeight;
-                    
-                    return (
-                      <div key={loss.label} className="flex-1 flex flex-col justify-end relative h-full">
-                        <div className="w-full bg-transparent" style={{ height: `${spacerHeight}%` }}></div>
-                        <div className="w-full bg-destructive relative" style={{ height: `${barHeight}%` }}>
-                          <div className="absolute inset-0 flex items-center justify-center font-mono text-xs font-semibold text-destructive-foreground">
-                            {loss.value}
-                          </div>
-                        </div>
-                        <div className="text-center mt-3 border-t border-border pt-2">
-                          <span className="font-sans text-[10px] text-muted-foreground font-medium tracking-wider uppercase">
-                            {loss.label.split(" ").map((word, i) => (
-                              <span key={i}>{word}<br/></span>
-                            ))}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-
-                  {/* Current Score */}
-                  <div className="flex-1 flex flex-col justify-end relative h-full">
-                    <div className="w-full bg-primary" style={{ height: `${reportData.waterfall.current}%` }}></div>
-                    <div className="absolute w-full text-center -top-8 font-serif text-2xl font-semibold text-primary">
-                      {reportData.waterfall.current}
-                    </div>
-                    <div className="text-center mt-3 border-t border-border pt-2">
-                      <span className="font-sans text-[10px] text-primary font-semibold tracking-wider uppercase">Current<br/>Score</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="text-[10px] text-muted-foreground/50 font-mono tracking-wide italic mt-3">
-                  * Each reduction represents a structural constraint, not a cosmetic issue.
-                </div>
-              </div>
-
-              {/* Right side prescriptive insight */}
-              <div className="col-span-4 border-l border-border pl-8 space-y-6">
-                <div>
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Score Interpretation</div>
-                  <div className="font-serif text-3xl text-foreground mb-2">59 / 100</div>
-                  <div className="text-sm text-muted-foreground">"Moderate Health" indicates structural issues that can be addressed without major overhaul.</div>
-                </div>
-                
-                <div className="p-5 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Key Insight</div>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    The largest single loss (Narrative Gap: 16 points) is also the least expensive to fix. Copywriting changes require no engineering resources.
-                  </p>
-                </div>
-                
-                <div className="pt-4 border-t border-border">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Recovery Potential</div>
-                  <div className="font-serif text-2xl text-primary">+26 points</div>
-                  <div className="text-sm text-muted-foreground mt-1">Achievable within 90-day remediation window</div>
-                </div>
               </div>
             </div>
+
+            <div className="flex-grow border-b border-border pb-12">
+              {/* Waterfall Chart */}
+              <div className="h-full w-full flex items-end justify-between pt-16 gap-8">
+                
+                {/* Digital Potential */}
+                <div className="flex-1 flex flex-col items-center">
+                  <span className="font-mono text-2xl font-semibold text-muted-foreground mb-4">100</span>
+                  <div className="w-full bg-muted h-[350px] rounded-sm"></div>
+                  <span className="font-sans text-[11px] text-muted-foreground font-medium tracking-wider uppercase mt-4 text-center">Digital<br/>Potential</span>
+                </div>
+
+                {/* Trust Deficit -30 */}
+                <div className="flex-1 flex flex-col items-center">
+                  <span className="font-mono text-xl font-medium text-destructive mb-4">-30</span>
+                  <div className="h-[350px] w-full flex flex-col justify-start">
+                    <div className="w-full bg-destructive h-[105px] rounded-sm"></div>
+                  </div>
+                  <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">Trust<br/>Deficit</span>
+                </div>
+
+                {/* Visibility Gap -20 */}
+                <div className="flex-1 flex flex-col items-center">
+                  <span className="font-mono text-xl font-medium text-destructive mb-4">-20</span>
+                  <div className="h-[350px] w-full flex flex-col justify-start pt-[105px]">
+                    <div className="w-full bg-destructive h-[70px] rounded-sm"></div>
+                  </div>
+                  <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">Visibility<br/>Gap</span>
+                </div>
+
+                {/* Content Lag -10 */}
+                <div className="flex-1 flex flex-col items-center">
+                  <span className="font-mono text-xl font-medium text-destructive mb-4">-10</span>
+                  <div className="h-[350px] w-full flex flex-col justify-start pt-[175px]">
+                    <div className="w-full bg-destructive h-[35px] rounded-sm"></div>
+                  </div>
+                  <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">Content<br/>Lag</span>
+                </div>
+
+                {/* Current Score */}
+                <div className="flex-1 flex flex-col items-center">
+                  <span className="font-mono text-4xl font-semibold text-primary mb-4">40</span>
+                  <div className="h-[350px] w-full flex flex-col justify-end">
+                    <div className="w-full bg-primary h-[140px] rounded-sm"></div>
+                  </div>
+                  <span className="font-sans text-[11px] text-foreground font-bold tracking-wider uppercase mt-4 text-center">Current<br/>Score</span>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Footer Stats */}
+            <div className="grid grid-cols-3 gap-12 pt-8">
+              <div>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Score Interpretation</span>
+                <div className="font-serif text-xl text-foreground">Critical Health</div>
+                <div className="text-xs text-muted-foreground mt-1">Structural issues constraining growth.</div>
+              </div>
+              <div>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Recovery Potential</span>
+                <div className="font-serif text-xl text-green-600">+45 Points</div>
+                <div className="text-xs text-muted-foreground mt-1">Achievable within 90-day remediation.</div>
+              </div>
+              <div>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Impact Horizon</span>
+                <div className="font-serif text-xl text-primary">Q2 2026</div>
+                <div className="text-xs text-muted-foreground mt-1">If "Trust" fixes are deployed immediately.</div>
+              </div>
+            </div>
+
           </div>
         </Slide>
 
