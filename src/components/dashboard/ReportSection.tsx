@@ -1866,178 +1866,98 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 22: Leverage Matrix (REWORKED: renamed dots) */}
+        {/* Slide 22: The Leverage Matrix - Mavrix */}
         <Slide>
           <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Leverage & Allocation</SlideEyebrow>
-            <ActionTitle>Where effort produces disproportionate return.</ActionTitle>
+            <SlideEyebrow>The Leverage Matrix</SlideEyebrow>
+            <ActionTitle>Exploiting the "Silent Failures" of the giants.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-6 -mt-4">
-              <div className="col-span-8">
-                {/* Matrix Chart */}
-                <div className="flex items-start gap-3">
-                  {/* Y-Axis Label */}
-                  <div className="flex items-center justify-center h-[320px] -ml-2">
-                    <div className="-rotate-90 text-[10px] font-mono text-primary font-bold tracking-widest whitespace-nowrap">
-                      LOW ← IMPACT → HIGH
-                    </div>
-                  </div>
-                  
-                  <div className="flex flex-col flex-1">
-                    {/* Matrix Chart */}
-                    <div className="relative w-full h-[320px] border border-border bg-background">
-                    
-                    {/* Quadrant Lines */}
-                    <div className="absolute left-1/2 top-0 h-full w-px bg-border"></div>
-                    <div className="absolute top-1/2 left-0 w-full h-px bg-border"></div>
-                    
-                    {/* Quadrant Labels */}
-                    <div className="absolute top-3 left-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">Quick Wins</div>
-                    <div className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 text-right">Strategic Bets</div>
-                    <div className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">Fill-ins</div>
-                    <div className="absolute bottom-3 right-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 text-right">Distractions</div>
-                    
-                    {/* Data Points - Quick Wins (top-left) - REWORKED: "Intake Fix" → "Conversion Unlock" */}
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="absolute left-[8%] top-[18%] flex items-center gap-1.5 cursor-pointer group">
-                          <div className="w-3 h-3 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
-                          <span className="text-[11px] font-medium text-foreground">Conversion Unlock</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="right" className="max-w-xs">
-                        <p className="text-sm">Simplify demo request flow. Highest ROI action.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="absolute left-[8%] top-[30%] flex items-center gap-1.5 cursor-pointer group">
-                          <div className="w-3 h-3 rounded-full bg-primary transition-all group-hover:ring-4 group-hover:ring-primary/30"></div>
-                          <span className="text-[11px] font-medium text-foreground">Trust Injection</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="right" className="max-w-xs">
-                        <p className="text-sm">Add client logos and testimonials.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    
-                    {/* Strategic Bets (top-right) */}
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="absolute left-[54%] top-[18%] flex items-center gap-1.5 cursor-pointer group">
-                          <div className="w-3 h-3 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                          <span className="text-[11px] font-medium text-foreground">Product Sandbox</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="right" className="max-w-xs">
-                        <p className="text-sm">Interactive demo environment.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="absolute left-[54%] top-[30%] flex items-center gap-1.5 cursor-pointer group">
-                          <div className="w-3 h-3 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                          <span className="text-[11px] font-medium text-foreground">Outcome Narrative</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="right" className="max-w-xs">
-                        <p className="text-sm">Reframe messaging to outcomes.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="absolute left-[54%] top-[42%] flex items-center gap-1.5 cursor-pointer group">
-                          <div className="w-3 h-3 rounded-full bg-muted-foreground transition-all group-hover:ring-4 group-hover:ring-muted-foreground/30"></div>
-                          <span className="text-[11px] font-medium text-foreground">Verticalization</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="right" className="max-w-xs">
-                        <p className="text-sm">Industry-specific landing pages.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    
-                    {/* Fill-ins (bottom-left) - REWORKED: "Footer Cleanup" → "Brand Hygiene" */}
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="absolute left-[8%] top-[60%] flex items-center gap-1.5 cursor-pointer group">
-                          <div className="w-3 h-3 rounded-full bg-muted-foreground/50 transition-all group-hover:ring-4 group-hover:ring-muted-foreground/20"></div>
-                          <span className="text-[11px] font-medium text-muted-foreground">Brand Hygiene</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="right" className="max-w-xs">
-                        <p className="text-sm">Minor polish. Low priority.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    
-                    {/* Distractions (bottom-right) */}
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="absolute left-[54%] top-[60%] flex items-center gap-1.5 cursor-pointer group">
-                          <div className="w-3 h-3 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
-                          <span className="text-[11px] font-medium text-foreground">Custom CMS</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="right" className="max-w-xs">
-                        <p className="text-sm">Engineering distraction. Avoid.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="absolute left-[54%] top-[70%] flex items-center gap-1.5 cursor-pointer group">
-                          <div className="w-3 h-3 rounded-full bg-destructive transition-all group-hover:ring-4 group-hover:ring-destructive/30"></div>
-                          <span className="text-[11px] font-medium text-foreground">Full Rebranding</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="right" className="max-w-xs">
-                        <p className="text-sm">High cost, low immediate impact.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </div>
-                    
-                    {/* X-Axis Label */}
-                    <div className="text-center mt-3 text-[10px] font-mono text-primary font-bold tracking-widest">
-                      LOW ← EFFORT → HIGH
-                    </div>
-                  </div>
+            <div className="grid grid-cols-3 gap-8 flex-1">
+              {/* Card 1: Tech Platforms */}
+              <div className="flex flex-col border border-border">
+                {/* Header */}
+                <div className="bg-muted/50 p-5 border-b border-border">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1 block">Adversary: The Tech Platforms</span>
+                  <span className="text-sm font-semibold text-muted-foreground">Qualtrics, Cint, Lucid</span>
+                </div>
+                
+                {/* Silent Failure */}
+                <div className="p-6 flex-1 bg-background">
+                  <span className="text-[10px] text-destructive uppercase tracking-widest mb-2 block font-bold">Their Silent Failure</span>
+                  <h3 className="font-serif text-2xl text-foreground mb-3 leading-tight">The "Feasibility Mirage."</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                    Their APIs promise infinite reach. But algorithms don't recruit. The failure happens when the project stalls at N=400 because the "estimated" respondents don't actually exist in the panel ecosystem.
+                  </p>
+                </div>
+
+                {/* Mavrix Leverage */}
+                <div className="bg-foreground text-background p-5 relative">
+                  <div className="absolute -top-3 left-6 w-0 h-0 border-l-[10px] border-r-[10px] border-b-[12px] border-l-transparent border-r-transparent border-b-foreground"></div>
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2 block">Mavrix Leverage</span>
+                  <h4 className="text-lg font-semibold text-background mb-2">Operational Reality.</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    We don't sell "Estimates." We sell "Completes." We use the <strong className="text-background">Mavrix 911</strong> protocol to manually recruit the missing N=100 that the algorithm couldn't find.
+                  </p>
                 </div>
               </div>
 
-              {/* Strategic Avoidance - Right side */}
-              <div className="col-span-4 space-y-4">
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Reading the Chart</div>
-                  <p className="text-xs text-muted-foreground">
-                    <strong className="text-primary">Blue dots</strong> = prioritized actions. <strong className="text-foreground">Gray dots</strong> = strategic bets. <strong className="text-destructive">Red dots</strong> = distractions.
+              {/* Card 2: Legacy Giants */}
+              <div className="flex flex-col border border-border">
+                {/* Header */}
+                <div className="bg-muted/50 p-5 border-b border-border">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1 block">Adversary: The Legacy Giants</span>
+                  <span className="text-sm font-semibold text-muted-foreground">Dynata, Kantar, Ipsos</span>
+                </div>
+                
+                {/* Silent Failure */}
+                <div className="p-6 flex-1 bg-background">
+                  <span className="text-[10px] text-destructive uppercase tracking-widest mb-2 block font-bold">Their Silent Failure</span>
+                  <h3 className="font-serif text-2xl text-foreground mb-3 leading-tight">The "Blended Haze."</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                    They are too big to fill every quote with proprietary sample. They broker out ~40% of work to third parties without telling the client. You think you're buying "Premium," but you're getting "Aggregated Mystery Meat."
                   </p>
                 </div>
-                
-                <div className="bg-muted/50 p-4 border-l-4 border-destructive">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-2">Strategic Avoidance</div>
-                  <ul className="space-y-2 text-xs">
-                    <li className="flex items-start gap-2">
-                      <span className="text-destructive font-bold">×</span>
-                      <span><strong className="text-foreground">Full Rebranding</strong></span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-destructive font-bold">×</span>
-                      <span><strong className="text-foreground">Custom CMS Build</strong></span>
-                    </li>
-                  </ul>
-                  <p className="text-[10px] text-muted-foreground mt-2">High effort, low yield. Protect capacity for leverage plays.</p>
+
+                {/* Mavrix Leverage */}
+                <div className="bg-foreground text-background p-5 relative">
+                  <div className="absolute -top-3 left-6 w-0 h-0 border-l-[10px] border-r-[10px] border-b-[12px] border-l-transparent border-r-transparent border-b-foreground"></div>
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2 block">Mavrix Leverage</span>
+                  <h4 className="text-lg font-semibold text-background mb-2">Chain of Custody.</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Radical transparency. We tell you exactly where the respondent came from. If we broke it out, we name the partner. The <strong className="text-background">Quality Index</strong> proves the pedigree.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 3: Budget DIY */}
+              <div className="flex flex-col border border-border">
+                {/* Header */}
+                <div className="bg-muted/50 p-5 border-b border-border">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1 block">Adversary: The Budget DIY</span>
+                  <span className="text-sm font-semibold text-muted-foreground">Pollfish, SurveyMonkey</span>
                 </div>
                 
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Priority Sequence</div>
-                  <p className="text-xs text-foreground">
-                    Blue (immediate) → Gray (Q2) → Avoid Red entirely.
+                {/* Silent Failure */}
+                <div className="p-6 flex-1 bg-background">
+                  <span className="text-[10px] text-destructive uppercase tracking-widest mb-2 block font-bold">Their Silent Failure</span>
+                  <h3 className="font-serif text-2xl text-foreground mb-3 leading-tight">The "Clean-Up Tax."</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                    The CPI (Cost Per Interview) is $2.00. But the data is 40% bots/trash. The client saves money on the platform but loses 3 weeks of staff time manually scrubbing the Excel file.
+                  </p>
+                </div>
+
+                {/* Mavrix Leverage */}
+                <div className="bg-foreground text-background p-5 relative">
+                  <div className="absolute -top-3 left-6 w-0 h-0 border-l-[10px] border-r-[10px] border-b-[12px] border-l-transparent border-r-transparent border-b-foreground"></div>
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2 block">Mavrix Leverage</span>
+                  <h4 className="text-lg font-semibold text-background mb-2">Total Cost of Validity.</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    We are expensive on CPI but cheaper on "TCO" (Total Cost of Ownership). With our <strong className="text-background">Total Quality Warranty</strong>, the data arrives clean. Zero staff time wasted on scrubbing.
                   </p>
                 </div>
               </div>
             </div>
+
           </div>
         </Slide>
 
