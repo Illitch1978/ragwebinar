@@ -2549,107 +2549,114 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <SlideEyebrow>Appendix C: Near-Term Value</SlideEyebrow>
             <ActionTitle>Momentum: Operationalizing the 'Quick Wins'.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-6">
-              <div className="col-span-9">
-                <p className="text-sm text-muted-foreground max-w-3xl mb-5">
-                  These actions correspond directly to the top-left quadrant of the leverage matrix. They are designed to be deployed within 30 days to create immediate lift.
-                </p>
+            <p className="text-base text-muted-foreground max-w-3xl mb-10">
+              These tactical upgrades fix the "leaky bucket." They are designed to be deployed within 30 days to maximize the value of existing traffic before scaling.
+            </p>
 
-                <div className="grid md:grid-cols-3 gap-4 mb-6">
-                  <div className="bg-primary/5 p-4 border-l-4 border-primary">
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">01. Friction</div>
-                    <div className="font-serif text-lg mb-2 text-foreground">Intake Simplification</div>
-                    <p className="text-xs text-muted-foreground mb-3">
-                      <strong className="text-foreground">Action:</strong> Remove "Job Title" and "Phone" fields. Move qualification to the second step (post-click).
+            <div className="grid md:grid-cols-12 gap-8 flex-1">
+              {/* Three Action Cards */}
+              <div className="col-span-9 grid md:grid-cols-3 gap-6">
+                {/* Card 01: CTA Architecture */}
+                <div className="border border-border bg-background flex flex-col">
+                  <div className="p-5 flex-1 border-l-4 border-primary bg-muted/30 flex flex-col">
+                    <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">01. Actionability</span>
+                    <h3 className="font-serif text-xl text-foreground mb-3">CTA Architecture</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                      <strong className="text-foreground">Action:</strong> The Hero lacks a primary trigger. Hardcode a "Get Quote" button above the fold. Update generic "Send Message" form button to "Request Consultation."
                     </p>
-                    <div className="space-y-1 text-[10px] text-muted-foreground mb-3">
-                      <div>→ Enable browser autofill</div>
-                      <div>→ Add progress indicator</div>
+                    <div className="space-y-1 text-[11px] text-muted-foreground mb-4">
+                      <div className="relative pl-4 before:content-['→'] before:absolute before:left-0 before:text-muted-foreground/50">Add "24h Response" micro-copy</div>
+                      <div className="relative pl-4 before:content-['→'] before:absolute before:left-0 before:text-muted-foreground/50">Make phone number clickable</div>
                     </div>
-                    <div className="pt-2 border-t border-primary/20">
-                      <div className="font-mono text-[9px] text-muted-foreground uppercase">Impact</div>
-                      <div className="text-sm font-bold text-primary">+40% Conversion</div>
+                    <div className="mt-auto pt-4 border-t border-border">
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">Impact</span>
+                      <span className="text-base font-semibold text-primary">+40% Conversion</span>
                     </div>
                   </div>
-
-                  <div className="bg-primary/5 p-4 border-l-4 border-primary">
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">02. Credibility</div>
-                    <div className="font-serif text-lg mb-2 text-foreground">Trust Injection</div>
-                    <p className="text-xs text-muted-foreground mb-3">
-                      <strong className="text-foreground">Action:</strong> Aggregate G2/Capterra reviews and place a "Trust Strip" below the hero CTA.
-                    </p>
-                    <div className="space-y-1 text-[10px] text-muted-foreground mb-3">
-                      <div>→ Add 3-4 client logos</div>
-                      <div>→ Display star rating badge</div>
-                    </div>
-                    <div className="pt-2 border-t border-primary/20">
-                      <div className="font-mono text-[9px] text-muted-foreground uppercase">Impact</div>
-                      <div className="text-sm font-bold text-primary">-15% Bounce Rate</div>
-                    </div>
-                  </div>
-
-                  <div className="bg-muted/30 p-4 border-l-4 border-muted">
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">03. Perception</div>
-                    <div className="font-serif text-lg mb-2 text-foreground">Headline Refinement</div>
-                    <p className="text-xs text-muted-foreground mb-3">
-                      <strong className="text-foreground">Action:</strong> A/B test "Outcomes" (Speed/Accuracy) against current "Innovation" messaging.
-                    </p>
-                    <div className="space-y-1 text-[10px] text-muted-foreground mb-3">
-                      <div>→ Test 3 headline variants</div>
-                      <div>→ Measure time-to-scroll</div>
-                    </div>
-                    <div className="pt-2 border-t border-border">
-                      <div className="font-mono text-[9px] text-muted-foreground uppercase">Impact</div>
-                      <div className="text-sm font-bold text-muted-foreground">Relevance Signal</div>
-                    </div>
+                  <div className="p-4 border-t border-border">
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-wider block mb-1">Owner</span>
+                    <span className="text-sm font-medium text-foreground">Engineering + UX</span>
                   </div>
                 </div>
-                
-                {/* Additional context row */}
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div className="bg-muted/30 p-3 border border-border">
-                    <div className="font-mono text-[9px] text-muted-foreground uppercase mb-1">Owner</div>
-                    <div className="text-sm text-foreground">Engineering + UX</div>
+
+                {/* Card 02: Social Proof Injection */}
+                <div className="border border-border bg-background flex flex-col">
+                  <div className="p-5 flex-1 border-l-4 border-primary bg-muted/30 flex flex-col">
+                    <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">02. Credibility</span>
+                    <h3 className="font-serif text-xl text-foreground mb-3">Social Proof Injection</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                      <strong className="text-foreground">Action:</strong> The homepage lacks external validation. Deploy a "Trusted By" strip with 4-5 client logos immediately below the hero.
+                    </p>
+                    <div className="space-y-1 text-[11px] text-muted-foreground mb-4">
+                      <div className="relative pl-4 before:content-['→'] before:absolute before:left-0 before:text-muted-foreground/50">Add 2 verified client testimonials</div>
+                      <div className="relative pl-4 before:content-['→'] before:absolute before:left-0 before:text-muted-foreground/50">Display "22 Years" experience badge</div>
+                    </div>
+                    <div className="mt-auto pt-4 border-t border-border">
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">Impact</span>
+                      <span className="text-base font-semibold text-primary">-15% Bounce Rate</span>
+                    </div>
                   </div>
-                  <div className="bg-muted/30 p-3 border border-border">
-                    <div className="font-mono text-[9px] text-muted-foreground uppercase mb-1">Owner</div>
-                    <div className="text-sm text-foreground">Marketing + Design</div>
+                  <div className="p-4 border-t border-border">
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-wider block mb-1">Owner</span>
+                    <span className="text-sm font-medium text-foreground">Marketing + Design</span>
                   </div>
-                  <div className="bg-muted/30 p-3 border border-border">
-                    <div className="font-mono text-[9px] text-muted-foreground uppercase mb-1">Owner</div>
-                    <div className="text-sm text-foreground">Content + Analytics</div>
+                </div>
+
+                {/* Card 03: Value Articulation */}
+                <div className="border border-border bg-background flex flex-col">
+                  <div className="p-5 flex-1 border-l-4 border-primary bg-muted/30 flex flex-col">
+                    <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">03. Clarity</span>
+                    <h3 className="font-serif text-xl text-foreground mb-3">Value Articulation</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                      <strong className="text-foreground">Action:</strong> Replace vague "Smart Technology" headline with specific "Global Data Collection." Move Service summary above the fold.
+                    </p>
+                    <div className="space-y-1 text-[11px] text-muted-foreground mb-4">
+                      <div className="relative pl-4 before:content-['→'] before:absolute before:left-0 before:text-muted-foreground/50">Test benefit-driven subheads</div>
+                      <div className="relative pl-4 before:content-['→'] before:absolute before:left-0 before:text-muted-foreground/50">Clarify "Global" vs "Local" reach</div>
+                    </div>
+                    <div className="mt-auto pt-4 border-t border-border">
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">Impact</span>
+                      <span className="text-base font-semibold text-muted-foreground">Relevance Signal</span>
+                    </div>
+                  </div>
+                  <div className="p-4 border-t border-border">
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-wider block mb-1">Owner</span>
+                    <span className="text-sm font-medium text-foreground">Content + Analytics</span>
                   </div>
                 </div>
               </div>
               
-              <div className="col-span-3 space-y-4">
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Total Timeline</div>
-                  <div className="font-serif text-3xl text-foreground mb-1">30 Days</div>
-                  <p className="text-xs text-muted-foreground">All three wins can be deployed in parallel.</p>
-                </div>
-                
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Combined ROI</div>
-                  <p className="text-xs text-foreground">
-                    Estimated +55% funnel efficiency before any strategic bets are deployed.
+              {/* Right Rail */}
+              <div className="col-span-3 border-l border-border pl-6 flex flex-col gap-6">
+                <div>
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground block mb-3">Total Timeline</span>
+                  <div className="font-serif text-4xl text-foreground leading-none mb-2">30 Days</div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    All three wins can be deployed in parallel sprints.
                   </p>
                 </div>
-                
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Success Criteria</div>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Form starts</span>
-                      <span className="text-primary font-medium">+60%</span>
+
+                <div className="bg-primary/10 p-4 border-l-2 border-primary">
+                  <span className="font-mono text-[10px] font-bold text-primary uppercase tracking-widest block mb-2">Combined ROI</span>
+                  <p className="text-xs text-foreground leading-relaxed">
+                    Estimated <strong>+55%</strong> funnel efficiency improvement by fixing basic trust and conversion leaks.
+                  </p>
+                </div>
+
+                <div>
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground block mb-3">Success Criteria</span>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xs border-b border-border/50 pb-2">
+                      <span className="text-muted-foreground">Form Starts</span>
+                      <span className="text-primary font-semibold">+60%</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Form completions</span>
-                      <span className="text-primary font-medium">+40%</span>
+                    <div className="flex justify-between text-xs border-b border-border/50 pb-2">
+                      <span className="text-muted-foreground">Form Completions</span>
+                      <span className="text-primary font-semibold">+40%</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Bounce rate</span>
-                      <span className="text-primary font-medium">-15%</span>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-muted-foreground">Bounce Rate</span>
+                      <span className="text-primary font-semibold">-15%</span>
                     </div>
                   </div>
                 </div>
