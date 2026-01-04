@@ -1620,63 +1620,77 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 18: Diagnosis Summary */}
+        {/* Slide 18: Diagnosis Synthesis - The Value Inversion */}
         <Slide>
-          <div className="max-w-6xl w-full h-full flex flex-col justify-center">
-            <SlideEyebrow>Diagnosis Synthesis</SlideEyebrow>
-            <ActionTitle>Three structural anchors are suppressing commercial velocity.</ActionTitle>
-            
-            <p className="font-light text-lg text-muted-foreground max-w-3xl mb-12">
-              These are not isolated technical errors. They are interlinked commercial constraints that collectively reduce the efficiency of every dollar spent on acquisition.
-            </p>
+          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="mb-4">
+              <SlideEyebrow>Diagnosis Synthesis</SlideEyebrow>
+              <ActionTitle>The Value Inversion.</ActionTitle>
+              <p className="font-light text-muted-foreground max-w-3xl leading-relaxed">
+                The core error is not "Identity Confusion"—it is <strong className="text-foreground">Strategic De-Positioning</strong>. You are currently highlighting your commodity features while hiding your scarcity assets.
+              </p>
+            </div>
 
-            <div className="grid grid-cols-3 gap-12 mb-16">
+            <div className="grid grid-cols-2 gap-16 flex-1 items-center">
               
-              <div className="border-l-4 border-destructive pl-8">
-                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-destructive bg-destructive/10 px-2 py-1 inline-block mb-4">Critical Drag</span>
-                <h3 className="font-serif text-2xl mb-3">Pathway Failure</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  The "Commercial Mechanism" is undefined. High-intent enterprise traffic hits a dead end where an RFQ pathway should exist.
-                </p>
-                <div className="text-xs text-destructive font-medium">
-                  Result: 65% Leakage at Intent
+              {/* Left: The Inversion Model */}
+              <div className="flex flex-col gap-4">
+                
+                {/* Visible Layer - What you market */}
+                <div className="bg-muted/50 border border-dashed border-border p-8 relative">
+                  <span className="absolute -top-2.5 right-5 bg-background px-2 text-[10px] text-muted-foreground uppercase tracking-wider">Current Focus</span>
+                  <h3 className="font-serif text-2xl mb-2 text-muted-foreground">"Smart Technology"</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                    <strong>The Trap:</strong> Competes with Zappi/AI. <br />
+                    <strong>Market Perception:</strong> Cheap, Fast, Synthetic, Risky. <br />
+                    <strong>Differentiation:</strong> Zero.
+                  </p>
                 </div>
+
+                {/* Hidden Layer - What you are */}
+                <div className="bg-foreground p-8 relative shadow-xl">
+                  <span className="absolute -top-2.5 right-5 bg-primary px-2 py-0.5 text-[10px] text-primary-foreground uppercase tracking-wider">Actual Value</span>
+                  <h3 className="font-serif text-2xl mb-2 text-background">"Global Human Fieldwork"</h3>
+                  <p className="text-sm text-background/70 leading-relaxed font-light">
+                    <strong className="text-background">The Reality:</strong> 85 Countries, Face-to-Face, verified humans. <br />
+                    <strong className="text-background">Market Perception:</strong> Rare, Premium, Safe, Irreplicable. <br />
+                    <strong className="text-background">Differentiation:</strong> High.
+                  </p>
+                </div>
+
               </div>
 
-              <div className="border-l-4 border-orange-500 pl-8">
-                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-orange-500 bg-orange-500/10 px-2 py-1 inline-block mb-4">High Drag</span>
-                <h3 className="font-serif text-2xl mb-3">Value Obscurity</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  Messaging explains the "Engine" (Process) but obscures the "Destination" (Outcome). This creates a Clarity Tax that repels C-Suite buyers.
-                </p>
-                <div className="text-xs text-orange-500 font-medium">
-                  Result: Low Relevance Signal
+              {/* Right: The Synthesis */}
+              <div className="flex flex-col justify-center border-l border-border pl-12">
+                
+                <div className="mb-10">
+                  <span className="font-mono text-[10px] text-destructive uppercase tracking-widest block mb-2">The Antidote</span>
+                  <p className="text-lg text-foreground leading-snug mb-2">
+                    You are sitting on the antidote to the industry's biggest poison (Synthetic Data), but you are selling the poison.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    By leading with "Tech," you sound like the problem. You must lead with "Human Verification" to become the solution.
+                  </p>
                 </div>
-              </div>
 
-              <div className="border-l-4 border-orange-500 pl-8">
-                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-orange-500 bg-orange-500/10 px-2 py-1 inline-block mb-4">High Drag</span>
-                <h3 className="font-serif text-2xl mb-3">Validation Void</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  The absence of explicit authority signals (Logos, Benchmarks, Tiers) frames the solution as "High Risk" rather than "Safe Standard."
-                </p>
-                <div className="text-xs text-orange-500 font-medium">
-                  Result: Extended Sales Cycle
+                <div className="mb-10">
+                  <span className="font-mono text-[10px] text-destructive uppercase tracking-widest block mb-2">The Leverage</span>
+                  <p className="text-lg text-foreground leading-snug mb-2">
+                    "Humanity" is no longer a soft skill. It is a compliance asset.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    In an AI world, proving a respondent is <strong className="text-foreground">real</strong> is a legal and quality necessity. That is your true moat.
+                  </p>
                 </div>
+
+                <div className="flex items-center gap-4 font-mono text-xs text-primary font-medium">
+                  <span>PIVOT REQUIRED:</span>
+                  <span className="border-b border-primary">Stop selling "Speed." Start selling "Truth."</span>
+                </div>
+
               </div>
 
             </div>
-
-            <div className="bg-muted/30 p-8 border border-border flex items-center justify-between">
-              <div>
-                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Cumulative Impact</div>
-                <div className="font-serif text-2xl">Funnel Efficiency Loss</div>
-              </div>
-              <div className="text-right">
-                <div className="font-serif text-5xl text-foreground opacity-30">-40%</div>
-              </div>
-            </div>
-
           </div>
         </Slide>
 
