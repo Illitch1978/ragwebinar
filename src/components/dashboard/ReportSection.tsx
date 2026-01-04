@@ -1705,85 +1705,100 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           layout="center"
         />
 
-        {/* Slide 20: Strategic Inflection */}
+        {/* Slide 20: Strategic Inflection - Transformation List */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Strategic Inflection</SlideEyebrow>
-            <ActionTitle>Inaction is an active decision to optimize for obscurity.</ActionTitle>
-            
-            <div className="grid md:grid-cols-12 gap-8">
-              <div className="col-span-5 text-sm text-muted-foreground space-y-4">
-                <p className="text-base font-light text-foreground">
-                  The current digital state is not stable. It is <strong>diverging</strong> relative to market velocity.
-                </p>
-                <p className="text-sm">
-                  Continuing with the current "feature-first" roadmap optimizes Rubiklab for technical validation, but fails to capture market share.
-                </p>
-                
-                <div className="bg-primary/5 border-l-2 border-primary p-5">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">The Pivot Window</div>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    The technology is ready, but market positioning is lagging. The cost of this shift doubles every quarter it is delayed.
-                  </p>
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col">
+            <div className="mb-8">
+              <SlideEyebrow>Strategic Inflection</SlideEyebrow>
+              <ActionTitle>Stop fighting "Gravity." Start selling "Friction."</ActionTitle>
+              <p className="font-light text-muted-foreground max-w-2xl leading-relaxed">
+                You cannot win the "Speed" war against AI disruptors. You win the "Truth" war by becoming the necessary friction that verifies reality.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              
+              {/* Row 1 */}
+              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 border-b border-muted hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
+                <div className="pr-8">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Physics</span>
+                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">Competing on Speed</h3>
                 </div>
-                
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Market Timing</div>
-                  <p className="text-xs text-foreground leading-relaxed">
-                    The AI market research space is consolidating. Early movers with strong narrative positioning are capturing disproportionate mindshare.
-                  </p>
+                <div className="flex justify-center text-primary/50 text-xl">→</div>
+                <div className="pl-8">
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Physics</span>
+                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">Competing on Verification</h3>
+                  <span className="text-sm text-muted-foreground mt-1 block">The premium has shifted from "How fast?" to "Is it real?"</span>
                 </div>
               </div>
 
-              <div className="col-span-4 border-l-2 border-foreground pl-6 space-y-5">
-                <div>
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Path A: Status Quo</div>
-                  <div className="font-serif text-xl text-muted-foreground">Incremental Feature Release</div>
-                  <p className="text-xs text-muted-foreground mt-1">Result: Commoditisation by lower-cost synthetics.</p>
-                  <div className="mt-2 flex gap-2">
-                    <span className="font-mono text-[9px] px-2 py-0.5 bg-muted text-muted-foreground uppercase">Low Risk</span>
-                    <span className="font-mono text-[9px] px-2 py-0.5 bg-destructive/10 text-destructive uppercase">Low Reward</span>
-                  </div>
+              {/* Row 2 */}
+              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 border-b border-muted hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
+                <div className="pr-8">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Role</span>
+                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">Midstream Execution</h3>
                 </div>
-                <div className="pt-4 border-t border-border">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Path B: Correction</div>
-                  <div className="font-serif text-xl text-primary">Authority & Flow Pivot</div>
-                  <p className="text-xs text-muted-foreground mt-1">Result: Pricing power and pipeline velocity.</p>
-                  <div className="mt-2 flex gap-2">
-                    <span className="font-mono text-[9px] px-2 py-0.5 bg-primary/10 text-primary uppercase">Med Risk</span>
-                    <span className="font-mono text-[9px] px-2 py-0.5 bg-primary/10 text-primary uppercase">High Reward</span>
-                  </div>
+                <div className="flex justify-center text-primary/50 text-xl">→</div>
+                <div className="pl-8">
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Role</span>
+                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">Downstream Intelligence</h3>
+                  <span className="text-sm text-muted-foreground mt-1 block">Moving from "Arms & Legs" (Fieldwork) to "Brains" (Standards).</span>
                 </div>
               </div>
-              
-              <div className="col-span-3 space-y-4">
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Cost of Delay</div>
-                  <div className="font-serif text-3xl text-destructive mb-1">2×</div>
-                  <p className="text-xs text-muted-foreground">Per quarter. Compounding.</p>
+
+              {/* Row 3 */}
+              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 border-b border-muted hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
+                <div className="pr-8">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Evidence</span>
+                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">"Adjective Addiction"</h3>
                 </div>
-                
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Recommended</div>
-                  <p className="text-xs text-foreground font-medium">
-                    Path B: Immediate
-                  </p>
+                <div className="flex justify-center text-primary/50 text-xl">→</div>
+                <div className="pl-8">
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Evidence</span>
+                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">Whistleblower Authority</h3>
+                  <span className="text-sm text-muted-foreground mt-1 block">Stop using fluff ("Seamless"). Start exposing fraud ("Synthetic Risk").</span>
                 </div>
-                
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Decision Owner</div>
-                  <div className="font-serif text-lg text-foreground mb-1">CMO / CEO</div>
-                  <p className="text-xs text-muted-foreground">Requires executive mandate to shift resource allocation.</p>
+              </div>
+
+              {/* Row 4 */}
+              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 border-b border-muted hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
+                <div className="pr-8">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Sales</span>
+                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">"Black Box" Quotes</h3>
                 </div>
-                
-                <div className="bg-destructive/10 p-4 border-l-2 border-destructive">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-1">Inaction Outcome</div>
-                  <p className="text-xs text-foreground">
-                    Competitor capture of premium positioning within 12 months.
-                  </p>
+                <div className="flex justify-center text-primary/50 text-xl">→</div>
+                <div className="pl-8">
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Sales</span>
+                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">"Trojan Horse" Access</h3>
+                  <span className="text-sm text-muted-foreground mt-1 block">Transparent entry-level pricing to capture clients before the RFP.</span>
                 </div>
+              </div>
+
+              {/* Row 5 */}
+              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
+                <div className="pr-8">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Value</span>
+                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">Data Collection</h3>
+                </div>
+                <div className="flex justify-center text-primary/50 text-xl">→</div>
+                <div className="pl-8">
+                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Value</span>
+                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">"CMO Insurance"</h3>
+                  <span className="text-sm text-muted-foreground mt-1 block">You are not selling data. You are selling risk mitigation.</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="mt-auto pt-6 border-t border-muted flex items-center justify-between">
+              <div className="text-xs text-primary font-semibold uppercase tracking-widest">
+                The Net Result
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                This pivot moves Mavrix from a "Price Taker" (Commodity) to a "Price Maker" (Specialist).
               </div>
             </div>
+
           </div>
         </Slide>
 
