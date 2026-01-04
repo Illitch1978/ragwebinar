@@ -2053,107 +2053,86 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         <Slide>
           <div className="max-w-7xl w-full h-full flex flex-col">
             <SlideEyebrow>Governance Signals</SlideEyebrow>
-            <ActionTitle>How to judge progress without vanity metrics.</ActionTitle>
+            <ActionTitle>Three commitments to operational integrity.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-6">
-              <div className="col-span-9">
-                <p className="text-sm text-muted-foreground max-w-3xl mb-5">
-                  Successful transformation requires tracking signals, not just metrics. These qualitative indicators reveal whether you are building authority or just optimizing activity.
-                </p>
-                
-                <div className="space-y-0">
-                  <div className="grid grid-cols-12 gap-4 py-4 border-t-2 border-foreground">
-                    <div className="col-span-3">
-                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">01. Clarity Signal</div>
-                      <div className="font-serif text-lg text-foreground">The Sales Conversation</div>
-                    </div>
-                    <div className="col-span-4 bg-muted/30 p-3">
-                      <div className="font-mono text-[9px] text-primary uppercase mb-1">Success State</div>
-                      <p className="text-xs text-muted-foreground">Prospects ask "How does implementation work?" (They already understand 'What' it is).</p>
-                    </div>
-                    <div className="col-span-4 bg-destructive/5 p-3">
-                      <div className="font-mono text-[9px] text-destructive uppercase mb-1">Red Flag</div>
-                      <p className="text-xs text-muted-foreground">Sales team spends first 15 mins explaining the product definition.</p>
-                    </div>
-                    <div className="col-span-1 flex items-center justify-center">
-                      <div className="font-mono text-[9px] text-muted-foreground">Weekly</div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-12 gap-4 py-4 border-t border-border">
-                    <div className="col-span-3">
-                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">02. Efficiency Signal</div>
-                      <div className="font-serif text-lg text-foreground">Velocity Ratio</div>
-                    </div>
-                    <div className="col-span-4 bg-muted/30 p-3">
-                      <div className="font-mono text-[9px] text-primary uppercase mb-1">Success State</div>
-                      <p className="text-xs text-muted-foreground">The gap between 'Landing' and 'Inquiry' compresses to under 60 seconds.</p>
-                    </div>
-                    <div className="col-span-4 bg-destructive/5 p-3">
-                      <div className="font-mono text-[9px] text-destructive uppercase mb-1">Red Flag</div>
-                      <p className="text-xs text-muted-foreground">High time-on-site but low conversion (Analysis Paralysis).</p>
-                    </div>
-                    <div className="col-span-1 flex items-center justify-center">
-                      <div className="font-mono text-[9px] text-muted-foreground">Daily</div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-12 gap-4 py-4 border-t border-b border-border">
-                    <div className="col-span-3">
-                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest mb-1">03. Authority Signal</div>
-                      <div className="font-serif text-lg text-foreground">Comparison Set</div>
-                    </div>
-                    <div className="col-span-4 bg-muted/30 p-3">
-                      <div className="font-mono text-[9px] text-primary uppercase mb-1">Success State</div>
-                      <p className="text-xs text-muted-foreground">Buyers compare you to premium consultants or enterprise suites.</p>
-                    </div>
-                    <div className="col-span-4 bg-destructive/5 p-3">
-                      <div className="font-mono text-[9px] text-destructive uppercase mb-1">Red Flag</div>
-                      <p className="text-xs text-muted-foreground">Buyers compare you to $50/mo self-serve tools.</p>
-                    </div>
-                    <div className="col-span-1 flex items-center justify-center">
-                      <div className="font-mono text-[9px] text-muted-foreground">Monthly</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="col-span-3 space-y-4">
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Review Cadence</div>
-                  <div className="font-serif text-3xl text-foreground mb-1">Bi-Weekly</div>
-                  <p className="text-xs text-muted-foreground">Qualitative signals should be reviewed in sales standups.</p>
-                </div>
-                
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Key Principle</div>
-                  <p className="text-xs text-foreground">
-                    If conversion rises but comparison set degrades, you are winning the wrong race.
+            <div className="grid grid-cols-3 gap-10 flex-1">
+              {/* Signal 1: Accountability */}
+              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group overflow-hidden">
+                <div className="h-1 w-full bg-border group-hover:bg-primary transition-colors" />
+                <div className="p-8 flex-1 flex flex-col">
+                  <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-4">Signal 01 // Accountability</span>
+                  <h3 className="font-serif text-2xl text-foreground mb-4 leading-tight">The "Battle Bond."</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    We fight the quality war so you don't have to. We provide radical transparency on what we blocked, and a simple promise for what we delivered: <strong className="text-foreground">If you doubt a respondent, we replace them. No questions asked.</strong>
+                  </p>
+                  <p className="text-xs text-muted-foreground/70 font-medium mt-auto">
+                    Rationale: Eliminate the friction of "proving" fraud. Shift the burden of proof entirely onto Mavrix.
                   </p>
                 </div>
-                
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Tracking Method</div>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Quantitative</span>
-                      <span className="text-foreground">GA4 / HubSpot</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Qualitative</span>
-                      <span className="text-foreground">Sales Feedback</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Perception</span>
-                      <span className="text-foreground">Win/Loss Analysis</span>
-                    </div>
-                  </div>
+                <div className="bg-muted/30 p-6 border-t border-border/50">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-2 mb-2">
+                    <span className="w-3.5 h-3.5 bg-primary rounded-full flex items-center justify-center">
+                      <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    </span>
+                    Required Artifact
+                  </span>
+                  <h4 className="text-base font-semibold text-foreground">"The Sanitation Log"</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    A report in every delivery showing the "Kill List" (blocked bots/IPs) to prove the rigorous filtering applied before delivery.
+                  </p>
                 </div>
-                
-                <div className="bg-primary/10 p-4 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Dashboard</div>
-                  <p className="text-xs text-foreground">
-                    Create a shared Signal Board for cross-functional visibility.
+              </div>
+
+              {/* Signal 2: Methodology */}
+              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group overflow-hidden">
+                <div className="h-1 w-full bg-border group-hover:bg-primary transition-colors" />
+                <div className="p-8 flex-1 flex flex-col">
+                  <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-4">Signal 02 // Methodology</span>
+                  <h3 className="font-serif text-2xl text-foreground mb-4 leading-tight">The "Anti-Slop" Doctrine.</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    Stop hiding behind "Tech." Embrace "Effort." When AI shortcuts fail (as they often do), we deploy the Crew. Buses, phone banks, renting halls—we do <strong className="text-foreground">Whatever It Takes</strong> to get real people, not lazy digital proxies.
+                  </p>
+                  <p className="text-xs text-muted-foreground/70 font-medium mt-auto">
+                    Rationale: Reframe "Manual Fieldwork" from a "Legacy Liability" to a "Premium Asset." It is the only antidote to AI Slop.
+                  </p>
+                </div>
+                <div className="bg-muted/30 p-6 border-t border-border/50">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-2 mb-2">
+                    <span className="w-3.5 h-3.5 bg-primary rounded-full flex items-center justify-center">
+                      <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    </span>
+                    Required Artifact
+                  </span>
+                  <h4 className="text-base font-semibold text-foreground">"The Fieldwork Reality Check"</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Marketing materials showing photos of <em>actual</em> field teams, call centers, and face-to-face ops. Prove the human effort.
+                  </p>
+                </div>
+              </div>
+
+              {/* Signal 3: Validation */}
+              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group overflow-hidden">
+                <div className="h-1 w-full bg-border group-hover:bg-primary transition-colors" />
+                <div className="p-8 flex-1 flex flex-col">
+                  <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-4">Signal 03 // Validation</span>
+                  <h3 className="font-serif text-2xl text-foreground mb-4 leading-tight">The "Verified" Stack.</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    Anonymous testimonials ("Director, Tech Firm") undermine trust. We must move to <strong className="text-foreground">Named Validation</strong>. Real leaders, real badges (ISO), and real accreditations.
+                  </p>
+                  <p className="text-xs text-muted-foreground/70 font-medium mt-auto">
+                    Rationale: In a low-trust world, "Self-Reported" claims are noise. Third-party verification is the only signal that cuts through.
+                  </p>
+                </div>
+                <div className="bg-muted/30 p-6 border-t border-border/50">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-2 mb-2">
+                    <span className="w-3.5 h-3.5 bg-primary rounded-full flex items-center justify-center">
+                      <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    </span>
+                    Required Artifact
+                  </span>
+                  <h4 className="text-base font-semibold text-foreground">"The Accreditation Wall"</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Display ISO certifications and Partner Badges (e.g., Insights Association) prominently in the site footer and decks.
                   </p>
                 </div>
               </div>
