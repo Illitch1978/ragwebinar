@@ -1415,68 +1415,70 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 15: Narrative Positioning */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Narrative Positioning</SlideEyebrow>
-            <ActionTitle>The "Process vs. Outcome" disconnect.</ActionTitle>
-            
-            <div className="grid md:grid-cols-12 gap-8">
-              <div className="col-span-5 text-base leading-relaxed text-muted-foreground space-y-4">
-                <p>
-                  Your internal teams understand the nuance of your technology ("Human-in-the-loop AI"). However, this nuance is lost in translation.
-                </p>
-                <p>
-                  The website currently explains <em>how</em> the sausage is made, rather than <em>why</em> it tastes good. This alienates the executive buyer who is purchasing velocity and accuracy, not algorithms.
-                </p>
-                <div className="pt-5 border-t border-border">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">Prescription</div>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    Reframe the narrative from capability description to outcome articulation. Lead with the business impact (faster decisions, reduced risk, measurable ROI) and relegate technical methodology to a secondary "How it Works" section.
+          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="mb-4">
+              <SlideEyebrow>Narrative Positioning</SlideEyebrow>
+              <ActionTitle>The "Hybrid" Trap.</ActionTitle>
+              <p className="font-sans font-light text-muted-foreground max-w-3xl leading-relaxed">
+                Attempting to claim "Best of Both Worlds" (Tech + Human) has resulted in a generic "Middle of the Road" identity. The visual and verbal language cheapens the premium reality.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-12 gap-20 mt-8">
+              {/* Left Column: Headline Audit */}
+              <div className="col-span-7 relative p-12 border border-dashed border-border bg-muted/30 flex flex-col justify-center">
+                <span className="font-mono text-[9px] text-muted-foreground uppercase tracking-widest absolute top-4 left-4">Home Page Headline Audit</span>
+                
+                <div className="font-serif text-5xl leading-tight text-foreground">
+                  <span className="relative inline-block">
+                    Smart Technology
+                    <span className="absolute -top-7 left-0 font-mono text-[11px] text-destructive bg-white px-2 py-1 border border-destructive/20 rounded shadow-sm whitespace-nowrap">
+                      <span className="font-bold mr-1">×</span> Generic. (Zappi owns this)
+                    </span>
+                  </span>
+                  <br />
+                  <span className="italic text-muted-foreground font-light">meets</span>
+                  <br />
+                  <span className="relative inline-block">
+                    Human Insight.
+                    <span className="absolute -bottom-7 right-0 font-mono text-[11px] text-destructive bg-white px-2 py-1 border border-destructive/20 rounded shadow-sm whitespace-nowrap">
+                      <span className="font-bold mr-1">×</span> Vague. (Dynata owns this)
+                    </span>
+                  </span>
+                </div>
+
+                <div className="mt-16 flex items-center gap-4 border-t border-border pt-6">
+                  <div className="w-8 h-8 rounded-full bg-destructive/10 text-destructive flex items-center justify-center font-bold text-xs">!</div>
+                  <p className="text-xs text-muted-foreground font-medium">
+                    The "Cover-Up" Test: If we hide the logo, this could be any of 500+ agencies.
                   </p>
                 </div>
               </div>
 
-              <div className="col-span-7 border border-border">
-                <div className="grid grid-cols-2">
-                  <div className="p-4 border-b border-r border-border bg-muted/30">
-                    <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Intended Message</span>
-                  </div>
-                  <div className="p-4 border-b border-border bg-muted/30">
-                    <span className="font-mono text-xs uppercase tracking-widest text-primary">Received Reality</span>
-                  </div>
-
-                  <div className="p-4 border-b border-r border-border">
-                    <div className="font-serif text-lg">"We Innovate"</div>
-                    <div className="text-xs text-muted-foreground/70 mt-1">Generic Aspiration</div>
-                  </div>
-                  <div className="p-4 border-b border-border">
-                    <div className="font-serif text-lg text-muted-foreground">"What do you actually do?"</div>
-                    <div className="text-xs text-destructive mt-1">Confusion</div>
-                  </div>
-
-                  <div className="p-4 border-b border-r border-border">
-                    <div className="font-serif text-lg">"Semantic Search"</div>
-                    <div className="text-xs text-muted-foreground/70 mt-1">Technical Feature</div>
-                  </div>
-                  <div className="p-4 border-b border-border">
-                    <div className="font-serif text-lg text-muted-foreground">"Is this for developers?"</div>
-                    <div className="text-xs text-destructive mt-1">Misalignment</div>
-                  </div>
-
-                  <div className="p-4 border-r border-border">
-                    <div className="font-serif text-lg">"Hybrid AI Model"</div>
-                    <div className="text-xs text-muted-foreground/70 mt-1">Differentiation</div>
-                  </div>
-                  <div className="p-4">
-                    <div className="font-serif text-lg text-muted-foreground">"Sounds expensive/slow."</div>
-                    <div className="text-xs text-destructive mt-1">Friction</div>
-                  </div>
+              {/* Right Column: Critique Cards */}
+              <div className="col-span-5 flex flex-col justify-center gap-6">
+                <div className="bg-white p-6 border-l-4 border-border">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground font-semibold block mb-2">Error 01: Comparability</span>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    "Hybrid" positioning invites comparison to everyone. You compete on price against Tech (who are cheaper) and on scale against Legacy (who are bigger).
+                  </p>
                 </div>
-                
-                <div className="p-4 border-t border-border bg-primary/5">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-primary">Pattern:</span>
-                    <span className="text-sm text-foreground">Every "Process" headline triggers a "What's the outcome?" question.</span>
-                  </div>
+
+                <div className="bg-destructive/5 p-6 border-l-4 border-destructive">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-destructive font-semibold block mb-2">Error 02: Visual Integrity</span>
+                  <p className="text-sm text-foreground font-medium leading-relaxed">
+                    The imagery is "AI Slop."
+                    <span className="block font-normal text-muted-foreground mt-1">
+                      Using generic, AI-generated "Happy Tech People" icons creates a subconscious signal of cheapness. It contradicts your claim of "Real Human Insight."
+                    </span>
+                  </p>
+                </div>
+
+                <div className="bg-white p-6 border-l-4 border-border">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground font-semibold block mb-2">Error 03: The "Ghost" Crew</span>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Your actual differentiator—the "Mavrix Crew" beloved on LinkedIn—is completely absent here. You are hiding your stars behind stock vectors.
+                  </p>
                 </div>
               </div>
             </div>
