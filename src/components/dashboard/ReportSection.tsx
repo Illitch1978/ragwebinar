@@ -1487,70 +1487,68 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 16: Trust Architecture */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Trust Architecture</SlideEyebrow>
-            <ActionTitle>Credibility is currently implicit, rather than explicit.</ActionTitle>
-            
-            <div className="grid md:grid-cols-12 gap-8">
-              <div className="col-span-8">
-                <p className="text-sm text-muted-foreground mb-5">
-                  In high-value B2B transactions, trust must be established before logic can be applied. Your current architecture asks the user to "trust the code" without providing the necessary social and institutional signals.
-                </p>
+          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="mb-4">
+              <SlideEyebrow>Trust Architecture</SlideEyebrow>
+              <ActionTitle>Three structural fractures are undermining buyer confidence.</ActionTitle>
+              <p className="font-sans font-light text-muted-foreground max-w-3xl leading-relaxed">
+                Trust is not just about what you say; it's about what the buyer finds when they check your homework. Our audit uncovered three specific "leaks" where credibility is evaporating.
+              </p>
+            </div>
 
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr>
-                      <th className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground pb-3 border-b-2 border-foreground" style={{ width: "22%" }}>Signal Category</th>
-                      <th className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground pb-3 border-b-2 border-foreground" style={{ width: "18%" }}>Status</th>
-                      <th className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground pb-3 border-b-2 border-foreground" style={{ width: "60%" }}>Audit Finding</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="py-4 border-b border-border font-serif text-lg">Social Proof</td>
-                      <td className="py-4 border-b border-border">
-                        <span className="font-mono text-[10px] text-destructive bg-destructive/10 px-2 py-1 uppercase tracking-widest">Absent</span>
-                      </td>
-                      <td className="py-4 border-b border-border text-xs text-muted-foreground">
-                        Zero client logos, case study snapshots, or testimonials on the homepage. The site feels "empty" of customers.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-4 border-b border-border font-serif text-lg">Authority Cues</td>
-                      <td className="py-4 border-b border-border">
-                        <span className="font-mono text-[10px] text-muted-foreground bg-muted px-2 py-1 uppercase tracking-widest">Implicit</span>
-                      </td>
-                      <td className="py-4 border-b border-border text-xs text-muted-foreground">
-                        Deep technical content implies expertise, but there are no "Badges of Honor" (Awards, Certifications, Partnerships).
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-4 border-b border-border font-serif text-lg">Humanity</td>
-                      <td className="py-4 border-b border-border">
-                        <span className="font-mono text-[10px] text-destructive bg-destructive/10 px-2 py-1 uppercase tracking-widest">Critical Gap</span>
-                      </td>
-                      <td className="py-4 border-b border-border text-xs text-muted-foreground">
-                        No "Team" page. No faces. In a "Human-in-the-loop" service, the absence of humans is a paradox.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-              <div className="col-span-4 space-y-4">
-                <div className="bg-muted/30 p-5 border-l-2 border-foreground">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Trust Deficit Impact</div>
-                  <div className="font-serif text-3xl mb-2 text-foreground">+2 Weeks</div>
-                  <p className="text-sm text-muted-foreground">Estimated additional sales cycle length due to credibility establishment burden falling on the SDR team.</p>
-                </div>
-                
-                <div className="p-5 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Prescription</div>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    Add a "Trust Strip" below the hero: 3 client logos, an industry award, and a G2 rating badge. Move team photos to the homepage footer.
+            <div className="grid grid-cols-3 gap-8 mt-8 flex-1">
+              {/* Fracture 01 */}
+              <div className="border border-border p-8 flex flex-col justify-between">
+                <div>
+                  <span className="font-mono text-[11px] text-destructive uppercase tracking-wider block mb-4">Fracture 01: The "Anonymity" Error</span>
+                  <h3 className="font-serif text-2xl mb-4 text-foreground leading-tight">Nameless<br/>Testimonials.</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-light mb-6">
+                    Your testimonials are attributed to generic titles (e.g., "Director"). In a high-stakes B2B market, anonymous praise is interpreted as fabricated praise.
                   </p>
                 </div>
+                <div className="bg-muted/50 p-4 border-l-2 border-muted-foreground/30 text-xs text-muted-foreground italic">
+                  "Great service." <br/>— Director, Tech Firm
+                  <span className="block mt-2 not-italic font-bold text-muted-foreground/60 text-[9px] uppercase tracking-wider">Buyer Reaction: "Fake."</span>
+                </div>
               </div>
+
+              {/* Fracture 02 */}
+              <div className="border border-border p-8 flex flex-col justify-between">
+                <div>
+                  <span className="font-mono text-[11px] text-destructive uppercase tracking-wider block mb-4">Fracture 02: The "IP" Vacuum</span>
+                  <h3 className="font-serif text-2xl mb-4 text-foreground leading-tight">Zero Published<br/>Thinking.</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-light mb-6">
+                    We found "0 Published Whitepapers" or Reports. You claim to offer "Human Insight," but provide no evidence of that insight in written form.
+                  </p>
+                </div>
+                <div className="bg-muted/50 p-4 border-l-2 border-muted-foreground/30 text-xs text-muted-foreground italic">
+                  Result: You are selling "Hands" (Labor), not "Heads" (Expertise).
+                </div>
+              </div>
+
+              {/* Fracture 03 - Alert Card */}
+              <div className="border border-destructive/30 bg-destructive/5 p-8 flex flex-col justify-between">
+                <div>
+                  <span className="font-mono text-[11px] text-destructive uppercase tracking-wider flex items-center gap-2 mb-4">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"/></svg>
+                    Fracture 03: Identity Clash
+                  </span>
+                  <h3 className="font-serif text-2xl mb-4 text-foreground leading-tight">The "Crypto Bot"<br/>Contamination.</h3>
+                  <p className="text-sm text-foreground leading-relaxed font-medium mb-6">
+                    Critical Issue: A search for "Mavrix Reviews" surfaces "Mavrix AI" (a crypto trading bot) with consumer complaints.
+                  </p>
+                </div>
+                <div className="bg-white p-4 border-l-2 border-destructive text-xs text-destructive italic">
+                  Risk: A qualified buyer searches for you, finds "Crypto Scam" warnings, and abandons the funnel immediately.
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 flex items-center border-t border-border pt-4">
+              <span className="text-xs text-muted-foreground font-medium">
+                <span className="text-primary font-bold mr-2">REQUIRED FIX:</span>
+                Build a "Digital Fence." (FAQ Disclaimer + Owned Content to push Crypto results down).
+              </span>
             </div>
           </div>
         </Slide>
