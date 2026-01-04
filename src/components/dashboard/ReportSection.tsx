@@ -1802,80 +1802,67 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 21: Strategic Inflection */}
+        {/* Slide 21: Focus Themes */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
-            <SlideEyebrow>Strategic Inflection</SlideEyebrow>
-            <ActionTitle>Your narrative choice determines which war you fight.</ActionTitle>
-            
-            <p className="text-sm text-muted-foreground font-light max-w-3xl mb-12">
-              This is not just about "Growth." It is about choosing your adversary. Sticking to the current path forces you to fight a price war you cannot win. The pivot allows you to fight a value war you are destined to win.
-            </p>
+          <div className="max-w-7xl mx-auto w-full h-full flex flex-col">
+            <SlideEyebrow>Focus Themes</SlideEyebrow>
+            <ActionTitle>Three tactical inventions to break the inertia.</ActionTitle>
 
-            <div className="grid grid-cols-2 gap-12 h-[420px]">
+            <div className="grid grid-cols-3 gap-10 flex-1">
               
-              {/* Path A: Status Quo */}
-              <div className="border border-border bg-muted/30 p-8 flex flex-col h-full">
-                <div className="mb-8">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2 block">Path A: Status Quo</span>
-                  <h3 className="font-serif text-3xl text-muted-foreground mb-2">The "Wrapper" War</h3>
+              {/* Theme 01: Integrity */}
+              <div className="flex flex-col border-t border-border pt-8 group hover:border-primary transition-colors">
+                <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-4">Theme 01 // Integrity</span>
+                <h3 className="font-serif text-2xl text-foreground mb-6 leading-tight">The "Total Quality" Warranty.</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-light mb-8 min-h-[100px]">
+                  "Bad Data" is a spectrum: bots, imposters, inattentive humans, and professional survey-takers. Position Mavrix as the only partner who guarantees the <em className="italic">integrity</em> of the respondent, not just their existence. If there is doubt, we replace.
+                </p>
+                
+                <div className="mt-auto bg-muted/50 p-6 border-l-[3px] border-muted-foreground/30 group-hover:bg-primary/5 group-hover:border-primary transition-colors">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2 block font-semibold">Strategic Mechanism</span>
+                  <h4 className="text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">"The Zero-Argument Replacement"</h4>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    If you sell "Process" (how it works), buyers bucket you with cheap AI tools. You compete on cost against infinite supply.
+                    We remove the friction of "proving" fraud. If you flag a respondent for any reason (profile mismatch, low attention, or bot), we replace them instantly. No debate. No extra cost.
                   </p>
-                </div>
-
-                <div className="mt-auto space-y-0">
-                  <div className="flex justify-between items-center py-3 border-b border-border">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground">Primary Adversary</span>
-                    <span className="text-sm text-muted-foreground font-medium">Cheap AI Wrappers ($50/mo)</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-border">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground">Buyer Psychology</span>
-                    <span className="text-sm text-muted-foreground font-medium">"Is this a risky experiment?"</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-border">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground">Sales Friction</span>
-                    <span className="text-sm text-destructive font-medium">High (Justifying Existence)</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground">Winning Metric</span>
-                    <span className="text-sm text-muted-foreground font-medium">Lowest Price</span>
-                  </div>
                 </div>
               </div>
 
-              {/* Path B: Correction */}
-              <div className="border border-primary bg-background p-8 flex flex-col h-full relative overflow-hidden shadow-lg shadow-primary/10">
-                <div className="absolute top-0 left-0 w-full h-1 bg-primary" />
-                <div className="mb-8">
-                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2 block">Path B: Correction</span>
-                  <h3 className="font-serif text-3xl text-foreground mb-2">The "Agency" War</h3>
+              {/* Theme 02: Authority */}
+              <div className="flex flex-col border-t border-border pt-8 group hover:border-primary transition-colors">
+                <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-4">Theme 02 // Authority</span>
+                <h3 className="font-serif text-2xl text-foreground mb-6 leading-tight">The "Quality Index."</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-light mb-8 min-h-[100px]">
+                  Turn the lack of white papers into a strategic asset. Use your 22 years of data to create the industry standard "Quality Index." This becomes a recurring publication that industry bodies will want to co-brand, instantly elevating Mavrix's profile.
+                </p>
+                
+                <div className="mt-auto bg-muted/50 p-6 border-l-[3px] border-muted-foreground/30 group-hover:bg-primary/5 group-hover:border-primary transition-colors">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2 block font-semibold">Strategic Mechanism</span>
+                  <h4 className="text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">"The Mavrix Blocklist Report"</h4>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    If you sell "Outcome" (certainty), buyers bucket you with premium consultancies. You compete on speed against slow incumbents.
+                    A quarterly index on the "State of Data Reality." We publish exactly what we block (fraud vectors, bot trends), positioning us as the R&D Lab for the industry.
                   </p>
                 </div>
+              </div>
 
-                <div className="mt-auto space-y-0">
-                  <div className="flex justify-between items-center py-3 border-b border-muted">
-                    <span className="text-xs uppercase tracking-wide text-primary font-semibold">Primary Adversary</span>
-                    <span className="text-sm text-foreground font-semibold">Legacy Agencies (Slow/Expensive)</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-muted">
-                    <span className="text-xs uppercase tracking-wide text-primary font-semibold">Buyer Psychology</span>
-                    <span className="text-sm text-foreground font-semibold">"This is a faster standard."</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-muted">
-                    <span className="text-xs uppercase tracking-wide text-primary font-semibold">Sales Friction</span>
-                    <span className="text-sm text-green-500 font-semibold">Low (Obvious ROI)</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3">
-                    <span className="text-xs uppercase tracking-wide text-primary font-semibold">Winning Metric</span>
-                    <span className="text-sm text-foreground font-semibold">Highest Velocity</span>
-                  </div>
+              {/* Theme 03: Commerce */}
+              <div className="flex flex-col border-t border-border pt-8 group hover:border-primary transition-colors">
+                <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-4">Theme 03 // Commerce</span>
+                <h3 className="font-serif text-2xl text-foreground mb-6 leading-tight">The "White-Glove" Rescue.</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-light mb-8 min-h-[100px]">
+                  When low-cost vendors stall (e.g. stuck at N=300/500), it's a crisis. Unbundle your service to offer a premium "Fieldwork Recovery" tier. This isn't just panel access; it is a strategic takeover with a guaranteed completion plan.
+                </p>
+                
+                <div className="mt-auto bg-muted/50 p-6 border-l-[3px] border-muted-foreground/30 group-hover:bg-primary/5 group-hover:border-primary transition-colors">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2 block font-semibold">Strategic Mechanism</span>
+                  <h4 className="text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">"Mavrix 911"</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    "Stuck in field? Call us." A premium rapid-response service where senior methodologists assess the failure, build a recovery plan, and guarantee the close.
+                  </p>
                 </div>
               </div>
 
             </div>
+
           </div>
         </Slide>
 
