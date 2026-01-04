@@ -1965,131 +1965,84 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         <Slide>
           <div className="max-w-7xl w-full h-full flex flex-col">
             <SlideEyebrow>Structural Evolution</SlideEyebrow>
-            <ActionTitle>Sustain: Changing the capability baseline.</ActionTitle>
+            <ActionTitle>Building the machine that builds the product.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-6">
-              <div className="col-span-9 grid md:grid-cols-3 gap-5">
-                <div className="border border-border p-5 bg-muted/30">
-                  <div className="font-mono text-xs text-primary mb-3">01. Product-Led Growth</div>
-                  <div className="font-serif text-lg mb-2 text-foreground">From "Gatekeeper" to "Try First"</div>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                    <strong className="text-foreground">The Move:</strong> Transition the primary CTA from a sales form to an interactive "Data Sandbox." Allow users to taste the speed of the AI before asking for marriage.
-                  </p>
-                  <div className="space-y-2 text-xs text-muted-foreground mb-3">
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Build interactive demo environment</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Gate advanced features, not access</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Capture intent data from usage</span>
-                    </div>
+            <div className="grid grid-cols-3 gap-10 flex-1">
+              {/* Card 1: Marketing */}
+              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group">
+                <div className="p-8 border-b border-border/50 bg-muted/30">
+                  <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-2">Function 01 // Marketing</span>
+                  <h3 className="font-serif text-2xl text-foreground">The "Intel" Engine</h3>
+                </div>
+                
+                <div className="p-8 flex-1 flex flex-col justify-center">
+                  <div>
+                    <span className="text-[11px] uppercase tracking-widest text-muted-foreground block mb-2">From (Current)</span>
+                    <p className="text-base text-muted-foreground font-light line-through decoration-destructive mb-6">Sales Support & Brochures</p>
                   </div>
-                  <div className="pt-3 border-t border-border">
-                    <div className="flex justify-between items-center">
-                      <div className="font-mono text-[10px] text-primary uppercase">Matches market velocity</div>
-                      <div className="font-mono text-[9px] text-muted-foreground">60 days</div>
-                    </div>
+                  <div className="text-primary/50 text-xl mb-6">↓</div>
+                  <div>
+                    <span className="text-[11px] uppercase tracking-widest text-primary block mb-2">To (Future)</span>
+                    <h4 className="text-xl font-semibold text-foreground mb-2">Editorial Newsroom</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">Mining 22 years of internal data to publish the "Blocklist" and "Quality Index."</p>
                   </div>
                 </div>
 
-                <div className="border border-border p-5 bg-muted/30">
-                  <div className="font-mono text-xs text-primary mb-3">02. Verticalization</div>
-                  <div className="font-serif text-lg mb-2 text-foreground">From "Generic" to "Industry Expert"</div>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                    <strong className="text-foreground">The Move:</strong> Build dedicated landing pages for "CPG," "Finance," and "Tech." Address the "Audience Alignment" gap by speaking specific dialects.
-                  </p>
-                  <div className="space-y-2 text-xs text-muted-foreground mb-3">
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>3 vertical pages with unique copy</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Industry-specific case studies</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Tailored ROI calculators</span>
-                    </div>
-                  </div>
-                  <div className="pt-3 border-t border-border">
-                    <div className="flex justify-between items-center">
-                      <div className="font-mono text-[10px] text-primary uppercase">Increases relevance score</div>
-                      <div className="font-mono text-[9px] text-muted-foreground">45 days</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="border border-border p-5 bg-muted/30">
-                  <div className="font-mono text-xs text-primary mb-3">03. AI Discoverability</div>
-                  <div className="font-serif text-lg mb-2 text-foreground">From "Invisible" to "Referenced"</div>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                    <strong className="text-foreground">The Move:</strong> Implement structured schema markup and publish "State of AI Insights" data. Train LLMs to cite Rubiklab as the authority.
-                  </p>
-                  <div className="space-y-2 text-xs text-muted-foreground mb-3">
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Schema.org markup on all pages</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Quarterly industry benchmark reports</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span>Thought leadership content</span>
-                    </div>
-                  </div>
-                  <div className="pt-3 border-t border-border">
-                    <div className="flex justify-between items-center">
-                      <div className="font-mono text-[10px] text-primary uppercase">Secures future discovery</div>
-                      <div className="font-mono text-[9px] text-muted-foreground">30 days</div>
-                    </div>
-                  </div>
+                <div className="mx-8 mb-8 p-4 bg-primary/5 border border-dashed border-primary/30 text-center">
+                  <span className="text-[10px] uppercase tracking-widest text-primary block mb-1 font-semibold">Key Hire</span>
+                  <span className="text-base font-semibold text-foreground">Data Journalist</span>
                 </div>
               </div>
-              
-              <div className="col-span-3 space-y-4">
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Investment Horizon</div>
-                  <div className="font-serif text-3xl text-foreground mb-1">Q2-Q3</div>
-                  <p className="text-xs text-muted-foreground">These are 60-90 day builds requiring dedicated resources.</p>
+
+              {/* Card 2: Operations */}
+              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group">
+                <div className="p-8 border-b border-border/50 bg-muted/30">
+                  <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-2">Function 02 // Operations</span>
+                  <h3 className="font-serif text-2xl text-foreground">The "Rescue" Squad</h3>
                 </div>
                 
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Sequencing</div>
-                  <p className="text-xs text-foreground">
-                    Sandbox first (differentiator). Verticals second (relevance). Schema third (durability).
-                  </p>
-                </div>
-                
-                <div className="bg-muted/30 p-4 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Resource Estimate</div>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Sandbox</span>
-                      <span className="text-foreground font-medium">2-3 FTE months</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Verticals</span>
-                      <span className="text-foreground font-medium">1 FTE month</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Schema</span>
-                      <span className="text-foreground font-medium">0.5 FTE month</span>
-                    </div>
+                <div className="p-8 flex-1 flex flex-col justify-center">
+                  <div>
+                    <span className="text-[11px] uppercase tracking-widest text-muted-foreground block mb-2">From (Current)</span>
+                    <p className="text-base text-muted-foreground font-light line-through decoration-destructive mb-6">Generalist Project Pool</p>
+                  </div>
+                  <div className="text-primary/50 text-xl mb-6">↓</div>
+                  <div>
+                    <span className="text-[11px] uppercase tracking-widest text-primary block mb-2">To (Future)</span>
+                    <h4 className="text-xl font-semibold text-foreground mb-2">"Tiger Team" Split</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">A dedicated rapid-response unit solely for <strong className="text-foreground">Mavrix 911</strong> interventions.</p>
                   </div>
                 </div>
+
+                <div className="mx-8 mb-8 p-4 bg-primary/5 border border-dashed border-primary/30 text-center">
+                  <span className="text-[10px] uppercase tracking-widest text-primary block mb-1 font-semibold">Key Assignment</span>
+                  <span className="text-base font-semibold text-foreground">Senior Methodologists</span>
+                </div>
+              </div>
+
+              {/* Card 3: Quality */}
+              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group">
+                <div className="p-8 border-b border-border/50 bg-muted/30">
+                  <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-2">Function 03 // Quality</span>
+                  <h3 className="font-serif text-2xl text-foreground">The "Integrity" Office</h3>
+                </div>
                 
-                <div className="bg-primary/10 p-4 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">Expected Outcome</div>
-                  <div className="font-serif text-xl text-primary mb-1">3× Pipeline</div>
-                  <p className="text-xs text-muted-foreground">Projected increase in qualified leads by Q4.</p>
+                <div className="p-8 flex-1 flex flex-col justify-center">
+                  <div>
+                    <span className="text-[11px] uppercase tracking-widest text-muted-foreground block mb-2">From (Current)</span>
+                    <p className="text-base text-muted-foreground font-light line-through decoration-destructive mb-6">Back-End Checks</p>
+                  </div>
+                  <div className="text-primary/50 text-xl mb-6">↓</div>
+                  <div>
+                    <span className="text-[11px] uppercase tracking-widest text-primary block mb-2">To (Future)</span>
+                    <h4 className="text-xl font-semibold text-foreground mb-2">Productized QA</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">Owning the <strong className="text-foreground">Identity Warranty</strong> and managing the replacement budget.</p>
+                  </div>
+                </div>
+
+                <div className="mx-8 mb-8 p-4 bg-primary/5 border border-dashed border-primary/30 text-center">
+                  <span className="text-[10px] uppercase tracking-widest text-primary block mb-1 font-semibold">Key Promotion</span>
+                  <span className="text-base font-semibold text-foreground">Fraud Analysts → Product Owners</span>
                 </div>
               </div>
             </div>
