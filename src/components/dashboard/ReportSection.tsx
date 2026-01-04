@@ -1108,74 +1108,73 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           <div className="max-w-7xl w-full h-full flex flex-col justify-center">
             <div className="mb-12">
               <SlideEyebrow>Visibility & Discoverability</SlideEyebrow>
-              <ActionTitle>"They show up, but they don't speak up."</ActionTitle>
+              <ActionTitle>The "Platform Dissonance."</ActionTitle>
               <p className="text-sm text-muted-foreground max-w-3xl leading-relaxed">
-                Mavrix is physically present (Conferences) but digitally silent (Zero Assets). <br />
-                You are <strong className="text-foreground">renting attention</strong> via booths instead of <strong className="text-foreground">owning authority</strong> via content.
+                Mavrix is living a digital double-life. On LinkedIn, you are a vibrant, human-led community leader. On your Website, you are a generic, faceless tech vendor. You are renting your best personality.
               </p>
             </div>
 
             <div className="grid grid-cols-3 gap-8 h-[420px]">
-              {/* Search Presence Card */}
-              <div className="flex flex-col h-full border border-border">
-                <div className="border border-border p-8 flex flex-col justify-between h-full bg-background">
+              {/* Social Ecosystem Card - Highlighted Blue */}
+              <div className="flex flex-col h-full border border-blue-200">
+                <div className="border border-border p-8 flex flex-col justify-between h-full bg-blue-50/10">
                   <div>
-                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-amber-50 text-amber-600 border border-amber-200">Low-Tier Visibility</span>
-                    <h3 className="font-serif text-2xl mb-3 text-foreground">Search Presence</h3>
+                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-blue-50 text-[#0A66C2] border border-blue-200 font-semibold">High Vitality</span>
+                    <h3 className="font-serif text-2xl mb-3 text-foreground">Social Ecosystem</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                      Ranking for "Mavrix" is vanity. Ranking for "Global Fieldwork" is value. Currently, you are invisible to high-intent buyers who don't know your name.
+                      A strategic asset. 26k+ followers and authentic CEO narratives (Rafal) prove "Proof of Life" and industry standing. This is where your brand actually lives.
                     </p>
                   </div>
                   <div className="border-t border-border pt-6 mt-auto">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Organic Traffic Share</span>
-                    <span className="font-serif text-4xl text-foreground">~5%</span>
+                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Legacy Audience</span>
+                    <span className="font-serif text-4xl text-[#0A66C2]">26,000+</span>
+                  </div>
+                </div>
+                <div className="bg-blue-50/30 px-6 py-4 border-t border-border">
+                  <span className="font-mono text-[10px] text-blue-400 font-semibold uppercase tracking-widest block mb-1">Leverage Point</span>
+                  <p className="text-xs text-blue-600 font-medium leading-relaxed">Export this "Humanity" to the Website immediately.</p>
+                </div>
+              </div>
+
+              {/* Owned Domain Card */}
+              <div className="flex flex-col h-full border border-border">
+                <div className="border border-border p-8 flex flex-col justify-between h-full bg-background">
+                  <div>
+                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200 font-semibold">Sterile</span>
+                    <h3 className="font-serif text-2xl mb-3 text-foreground">Owned Domain</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                      The website fails to capture the energy of the LinkedIn page. It relies on generic tech buzzwords instead of the "Mavrix Crew" reality.
+                    </p>
+                  </div>
+                  <div className="border-t border-border pt-6 mt-auto">
+                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Brand Alignment</span>
+                    <span className="font-serif text-4xl text-red-400">Disconnect</span>
                   </div>
                 </div>
                 <div className="bg-muted/50 px-6 py-4 border-t border-border">
                   <span className="font-mono text-[10px] text-muted-foreground font-semibold uppercase tracking-widest block mb-1">Priority Fix</span>
-                  <p className="text-xs text-primary font-medium leading-relaxed">Target "Problem-Aware" Keywords (e.g., "Multi-Country Data Collection").</p>
+                  <p className="text-xs text-primary font-medium leading-relaxed">Embed the "CEO Narrative" and "Event Photos" directly onto the Homepage.</p>
                 </div>
               </div>
 
-              {/* Generative AI Card */}
+              {/* Brand Protection Card */}
               <div className="flex flex-col h-full border border-border">
                 <div className="border border-border p-8 flex flex-col justify-between h-full bg-background">
                   <div>
-                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200">Absent from Index</span>
-                    <h3 className="font-serif text-2xl mb-3 text-foreground">Generative AI</h3>
+                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200 font-semibold">Identity Confusion</span>
+                    <h3 className="font-serif text-2xl mb-3 text-foreground">Brand Protection</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                      If you aren't in the training data, you aren't in the consideration set. ChatGPT lists Dynata and Kantar as leaders; Mavrix is omitted.
+                      A critical noise factor exists: "Mavrix AI" (Crypto Bot). Consumer complaints about the bot risk bleeding into your B2B reputation if not digitally fenced.
                     </p>
                   </div>
                   <div className="border-t border-border pt-6 mt-auto">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Citation Authority</span>
-                    <span className="font-serif text-4xl text-destructive">Zero</span>
+                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Reputation Threat</span>
+                    <span className="font-serif text-4xl text-muted-foreground">Moderate</span>
                   </div>
                 </div>
                 <div className="bg-muted/50 px-6 py-4 border-t border-border">
-                  <span className="font-mono text-[10px] text-muted-foreground font-semibold uppercase tracking-widest block mb-1">Priority Fix</span>
-                  <p className="text-xs text-primary font-medium leading-relaxed">Publish "State of Data" reports to force citation in LLM training data.</p>
-                </div>
-              </div>
-
-              {/* Commercial Balance Card - Highlighted */}
-              <div className="flex flex-col h-full border border-red-100 bg-red-50/10">
-                <div className="border border-red-100 p-8 flex flex-col justify-between h-full bg-red-50/10">
-                  <div>
-                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200">Renting Attention</span>
-                    <h3 className="font-serif text-2xl mb-3 text-foreground">Commercial Balance</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                      The booth closes at 5 PM. Content sells 24/7. You are currently dependent on physical events rather than digital leverage.
-                    </p>
-                  </div>
-                  <div className="border-t border-red-100 pt-6 mt-auto">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Owned Asset Value</span>
-                    <span className="font-serif text-4xl text-destructive">None</span>
-                  </div>
-                </div>
-                <div className="bg-red-50/30 px-6 py-4 border-t border-red-100">
-                  <span className="font-mono text-[10px] text-red-400 font-semibold uppercase tracking-widest block mb-1">Strategic Pivot</span>
-                  <p className="text-xs text-red-600 font-medium leading-relaxed">Shift budget from "Event Attendance" to "Event Hosting" (Webinars).</p>
+                  <span className="font-mono text-[10px] text-muted-foreground font-semibold uppercase tracking-widest block mb-1">Defensive Move</span>
+                  <p className="text-xs text-primary font-medium leading-relaxed">Create a clear "Not Affiliated" disclaimer or FAQ entry regarding the Crypto entity.</p>
                 </div>
               </div>
             </div>
