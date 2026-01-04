@@ -1281,75 +1281,62 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 13: System-Level Diagnosis */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
             <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
-            <ActionTitle>The site functions as pages, but fails as a decision system.</ActionTitle>
             
-            <div className="grid md:grid-cols-12 gap-8">
-              <div className="col-span-5 space-y-4">
-                <p className="text-base leading-relaxed text-muted-foreground">
-                  A high-performing digital asset operates as an integrated system where clarity, logic, and flow compound to drive decisions.
-                </p>
-                <p className="text-base leading-relaxed text-muted-foreground">
-                  Currently, Rubiklab.ai suffers from <strong className="text-foreground">Systemic Decay</strong>. While individual pages are visually polished, the connective tissue (the logic that moves a user from "Interest" to "Action") is fractured.
-                </p>
-                <div className="pt-4 border-t border-border">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2">Composite Diagnostic</div>
-                  <div className="font-serif text-3xl text-foreground mb-2">Fragmented</div>
-                  <p className="text-sm text-muted-foreground">Pages work in isolation; they fail as a journey.</p>
-                </div>
-                
-                <div className="p-4 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-1">Prescription</div>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    Map the user journey as a linear decision funnel. Remove steps that do not directly advance conversion intent.
-                  </p>
+            <div className="flex items-center gap-16 mb-8">
+              {/* Score Circle */}
+              <div className="relative w-[180px] h-[180px] flex items-center justify-center shrink-0">
+                <div className="absolute inset-0 rounded-full border-8 border-muted" style={{ borderTopColor: '#EF4444', borderRightColor: '#EF4444', transform: 'rotate(-45deg)' }} />
+                <div className="text-center z-10">
+                  <span className="font-serif text-6xl text-foreground leading-none">40</span>
+                  <span className="font-mono text-sm text-muted-foreground mt-2 block">/ 100</span>
                 </div>
               </div>
 
-              <div className="col-span-7">
-                <div className="bg-muted/30 p-6">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">Decision System Health Stack</div>
-                  
-                  <div className="space-y-3">
-                    {/* Critical */}
-                    <div className="border border-border p-4 flex justify-between items-center bg-background border-l-4 border-l-destructive">
-                      <div>
-                        <div className="font-serif text-lg text-foreground">Conversion Logic</div>
-                        <div className="text-xs text-muted-foreground mt-0.5">Does the site ask for the right thing at the right time?</div>
-                      </div>
-                      <div className="font-mono text-[10px] text-destructive uppercase tracking-widest bg-destructive/10 px-2 py-1">Failing</div>
-                    </div>
-
-                    {/* Stable */}
-                    <div className="border border-border p-4 flex justify-between items-center bg-background border-l-4 border-l-muted-foreground/30">
-                      <div>
-                        <div className="font-serif text-lg text-foreground">Information Hierarchy</div>
-                        <div className="text-xs text-muted-foreground mt-0.5">Is the most important information most visible?</div>
-                      </div>
-                      <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest bg-muted px-2 py-1">Stable</div>
-                    </div>
-
-                    {/* Optimal */}
-                    <div className="border border-border p-4 flex justify-between items-center bg-background border-l-4 border-l-primary">
-                      <div>
-                        <div className="font-serif text-lg text-foreground">Visual Clarity</div>
-                        <div className="text-xs text-muted-foreground mt-0.5">Is the interface legible and professional?</div>
-                      </div>
-                      <div className="font-mono text-[10px] text-primary uppercase tracking-widest bg-primary/10 px-2 py-1">Optimized</div>
-                    </div>
-                    
-                    {/* Trust Signals */}
-                    <div className="border border-border p-4 flex justify-between items-center bg-background border-l-4 border-l-destructive">
-                      <div>
-                        <div className="font-serif text-lg text-foreground">Trust Signals</div>
-                        <div className="text-xs text-muted-foreground mt-0.5">Are credibility markers visible at decision points?</div>
-                      </div>
-                      <div className="font-mono text-[10px] text-destructive uppercase tracking-widest bg-destructive/10 px-2 py-1">Absent</div>
-                    </div>
-                  </div>
-                </div>
+              <div>
+                <ActionTitle className="mb-4">Critical Health. <br/>The digital engine is misfiring.</ActionTitle>
+                <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+                  A forensic audit of the Mavrix digital ecosystem reveals a structural disconnect between "What you sell" (High-Touch Fieldwork) and "How you sell it" (Low-Touch Tech Narrative).
+                </p>
               </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-12 mt-8 pt-8 border-t border-border">
+              {/* Pillar 01: Narrative Clarity */}
+              <div className="pl-6 border-l border-border">
+                <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-amber-50 text-amber-500 mb-2">Moderate Risk</span>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-3">Pillar 01: Narrative Clarity</span>
+                <h3 className="font-serif text-2xl text-foreground mb-2">50/100</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  The "Smart Technology" headline is generic. It hides your true differentiator (Fieldwork Expertise) behind buzzwords, making you comparable to commodity players.
+                </p>
+              </div>
+
+              {/* Pillar 02: Trust Signals - Critical */}
+              <div className="pl-6 border-l-2 border-destructive">
+                <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-red-50 text-destructive mb-2">Critical Risk</span>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-3">Pillar 02: Trust Signals</span>
+                <h3 className="font-serif text-2xl text-destructive mb-2">20/100</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Missing case studies, "0 Published" whitepapers, and self-reported stats create a "Trust Deficit." Buyers cannot verify your claims without speaking to sales.
+                </p>
+              </div>
+
+              {/* Pillar 03: Commercial Flow */}
+              <div className="pl-6 border-l border-border">
+                <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-red-50 text-destructive mb-2">High Friction</span>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-3">Pillar 03: Commercial Flow</span>
+                <h3 className="font-serif text-2xl text-foreground mb-2">30/100</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Opaque pricing and generic "Contact Us" forms create high friction. You are blocking qualified buyers who want to self-select or get a ballpark estimate.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-auto pt-8 border-t border-dashed border-border flex justify-between items-center text-xs text-muted-foreground font-mono">
+              <span>Audit Date: January 03, 2026</span>
+              <span className="text-foreground">Benchmark: vs. Tier-1 Incumbents (Dynata/Kantar)</span>
             </div>
           </div>
         </Slide>
