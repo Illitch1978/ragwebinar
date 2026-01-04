@@ -1555,49 +1555,64 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 17: Revenue Leakage Analysis */}
         <Slide>
-          <div className="max-w-6xl w-full h-full flex flex-col justify-center">
-            <SlideEyebrow>Revenue Architecture</SlideEyebrow>
-            <ActionTitle>The "Commercial Pathway" is currently undefined.</ActionTitle>
+          <div className="max-w-7xl w-full flex flex-col pt-16">
+            <SlideEyebrow>Revenue Leakage Analysis</SlideEyebrow>
+            <ActionTitle>Three "Invisible Taxes" on growth.</ActionTitle>
             
-            <p className="text-base leading-relaxed text-muted-foreground font-light max-w-4xl mb-12">
-              The digital environment functions as a technical showcase rather than a commercial engine. We observed a structural failure to guide high-intent users toward a transaction. The site currently lacks a dedicated mechanism to facilitate enterprise engagement.
+            <p className="text-base leading-relaxed text-muted-foreground font-light max-w-3xl mb-10">
+              We identified three specific friction points where existing assets (Data, Audience, Expertise) are failing to convert into revenue due to structural gaps.
             </p>
 
-            <div className="grid grid-cols-3 gap-12 h-[380px] border-t border-foreground pt-8">
+            <div className="grid grid-cols-3 gap-8 mt-4">
               
-              <div className="flex flex-col">
-                <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">01. The Offer</div>
-                <h3 className="font-serif text-2xl mb-4">Commercial Obscurity</h3>
-                <p className="text-sm text-muted-foreground mb-6 flex-grow">
-                  There is no commercial deck or explicit "Outcome" definition available. Buyers can see the technology, but they cannot see the <em>deal structure</em>. This forces them to speculate on value rather than evaluate a proposal.
-                </p>
-                <div className="bg-muted/30 p-4 border-l-2 border-muted-foreground/30">
-                  <span className="block font-mono text-[9px] text-muted-foreground uppercase mb-1">Observation</span>
-                  <span className="text-sm font-medium">Missing "Business Case" Assets</span>
+              {/* Leak 01: Top of Funnel */}
+              <div className="border border-border p-8 flex flex-col justify-between min-h-[320px] border-l-4 border-l-foreground">
+                <div>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-2">
+                    Leak 01: Top of Funnel
+                  </span>
+                  <h3 className="font-serif text-2xl mb-4 leading-tight">Identity Dilution.</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                    "Mavrix" is a crowded namespace (AI bots, Motorsports, etc.). Without strong content "fencing," qualified buyers get lost in the noise.
+                  </p>
+                </div>
+                <div className="bg-muted/50 p-4 rounded mt-auto">
+                  <span className="block font-mono text-[9px] text-muted-foreground uppercase tracking-widest mb-1">The Cost</span>
+                  <span className="font-mono text-sm font-semibold">Discovery Friction.</span>
                 </div>
               </div>
 
-              <div className="border-l border-border pl-8 flex flex-col">
-                <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">02. The Validation</div>
-                <h3 className="font-serif text-2xl mb-4">Authority Vacuum</h3>
-                <p className="text-sm text-muted-foreground mb-6 flex-grow">
-                  The absence of Tier-1 press references or visible industry benchmarks isolates Rubiklab. Without external validation, the "Safe Choice" drivers (Risk Mitigation) are inactive, leaving only "High Risk" drivers (Innovation) active.
-                </p>
-                <div className="bg-muted/30 p-4 border-l-2 border-muted-foreground/30">
-                  <span className="block font-mono text-[9px] text-muted-foreground uppercase mb-1">Observation</span>
-                  <span className="text-sm font-medium">Implicit vs. Explicit Trust</span>
+              {/* Leak 02: Mid Funnel */}
+              <div className="border border-border p-8 flex flex-col justify-between min-h-[320px] border-l-4 border-l-primary">
+                <div>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
+                    Leak 02: Mid Funnel
+                  </span>
+                  <h3 className="font-serif text-2xl mb-4 leading-tight">Asset Stagnation.</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                    You own 22 years of proprietary global data, yet have <strong>0 published reports</strong>. You are sitting on a lead-generation engine that is currently switched off.
+                  </p>
+                </div>
+                <div className="bg-muted/50 p-4 rounded mt-auto">
+                  <span className="block font-mono text-[9px] text-muted-foreground uppercase tracking-widest mb-1">The Cost</span>
+                  <span className="font-mono text-sm font-semibold">Zero Inbound from IP.</span>
                 </div>
               </div>
 
-              <div className="border-l border-border pl-8 flex flex-col">
-                <div className="font-mono text-xs uppercase tracking-widest text-destructive mb-4">03. The Mechanism</div>
-                <h3 className="font-serif text-2xl mb-4 text-foreground">Undefined RFQ Path</h3>
-                <p className="text-sm text-muted-foreground mb-6 flex-grow">
-                  The site lacks a clear mechanism for commercial inquiry. Instead of a streamlined RFQ (Request for Quote) pathway, users encounter a generic contact gate. The route to "Doing Business" is technically open but commercially obscure.
-                </p>
-                <div className="bg-muted/30 p-4 border-l-2 border-destructive">
-                  <span className="block font-mono text-[9px] text-destructive uppercase mb-1">Critical Gap</span>
-                  <span className="text-sm font-medium text-destructive">No Enterprise Hand-Raise</span>
+              {/* Leak 03: Bottom Funnel */}
+              <div className="border border-border p-8 flex flex-col justify-between min-h-[320px] border-l-4 border-l-destructive">
+                <div>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-4 flex items-center gap-2">
+                    Leak 03: Bottom Funnel
+                  </span>
+                  <h3 className="font-serif text-2xl mb-4 leading-tight">The "Authority" Vacuum.</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                    Who is the "Technical Voice" of the business? Sales teams lack a recognized Industry Leader or Technical Visionary to cite in pitches, weakening the "Expertise" claim.
+                  </p>
+                </div>
+                <div className="bg-muted/50 p-4 rounded mt-auto">
+                  <span className="block font-mono text-[9px] text-muted-foreground uppercase tracking-widest mb-1">The Cost</span>
+                  <span className="font-mono text-sm font-semibold">Weakened Sales Narrative.</span>
                 </div>
               </div>
 
