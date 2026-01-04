@@ -2419,67 +2419,123 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Appendix B: Technical Constraints (moved from old Slide 12) */}
+        {/* Appendix B: Technical Constraints */}
         <Slide>
           <div className="max-w-7xl w-full h-full flex flex-col">
             <SlideEyebrow>Appendix B: Technical Constraints</SlideEyebrow>
-            <ActionTitle>Cosmetic issues are degrading the perception of stability.</ActionTitle>
+            <ActionTitle>Technical friction is degrading<br />the perception of authority.</ActionTitle>
             
             <div className="grid md:grid-cols-12 gap-6">
               <div className="col-span-9 grid md:grid-cols-3 gap-5">
-                {/* Vector 01 */}
-                <div className="border border-border p-5 bg-muted/30">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-2">Vector 01</div>
-                  <h3 className="font-serif text-xl mb-2">Mobile Latency</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-4">
-                    High-resolution PNGs are unoptimized for 4G networks. This causes a 2.4s load delay on mobile devices.
-                  </p>
-                  <div className="pt-3 border-t border-border">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase">Perception Impact</span>
-                    <div className="text-sm font-medium mt-1">"The platform feels heavy."</div>
+                {/* Vector 01: Mobile Latency */}
+                <div className="border border-border bg-background flex flex-col hover:border-primary transition-all duration-300">
+                  <div className="p-5 border-b border-border/50">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-destructive">Vector 01</span>
+                      <span className="text-[10px] font-semibold bg-destructive/10 text-destructive px-2 py-0.5 rounded">Critical</span>
+                    </div>
+                    <h3 className="font-serif text-xl">Mobile Latency</h3>
+                  </div>
+                  
+                  <div className="p-5 flex-1 flex flex-col gap-4">
+                    <div>
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">The Diagnosis</span>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        Mobile score is <strong className="text-foreground">60/100</strong> (vs 88 Desktop). High-res uncompressed assets (PNGs) and blocking scripts add 2.4s latency on 4G networks.
+                      </p>
+                    </div>
+                    
+                    <div className="mt-auto bg-muted/50 p-3 border-l-2 border-primary">
+                      <span className="text-[10px] font-bold text-primary uppercase tracking-wider block mb-1">The Prescription</span>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        Convert all assets to WebP/AVIF. Implement "lazy loading" for below-fold content to cut Time-to-Interactive by ~1.5s.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-foreground text-background p-4">
+                    <p className="text-xs font-medium italic opacity-90">"The platform feels heavy."</p>
                   </div>
                 </div>
 
-                {/* Vector 02 */}
-                <div className="border border-border p-5 bg-muted/30">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Vector 02</div>
-                  <h3 className="font-serif text-xl mb-2">Cumulative Shift</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-4">
-                    Font loading behaviors cause the navigation bar to "jump" 20px after initial paint.
-                  </p>
-                  <div className="pt-3 border-t border-border">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase">Perception Impact</span>
-                    <div className="text-sm font-medium mt-1">"The engineering is unpolished."</div>
+                {/* Vector 02: Conversion Logic */}
+                <div className="border border-border bg-background flex flex-col hover:border-primary transition-all duration-300">
+                  <div className="p-5 border-b border-border/50">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-destructive">Vector 02</span>
+                      <span className="text-[10px] font-semibold bg-destructive/10 text-destructive px-2 py-0.5 rounded">High Impact</span>
+                    </div>
+                    <h3 className="font-serif text-xl">Conversion Logic</h3>
+                  </div>
+                  
+                  <div className="p-5 flex-1 flex flex-col gap-4">
+                    <div>
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">The Diagnosis</span>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        The user journey dead-ends in the Hero section due to a missing primary CTA. Generic "Send Message" buttons reduce urgency for B2B buyers.
+                      </p>
+                    </div>
+                    
+                    <div className="mt-auto bg-muted/50 p-3 border-l-2 border-primary">
+                      <span className="text-[10px] font-bold text-primary uppercase tracking-wider block mb-1">The Prescription</span>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        Hardcode a "Request Quote" button above the fold. Switch generic labels to benefit-driven text (e.g., "Start Project").
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-foreground text-background p-4">
+                    <p className="text-xs font-medium italic opacity-90">"Where do I start?"</p>
                   </div>
                 </div>
 
-                {/* Vector 03 */}
-                <div className="border border-border p-5 bg-muted/30">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Vector 03</div>
-                  <h3 className="font-serif text-xl mb-2">Dead Ends</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-4">
-                    Three sub-service pages resolve to 404 errors or empty templates.
-                  </p>
-                  <div className="pt-3 border-t border-border">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase">Perception Impact</span>
-                    <div className="text-sm font-medium mt-1">"Is this company active?"</div>
+                {/* Vector 03: Search Visibility */}
+                <div className="border border-border bg-background flex flex-col hover:border-primary transition-all duration-300">
+                  <div className="p-5 border-b border-border/50">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-destructive">Vector 03</span>
+                      <span className="text-[10px] font-semibold bg-amber-500/10 text-amber-600 px-2 py-0.5 rounded">Medium</span>
+                    </div>
+                    <h3 className="font-serif text-xl">Search Visibility</h3>
+                  </div>
+                  
+                  <div className="p-5 flex-1 flex flex-col gap-4">
+                    <div>
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">The Diagnosis</span>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        SEO Score is <strong className="text-foreground">40/100</strong> (-20 vs Avg). Absence of meta-descriptions and structured data renders the site invisible to organic discovery engines.
+                      </p>
+                    </div>
+                    
+                    <div className="mt-auto bg-muted/50 p-3 border-l-2 border-primary">
+                      <span className="text-[10px] font-bold text-primary uppercase tracking-wider block mb-1">The Prescription</span>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        Deploy XML sitemap immediately. Populate unique meta-tags for the top 10 service pages to trigger re-indexing.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-foreground text-background p-4">
+                    <p className="text-xs font-medium italic opacity-90">"Is this company active?"</p>
                   </div>
                 </div>
               </div>
               
-              <div className="col-span-3 space-y-4">
-                <div className="bg-muted/30 p-5 border-l-2 border-foreground">
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Composite Score</div>
-                  <div className="font-serif text-4xl mb-2 text-foreground">45<span className="text-lg text-muted-foreground">/100</span></div>
-                  <p className="text-xs text-muted-foreground">PageSpeed Mobile. Passing threshold is 90+.</p>
+              <div className="col-span-3 border-l border-border pl-6 flex flex-col">
+                <div>
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground block mb-3">Composite Score</span>
+                  <div className="font-serif text-5xl text-foreground leading-none mb-2">40<span className="text-xl text-muted-foreground">/100</span></div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Mondro Health Score. Passing threshold for Enterprise vendors is 75+.
+                  </p>
                 </div>
-                
-                <div className="p-5 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Sprint Focus</div>
-                  <ul className="text-xs text-foreground space-y-1.5">
-                    <li>• Resolve 404 errors (Day 1)</li>
-                    <li>• WebP conversion + lazy load (Day 2-3)</li>
-                    <li>• Font-display swap (Day 4)</li>
+
+                <div className="mt-auto bg-primary/10 p-5 border-t-[3px] border-primary">
+                  <span className="font-mono text-[10px] font-bold text-primary uppercase tracking-widest block mb-3">Sprint Focus (Week 1)</span>
+                  <ul className="space-y-2.5">
+                    <li className="text-xs font-medium text-foreground relative pl-3 before:content-['•'] before:text-primary before:font-bold before:absolute before:left-0">Hardcode Hero CTA</li>
+                    <li className="text-xs font-medium text-foreground relative pl-3 before:content-['•'] before:text-primary before:font-bold before:absolute before:left-0">Mobile Asset Optimization</li>
+                    <li className="text-xs font-medium text-foreground relative pl-3 before:content-['•'] before:text-primary before:font-bold before:absolute before:left-0">Meta-Tag Implementation</li>
                   </ul>
                 </div>
               </div>
