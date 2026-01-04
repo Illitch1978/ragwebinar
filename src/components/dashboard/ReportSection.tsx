@@ -641,7 +641,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 03: Executive Synthesis */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
             <SlideEyebrow>Executive Synthesis</SlideEyebrow>
             <ActionTitle>Operational maturity is currently invisible to the modern buyer.</ActionTitle>
             
@@ -696,7 +696,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 04: Report Architecture */}
         <Slide className="bg-[#050505]">
-          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+          <div className="max-w-7xl w-full h-full flex flex-col pt-4">
             <div className="mb-16">
               <span className="font-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-4 block">Navigation</span>
               <h2 className="font-serif text-5xl text-white">Report Architecture</h2>
@@ -860,7 +860,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 07: The Competitive Reality */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
             <SlideEyebrow>The Competitive Reality</SlideEyebrow>
             <ActionTitle>The category has split into "Automated Velocity" and "Legacy Scale."</ActionTitle>
             <p className="font-sans font-light text-muted-foreground max-w-3xl mb-8">
@@ -928,7 +928,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 08: Peer Positioning Snapshot */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
             <SlideEyebrow>Peer Positioning Snapshot</SlideEyebrow>
             <ActionTitle>High authority on "Fieldwork", invisible on "Innovation".</ActionTitle>
             <p className="font-sans font-light text-muted-foreground max-w-3xl mb-12">
@@ -1028,7 +1028,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 09: Differentiation Signals */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
             <SlideEyebrow>Differentiation Signals</SlideEyebrow>
             <ActionTitle>Winners are selling "Certainty," not just "Speed."</ActionTitle>
             <p className="font-sans font-light text-muted-foreground max-w-3xl mb-12">
@@ -1106,7 +1106,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 10: Visibility & Discoverability */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+          <div className="max-w-7xl w-full h-full flex flex-col pt-4">
             <div className="mb-12">
               <SlideEyebrow>Visibility & Discoverability</SlideEyebrow>
               <ActionTitle>The "Platform Dissonance."</ActionTitle>
@@ -1118,7 +1118,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <div className="grid grid-cols-3 gap-8 h-[420px]">
               {/* Social Ecosystem Card - Highlighted Blue */}
               <div className="flex flex-col h-full border border-blue-200">
-                <div className="border border-border p-8 flex flex-col justify-between h-full bg-blue-50/10">
+                <div className="border border-border p-8 flex flex-col h-full bg-blue-50/10">
                   <div>
                     <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-blue-50 text-[#0A66C2] border border-blue-200 font-semibold">High Vitality</span>
                     <h3 className="font-serif text-2xl mb-3 text-foreground">Social Ecosystem</h3>
@@ -1139,7 +1139,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
               {/* Owned Domain Card */}
               <div className="flex flex-col h-full border border-border">
-                <div className="border border-border p-8 flex flex-col justify-between h-full bg-background">
+                <div className="border border-border p-8 flex flex-col h-full bg-background">
                   <div>
                     <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200 font-semibold">Sterile</span>
                     <h3 className="font-serif text-2xl mb-3 text-foreground">Owned Domain</h3>
@@ -1160,7 +1160,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
               {/* Brand Protection Card */}
               <div className="flex flex-col h-full border border-border">
-                <div className="border border-border p-8 flex flex-col justify-between h-full bg-background">
+                <div className="border border-border p-8 flex flex-col h-full bg-background">
                   <div>
                     <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200 font-semibold">Identity Confusion</span>
                     <h3 className="font-serif text-2xl mb-3 text-foreground">Brand Protection</h3>
@@ -1282,7 +1282,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 13: System-Level Diagnosis */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
+          <div className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
             <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
             
             <div className="flex items-center gap-16 mb-8">
@@ -1416,7 +1416,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 15: Narrative Positioning */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+          <div className="max-w-7xl w-full h-full flex flex-col pt-4">
             <div className="mb-4">
               <SlideEyebrow>Narrative Positioning</SlideEyebrow>
               <ActionTitle>The "Hybrid" Trap.</ActionTitle>
@@ -1478,7 +1478,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 <div className="bg-white p-6 border-l-4 border-border">
                   <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground font-semibold block mb-2">Error 03: The "Ghost" Crew</span>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Your actual differentiator—the "Mavrix Crew" beloved on LinkedIn—is completely absent here. You are hiding your stars behind stock vectors.
+                    Your actual differentiator (the "Mavrix Crew" beloved on LinkedIn) is completely absent here. You are hiding your stars behind stock vectors.
                   </p>
                 </div>
               </div>
@@ -1488,7 +1488,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 16: Trust Architecture */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+          <div className="max-w-7xl w-full h-full flex flex-col pt-4">
             <div className="mb-4">
               <SlideEyebrow>Trust Architecture</SlideEyebrow>
               <ActionTitle>Three structural fractures are undermining buyer confidence.</ActionTitle>
@@ -1499,7 +1499,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
             <div className="grid grid-cols-3 gap-8 mt-8 flex-1">
               {/* Fracture 01 */}
-              <div className="border border-border p-8 flex flex-col justify-between">
+              <div className="border border-border p-8 flex flex-col">
                 <div>
                   <span className="font-mono text-[11px] text-destructive uppercase tracking-wider block mb-4">Fracture 01: The "Anonymity" Error</span>
                   <h3 className="font-serif text-2xl mb-4 text-foreground leading-tight">Nameless<br/>Testimonials.</h3>
@@ -1508,13 +1508,13 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </p>
                 </div>
                 <div className="bg-muted/50 p-4 border-l-2 border-muted-foreground/30 text-xs text-muted-foreground italic">
-                  "Great service." <br/>— Director, Tech Firm
+                  "Great service." (Director, Tech Firm)
                   <span className="block mt-2 not-italic font-bold text-muted-foreground/60 text-[9px] uppercase tracking-wider">Buyer Reaction: "Fake."</span>
                 </div>
               </div>
 
               {/* Fracture 02 */}
-              <div className="border border-border p-8 flex flex-col justify-between">
+              <div className="border border-border p-8 flex flex-col">
                 <div>
                   <span className="font-mono text-[11px] text-destructive uppercase tracking-wider block mb-4">Fracture 02: The "IP" Vacuum</span>
                   <h3 className="font-serif text-2xl mb-4 text-foreground leading-tight">Zero Published<br/>Thinking.</h3>
@@ -1528,7 +1528,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </div>
 
               {/* Fracture 03 - Alert Card */}
-              <div className="border border-destructive/30 bg-destructive/5 p-8 flex flex-col justify-between">
+              <div className="border border-destructive/30 bg-destructive/5 p-8 flex flex-col">
                 <div>
                   <span className="font-mono text-[11px] text-destructive uppercase tracking-wider flex items-center gap-2 mb-4">
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"/></svg>
@@ -1567,7 +1567,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <div className="grid grid-cols-3 gap-8 mt-4">
               
               {/* Leak 01: Top of Funnel */}
-              <div className="border border-border p-8 flex flex-col justify-between min-h-[320px] border-l-4 border-l-foreground">
+              <div className="border border-border p-8 flex flex-col min-h-[320px] border-l-4 border-l-foreground">
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-2">
                     Leak 01: Top of Funnel
@@ -1584,7 +1584,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </div>
 
               {/* Leak 02: Mid Funnel */}
-              <div className="border border-border p-8 flex flex-col justify-between min-h-[320px] border-l-4 border-l-primary">
+              <div className="border border-border p-8 flex flex-col min-h-[320px] border-l-4 border-l-primary">
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
                     Leak 02: Mid Funnel
@@ -1601,7 +1601,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </div>
 
               {/* Leak 03: Bottom Funnel */}
-              <div className="border border-border p-8 flex flex-col justify-between min-h-[320px] border-l-4 border-l-destructive">
+              <div className="border border-border p-8 flex flex-col min-h-[320px] border-l-4 border-l-destructive">
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-4 flex items-center gap-2">
                     Leak 03: Bottom Funnel
@@ -1623,12 +1623,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 18: Diagnosis Synthesis - The Value Inversion */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+          <div className="max-w-7xl w-full h-full flex flex-col pt-4">
             <div className="mb-4">
               <SlideEyebrow>Diagnosis Synthesis</SlideEyebrow>
               <ActionTitle>The Value Inversion.</ActionTitle>
               <p className="font-light text-muted-foreground max-w-3xl leading-relaxed">
-                The core error is not "Identity Confusion"—it is <strong className="text-foreground">Strategic De-Positioning</strong>. You are currently highlighting your commodity features while hiding your scarcity assets.
+                The core error is not "Identity Confusion": it is <strong className="text-foreground">Strategic De-Positioning</strong>. You are currently highlighting your commodity features while hiding your scarcity assets.
               </p>
             </div>
 
@@ -2091,7 +2091,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-4">Signal 02 // Methodology</span>
                   <h3 className="font-serif text-2xl text-foreground mb-4 leading-tight">The "Anti-Slop" Doctrine.</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                    Stop hiding behind "Tech." Embrace "Effort." When AI shortcuts fail (as they often do), we deploy the Crew. Buses, phone banks, renting halls—we do <strong className="text-foreground">Whatever It Takes</strong> to get real people, not lazy digital proxies.
+                    Stop hiding behind "Tech." Embrace "Effort." When AI shortcuts fail (as they often do), we deploy the Crew. Buses, phone banks, renting halls: we do <strong className="text-foreground">Whatever It Takes</strong> to get real people, not lazy digital proxies.
                   </p>
                   <p className="text-xs text-muted-foreground/70 font-medium mt-auto">
                     Rationale: Reframe "Manual Fieldwork" from a "Legacy Liability" to a "Premium Asset." It is the only antidote to AI Slop.
@@ -2143,7 +2143,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 25: Executive Closing */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+          <div className="max-w-7xl w-full h-full flex flex-col pt-4">
             <div className="grid grid-cols-3 gap-20 h-full items-end">
               
               {/* Left Column - Main Message */}
