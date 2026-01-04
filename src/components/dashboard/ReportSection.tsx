@@ -747,6 +747,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <li className="border-b border-white/5 pb-2">Leverage Matrix</li>
                   <li className="border-b border-white/5 pb-2">Structural Evolution</li>
                   <li className="border-b border-white/5 pb-2">Governance Signals</li>
+                  <li className="border-b border-white/5 pb-2">Executive Closing</li>
                 </ul>
               </div>
             </div>
@@ -2140,88 +2141,93 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 25: Closing Statement */}
+        {/* Slide 25: Executive Closing */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <div className="grid md:grid-cols-12 gap-8 h-full">
-              {/* Left side - main message */}
-              <div className="col-span-8 flex flex-col justify-center">
-                <div className="w-16 h-[2px] bg-primary mb-8" />
+          <div className="max-w-7xl w-full h-full flex flex-col justify-center">
+            <div className="grid grid-cols-3 gap-20 h-full items-end">
+              
+              {/* Left Column - Main Message */}
+              <div className="col-span-2 flex flex-col justify-center h-full">
+                <div className="w-24 h-1 bg-primary mb-8" />
                 
-                <h2 className="font-serif text-5xl lg:text-6xl text-foreground mb-6 leading-tight">
-                  Where complexity ends,<br/> <span className="italic text-primary">authority begins.</span>
+                <h2 className="font-serif text-6xl lg:text-7xl text-foreground leading-[1] mb-2 tracking-tight">
+                  Where generic service ends,
+                </h2>
+                <h2 className="font-serif text-6xl lg:text-7xl italic text-primary leading-[1] tracking-tight">
+                  Authority begins.
                 </h2>
                 
-                <p className="font-sans text-muted-foreground text-base font-light leading-relaxed max-w-xl mb-8">
-                  This assessment is not an indictment of capability; it is a roadmap to recognition. The market is waiting for a high-fidelity leader. Rubiklab is positioned to take that mantle, if it chooses to speak clearly.
+                <p className="font-sans text-lg text-muted-foreground font-light leading-relaxed max-w-[650px] mt-8 mb-16">
+                  This assessment is not an indictment of capability; it is a roadmap to recognition. The market is drowning in "AI Slop" and actively seeking a high-fidelity leader. Mavrix is operationally positioned to take that mantle, if it chooses to speak clearly.
                 </p>
-                
-                {/* Next Steps Timeline */}
-                <div className="grid grid-cols-4 gap-4 mb-8">
-                  <div className="p-4 bg-primary/5 border-l-4 border-primary">
-                    <div className="font-mono text-[9px] uppercase tracking-widest text-primary mb-1">Week 1</div>
-                    <div className="text-sm text-foreground font-medium">Intake Reduction</div>
-                    <div className="text-xs text-muted-foreground mt-1">8 → 3 fields</div>
+
+                {/* Three Pivot Steps */}
+                <div className="grid grid-cols-3 gap-8 border-t border-border pt-8">
+                  <div className="border-l-2 border-primary pl-5">
+                    <span className="font-mono text-[10px] text-primary uppercase tracking-[0.15em] block mb-2">Pivot 01</span>
+                    <h3 className="font-sans text-base font-semibold text-foreground mb-1">The Narrative</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Shift from "Smart Tech" to <strong className="text-foreground">"Zero-Risk."</strong> Own the "Anti-Slop" position.
+                    </p>
                   </div>
-                  <div className="p-4 bg-muted/30 border-l-4 border-foreground">
-                    <div className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mb-1">Week 2</div>
-                    <div className="text-sm text-foreground font-medium">Trust Strip</div>
-                    <div className="text-xs text-muted-foreground mt-1">Logos + ratings</div>
+                  <div className="border-l-2 border-primary pl-5">
+                    <span className="font-mono text-[10px] text-primary uppercase tracking-[0.15em] block mb-2">Pivot 02</span>
+                    <h3 className="font-sans text-base font-semibold text-foreground mb-1">The Proof</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Launch the <strong className="text-foreground">"Sanitation Log"</strong> and "Quality Index" to prove the work.
+                    </p>
                   </div>
-                  <div className="p-4 bg-muted/30 border-l-4 border-foreground">
-                    <div className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mb-1">Week 3</div>
-                    <div className="text-sm text-foreground font-medium">CTA Contrast</div>
-                    <div className="text-xs text-muted-foreground mt-1">Visual hierarchy</div>
-                  </div>
-                  <div className="p-4 bg-muted/30 border-l-4 border-foreground">
-                    <div className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mb-1">Week 4</div>
-                    <div className="text-sm text-foreground font-medium">A/B Testing</div>
-                    <div className="text-xs text-muted-foreground mt-1">Headline variants</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-6 text-sm text-muted-foreground border-t border-border pt-6">
-                  <div>
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 mb-1">Prepared By</div>
-                    <div className="font-serif text-lg text-foreground">Mondro Intelligence</div>
-                  </div>
-                  <div className="w-px h-10 bg-border" />
-                  <div>
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 mb-1">Engagement</div>
-                    <div className="font-serif text-lg text-foreground">Strategic Assessment</div>
+                  <div className="border-l-2 border-primary pl-5">
+                    <span className="font-mono text-[10px] text-primary uppercase tracking-[0.15em] block mb-2">Pivot 03</span>
+                    <h3 className="font-sans text-base font-semibold text-foreground mb-1">The Commerce</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Deploy <strong className="text-foreground">"Mavrix 911"</strong> and tiered transparency to reduce friction.
+                    </p>
                   </div>
                 </div>
               </div>
-              
-              {/* Right side - summary card */}
-              <div className="col-span-4 flex flex-col justify-center space-y-4">
-                <div className="bg-muted/30 p-5 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">30-Day Impact</div>
-                  <div className="font-serif text-3xl text-primary mb-2">+55%</div>
-                  <p className="text-xs text-muted-foreground">Expected funnel efficiency improvement from quick wins alone.</p>
-                </div>
+
+              {/* Right Column - Impact Metrics */}
+              <div className="flex flex-col gap-6 border-l border-border pl-12 h-full justify-end pb-8">
                 
-                <div className="bg-muted/30 p-5 border-l-2 border-foreground">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">90-Day Target</div>
-                  <div className="font-serif text-3xl text-foreground mb-2">Authority</div>
-                  <p className="text-xs text-muted-foreground">Complete deployment of all three mandates: Friction, Narrative, Trust.</p>
+                <div className="bg-muted/30 p-6 rounded">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-2">Financial Upside</span>
+                  <div className="font-serif text-4xl text-primary mb-2">+$1.6M</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Projected incremental revenue from "Rescue" services and improved win-rates (195% ROI).
+                  </p>
                 </div>
-                
-                <div className="p-5 bg-primary/5 border-l-2 border-primary">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-primary mb-2">Next Step</div>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    Schedule implementation kickoff to align engineering and marketing on Week 1 deliverables.
+
+                <div className="bg-background border border-border p-6 rounded">
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-2">Strategic Upside</span>
+                  <div className="font-serif text-2xl text-foreground mb-2">Future-Proofing</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Structural immunity against AI commoditization by owning the "Human Verification" moat.
+                  </p>
+                </div>
+
+                <div className="bg-primary/10 p-6 border-l-4 border-primary">
+                  <span className="font-mono text-[10px] font-bold text-primary uppercase tracking-widest block mb-2">Next Step</span>
+                  <p className="text-sm text-foreground leading-relaxed font-medium">
+                    Approve the 90-Day Sprint to align engineering and marketing on Week 1 deliverables.
                   </p>
                 </div>
                 
-                <div className="flex items-center gap-2 text-foreground pt-4">
-                  <span className="font-serif font-bold text-2xl tracking-tight lowercase">mondro</span>
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-20"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></span>
-                  </span>
+                {/* Footer with Mondro branding */}
+                <div className="flex justify-between items-center pt-6 border-t border-border mt-auto">
+                  <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+                    Prepared by Mondro Intelligence
+                  </div>
+                  <div className="flex items-center gap-2 text-foreground">
+                    <span className="font-serif font-bold text-xl tracking-tight lowercase">mondro</span>
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-20"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></span>
+                    </span>
+                  </div>
                 </div>
               </div>
+
             </div>
           </div>
         </Slide>
