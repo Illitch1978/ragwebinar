@@ -1341,79 +1341,72 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 14: Perceived Authority (moved from old Slide 05) */}
+        {/* Slide 14: Perceived Authority */}
         <Slide>
           <div className="max-w-7xl w-full h-full flex flex-col">
             <SlideEyebrow>Perceived Authority</SlideEyebrow>
-            <ActionTitle>Visuals are premium; clarity is secondary.</ActionTitle>
-            <div className="grid md:grid-cols-12 gap-10">
-              <div className="col-span-5 space-y-5">
-                <div>
-                  <h3 className="font-serif text-xl mb-2">The "Blink Test"</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    <strong className="text-foreground">Failed.</strong> In the first 3 seconds, a user understands <em>that</em> you are a tech company, but not <em>what</em> specific problem you solve. The headline "Innovating the Future" is a null-statement.
-                  </p>
-                </div>
-                <div className="border-t border-border pt-5">
-                  <h3 className="font-serif text-xl mb-2">Aesthetic Strength</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    <strong className="text-foreground">High.</strong> The minimalist typography successfully conveys "Enterprise SaaS." The site looks expensive, which is a critical trust signal for high-ticket sales.
-                  </p>
-                </div>
-                <div className="border-t border-border pt-5">
-                  <div className="font-mono text-xs uppercase tracking-widest text-primary mb-2">Prescription</div>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    Replace abstract aspiration with concrete outcome language. A/B test "Innovating the Future" against "Consumer Insights in 48 Hours."
-                  </p>
+            <ActionTitle>Authority exists, but it is stranded on a rented platform.</ActionTitle>
+            <p className="text-base text-muted-foreground max-w-3xl mb-6">
+              Mavrix has a vibrant human pulse on LinkedIn (Asset), but a sterile corporate mask on the Website (Liability). You are failing to transfer trust to your owned domain.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-16 border-t border-border pt-8 flex-1">
+              {/* LinkedIn Column */}
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-[#0A66C2] flex items-center gap-2 mb-6">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  Social Reality (High Trust)
+                </span>
+                
+                <div className="space-y-4">
+                  <div className="p-5 border-l-[3px] border-[#0A66C2] bg-blue-50">
+                    <span className="text-xs uppercase tracking-wider text-[#0A66C2] block mb-2">Human Leadership</span>
+                    <h3 className="font-serif text-xl text-foreground mb-1">Authentic Narratives.</h3>
+                    <p className="text-sm text-[#0A66C2]">CEO Rafal & Team photos create a "Face" for the brand.</p>
+                  </div>
+                  
+                  <div className="p-5 border-l-[3px] border-[#0A66C2] bg-blue-50">
+                    <span className="text-xs uppercase tracking-wider text-[#0A66C2] block mb-2">Audience Signal</span>
+                    <h3 className="font-serif text-xl text-foreground mb-1">26,000+ Followers.</h3>
+                    <p className="text-sm text-[#0A66C2]">Proof of legacy and industry relevance.</p>
+                  </div>
                 </div>
               </div>
-
-              <div className="col-span-7">
-                <div className="grid grid-cols-2 gap-4">
-                  {reportData.signals.map((signal) => (
-                    <div 
-                      key={signal.label} 
-                      className={cn(
-                        "border p-4 bg-background",
-                        signal.variant === "critical" 
-                          ? "bg-destructive/5 border-destructive/20" 
-                          : "border-border"
-                      )}
-                    >
-                      <div className="flex justify-between items-end mb-1">
-                        <span className={cn(
-                          "font-serif text-base",
-                          signal.variant === "critical" && "text-destructive"
-                        )}>
-                          {signal.label}
-                        </span>
-                        <span className={cn(
-                          "font-mono text-[10px]",
-                          signal.variant === "critical" 
-                            ? "text-destructive/70" 
-                            : signal.variant === "blue" 
-                              ? "text-primary" 
-                              : "text-muted-foreground"
-                        )}>
-                          {signal.level}
-                        </span>
-                      </div>
-                      <SignalBar score={signal.score} variant={signal.variant as "default" | "critical" | "blue"} />
-                      <div className={cn(
-                        "mt-2 text-xs",
-                        signal.variant === "critical" ? "text-destructive/70" : "text-muted-foreground"
-                      )}>
-                        {signal.description}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              
+              {/* Website Column */}
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-destructive flex items-center gap-2 mb-6">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                  Website Reality (Zero Trust)
+                </span>
                 
-                <div className="mt-5 p-4 bg-muted/30 border border-border">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Reading the Grid</div>
-                  <p className="text-xs text-muted-foreground">
-                    Bars represent signal strength (1-5). A "Critical" flag on any dimension creates disproportionate drag on overall conversion.
+                <div className="space-y-4">
+                  <div className="p-5 border-l-[3px] border-destructive bg-red-50">
+                    <span className="text-xs uppercase tracking-wider text-destructive block mb-2">Social Proof</span>
+                    <h3 className="font-serif text-xl text-foreground mb-1">Zero Client Logos.</h3>
+                    <p className="text-sm text-destructive">"Who else trusts you?" (Unanswered on Owned Media).</p>
+                  </div>
+                  
+                  <div className="p-5 border-l-[3px] border-destructive bg-red-50">
+                    <span className="text-xs uppercase tracking-wider text-destructive block mb-2">Content Vibe</span>
+                    <h3 className="font-serif text-xl text-foreground mb-1">Generic "Tech" Speak.</h3>
+                    <p className="text-sm text-destructive">"Smart Technology" replaces the human warmth you actually possess.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Insight Footer */}
+            <div className="mt-auto bg-muted/50 p-6 border-l-4 border-amber-500">
+              <div className="flex justify-between items-center">
+                <div>
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-2">The Fix</span>
+                  <p className="font-serif text-xl text-foreground">
+                    Stop building two separate brands. <br/>Import the "LinkedIn Soul" into the "Website Body."
                   </p>
+                </div>
+                <div className="font-mono text-xs text-primary uppercase tracking-widest">
+                  → High Leverage Move
                 </div>
               </div>
             </div>
