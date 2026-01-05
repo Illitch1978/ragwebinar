@@ -817,10 +817,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 05: Overall Digital Standing */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col">
-            <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
+          <StaggeredContent className="max-w-6xl mx-auto w-full h-full flex flex-col">
+            <AnimatedTitle>
+              <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
+            </AnimatedTitle>
             
-            <div className="flex justify-between items-end mb-8">
+            <AnimatedContent className="flex justify-between items-end mb-8">
               <ActionTitle className="max-w-3xl">A 60-point gap exists between operational potential and digital reality.</ActionTitle>
               
               <div className="bg-muted/30 border-l-2 border-primary p-6 max-w-sm mb-8">
@@ -829,9 +831,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   The "Trust Deficit" (unverified claims, missing social proof) is the single largest weight on performance, costing 30 points of conversion potential.
                 </p>
               </div>
-            </div>
+            </AnimatedContent>
 
-            <div className="border-b border-border pb-8">
+            <AnimatedContent delay={0.1} className="border-b border-border pb-8">
               {/* Waterfall Chart */}
               <div className="w-full flex items-end justify-between pt-8 gap-8">
                 
@@ -871,7 +873,15 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
                 {/* Current Score */}
                 <div className="flex-1 flex flex-col items-center">
-                  <span className="font-mono text-4xl font-semibold text-primary mb-4">40</span>
+                  <motion.span 
+                    className="font-mono text-4xl font-semibold text-primary mb-4"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    40
+                  </motion.span>
                   <div className="h-[240px] w-full flex flex-col justify-end">
                     <div className="w-full bg-primary h-[96px] rounded-sm"></div>
                   </div>
@@ -879,10 +889,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
 
               </div>
-            </div>
+            </AnimatedContent>
 
             {/* Footer Stats */}
-            <div className="grid grid-cols-3 gap-12 pt-8">
+            <AnimatedInsight className="grid grid-cols-3 gap-12 pt-8">
               <div>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Score Interpretation</span>
                 <div className="font-serif text-xl text-foreground">Critical Health</div>
@@ -890,7 +900,15 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </div>
               <div>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Recovery Potential</span>
-                <div className="font-serif text-xl text-green-600">+45 Points</div>
+                <motion.div 
+                  className="font-serif text-xl text-green-600"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 1 }}
+                  viewport={{ once: true }}
+                >
+                  +45 Points
+                </motion.div>
                 <div className="text-xs text-muted-foreground mt-1">Achievable within 90-day remediation.</div>
               </div>
               <div>
@@ -898,9 +916,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 <div className="font-serif text-xl text-primary">Q2 2026</div>
                 <div className="text-xs text-muted-foreground mt-1">If "Trust" fixes are deployed immediately.</div>
               </div>
-            </div>
+            </AnimatedInsight>
 
-          </div>
+          </StaggeredContent>
         </Slide>
 
         {/* ============================================== */}
@@ -916,18 +934,28 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 07: The Competitive Reality */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
-            <SlideEyebrow>The Competitive Reality</SlideEyebrow>
-            <ActionTitle>The category has split into "Automated Velocity" and "Legacy Scale."</ActionTitle>
-            <p className="font-sans font-light text-muted-foreground max-w-3xl mb-8">
-              Mavrix is fighting a two-front war. On one side, AI platforms (Zappi) are driving the cost of simple data to zero. On the other, giants (Dynata) are winning on sheer volume.
-            </p>
+          <StaggeredContent className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
+            <AnimatedTitle>
+              <SlideEyebrow>The Competitive Reality</SlideEyebrow>
+              <ActionTitle>The category has split into "Automated Velocity" and "Legacy Scale."</ActionTitle>
+            </AnimatedTitle>
+            <AnimatedContent>
+              <p className="font-sans font-light text-muted-foreground max-w-3xl mb-8">
+                Mavrix is fighting a two-front war. On one side, AI platforms (Zappi) are driving the cost of simple data to zero. On the other, giants (Dynata) are winning on sheer volume.
+              </p>
+            </AnimatedContent>
 
             {/* Spectrum Container */}
-            <div className="flex justify-between items-stretch h-[380px] mt-8 relative">
+            <AnimatedInsight className="flex justify-between items-stretch h-[380px] mt-8 relative">
               
               {/* Pole 01: The Commodity */}
-              <div className="w-[30%] p-8 flex flex-col border border-border bg-muted/30 relative">
+              <motion.div 
+                className="w-[30%] p-8 flex flex-col border border-border bg-muted/30 relative"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
                 <span className="font-mono text-xs uppercase tracking-[0.1em] text-destructive mb-4">Pole 01: The Commodity</span>
                 <h3 className="font-serif text-3xl leading-none mb-4 text-foreground">Automated<br/>Velocity.</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed font-light">
@@ -936,10 +964,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 <div className="mt-auto text-xs text-muted-foreground/60 border-t border-border pt-4">
                   <strong className="text-foreground">Adversaries:</strong><br/>Zappi, Suzy, Lucid, Pollfish
                 </div>
-              </div>
+              </motion.div>
 
               {/* Middle Zone: Mavrix Position */}
-              <div className="w-[40%] flex flex-col justify-center items-center text-center bg-background z-10 shadow-[0_0_40px_rgba(0,0,0,0.05)] border border-border px-8">
+              <motion.div 
+                className="w-[40%] flex flex-col justify-center items-center text-center bg-background z-10 shadow-[0_0_40px_rgba(0,0,0,0.05)] border border-border px-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
                 <div className="relative w-4 h-4 mb-4">
                   <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-75" />
                   <div className="relative w-4 h-4 bg-primary rounded-full shadow-[0_0_0_4px_hsl(var(--primary)/0.2)]" />
@@ -956,10 +990,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     Trying to sell "Manual Rigor" in a market obsessed with "One-Click Speed."
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Pole 02: The Safe Choice */}
-              <div className="w-[30%] p-8 flex flex-col border border-border bg-muted/30 relative">
+              <motion.div 
+                className="w-[30%] p-8 flex flex-col border border-border bg-muted/30 relative"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
                 <span className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground mb-4">Pole 02: The Safe Choice</span>
                 <h3 className="font-serif text-3xl leading-none mb-4 text-foreground">Legacy<br/>Scale.</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed font-light">
@@ -968,9 +1008,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 <div className="mt-auto text-xs text-muted-foreground/60 border-t border-border pt-4">
                   <strong className="text-foreground">Adversaries:</strong><br/>Dynata, Kantar, Ipsos
                 </div>
-              </div>
+              </motion.div>
 
-            </div>
+            </AnimatedInsight>
             
             {/* Footer Stats */}
             <div className="mt-8 flex justify-between border-t border-border pt-4">
@@ -982,7 +1022,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </div>
             </div>
 
-          </div>
+          </StaggeredContent>
         </Slide>
 
         {/* Slide 08: Peer Positioning Snapshot */}
@@ -1099,17 +1139,27 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 09: Differentiation Signals */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
-            <SlideEyebrow>Differentiation Signals</SlideEyebrow>
-            <ActionTitle>Winners are selling "Certainty," not just "Speed."</ActionTitle>
-            <p className="font-sans font-light text-muted-foreground max-w-3xl mb-12">
-              The market is flooded with "AI Velocity" claims. Mavrix is currently echoing this noise instead of owning the "Integrity" counter-narrative.
-            </p>
+          <StaggeredContent className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
+            <AnimatedTitle>
+              <SlideEyebrow>Differentiation Signals</SlideEyebrow>
+              <ActionTitle>Winners are selling "Certainty," not just "Speed."</ActionTitle>
+            </AnimatedTitle>
+            <AnimatedContent>
+              <p className="font-sans font-light text-muted-foreground max-w-3xl mb-12">
+                The market is flooded with "AI Velocity" claims. Mavrix is currently echoing this noise instead of owning the "Integrity" counter-narrative.
+              </p>
+            </AnimatedContent>
 
-            <div className="grid grid-cols-3 gap-8 h-[380px]">
+            <AnimatedInsight className="grid grid-cols-3 gap-8 h-[380px]">
               
               {/* Card 1: Competitor Pattern */}
-              <div className="border border-border p-8 h-full flex flex-col bg-muted/30">
+              <motion.div 
+                className="border border-border p-8 h-full flex flex-col bg-muted/30"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
                 <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground mb-4">The Competitor Pattern</span>
                 <h3 className="font-serif text-[1.75rem] leading-[1.2] text-muted-foreground italic mb-4">"Insights in Minutes."</h3>
                 
@@ -1127,10 +1177,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <p className="text-xs text-muted-foreground/80 mt-1">Zappi, Suzy, Lucid</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 2: Current Mavrix Position */}
-              <div className="border border-destructive border-l-4 p-8 h-full flex flex-col bg-background">
+              <motion.div 
+                className="border border-destructive border-l-4 p-8 h-full flex flex-col bg-background"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
                 <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-destructive mb-4">Current Positioning</span>
                 <h3 className="font-serif text-[1.75rem] leading-[1.2] text-foreground mb-4">"Smart Technology Meets Human Insight."</h3>
                 
@@ -1148,10 +1204,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <p className="text-xs text-muted-foreground/80 mt-1">Comparability (Commodity)</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 3: The White Space */}
-              <div className="border border-primary border-l-4 p-8 h-full flex flex-col bg-primary/5">
+              <motion.div 
+                className="border border-primary border-l-4 p-8 h-full flex flex-col bg-primary/5"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
                 <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-primary mb-4">The White Space</span>
                 <h3 className="font-serif text-[1.75rem] leading-[1.2] text-primary mb-4">"Zero-Risk Execution."</h3>
                 
@@ -1169,10 +1231,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <p className="text-xs text-muted-foreground/80 mt-1">Relief & Confidence</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-            </div>
-          </div>
+            </AnimatedInsight>
+          </StaggeredContent>
         </Slide>
 
         {/* Slide 10: Visibility & Discoverability - Platform Dissonance */}
@@ -1410,10 +1472,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 13: System-Level Diagnosis */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
-            <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
+          <StaggeredContent className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
+            <AnimatedTitle>
+              <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
+            </AnimatedTitle>
             
-            <div className="flex items-center gap-16 mb-8">
+            <AnimatedContent className="flex items-center gap-16 mb-8">
               {/* Score Circle with animated gauge */}
               <div className="relative w-[180px] h-[180px] flex items-center justify-center shrink-0">
                 <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
@@ -1439,7 +1503,15 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   />
                 </svg>
                 <div className="text-center z-10">
-                  <span className="font-serif text-6xl text-foreground leading-none">40</span>
+                  <motion.span 
+                    className="font-serif text-6xl text-foreground leading-none"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 1.2 }}
+                    viewport={{ once: true }}
+                  >
+                    40
+                  </motion.span>
                   <span className="font-mono text-sm text-muted-foreground mt-2 block">/ 100</span>
                 </div>
               </div>
@@ -1450,41 +1522,59 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   A forensic audit of the Mavrix digital ecosystem reveals a structural disconnect between "What you sell" (High-Touch Fieldwork) and "How you sell it" (Low-Touch Tech Narrative).
                 </p>
               </div>
-            </div>
+            </AnimatedContent>
 
-            <div className="grid grid-cols-3 gap-12 mt-8 pt-8 border-t border-border">
+            <AnimatedInsight className="grid grid-cols-3 gap-12 mt-8 pt-8 border-t border-border">
               {/* Pillar 01: Narrative Clarity */}
-              <div className="pl-6 border-l border-border">
+              <motion.div 
+                className="pl-6 border-l border-border"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
                 <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-amber-50 text-amber-500 mb-2 animate-pulse">Moderate Risk</span>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-3">Pillar 01: Narrative Clarity</span>
                 <h3 className="font-serif text-2xl text-foreground mb-2">50/100</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   The "Smart Technology" headline is generic. It hides your true differentiator (Fieldwork Expertise) behind buzzwords, making you comparable to commodity players.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Pillar 02: Trust Signals - Critical */}
-              <div className="pl-6 border-l-2 border-destructive">
+              <motion.div 
+                className="pl-6 border-l-2 border-destructive"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
                 <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-red-50 text-destructive mb-2 animate-pulse">Critical Risk</span>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-3">Pillar 02: Trust Signals</span>
                 <h3 className="font-serif text-2xl text-destructive mb-2">20/100</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Missing case studies, "0 Published" whitepapers, and self-reported stats create a "Trust Deficit." Buyers cannot verify your claims without speaking to sales.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Pillar 03: Commercial Flow */}
-              <div className="pl-6 border-l border-border">
+              <motion.div 
+                className="pl-6 border-l border-border"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                viewport={{ once: true }}
+              >
                 <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-red-50 text-destructive mb-2 animate-pulse">High Friction</span>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-3">Pillar 03: Commercial Flow</span>
                 <h3 className="font-serif text-2xl text-foreground mb-2">30/100</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Opaque pricing and generic "Contact Us" forms create high friction. You are blocking qualified buyers who want to self-select or get a ballpark estimate.
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </AnimatedInsight>
 
-          </div>
+          </StaggeredContent>
         </Slide>
 
         {/* Slide 14: Perceived Authority */}
@@ -1786,20 +1876,28 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 20: Strategic Inflection - Compact Transformation List */}
         <Slide>
-          <div className="max-w-7xl mx-auto w-full h-full flex flex-col">
-            <div className="mb-6">
-              <SlideEyebrow>Strategic Inflection</SlideEyebrow>
-              <ActionTitle>Stop fighting "Gravity." Start selling "Friction."</ActionTitle>
-              <p className="font-light text-muted-foreground max-w-2xl leading-relaxed text-sm">
-                You cannot win the "Speed" war against AI disruptors. You win the "Truth" war by becoming the necessary friction that verifies reality.
-              </p>
-            </div>
+          <StaggeredContent className="max-w-7xl mx-auto w-full h-full flex flex-col">
+            <AnimatedTitle>
+              <div className="mb-6">
+                <SlideEyebrow>Strategic Inflection</SlideEyebrow>
+                <ActionTitle>Stop fighting "Gravity." Start selling "Friction."</ActionTitle>
+                <p className="font-light text-muted-foreground max-w-2xl leading-relaxed text-sm">
+                  You cannot win the "Speed" war against AI disruptors. You win the "Truth" war by becoming the necessary friction that verifies reality.
+                </p>
+              </div>
+            </AnimatedTitle>
 
             {/* Compact 5-column grid */}
-            <div className="grid grid-cols-5 gap-4 flex-1">
+            <AnimatedContent className="grid grid-cols-5 gap-4 flex-1">
               
               {/* Card 1: Physics */}
-              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+              <motion.div 
+                className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
                 <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">01 Physics</span>
                 <div className="mb-3">
@@ -1809,10 +1907,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <h3 className="font-serif text-base text-foreground leading-tight mb-1">Competing on Verification</h3>
                   <p className="text-[11px] text-muted-foreground leading-relaxed">From "How fast?" to "Is it real?"</p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 2: Role */}
-              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+              <motion.div 
+                className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.15 }}
+                viewport={{ once: true }}
+              >
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
                 <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">02 Role</span>
                 <div className="mb-3">
@@ -1822,10 +1926,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <h3 className="font-serif text-base text-foreground leading-tight mb-1">Downstream Intelligence</h3>
                   <p className="text-[11px] text-muted-foreground leading-relaxed">From "Arms & Legs" to "Brains."</p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 3: Evidence */}
-              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+              <motion.div 
+                className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
                 <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">03 Evidence</span>
                 <div className="mb-3">
@@ -1835,10 +1945,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <h3 className="font-serif text-base text-foreground leading-tight mb-1">Whistleblower Authority</h3>
                   <p className="text-[11px] text-muted-foreground leading-relaxed">Expose fraud, not fluff.</p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 4: Sales */}
-              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+              <motion.div 
+                className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.25 }}
+                viewport={{ once: true }}
+              >
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
                 <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">04 Sales</span>
                 <div className="mb-3">
@@ -1848,10 +1964,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <h3 className="font-serif text-base text-foreground leading-tight mb-1">"Trojan Horse" Access</h3>
                   <p className="text-[11px] text-muted-foreground leading-relaxed">Capture before the RFP.</p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 5: Value */}
-              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+              <motion.div 
+                className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
                 <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">05 Value</span>
                 <div className="mb-3">
@@ -1861,12 +1983,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <h3 className="font-serif text-base text-foreground leading-tight mb-1">"CMO Insurance"</h3>
                   <p className="text-[11px] text-muted-foreground leading-relaxed">Selling risk mitigation.</p>
                 </div>
-              </div>
+              </motion.div>
 
-            </div>
+            </AnimatedContent>
 
             {/* Footer */}
-            <div className="mt-6 pt-5 border-t border-border flex items-center justify-between">
+            <AnimatedInsight className="mt-6 pt-5 border-t border-border flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
@@ -1876,22 +1998,30 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <div className="text-sm text-muted-foreground font-medium">
                 This pivot moves Mavrix from a <strong className="text-foreground">"Price Taker"</strong> (Commodity) to a <strong className="text-foreground">"Price Maker"</strong> (Specialist).
               </div>
-            </div>
+            </AnimatedInsight>
 
-          </div>
+          </StaggeredContent>
         </Slide>
 
         {/* Slide 21: Focus Themes */}
         <Slide>
-          <div className="max-w-7xl mx-auto w-full h-full flex flex-col">
-            <SlideEyebrow>Focus Themes</SlideEyebrow>
-            <ActionTitle>Three tactical inventions to break the inertia.</ActionTitle>
+          <StaggeredContent className="max-w-7xl mx-auto w-full h-full flex flex-col">
+            <AnimatedTitle>
+              <SlideEyebrow>Focus Themes</SlideEyebrow>
+              <ActionTitle>Three tactical inventions to break the inertia.</ActionTitle>
+            </AnimatedTitle>
 
             {/* Horizontal layout with staggered heights */}
-            <div className="flex gap-6 items-start">
+            <AnimatedContent className="flex gap-6 items-start">
               
               {/* Theme 01: Integrity */}
-              <div className="flex-1 bg-gradient-to-b from-muted/30 to-transparent border border-border/60 p-6 relative group">
+              <motion.div 
+                className="flex-1 bg-gradient-to-b from-muted/30 to-transparent border border-border/60 p-6 relative group"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
                 <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary/80 to-primary/20" />
                 <span className="font-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-3 block font-semibold">01 // Integrity</span>
                 <h3 className="font-serif text-xl text-foreground mb-3 leading-tight">The "Total Quality" Warranty.</h3>
@@ -1903,10 +2033,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <h4 className="text-sm font-semibold text-foreground">"The Zero-Argument Replacement"</h4>
                   <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">Flag a respondent for any reason—we replace them instantly. No debate.</p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Theme 02: Authority - slightly taller */}
-              <div className="flex-1 bg-gradient-to-b from-primary/5 to-transparent border border-primary/30 p-6 relative group -mt-2">
+              <motion.div 
+                className="flex-1 bg-gradient-to-b from-primary/5 to-transparent border border-primary/30 p-6 relative group -mt-2"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
                 <div className="absolute top-0 left-0 w-full h-[3px] bg-primary" />
                 <span className="font-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-3 block font-semibold">02 // Authority</span>
                 <h3 className="font-serif text-xl text-foreground mb-3 leading-tight">The "Quality Index."</h3>
@@ -1918,10 +2054,16 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <h4 className="text-sm font-semibold text-foreground">"The Mavrix Blocklist Report"</h4>
                   <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">A quarterly index on what we block—positioning us as the industry's R&D lab.</p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Theme 03: Commerce */}
-              <div className="flex-1 bg-gradient-to-b from-muted/30 to-transparent border border-border/60 p-6 relative group">
+              <motion.div 
+                className="flex-1 bg-gradient-to-b from-muted/30 to-transparent border border-border/60 p-6 relative group"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
                 <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary/20 to-primary/80" />
                 <span className="font-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-3 block font-semibold">03 // Commerce</span>
                 <h3 className="font-serif text-xl text-foreground mb-3 leading-tight">The "White-Glove" Rescue.</h3>
@@ -1933,11 +2075,11 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <h4 className="text-sm font-semibold text-foreground">"Mavrix 911"</h4>
                   <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">"Stuck in field? Call us." Senior methodologists guarantee the close.</p>
                 </div>
-              </div>
+              </motion.div>
 
-            </div>
+            </AnimatedContent>
 
-          </div>
+          </StaggeredContent>
         </Slide>
 
         {/* Slide 22: The Leverage Matrix - Mavrix */}
@@ -2141,14 +2283,22 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
         {/* Slide 24: Governance Signals */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Governance Signals</SlideEyebrow>
-            <ActionTitle>Three commitments to operational integrity.</ActionTitle>
+          <StaggeredContent className="max-w-7xl w-full h-full flex flex-col">
+            <AnimatedTitle>
+              <SlideEyebrow>Governance Signals</SlideEyebrow>
+              <ActionTitle>Three commitments to operational integrity.</ActionTitle>
+            </AnimatedTitle>
             
-            <div className="grid grid-cols-3 gap-10">
+            <AnimatedContent className="grid grid-cols-3 gap-10">
               {/* Signal 1: Accountability */}
-              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group overflow-hidden">
-                <div className="h-1 w-full bg-border group-hover:bg-primary transition-colors" />
+              <motion.div 
+                className="flex flex-col border border-border bg-background overflow-hidden"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="h-1 w-full bg-border" />
                 <div className="p-8 flex-1 flex flex-col">
                   <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-4">Signal 01 // Accountability</span>
                   <h3 className="font-serif text-2xl text-foreground mb-4 leading-tight">The "Battle Bond."</h3>
@@ -2171,11 +2321,17 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     A report in every delivery showing the "Kill List" (blocked bots/IPs) to prove the rigorous filtering applied before delivery.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Signal 2: Methodology */}
-              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group overflow-hidden">
-                <div className="h-1 w-full bg-border group-hover:bg-primary transition-colors" />
+              <motion.div 
+                className="flex flex-col border border-border bg-background overflow-hidden"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="h-1 w-full bg-border" />
                 <div className="p-8 flex-1 flex flex-col">
                   <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-4">Signal 02 // Methodology</span>
                   <h3 className="font-serif text-2xl text-foreground mb-4 leading-tight">The "Anti-Slop" Doctrine.</h3>
@@ -2198,11 +2354,17 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     Marketing materials showing photos of <em>actual</em> field teams, call centers, and face-to-face ops. Prove the human effort.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Signal 3: Validation */}
-              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group overflow-hidden">
-                <div className="h-1 w-full bg-border group-hover:bg-primary transition-colors" />
+              <motion.div 
+                className="flex flex-col border border-border bg-background overflow-hidden"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <div className="h-1 w-full bg-border" />
                 <div className="p-8 flex-1 flex flex-col">
                   <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-4">Signal 03 // Validation</span>
                   <h3 className="font-serif text-2xl text-foreground mb-4 leading-tight">The "Verified" Stack.</h3>
@@ -2225,82 +2387,147 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     Display ISO certifications and Partner Badges (e.g., Insights Association) prominently in the site footer and decks.
                   </p>
                 </div>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </AnimatedContent>
+          </StaggeredContent>
         </Slide>
 
         {/* Slide 25: Executive Closing */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col pt-4">
+          <StaggeredContent className="max-w-7xl w-full h-full flex flex-col pt-4">
             <div className="grid grid-cols-3 gap-20 h-full items-end">
               
               {/* Left Column - Main Message */}
-              <div className="col-span-2 flex flex-col justify-center h-full">
-                <div className="w-24 h-1 bg-primary mb-8" />
+              <AnimatedTitle className="col-span-2 flex flex-col justify-center h-full">
+                <motion.div 
+                  className="w-24 h-1 bg-primary mb-8"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  style={{ transformOrigin: 'left' }}
+                />
                 
-                <h2 className="font-serif text-6xl lg:text-7xl text-foreground leading-[1] mb-2 tracking-tight">
+                <motion.h2 
+                  className="font-serif text-6xl lg:text-7xl text-foreground leading-[1] mb-2 tracking-tight"
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  viewport={{ once: true }}
+                >
                   Where generic service ends,
-                </h2>
-                <h2 className="font-serif text-6xl lg:text-7xl italic text-primary leading-[1] tracking-tight">
+                </motion.h2>
+                <motion.h2 
+                  className="font-serif text-6xl lg:text-7xl italic text-primary leading-[1] tracking-tight"
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
                   Authority begins.
-                </h2>
+                </motion.h2>
                 
-                <p className="font-sans text-lg text-muted-foreground font-light leading-relaxed max-w-[650px] mt-8 mb-16">
-                  This assessment is not an indictment of capability; it is a roadmap to recognition. The market is drowning in "AI Slop" and actively seeking a high-fidelity leader. Mavrix is operationally positioned to take that mantle, if it chooses to speak clearly.
-                </p>
+                <AnimatedContent>
+                  <p className="font-sans text-lg text-muted-foreground font-light leading-relaxed max-w-[650px] mt-8 mb-16">
+                    This assessment is not an indictment of capability; it is a roadmap to recognition. The market is drowning in "AI Slop" and actively seeking a high-fidelity leader. Mavrix is operationally positioned to take that mantle, if it chooses to speak clearly.
+                  </p>
+                </AnimatedContent>
 
                 {/* Three Pivot Steps */}
-                <div className="grid grid-cols-3 gap-8 border-t border-border pt-8">
-                  <div className="border-l-2 border-primary pl-5">
+                <AnimatedInsight className="grid grid-cols-3 gap-8 border-t border-border pt-8">
+                  <motion.div 
+                    className="border-l-2 border-primary pl-5"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                    viewport={{ once: true }}
+                  >
                     <span className="font-mono text-[10px] text-primary uppercase tracking-[0.15em] block mb-2">Pivot 01</span>
                     <h3 className="font-sans text-base font-semibold text-foreground mb-1">The Narrative</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       Shift from "Smart Tech" to <strong className="text-foreground">"Zero-Risk."</strong> Own the "Anti-Slop" position.
                     </p>
-                  </div>
-                  <div className="border-l-2 border-primary pl-5">
+                  </motion.div>
+                  <motion.div 
+                    className="border-l-2 border-primary pl-5"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                    viewport={{ once: true }}
+                  >
                     <span className="font-mono text-[10px] text-primary uppercase tracking-[0.15em] block mb-2">Pivot 02</span>
                     <h3 className="font-sans text-base font-semibold text-foreground mb-1">The Proof</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       Launch the <strong className="text-foreground">"Sanitation Log"</strong> and "Quality Index" to prove the work.
                     </p>
-                  </div>
-                  <div className="border-l-2 border-primary pl-5">
+                  </motion.div>
+                  <motion.div 
+                    className="border-l-2 border-primary pl-5"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.8 }}
+                    viewport={{ once: true }}
+                  >
                     <span className="font-mono text-[10px] text-primary uppercase tracking-[0.15em] block mb-2">Pivot 03</span>
                     <h3 className="font-sans text-base font-semibold text-foreground mb-1">The Commerce</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       Deploy <strong className="text-foreground">"Mavrix 911"</strong> and tiered transparency to reduce friction.
                     </p>
-                  </div>
-                </div>
-              </div>
+                  </motion.div>
+                </AnimatedInsight>
+              </AnimatedTitle>
 
               {/* Right Column - Impact Metrics */}
-              <div className="flex flex-col gap-6 border-l border-border pl-12 h-full justify-end pb-8">
+              <AnimatedInsight className="flex flex-col gap-6 border-l border-border pl-12 h-full justify-end pb-8">
                 
-                <div className="bg-muted/30 p-6 rounded">
+                <motion.div 
+                  className="bg-muted/30 p-6 rounded"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  viewport={{ once: true }}
+                >
                   <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-2">Financial Upside</span>
-                  <div className="font-serif text-4xl text-primary mb-2">+$1.6M</div>
+                  <motion.div 
+                    className="font-serif text-4xl text-primary mb-2"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    +$1.6M
+                  </motion.div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Projected incremental revenue from "Rescue" services and improved win-rates (195% ROI).
                   </p>
-                </div>
+                </motion.div>
 
-                <div className="bg-background border border-border p-6 rounded">
+                <motion.div 
+                  className="bg-background border border-border p-6 rounded"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
                   <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-2">Strategic Upside</span>
                   <div className="font-serif text-2xl text-foreground mb-2">Future-Proofing</div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Structural immunity against AI commoditization by owning the "Human Verification" moat.
                   </p>
-                </div>
+                </motion.div>
 
-                <div className="bg-primary/10 p-6 border-l-4 border-primary">
+                <motion.div 
+                  className="bg-primary/10 p-6 border-l-4 border-primary"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  viewport={{ once: true }}
+                >
                   <span className="font-mono text-[10px] font-bold text-primary uppercase tracking-widest block mb-2">Next Step</span>
                   <p className="text-sm text-foreground leading-relaxed font-medium">
                     Approve the 90-Day Sprint to align engineering and marketing on Week 1 deliverables.
                   </p>
-                </div>
+                </motion.div>
                 
                 {/* Footer with Mondro branding */}
                 <div className="flex justify-end items-center pt-6 border-t border-border mt-auto">
@@ -2312,10 +2539,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </AnimatedInsight>
 
             </div>
-          </div>
+          </StaggeredContent>
         </Slide>
 
         {/* ============================================== */}
