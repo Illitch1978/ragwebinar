@@ -547,13 +547,75 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       
       const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
       
+      // Force all animations to their final state by adding a class
+      const animatedElements = containerRef.current.querySelectorAll('[class*="opacity-0"], [style*="opacity: 0"]');
+      const originalStyles: { el: Element; opacity: string; transform: string }[] = [];
+      
+      // Store original styles and force visibility
+      animatedElements.forEach((el) => {
+        const htmlEl = el as HTMLElement;
+        originalStyles.push({
+          el,
+          opacity: htmlEl.style.opacity,
+          transform: htmlEl.style.transform
+        });
+        htmlEl.style.opacity = '1';
+        htmlEl.style.transform = 'none';
+      });
+      
+      // Also handle framer-motion elements that might be hidden
+      const motionElements = containerRef.current.querySelectorAll('[data-framer-component-type]');
+      motionElements.forEach((el) => {
+        const htmlEl = el as HTMLElement;
+        originalStyles.push({
+          el,
+          opacity: htmlEl.style.opacity,
+          transform: htmlEl.style.transform
+        });
+        htmlEl.style.opacity = '1';
+        htmlEl.style.transform = 'none';
+      });
+      
+      // Wait a moment for styles to apply
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       const captureSlide = async (slide: Element): Promise<string> => {
-        const canvas = await html2canvas(slide as HTMLElement, {
+        // Ensure slide itself is visible
+        const htmlSlide = slide as HTMLElement;
+        const originalSlideOpacity = htmlSlide.style.opacity;
+        htmlSlide.style.opacity = '1';
+        
+        // Force all children to be visible for capture
+        const children = htmlSlide.querySelectorAll('*');
+        children.forEach((child) => {
+          const htmlChild = child as HTMLElement;
+          if (htmlChild.style.opacity === '0' || getComputedStyle(htmlChild).opacity === '0') {
+            htmlChild.style.opacity = '1';
+          }
+        });
+        
+        // Small delay to ensure DOM updates
+        await new Promise(resolve => setTimeout(resolve, 50));
+        
+        const canvas = await html2canvas(htmlSlide, {
           scale: 1.5,
           useCORS: true,
           backgroundColor: "#0a0a0a",
           logging: false,
+          onclone: (clonedDoc) => {
+            // Force visibility on ALL elements in cloned document
+            const allElements = clonedDoc.querySelectorAll('*');
+            allElements.forEach((el) => {
+              const htmlEl = el as HTMLElement;
+              if (htmlEl.style) {
+                htmlEl.style.opacity = '1';
+                htmlEl.style.visibility = 'visible';
+              }
+            });
+          }
         });
+        
+        htmlSlide.style.opacity = originalSlideOpacity;
         return canvas.toDataURL("image/jpeg", 0.85);
       };
       
@@ -564,6 +626,13 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         if (i > 0) pdf.addPage();
         pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
       }
+      
+      // Restore original styles
+      originalStyles.forEach(({ el, opacity, transform }) => {
+        const htmlEl = el as HTMLElement;
+        htmlEl.style.opacity = opacity;
+        htmlEl.style.transform = transform;
+      });
       
       const clientSlug = reportData.clientName.replace(/[^a-zA-Z0-9]/g, "-").replace(/-+/g, "-");
       const dateStr = new Date().toISOString().split("T")[0];
