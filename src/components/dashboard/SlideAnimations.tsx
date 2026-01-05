@@ -154,6 +154,50 @@ export const PulsingMetric = ({ value, label, className = "", pulseColor = "prim
   );
 };
 
+// Counting number animation component
+interface CountingNumberProps {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  className?: string;
+  duration?: number;
+}
+
+export const CountingNumber = ({ value, prefix = "", suffix = "", className = "", duration = 1.5 }: CountingNumberProps) => {
+  const [displayValue, setDisplayValue] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  
+  useEffect(() => {
+    if (isInView) {
+      const startTime = Date.now();
+      const endTime = startTime + duration * 1000;
+      
+      const tick = () => {
+        const now = Date.now();
+        const progress = Math.min((now - startTime) / (duration * 1000), 1);
+        // Easing function (ease-out cubic)
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplayValue(Math.round(eased * value));
+        
+        if (now < endTime) {
+          requestAnimationFrame(tick);
+        } else {
+          setDisplayValue(value);
+        }
+      };
+      
+      requestAnimationFrame(tick);
+    }
+  }, [isInView, value, duration]);
+  
+  return (
+    <span ref={ref} className={className}>
+      {prefix}{displayValue.toLocaleString()}{suffix}
+    </span>
+  );
+};
+
 // Cursor glow component
 export const CursorGlow = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
