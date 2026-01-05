@@ -10,7 +10,8 @@ import {
   StaggeredContent, 
   AnimatedTitle, 
   AnimatedContent, 
-  AnimatedInsight 
+  AnimatedInsight,
+  CountingNumber
 } from "./SlideAnimations";
 
 // Sample data - would come from API in production
@@ -900,15 +901,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </div>
               <div>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Recovery Potential</span>
-                <motion.div 
-                  className="font-serif text-xl text-green-600"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 1 }}
-                  viewport={{ once: true }}
-                >
-                  +45 Points
-                </motion.div>
+                <div className="font-serif text-xl text-green-600">
+                  +<CountingNumber value={45} suffix=" Points" className="" duration={1.5} />
+                </div>
                 <div className="text-xs text-muted-foreground mt-1">Achievable within 90-day remediation.</div>
               </div>
               <div>
@@ -1012,13 +1007,20 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
             </AnimatedInsight>
             
-            {/* Footer Stats */}
-            <div className="mt-8 flex justify-between border-t border-border pt-4">
-              <div className="text-xs text-muted-foreground font-mono">
-                <span className="text-foreground font-semibold">Buying Criteria:</span> Speed vs. Certainty
+            {/* Footer Stats - Boxed Layout */}
+            <div className="mt-8 grid grid-cols-2 gap-6 border-t border-border pt-6">
+              <div className="bg-muted/30 border border-border p-5">
+                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-2">Buying Criteria</span>
+                <h4 className="font-serif text-xl text-foreground mb-1">Speed vs. Certainty</h4>
+                <p className="text-xs text-muted-foreground">The market forces buyers to choose between rapid automation (risky) and trusted validation (slow). Mavrix must own "Certainty" to escape the squeeze.</p>
               </div>
-              <div className="text-xs text-muted-foreground font-mono">
-                <span className="text-foreground font-semibold">Threat Level:</span> High (Squeezed Middle)
+              <div className="bg-destructive/5 border border-destructive/20 p-5">
+                <span className="font-mono text-[10px] text-destructive uppercase tracking-widest block mb-2">Threat Assessment</span>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="inline-block px-2 py-0.5 font-mono text-[10px] uppercase bg-destructive/10 text-destructive animate-pulse">High Risk</span>
+                  <span className="font-serif text-xl text-foreground">Squeezed Middle</span>
+                </div>
+                <p className="text-xs text-muted-foreground">Caught between commodity pricing (bottom) and legacy scale (top). Without differentiation, margin compression is inevitable.</p>
               </div>
             </div>
 
@@ -1273,7 +1275,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div className="bg-white/50 dark:bg-background/50 p-4 rounded border border-[#0A66C2]/10">
-                      <span className="font-serif text-3xl text-[#0A66C2]">26k+</span>
+                      <span className="font-serif text-3xl text-[#0A66C2]"><CountingNumber value={26} suffix="k+" className="" duration={1.2} /></span>
                       <span className="text-[10px] text-muted-foreground block uppercase tracking-wider">Followers</span>
                     </div>
                     <div className="bg-white/50 dark:bg-background/50 p-4 rounded border border-[#0A66C2]/10">
@@ -1293,7 +1295,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <div className="col-span-2 flex flex-col items-center justify-center">
                 <div className="w-px h-16 bg-gradient-to-b from-transparent via-border to-transparent" />
                 <div className="py-6 text-center">
-                  <div className="w-12 h-12 rounded-full border-2 border-destructive/30 flex items-center justify-center mx-auto mb-3 bg-destructive/5">
+                  <div className="w-12 h-12 rounded-full border-2 border-destructive/30 flex items-center justify-center mx-auto mb-3 bg-destructive/5 animate-pulse">
                     <svg className="w-5 h-5 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                   </div>
                   <span className="font-mono text-[10px] text-destructive uppercase tracking-widest block">The Gap</span>
@@ -1684,7 +1686,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
 
                 <div className="mt-16 flex items-center gap-4 border-t border-border pt-6">
-                  <div className="w-8 h-8 rounded-full bg-destructive/10 text-destructive flex items-center justify-center font-bold text-xs">!</div>
+                  <div className="w-8 h-8 rounded-full bg-destructive/10 text-destructive flex items-center justify-center font-bold text-xs animate-pulse">!</div>
                   <p className="text-xs text-muted-foreground font-medium">
                     The "Cover-Up" Test: If we hide the logo, this could be any of 500+ agencies.
                   </p>
@@ -1766,7 +1768,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <div className="border border-destructive/30 bg-destructive/5 p-8 flex flex-col">
                 <div>
                   <span className="font-mono text-[11px] text-destructive uppercase tracking-wider flex items-center gap-2 mb-4">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"/></svg>
+                    <svg className="w-3 h-3 animate-pulse" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"/></svg>
                     Fracture 03: Identity Clash
                   </span>
                   <h3 className="font-serif text-2xl mb-4 text-foreground leading-tight">The "Crypto Bot"<br/>Contamination.</h3>
@@ -2488,15 +2490,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   viewport={{ once: true }}
                 >
                   <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-2">Financial Upside</span>
-                  <motion.div 
-                    className="font-serif text-4xl text-primary mb-2"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                    viewport={{ once: true }}
-                  >
-                    +$1.6M
-                  </motion.div>
+                  <div className="font-serif text-4xl text-primary mb-2">
+                    +$<CountingNumber value={1600000} suffix="" className="" duration={2} />
+                  </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Projected incremental revenue from "Rescue" services and improved win-rates (195% ROI).
                   </p>
@@ -2641,7 +2637,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <div className="border-t border-border pt-5 pb-4">
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-serif text-xl text-foreground font-semibold">1. The "Anti-Stock" Purge</h3>
-                      <span className="font-mono text-[9px] text-primary bg-primary/10 border border-primary/30 px-2 py-0.5 uppercase">High Impact</span>
+                      <span className="font-mono text-[9px] text-primary bg-primary/10 border border-primary/30 px-2 py-0.5 uppercase animate-pulse">High Impact</span>
                     </div>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                       Remove all generic "business people pointing at screens" imagery. Replace with gritty, real photos of the Ops Center and leadership team.
@@ -2671,7 +2667,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <div className="border-t border-border pt-5 pb-4">
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-serif text-xl text-foreground font-semibold">3. Give the Team a Voice</h3>
-                      <span className="font-mono text-[9px] text-primary bg-primary/10 border border-primary/30 px-2 py-0.5 uppercase">High Impact</span>
+                      <span className="font-mono text-[9px] text-primary bg-primary/10 border border-primary/30 px-2 py-0.5 uppercase animate-pulse">High Impact</span>
                     </div>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                       Replace anonymous avatars with real LinkedIn profiles. Add "War Stories" or philosophy quotes for key methodologists.
