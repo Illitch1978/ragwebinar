@@ -13,16 +13,16 @@ import { cn } from "@/lib/utils";
 
 const productNavItems = [
   { 
-    title: "Dashboard", 
-    icon: Layers, 
-    id: "intelligence",
-    description: "Growth, Visibility, Competitor Intel, Technical"
-  },
-  { 
     title: "Report", 
     icon: FileText, 
     id: "report",
     description: "Snapshot view of your digital presence"
+  },
+  { 
+    title: "Dashboard", 
+    icon: Layers, 
+    id: "intelligence",
+    description: "Growth, Visibility, Competitor Intel, Technical"
   },
 ];
 
