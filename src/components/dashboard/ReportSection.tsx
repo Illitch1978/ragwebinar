@@ -940,7 +940,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <div className="grid grid-cols-12 gap-16">
               
               {/* Slider Section */}
-              <div className="col-span-8 pt-4 space-y-10">
+              <div className="col-span-8 pt-4 space-y-14">
                 
                 {/* Service Intensity Slider */}
                 <div className="relative">
@@ -956,7 +956,11 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/60 top-1/2 -translate-y-1/2" style={{ left: "60%" }}>
                       <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground/60 whitespace-nowrap">Incumbent</span>
                     </div>
-                    <div className="absolute w-3 h-3 rounded-full bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] top-1/2 -translate-y-1/2 z-10" style={{ left: "85%" }}>
+                    <div className="absolute top-1/2 -translate-y-1/2 z-10" style={{ left: "85%" }}>
+                      <div className="relative">
+                        <div className="absolute inset-0 w-4 h-4 rounded-full bg-primary animate-ping opacity-30 -translate-x-0.5 -translate-y-0.5" />
+                        <div className="w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.5)]" />
+                      </div>
                       <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-primary whitespace-nowrap">Mavrix</span>
                     </div>
                   </div>
@@ -970,7 +974,11 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <span>Ubiquitous</span>
                   </div>
                   <div className="w-full h-px bg-border relative mt-4">
-                    <div className="absolute w-3 h-3 rounded-full bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] top-1/2 -translate-y-1/2 z-10" style={{ left: "5%" }}>
+                    <div className="absolute top-1/2 -translate-y-1/2 z-10" style={{ left: "5%" }}>
+                      <div className="relative">
+                        <div className="absolute inset-0 w-4 h-4 rounded-full bg-primary animate-ping opacity-30 -translate-x-0.5 -translate-y-0.5" />
+                        <div className="w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.5)]" />
+                      </div>
                       <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-primary whitespace-nowrap">Mavrix</span>
                     </div>
                     <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/40 top-1/2 -translate-y-1/2" style={{ left: "55%" }}>
@@ -990,7 +998,11 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     <span>Instant</span>
                   </div>
                   <div className="w-full h-px bg-border relative mt-4">
-                    <div className="absolute w-3 h-3 rounded-full bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] top-1/2 -translate-y-1/2 z-10" style={{ left: "20%" }}>
+                    <div className="absolute top-1/2 -translate-y-1/2 z-10" style={{ left: "20%" }}>
+                      <div className="relative">
+                        <div className="absolute inset-0 w-4 h-4 rounded-full bg-primary animate-ping opacity-30 -translate-x-0.5 -translate-y-0.5" />
+                        <div className="w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.5)]" />
+                      </div>
                       <span className="absolute mt-5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wider font-semibold text-primary whitespace-nowrap">Mavrix</span>
                     </div>
                     <div className="absolute w-3 h-3 rounded-full bg-muted-foreground/60 top-1/2 -translate-y-1/2" style={{ left: "45%" }}>
@@ -1106,10 +1118,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 10: Visibility & Discoverability */}
+        {/* Slide 10: Visibility & Discoverability - Platform Dissonance */}
         <Slide>
           <div className="max-w-7xl w-full h-full flex flex-col pt-4">
-            <div className="mb-12">
+            <div className="mb-8">
               <SlideEyebrow>Visibility & Discoverability</SlideEyebrow>
               <ActionTitle>The "Platform Dissonance."</ActionTitle>
               <p className="text-sm text-muted-foreground max-w-3xl leading-relaxed">
@@ -1117,68 +1129,125 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-8 h-[420px]">
-              {/* Social Ecosystem Card - Highlighted Blue */}
-              <div className="flex flex-col h-full border border-blue-200">
-                <div className="border border-border p-8 flex flex-col h-full bg-blue-50/10">
-                  <div>
-                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-blue-50 text-[#0A66C2] border border-blue-200 font-semibold">High Vitality</span>
-                    <h3 className="font-serif text-2xl mb-3 text-foreground">Social Ecosystem</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                      A strategic asset. 26k+ followers and authentic CEO narratives (Rafal) prove "Proof of Life" and industry standing. This is where your brand actually lives.
-                    </p>
+            {/* Main comparison layout */}
+            <div className="grid grid-cols-12 gap-6 flex-1">
+              
+              {/* Left: LinkedIn - Strong */}
+              <div className="col-span-5 relative">
+                <div className="absolute -top-2 -left-2 w-16 h-16 bg-[#0A66C2]/10 rounded-full blur-2xl" />
+                <div className="h-full bg-gradient-to-br from-[#0A66C2]/5 to-transparent border border-[#0A66C2]/20 p-8 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/30" />
+                  
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded bg-[#0A66C2] flex items-center justify-center">
+                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                    </div>
+                    <div>
+                      <span className="font-mono text-[10px] text-[#0A66C2] uppercase tracking-widest block">High Vitality</span>
+                      <h3 className="font-serif text-xl text-foreground">Social Ecosystem</h3>
+                    </div>
                   </div>
-                  <div className="border-t border-border pt-6 mt-auto">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Legacy Audience</span>
-                    <span className="font-serif text-4xl text-[#0A66C2]">26,000+</span>
+                  
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                    A strategic asset. 26k+ followers and authentic CEO narratives prove "Proof of Life" and industry standing. <strong className="text-foreground">This is where your brand actually lives.</strong>
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="bg-white/50 dark:bg-background/50 p-4 rounded border border-[#0A66C2]/10">
+                      <span className="font-serif text-3xl text-[#0A66C2]">26k+</span>
+                      <span className="text-[10px] text-muted-foreground block uppercase tracking-wider">Followers</span>
+                    </div>
+                    <div className="bg-white/50 dark:bg-background/50 p-4 rounded border border-[#0A66C2]/10">
+                      <span className="font-serif text-3xl text-[#0A66C2]">Active</span>
+                      <span className="text-[10px] text-muted-foreground block uppercase tracking-wider">CEO Voice</span>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-blue-50/30 px-6 py-4 border-t border-border">
-                  <span className="font-mono text-[10px] text-blue-400 font-semibold uppercase tracking-widest block mb-1">Leverage Point</span>
-                  <p className="text-xs text-blue-600 font-medium leading-relaxed">Export this "Humanity" to the Website immediately.</p>
+                  
+                  <div className="bg-[#0A66C2]/10 p-4 rounded-sm border-l-2 border-[#0A66C2]">
+                    <span className="text-[10px] text-[#0A66C2] uppercase tracking-widest font-bold block mb-1">Leverage Point</span>
+                    <p className="text-xs text-foreground font-medium">Export this "Humanity" to the Website immediately.</p>
+                  </div>
                 </div>
               </div>
-
-              {/* Owned Domain Card */}
-              <div className="flex flex-col h-full border border-border">
-                <div className="border border-border p-8 flex flex-col h-full bg-background">
-                  <div>
-                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200 font-semibold">Sterile</span>
-                    <h3 className="font-serif text-2xl mb-3 text-foreground">Owned Domain</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                      The website fails to capture the energy of the LinkedIn page. It relies on generic tech buzzwords instead of the "Mavrix Crew" reality.
-                    </p>
+              
+              {/* Center: The Gap Indicator */}
+              <div className="col-span-2 flex flex-col items-center justify-center">
+                <div className="w-px h-16 bg-gradient-to-b from-transparent via-border to-transparent" />
+                <div className="py-6 text-center">
+                  <div className="w-12 h-12 rounded-full border-2 border-destructive/30 flex items-center justify-center mx-auto mb-3 bg-destructive/5">
+                    <svg className="w-5 h-5 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                   </div>
-                  <div className="border-t border-border pt-6 mt-auto">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Brand Alignment</span>
-                    <span className="font-serif text-4xl text-red-400">Disconnect</span>
-                  </div>
+                  <span className="font-mono text-[10px] text-destructive uppercase tracking-widest block">The Gap</span>
+                  <span className="font-serif text-lg text-foreground">Dissonance</span>
                 </div>
-                <div className="bg-muted/50 px-6 py-4 border-t border-border">
-                  <span className="font-mono text-[10px] text-muted-foreground font-semibold uppercase tracking-widest block mb-1">Priority Fix</span>
-                  <p className="text-xs text-primary font-medium leading-relaxed">Embed the "CEO Narrative" and "Event Photos" directly onto the Homepage.</p>
+                <div className="w-px h-16 bg-gradient-to-b from-transparent via-border to-transparent" />
+              </div>
+              
+              {/* Right: Website - Weak */}
+              <div className="col-span-5 relative">
+                <div className="h-full bg-gradient-to-br from-destructive/5 to-transparent border border-destructive/20 p-8 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-destructive to-destructive/30" />
+                  
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded bg-muted flex items-center justify-center border border-border">
+                      <svg className="w-5 h-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+                    </div>
+                    <div>
+                      <span className="font-mono text-[10px] text-destructive uppercase tracking-widest block">Sterile</span>
+                      <h3 className="font-serif text-xl text-foreground">Owned Domain</h3>
+                    </div>
+                  </div>
+                  
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                    The website fails to capture the energy of the LinkedIn page. It relies on <strong className="text-destructive">generic tech buzzwords</strong> instead of the "Mavrix Crew" reality.
+                  </p>
+                  
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-center gap-3 text-sm">
+                      <span className="w-5 h-5 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                      </span>
+                      <span className="text-muted-foreground">No CEO presence or voice</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                      <span className="w-5 h-5 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                      </span>
+                      <span className="text-muted-foreground">Zero event or team imagery</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                      <span className="w-5 h-5 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                      </span>
+                      <span className="text-muted-foreground">Generic "AI-forward" messaging</span>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-muted/50 p-4 rounded-sm border-l-2 border-muted-foreground/30">
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold block mb-1">Priority Fix</span>
+                    <p className="text-xs text-foreground font-medium">Embed CEO Narrative and Event Photos directly onto the Homepage.</p>
+                  </div>
                 </div>
               </div>
-
-              {/* Brand Protection Card */}
-              <div className="flex flex-col h-full border border-border">
-                <div className="border border-border p-8 flex flex-col h-full bg-background">
-                  <div>
-                    <span className="inline-block font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-sm mb-6 bg-red-50 text-destructive border border-red-200 font-semibold">Identity Confusion</span>
-                    <h3 className="font-serif text-2xl mb-3 text-foreground">Brand Protection</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                      A critical noise factor exists: "Mavrix AI" (Crypto Bot). Consumer complaints about the bot risk bleeding into your B2B reputation if not digitally fenced.
-                    </p>
-                  </div>
-                  <div className="border-t border-border pt-6 mt-auto">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Reputation Threat</span>
-                    <span className="font-serif text-4xl text-muted-foreground">Moderate</span>
-                  </div>
+            </div>
+            
+            {/* Bottom: Brand Protection Alert */}
+            <div className="mt-6 bg-destructive/5 border border-destructive/20 p-5 flex items-center gap-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-destructive" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"/></svg>
                 </div>
-                <div className="bg-muted/50 px-6 py-4 border-t border-border">
-                  <span className="font-mono text-[10px] text-muted-foreground font-semibold uppercase tracking-widest block mb-1">Defensive Move</span>
-                  <p className="text-xs text-primary font-medium leading-relaxed">Create a clear "Not Affiliated" disclaimer or FAQ entry regarding the Crypto entity.</p>
+                <div>
+                  <span className="font-mono text-[10px] text-destructive uppercase tracking-widest block">Identity Confusion Risk</span>
+                  <span className="font-serif text-base text-foreground">Brand Protection: "Mavrix AI" (Crypto Bot)</span>
                 </div>
+              </div>
+              <p className="text-sm text-muted-foreground flex-1">
+                Consumer complaints about the crypto bot risk bleeding into your B2B reputation if not digitally fenced.
+              </p>
+              <div className="text-right">
+                <span className="text-[10px] text-primary uppercase tracking-widest font-bold block">Defensive Move</span>
+                <span className="text-xs text-muted-foreground">Create "Not Affiliated" disclaimer</span>
               </div>
             </div>
           </div>
@@ -1288,9 +1357,30 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <SlideEyebrow>System-Level Diagnosis</SlideEyebrow>
             
             <div className="flex items-center gap-16 mb-8">
-              {/* Score Circle */}
+              {/* Score Circle with animated gauge */}
               <div className="relative w-[180px] h-[180px] flex items-center justify-center shrink-0">
-                <div className="absolute inset-0 rounded-full border-8 border-muted" style={{ borderTopColor: '#EF4444', borderRightColor: '#EF4444', transform: 'rotate(-45deg)' }} />
+                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                  {/* Background circle */}
+                  <circle 
+                    cx="50" cy="50" r="42" 
+                    fill="none" 
+                    stroke="hsl(var(--muted))" 
+                    strokeWidth="8"
+                  />
+                  {/* Animated fill circle - 40% = 0.4 * circumference */}
+                  <motion.circle 
+                    cx="50" cy="50" r="42" 
+                    fill="none" 
+                    stroke="#EF4444" 
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    strokeDasharray={`${0.4 * 2 * Math.PI * 42} ${2 * Math.PI * 42}`}
+                    initial={{ strokeDashoffset: 2 * Math.PI * 42 }}
+                    whileInView={{ strokeDashoffset: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
+                  />
+                </svg>
                 <div className="text-center z-10">
                   <span className="font-serif text-6xl text-foreground leading-none">40</span>
                   <span className="font-mono text-sm text-muted-foreground mt-2 block">/ 100</span>
@@ -1308,7 +1398,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <div className="grid grid-cols-3 gap-12 mt-8 pt-8 border-t border-border">
               {/* Pillar 01: Narrative Clarity */}
               <div className="pl-6 border-l border-border">
-                <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-amber-50 text-amber-500 mb-2">Moderate Risk</span>
+                <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-amber-50 text-amber-500 mb-2 animate-pulse">Moderate Risk</span>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-3">Pillar 01: Narrative Clarity</span>
                 <h3 className="font-serif text-2xl text-foreground mb-2">50/100</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -1318,7 +1408,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
               {/* Pillar 02: Trust Signals - Critical */}
               <div className="pl-6 border-l-2 border-destructive">
-                <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-red-50 text-destructive mb-2">Critical Risk</span>
+                <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-red-50 text-destructive mb-2 animate-pulse">Critical Risk</span>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-3">Pillar 02: Trust Signals</span>
                 <h3 className="font-serif text-2xl text-destructive mb-2">20/100</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -1328,7 +1418,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
               {/* Pillar 03: Commercial Flow */}
               <div className="pl-6 border-l border-border">
-                <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-red-50 text-destructive mb-2">High Friction</span>
+                <span className="inline-block px-2 py-0.5 rounded font-mono text-[10px] uppercase bg-red-50 text-destructive mb-2 animate-pulse">High Friction</span>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-3">Pillar 03: Commercial Flow</span>
                 <h3 className="font-serif text-2xl text-foreground mb-2">30/100</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -1637,107 +1727,107 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           layout="center"
         />
 
-        {/* Slide 20: Strategic Inflection - Transformation List */}
+        {/* Slide 20: Strategic Inflection - Compact Transformation List */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col">
-            <div className="mb-8">
+          <div className="max-w-7xl mx-auto w-full h-full flex flex-col">
+            <div className="mb-6">
               <SlideEyebrow>Strategic Inflection</SlideEyebrow>
               <ActionTitle>Stop fighting "Gravity." Start selling "Friction."</ActionTitle>
-              <p className="font-light text-muted-foreground max-w-2xl leading-relaxed">
+              <p className="font-light text-muted-foreground max-w-2xl leading-relaxed text-sm">
                 You cannot win the "Speed" war against AI disruptors. You win the "Truth" war by becoming the necessary friction that verifies reality.
               </p>
             </div>
 
-            <div className="flex flex-col gap-4">
+            {/* Compact 5-column grid */}
+            <div className="grid grid-cols-5 gap-4 flex-1">
               
-              {/* Row 1 */}
-              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 border-b border-muted hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
-                <div className="pr-8">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Physics</span>
-                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">Competing on Speed</h3>
+              {/* Card 1: Physics */}
+              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
+                <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">01 Physics</span>
+                <div className="mb-3">
+                  <span className="text-xs text-muted-foreground/60 line-through">Competing on Speed</span>
                 </div>
-                <div className="flex justify-center text-primary/50 text-xl">→</div>
-                <div className="pl-8">
-                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Physics</span>
-                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">Competing on Verification</h3>
-                  <span className="text-sm text-muted-foreground mt-1 block">The premium has shifted from "How fast?" to "Is it real?"</span>
-                </div>
-              </div>
-
-              {/* Row 2 */}
-              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 border-b border-muted hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
-                <div className="pr-8">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Role</span>
-                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">Midstream Execution</h3>
-                </div>
-                <div className="flex justify-center text-primary/50 text-xl">→</div>
-                <div className="pl-8">
-                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Role</span>
-                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">Downstream Intelligence</h3>
-                  <span className="text-sm text-muted-foreground mt-1 block">Moving from "Arms & Legs" (Fieldwork) to "Brains" (Standards).</span>
+                <div className="mt-auto">
+                  <h3 className="font-serif text-base text-foreground leading-tight mb-1">Competing on Verification</h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">From "How fast?" to "Is it real?"</p>
                 </div>
               </div>
 
-              {/* Row 3 */}
-              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 border-b border-muted hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
-                <div className="pr-8">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Evidence</span>
-                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">"Adjective Addiction"</h3>
+              {/* Card 2: Role */}
+              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
+                <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">02 Role</span>
+                <div className="mb-3">
+                  <span className="text-xs text-muted-foreground/60 line-through">Midstream Execution</span>
                 </div>
-                <div className="flex justify-center text-primary/50 text-xl">→</div>
-                <div className="pl-8">
-                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Evidence</span>
-                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">Whistleblower Authority</h3>
-                  <span className="text-sm text-muted-foreground mt-1 block">Stop using fluff ("Seamless"). Start exposing fraud ("Synthetic Risk").</span>
-                </div>
-              </div>
-
-              {/* Row 4 */}
-              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 border-b border-muted hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
-                <div className="pr-8">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Sales</span>
-                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">"Black Box" Quotes</h3>
-                </div>
-                <div className="flex justify-center text-primary/50 text-xl">→</div>
-                <div className="pl-8">
-                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Sales</span>
-                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">"Trojan Horse" Access</h3>
-                  <span className="text-sm text-muted-foreground mt-1 block">Transparent entry-level pricing to capture clients before the RFP.</span>
+                <div className="mt-auto">
+                  <h3 className="font-serif text-base text-foreground leading-tight mb-1">Downstream Intelligence</h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">From "Arms & Legs" to "Brains."</p>
                 </div>
               </div>
 
-              {/* Row 5 */}
-              <div className="grid grid-cols-[1fr_60px_1fr] items-center py-5 hover:bg-muted/30 hover:px-4 rounded-lg transition-all">
-                <div className="pr-8">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Current Value</span>
-                  <h3 className="text-lg text-muted-foreground font-light line-through decoration-destructive">Data Collection</h3>
+              {/* Card 3: Evidence */}
+              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
+                <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">03 Evidence</span>
+                <div className="mb-3">
+                  <span className="text-xs text-muted-foreground/60 line-through">"Adjective Addiction"</span>
                 </div>
-                <div className="flex justify-center text-primary/50 text-xl">→</div>
-                <div className="pl-8">
-                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-1">New Value</span>
-                  <h3 className="font-serif text-2xl text-foreground font-semibold leading-tight">"CMO Insurance"</h3>
-                  <span className="text-sm text-muted-foreground mt-1 block">You are not selling data. You are selling risk mitigation.</span>
+                <div className="mt-auto">
+                  <h3 className="font-serif text-base text-foreground leading-tight mb-1">Whistleblower Authority</h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">Expose fraud, not fluff.</p>
+                </div>
+              </div>
+
+              {/* Card 4: Sales */}
+              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
+                <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">04 Sales</span>
+                <div className="mb-3">
+                  <span className="text-xs text-muted-foreground/60 line-through">"Black Box" Quotes</span>
+                </div>
+                <div className="mt-auto">
+                  <h3 className="font-serif text-base text-foreground leading-tight mb-1">"Trojan Horse" Access</h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">Capture before the RFP.</p>
+                </div>
+              </div>
+
+              {/* Card 5: Value */}
+              <div className="group relative bg-gradient-to-b from-muted/40 to-muted/10 border border-border/50 p-5 flex flex-col hover:border-primary/30 transition-colors">
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 to-transparent" />
+                <span className="font-mono text-[9px] text-primary uppercase tracking-widest mb-2">05 Value</span>
+                <div className="mb-3">
+                  <span className="text-xs text-muted-foreground/60 line-through">Data Collection</span>
+                </div>
+                <div className="mt-auto">
+                  <h3 className="font-serif text-base text-foreground leading-tight mb-1">"CMO Insurance"</h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">Selling risk mitigation.</p>
                 </div>
               </div>
 
             </div>
 
-            <div className="mt-auto pt-6 border-t border-muted flex items-center justify-between">
-              <div className="text-xs text-primary font-semibold uppercase tracking-widest">
-                The Net Result
+            {/* Footer */}
+            <div className="mt-6 pt-5 border-t border-border flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                </div>
+                <span className="text-xs text-primary font-semibold uppercase tracking-widest">The Net Result</span>
               </div>
               <div className="text-sm text-muted-foreground font-medium">
-                This pivot moves Mavrix from a "Price Taker" (Commodity) to a "Price Maker" (Specialist).
+                This pivot moves Mavrix from a <strong className="text-foreground">"Price Taker"</strong> (Commodity) to a <strong className="text-foreground">"Price Maker"</strong> (Specialist).
               </div>
             </div>
 
           </div>
         </Slide>
 
-        {/* Slide 21: Strategic Inflection */}
+        {/* Slide 21: Focus Themes */}
         <Slide>
           <div className="max-w-7xl mx-auto w-full h-full flex flex-col">
-            <SlideEyebrow>Strategic Inflection</SlideEyebrow>
+            <SlideEyebrow>Focus Themes</SlideEyebrow>
             <ActionTitle>Three tactical inventions to break the inertia.</ActionTitle>
 
             {/* Horizontal layout with staggered heights */}
