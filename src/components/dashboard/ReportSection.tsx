@@ -1734,62 +1734,57 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 21: Focus Themes */}
+        {/* Slide 21: Strategic Inflection */}
         <Slide>
           <div className="max-w-7xl mx-auto w-full h-full flex flex-col">
-            <SlideEyebrow>Focus Themes</SlideEyebrow>
+            <SlideEyebrow>Strategic Inflection</SlideEyebrow>
             <ActionTitle>Three tactical inventions to break the inertia.</ActionTitle>
 
-            <div className="grid grid-cols-3 gap-10">
+            {/* Horizontal layout with staggered heights */}
+            <div className="flex gap-6 items-start">
               
               {/* Theme 01: Integrity */}
-              <div className="flex flex-col border-t border-border pt-8 group hover:border-primary transition-colors">
-                <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-4">Theme 01 // Integrity</span>
-                <h3 className="font-serif text-2xl text-foreground mb-6 leading-tight">The "Total Quality" Warranty.</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-light mb-8 min-h-[100px]">
-                  "Bad Data" is a spectrum: bots, imposters, inattentive humans, and professional survey-takers. Position Mavrix as the only partner who guarantees the <em className="italic">integrity</em> of the respondent, not just their existence. If there is doubt, we replace.
+              <div className="flex-1 bg-gradient-to-b from-muted/30 to-transparent border border-border/60 p-6 relative group">
+                <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary/80 to-primary/20" />
+                <span className="font-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-3 block font-semibold">01 // Integrity</span>
+                <h3 className="font-serif text-xl text-foreground mb-3 leading-tight">The "Total Quality" Warranty.</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                  Position Mavrix as the only partner who guarantees the <em>integrity</em> of the respondent, not just their existence. If there is doubt, we replace.
                 </p>
-                
-                <div className="mt-auto bg-muted/50 p-6 border-l-[3px] border-muted-foreground/30 group-hover:bg-primary/5 group-hover:border-primary transition-colors">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2 block font-semibold">Strategic Mechanism</span>
-                  <h4 className="text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">"The Zero-Argument Replacement"</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    We remove the friction of "proving" fraud. If you flag a respondent for any reason (profile mismatch, low attention, or bot), we replace them instantly. No debate. No extra cost.
-                  </p>
+                <div className="bg-foreground text-background p-4 mt-auto">
+                  <span className="text-[9px] uppercase tracking-widest text-primary block mb-1 font-bold">Mechanism</span>
+                  <h4 className="text-sm font-semibold text-background">"The Zero-Argument Replacement"</h4>
+                  <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">Flag a respondent for any reason—we replace them instantly. No debate.</p>
                 </div>
               </div>
 
-              {/* Theme 02: Authority */}
-              <div className="flex flex-col border-t border-border pt-8 group hover:border-primary transition-colors">
-                <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-4">Theme 02 // Authority</span>
-                <h3 className="font-serif text-2xl text-foreground mb-6 leading-tight">The "Quality Index."</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-light mb-8 min-h-[100px]">
-                  Turn the lack of white papers into a strategic asset. Use your 22 years of data to create the industry standard "Quality Index." This becomes a recurring publication that industry bodies will want to co-brand, instantly elevating Mavrix's profile.
+              {/* Theme 02: Authority - slightly taller */}
+              <div className="flex-1 bg-gradient-to-b from-primary/5 to-transparent border border-primary/30 p-6 relative group -mt-2">
+                <div className="absolute top-0 left-0 w-full h-[3px] bg-primary" />
+                <span className="font-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-3 block font-semibold">02 // Authority</span>
+                <h3 className="font-serif text-xl text-foreground mb-3 leading-tight">The "Quality Index."</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                  Use your 22 years of data to create the industry standard "Quality Index." A recurring publication that industry bodies will co-brand, instantly elevating Mavrix's profile.
                 </p>
-                
-                <div className="mt-auto bg-muted/50 p-6 border-l-[3px] border-muted-foreground/30 group-hover:bg-primary/5 group-hover:border-primary transition-colors">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2 block font-semibold">Strategic Mechanism</span>
-                  <h4 className="text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">"The Mavrix Blocklist Report"</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    A quarterly index on the "State of Data Reality." We publish exactly what we block (fraud vectors, bot trends), positioning us as the R&D Lab for the industry.
-                  </p>
+                <div className="bg-foreground text-background p-4 mt-auto">
+                  <span className="text-[9px] uppercase tracking-widest text-primary block mb-1 font-bold">Mechanism</span>
+                  <h4 className="text-sm font-semibold text-background">"The Mavrix Blocklist Report"</h4>
+                  <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">A quarterly index on what we block—positioning us as the industry's R&D lab.</p>
                 </div>
               </div>
 
               {/* Theme 03: Commerce */}
-              <div className="flex flex-col border-t border-border pt-8 group hover:border-primary transition-colors">
-                <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-4">Theme 03 // Commerce</span>
-                <h3 className="font-serif text-2xl text-foreground mb-6 leading-tight">The "White-Glove" Rescue.</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-light mb-8 min-h-[100px]">
-                  When low-cost vendors stall (e.g. stuck at N=300/500), it's a crisis. Unbundle your service to offer a premium "Fieldwork Recovery" tier. This isn't just panel access; it is a strategic takeover with a guaranteed completion plan.
+              <div className="flex-1 bg-gradient-to-b from-muted/30 to-transparent border border-border/60 p-6 relative group">
+                <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary/20 to-primary/80" />
+                <span className="font-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-3 block font-semibold">03 // Commerce</span>
+                <h3 className="font-serif text-xl text-foreground mb-3 leading-tight">The "White-Glove" Rescue.</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                  When low-cost vendors stall, it's a crisis. Offer a premium "Fieldwork Recovery" tier: a strategic takeover with a guaranteed completion plan.
                 </p>
-                
-                <div className="mt-auto bg-muted/50 p-6 border-l-[3px] border-muted-foreground/30 group-hover:bg-primary/5 group-hover:border-primary transition-colors">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2 block font-semibold">Strategic Mechanism</span>
-                  <h4 className="text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">"Mavrix 911"</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    "Stuck in field? Call us." A premium rapid-response service where senior methodologists assess the failure, build a recovery plan, and guarantee the close.
-                  </p>
+                <div className="bg-foreground text-background p-4 mt-auto">
+                  <span className="text-[9px] uppercase tracking-widest text-primary block mb-1 font-bold">Mechanism</span>
+                  <h4 className="text-sm font-semibold text-background">"Mavrix 911"</h4>
+                  <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">"Stuck in field? Call us." Senior methodologists guarantee the close.</p>
                 </div>
               </div>
 
@@ -1804,90 +1799,93 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <SlideEyebrow>The Leverage Matrix</SlideEyebrow>
             <ActionTitle>Exploiting the "Silent Failures" of the giants.</ActionTitle>
             
-            <div className="grid grid-cols-3 gap-8">
-              {/* Card 1: Tech Platforms */}
-              <div className="flex flex-col border border-border">
-                {/* Header */}
-                <div className="bg-muted/50 p-5 border-b border-border">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1 block">Adversary: The Tech Platforms</span>
-                  <span className="text-sm font-semibold text-muted-foreground">Qualtrics, Cint, Lucid</span>
+            {/* Quadrant-style matrix layout */}
+            <div className="flex-1 grid grid-cols-[1fr_2px_1fr] gap-0 border border-border bg-background overflow-hidden" style={{ maxHeight: '420px' }}>
+              
+              {/* Left Column - Their Failures */}
+              <div className="flex flex-col">
+                <div className="bg-muted/50 px-6 py-3 border-b border-border">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-destructive font-bold">Their Silent Failures</span>
                 </div>
                 
-                {/* Silent Failure */}
-                <div className="p-6 flex-1 bg-background">
-                  <span className="text-[10px] text-destructive uppercase tracking-widest mb-2 block font-bold">Their Silent Failure</span>
-                  <h3 className="font-serif text-2xl text-foreground mb-3 leading-tight">The "Feasibility Mirage."</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                    Their APIs promise infinite reach. But algorithms don't recruit. The failure happens when the project stalls at N=400 because the "estimated" respondents don't actually exist in the panel ecosystem.
-                  </p>
-                </div>
-
-                {/* Mavrix Leverage */}
-                <div className="bg-foreground text-background p-5 relative">
-                  <div className="absolute -top-3 left-6 w-0 h-0 border-l-[10px] border-r-[10px] border-b-[12px] border-l-transparent border-r-transparent border-b-foreground"></div>
-                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2 block">Mavrix Leverage</span>
-                  <h4 className="text-lg font-semibold text-background mb-2">Operational Reality.</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    We don't sell "Estimates." We sell "Completes." We use the <strong className="text-background">Mavrix 911</strong> protocol to manually recruit the missing N=100 that the algorithm couldn't find.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 2: Legacy Giants */}
-              <div className="flex flex-col border border-border">
-                {/* Header */}
-                <div className="bg-muted/50 p-5 border-b border-border">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1 block">Adversary: The Legacy Giants</span>
-                  <span className="text-sm font-semibold text-muted-foreground">Dynata, Kantar, Ipsos</span>
+                {/* Row 1 */}
+                <div className="flex-1 px-6 py-4 border-b border-border/50 hover:bg-muted/20 transition-colors">
+                  <div className="flex items-start gap-3 mb-2">
+                    <span className="font-mono text-[9px] text-muted-foreground bg-muted px-2 py-0.5 rounded">Tech Platforms</span>
+                    <span className="text-[10px] text-muted-foreground">Qualtrics, Cint, Lucid</span>
+                  </div>
+                  <h4 className="font-serif text-lg text-foreground mb-1">The "Feasibility Mirage."</h4>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">APIs promise infinite reach. But algorithms don't recruit. Projects stall at N=400 because the "estimated" respondents don't exist.</p>
                 </div>
                 
-                {/* Silent Failure */}
-                <div className="p-6 flex-1 bg-background">
-                  <span className="text-[10px] text-destructive uppercase tracking-widest mb-2 block font-bold">Their Silent Failure</span>
-                  <h3 className="font-serif text-2xl text-foreground mb-3 leading-tight">The "Blended Haze."</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                    They are too big to fill every quote with proprietary sample. They broker out ~40% of work to third parties without telling the client. You think you're buying "Premium," but you're getting "Aggregated Mystery Meat."
-                  </p>
-                </div>
-
-                {/* Mavrix Leverage */}
-                <div className="bg-foreground text-background p-5 relative">
-                  <div className="absolute -top-3 left-6 w-0 h-0 border-l-[10px] border-r-[10px] border-b-[12px] border-l-transparent border-r-transparent border-b-foreground"></div>
-                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2 block">Mavrix Leverage</span>
-                  <h4 className="text-lg font-semibold text-background mb-2">Chain of Custody.</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    Radical transparency. We tell you exactly where the respondent came from. If we broke it out, we name the partner. The <strong className="text-background">Quality Index</strong> proves the pedigree.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 3: Budget DIY */}
-              <div className="flex flex-col border border-border">
-                {/* Header */}
-                <div className="bg-muted/50 p-5 border-b border-border">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-1 block">Adversary: The Budget DIY</span>
-                  <span className="text-sm font-semibold text-muted-foreground">Pollfish, SurveyMonkey</span>
+                {/* Row 2 */}
+                <div className="flex-1 px-6 py-4 border-b border-border/50 hover:bg-muted/20 transition-colors">
+                  <div className="flex items-start gap-3 mb-2">
+                    <span className="font-mono text-[9px] text-muted-foreground bg-muted px-2 py-0.5 rounded">Legacy Giants</span>
+                    <span className="text-[10px] text-muted-foreground">Dynata, Kantar, Ipsos</span>
+                  </div>
+                  <h4 className="font-serif text-lg text-foreground mb-1">The "Blended Haze."</h4>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">Too big to fill every quote with proprietary sample. ~40% is brokered out to third parties. "Premium" is actually "Mystery Meat."</p>
                 </div>
                 
-                {/* Silent Failure */}
-                <div className="p-6 flex-1 bg-background">
-                  <span className="text-[10px] text-destructive uppercase tracking-widest mb-2 block font-bold">Their Silent Failure</span>
-                  <h3 className="font-serif text-2xl text-foreground mb-3 leading-tight">The "Clean-Up Tax."</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                    The CPI (Cost Per Interview) is $2.00. But the data is 40% bots/trash. The client saves money on the platform but loses 3 weeks of staff time manually scrubbing the Excel file.
-                  </p>
-                </div>
-
-                {/* Mavrix Leverage */}
-                <div className="bg-foreground text-background p-5 relative">
-                  <div className="absolute -top-3 left-6 w-0 h-0 border-l-[10px] border-r-[10px] border-b-[12px] border-l-transparent border-r-transparent border-b-foreground"></div>
-                  <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2 block">Mavrix Leverage</span>
-                  <h4 className="text-lg font-semibold text-background mb-2">Total Cost of Validity.</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    We are expensive on CPI but cheaper on "TCO" (Total Cost of Ownership). With our <strong className="text-background">Total Quality Warranty</strong>, the data arrives clean. Zero staff time wasted on scrubbing.
-                  </p>
+                {/* Row 3 */}
+                <div className="flex-1 px-6 py-4 hover:bg-muted/20 transition-colors">
+                  <div className="flex items-start gap-3 mb-2">
+                    <span className="font-mono text-[9px] text-muted-foreground bg-muted px-2 py-0.5 rounded">Budget DIY</span>
+                    <span className="text-[10px] text-muted-foreground">Pollfish, SurveyMonkey</span>
+                  </div>
+                  <h4 className="font-serif text-lg text-foreground mb-1">The "Clean-Up Tax."</h4>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">CPI is $2.00 but data is 40% bots. Clients save on platform but lose 3 weeks scrubbing Excel files.</p>
                 </div>
               </div>
+              
+              {/* Divider */}
+              <div className="bg-primary relative">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-background px-2 py-1 -rotate-90 whitespace-nowrap">
+                  <span className="font-mono text-[9px] uppercase tracking-widest font-bold">vs.</span>
+                </div>
+              </div>
+              
+              {/* Right Column - Mavrix Leverage */}
+              <div className="flex flex-col bg-foreground text-background">
+                <div className="px-6 py-3 border-b border-background/10">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-primary font-bold">Mavrix Leverage</span>
+                </div>
+                
+                {/* Row 1 */}
+                <div className="flex-1 px-6 py-4 border-b border-background/10 hover:bg-background/5 transition-colors">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <span className="font-mono text-[9px] text-primary uppercase tracking-widest font-semibold">Operational Reality</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">We don't sell "Estimates." We sell "Completes." The <strong className="text-background">Mavrix 911</strong> protocol manually recruits the missing N=100.</p>
+                </div>
+                
+                {/* Row 2 */}
+                <div className="flex-1 px-6 py-4 border-b border-background/10 hover:bg-background/5 transition-colors">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <span className="font-mono text-[9px] text-primary uppercase tracking-widest font-semibold">Chain of Custody</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">Radical transparency. We name every partner. The <strong className="text-background">Quality Index</strong> proves the pedigree.</p>
+                </div>
+                
+                {/* Row 3 */}
+                <div className="flex-1 px-6 py-4 hover:bg-background/5 transition-colors">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <span className="font-mono text-[9px] text-primary uppercase tracking-widest font-semibold">Total Cost of Validity</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">Expensive on CPI, cheaper on TCO. With our <strong className="text-background">Total Quality Warranty</strong>, data arrives clean.</p>
+                </div>
+              </div>
+              
             </div>
 
           </div>
@@ -1899,82 +1897,95 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <SlideEyebrow>Structural Evolution</SlideEyebrow>
             <ActionTitle>Building the machine that builds the product.</ActionTitle>
             
-            <div className="grid grid-cols-3 gap-10">
-              {/* Card 1: Marketing */}
-              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group">
-                <div className="p-8 border-b border-border/50 bg-muted/30">
-                  <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-2">Function 01 // Marketing</span>
-                  <h3 className="font-serif text-2xl text-foreground">The "Intel" Engine</h3>
-                </div>
-                
-                <div className="p-8 flex-1 flex flex-col justify-center">
-                  <div>
-                    <span className="text-[11px] uppercase tracking-widest text-muted-foreground block mb-2">From (Current)</span>
-                    <p className="text-base text-muted-foreground font-light line-through decoration-destructive mb-6">Sales Support & Brochures</p>
-                  </div>
-                  <div className="text-primary/50 text-xl mb-6">↓</div>
-                  <div>
-                    <span className="text-[11px] uppercase tracking-widest text-primary block mb-2">To (Future)</span>
-                    <h4 className="text-xl font-semibold text-foreground mb-2">Editorial Newsroom</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">Mining 22 years of internal data to publish the "Blocklist" and "Quality Index."</p>
-                  </div>
-                </div>
-
-                <div className="mx-8 mb-8 p-4 bg-primary/5 border border-dashed border-primary/30 text-center">
-                  <span className="text-[10px] uppercase tracking-widest text-primary block mb-1 font-semibold">Key Hire</span>
-                  <span className="text-base font-semibold text-foreground">Data Journalist</span>
-                </div>
+            {/* Timeline-style horizontal layout */}
+            <div className="flex-1 flex flex-col">
+              {/* Timeline header */}
+              <div className="flex items-center mb-6">
+                <div className="flex-1 h-px bg-border"></div>
+                <span className="px-4 font-mono text-[10px] text-muted-foreground uppercase tracking-widest">Functional Transformation</span>
+                <div className="flex-1 h-px bg-border"></div>
               </div>
-
-              {/* Card 2: Operations */}
-              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group">
-                <div className="p-8 border-b border-border/50 bg-muted/30">
-                  <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-2">Function 02 // Operations</span>
-                  <h3 className="font-serif text-2xl text-foreground">The "Rescue" Squad</h3>
-                </div>
+              
+              {/* Three columns with connecting line */}
+              <div className="relative">
+                {/* Connecting line */}
+                <div className="absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-border via-primary to-border"></div>
                 
-                <div className="p-8 flex-1 flex flex-col justify-center">
-                  <div>
-                    <span className="text-[11px] uppercase tracking-widest text-muted-foreground block mb-2">From (Current)</span>
-                    <p className="text-base text-muted-foreground font-light line-through decoration-destructive mb-6">Generalist Project Pool</p>
+                <div className="grid grid-cols-3 gap-8">
+                  {/* Function 01: Marketing */}
+                  <div className="relative">
+                    <div className="absolute top-6 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-background border-2 border-primary z-10"></div>
+                    <div className="pt-14 text-center">
+                      <span className="inline-block font-mono text-[10px] text-muted-foreground bg-muted px-3 py-1 rounded-full mb-4">Function 01</span>
+                      <h3 className="font-serif text-xl text-foreground mb-2">Marketing</h3>
+                      <p className="text-xs text-muted-foreground mb-4">→ The "Intel" Engine</p>
+                    </div>
+                    <div className="bg-muted/30 p-5 border-l-2 border-border">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-destructive text-sm">✗</span>
+                        <span className="text-sm text-muted-foreground line-through">Sales Support & Brochures</span>
+                      </div>
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-primary text-sm">✓</span>
+                        <span className="text-sm text-foreground font-medium">Editorial Newsroom</span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">Mining 22 years of internal data to publish the "Blocklist" and "Quality Index."</p>
+                      <div className="bg-primary/10 px-3 py-2 border-l-2 border-primary">
+                        <span className="text-[9px] uppercase tracking-widest text-primary font-bold block">Key Hire</span>
+                        <span className="text-sm font-semibold text-foreground">Data Journalist</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-primary/50 text-xl mb-6">↓</div>
-                  <div>
-                    <span className="text-[11px] uppercase tracking-widest text-primary block mb-2">To (Future)</span>
-                    <h4 className="text-xl font-semibold text-foreground mb-2">"Tiger Team" Split</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">A dedicated rapid-response unit solely for <strong className="text-foreground">Mavrix 911</strong> interventions.</p>
+                  
+                  {/* Function 02: Operations */}
+                  <div className="relative">
+                    <div className="absolute top-6 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary z-10 shadow-[0_0_12px_hsl(var(--primary)/0.4)]"></div>
+                    <div className="pt-14 text-center">
+                      <span className="inline-block font-mono text-[10px] text-background bg-primary px-3 py-1 rounded-full mb-4 font-semibold">Function 02</span>
+                      <h3 className="font-serif text-xl text-foreground mb-2">Operations</h3>
+                      <p className="text-xs text-muted-foreground mb-4">→ The "Rescue" Squad</p>
+                    </div>
+                    <div className="bg-foreground text-background p-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-destructive text-sm">✗</span>
+                        <span className="text-sm text-muted-foreground line-through">Generalist Project Pool</span>
+                      </div>
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-primary text-sm">✓</span>
+                        <span className="text-sm text-background font-medium">"Tiger Team" Split</span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">A dedicated rapid-response unit solely for <strong className="text-background">Mavrix 911</strong> interventions.</p>
+                      <div className="bg-primary/20 px-3 py-2 border-l-2 border-primary">
+                        <span className="text-[9px] uppercase tracking-widest text-primary font-bold block">Key Assignment</span>
+                        <span className="text-sm font-semibold text-background">Senior Methodologists</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                <div className="mx-8 mb-8 p-4 bg-primary/5 border border-dashed border-primary/30 text-center">
-                  <span className="text-[10px] uppercase tracking-widest text-primary block mb-1 font-semibold">Key Assignment</span>
-                  <span className="text-base font-semibold text-foreground">Senior Methodologists</span>
-                </div>
-              </div>
-
-              {/* Card 3: Quality */}
-              <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group">
-                <div className="p-8 border-b border-border/50 bg-muted/30">
-                  <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest block mb-2">Function 03 // Quality</span>
-                  <h3 className="font-serif text-2xl text-foreground">The "Integrity" Office</h3>
-                </div>
-                
-                <div className="p-8 flex-1 flex flex-col justify-center">
-                  <div>
-                    <span className="text-[11px] uppercase tracking-widest text-muted-foreground block mb-2">From (Current)</span>
-                    <p className="text-base text-muted-foreground font-light line-through decoration-destructive mb-6">Back-End Checks</p>
+                  
+                  {/* Function 03: Quality */}
+                  <div className="relative">
+                    <div className="absolute top-6 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-background border-2 border-primary z-10"></div>
+                    <div className="pt-14 text-center">
+                      <span className="inline-block font-mono text-[10px] text-muted-foreground bg-muted px-3 py-1 rounded-full mb-4">Function 03</span>
+                      <h3 className="font-serif text-xl text-foreground mb-2">Quality</h3>
+                      <p className="text-xs text-muted-foreground mb-4">→ The "Integrity" Office</p>
+                    </div>
+                    <div className="bg-muted/30 p-5 border-r-2 border-border">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-destructive text-sm">✗</span>
+                        <span className="text-sm text-muted-foreground line-through">Back-End Checks</span>
+                      </div>
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-primary text-sm">✓</span>
+                        <span className="text-sm text-foreground font-medium">Productized QA</span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">Owning the <strong className="text-foreground">Identity Warranty</strong> and managing the replacement budget.</p>
+                      <div className="bg-primary/10 px-3 py-2 border-l-2 border-primary">
+                        <span className="text-[9px] uppercase tracking-widest text-primary font-bold block">Key Promotion</span>
+                        <span className="text-sm font-semibold text-foreground">Fraud Analysts → Product Owners</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-primary/50 text-xl mb-6">↓</div>
-                  <div>
-                    <span className="text-[11px] uppercase tracking-widest text-primary block mb-2">To (Future)</span>
-                    <h4 className="text-xl font-semibold text-foreground mb-2">Productized QA</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">Owning the <strong className="text-foreground">Identity Warranty</strong> and managing the replacement budget.</p>
-                  </div>
-                </div>
-
-                <div className="mx-8 mb-8 p-4 bg-primary/5 border border-dashed border-primary/30 text-center">
-                  <span className="text-[10px] uppercase tracking-widest text-primary block mb-1 font-semibold">Key Promotion</span>
-                  <span className="text-base font-semibold text-foreground">Fraud Analysts → Product Owners</span>
                 </div>
               </div>
             </div>
@@ -2145,10 +2156,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
                 
                 {/* Footer with Mondro branding */}
-                <div className="flex justify-between items-center pt-6 border-t border-border mt-auto">
-                  <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-                    Prepared by Mondro Intelligence
-                  </div>
+                <div className="flex justify-end items-center pt-6 border-t border-border mt-auto">
                   <div className="flex items-center gap-1.5 text-foreground">
                     <span className="font-serif font-bold text-xl tracking-tight lowercase">mondro</span>
                     <div className="relative flex items-center justify-center">
