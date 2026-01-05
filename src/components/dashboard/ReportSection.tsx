@@ -201,7 +201,7 @@ const Slide = ({
 }) => (
   <div 
     className={cn(
-      "w-screen h-screen flex-shrink-0 pt-16 pb-8 px-4 lg:px-10 relative flex flex-col items-center bg-background overflow-hidden",
+      "w-screen h-screen flex-shrink-0 pt-16 pb-20 px-4 lg:px-10 relative flex flex-col items-center bg-background overflow-hidden",
       className
     )}
     data-slide="true"
@@ -1354,7 +1354,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               Mavrix has a vibrant human pulse on LinkedIn (Asset), but a sterile corporate mask on the Website (Liability). You are failing to transfer trust to your owned domain.
             </p>
 
-            <div className="grid md:grid-cols-2 gap-16 border-t border-border pt-8 flex-1">
+            <div className="grid md:grid-cols-2 gap-16 border-t border-border pt-8">
               {/* LinkedIn Column */}
               <div>
                 <span className="font-mono text-xs uppercase tracking-widest text-[#0A66C2] flex items-center gap-2 mb-6">
@@ -1500,7 +1500,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-8 mt-8 flex-1">
+            <div className="grid grid-cols-3 gap-8 mt-8">
               {/* Fracture 01 */}
               <div className="border border-border p-8 flex flex-col">
                 <div>
@@ -1635,7 +1635,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-16 flex-1 items-center">
+            <div className="grid grid-cols-2 gap-16 items-center">
               
               {/* Left: The Inversion Model */}
               <div className="flex flex-col gap-4">
@@ -1812,7 +1812,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <SlideEyebrow>Focus Themes</SlideEyebrow>
             <ActionTitle>Three tactical inventions to break the inertia.</ActionTitle>
 
-            <div className="grid grid-cols-3 gap-10 flex-1">
+            <div className="grid grid-cols-3 gap-10">
               
               {/* Theme 01: Integrity */}
               <div className="flex flex-col border-t border-border pt-8 group hover:border-primary transition-colors">
@@ -1876,7 +1876,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <SlideEyebrow>The Leverage Matrix</SlideEyebrow>
             <ActionTitle>Exploiting the "Silent Failures" of the giants.</ActionTitle>
             
-            <div className="grid grid-cols-3 gap-8 flex-1">
+            <div className="grid grid-cols-3 gap-8">
               {/* Card 1: Tech Platforms */}
               <div className="flex flex-col border border-border">
                 {/* Header */}
@@ -1971,7 +1971,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <SlideEyebrow>Structural Evolution</SlideEyebrow>
             <ActionTitle>Building the machine that builds the product.</ActionTitle>
             
-            <div className="grid grid-cols-3 gap-10 flex-1">
+            <div className="grid grid-cols-3 gap-10">
               {/* Card 1: Marketing */}
               <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group">
                 <div className="p-8 border-b border-border/50 bg-muted/30">
@@ -2059,7 +2059,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <SlideEyebrow>Governance Signals</SlideEyebrow>
             <ActionTitle>Three commitments to operational integrity.</ActionTitle>
             
-            <div className="grid grid-cols-3 gap-10 flex-1">
+            <div className="grid grid-cols-3 gap-10">
               {/* Signal 1: Accountability */}
               <div className="flex flex-col border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary group overflow-hidden">
                 <div className="h-1 w-full bg-border group-hover:bg-primary transition-colors" />
@@ -2559,7 +2559,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               Beyond technical performance, specific design choices are actively confusing users and diluting the value proposition. These are "Low Effort, High Impact" fixes.
             </p>
 
-            <div className="grid md:grid-cols-12 gap-8 flex-1">
+            <div className="grid md:grid-cols-12 gap-8">
               {/* Three Action Cards */}
               <div className="col-span-9 grid md:grid-cols-3 gap-6">
                 {/* Card 01: Visual Noise */}
