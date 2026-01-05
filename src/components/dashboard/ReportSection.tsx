@@ -884,7 +884,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
               {/* Middle Zone: Mavrix Position */}
               <div className="w-[40%] flex flex-col justify-center items-center text-center bg-background z-10 shadow-[0_0_40px_rgba(0,0,0,0.05)] border border-border px-8">
-                <div className="w-4 h-4 bg-primary rounded-full shadow-[0_0_0_4px_hsl(var(--primary)/0.2)] mb-4" />
+                <div className="relative w-4 h-4 mb-4">
+                  <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-75" />
+                  <div className="relative w-4 h-4 bg-primary rounded-full shadow-[0_0_0_4px_hsl(var(--primary)/0.2)]" />
+                </div>
                 <span className="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Current Position</span>
                 <h3 className="font-serif text-2xl text-foreground mb-2">"Heavy Service"</h3>
                 <p className="text-xs text-muted-foreground max-w-[240px] leading-relaxed">
@@ -2252,9 +2255,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           <div className="relative z-10 h-full flex flex-col max-w-6xl mx-auto px-8 w-full">
             {/* Header */}
             <div className="h-24 flex items-end pb-6 justify-between">
-              <div className="flex items-center gap-1.5 text-foreground">
+              <div className="flex items-center gap-0.5 text-foreground">
                 <span className="font-serif font-bold text-xl tracking-tight lowercase">mondro</span>
-                <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                <div className="relative w-1.5 h-1.5">
+                  <div className="absolute inset-0 bg-primary rounded-full" />
+                  <div className="absolute inset-[-2px] bg-primary/40 rounded-full blur-[3px]" />
+                </div>
               </div>
               <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
                 Reference Material
