@@ -775,22 +775,22 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </div>
             </div>
 
-            <div className="flex-grow border-b border-border pb-12">
+            <div className="border-b border-border pb-8">
               {/* Waterfall Chart */}
-              <div className="h-full w-full flex items-end justify-between pt-16 gap-8">
+              <div className="w-full flex items-end justify-between pt-8 gap-8">
                 
                 {/* Digital Potential */}
                 <div className="flex-1 flex flex-col items-center">
                   <span className="font-mono text-2xl font-semibold text-muted-foreground mb-4">100</span>
-                  <div className="w-full bg-muted h-[350px] rounded-sm"></div>
+                  <div className="w-full bg-muted h-[240px] rounded-sm"></div>
                   <span className="font-sans text-[11px] text-muted-foreground font-medium tracking-wider uppercase mt-4 text-center">Digital<br/>Potential</span>
                 </div>
 
                 {/* Trust Deficit -30 */}
                 <div className="flex-1 flex flex-col items-center">
                   <span className="font-mono text-xl font-medium text-destructive mb-4">-30</span>
-                  <div className="h-[350px] w-full flex flex-col justify-start">
-                    <div className="w-full bg-destructive h-[105px] rounded-sm"></div>
+                  <div className="h-[240px] w-full flex flex-col justify-start">
+                    <div className="w-full bg-destructive h-[72px] rounded-sm"></div>
                   </div>
                   <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">Trust<br/>Deficit</span>
                 </div>
@@ -798,8 +798,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 {/* Visibility Gap -20 */}
                 <div className="flex-1 flex flex-col items-center">
                   <span className="font-mono text-xl font-medium text-destructive mb-4">-20</span>
-                  <div className="h-[350px] w-full flex flex-col justify-start pt-[105px]">
-                    <div className="w-full bg-destructive h-[70px] rounded-sm"></div>
+                  <div className="h-[240px] w-full flex flex-col justify-start pt-[72px]">
+                    <div className="w-full bg-destructive h-[48px] rounded-sm"></div>
                   </div>
                   <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">Visibility<br/>Gap</span>
                 </div>
@@ -807,8 +807,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 {/* Content Lag -10 */}
                 <div className="flex-1 flex flex-col items-center">
                   <span className="font-mono text-xl font-medium text-destructive mb-4">-10</span>
-                  <div className="h-[350px] w-full flex flex-col justify-start pt-[175px]">
-                    <div className="w-full bg-destructive h-[35px] rounded-sm"></div>
+                  <div className="h-[240px] w-full flex flex-col justify-start pt-[120px]">
+                    <div className="w-full bg-destructive h-[24px] rounded-sm"></div>
                   </div>
                   <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">Content<br/>Lag</span>
                 </div>
@@ -816,8 +816,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 {/* Current Score */}
                 <div className="flex-1 flex flex-col items-center">
                   <span className="font-mono text-4xl font-semibold text-primary mb-4">40</span>
-                  <div className="h-[350px] w-full flex flex-col justify-end">
-                    <div className="w-full bg-primary h-[140px] rounded-sm"></div>
+                  <div className="h-[240px] w-full flex flex-col justify-end">
+                    <div className="w-full bg-primary h-[96px] rounded-sm"></div>
                   </div>
                   <span className="font-sans text-[11px] text-foreground font-bold tracking-wider uppercase mt-4 text-center">Current<br/>Score</span>
                 </div>
