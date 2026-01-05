@@ -730,7 +730,6 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <li className="border-b border-white/5 pb-2">Perceived Authority</li>
                   <li className="border-b border-white/5 pb-2">Narrative Positioning</li>
                   <li className="border-b border-white/5 pb-2">Trust Architecture</li>
-                  <li className="border-b border-white/5 pb-2">Revenue Leakage Analysis</li>
                   <li className="border-b border-white/5 pb-2">Diagnosis Synthesis</li>
                 </ul>
               </div>
@@ -754,7 +753,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
             <div className="mt-auto border-t border-white/10 pt-6 flex justify-between text-xs text-gray-500 font-mono uppercase tracking-widest">
               <div>Appendix: Technical Constraints & Quick Wins</div>
-              <div>Total Slides: 28</div>
+              <div>Total Slides: 27</div>
             </div>
           </div>
         </Slide>
@@ -1094,7 +1093,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </div>
                   <div>
                     <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider block mb-1">The Pivot</span>
-                    <p className="text-xs text-primary">"AI finds the data. We ensure it's true."</p>
+                    <p className="text-xs text-primary">"We don't just find the data. We ensure it's true."</p>
                   </div>
                   <div className="pt-4 border-t border-primary/20">
                     <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-wider">Target Emotion</span>
@@ -1246,7 +1245,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
                 <div className="flex justify-between items-baseline pb-4 mb-6">
                   <span className="text-base text-muted-foreground font-light">Acquisition Mode</span>
-                  <span className="font-sans font-semibold text-base text-destructive">100% Manual Outbound</span>
+                  <span className="font-sans font-semibold text-base text-destructive">Nearly 100% Manual Outbound</span>
                 </div>
               </div>
 
@@ -1338,10 +1337,6 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </div>
             </div>
 
-            <div className="mt-auto pt-8 border-t border-dashed border-border flex justify-between items-center text-xs text-muted-foreground font-mono">
-              <span>Audit Date: January 03, 2026</span>
-              <span className="text-foreground">Benchmark: vs. Tier-1 Incumbents (Dynata/Kantar)</span>
-            </div>
           </div>
         </Slide>
 
@@ -1557,74 +1552,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 17: Revenue Leakage Analysis */}
-        <Slide>
-          <div className="max-w-7xl w-full flex flex-col pt-16">
-            <SlideEyebrow>Revenue Leakage Analysis</SlideEyebrow>
-            <ActionTitle>Three "Invisible Taxes" on growth.</ActionTitle>
-            
-            <p className="text-base leading-relaxed text-muted-foreground font-light max-w-3xl mb-10">
-              We identified three specific friction points where existing assets (Data, Audience, Expertise) are failing to convert into revenue due to structural gaps.
-            </p>
-
-            <div className="grid grid-cols-3 gap-8 mt-4">
-              
-              {/* Leak 01: Top of Funnel */}
-              <div className="border border-border p-8 flex flex-col min-h-[320px] border-l-4 border-l-foreground">
-                <div>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-2">
-                    Leak 01: Top of Funnel
-                  </span>
-                  <h3 className="font-serif text-2xl mb-4 leading-tight">Identity Dilution.</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                    "Mavrix" is a crowded namespace (AI bots, Motorsports, etc.). Without strong content "fencing," qualified buyers get lost in the noise.
-                  </p>
-                </div>
-                <div className="bg-muted/50 p-4 rounded mt-auto">
-                  <span className="block font-mono text-[9px] text-muted-foreground uppercase tracking-widest mb-1">The Cost</span>
-                  <span className="font-mono text-sm font-semibold">Discovery Friction.</span>
-                </div>
-              </div>
-
-              {/* Leak 02: Mid Funnel */}
-              <div className="border border-border p-8 flex flex-col min-h-[320px] border-l-4 border-l-primary">
-                <div>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
-                    Leak 02: Mid Funnel
-                  </span>
-                  <h3 className="font-serif text-2xl mb-4 leading-tight">Asset Stagnation.</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                    You own 22 years of proprietary global data, yet have <strong>0 published reports</strong>. You are sitting on a lead-generation engine that is currently switched off.
-                  </p>
-                </div>
-                <div className="bg-muted/50 p-4 rounded mt-auto">
-                  <span className="block font-mono text-[9px] text-muted-foreground uppercase tracking-widest mb-1">The Cost</span>
-                  <span className="font-mono text-sm font-semibold">Zero Inbound from IP.</span>
-                </div>
-              </div>
-
-              {/* Leak 03: Bottom Funnel */}
-              <div className="border border-border p-8 flex flex-col min-h-[320px] border-l-4 border-l-destructive">
-                <div>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-destructive mb-4 flex items-center gap-2">
-                    Leak 03: Bottom Funnel
-                  </span>
-                  <h3 className="font-serif text-2xl mb-4 leading-tight">The "Authority" Vacuum.</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                    Who is the "Technical Voice" of the business? Sales teams lack a recognized Industry Leader or Technical Visionary to cite in pitches, weakening the "Expertise" claim.
-                  </p>
-                </div>
-                <div className="bg-muted/50 p-4 rounded mt-auto">
-                  <span className="block font-mono text-[9px] text-muted-foreground uppercase tracking-widest mb-1">The Cost</span>
-                  <span className="font-mono text-sm font-semibold">Weakened Sales Narrative.</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </Slide>
-
-        {/* Slide 18: Diagnosis Synthesis - The Value Inversion */}
+        {/* Slide 17: Diagnosis Synthesis - The Value Inversion */}
         <Slide>
           <div className="max-w-7xl w-full h-full flex flex-col pt-4">
             <div className="mb-4">
