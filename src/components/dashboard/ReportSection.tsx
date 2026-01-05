@@ -1841,9 +1841,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                   Position Mavrix as the only partner who guarantees the <em>integrity</em> of the respondent, not just their existence. If there is doubt, we replace.
                 </p>
-                <div className="bg-foreground text-background p-4 mt-auto">
+                <div className="bg-primary/10 border border-primary/20 p-4 mt-auto">
                   <span className="text-[9px] uppercase tracking-widest text-primary block mb-1 font-bold">Mechanism</span>
-                  <h4 className="text-sm font-semibold text-background">"The Zero-Argument Replacement"</h4>
+                  <h4 className="text-sm font-semibold text-foreground">"The Zero-Argument Replacement"</h4>
                   <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">Flag a respondent for any reason—we replace them instantly. No debate.</p>
                 </div>
               </div>
@@ -1856,9 +1856,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                   Use your 22 years of data to create the industry standard "Quality Index." A recurring publication that industry bodies will co-brand, instantly elevating Mavrix's profile.
                 </p>
-                <div className="bg-foreground text-background p-4 mt-auto">
+                <div className="bg-primary/10 border border-primary/20 p-4 mt-auto">
                   <span className="text-[9px] uppercase tracking-widest text-primary block mb-1 font-bold">Mechanism</span>
-                  <h4 className="text-sm font-semibold text-background">"The Mavrix Blocklist Report"</h4>
+                  <h4 className="text-sm font-semibold text-foreground">"The Mavrix Blocklist Report"</h4>
                   <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">A quarterly index on what we block—positioning us as the industry's R&D lab.</p>
                 </div>
               </div>
@@ -1871,9 +1871,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                   When low-cost vendors stall, it's a crisis. Offer a premium "Fieldwork Recovery" tier: a strategic takeover with a guaranteed completion plan.
                 </p>
-                <div className="bg-foreground text-background p-4 mt-auto">
+                <div className="bg-primary/10 border border-primary/20 p-4 mt-auto">
                   <span className="text-[9px] uppercase tracking-widest text-primary block mb-1 font-bold">Mechanism</span>
-                  <h4 className="text-sm font-semibold text-background">"Mavrix 911"</h4>
+                  <h4 className="text-sm font-semibold text-foreground">"Mavrix 911"</h4>
                   <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">"Stuck in field? Call us." Senior methodologists guarantee the close.</p>
                 </div>
               </div>
@@ -1937,42 +1937,42 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               </div>
               
               {/* Right Column - Mavrix Leverage */}
-              <div className="flex flex-col bg-foreground text-background">
-                <div className="px-6 py-3 border-b border-background/10">
+              <div className="flex flex-col bg-primary/5">
+                <div className="px-6 py-3 border-b border-primary/20">
                   <span className="font-mono text-[10px] uppercase tracking-widest text-primary font-bold">Mavrix Leverage</span>
                 </div>
                 
                 {/* Row 1 */}
-                <div className="flex-1 px-6 py-4 border-b border-background/10 hover:bg-background/5 transition-colors">
+                <div className="flex-1 px-6 py-4 border-b border-primary/10 hover:bg-primary/10 transition-colors">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
                       <svg className="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                     </div>
                     <span className="font-mono text-[9px] text-primary uppercase tracking-widest font-semibold">Operational Reality</span>
                   </div>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">We don't sell "Estimates." We sell "Completes." The <strong className="text-background">Mavrix 911</strong> protocol manually recruits the missing N=100.</p>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">We don't sell "Estimates." We sell "Completes." The <strong className="text-foreground">Mavrix 911</strong> protocol manually recruits the missing N=100.</p>
                 </div>
                 
                 {/* Row 2 */}
-                <div className="flex-1 px-6 py-4 border-b border-background/10 hover:bg-background/5 transition-colors">
+                <div className="flex-1 px-6 py-4 border-b border-primary/10 hover:bg-primary/10 transition-colors">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
                       <svg className="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                     </div>
                     <span className="font-mono text-[9px] text-primary uppercase tracking-widest font-semibold">Chain of Custody</span>
                   </div>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">Radical transparency. We name every partner. The <strong className="text-background">Quality Index</strong> proves the pedigree.</p>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">Radical transparency. We name every partner. The <strong className="text-foreground">Quality Index</strong> proves the pedigree.</p>
                 </div>
                 
                 {/* Row 3 */}
-                <div className="flex-1 px-6 py-4 hover:bg-background/5 transition-colors">
+                <div className="flex-1 px-6 py-4 hover:bg-primary/10 transition-colors">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
                       <svg className="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                     </div>
                     <span className="font-mono text-[9px] text-primary uppercase tracking-widest font-semibold">Total Cost of Validity</span>
                   </div>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">Expensive on CPI, cheaper on TCO. With our <strong className="text-background">Total Quality Warranty</strong>, data arrives clean.</p>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">Expensive on CPI, cheaper on TCO. With our <strong className="text-foreground">Total Quality Warranty</strong>, data arrives clean.</p>
                 </div>
               </div>
               
