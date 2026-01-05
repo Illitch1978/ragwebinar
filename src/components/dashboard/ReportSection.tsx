@@ -810,7 +810,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
             <div className="mt-auto border-t border-white/10 pt-6 flex justify-between text-xs text-gray-500 font-mono uppercase tracking-widest">
               <div>Appendix: Technical Constraints & Quick Wins</div>
-              <div>Total Slides: 27</div>
+              <div>Total Slides: 28</div>
             </div>
           </div>
         </Slide>
