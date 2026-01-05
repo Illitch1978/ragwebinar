@@ -1,10 +1,17 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Download, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { 
+  CursorGlow, 
+  StaggeredContent, 
+  AnimatedTitle, 
+  AnimatedContent, 
+  AnimatedInsight 
+} from "./SlideAnimations";
 
 // Sample data - would come from API in production
 const reportData = {
@@ -574,6 +581,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       className="h-screen w-screen overflow-hidden relative bg-background"
       tabIndex={0}
     >
+      {/* Subtle cursor glow effect */}
+      <CursorGlow />
+      
       {/* Horizontal sliding container */}
       <div 
         className="flex h-full transition-transform duration-500 ease-out"
@@ -588,11 +598,13 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         
         {/* Slide 02: Methodology */}
         <Slide>
-          <div className="max-w-7xl w-full h-full flex flex-col">
-            <SlideEyebrow>Methodology</SlideEyebrow>
-            <ActionTitle>Reading this assessment.</ActionTitle>
+          <StaggeredContent className="max-w-7xl w-full h-full flex flex-col">
+            <AnimatedTitle>
+              <SlideEyebrow>Methodology</SlideEyebrow>
+              <ActionTitle>Reading this assessment.</ActionTitle>
+            </AnimatedTitle>
             
-            <div className="grid md:grid-cols-12 gap-10 lg:gap-16">
+            <AnimatedContent className="grid md:grid-cols-12 gap-10 lg:gap-16">
               <div className="col-span-7 space-y-6">
                 <p className="font-serif text-xl text-foreground leading-relaxed">
                   This document is a commissioned strategic assessment, distinct from automated performance reports. It combines large-scale quantitative analysis with structured expert judgement.
@@ -625,7 +637,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
               </div>
               
-              <div className="col-span-5">
+              <AnimatedInsight className="col-span-5">
                 <div className="bg-muted/30 p-8 border-l-2 border-foreground w-full">
                   <div className="font-serif text-2xl lg:text-3xl mb-5 italic text-foreground leading-snug">
                     "Data describes the past.<br/>Judgement informs the future."
@@ -634,64 +646,109 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     Please interpret findings as diagnostic signals rather than absolute grades. "Critical" flags identify vectors that materially constrain credibility, conversion, or growth.
                   </p>
                 </div>
-              </div>
-            </div>
-          </div>
+              </AnimatedInsight>
+            </AnimatedContent>
+          </StaggeredContent>
         </Slide>
 
-        {/* Slide 03: Executive Synthesis */}
         <Slide>
-          <div className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
-            <SlideEyebrow>Executive Synthesis</SlideEyebrow>
-            <ActionTitle>Operational maturity is currently invisible to the modern buyer.</ActionTitle>
+          <StaggeredContent className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
+            <AnimatedTitle>
+              <SlideEyebrow>Executive Synthesis</SlideEyebrow>
+              <ActionTitle>Operational maturity is currently invisible to the modern buyer.</ActionTitle>
+            </AnimatedTitle>
             
-            <p className="font-sans font-light text-lg text-muted-foreground max-w-4xl mb-16 leading-relaxed">
-              Mavrix possesses a "Ferrari Engine" (22 years of Azure Knowledge infrastructure) inside a "Stealth Chassis." The 2025 rebrand has structurally reset digital authority, creating a disconnect between actual capability and perceived market relevance.
-            </p>
+            <AnimatedContent>
+              <p className="font-sans font-light text-lg text-muted-foreground max-w-4xl mb-16 leading-relaxed">
+                Mavrix possesses a "Ferrari Engine" (22 years of Azure Knowledge infrastructure) inside a "Stealth Chassis." The 2025 rebrand has structurally reset digital authority, creating a disconnect between actual capability and perceived market relevance.
+              </p>
+            </AnimatedContent>
 
-            <div className="grid grid-cols-3 gap-12 h-[320px] border-t border-foreground pt-10">
+            <AnimatedInsight className="grid grid-cols-3 gap-12 h-[320px] border-t border-foreground pt-10">
               
               {/* Column 1: Primary Asset */}
-              <div className="flex flex-col">
+              <motion.div 
+                className="flex flex-col"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
                 <div className="font-mono text-xs uppercase tracking-widest text-primary mb-6">01. Primary Asset</div>
                 <h3 className="font-serif text-2xl mb-4">The Global Engine</h3>
                 <p className="text-sm text-muted-foreground mb-8 flex-grow leading-relaxed">
                   With 85+ countries, 40+ languages, and a 22-year legacy, the "Hard Stuff" (Infrastructure) is solved. This allows for complex, multi-market execution that pure-play tech disruptors cannot replicate.
                 </p>
                 <div>
-                  <div className="font-serif text-5xl leading-none text-foreground mb-1">22 Yrs</div>
+                  <motion.div 
+                    className="font-serif text-5xl leading-none text-foreground mb-1"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    viewport={{ once: true }}
+                  >
+                    22 Yrs
+                  </motion.div>
                   <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Operational Heritage</div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Column 2: Primary Constraint */}
-              <div className="border-l border-border pl-8 flex flex-col">
+              <motion.div 
+                className="border-l border-border pl-8 flex flex-col"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
                 <div className="font-mono text-xs uppercase tracking-widest text-destructive mb-6">02. Primary Constraint</div>
                 <h3 className="font-serif text-2xl mb-4">The "Trust" Vacuum</h3>
                 <p className="text-sm text-muted-foreground mb-8 flex-grow leading-relaxed">
                   The digital presence relies on "Self-Reported" trust signals (e.g., "95% Satisfaction") without third-party verification. The rebrand reset 20 years of SEO equity, leaving Mavrix invisible to organic search and AI discovery.
                 </p>
                 <div>
-                  <div className="font-serif text-5xl leading-none text-destructive/60 mb-1">Low</div>
+                  <motion.div 
+                    className="font-serif text-5xl leading-none text-destructive/60 mb-1"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.7 }}
+                    viewport={{ once: true }}
+                  >
+                    Low
+                  </motion.div>
                   <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Domain Authority (Reset)</div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Column 3: The Pivot */}
-              <div className="border-l border-border pl-8 flex flex-col">
+              <motion.div 
+                className="border-l border-border pl-8 flex flex-col"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
                 <div className="font-mono text-xs uppercase tracking-widest text-primary mb-6">03. The Pivot</div>
                 <h3 className="font-serif text-2xl mb-4">Integrity Assurance</h3>
                 <p className="text-sm text-muted-foreground mb-8 flex-grow leading-relaxed">
                   Stop competing on "AI Speed" (a commodity war against Zappi/Lucid). Pivot to "Verified Human Truth." Own the complexity that AI cannot solve: hard-to-reach B2B and multi-country compliance.
                 </p>
                 <div>
-                  <div className="font-serif text-5xl leading-none text-primary mb-1">Premium</div>
+                  <motion.div 
+                    className="font-serif text-5xl leading-none text-primary mb-1"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    Premium
+                  </motion.div>
                   <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Target Positioning</div>
                 </div>
-              </div>
+              </motion.div>
 
-            </div>
-          </div>
+            </AnimatedInsight>
+          </StaggeredContent>
         </Slide>
 
         {/* Slide 04: Report Architecture */}
