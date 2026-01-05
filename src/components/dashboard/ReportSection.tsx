@@ -1888,7 +1888,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             </AnimatedTitle>
 
             {/* Compact 5-column grid */}
-            <AnimatedContent className="grid grid-cols-5 gap-4 flex-1">
+            <AnimatedContent className="grid grid-cols-5 gap-4">
               
               {/* Card 1: Physics */}
               <motion.div 
@@ -2205,7 +2205,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <div className="relative">
                     <div className="absolute top-6 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-background border-2 border-primary z-10"></div>
                     <div className="pt-14 text-center">
-                      <span className="inline-block font-mono text-[10px] text-muted-foreground bg-muted px-3 py-1 rounded-full mb-4">Function 01</span>
+                      <span className="inline-block font-mono text-[10px] text-muted-foreground bg-muted px-3 py-1 mb-4">Function 01</span>
                       <h3 className="font-serif text-xl text-foreground mb-2">Marketing</h3>
                       <p className="text-xs text-muted-foreground mb-4">→ The "Intel" Engine</p>
                     </div>
@@ -2230,7 +2230,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <div className="relative">
                     <div className="absolute top-6 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary z-10 shadow-[0_0_12px_hsl(var(--primary)/0.4)]"></div>
                     <div className="pt-14 text-center">
-                      <span className="inline-block font-mono text-[10px] text-background bg-primary px-3 py-1 rounded-full mb-4 font-semibold">Function 02</span>
+                      <span className="inline-block font-mono text-[10px] text-background bg-primary px-3 py-1 mb-4 font-semibold">Function 02</span>
                       <h3 className="font-serif text-xl text-foreground mb-2">Operations</h3>
                       <p className="text-xs text-muted-foreground mb-4">→ The "Rescue" Squad</p>
                     </div>
@@ -2255,7 +2255,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <div className="relative">
                     <div className="absolute top-6 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-background border-2 border-primary z-10"></div>
                     <div className="pt-14 text-center">
-                      <span className="inline-block font-mono text-[10px] text-muted-foreground bg-muted px-3 py-1 rounded-full mb-4">Function 03</span>
+                      <span className="inline-block font-mono text-[10px] text-muted-foreground bg-muted px-3 py-1 mb-4">Function 03</span>
                       <h3 className="font-serif text-xl text-foreground mb-2">Quality</h3>
                       <p className="text-xs text-muted-foreground mb-4">→ The "Integrity" Office</p>
                     </div>
