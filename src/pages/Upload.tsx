@@ -13,19 +13,19 @@ import { formatDistanceToNow } from "date-fns";
 const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
   <div className="flex items-center gap-1.5 group cursor-pointer">
     <span className={cn(
-      "font-serif font-bold tracking-tight text-foreground transition-colors duration-700 group-hover:text-primary",
-      size === 'small' ? 'text-2xl' : 'text-3xl'
+      "font-serif font-bold tracking-tight text-muted-foreground transition-colors duration-700 group-hover:text-primary",
+      size === 'small' ? 'text-xl' : 'text-2xl'
     )}>
       rubiklab
     </span>
     <div className="relative flex items-center justify-center">
       <div className={cn(
         "absolute bg-primary rounded-full animate-ping opacity-20",
-        size === 'small' ? 'w-2.5 h-2.5' : 'w-3 h-3'
+        size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'
       )} />
       <div className={cn(
         "bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]",
-        size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'
+        size === 'small' ? 'w-1.5 h-1.5' : 'w-2 h-2'
       )} />
     </div>
   </div>
@@ -228,9 +228,6 @@ const UploadPage = () => {
       <header className="relative z-10 border-b border-border">
         <div className="container mx-auto px-6 lg:px-16 py-6 flex justify-between items-center">
           <RubiklabLogo />
-          <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-            Rubiklab.ai
-          </span>
         </div>
       </header>
 
@@ -472,15 +469,6 @@ Your strategic analysis content...
             </Button>
           </motion.div>
 
-          {/* Footer hint */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
-            className="text-center text-muted-foreground text-sm mt-8 font-light"
-          >
-            Your content will be transformed into a premium strategic report deck
-          </motion.p>
 
           {/* Saved Presentations */}
           {savedPresentations && savedPresentations.length > 0 && (
@@ -596,7 +584,7 @@ Your strategic analysis content...
         <div className="container mx-auto px-6 lg:px-16 flex justify-between items-center">
           <RubiklabLogo size="small" />
           <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-            Rubiklab.ai © 2026
+            Rubiklab Intelligence Capital © 2026
           </span>
         </div>
       </footer>
