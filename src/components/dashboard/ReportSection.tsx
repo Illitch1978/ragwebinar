@@ -298,7 +298,7 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => {
 };
 
 // Dark cover slide for the report
-const CoverSlide = ({ clientName }: { clientName: string }) => (
+const CoverSlide = ({ clientName, onNavigateHome }: { clientName: string; onNavigateHome: () => void }) => (
   <div data-cover="true" className="w-screen h-screen flex-shrink-0 bg-[#050505] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
     {/* Grid background */}
     <div 
@@ -328,13 +328,16 @@ const CoverSlide = ({ clientName }: { clientName: string }) => (
 
     {/* Footer */}
     <div className="relative z-10 flex justify-between items-end">
-      <div className="flex items-center gap-1.5">
-        <span className="font-serif font-bold text-3xl tracking-tight lowercase text-white">Rubiklab</span>
+      <button 
+        onClick={onNavigateHome}
+        className="flex items-center gap-1.5 group cursor-pointer transition-opacity hover:opacity-80"
+      >
+        <span className="font-serif font-bold text-3xl tracking-tight lowercase text-white group-hover:text-primary transition-colors">Rubiklab</span>
         <div className="relative flex items-center justify-center">
           <div className="absolute w-3 h-3 bg-primary rounded-full animate-ping opacity-20"></div>
           <div className="w-2.5 h-2.5 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></div>
         </div>
-      </div>
+      </button>
       
       <div className="font-mono text-[10px] text-gray-600 uppercase tracking-widest">
         Rubiklab Intelligence Capital © 2026
@@ -692,7 +695,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         
         {/* Slide 01: Cover */}
-        <CoverSlide clientName={reportData.clientName} />
+        <CoverSlide clientName={reportData.clientName} onNavigateHome={() => navigate('/')} />
         
         {/* Slide 02: Methodology */}
         <Slide>
