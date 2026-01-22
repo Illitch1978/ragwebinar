@@ -7,11 +7,13 @@ import { CursorGlow, CountingNumber } from "./SlideAnimations";
 const Slide = ({ 
   children, 
   className = "",
-  dark = false
+  dark = false,
+  hasCards = false
 }: { 
   children: React.ReactNode; 
   className?: string;
   dark?: boolean;
+  hasCards?: boolean;
 }) => (
   <div 
     className={cn(
@@ -21,13 +23,16 @@ const Slide = ({
     )}
     data-slide="true"
   >
-    {/* Grid pattern only on dark slides */}
-    {dark && (
+    {/* Grid pattern on dark slides OR light slides without cards */}
+    {(dark || !hasCards) && (
       <div 
-        className="absolute inset-0 pointer-events-none opacity-20"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: 'linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)',
-          backgroundSize: '120px 120px'
+          backgroundImage: dark 
+            ? 'linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)'
+            : 'linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)',
+          backgroundSize: '120px 120px',
+          opacity: dark ? 0.2 : 1
         }}
       />
     )}
@@ -37,9 +42,9 @@ const Slide = ({
       {children}
     </div>
     
-    {/* Footer */}
+    {/* Footer - just logo */}
     <div className={cn(
-      "relative z-10 px-16 lg:px-24 pb-8 flex justify-between items-end",
+      "relative z-10 px-16 lg:px-24 pb-8 flex items-end",
       dark ? "text-white/40" : "text-foreground/30"
     )}>
       <div className="flex items-center gap-1.5">
@@ -49,9 +54,6 @@ const Slide = ({
         )}>Rubiklab</span>
         <div className="w-1.5 h-1.5 bg-primary rounded-full" />
       </div>
-      <span className="font-mono text-[10px] uppercase tracking-widest">
-        © 2026
-      </span>
     </div>
   </div>
 );
@@ -171,8 +173,8 @@ const CoverSlide = ({ onNavigateHome }: { onNavigateHome: () => void }) => (
       </div>
     </div>
 
-    {/* Footer */}
-    <div className="relative z-10 flex justify-between items-end">
+    {/* Footer - just logo */}
+    <div className="relative z-10 flex items-end">
       <button 
         onClick={onNavigateHome}
         className="flex items-center gap-1.5 group cursor-pointer transition-opacity hover:opacity-80"
@@ -183,10 +185,6 @@ const CoverSlide = ({ onNavigateHome }: { onNavigateHome: () => void }) => (
           <div className="w-2.5 h-2.5 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></div>
         </div>
       </button>
-      
-      <div className="font-mono text-[10px] text-gray-600 uppercase tracking-widest">
-        Rubiklab Intelligence Capital © 2026
-      </div>
     </div>
   </div>
 );
@@ -219,18 +217,14 @@ const SectionDivider = ({
       </p>
     </div>
     
-    {/* Footer with logo */}
-    <div className="absolute bottom-12 left-12 right-12 flex justify-between items-end">
+    {/* Footer - just logo */}
+    <div className="absolute bottom-12 left-12 right-12 flex items-end">
       <div className="flex items-center gap-1.5">
         <span className="font-serif font-bold text-3xl tracking-tight lowercase text-white">Rubiklab</span>
         <div className="relative flex items-center justify-center">
           <div className="absolute w-3 h-3 bg-primary rounded-full animate-ping opacity-20"></div>
           <div className="w-2.5 h-2.5 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></div>
         </div>
-      </div>
-      
-      <div className="font-mono text-[10px] text-gray-600 uppercase tracking-widest">
-        Rubiklab Intelligence Capital © 2026
       </div>
     </div>
   </div>
@@ -392,7 +386,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 05: Hallucination Moved                 */}
         {/* ============================================== */}
-        <Slide>
+        <Slide hasCards>
           <div className="flex-1 flex flex-col max-w-5xl pt-8">
             <SlideEyebrow>The Hidden Shift</SlideEyebrow>
             <ActionTitle>hallucination did not disappear, it moved</ActionTitle>
@@ -450,7 +444,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 08: Legal Knowledge Reality             */}
         {/* ============================================== */}
-        <Slide>
+        <Slide hasCards>
           <div className="flex-1 flex flex-col max-w-5xl pt-8">
             <SlideEyebrow>Legal Knowledge Reality</SlideEyebrow>
             <ActionTitle>legal knowledge is fundamentally different</ActionTitle>
@@ -508,7 +502,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 11: Production Grade                    */}
         {/* ============================================== */}
-        <Slide>
+        <Slide hasCards>
           <div className="flex-1 flex flex-col max-w-5xl pt-8">
             <SlideEyebrow>Production Grade</SlideEyebrow>
             <ActionTitle>what turns concepts into a reliable system</ActionTitle>
@@ -532,53 +526,61 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 12: Authority and Freshness             */}
         {/* ============================================== */}
-        <Slide>
-          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+        <Slide hasCards>
+          <div className="flex-1 flex flex-col max-w-6xl pt-8">
             <SlideEyebrow>Authority and Freshness Control</SlideEyebrow>
             <ActionTitle>rank by authority, not by similarity</ActionTitle>
-            <div className="grid grid-cols-2 gap-5 mt-6">
-              <Card title="author and reviewer identity">
+            <div className="grid grid-cols-4 gap-4 mt-8 flex-1">
+              <Card title="author identity" accent>
                 who drafted it, who approved it, and what expertise they hold.
               </Card>
               <Card title="temporal currency">
-                when it was created, last substantively reviewed, and whether it is still current.
+                when it was created, last reviewed, and whether it is still current.
               </Card>
-              <Card title="firm approval status">
-                official guidance, working draft, or personal notes, treated differently by default.
+              <Card title="approval status">
+                official guidance, working draft, or personal notes.
               </Card>
-              <Card title="supersession tracking">
-                what newer documents, rulings, or guidance modify or replace it.
+              <Card title="supersession tracking" accent>
+                what newer documents or rulings modify or replace it.
               </Card>
             </div>
-            <p className="text-base text-foreground/50 italic border-l-2 border-primary pl-4 mt-8">
-              A highly relevant but outdated memorandum is worse than no answer.
-            </p>
+            <div className="bg-primary/5 border-l-4 border-primary p-6 mt-auto">
+              <p className="text-lg text-foreground/70 italic font-serif">
+                A highly relevant but outdated memorandum is worse than no answer.
+              </p>
+            </div>
           </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 13: Terminology Harmonisation           */}
         {/* ============================================== */}
-        <Slide>
-          <div className="flex-1 flex flex-col max-w-5xl pt-8">
-            <SlideEyebrow>Retrieval Quality</SlideEyebrow>
-            <ActionTitle>aligning legal language across the firm</ActionTitle>
-            <BodyText>
-              Law firms contain linguistic silos. These are not cosmetic differences, they create retrieval failures where relevant expertise exists but remains undiscoverable.
-            </BodyText>
-            <div className="grid grid-cols-2 gap-5 mt-8">
-              <Card title="controlled vocabularies">
-                canonical terms for key concepts across practice areas.
-              </Card>
-              <Card title="synonym mapping">
-                mappings between alternative phrasings that mean the same thing.
-              </Card>
-              <Card title="terminology harmonisation">
-                enrich documents with standardised tags while preserving original language.
-              </Card>
-              <Card title="practical effect" accent>
-                expertise becomes discoverable without changing how lawyers naturally write.
-              </Card>
+        <Slide hasCards>
+          <div className="flex-1 flex flex-col max-w-6xl pt-8">
+            <div className="flex gap-16 flex-1">
+              <div className="flex-1 flex flex-col">
+                <SlideEyebrow>Retrieval Quality</SlideEyebrow>
+                <ActionTitle>aligning legal language across the firm</ActionTitle>
+                <BodyText>
+                  Law firms contain linguistic silos. These are not cosmetic differences, they create retrieval failures where relevant expertise exists but remains undiscoverable.
+                </BodyText>
+                <div className="mt-auto bg-primary/5 border-l-4 border-primary p-6">
+                  <p className="text-lg text-foreground/70 italic font-serif">
+                    Expertise becomes discoverable without changing how lawyers naturally write.
+                  </p>
+                </div>
+              </div>
+              <div className="w-80 flex flex-col gap-4">
+                <Card title="controlled vocabularies" accent>
+                  canonical terms for key concepts across practice areas.
+                </Card>
+                <Card title="synonym mapping">
+                  mappings between alternative phrasings that mean the same thing.
+                </Card>
+                <Card title="terminology harmonisation">
+                  enrich documents with standardised tags while preserving original language.
+                </Card>
+              </div>
             </div>
           </div>
         </Slide>
@@ -586,15 +588,15 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 14: Governance Through Architecture     */}
         {/* ============================================== */}
-        <Slide>
+        <Slide hasCards>
           <div className="flex-1 flex flex-col max-w-6xl pt-8">
             <SlideEyebrow>Game Changer</SlideEyebrow>
             <ActionTitle>governance through architecture</ActionTitle>
-            <p className="font-sans text-base lg:text-lg text-foreground/60 leading-relaxed max-w-4xl mb-8">
+            <p className="font-sans text-base lg:text-lg text-foreground/60 leading-relaxed max-w-3xl mb-6">
               More context often yields worse answers. Aggressive context control and architectural governance improve both quality and security.
             </p>
-            <div className="grid grid-cols-3 gap-4 flex-1">
-              <Card title="jurisdiction filters">
+            <div className="grid grid-cols-3 gap-3 flex-1">
+              <Card title="jurisdiction filters" accent>
                 retrieve only content applicable to the relevant regime.
               </Card>
               <Card title="practice area scoping">
@@ -603,14 +605,14 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="matter level permissions">
                 respect engagement boundaries and work product privilege.
               </Card>
-              <Card title="client isolation">
+              <Card title="client isolation" accent>
                 absolute segregation that prevents cross client leakage.
               </Card>
               <Card title="permission aware retrieval">
                 retrieve only what the user is authorised to view.
               </Card>
-              <Card title="audit trails and ethical walls">
-                immutable logs, architectural separation, and compliance by design.
+              <Card title="audit trails" accent>
+                immutable logs and compliance by design.
               </Card>
             </div>
           </div>
@@ -620,12 +622,26 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 15: Human in the Loop                   */}
         {/* ============================================== */}
         <Slide>
-          <div className="flex-1 flex flex-col justify-center max-w-4xl">
+          <div className="flex-1 flex flex-col justify-center max-w-5xl">
             <SlideEyebrow>Operating Model</SlideEyebrow>
             <ActionTitle>human in the loop is non negotiable</ActionTitle>
             <BodyText>
-              RAG does not replace lawyers. It augments judgement by accelerating research, drafting first passes from firm templates, and reducing mechanical tasks. Legal judgement remains central to applicability, risk, and strategy.
+              RAG does not replace lawyers. It augments judgement by accelerating research, drafting first passes from firm templates, and reducing mechanical tasks.
             </BodyText>
+            <div className="mt-12 grid grid-cols-3 gap-8">
+              <div className="border-t-2 border-primary pt-4">
+                <p className="font-serif text-xl text-foreground mb-2">Accelerate</p>
+                <p className="text-sm text-foreground/50">Research and discovery at machine speed</p>
+              </div>
+              <div className="border-t-2 border-foreground/20 pt-4">
+                <p className="font-serif text-xl text-foreground mb-2">Draft</p>
+                <p className="text-sm text-foreground/50">First passes from firm approved templates</p>
+              </div>
+              <div className="border-t-2 border-foreground/20 pt-4">
+                <p className="font-serif text-xl text-foreground mb-2">Judge</p>
+                <p className="text-sm text-foreground/50">Legal judgement remains central to strategy</p>
+              </div>
+            </div>
           </div>
         </Slide>
 
