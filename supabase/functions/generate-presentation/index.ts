@@ -42,6 +42,7 @@ CRITICAL DESIGN RULES (always follow):
 8. NEVER include navigation arrows or exit buttons - navigation is handled by clicking the logo.
 9. The brand logo appears ONCE per slide in the bottom-left corner - NEVER duplicate logos.
 10. TITLE RULE: If no title is provided, generate an appropriate, compelling title based on the content. The title should be concise (3-6 words) and capture the essence of the presentation. NEVER use generic titles like "Strategic Intelligence Report" - always be specific to the content.
+11. ANIMATION RULE: Text reveal animations must be smooth and elegant - NEVER shaky or jittery. Use ease-out timing functions with subtle vertical movement (8-12px max).
 `;
 
 // Slide count targets based on length preference
