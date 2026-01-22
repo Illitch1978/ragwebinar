@@ -711,12 +711,26 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 When foundations are disciplined and governance is architectural, RAG becomes legal intelligence infrastructure. It helps firms move faster, reduce risk, scale expertise, and win complex work without sacrificing defensibility.
               </p>
             </div>
-            
+          </div>
+        </Slide>
+
+        {/* ============================================== */}
+        {/* SLIDE 18: Questions                           */}
+        {/* ============================================== */}
+        <Slide dark>
+          <div className="flex-1 flex flex-col justify-center items-center text-center">
+            <div className="w-[1px] h-16 bg-primary mb-10" />
+            <h2 className="font-serif text-6xl lg:text-7xl text-white mb-6">
+              Questions<span className="text-primary">?</span>
+            </h2>
+            <p className="font-sans text-xl text-gray-400 font-light leading-relaxed max-w-lg">
+              Let's discuss how these principles apply to your firm
+            </p>
             <div className="mt-16 flex items-center gap-1.5">
-              <span className="font-serif font-bold text-4xl tracking-tight lowercase text-white">Rubiklab</span>
+              <span className="font-serif font-bold text-2xl tracking-tight lowercase text-white/60">Rubiklab</span>
               <div className="relative flex items-center justify-center">
-                <div className="absolute w-4 h-4 bg-primary rounded-full animate-ping opacity-20"></div>
-                <div className="w-3 h-3 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></div>
+                <div className="absolute w-3 h-3 bg-primary rounded-full animate-ping opacity-20"></div>
+                <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></div>
               </div>
             </div>
           </div>
