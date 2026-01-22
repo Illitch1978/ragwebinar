@@ -594,44 +594,45 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 13: Terminology Harmonisation           */}
         {/* ============================================== */}
         <Slide>
-          <div className="flex-1 flex flex-col max-w-6xl pt-8">
+          <div className="flex-1 flex flex-col max-w-5xl pt-8">
             <SlideEyebrow>Retrieval Quality</SlideEyebrow>
             <ActionTitle>aligning legal language across the firm</ActionTitle>
             
-            <div className="mt-8 flex gap-12 flex-1">
-              {/* Left - Statement */}
-              <div className="flex-1 flex flex-col justify-center">
-                <p className="font-serif text-2xl lg:text-3xl text-foreground/80 leading-relaxed mb-8">
-                  Law firms contain linguistic silos. These are not cosmetic differences—they create <span className="text-primary font-medium">retrieval failures</span> where relevant expertise exists but remains undiscoverable.
-                </p>
-                <div className="bg-gradient-to-r from-primary/10 to-transparent border-l-2 border-primary pl-6 py-4">
-                  <p className="text-base text-foreground/60 italic">
-                    Expertise becomes discoverable without changing how lawyers naturally write.
-                  </p>
-                </div>
-              </div>
-              
-              {/* Right - Visual breakdown */}
-              <div className="w-[340px] flex flex-col justify-center gap-6">
-                {[
-                  { num: "01", title: "controlled vocabularies", desc: "canonical terms for key concepts across practice areas" },
-                  { num: "02", title: "synonym mapping", desc: "mappings between alternative phrasings that mean the same thing" },
-                  { num: "03", title: "terminology harmonisation", desc: "enrich documents with standardised tags while preserving original language" },
-                ].map((item, i) => (
-                  <motion.div
-                    key={item.num}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1, duration: 0.4 }}
-                    viewport={{ once: true }}
-                    className="group relative pl-12"
-                  >
-                    <span className="absolute left-0 top-0 font-mono text-xs text-primary/60">{item.num}</span>
-                    <h4 className="font-serif text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{item.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                  </motion.div>
-                ))}
-              </div>
+            {/* Single impactful statement */}
+            <p className="font-serif text-2xl lg:text-3xl text-foreground/70 leading-relaxed max-w-3xl mt-6 mb-16">
+              Law firms contain linguistic silos. These are not cosmetic differences—they create retrieval failures where relevant expertise exists but remains <span className="text-primary">undiscoverable</span>.
+            </p>
+            
+            {/* Clean horizontal breakdown */}
+            <div className="grid grid-cols-3 gap-0 border-t border-border">
+              {[
+                { num: "01", title: "controlled vocabularies", desc: "canonical terms for key concepts across practice areas" },
+                { num: "02", title: "synonym mapping", desc: "mappings between alternative phrasings that mean the same thing" },
+                { num: "03", title: "terminology harmonisation", desc: "enrich documents with standardised tags while preserving original language" },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.num}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: i * 0.12, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className={cn(
+                    "group py-8 pr-8",
+                    i > 0 && "pl-8 border-l border-border"
+                  )}
+                >
+                  <span className="font-mono text-[11px] text-primary tracking-wider">{item.num}</span>
+                  <h4 className="font-serif text-xl text-foreground mt-3 mb-2 group-hover:text-primary transition-colors">{item.title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Bottom insight */}
+            <div className="mt-auto pt-8">
+              <p className="text-base text-foreground/50 italic font-serif">
+                Expertise becomes discoverable without changing how lawyers naturally write.
+              </p>
             </div>
           </div>
         </Slide>
@@ -640,50 +641,69 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 14: Governance Through Architecture     */}
         {/* ============================================== */}
         <Slide>
-          <div className="flex-1 flex flex-col max-w-6xl pt-8">
+          <div className="flex-1 flex flex-col max-w-5xl pt-8">
             <SlideEyebrow>Game Changer</SlideEyebrow>
             <ActionTitle>governance through architecture</ActionTitle>
-            <p className="font-sans text-lg text-foreground/50 leading-relaxed max-w-3xl mb-8">
+            
+            <p className="font-serif text-xl text-foreground/60 leading-relaxed max-w-3xl mt-4 mb-12">
               More context often yields worse answers. Aggressive context control and architectural governance improve both quality and security.
             </p>
             
-            {/* Premium 2-row grid with visual hierarchy */}
-            <div className="grid grid-cols-3 gap-x-8 gap-y-6 flex-1">
-              {[
-                { title: "jurisdiction filters", desc: "retrieve only content applicable to the relevant regime", featured: true },
-                { title: "practice area scoping", desc: "constrain retrieval to domains where the query has legitimate application", featured: false },
-                { title: "matter level permissions", desc: "respect engagement boundaries and work product privilege", featured: false },
-                { title: "client isolation", desc: "absolute segregation that prevents cross client leakage", featured: true },
-                { title: "permission aware retrieval", desc: "retrieve only what the user is authorised to view", featured: false },
-                { title: "audit trails", desc: "immutable logs and compliance by design", featured: true },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06, duration: 0.4 }}
-                  viewport={{ once: true }}
-                  className={cn(
-                    "group p-5 border transition-all duration-300",
-                    item.featured 
-                      ? "bg-primary/5 border-primary/30 hover:border-primary" 
-                      : "bg-card border-border hover:border-primary/40"
-                  )}
-                >
-                  <div className="flex items-start gap-3 mb-2">
-                    {item.featured && <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />}
-                    <h4 className={cn(
-                      "font-serif text-lg transition-colors",
-                      item.featured ? "text-primary" : "text-foreground group-hover:text-primary"
-                    )}>
-                      {item.title}
-                    </h4>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed pl-4">
-                    {item.desc}
-                  </p>
-                </motion.div>
-              ))}
+            {/* Two-column layout matching slide 15 style */}
+            <div className="grid grid-cols-2 gap-12 flex-1">
+              {/* Left column - Security */}
+              <div className="flex flex-col">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-[1px] bg-primary" />
+                  <span className="font-mono text-[11px] text-primary uppercase tracking-widest">Security</span>
+                </div>
+                <div className="space-y-6">
+                  {[
+                    { title: "client isolation", desc: "absolute segregation that prevents cross-client leakage" },
+                    { title: "matter level permissions", desc: "respect engagement boundaries and work product privilege" },
+                    { title: "permission aware retrieval", desc: "retrieve only what the user is authorised to view" },
+                  ].map((item, i) => (
+                    <motion.div
+                      key={item.title}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1, duration: 0.4 }}
+                      viewport={{ once: true }}
+                      className="group"
+                    >
+                      <h4 className="font-serif text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{item.title}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Right column - Precision */}
+              <div className="flex flex-col">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-[1px] bg-foreground/30" />
+                  <span className="font-mono text-[11px] text-foreground/50 uppercase tracking-widest">Precision</span>
+                </div>
+                <div className="space-y-6">
+                  {[
+                    { title: "jurisdiction filters", desc: "retrieve only content applicable to the relevant regime" },
+                    { title: "practice area scoping", desc: "constrain retrieval to domains where the query has legitimate application" },
+                    { title: "audit trails", desc: "immutable logs and compliance by design" },
+                  ].map((item, i) => (
+                    <motion.div
+                      key={item.title}
+                      initial={{ opacity: 0, x: 10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 + 0.15, duration: 0.4 }}
+                      viewport={{ once: true }}
+                      className="group"
+                    >
+                      <h4 className="font-serif text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{item.title}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </Slide>
