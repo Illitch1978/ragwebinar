@@ -487,13 +487,52 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 07: Turning Point                       */}
         {/* ============================================== */}
-        <Slide>
-          <div className="flex-1 flex flex-col justify-center max-w-4xl">
-            <SlideEyebrow>Turning Point</SlideEyebrow>
-            <ActionTitle>RAG is not broken</ActionTitle>
-            <BodyText>
-              Knowledge foundations are. When the knowledge base is flawed, even the best model is forced to improvise around gaps. Reliability begins well before retrieval.
-            </BodyText>
+        <Slide dark>
+          <div className="flex-1 flex flex-col justify-center items-center text-center">
+            {/* Accent line */}
+            <motion.div 
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="w-[2px] h-20 bg-primary mb-10 origin-top"
+            />
+            
+            <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary mb-8">
+              Turning Point
+            </span>
+            
+            {/* Dramatic two-part statement */}
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="font-serif text-[4rem] lg:text-[6rem] leading-[0.95] tracking-tight text-white mb-6"
+            >
+              RAG is not broken.
+            </motion.h2>
+            
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="font-serif text-[2.5rem] lg:text-[3.5rem] leading-[1.1] tracking-tight text-primary italic"
+            >
+              Knowledge foundations are.
+            </motion.h3>
+            
+            {/* Supporting text */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="font-sans text-lg text-white/50 mt-12 max-w-xl leading-relaxed"
+            >
+              Reliability begins well before retrieval.
+            </motion.p>
           </div>
         </Slide>
 
