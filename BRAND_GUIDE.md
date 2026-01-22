@@ -14,7 +14,7 @@
 
 ### Usage Guidelines
 
-- **Logo**: Playfair Display, lowercase, bold (700), with pulsing magenta dot
+- **Logo**: Playfair Display, lowercase, bold (700), with pulsing LinkedIn blue dot
 - **Dashboard Titles**: Playfair Display (e.g., "Strategic Intelligence", "Market Position")
 - **Section Headers**: Inter, uppercase, letter-spacing: widest
 - **Body Text**: Inter, 14px, leading relaxed
@@ -28,9 +28,8 @@
 
 | Name | HSL Value | Hex (approx) | Usage |
 |------|-----------|--------------|-------|
-| **Brand Magenta** | `330 85% 55%` | `#E91E8C` | Primary actions, links, accents, logo dot |
+| **LinkedIn Blue** | `201 89% 48%` | `#0A66C2` | Primary actions, links, accents, logo dot |
 | **Accent Purple** | `263 70% 58%` | `#8B5CF6` | Secondary highlights |
-| **Accent Pink** | `330 79% 58%` | `#EC4899` | Tertiary accents |
 | **Accent Green** | `160 84% 39%` | `#10B981` | Success states |
 
 ### Dashboard Theme (Light)
@@ -43,7 +42,7 @@
 | `--muted` | `220 14% 96%` | Secondary surfaces |
 | `--muted-foreground` | `220 10% 45%` | Secondary text |
 | `--border` | `220 14% 90%` | Card borders |
-| `--primary` | `330 85% 55%` | Brand magenta |
+| `--primary` | `201 89% 48%` | LinkedIn Blue |
 
 ---
 
@@ -62,7 +61,7 @@
 
 - **Cards**: No drop shadows; use ultra-thin borders (`border-border/50`)
 - **Glow Effects**: Reserved for logo dot and primary CTAs
-- **Logo Dot**: Magenta pulsing glow effect
+- **Logo Dot**: LinkedIn blue pulsing glow effect
 
 ---
 
@@ -86,13 +85,13 @@ Rubiklab•
 | Size (Default) | `text-3xl` (30px) |
 | Size (Small) | `text-2xl` (24px) |
 | Color | `text-foreground` (adapts to theme) |
-| Hover Color | `text-primary` (brand magenta) |
+| Hover Color | `text-primary` (LinkedIn blue) |
 | Transition | `duration-700` (0.7s) |
 | **Dot "•"** | |
 | Shape | Circle (rounded-full) |
 | Size (Default) | `w-2.5 h-2.5` (10px) |
 | Size (Small) | `w-2 h-2` (8px) |
-| Color | `bg-primary` (brand magenta: `hsl(330 85% 55%)`) |
+| Color | `bg-primary` (LinkedIn blue: `hsl(201 89% 48%)`) |
 | Glow | `shadow-[0_0_12px_hsl(var(--primary)/0.3)]` |
 | Animation | Ping effect with `animate-ping` on outer ring |
 | Ping Ring Size (Default) | `w-3 h-3` (12px) |
@@ -140,8 +139,8 @@ const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
 
 ## Footer Branding
 
-Always include the Rubiklab logo with magenta dot in report footers:
+Always include the Rubiklab logo with blue dot in report footers:
 
 ```
-Rubiklab Intelligence Capital © 2026
+Rubiklab.ai © 2026
 ```
