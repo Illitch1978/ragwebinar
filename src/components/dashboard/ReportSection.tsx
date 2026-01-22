@@ -408,6 +408,14 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         </Slide>
 
         {/* ============================================== */}
+        {/* DIVIDER: The Problem                          */}
+        {/* ============================================== */}
+        <SectionDivider 
+          title="The problem is not the model" 
+          subtitle="It is the knowledge"
+        />
+
+        {/* ============================================== */}
         {/* SLIDE 06: Core Myth                           */}
         {/* ============================================== */}
         <Slide>
@@ -617,6 +625,14 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             </div>
           </div>
         </Slide>
+
+        {/* ============================================== */}
+        {/* DIVIDER: From Architecture to Advantage       */}
+        {/* ============================================== */}
+        <SectionDivider 
+          title="From architecture to advantage" 
+          subtitle="What good looks like in practice"
+        />
 
         {/* ============================================== */}
         {/* SLIDE 15: Human in the Loop                   */}
