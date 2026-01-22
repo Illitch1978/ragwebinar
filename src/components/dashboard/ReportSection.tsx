@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Download, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Download, Loader2, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { getReportDataFromSession, ParsedReportData } from "@/lib/contentParser";
 import { 
   CursorGlow, 
   StaggeredContent, 
@@ -14,14 +16,17 @@ import {
   CountingNumber
 } from "./SlideAnimations";
 
-// Sample data - would come from API in production
-const reportData = {
+// Default sample data - used when no content is uploaded
+const defaultReportData = {
   score: 59,
   healthStatus: "Moderate health",
-  clientName: "Mavrix Data",
-  clientUrl: "https://www.mavrixdata.com/",
-  generatedDate: "December 30, 2025",
+  clientName: "Sample Client",
+  clientUrl: "https://example.com",
+  generatedDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
   scope: "Independent assessment of digital clarity, credibility, and competitive positioning",
+  executiveSummary: "",
+  keyFindings: [] as { title: string; content: string; level?: string }[],
+  recommendations: [] as { title: string; content: string; score?: number }[],
   
   // Waterfall chart data
   waterfall: {
@@ -292,7 +297,7 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => {
 };
 
 // Dark cover slide for the report
-const CoverSlide = () => (
+const CoverSlide = ({ clientName, onDownload }: { clientName: string; onDownload?: () => void }) => (
   <div data-cover="true" className="w-screen h-screen flex-shrink-0 bg-[#050505] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
     {/* Grid background */}
     <div 
@@ -307,15 +312,18 @@ const CoverSlide = () => (
     <div className="relative z-10 flex justify-between items-start border-t border-gray-900 pt-6">
       <div className="grid grid-cols-4 gap-8 font-mono text-[9px] text-gray-500 uppercase tracking-widest">
         <div>Classified</div>
-        <div>{reportData.clientName}</div>
+        <div>{clientName}</div>
         <div>Gap Analysis</div>
         <div className="text-primary">v.Final</div>
       </div>
       <button 
         className="flex items-center gap-2.5 px-5 py-2.5 border border-gray-700 hover:border-primary text-gray-400 hover:text-white text-[10px] font-mono uppercase tracking-widest transition-all duration-300 print-hide group"
         onClick={() => {
-          const exportButton = document.querySelector('[data-export-trigger]') as HTMLButtonElement;
-          if (exportButton) exportButton.click();
+          if (onDownload) onDownload();
+          else {
+            const exportButton = document.querySelector('[data-export-trigger]') as HTMLButtonElement;
+            if (exportButton) exportButton.click();
+          }
         }}
       >
         <Download className="w-3.5 h-3.5 group-hover:text-primary transition-colors" />
@@ -439,11 +447,37 @@ interface ReportSectionProps {
 }
 
 const ReportSection = ({ onExit }: ReportSectionProps) => {
+  const navigate = useNavigate();
   const [isExporting, setIsExporting] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
+  
+  // Get dynamic report data from session storage or use defaults
+  const reportData = useMemo(() => {
+    const sessionData = getReportDataFromSession();
+    if (sessionData) {
+      return {
+        ...defaultReportData,
+        score: sessionData.score,
+        healthStatus: sessionData.healthStatus,
+        clientName: sessionData.clientName,
+        clientUrl: sessionData.clientUrl || defaultReportData.clientUrl,
+        generatedDate: sessionData.generatedDate,
+        scope: sessionData.scope,
+        waterfall: sessionData.waterfall,
+        signals: sessionData.signals,
+        heatmap: sessionData.heatmap,
+        matrixItems: sessionData.matrixItems,
+        auditSections: sessionData.auditSections.length > 0 ? sessionData.auditSections : defaultReportData.auditSections,
+        executiveSummary: sessionData.executiveSummary,
+        keyFindings: sessionData.keyFindings,
+        recommendations: sessionData.recommendations,
+      };
+    }
+    return defaultReportData;
+  }, []);
   
   const [totalSlides, setTotalSlides] = useState(0);
   
@@ -651,6 +685,15 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       className="h-screen w-screen overflow-hidden relative bg-background"
       tabIndex={0}
     >
+      {/* Back to Upload Button */}
+      <button
+        onClick={() => navigate('/')}
+        className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2 bg-card/80 backdrop-blur-sm border border-border hover:border-primary text-muted-foreground hover:text-foreground text-[10px] font-mono uppercase tracking-widest transition-all duration-300 print-hide group"
+      >
+        <ArrowLeft className="w-3.5 h-3.5 group-hover:text-primary transition-colors" />
+        New Report
+      </button>
+      
       {/* Subtle cursor glow effect */}
       <CursorGlow />
       
@@ -664,7 +707,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         
         {/* Slide 01: Cover */}
-        <CoverSlide />
+        <CoverSlide clientName={reportData.clientName} />
         
         {/* Slide 02: Methodology */}
         <Slide>
@@ -725,12 +768,18 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           <StaggeredContent className="max-w-6xl mx-auto w-full h-full flex flex-col pt-4">
             <AnimatedTitle>
               <SlideEyebrow>Executive Synthesis</SlideEyebrow>
-              <ActionTitle>Operational maturity is currently invisible to the modern buyer.</ActionTitle>
+              <ActionTitle>
+                {reportData.executiveSummary 
+                  ? `Strategic analysis for ${reportData.clientName}.`
+                  : "Operational maturity is currently invisible to the modern buyer."}
+              </ActionTitle>
             </AnimatedTitle>
             
             <AnimatedContent>
               <p className="font-sans font-light text-lg text-muted-foreground max-w-4xl mb-16 leading-relaxed">
-                Mavrix possesses a "Ferrari Engine" (22 years of Azure Knowledge infrastructure) inside a "Stealth Chassis." The 2025 rebrand has structurally reset digital authority, creating a disconnect between actual capability and perceived market relevance.
+                {reportData.executiveSummary 
+                  ? reportData.executiveSummary.substring(0, 500) + (reportData.executiveSummary.length > 500 ? "..." : "")
+                  : `${reportData.clientName} possesses strong foundational capabilities. This assessment identifies key opportunities to enhance digital presence and market positioning.`}
               </p>
             </AnimatedContent>
 
