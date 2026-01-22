@@ -29,18 +29,40 @@ interface SlideOutput {
   metadata?: any;
 }
 
+// Global instructions that apply to ALL brand guides
+const GLOBAL_GENERATION_RULES = `
+CRITICAL DESIGN RULES (always follow):
+1. NEVER have two consecutive slides with exactly the same design/type. Vary the visual rhythm.
+2. Insert a section-divider slide every 5-10 content slides to break up the flow.
+3. Alternate between dark and light slides where appropriate for visual contrast.
+4. Use quote slides sparingly - maximum 2-3 per presentation.
+5. Metrics slides should highlight 2-4 key numbers, not more.
+6. Cover slide must establish the brand immediately.
+7. Closing slide should have a clear call-to-action or next steps.
+`;
+
+// Slide count targets based on length preference
+const LENGTH_TARGETS: Record<string, { min: number; max: number; description: string }> = {
+  brief: { min: 8, max: 12, description: "Brief executive summary" },
+  medium: { min: 13, max: 22, description: "Standard presentation" },
+  long: { min: 23, max: 30, description: "Comprehensive deep-dive" },
+  "very-long": { min: 31, max: 45, description: "Full workshop/training deck" },
+};
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { content, clientName, brandGuide, instructions } = await req.json();
+    const { content, clientName, brandGuide, instructions, length = "medium" } = await req.json();
     
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
+
+    const lengthTarget = LENGTH_TARGETS[length] || LENGTH_TARGETS.medium;
 
     const systemPrompt = `You are an expert presentation designer. Your job is to transform raw content into a structured presentation deck.
 
@@ -48,20 +70,24 @@ You will be given:
 1. Raw content (text, markdown, notes)
 2. A brand guide with design system and slide templates
 3. Optional instructions from the user
+4. A target length for the presentation
 
 Your output must be a JSON array of slides. Each slide should match one of the templates from the brand guide.
+
+${GLOBAL_GENERATION_RULES}
 
 BRAND GUIDE:
 ${JSON.stringify(brandGuide, null, 2)}
 
-RULES:
+TARGET LENGTH: ${lengthTarget.min}-${lengthTarget.max} slides (${lengthTarget.description})
+
+NARRATIVE STRUCTURE:
 1. Create a compelling narrative arc: Opening → Context → Problem → Solution → Evidence → Call to Action
 2. Use the slide types from the brand guide templates
 3. Keep text concise - presentations should be visual, not text-heavy
 4. Extract key metrics, quotes, and insights from the content
-5. Create 15-25 slides for a comprehensive presentation
-6. Always start with a cover slide and end with a closing slide
-7. Use section dividers to break up major topics
+5. Always start with a cover slide and end with a closing slide
+6. Use section dividers to break up major topics (every 5-10 slides)
 
 OUTPUT FORMAT:
 Return a JSON array of slide objects. Each slide must have:

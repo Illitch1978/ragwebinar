@@ -32,11 +32,20 @@ const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
 );
 
 type OutputFormat = 'report' | 'presentation';
+type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
+
+const DECK_LENGTH_OPTIONS: { value: DeckLength; label: string; description: string; range: string }[] = [
+  { value: 'brief', label: 'Brief', description: 'Executive summary', range: '8-12 slides' },
+  { value: 'medium', label: 'Medium', description: 'Standard presentation', range: '13-22 slides' },
+  { value: 'long', label: 'Long', description: 'Deep-dive analysis', range: '23-30 slides' },
+  { value: 'very-long', label: 'Very Long', description: 'Full workshop deck', range: '31-45 slides' },
+];
 
 const UploadPage = () => {
   const [content, setContent] = useState("");
   const [clientName, setClientName] = useState("");
   const [outputFormat, setOutputFormat] = useState<OutputFormat>('report');
+  const [deckLength, setDeckLength] = useState<DeckLength>('medium');
   const [isDragging, setIsDragging] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isProcessingFile, setIsProcessingFile] = useState(false);
@@ -165,6 +174,7 @@ const UploadPage = () => {
       sessionStorage.setItem('rubiklab-content', content);
       sessionStorage.setItem('rubiklab-client', clientName || 'Client');
       sessionStorage.setItem('rubiklab-format', outputFormat);
+      sessionStorage.setItem('rubiklab-length', deckLength);
       sessionStorage.setItem('rubiklab-presentation-id', saved.id);
       
       // Navigate to appropriate view after a brief animation
@@ -345,7 +355,38 @@ const UploadPage = () => {
             </div>
           </motion.div>
 
-          {/* Upload/Paste Area */}
+          {/* Deck Length Selection */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            className="mb-8"
+          >
+            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+              Deck Length
+            </label>
+            <div className="grid grid-cols-4 gap-3">
+              {DECK_LENGTH_OPTIONS.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setDeckLength(option.value)}
+                  className={cn(
+                    "relative px-4 py-4 rounded-sm border-2 transition-all duration-300 text-center",
+                    deckLength === option.value
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-primary/50 bg-card"
+                  )}
+                >
+                  <p className="font-medium text-foreground text-sm mb-0.5">{option.label}</p>
+                  <p className="text-xs text-muted-foreground">{option.range}</p>
+                  {deckLength === option.value && (
+                    <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
