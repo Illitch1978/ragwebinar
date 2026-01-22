@@ -25,23 +25,43 @@ interface Slide {
 
 // Convert generated slides to our internal format
 const convertGeneratedSlides = (generatedSlides: any[], clientName: string): Slide[] => {
-  return generatedSlides.map((slide, index) => ({
-    id: index,
-    type: slide.type as Slide['type'],
-    title: slide.title || '',
-    subtitle: slide.subtitle,
-    content: slide.content,
-    body: slide.content,
-    items: slide.items,
-    bullets: slide.items?.map((item: any) => item.text || item.label) || [],
-    metrics: slide.metrics,
-    leftColumn: slide.leftColumn,
-    rightColumn: slide.rightColumn,
-    quote: slide.quote,
-    author: slide.author,
-    dark: slide.dark ?? (slide.type === 'cover' || slide.type === 'section-divider' || slide.type === 'closing'),
-    kicker: slide.type === 'cover' ? slide.kicker : undefined,
-  }));
+  let sectionCount = 0;
+  
+  return generatedSlides.map((slide, index) => {
+    // Increment section count for cover and section-divider slides
+    if (slide.type === 'cover' || slide.type === 'section-divider') {
+      sectionCount++;
+    }
+    
+    // Quote slides should always be dark for contrast
+    const isDarkSlide = slide.dark ?? (
+      slide.type === 'cover' || 
+      slide.type === 'section-divider' || 
+      slide.type === 'closing' || 
+      slide.type === 'quote' ||
+      slide.type === 'cta'
+    );
+    
+    return {
+      id: index,
+      type: slide.type as Slide['type'],
+      title: slide.title || '',
+      subtitle: slide.subtitle,
+      content: slide.content,
+      body: slide.content,
+      items: slide.items,
+      bullets: slide.items?.map((item: any) => item.text || item.label) || [],
+      metrics: slide.metrics,
+      leftColumn: slide.leftColumn,
+      rightColumn: slide.rightColumn,
+      quote: slide.quote,
+      author: slide.author,
+      dark: isDarkSlide,
+      kicker: (slide.type === 'cover' || slide.type === 'section-divider') 
+        ? String(sectionCount).padStart(2, '0') 
+        : slide.kicker,
+    };
+  });
 };
 
 // Parse markdown into slides with alternating dark themes
