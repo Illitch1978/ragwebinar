@@ -198,64 +198,56 @@ const SectionDivider = ({
   title: string; 
   subtitle: string;
 }) => (
-  <div data-divider="true" className="w-screen h-screen flex-shrink-0 bg-[#000000] text-white relative flex flex-col justify-center items-center overflow-hidden">
+  <div data-divider="true" className="w-screen h-screen flex-shrink-0 bg-[#050505] text-white relative flex flex-col justify-center items-center overflow-hidden">
     {/* Grid background */}
     <div 
-      className="absolute inset-0 pointer-events-none opacity-20"
+      className="absolute inset-0 pointer-events-none opacity-15"
       style={{
         backgroundImage: 'linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)',
         backgroundSize: '120px 120px'
       }}
     />
     
-    {/* Subtle radial glow behind text */}
-    <div 
-      className="absolute inset-0 pointer-events-none"
-      style={{
-        background: 'radial-gradient(ellipse 60% 40% at 50% 50%, hsl(var(--primary) / 0.08) 0%, transparent 70%)'
-      }}
+    {/* Large blue accent bar on the left */}
+    <motion.div 
+      initial={{ scaleY: 0 }}
+      whileInView={{ scaleY: 1 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true }}
+      className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-[40vh] bg-primary origin-center shadow-[0_0_60px_hsl(var(--primary)/0.4)]"
     />
     
-    <div className="relative z-10 text-center">
-      {/* Animated accent line */}
-      <motion.div 
-        initial={{ scaleY: 0, opacity: 0 }}
-        whileInView={{ scaleY: 1, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        viewport={{ once: true }}
-        className="w-[2px] h-20 bg-gradient-to-b from-transparent via-primary to-primary mb-10 mx-auto origin-top"
-      />
-      
-      {/* Animated title */}
+    {/* Secondary accent - horizontal line extending from bar */}
+    <motion.div 
+      initial={{ scaleX: 0, opacity: 0 }}
+      whileInView={{ scaleX: 1, opacity: 1 }}
+      transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="absolute left-2 top-1/2 w-32 h-[1px] bg-gradient-to-r from-primary to-transparent origin-left"
+    />
+    
+    <div className="relative z-10 text-center px-8">
+      {/* Title with dramatic entrance */}
       <motion.h2 
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
+        initial={{ opacity: 0, x: -40 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         viewport={{ once: true }}
-        className="font-serif text-6xl lg:text-7xl text-white mb-6"
+        className="font-serif text-6xl lg:text-8xl text-white mb-6 tracking-tight"
       >
         {title}<span className="text-primary">.</span>
       </motion.h2>
       
-      {/* Animated subtitle */}
+      {/* Subtitle */}
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="font-sans text-xl text-gray-400 font-light leading-relaxed max-w-lg mx-auto"
+        className="font-sans text-xl lg:text-2xl text-white/50 font-light leading-relaxed max-w-xl mx-auto"
       >
         {subtitle}
       </motion.p>
-      
-      {/* Bottom accent line */}
-      <motion.div 
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        transition={{ delay: 0.7, duration: 0.6, ease: "easeOut" }}
-        viewport={{ once: true }}
-        className="w-24 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent mt-10 mx-auto"
-      />
     </div>
     
     {/* Footer - just logo */}
