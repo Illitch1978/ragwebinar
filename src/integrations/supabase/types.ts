@@ -14,32 +14,82 @@ export type Database = {
   }
   public: {
     Tables: {
+      brand_guides: {
+        Row: {
+          created_at: string
+          description: string | null
+          design_system: Json
+          example_content: string | null
+          id: string
+          is_default: boolean | null
+          name: string
+          slide_templates: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          design_system?: Json
+          example_content?: string | null
+          id?: string
+          is_default?: boolean | null
+          name: string
+          slide_templates?: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          design_system?: Json
+          example_content?: string | null
+          id?: string
+          is_default?: boolean | null
+          name?: string
+          slide_templates?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       presentations: {
         Row: {
+          brand_guide_id: string | null
           client_name: string | null
           content: string
           created_at: string
+          generated_slides: Json | null
           id: string
           title: string
           updated_at: string
         }
         Insert: {
+          brand_guide_id?: string | null
           client_name?: string | null
           content: string
           created_at?: string
+          generated_slides?: Json | null
           id?: string
           title: string
           updated_at?: string
         }
         Update: {
+          brand_guide_id?: string | null
           client_name?: string | null
           content?: string
           created_at?: string
+          generated_slides?: Json | null
           id?: string
           title?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "presentations_brand_guide_id_fkey"
+            columns: ["brand_guide_id"]
+            isOneToOne: false
+            referencedRelation: "brand_guides"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
