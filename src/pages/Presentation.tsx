@@ -40,7 +40,7 @@ const convertGeneratedSlides = (generatedSlides: any[], clientName: string): Sli
     quote: slide.quote,
     author: slide.author,
     dark: slide.dark ?? (slide.type === 'cover' || slide.type === 'section-divider' || slide.type === 'closing'),
-    kicker: slide.type === 'cover' ? 'Strategic Intelligence' : undefined,
+    kicker: slide.type === 'cover' ? slide.kicker : undefined,
   }));
 };
 
@@ -53,7 +53,7 @@ const parseContentToSlides = (content: string, clientName: string): Slide[] => {
   slides.push({
     id: 0,
     type: 'title',
-    kicker: 'Strategic Intelligence',
+    kicker: clientName || 'Presentation',
     title: clientName || 'Presentation',
     subtitle: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
     dark: true,
@@ -356,7 +356,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           >
             <div className="w-24 h-[2px] bg-gradient-to-r from-primary to-primary/0" />
             <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-white/30">
-              Strategic Intelligence Report
+              {slide.title || slide.kicker || 'Presentation'}
             </span>
           </motion.div>
         </div>

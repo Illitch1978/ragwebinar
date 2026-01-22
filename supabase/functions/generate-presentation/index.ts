@@ -39,6 +39,9 @@ CRITICAL DESIGN RULES (always follow):
 5. Metrics slides should highlight 2-4 key numbers, not more.
 6. Cover slide must establish the brand immediately.
 7. Closing slide should have a clear call-to-action or next steps.
+8. NEVER include navigation arrows or exit buttons - navigation is handled by clicking the logo.
+9. The brand logo appears ONCE per slide in the bottom-left corner - NEVER duplicate logos.
+10. TITLE RULE: If no title is provided, generate an appropriate, compelling title based on the content. The title should be concise (3-6 words) and capture the essence of the presentation. NEVER use generic titles like "Strategic Intelligence Report" - always be specific to the content.
 `;
 
 // Slide count targets based on length preference
