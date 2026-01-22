@@ -6,7 +6,7 @@ import { Download, Loader2, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { getReportDataFromSession, ParsedReportData } from "@/lib/contentParser";
+import { ParsedReportData } from "@/lib/contentParser";
 import { 
   CursorGlow, 
   StaggeredContent, 
@@ -442,20 +442,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
   
-  // Get dynamic report data from session storage or use defaults
-  // For the RAG webinar, we always use the curated default content
-  const reportData = useMemo(() => {
-    const sessionData = getReportDataFromSession();
-    if (sessionData) {
-      // Use client name from session but keep curated RAG content
-      return {
-        ...defaultReportData,
-        clientName: sessionData.clientName || defaultReportData.clientName,
-        generatedDate: sessionData.generatedDate || defaultReportData.generatedDate,
-      };
-    }
-    return defaultReportData;
-  }, []);
+  // Use curated RAG webinar content
+  const reportData = defaultReportData;
   
   const [totalSlides, setTotalSlides] = useState(0);
   
