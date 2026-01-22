@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+// No arrow icons needed - navigation is via logo click and keyboard
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -941,24 +941,11 @@ const PresentationPage = () => {
       "h-screen flex flex-col overflow-hidden transition-colors duration-500",
       isDark ? "bg-[#0a0a0f]" : "bg-background"
     )}>
-      {/* Header */}
+      {/* Header - minimal, just progress */}
       <header className={cn(
-        "absolute top-0 left-0 right-0 z-20 px-8 py-6 flex justify-between items-center transition-colors duration-500",
+        "absolute top-0 right-0 z-20 px-8 py-6 transition-colors duration-500",
         isDark ? "text-white" : "text-foreground"
       )}>
-        <button
-          onClick={() => navigate('/')}
-          className={cn(
-            "flex items-center gap-2 transition-colors",
-            isDark ? "text-white/60 hover:text-white" : "text-muted-foreground hover:text-foreground"
-          )}
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.15em]">Exit</span>
-        </button>
-        
-        <RubiklabLogo inverted={isDark} />
-        
         <ProgressBar current={currentSlide} total={slides.length} />
       </header>
 
@@ -973,58 +960,25 @@ const PresentationPage = () => {
         </AnimatePresence>
       </main>
 
-      {/* Navigation */}
+      {/* Footer - Logo only (click to exit) */}
       <footer className={cn(
-        "absolute bottom-0 left-0 right-0 z-20 px-8 py-6 flex justify-between items-center transition-colors duration-500",
+        "absolute bottom-0 left-0 z-20 px-8 py-6 transition-colors duration-500",
         isDark ? "text-white" : "text-foreground"
       )}>
         <button
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          className={cn(
-            "group flex items-center gap-3 px-4 py-2 rounded-full border transition-all",
-            currentSlide === 0
-              ? "opacity-30 cursor-not-allowed border-transparent"
-              : isDark 
-                ? "border-white/10 hover:border-primary hover:bg-white/5"
-                : "border-border hover:border-primary hover:bg-muted"
-          )}
+          onClick={() => navigate('/')}
+          className="group flex items-center gap-1.5 transition-opacity hover:opacity-80"
         >
-          <ChevronLeft className="w-4 h-4" />
-          <span className="font-mono text-[10px] uppercase tracking-wider">Prev</span>
-        </button>
-
-        {/* Keyboard hint */}
-        <div className={cn(
-          "hidden lg:flex items-center gap-2 font-mono text-[9px] uppercase tracking-wider",
-          isDark ? "text-white/30" : "text-muted-foreground/50"
-        )}>
-          <kbd className={cn(
-            "px-2 py-1 rounded",
-            isDark ? "bg-white/5" : "bg-muted"
-          )}>←</kbd>
-          <span>/</span>
-          <kbd className={cn(
-            "px-2 py-1 rounded",
-            isDark ? "bg-white/5" : "bg-muted"
-          )}>→</kbd>
-          <span className="ml-2">to navigate</span>
-        </div>
-
-        <button
-          onClick={nextSlide}
-          disabled={currentSlide === slides.length - 1}
-          className={cn(
-            "group flex items-center gap-3 px-4 py-2 rounded-full border transition-all",
-            currentSlide === slides.length - 1
-              ? "opacity-30 cursor-not-allowed border-transparent"
-              : isDark 
-                ? "border-white/10 hover:border-primary hover:bg-white/5"
-                : "border-border hover:border-primary hover:bg-muted"
-          )}
-        >
-          <span className="font-mono text-[10px] uppercase tracking-wider">Next</span>
-          <ChevronRight className="w-4 h-4" />
+          <span className={cn(
+            "font-serif font-bold text-xl tracking-tight lowercase transition-colors",
+            isDark ? "text-white/60 group-hover:text-primary" : "text-foreground/50 group-hover:text-primary"
+          )}>
+            rubiklab
+          </span>
+          <div className="relative flex items-center justify-center">
+            <div className="absolute w-2.5 h-2.5 bg-primary rounded-full animate-ping opacity-20" />
+            <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
+          </div>
         </button>
       </footer>
     </div>
