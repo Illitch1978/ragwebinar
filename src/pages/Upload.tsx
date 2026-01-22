@@ -5,10 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import * as pdfjsLib from "pdfjs-dist";
-
-// Set up PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js`;
 
 // Rubiklab Logo component
 const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
@@ -64,22 +60,6 @@ const UploadPage = () => {
     }
   };
 
-  const extractTextFromPDF = async (file: File): Promise<string> => {
-    const arrayBuffer = await file.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-    let fullText = '';
-    
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const textContent = await page.getTextContent();
-      const pageText = textContent.items
-        .map((item: any) => item.str)
-        .join(' ');
-      fullText += pageText + '\n\n';
-    }
-    
-    return fullText.trim();
-  };
 
   const extractTextFromHTML = (html: string): string => {
     // Create a temporary DOM element to parse HTML
@@ -134,13 +114,8 @@ const UploadPage = () => {
         const extractedText = extractTextFromHTML(html);
         setContent(extractedText);
       }
-      // PDF files
-      else if (file.type === "application/pdf" || file.name.endsWith('.pdf')) {
-        const extractedText = await extractTextFromPDF(file);
-        setContent(extractedText);
-      }
       else {
-        alert("Please upload a .txt, .md, .html, or .pdf file");
+        alert("Please upload a .txt, .md, or .html file");
       }
     } catch (error) {
       console.error('Error processing file:', error);
@@ -338,7 +313,7 @@ const UploadPage = () => {
               <input
                 ref={fileInputRef}
                 type="file"
-                accept=".txt,.md,.html,.htm,.pdf,text/plain,text/markdown,text/html,application/pdf"
+                accept=".txt,.md,.html,.htm,text/plain,text/markdown,text/html"
                 onChange={handleFileSelect}
                 className="hidden"
               />
@@ -362,7 +337,7 @@ const UploadPage = () => {
                     {isProcessingFile ? "Processing file..." : "Drop your file here, or click to browse"}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Supports .txt, .md, .html, and .pdf files
+                    Supports .txt, .md, and .html files
                   </p>
                 </div>
               </div>
