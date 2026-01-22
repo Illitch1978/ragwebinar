@@ -1,10 +1,12 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation, Loader2 } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation, Loader2, Clock, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { usePresentations, useCreatePresentation, useDeletePresentation } from "@/hooks/usePresentations";
+import { formatDistanceToNow } from "date-fns";
 
 // Rubiklab Logo component
 const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
@@ -39,6 +41,10 @@ const UploadPage = () => {
   const [isProcessingFile, setIsProcessingFile] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  
+  const { data: savedPresentations, isLoading: isLoadingPresentations } = usePresentations();
+  const createPresentation = useCreatePresentation();
+  const deletePresentation = useDeletePresentation();
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -132,7 +138,7 @@ const UploadPage = () => {
     }
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (!content.trim()) {
       alert("Please add some content first");
       return;
@@ -140,15 +146,44 @@ const UploadPage = () => {
     
     setIsGenerating(true);
     
-    // Store content in sessionStorage for the report to consume
-    sessionStorage.setItem('rubiklab-content', content);
-    sessionStorage.setItem('rubiklab-client', clientName || 'Client');
+    try {
+      // Save to database
+      const title = clientName || `Presentation ${new Date().toLocaleDateString()}`;
+      const saved = await createPresentation.mutateAsync({
+        title,
+        content,
+        client_name: clientName || undefined,
+      });
+      
+      // Store content in sessionStorage for the report to consume
+      sessionStorage.setItem('rubiklab-content', content);
+      sessionStorage.setItem('rubiklab-client', clientName || 'Client');
+      sessionStorage.setItem('rubiklab-format', outputFormat);
+      sessionStorage.setItem('rubiklab-presentation-id', saved.id);
+      
+      // Navigate to appropriate view after a brief animation
+      setTimeout(() => {
+        navigate(outputFormat === 'presentation' ? '/presentation' : '/report');
+      }, 1500);
+    } catch (error) {
+      console.error('Error saving presentation:', error);
+      setIsGenerating(false);
+    }
+  };
+
+  const handleOpenSaved = (presentation: { id: string; content: string; client_name: string | null }) => {
+    sessionStorage.setItem('rubiklab-content', presentation.content);
+    sessionStorage.setItem('rubiklab-client', presentation.client_name || 'Client');
     sessionStorage.setItem('rubiklab-format', outputFormat);
-    
-    // Navigate to appropriate view after a brief animation
-    setTimeout(() => {
-      navigate(outputFormat === 'presentation' ? '/presentation' : '/report');
-    }, 1500);
+    sessionStorage.setItem('rubiklab-presentation-id', presentation.id);
+    navigate(outputFormat === 'presentation' ? '/presentation' : '/report');
+  };
+
+  const handleDelete = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    if (confirm('Are you sure you want to delete this presentation?')) {
+      await deletePresentation.mutateAsync(id);
+    }
   };
 
   return (
@@ -419,6 +454,65 @@ Your strategic analysis content...
           >
             Your content will be transformed into a premium strategic report deck
           </motion.p>
+
+          {/* Saved Presentations */}
+          {savedPresentations && savedPresentations.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
+              className="mt-16 pt-12 border-t border-border"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-8 h-[1px] bg-primary" />
+                <h2 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest">
+                  Saved Presentations
+                </h2>
+              </div>
+              
+              <div className="space-y-3">
+                {savedPresentations.map((presentation) => (
+                  <div
+                    key={presentation.id}
+                    onClick={() => handleOpenSaved(presentation)}
+                    className="group flex items-center justify-between p-4 bg-card border border-border rounded-sm hover:border-primary/50 cursor-pointer transition-all duration-300"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                        <Presentation className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-foreground group-hover:text-primary transition-colors">
+                          {presentation.title}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Clock className="w-3 h-3" />
+                          <span>{formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={(e) => handleDelete(e, presentation.id)}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                      <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+          
+          {isLoadingPresentations && (
+            <div className="mt-16 pt-12 border-t border-border flex justify-center">
+              <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" />
+            </div>
+          )}
         </div>
       </main>
 
