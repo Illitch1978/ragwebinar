@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,9 +28,12 @@ const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
   </div>
 );
 
+type OutputFormat = 'report' | 'presentation';
+
 const UploadPage = () => {
   const [content, setContent] = useState("");
   const [clientName, setClientName] = useState("");
+  const [outputFormat, setOutputFormat] = useState<OutputFormat>('report');
   const [isDragging, setIsDragging] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -82,11 +85,12 @@ const UploadPage = () => {
     
     // Store content in sessionStorage for the report to consume
     sessionStorage.setItem('rubiklab-content', content);
-    sessionStorage.setItem('rubiklab-client', clientName || 'Client Report');
+    sessionStorage.setItem('rubiklab-client', clientName || 'Client');
+    sessionStorage.setItem('rubiklab-format', outputFormat);
     
-    // Navigate to report after a brief animation
+    // Navigate to appropriate view after a brief animation
     setTimeout(() => {
-      navigate('/report');
+      navigate(outputFormat === 'presentation' ? '/presentation' : '/report');
     }, 1500);
   };
 
@@ -139,7 +143,7 @@ const UploadPage = () => {
             className="mb-8"
           >
             <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Client Name
+              Client / Project Name
             </label>
             <input
               type="text"
@@ -150,15 +154,90 @@ const UploadPage = () => {
             />
           </motion.div>
 
+          {/* Format Selection */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
+            className="mb-8"
+          >
+            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+              Output Format
+            </label>
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={() => setOutputFormat('report')}
+                className={cn(
+                  "relative px-6 py-5 rounded-sm border-2 transition-all duration-300 text-left group",
+                  outputFormat === 'report'
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-primary/50 bg-card"
+                )}
+              >
+                <div className="flex items-start gap-4">
+                  <div className={cn(
+                    "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
+                    outputFormat === 'report' ? "bg-primary/20" : "bg-muted"
+                  )}>
+                    <FileBarChart className={cn(
+                      "w-5 h-5 transition-colors",
+                      outputFormat === 'report' ? "text-primary" : "text-muted-foreground"
+                    )} />
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground mb-1">Strategic Report</p>
+                    <p className="text-sm text-muted-foreground">
+                      Comprehensive analysis deck with executive synthesis
+                    </p>
+                  </div>
+                </div>
+                {outputFormat === 'report' && (
+                  <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full" />
+                )}
+              </button>
+
+              <button
+                onClick={() => setOutputFormat('presentation')}
+                className={cn(
+                  "relative px-6 py-5 rounded-sm border-2 transition-all duration-300 text-left group",
+                  outputFormat === 'presentation'
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-primary/50 bg-card"
+                )}
+              >
+                <div className="flex items-start gap-4">
+                  <div className={cn(
+                    "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
+                    outputFormat === 'presentation' ? "bg-primary/20" : "bg-muted"
+                  )}>
+                    <Presentation className={cn(
+                      "w-5 h-5 transition-colors",
+                      outputFormat === 'presentation' ? "text-primary" : "text-muted-foreground"
+                    )} />
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground mb-1">Presentation</p>
+                    <p className="text-sm text-muted-foreground">
+                      Webinar-style slides with focused messaging
+                    </p>
+                  </div>
+                </div>
+                {outputFormat === 'presentation' && (
+                  <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full" />
+                )}
+              </button>
+            </div>
+          </motion.div>
+
           {/* Upload/Paste Area */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.25 }}
             className="mb-8"
           >
             <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Report Content
+              {outputFormat === 'presentation' ? 'Slide Content' : 'Report Content'}
             </label>
             
             {/* Drag & Drop Zone */}
