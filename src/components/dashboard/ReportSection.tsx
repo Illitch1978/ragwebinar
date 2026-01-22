@@ -593,31 +593,44 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 13: Terminology Harmonisation           */}
         {/* ============================================== */}
-        <Slide hasCards>
+        <Slide>
           <div className="flex-1 flex flex-col max-w-6xl pt-8">
-            <div className="flex gap-16 flex-1">
-              <div className="flex-1 flex flex-col">
-                <SlideEyebrow>Retrieval Quality</SlideEyebrow>
-                <ActionTitle>aligning legal language across the firm</ActionTitle>
-                <BodyText>
-                  Law firms contain linguistic silos. These are not cosmetic differences, they create retrieval failures where relevant expertise exists but remains undiscoverable.
-                </BodyText>
-                <div className="mt-auto bg-primary/5 border-l-4 border-primary p-6">
-                  <p className="text-lg text-foreground/70 italic font-serif">
+            <SlideEyebrow>Retrieval Quality</SlideEyebrow>
+            <ActionTitle>aligning legal language across the firm</ActionTitle>
+            
+            <div className="mt-8 flex gap-12 flex-1">
+              {/* Left - Statement */}
+              <div className="flex-1 flex flex-col justify-center">
+                <p className="font-serif text-2xl lg:text-3xl text-foreground/80 leading-relaxed mb-8">
+                  Law firms contain linguistic silos. These are not cosmetic differences—they create <span className="text-primary font-medium">retrieval failures</span> where relevant expertise exists but remains undiscoverable.
+                </p>
+                <div className="bg-gradient-to-r from-primary/10 to-transparent border-l-2 border-primary pl-6 py-4">
+                  <p className="text-base text-foreground/60 italic">
                     Expertise becomes discoverable without changing how lawyers naturally write.
                   </p>
                 </div>
               </div>
-              <div className="w-80 flex flex-col gap-4">
-                <Card title="controlled vocabularies" accent>
-                  canonical terms for key concepts across practice areas.
-                </Card>
-                <Card title="synonym mapping">
-                  mappings between alternative phrasings that mean the same thing.
-                </Card>
-                <Card title="terminology harmonisation">
-                  enrich documents with standardised tags while preserving original language.
-                </Card>
+              
+              {/* Right - Visual breakdown */}
+              <div className="w-[340px] flex flex-col justify-center gap-6">
+                {[
+                  { num: "01", title: "controlled vocabularies", desc: "canonical terms for key concepts across practice areas" },
+                  { num: "02", title: "synonym mapping", desc: "mappings between alternative phrasings that mean the same thing" },
+                  { num: "03", title: "terminology harmonisation", desc: "enrich documents with standardised tags while preserving original language" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.num}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1, duration: 0.4 }}
+                    viewport={{ once: true }}
+                    className="group relative pl-12"
+                  >
+                    <span className="absolute left-0 top-0 font-mono text-xs text-primary/60">{item.num}</span>
+                    <h4 className="font-serif text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
@@ -626,32 +639,51 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 14: Governance Through Architecture     */}
         {/* ============================================== */}
-        <Slide hasCards>
+        <Slide>
           <div className="flex-1 flex flex-col max-w-6xl pt-8">
             <SlideEyebrow>Game Changer</SlideEyebrow>
             <ActionTitle>governance through architecture</ActionTitle>
-            <p className="font-sans text-base lg:text-lg text-foreground/60 leading-relaxed max-w-3xl mb-6">
+            <p className="font-sans text-lg text-foreground/50 leading-relaxed max-w-3xl mb-8">
               More context often yields worse answers. Aggressive context control and architectural governance improve both quality and security.
             </p>
-            <div className="grid grid-cols-3 gap-3 flex-1">
-              <Card title="jurisdiction filters" accent>
-                retrieve only content applicable to the relevant regime.
-              </Card>
-              <Card title="practice area scoping">
-                constrain retrieval to domains where the query has legitimate application.
-              </Card>
-              <Card title="matter level permissions">
-                respect engagement boundaries and work product privilege.
-              </Card>
-              <Card title="client isolation" accent>
-                absolute segregation that prevents cross client leakage.
-              </Card>
-              <Card title="permission aware retrieval">
-                retrieve only what the user is authorised to view.
-              </Card>
-              <Card title="audit trails" accent>
-                immutable logs and compliance by design.
-              </Card>
+            
+            {/* Premium 2-row grid with visual hierarchy */}
+            <div className="grid grid-cols-3 gap-x-8 gap-y-6 flex-1">
+              {[
+                { title: "jurisdiction filters", desc: "retrieve only content applicable to the relevant regime", featured: true },
+                { title: "practice area scoping", desc: "constrain retrieval to domains where the query has legitimate application", featured: false },
+                { title: "matter level permissions", desc: "respect engagement boundaries and work product privilege", featured: false },
+                { title: "client isolation", desc: "absolute segregation that prevents cross client leakage", featured: true },
+                { title: "permission aware retrieval", desc: "retrieve only what the user is authorised to view", featured: false },
+                { title: "audit trails", desc: "immutable logs and compliance by design", featured: true },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
+                  viewport={{ once: true }}
+                  className={cn(
+                    "group p-5 border transition-all duration-300",
+                    item.featured 
+                      ? "bg-primary/5 border-primary/30 hover:border-primary" 
+                      : "bg-card border-border hover:border-primary/40"
+                  )}
+                >
+                  <div className="flex items-start gap-3 mb-2">
+                    {item.featured && <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />}
+                    <h4 className={cn(
+                      "font-serif text-lg transition-colors",
+                      item.featured ? "text-primary" : "text-foreground group-hover:text-primary"
+                    )}>
+                      {item.title}
+                    </h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed pl-4">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </Slide>
@@ -668,25 +700,59 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 15: Human in the Loop                   */}
         {/* ============================================== */}
         <Slide>
-          <div className="flex-1 flex flex-col justify-center max-w-5xl">
+          <div className="flex-1 flex flex-col max-w-5xl pt-8">
             <SlideEyebrow>Operating Model</SlideEyebrow>
             <ActionTitle>human in the loop is non negotiable</ActionTitle>
-            <BodyText>
+            
+            <p className="font-serif text-xl lg:text-2xl text-foreground/70 leading-relaxed max-w-3xl mt-4 mb-12">
               RAG does not replace lawyers. It augments judgement by accelerating research, drafting first passes from firm templates, and reducing mechanical tasks.
-            </BodyText>
-            <div className="mt-12 grid grid-cols-3 gap-8">
-              <div className="border-t-2 border-primary pt-4">
-                <p className="font-serif text-xl text-foreground mb-2">Accelerate</p>
-                <p className="text-sm text-foreground/50">Research and discovery at machine speed</p>
-              </div>
-              <div className="border-t-2 border-foreground/20 pt-4">
-                <p className="font-serif text-xl text-foreground mb-2">Draft</p>
-                <p className="text-sm text-foreground/50">First passes from firm approved templates</p>
-              </div>
-              <div className="border-t-2 border-foreground/20 pt-4">
-                <p className="font-serif text-xl text-foreground mb-2">Judge</p>
-                <p className="text-sm text-foreground/50">Legal judgement remains central to strategy</p>
-              </div>
+            </p>
+            
+            {/* Premium 3-column breakdown */}
+            <div className="grid grid-cols-3 gap-0 flex-1">
+              {[
+                { title: "Accelerate", desc: "Research and discovery at machine speed", icon: "→", featured: true },
+                { title: "Draft", desc: "First passes from firm approved templates", icon: "◇", featured: false },
+                { title: "Judge", desc: "Legal judgement remains central to strategy", icon: "◈", featured: false },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.15, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className={cn(
+                    "group relative flex flex-col p-8",
+                    i === 0 && "bg-primary/5",
+                    i > 0 && "border-l border-border"
+                  )}
+                >
+                  {/* Top accent */}
+                  <div className={cn(
+                    "absolute top-0 left-0 right-0 h-1",
+                    i === 0 ? "bg-primary" : "bg-transparent"
+                  )} />
+                  
+                  {/* Number */}
+                  <span className="font-mono text-xs text-primary/50 mb-4">0{i + 1}</span>
+                  
+                  {/* Title */}
+                  <h4 className={cn(
+                    "font-serif text-2xl mb-3 transition-colors",
+                    i === 0 ? "text-primary" : "text-foreground group-hover:text-primary"
+                  )}>
+                    {item.title}
+                  </h4>
+                  
+                  {/* Description */}
+                  <p className="text-base text-muted-foreground leading-relaxed">
+                    {item.desc}
+                  </p>
+                  
+                  {/* Bottom accent on hover */}
+                  <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </motion.div>
+              ))}
             </div>
           </div>
         </Slide>
