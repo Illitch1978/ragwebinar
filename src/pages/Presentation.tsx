@@ -354,16 +354,14 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
             </span>
           </motion.div>
           
-          {/* Decorative bottom line */}
+          {/* Decorative bottom line - no text to avoid logo duplication */}
           <motion.div 
             variants={childVariant}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={smoothTransition}
             className="absolute bottom-20 left-12 lg:left-20 flex items-center gap-4"
           >
             <div className="w-24 h-[2px] bg-gradient-to-r from-primary to-primary/0" />
-            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-white/30">
-              {slide.title || slide.kicker || 'Presentation'}
-            </span>
+            <div className="w-12 h-[2px] bg-white/10" />
           </motion.div>
         </div>
         
