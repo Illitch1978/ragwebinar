@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
-import { Download, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import { CursorGlow, CountingNumber } from "./SlideAnimations";
 
 // Premium slide component with light background
@@ -24,13 +21,13 @@ const Slide = ({
     )}
     data-slide="true"
   >
-    {/* Subtle grid pattern */}
-    {!dark && (
+    {/* Grid pattern only on dark slides */}
+    {dark && (
       <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        className="absolute inset-0 pointer-events-none opacity-20"
         style={{
-          backgroundImage: 'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)',
-          backgroundSize: '60px 60px'
+          backgroundImage: 'linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)',
+          backgroundSize: '120px 120px'
         }}
       />
     )}
@@ -243,8 +240,6 @@ interface ReportSectionProps {
 
 const ReportSection = ({ onExit }: ReportSectionProps) => {
   const navigate = useNavigate();
-  const [isExporting, setIsExporting] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
@@ -330,113 +325,6 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       clearTimeout(wheelTimeout);
     };
   }, [nextSlide, prevSlide]);
-
-  const handleDownload = async () => {
-    setIsExporting(true);
-    setProgress(0);
-    
-    try {
-      if (!containerRef.current) return;
-      
-      const allSlides = containerRef.current.querySelectorAll('[data-slide="true"], [data-cover="true"], [data-divider="true"]');
-      
-      if (allSlides.length === 0) {
-        console.error("No slides found for export");
-        return;
-      }
-      
-      const totalSlideCount = allSlides.length;
-      let currentItem = 0;
-      
-      const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
-      
-      const animatedElements = containerRef.current.querySelectorAll('[class*="opacity-0"], [style*="opacity: 0"]');
-      const originalStyles: { el: Element; opacity: string; transform: string }[] = [];
-      
-      animatedElements.forEach((el) => {
-        const htmlEl = el as HTMLElement;
-        originalStyles.push({
-          el,
-          opacity: htmlEl.style.opacity,
-          transform: htmlEl.style.transform
-        });
-        htmlEl.style.opacity = '1';
-        htmlEl.style.transform = 'none';
-      });
-      
-      const motionElements = containerRef.current.querySelectorAll('[data-framer-component-type]');
-      motionElements.forEach((el) => {
-        const htmlEl = el as HTMLElement;
-        originalStyles.push({
-          el,
-          opacity: htmlEl.style.opacity,
-          transform: htmlEl.style.transform
-        });
-        htmlEl.style.opacity = '1';
-        htmlEl.style.transform = 'none';
-      });
-      
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
-      const captureSlide = async (slide: Element): Promise<string> => {
-        const htmlSlide = slide as HTMLElement;
-        const originalSlideOpacity = htmlSlide.style.opacity;
-        htmlSlide.style.opacity = '1';
-        
-        const children = htmlSlide.querySelectorAll('*');
-        children.forEach((child) => {
-          const htmlChild = child as HTMLElement;
-          if (htmlChild.style.opacity === '0' || getComputedStyle(htmlChild).opacity === '0') {
-            htmlChild.style.opacity = '1';
-          }
-        });
-        
-        await new Promise(resolve => setTimeout(resolve, 50));
-        
-        const canvas = await html2canvas(htmlSlide, {
-          scale: 1.5,
-          useCORS: true,
-          backgroundColor: "#ffffff",
-          logging: false,
-          onclone: (clonedDoc) => {
-            const allElements = clonedDoc.querySelectorAll('*');
-            allElements.forEach((el) => {
-              const htmlEl = el as HTMLElement;
-              if (htmlEl.style) {
-                htmlEl.style.opacity = '1';
-                htmlEl.style.visibility = 'visible';
-              }
-            });
-          }
-        });
-        
-        htmlSlide.style.opacity = originalSlideOpacity;
-        return canvas.toDataURL("image/jpeg", 0.85);
-      };
-      
-      for (let i = 0; i < allSlides.length; i++) {
-        currentItem++;
-        setProgress(Math.round((currentItem / totalSlideCount) * 100));
-        const imgData = await captureSlide(allSlides[i]);
-        if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
-      }
-      
-      originalStyles.forEach(({ el, opacity, transform }) => {
-        const htmlEl = el as HTMLElement;
-        htmlEl.style.opacity = opacity;
-        htmlEl.style.transform = transform;
-      });
-      
-      const dateStr = new Date().toISOString().split("T")[0];
-      pdf.save(`Rubiklab_RAG-Reliability_${dateStr}.pdf`);
-    } catch (error) {
-      console.error("PDF export failed:", error);
-    } finally {
-      setIsExporting(false);
-      setProgress(0);
-    }
-  };
 
   return (
     <div 
@@ -802,12 +690,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
 
       </div>
       
-      {/* Hidden export button trigger */}
-      <button data-export-trigger className="hidden" onClick={handleDownload} />
-      
       {/* Subtle progress indicator - bottom right */}
       {totalSlides > 0 && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 print-hide">
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
           {/* Progress bar */}
           <div className="w-24 h-[2px] bg-muted overflow-hidden">
             <div 
@@ -822,43 +707,6 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </span>
         </div>
       )}
-
-      {/* Navigation arrows */}
-      <div className="fixed bottom-6 left-6 z-50 flex gap-2 print-hide">
-        <button 
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          className="w-10 h-10 flex items-center justify-center border border-border bg-background/80 backdrop-blur-sm hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-        >
-          <ChevronLeft className="w-4 h-4" />
-        </button>
-        <button 
-          onClick={nextSlide}
-          disabled={currentSlide === totalSlides - 1}
-          className="w-10 h-10 flex items-center justify-center border border-border bg-background/80 backdrop-blur-sm hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-        >
-          <ChevronRight className="w-4 h-4" />
-        </button>
-      </div>
-
-      {/* Download button */}
-      <button
-        onClick={handleDownload}
-        disabled={isExporting}
-        className="fixed top-6 right-6 z-50 flex items-center gap-2 px-4 py-2 bg-card/80 backdrop-blur-sm border border-border hover:border-primary text-muted-foreground hover:text-foreground text-[10px] font-mono uppercase tracking-widest transition-all duration-300 print-hide disabled:opacity-50"
-      >
-        {isExporting ? (
-          <>
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
-            <span>{progress}%</span>
-          </>
-        ) : (
-          <>
-            <Download className="w-3.5 h-3.5" />
-            <span>Export PDF</span>
-          </>
-        )}
-      </button>
     </div>
   );
 };
