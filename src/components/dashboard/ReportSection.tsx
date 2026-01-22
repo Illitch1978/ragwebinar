@@ -387,24 +387,53 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 05: Hallucination Moved                 */}
         {/* ============================================== */}
-        <Slide hasCards>
-          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+        <Slide>
+          <div className="flex-1 flex flex-col justify-center">
             <SlideEyebrow>The Hidden Shift</SlideEyebrow>
-            <ActionTitle>hallucination did not disappear, it moved</ActionTitle>
-            <div className="grid grid-cols-2 gap-5 mt-6 flex-1">
-              <Card title="noisy retrieval">
-                too many tangential documents, sometimes conflicting, leaving the model to guess what matters.
-              </Card>
-              <Card title="bad documents">
-                the system faithfully cites flawed, outdated, or incomplete sources, so the answer looks grounded but is wrong.
-              </Card>
-              <Card title="missing context">
-                individual documents may be correct, yet the set lacks qualifications, boundaries, and the full scope required.
-              </Card>
-              <Card title="the result" accent>
-                answers that sound authoritative and still require expert review, which is exactly what RAG was meant to reduce.
-              </Card>
+            
+            {/* Large statement */}
+            <h2 className="font-serif text-[3rem] lg:text-[4.5rem] leading-[1.05] tracking-tight text-foreground max-w-5xl mb-16">
+              hallucination did not disappear,<br />
+              <span className="text-primary italic">it moved.</span>
+            </h2>
+            
+            {/* Horizontal flow of issues */}
+            <div className="flex items-start gap-0 border-t border-foreground/10">
+              {[
+                { label: "noisy retrieval", desc: "too many tangential documents, leaving the model to guess" },
+                { label: "bad documents", desc: "faithfully citing flawed or outdated sources" },
+                { label: "missing context", desc: "correct fragments lacking qualifications and scope" },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  viewport={{ once: true }}
+                  className={cn(
+                    "flex-1 py-8 pr-8",
+                    i > 0 && "pl-8 border-l border-foreground/10"
+                  )}
+                >
+                  <span className="font-serif text-xl text-foreground">{item.label}</span>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{item.desc}</p>
+                </motion.div>
+              ))}
             </div>
+            
+            {/* Result callout */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="mt-8 flex items-center gap-6"
+            >
+              <div className="w-12 h-[2px] bg-primary" />
+              <p className="font-serif text-lg text-foreground/60 italic">
+                Answers that sound authoritative yet still require expert review.
+              </p>
+            </motion.div>
           </div>
         </Slide>
 
@@ -495,42 +524,52 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 10: Preparation Layer                   */}
         {/* ============================================== */}
         <Slide>
-          <div className="flex-1 flex flex-col max-w-6xl pt-8">
-            <SlideEyebrow>Core Insight</SlideEyebrow>
-            <ActionTitle>the preparation layer is everything</ActionTitle>
+          <div className="flex-1 flex justify-between gap-16">
+            {/* Left column - Statement */}
+            <div className="flex flex-col justify-center max-w-lg">
+              <SlideEyebrow>Core Insight</SlideEyebrow>
+              <h2 className="font-serif text-[2.5rem] lg:text-[3.5rem] leading-[1.1] tracking-tight text-foreground mb-8">
+                the preparation layer is <span className="text-primary italic">everything</span>.
+              </h2>
+              <p className="font-serif text-xl text-foreground/50 leading-relaxed">
+                Before retrieval happens, content must be normalised, structured, enriched, and validated.
+              </p>
+            </div>
             
-            {/* Premium horizontal layout */}
-            <div className="grid grid-cols-5 gap-6 mt-10 flex-1">
+            {/* Right column - Stacked process steps */}
+            <div className="flex-1 max-w-xl flex flex-col justify-center">
               {[
                 { num: "01", title: "content normalisation", desc: "standardise formats, extract clean text, remove artefacts" },
                 { num: "02", title: "structural parsing", desc: "sections, clauses, definitions, cross references" },
                 { num: "03", title: "metadata enrichment", desc: "practice area, jurisdiction, type, author, approval status" },
                 { num: "04", title: "version control", desc: "supersessions, current versus historical, change tracking" },
-                { num: "05", title: "authority tagging", desc: "firm approved guidance, precedential value, confidence levels" },
+                { num: "05", title: "authority tagging", desc: "firm approved guidance, precedential value, confidence" },
               ].map((step, i) => (
                 <motion.div
                   key={step.num}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.08, duration: 0.4 }}
                   viewport={{ once: true }}
-                  className="group flex flex-col"
+                  className={cn(
+                    "group flex items-start gap-6 py-4",
+                    i < 4 && "border-b border-foreground/10"
+                  )}
                 >
-                  {/* Number */}
-                  <span className="font-mono text-xs text-primary font-medium mb-3">{step.num}</span>
+                  {/* Number with vertical line */}
+                  <div className="flex flex-col items-center">
+                    <span className="font-mono text-xs text-primary font-medium">{step.num}</span>
+                  </div>
                   
-                  {/* Vertical line accent */}
-                  <div className="w-full h-[2px] bg-gradient-to-r from-primary to-primary/20 mb-4 group-hover:to-primary/60 transition-all duration-500" />
-                  
-                  {/* Title */}
-                  <h4 className="font-serif text-lg text-foreground leading-tight mb-3 group-hover:text-primary transition-colors duration-300">
-                    {step.title}
-                  </h4>
-                  
-                  {/* Description */}
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {step.desc}
-                  </p>
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h4 className="font-serif text-lg text-foreground leading-tight group-hover:text-primary transition-colors duration-300">
+                      {step.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -594,46 +633,56 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 13: Terminology Harmonisation           */}
         {/* ============================================== */}
         <Slide>
-          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+          <div className="flex-1 flex flex-col justify-center">
             <SlideEyebrow>Retrieval Quality</SlideEyebrow>
-            <ActionTitle>aligning legal language across the firm</ActionTitle>
             
-            {/* Single impactful statement */}
-            <p className="font-serif text-2xl lg:text-3xl text-foreground/70 leading-relaxed max-w-3xl mt-6 mb-16">
-              Law firms contain linguistic silos. These are not cosmetic differences—they create retrieval failures where relevant expertise exists but remains <span className="text-primary">undiscoverable</span>.
+            {/* Large impactful statement */}
+            <h2 className="font-serif text-[2.5rem] lg:text-[3.5rem] leading-[1.1] tracking-tight text-foreground max-w-4xl mb-6">
+              law firms contain <span className="text-primary italic">linguistic silos</span>.
+            </h2>
+            
+            <p className="font-serif text-xl lg:text-2xl text-foreground/50 leading-relaxed max-w-3xl mb-16">
+              These are not cosmetic differences—they create retrieval failures where relevant expertise exists but remains undiscoverable.
             </p>
             
-            {/* Clean horizontal breakdown */}
-            <div className="grid grid-cols-3 gap-0 border-t border-border">
+            {/* Three key terms displayed prominently inline */}
+            <div className="flex items-center gap-4 flex-wrap">
               {[
-                { num: "01", title: "controlled vocabularies", desc: "canonical terms for key concepts across practice areas" },
-                { num: "02", title: "synonym mapping", desc: "mappings between alternative phrasings that mean the same thing" },
-                { num: "03", title: "terminology harmonisation", desc: "enrich documents with standardised tags while preserving original language" },
-              ].map((item, i) => (
+                "controlled vocabularies",
+                "synonym mapping", 
+                "terminology harmonisation",
+              ].map((term, i) => (
                 <motion.div
-                  key={item.num}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: i * 0.12, duration: 0.5 }}
+                  key={term}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
                   viewport={{ once: true }}
-                  className={cn(
-                    "group py-8 pr-8",
-                    i > 0 && "pl-8 border-l border-border"
-                  )}
+                  className="group"
                 >
-                  <span className="font-mono text-[11px] text-primary tracking-wider">{item.num}</span>
-                  <h4 className="font-serif text-xl text-foreground mt-3 mb-2 group-hover:text-primary transition-colors">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <span className={cn(
+                    "inline-block font-serif text-lg lg:text-xl px-6 py-3 border transition-all duration-300",
+                    i === 0 
+                      ? "border-primary bg-primary/5 text-primary" 
+                      : "border-foreground/20 text-foreground hover:border-primary hover:text-primary"
+                  )}>
+                    {term}
+                  </span>
+                  {i < 2 && <span className="text-foreground/30 mx-2">→</span>}
                 </motion.div>
               ))}
             </div>
             
-            {/* Bottom insight */}
-            <div className="mt-auto pt-8">
-              <p className="text-base text-foreground/50 italic font-serif">
-                Expertise becomes discoverable without changing how lawyers naturally write.
-              </p>
-            </div>
+            {/* Subtle descriptor */}
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-sm text-muted-foreground mt-8 max-w-2xl"
+            >
+              Enrich documents with standardised tags while preserving original language—making expertise discoverable across practice areas.
+            </motion.p>
           </div>
         </Slide>
 
