@@ -296,33 +296,33 @@ const CoverFrame = () => (
 );
 
 const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) => {
-  // Trendy blur-in animation - popular in modern Framer sites
-  const blurInEase = [0.22, 1, 0.36, 1] as const; // Smooth deceleration
+  // Clean fade-only animation - minimal and professional
+  const fadeEase = [0.4, 0, 0.2, 1] as const; // Material design standard easing
   
   const variants = {
-    enter: { opacity: 0, filter: "blur(12px)", scale: 0.98 },
-    center: { opacity: 1, filter: "blur(0px)", scale: 1 },
-    exit: { opacity: 0, filter: "blur(8px)", scale: 0.99 },
+    enter: { opacity: 0 },
+    center: { opacity: 1 },
+    exit: { opacity: 0 },
   };
 
   const staggerChildren = {
     center: {
       transition: { 
-        staggerChildren: 0.12, 
-        delayChildren: 0.1
+        staggerChildren: 0.1, 
+        delayChildren: 0.05
       }
     }
   };
 
   const childVariant = {
-    enter: { opacity: 0, filter: "blur(8px)", y: 0 },
-    center: { opacity: 1, filter: "blur(0px)", y: 0 },
+    enter: { opacity: 0 },
+    center: { opacity: 1 },
   };
   
-  // Smooth transition config - blur-focused, no vertical movement
+  // Smooth fade transition
   const smoothTransition = { 
-    duration: 0.6, 
-    ease: blurInEase,
+    duration: 0.5, 
+    ease: fadeEase,
   };
 
   // Title/Cover slide - Premium cover treatment
