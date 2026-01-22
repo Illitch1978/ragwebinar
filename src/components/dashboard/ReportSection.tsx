@@ -208,14 +208,54 @@ const SectionDivider = ({
       }}
     />
     
+    {/* Subtle radial glow behind text */}
+    <div 
+      className="absolute inset-0 pointer-events-none"
+      style={{
+        background: 'radial-gradient(ellipse 60% 40% at 50% 50%, hsl(var(--primary) / 0.08) 0%, transparent 70%)'
+      }}
+    />
+    
     <div className="relative z-10 text-center">
-      <div className="w-[1px] h-16 bg-primary mb-10 mx-auto" />
-      <h2 className="font-serif text-6xl lg:text-7xl text-white mb-6">
+      {/* Animated accent line */}
+      <motion.div 
+        initial={{ scaleY: 0, opacity: 0 }}
+        whileInView={{ scaleY: 1, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="w-[2px] h-20 bg-gradient-to-b from-transparent via-primary to-primary mb-10 mx-auto origin-top"
+      />
+      
+      {/* Animated title */}
+      <motion.h2 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="font-serif text-6xl lg:text-7xl text-white mb-6"
+      >
         {title}<span className="text-primary">.</span>
-      </h2>
-      <p className="font-sans text-xl text-gray-400 font-light leading-relaxed max-w-lg mx-auto">
+      </motion.h2>
+      
+      {/* Animated subtitle */}
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="font-sans text-xl text-gray-400 font-light leading-relaxed max-w-lg mx-auto"
+      >
         {subtitle}
-      </p>
+      </motion.p>
+      
+      {/* Bottom accent line */}
+      <motion.div 
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        transition={{ delay: 0.7, duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="w-24 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent mt-10 mx-auto"
+      />
     </div>
     
     {/* Footer - just logo */}
