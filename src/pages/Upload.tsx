@@ -1,0 +1,297 @@
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+
+// Rubiklab Logo component
+const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
+  <div className="flex items-center gap-1.5 group cursor-pointer">
+    <span className={cn(
+      "font-serif font-bold tracking-tight text-foreground transition-colors duration-700 group-hover:text-primary",
+      size === 'small' ? 'text-2xl' : 'text-3xl'
+    )}>
+      Rubiklab
+    </span>
+    <div className="relative flex items-center justify-center">
+      <div className={cn(
+        "absolute bg-primary rounded-full animate-ping opacity-20",
+        size === 'small' ? 'w-2.5 h-2.5' : 'w-3 h-3'
+      )} />
+      <div className={cn(
+        "bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]",
+        size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'
+      )} />
+    </div>
+  </div>
+);
+
+const UploadPage = () => {
+  const [content, setContent] = useState("");
+  const [clientName, setClientName] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      await handleFile(files[0]);
+    }
+  };
+
+  const handleFile = async (file: File) => {
+    if (file.type === "text/plain" || file.type === "text/markdown" || file.name.endsWith('.md') || file.name.endsWith('.txt')) {
+      const text = await file.text();
+      setContent(text);
+    } else {
+      alert("Please upload a .txt or .md file");
+    }
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      await handleFile(files[0]);
+    }
+  };
+
+  const handleGenerate = () => {
+    if (!content.trim()) {
+      alert("Please add some content first");
+      return;
+    }
+    
+    setIsGenerating(true);
+    
+    // Store content in sessionStorage for the report to consume
+    sessionStorage.setItem('rubiklab-content', content);
+    sessionStorage.setItem('rubiklab-client', clientName || 'Client Report');
+    
+    // Navigate to report after a brief animation
+    setTimeout(() => {
+      navigate('/report');
+    }, 1500);
+  };
+
+  return (
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      {/* Subtle grid background */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-0 opacity-[0.02]" 
+        style={{
+          backgroundImage: 'radial-gradient(hsl(var(--primary)) 1px, transparent 1px)',
+          backgroundSize: '60px 60px'
+        }}
+      />
+
+      {/* Header */}
+      <header className="relative z-10 border-b border-border">
+        <div className="container mx-auto px-6 lg:px-16 py-6 flex justify-between items-center">
+          <RubiklabLogo />
+          <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+            Intelligence Capital
+          </span>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="relative z-10 flex-1 container mx-auto px-6 lg:px-16 py-12 lg:py-20">
+        <div className="max-w-4xl mx-auto">
+          {/* Hero */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h1 className="font-serif text-4xl lg:text-6xl text-foreground mb-6 tracking-tight">
+              Strategic<br />
+              <span className="italic text-primary">Intelligence Reports</span>
+            </h1>
+            <p className="text-muted-foreground text-lg lg:text-xl max-w-2xl mx-auto font-light">
+              Transform your analysis into a premium presentation deck. 
+              Paste your content or upload a file to begin.
+            </p>
+          </motion.div>
+
+          {/* Client Name Input */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+            className="mb-8"
+          >
+            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+              Client Name
+            </label>
+            <input
+              type="text"
+              value={clientName}
+              onChange={(e) => setClientName(e.target.value)}
+              placeholder="Enter client or project name..."
+              className="w-full px-6 py-4 bg-card border border-border rounded-sm font-sans text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
+            />
+          </motion.div>
+
+          {/* Upload/Paste Area */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            className="mb-8"
+          >
+            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+              Report Content
+            </label>
+            
+            {/* Drag & Drop Zone */}
+            <div
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+              className={cn(
+                "relative border-2 border-dashed rounded-sm p-8 mb-4 cursor-pointer transition-all duration-300",
+                isDragging 
+                  ? "border-primary bg-primary/5" 
+                  : "border-border hover:border-primary/50 hover:bg-muted/30"
+              )}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".txt,.md,text/plain,text/markdown"
+                onChange={handleFileSelect}
+                className="hidden"
+              />
+              <div className="flex flex-col items-center gap-4 text-center">
+                <div className={cn(
+                  "w-14 h-14 rounded-full flex items-center justify-center transition-colors",
+                  isDragging ? "bg-primary/20" : "bg-muted"
+                )}>
+                  <UploadIcon className={cn(
+                    "w-6 h-6 transition-colors",
+                    isDragging ? "text-primary" : "text-muted-foreground"
+                  )} />
+                </div>
+                <div>
+                  <p className="font-medium text-foreground mb-1">
+                    Drop your file here, or click to browse
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Supports .txt and .md files
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Or divider */}
+            <div className="flex items-center gap-4 mb-4">
+              <div className="flex-1 h-px bg-border" />
+              <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+                Or paste content
+              </span>
+              <div className="flex-1 h-px bg-border" />
+            </div>
+
+            {/* Textarea */}
+            <Textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="Paste your Markdown or plain text content here...
+
+# Executive Summary
+Your strategic analysis content...
+
+## Key Findings
+- Finding 1
+- Finding 2
+
+## Recommendations
+..."
+              className="min-h-[300px] bg-card border-border focus:border-primary resize-none font-mono text-sm"
+            />
+            
+            {content && (
+              <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
+                <FileText className="w-4 h-4" />
+                <span>{content.length.toLocaleString()} characters</span>
+              </div>
+            )}
+          </motion.div>
+
+          {/* Generate Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            className="flex justify-center"
+          >
+            <Button
+              onClick={handleGenerate}
+              disabled={!content.trim() || isGenerating}
+              size="lg"
+              className={cn(
+                "relative px-12 py-6 bg-foreground text-background hover:bg-primary hover:text-primary-foreground",
+                "font-mono text-[11px] font-bold tracking-[0.3em] uppercase",
+                "transition-all duration-500 group",
+                isGenerating && "bg-primary text-primary-foreground"
+              )}
+            >
+              {isGenerating ? (
+                <>
+                  <Sparkles className="w-4 h-4 mr-3 animate-pulse" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  Generate Presentation
+                  <ArrowRight className="w-4 h-4 ml-3 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
+            </Button>
+          </motion.div>
+
+          {/* Footer hint */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+            className="text-center text-muted-foreground text-sm mt-8 font-light"
+          >
+            Your content will be transformed into a premium strategic report deck
+          </motion.p>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-border py-8">
+        <div className="container mx-auto px-6 lg:px-16 flex justify-between items-center">
+          <RubiklabLogo size="small" />
+          <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+            Rubiklab Intelligence Capital © 2026
+          </span>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default UploadPage;
