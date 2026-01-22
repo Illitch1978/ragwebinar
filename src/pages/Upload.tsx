@@ -1,14 +1,27 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation, Loader2, Clock, Trash2, Pencil, Check, X } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Settings, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { usePresentations, useCreatePresentation, useDeletePresentation, useUpdatePresentation } from "@/hooks/usePresentations";
+import { usePresentations, useCreatePresentation, useDeletePresentation, useUpdatePresentation, Presentation } from "@/hooks/usePresentations";
+import { useBrandGuides } from "@/hooks/useBrandGuides";
+import { DECK_PRINCIPLES } from "@/lib/deckPrinciples";
 import { formatDistanceToNow } from "date-fns";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 // Rubiklab Logo component
 const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
   <div className="flex items-center gap-1.5 group cursor-pointer">
@@ -46,16 +59,25 @@ const UploadPage = () => {
   const [clientName, setClientName] = useState("");
   const [outputFormat, setOutputFormat] = useState<OutputFormat>('report');
   const [deckLength, setDeckLength] = useState<DeckLength>('medium');
+  const [selectedBrandGuide, setSelectedBrandGuide] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isProcessingFile, setIsProcessingFile] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   
   const { data: savedPresentations, isLoading: isLoadingPresentations } = usePresentations();
+  const { data: brandGuides, isLoading: isLoadingBrandGuides } = useBrandGuides();
   const createPresentation = useCreatePresentation();
   const deletePresentation = useDeletePresentation();
   const updatePresentation = useUpdatePresentation();
+  
+  // Set default brand guide when data loads
+  const defaultGuide = brandGuides?.find(bg => bg.is_default);
+  if (brandGuides && !selectedBrandGuide && defaultGuide) {
+    setSelectedBrandGuide(defaultGuide.id);
+  }
   
   // Edit state for presentation titles
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -168,6 +190,7 @@ const UploadPage = () => {
         title,
         content,
         client_name: clientName || undefined,
+        brand_guide_id: selectedBrandGuide || undefined,
       });
       
       // Store content in sessionStorage for the report to consume
@@ -176,6 +199,7 @@ const UploadPage = () => {
       sessionStorage.setItem('rubiklab-format', outputFormat);
       sessionStorage.setItem('rubiklab-length', deckLength);
       sessionStorage.setItem('rubiklab-presentation-id', saved.id);
+      sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide);
       
       // Navigate to appropriate view after a brief animation
       setTimeout(() => {
@@ -187,11 +211,12 @@ const UploadPage = () => {
     }
   };
 
-  const handleOpenSaved = (presentation: { id: string; content: string; client_name: string | null }) => {
+  const handleOpenSaved = (presentation: Presentation) => {
     sessionStorage.setItem('rubiklab-content', presentation.content);
     sessionStorage.setItem('rubiklab-client', presentation.client_name || 'Client');
     sessionStorage.setItem('rubiklab-format', outputFormat);
     sessionStorage.setItem('rubiklab-presentation-id', presentation.id);
+    sessionStorage.setItem('rubiklab-brand-guide-id', presentation.brand_guide_id || selectedBrandGuide);
     navigate(outputFormat === 'presentation' ? '/presentation' : '/report');
   };
 
@@ -336,7 +361,7 @@ const UploadPage = () => {
                     "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
                     outputFormat === 'presentation' ? "bg-primary/20" : "bg-muted"
                   )}>
-                    <Presentation className={cn(
+                    <PresentationIcon className={cn(
                       "w-5 h-5 transition-colors",
                       outputFormat === 'presentation' ? "text-primary" : "text-muted-foreground"
                     )} />
@@ -385,6 +410,89 @@ const UploadPage = () => {
                 </button>
               ))}
             </div>
+          </motion.div>
+
+          {/* Brand Guide Selection */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.22 }}
+            className="mb-8"
+          >
+            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+              Brand Guide / Template
+            </label>
+            <Select
+              value={selectedBrandGuide}
+              onValueChange={setSelectedBrandGuide}
+              disabled={isLoadingBrandGuides}
+            >
+              <SelectTrigger className="w-full bg-card border-border h-12">
+                <SelectValue placeholder={isLoadingBrandGuides ? "Loading..." : "Select a brand guide"} />
+              </SelectTrigger>
+              <SelectContent className="bg-card border-border">
+                {brandGuides?.map((guide) => (
+                  <SelectItem key={guide.id} value={guide.id} className="cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <span>{guide.name}</span>
+                      {guide.is_default && (
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                          Default
+                        </span>
+                      )}
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {brandGuides?.find(bg => bg.id === selectedBrandGuide)?.description && (
+              <p className="mt-2 text-sm text-muted-foreground">
+                {brandGuides.find(bg => bg.id === selectedBrandGuide)?.description}
+              </p>
+            )}
+          </motion.div>
+
+          {/* Settings / Deck Principles (Admin Section) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.24 }}
+            className="mb-8"
+          >
+            <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+              <CollapsibleTrigger asChild>
+                <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group">
+                  <Settings className="w-4 h-4" />
+                  <span className="font-mono text-[11px] uppercase tracking-widest">
+                    Deck Generation Settings
+                  </span>
+                  <ChevronDown className={cn(
+                    "w-4 h-4 transition-transform duration-200",
+                    isSettingsOpen && "rotate-180"
+                  )} />
+                </button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-4">
+                <div className="bg-card border border-border rounded-sm p-6 space-y-4">
+                  <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-4">
+                    Global Principles (Apply to all templates)
+                  </p>
+                  {Object.entries(DECK_PRINCIPLES).map(([key, principle]) => (
+                    <div key={key} className="border-l-2 border-primary/30 pl-4 py-2">
+                      <h4 className="font-medium text-foreground text-sm mb-1">
+                        {principle.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground mb-1">
+                        {principle.description}
+                      </p>
+                      <p className="text-xs text-muted-foreground/70 font-mono">
+                        {principle.rule}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </motion.div>
 
           <motion.div
@@ -538,7 +646,7 @@ Your strategic analysis content...
                   >
                     <div className="flex items-center gap-4 flex-1 min-w-0">
                       <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0">
-                        <Presentation className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <PresentationIcon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                       </div>
                       <div className="flex-1 min-w-0">
                         {editingId === presentation.id ? (
