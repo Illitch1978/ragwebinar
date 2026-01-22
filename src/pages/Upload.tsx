@@ -1,10 +1,14 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import * as pdfjsLib from "pdfjs-dist";
+
+// Set up PDF.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js`;
 
 // Rubiklab Logo component
 const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
@@ -36,6 +40,7 @@ const UploadPage = () => {
   const [outputFormat, setOutputFormat] = useState<OutputFormat>('report');
   const [isDragging, setIsDragging] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isProcessingFile, setIsProcessingFile] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
@@ -59,12 +64,89 @@ const UploadPage = () => {
     }
   };
 
+  const extractTextFromPDF = async (file: File): Promise<string> => {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    let fullText = '';
+    
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      const pageText = textContent.items
+        .map((item: any) => item.str)
+        .join(' ');
+      fullText += pageText + '\n\n';
+    }
+    
+    return fullText.trim();
+  };
+
+  const extractTextFromHTML = (html: string): string => {
+    // Create a temporary DOM element to parse HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    
+    // Remove script and style elements
+    doc.querySelectorAll('script, style').forEach(el => el.remove());
+    
+    // Extract text from slides if it's a reveal.js presentation
+    const slides = doc.querySelectorAll('section');
+    if (slides.length > 0) {
+      let content = '';
+      slides.forEach((slide, index) => {
+        const heading = slide.querySelector('h1, h2');
+        const body = slide.querySelector('.body, .lead, p');
+        const bullets = slide.querySelectorAll('li, .line');
+        
+        if (heading) {
+          content += `## ${heading.textContent?.trim()}\n\n`;
+        }
+        if (body) {
+          content += `${body.textContent?.trim()}\n\n`;
+        }
+        if (bullets.length > 0) {
+          bullets.forEach(bullet => {
+            const text = bullet.textContent?.trim();
+            if (text) content += `- ${text}\n`;
+          });
+          content += '\n';
+        }
+      });
+      return content.trim();
+    }
+    
+    // Fallback: just get body text
+    return doc.body?.textContent?.trim() || '';
+  };
+
   const handleFile = async (file: File) => {
-    if (file.type === "text/plain" || file.type === "text/markdown" || file.name.endsWith('.md') || file.name.endsWith('.txt')) {
-      const text = await file.text();
-      setContent(text);
-    } else {
-      alert("Please upload a .txt or .md file");
+    setIsProcessingFile(true);
+    
+    try {
+      // Text/Markdown files
+      if (file.type === "text/plain" || file.type === "text/markdown" || file.name.endsWith('.md') || file.name.endsWith('.txt')) {
+        const text = await file.text();
+        setContent(text);
+      }
+      // HTML files
+      else if (file.type === "text/html" || file.name.endsWith('.html') || file.name.endsWith('.htm')) {
+        const html = await file.text();
+        const extractedText = extractTextFromHTML(html);
+        setContent(extractedText);
+      }
+      // PDF files
+      else if (file.type === "application/pdf" || file.name.endsWith('.pdf')) {
+        const extractedText = await extractTextFromPDF(file);
+        setContent(extractedText);
+      }
+      else {
+        alert("Please upload a .txt, .md, .html, or .pdf file");
+      }
+    } catch (error) {
+      console.error('Error processing file:', error);
+      alert("Error processing file. Please try again.");
+    } finally {
+      setIsProcessingFile(false);
     }
   };
 
@@ -256,26 +338,31 @@ const UploadPage = () => {
               <input
                 ref={fileInputRef}
                 type="file"
-                accept=".txt,.md,text/plain,text/markdown"
+                accept=".txt,.md,.html,.htm,.pdf,text/plain,text/markdown,text/html,application/pdf"
                 onChange={handleFileSelect}
                 className="hidden"
               />
               <div className="flex flex-col items-center gap-4 text-center">
                 <div className={cn(
                   "w-14 h-14 rounded-full flex items-center justify-center transition-colors",
-                  isDragging ? "bg-primary/20" : "bg-muted"
+                  isDragging ? "bg-primary/20" : "bg-muted",
+                  isProcessingFile && "animate-pulse"
                 )}>
-                  <UploadIcon className={cn(
-                    "w-6 h-6 transition-colors",
-                    isDragging ? "text-primary" : "text-muted-foreground"
-                  )} />
+                  {isProcessingFile ? (
+                    <Loader2 className="w-6 h-6 text-primary animate-spin" />
+                  ) : (
+                    <UploadIcon className={cn(
+                      "w-6 h-6 transition-colors",
+                      isDragging ? "text-primary" : "text-muted-foreground"
+                    )} />
+                  )}
                 </div>
                 <div>
                   <p className="font-medium text-foreground mb-1">
-                    Drop your file here, or click to browse
+                    {isProcessingFile ? "Processing file..." : "Drop your file here, or click to browse"}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Supports .txt and .md files
+                    Supports .txt, .md, .html, and .pdf files
                   </p>
                 </div>
               </div>
