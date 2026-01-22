@@ -701,16 +701,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           <div className="flex-1 flex flex-col justify-center max-w-4xl">
             <SlideEyebrow dark>Closing</SlideEyebrow>
             
-            <p className="font-serif text-3xl lg:text-4xl text-white leading-snug mb-12 italic">
+            <p className="font-serif text-3xl lg:text-4xl text-white leading-snug italic">
               The problem is not RAG itself.<br />
               The problem is the assumption that retrieval can compensate for weak knowledge foundations.
             </p>
-            
-            <div className="bg-white/5 border border-white/10 p-8 max-w-3xl">
-              <p className="font-sans text-lg text-white/70 leading-relaxed">
-                When foundations are disciplined and governance is architectural, RAG becomes legal intelligence infrastructure. It helps firms move faster, reduce risk, scale expertise, and win complex work without sacrificing defensibility.
-              </p>
-            </div>
           </div>
         </Slide>
 
