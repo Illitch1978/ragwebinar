@@ -6,15 +6,43 @@ import { cn } from "@/lib/utils";
 
 interface Slide {
   id: number;
-  type: 'title' | 'content' | 'section' | 'bullets' | 'quote' | 'closing';
+  type: 'title' | 'content' | 'section' | 'bullets' | 'quote' | 'closing' | 'cover' | 'section-divider' | 'text-stack' | 'bullet-list' | 'metrics' | 'two-column' | 'cta';
   kicker?: string;
-  title: string;
+  title?: string;
   subtitle?: string;
   body?: string;
+  content?: string;
   bullets?: string[];
+  items?: Array<{ label?: string; text?: string; value?: string }>;
+  metrics?: Array<{ value: string; label: string; trend?: string }>;
+  leftColumn?: string;
+  rightColumn?: string;
+  quote?: string;
+  author?: string;
   meta?: string;
   dark?: boolean;
 }
+
+// Convert generated slides to our internal format
+const convertGeneratedSlides = (generatedSlides: any[], clientName: string): Slide[] => {
+  return generatedSlides.map((slide, index) => ({
+    id: index,
+    type: slide.type as Slide['type'],
+    title: slide.title || '',
+    subtitle: slide.subtitle,
+    content: slide.content,
+    body: slide.content,
+    items: slide.items,
+    bullets: slide.items?.map((item: any) => item.text || item.label) || [],
+    metrics: slide.metrics,
+    leftColumn: slide.leftColumn,
+    rightColumn: slide.rightColumn,
+    quote: slide.quote,
+    author: slide.author,
+    dark: slide.dark ?? (slide.type === 'cover' || slide.type === 'section-divider' || slide.type === 'closing'),
+    kicker: slide.type === 'cover' ? 'Strategic Intelligence' : undefined,
+  }));
+};
 
 // Parse markdown into slides with alternating dark themes
 const parseContentToSlides = (content: string, clientName: string): Slide[] => {
@@ -258,8 +286,8 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
     center: { opacity: 1, y: 0 },
   };
 
-  // Title slide - Premium cover treatment
-  if (slide.type === 'title') {
+  // Title/Cover slide - Premium cover treatment
+  if (slide.type === 'title' || slide.type === 'cover') {
     return (
       <motion.div
         variants={staggerChildren}
@@ -283,17 +311,19 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
             <RubiklabLogo inverted />
           </motion.div>
           
-          {/* Event info */}
-          <motion.div 
-            variants={childVariant}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-4 mb-6"
-          >
-            <div className="w-12 h-[1px] bg-primary" />
-            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary">
-              Event by Inside Practice
-            </span>
-          </motion.div>
+          {/* Kicker/Event info */}
+          {slide.kicker && (
+            <motion.div 
+              variants={childVariant}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-4 mb-6"
+            >
+              <div className="w-12 h-[1px] bg-primary" />
+              <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary">
+                {slide.kicker}
+              </span>
+            </motion.div>
+          )}
           
           {/* Main title */}
           <motion.h1 
@@ -301,19 +331,28 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
             transition={{ duration: 0.6 }}
             className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] mb-6"
           >
-            From Retrieval to Reliability:
-            <br />
-            <span className="text-white/80">Making RAG Work in Law Firms</span>
+            {slide.title}
           </motion.h1>
           
-          {/* Date */}
+          {/* Subtitle if present */}
+          {slide.subtitle && (
+            <motion.p 
+              variants={childVariant}
+              transition={{ duration: 0.5 }}
+              className="text-xl text-white/70 max-w-2xl"
+            >
+              {slide.subtitle}
+            </motion.p>
+          )}
+          
+          {/* Date/meta */}
           <motion.div 
             variants={childVariant}
-            className="flex items-center gap-3 mt-4"
+            className="flex items-center gap-3 mt-6"
           >
             <div className="w-2 h-2 bg-primary rounded-full" />
             <span className="font-mono text-xs tracking-widest text-white/50 uppercase">
-              Fri, Jan 23, 2026
+              {slide.meta || new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
             </span>
           </motion.div>
           
@@ -336,8 +375,8 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
     );
   }
 
-  // Section slide - Bold typographic treatment
-  if (slide.type === 'section') {
+  // Section/Section-divider slide - Bold typographic treatment
+  if (slide.type === 'section' || slide.type === 'section-divider') {
     return (
       <motion.div
         variants={staggerChildren}
@@ -354,18 +393,20 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
             transition={{ duration: 0.5 }}
             className="font-mono text-[120px] lg:text-[180px] font-bold text-white/[0.03] leading-none"
           >
-            {slide.kicker}
+            {slide.kicker || ''}
           </motion.span>
         </div>
         
         <div className="flex flex-col justify-center px-12 lg:px-20 z-10">
-          <motion.p 
-            variants={childVariant}
-            transition={{ duration: 0.5 }}
-            className="font-mono text-[10px] tracking-[0.25em] uppercase text-primary mb-6"
-          >
-            Section {slide.kicker}
-          </motion.p>
+          {slide.kicker && (
+            <motion.p 
+              variants={childVariant}
+              transition={{ duration: 0.5 }}
+              className="font-mono text-[10px] tracking-[0.25em] uppercase text-primary mb-6"
+            >
+              Section {slide.kicker}
+            </motion.p>
+          )}
           
           <motion.h2 
             variants={childVariant}
@@ -374,6 +415,16 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           >
             {slide.title}
           </motion.h2>
+          
+          {slide.subtitle && (
+            <motion.p 
+              variants={childVariant}
+              transition={{ duration: 0.5 }}
+              className="text-xl text-white/60 mt-6 max-w-2xl"
+            >
+              {slide.subtitle}
+            </motion.p>
+          )}
           
           <motion.div 
             variants={childVariant}
@@ -384,6 +435,221 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
             <div className="w-8 h-[2px] bg-white/20" />
           </motion.div>
         </div>
+      </motion.div>
+    );
+  }
+
+  // Metrics slide - Data-focused with large numbers
+  if (slide.type === 'metrics') {
+    return (
+      <motion.div
+        variants={staggerChildren}
+        initial="enter"
+        animate={isActive ? "center" : "exit"}
+        className="relative flex h-full"
+      >
+        <CornerAccent position="tl" />
+        
+        <div className="flex flex-col justify-center px-12 lg:px-20 py-20 w-full">
+          <motion.div 
+            variants={childVariant}
+            transition={{ duration: 0.4 }}
+            className="flex items-center gap-4 mb-6"
+          >
+            <div className="w-8 h-[2px] bg-primary" />
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+              Key Metrics
+            </span>
+          </motion.div>
+          
+          <motion.h2 
+            variants={childVariant}
+            transition={{ duration: 0.5 }}
+            className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-12 max-w-3xl"
+          >
+            {slide.title}
+          </motion.h2>
+          
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {slide.metrics?.map((metric, idx) => (
+              <motion.div
+                key={idx}
+                variants={childVariant}
+                transition={{ duration: 0.4, delay: 0.1 + idx * 0.1 }}
+                className="border-l-2 border-primary/30 pl-6"
+              >
+                <span className="font-mono text-4xl lg:text-5xl font-bold text-primary">
+                  {metric.value}
+                </span>
+                <p className="text-sm text-muted-foreground mt-2">{metric.label}</p>
+                {metric.trend && (
+                  <p className="text-xs text-primary mt-1">{metric.trend}</p>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Two-column slide - Split layout
+  if (slide.type === 'two-column') {
+    return (
+      <motion.div
+        variants={staggerChildren}
+        initial="enter"
+        animate={isActive ? "center" : "exit"}
+        className="relative flex h-full"
+      >
+        <CornerAccent position="tl" />
+        
+        <div className="flex flex-col justify-center px-12 lg:px-20 py-20 w-full">
+          <motion.div 
+            variants={childVariant}
+            transition={{ duration: 0.4 }}
+            className="flex items-center gap-4 mb-6"
+          >
+            <div className="w-8 h-[2px] bg-primary" />
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+              Analysis
+            </span>
+          </motion.div>
+          
+          <motion.h2 
+            variants={childVariant}
+            transition={{ duration: 0.5 }}
+            className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-10 max-w-4xl"
+          >
+            {slide.title}
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <motion.div
+              variants={childVariant}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="prose prose-lg text-foreground"
+            >
+              <p className="text-lg leading-relaxed">{slide.leftColumn}</p>
+            </motion.div>
+            <motion.div
+              variants={childVariant}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="prose prose-lg text-foreground"
+            >
+              <p className="text-lg leading-relaxed">{slide.rightColumn}</p>
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Text-stack slide - Simple text content
+  if (slide.type === 'text-stack') {
+    return (
+      <motion.div
+        variants={staggerChildren}
+        initial="enter"
+        animate={isActive ? "center" : "exit"}
+        className="relative flex h-full"
+      >
+        <CornerAccent position="tl" />
+        
+        <div className="flex flex-col justify-center px-12 lg:px-20 py-20 max-w-4xl">
+          <motion.div 
+            variants={childVariant}
+            transition={{ duration: 0.4 }}
+            className="flex items-center gap-4 mb-6"
+          >
+            <div className="w-8 h-[2px] bg-primary" />
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+              {slide.kicker || 'Insight'}
+            </span>
+          </motion.div>
+          
+          <motion.h2 
+            variants={childVariant}
+            transition={{ duration: 0.5 }}
+            className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-8"
+          >
+            {slide.title}
+          </motion.h2>
+          
+          {slide.subtitle && (
+            <motion.p 
+              variants={childVariant}
+              className="text-xl text-muted-foreground mb-6"
+            >
+              {slide.subtitle}
+            </motion.p>
+          )}
+          
+          {(slide.content || slide.body) && (
+            <motion.p 
+              variants={childVariant}
+              className="text-lg lg:text-xl leading-relaxed text-foreground/80"
+            >
+              {slide.content || slide.body}
+            </motion.p>
+          )}
+        </div>
+      </motion.div>
+    );
+  }
+
+  // CTA slide - Call to action
+  if (slide.type === 'cta') {
+    return (
+      <motion.div
+        variants={staggerChildren}
+        initial="enter"
+        animate={isActive ? "center" : "exit"}
+        className="relative flex flex-col items-center justify-center h-full text-center px-8"
+      >
+        <GridBackground />
+        <CornerAccent position="tl" inverted />
+        <CornerAccent position="br" inverted />
+        
+        <motion.h1 
+          variants={childVariant}
+          transition={{ duration: 0.6 }}
+          className="font-serif text-5xl lg:text-7xl font-bold tracking-tight text-white mb-6"
+        >
+          {slide.title}
+        </motion.h1>
+        
+        {slide.subtitle && (
+          <motion.p 
+            variants={childVariant}
+            transition={{ duration: 0.6 }}
+            className="text-xl text-white/60 max-w-2xl"
+          >
+            {slide.subtitle}
+          </motion.p>
+        )}
+        
+        {(slide.content || slide.body) && (
+          <motion.p 
+            variants={childVariant}
+            transition={{ duration: 0.5 }}
+            className="text-lg text-white/50 mt-4 max-w-xl"
+          >
+            {slide.content || slide.body}
+          </motion.p>
+        )}
+        
+        <motion.div 
+          variants={childVariant}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-10 flex items-center gap-4"
+        >
+          <div className="w-16 h-[2px] bg-primary" />
+          <span className="font-mono text-xs tracking-widest text-white/40 uppercase">
+            Get Started
+          </span>
+          <div className="w-16 h-[2px] bg-primary" />
+        </motion.div>
       </motion.div>
     );
   }
@@ -428,8 +694,8 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
     );
   }
 
-  // Bullets slide - Clean list with hierarchy
-  if (slide.type === 'bullets') {
+  // Bullets/bullet-list slide - Clean list with hierarchy
+  if (slide.type === 'bullets' || slide.type === 'bullet-list') {
     return (
       <motion.div
         variants={staggerChildren}
@@ -620,8 +886,23 @@ const PresentationPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = useMemo(() => {
-    const content = sessionStorage.getItem('rubiklab-content') || '';
+    // Check for AI-generated slides first
+    const generatedSlidesJson = sessionStorage.getItem('rubiklab-generated-slides');
     const clientName = sessionStorage.getItem('rubiklab-client') || 'Presentation';
+    
+    if (generatedSlidesJson) {
+      try {
+        const generatedSlides = JSON.parse(generatedSlidesJson);
+        if (Array.isArray(generatedSlides) && generatedSlides.length > 0) {
+          return convertGeneratedSlides(generatedSlides, clientName);
+        }
+      } catch (e) {
+        console.error('Error parsing generated slides:', e);
+      }
+    }
+    
+    // Fallback to parsing raw content
+    const content = sessionStorage.getItem('rubiklab-content') || '';
     return parseContentToSlides(content, clientName);
   }, []);
 
