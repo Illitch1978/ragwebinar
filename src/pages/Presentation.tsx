@@ -1,49 +1,54 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ArrowLeft, Home } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowLeft, Grid3X3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface Slide {
   id: number;
-  type: 'title' | 'content' | 'section' | 'bullets' | 'quote';
+  type: 'title' | 'content' | 'section' | 'bullets' | 'quote' | 'closing';
   kicker?: string;
   title: string;
   subtitle?: string;
   body?: string;
   bullets?: string[];
   meta?: string;
+  dark?: boolean;
 }
 
-// Parse markdown into slides
+// Parse markdown into slides with alternating dark themes
 const parseContentToSlides = (content: string, clientName: string): Slide[] => {
   const slides: Slide[] = [];
   const lines = content.split('\n');
   
-  // Title slide
+  // Title slide - always dark for impact
   slides.push({
     id: 0,
     type: 'title',
-    kicker: 'Rubiklab Presents',
+    kicker: 'Strategic Intelligence',
     title: clientName || 'Presentation',
     subtitle: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+    dark: true,
   });
 
   let currentSlide: Partial<Slide> | null = null;
   let slideId = 1;
+  let sectionCount = 0;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
     
-    // H1 - Section title slide
+    // H1 - Section title slide (dark for contrast)
     if (line.startsWith('# ')) {
       if (currentSlide?.title) {
         slides.push({ id: slideId++, type: currentSlide.type || 'content', ...currentSlide } as Slide);
       }
+      sectionCount++;
       currentSlide = {
         type: 'section',
         title: line.replace(/^#\s+/, ''),
-        kicker: `Section ${slides.length}`,
+        kicker: `${String(sectionCount).padStart(2, '0')}`,
+        dark: true,
       };
     }
     // H2 - Content slide
@@ -56,6 +61,7 @@ const parseContentToSlides = (content: string, clientName: string): Slide[] => {
         title: line.replace(/^##\s+/, ''),
         body: '',
         bullets: [],
+        dark: false,
       };
     }
     // H3 - Subsection within slide
@@ -72,7 +78,7 @@ const parseContentToSlides = (content: string, clientName: string): Slide[] => {
         currentSlide.bullets.push(line.replace(/^[-*]\s+/, ''));
       }
     }
-    // Blockquote
+    // Blockquote - dark for emphasis
     else if (line.startsWith('> ')) {
       if (currentSlide?.title) {
         slides.push({ id: slideId++, type: currentSlide.type || 'content', ...currentSlide } as Slide);
@@ -80,6 +86,7 @@ const parseContentToSlides = (content: string, clientName: string): Slide[] => {
       currentSlide = {
         type: 'quote',
         title: line.replace(/^>\s+/, ''),
+        dark: true,
       };
     }
     // Regular text
@@ -97,157 +104,412 @@ const parseContentToSlides = (content: string, clientName: string): Slide[] => {
     slides.push({ id: slideId++, type: currentSlide.type || 'content', ...currentSlide } as Slide);
   }
 
-  // Closing slide
+  // Closing slide - dark
   slides.push({
     id: slideId,
-    type: 'title',
-    kicker: 'Thank You',
-    title: 'Questions?',
-    subtitle: 'rubiklab.com',
+    type: 'closing',
+    kicker: 'Rubiklab',
+    title: 'Thank You',
+    subtitle: 'Questions & Discussion',
+    dark: true,
   });
 
   return slides;
 };
 
-// Rubiklab Logo component
-const RubiklabLogo = () => (
+// Premium Rubiklab Logo
+const RubiklabLogo = ({ inverted = false }: { inverted?: boolean }) => (
   <div className="flex items-center gap-1.5">
-    <span className="font-serif font-bold tracking-tight text-foreground text-xl">
+    <span className={cn(
+      "font-serif font-bold tracking-tight text-xl",
+      inverted ? "text-white" : "text-foreground"
+    )}>
       Rubiklab
     </span>
     <div className="relative flex items-center justify-center">
-      <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_8px_hsl(var(--primary)/0.3)]" />
+      <div className="absolute w-2.5 h-2.5 bg-primary rounded-full animate-ping opacity-20" />
+      <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
     </div>
+  </div>
+);
+
+// Grid background for dark slides
+const GridBackground = () => (
+  <div className="absolute inset-0 opacity-[0.03]">
+    <div 
+      className="w-full h-full"
+      style={{
+        backgroundImage: `
+          linear-gradient(to right, white 1px, transparent 1px),
+          linear-gradient(to bottom, white 1px, transparent 1px)
+        `,
+        backgroundSize: '60px 60px'
+      }}
+    />
+  </div>
+);
+
+// Decorative corner accent
+const CornerAccent = ({ position, inverted }: { position: 'tl' | 'br'; inverted?: boolean }) => (
+  <div className={cn(
+    "absolute w-16 h-16",
+    position === 'tl' ? "top-8 left-8" : "bottom-8 right-8"
+  )}>
+    <div className={cn(
+      "absolute w-full h-[1px]",
+      position === 'tl' ? "top-0 left-0" : "bottom-0 right-0",
+      inverted ? "bg-white/20" : "bg-foreground/10"
+    )} />
+    <div className={cn(
+      "absolute h-full w-[1px]",
+      position === 'tl' ? "top-0 left-0" : "bottom-0 right-0",
+      inverted ? "bg-white/20" : "bg-foreground/10"
+    )} />
   </div>
 );
 
 const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) => {
   const variants = {
-    enter: { opacity: 0, y: 20 },
+    enter: { opacity: 0, y: 30 },
     center: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
+    exit: { opacity: 0, y: -30 },
   };
 
+  const staggerChildren = {
+    center: {
+      transition: { staggerChildren: 0.08, delayChildren: 0.1 }
+    }
+  };
+
+  const childVariant = {
+    enter: { opacity: 0, y: 20 },
+    center: { opacity: 1, y: 0 },
+  };
+
+  // Title slide - Hero treatment
   if (slide.type === 'title') {
     return (
       <motion.div
-        variants={variants}
+        variants={staggerChildren}
         initial="enter"
         animate={isActive ? "center" : "exit"}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="flex flex-col items-center justify-center h-full text-center px-8"
+        className="relative flex flex-col items-center justify-center h-full text-center px-8"
       >
-        {slide.kicker && (
-          <p className="font-mono text-[12px] tracking-[0.2em] uppercase text-muted-foreground mb-6">
-            {slide.kicker}
-          </p>
-        )}
-        <h1 className="font-serif text-5xl lg:text-7xl font-bold tracking-tight text-foreground mb-4">
+        <GridBackground />
+        <CornerAccent position="tl" inverted />
+        <CornerAccent position="br" inverted />
+        
+        <motion.p 
+          variants={childVariant}
+          transition={{ duration: 0.6 }}
+          className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary mb-8"
+        >
+          {slide.kicker}
+        </motion.p>
+        
+        <motion.h1 
+          variants={childVariant}
+          transition={{ duration: 0.6 }}
+          className="font-serif text-6xl lg:text-8xl font-bold tracking-tight text-white mb-6"
+        >
           {slide.title}
-        </h1>
+        </motion.h1>
+        
         {slide.subtitle && (
-          <p className="text-xl text-muted-foreground mt-4">{slide.subtitle}</p>
+          <motion.div 
+            variants={childVariant}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-4 mt-8"
+          >
+            <div className="w-12 h-[1px] bg-white/30" />
+            <p className="font-mono text-xs tracking-widest text-white/60 uppercase">
+              {slide.subtitle}
+            </p>
+            <div className="w-12 h-[1px] bg-white/30" />
+          </motion.div>
         )}
       </motion.div>
     );
   }
 
+  // Section slide - Bold typographic treatment
   if (slide.type === 'section') {
     return (
       <motion.div
-        variants={variants}
+        variants={staggerChildren}
         initial="enter"
         animate={isActive ? "center" : "exit"}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="flex flex-col justify-center h-full px-12 lg:px-20"
+        className="relative flex h-full"
       >
-        {slide.kicker && (
-          <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-primary mb-4">
+        <GridBackground />
+        
+        {/* Large section number */}
+        <div className="absolute top-8 left-12 lg:left-20">
+          <motion.span 
+            variants={childVariant}
+            transition={{ duration: 0.5 }}
+            className="font-mono text-[120px] lg:text-[180px] font-bold text-white/[0.03] leading-none"
+          >
             {slide.kicker}
-          </p>
-        )}
-        <h2 className="font-serif text-4xl lg:text-6xl font-bold tracking-tight text-foreground">
-          {slide.title}
-        </h2>
-        <div className="w-24 h-1 bg-primary mt-8" />
-      </motion.div>
-    );
-  }
-
-  if (slide.type === 'quote') {
-    return (
-      <motion.div
-        variants={variants}
-        initial="enter"
-        animate={isActive ? "center" : "exit"}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="flex flex-col justify-center h-full px-12 lg:px-20"
-      >
-        <div className="border-l-4 border-primary pl-8">
-          <p className="font-serif text-3xl lg:text-4xl italic text-foreground leading-relaxed">
-            "{slide.title}"
-          </p>
+          </motion.span>
+        </div>
+        
+        <div className="flex flex-col justify-center px-12 lg:px-20 z-10">
+          <motion.p 
+            variants={childVariant}
+            transition={{ duration: 0.5 }}
+            className="font-mono text-[10px] tracking-[0.25em] uppercase text-primary mb-6"
+          >
+            Section {slide.kicker}
+          </motion.p>
+          
+          <motion.h2 
+            variants={childVariant}
+            transition={{ duration: 0.6 }}
+            className="font-serif text-5xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl"
+          >
+            {slide.title}
+          </motion.h2>
+          
+          <motion.div 
+            variants={childVariant}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex items-center gap-4 mt-10"
+          >
+            <div className="w-24 h-[2px] bg-primary" />
+            <div className="w-8 h-[2px] bg-white/20" />
+          </motion.div>
         </div>
       </motion.div>
     );
   }
 
-  if (slide.type === 'bullets') {
+  // Quote slide - Elegant emphasis
+  if (slide.type === 'quote') {
     return (
       <motion.div
-        variants={variants}
+        variants={staggerChildren}
         initial="enter"
         animate={isActive ? "center" : "exit"}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="flex flex-col justify-center h-full px-12 lg:px-20"
+        className="relative flex items-center justify-center h-full px-12 lg:px-20"
       >
-        <h2 className="font-serif text-3xl lg:text-5xl font-bold tracking-tight text-foreground mb-8">
-          {slide.title}
-        </h2>
-        {slide.subtitle && (
-          <p className="text-lg text-muted-foreground mb-6">{slide.subtitle}</p>
-        )}
-        <ul className="space-y-4 mt-4">
-          {slide.bullets?.map((bullet, idx) => (
-            <motion.li
-              key={idx}
-              initial={{ opacity: 0, x: -20 }}
-              animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ delay: 0.2 + idx * 0.1, duration: 0.4 }}
-              className="flex items-start gap-4 text-xl text-foreground"
-            >
-              <span className="w-2 h-2 bg-primary rounded-full mt-3 flex-shrink-0" />
-              <span>{bullet}</span>
-            </motion.li>
-          ))}
-        </ul>
+        <GridBackground />
+        
+        <div className="max-w-5xl text-center">
+          <motion.div
+            variants={childVariant}
+            transition={{ duration: 0.6 }}
+            className="mb-8"
+          >
+            <span className="font-serif text-8xl text-primary/30">"</span>
+          </motion.div>
+          
+          <motion.p 
+            variants={childVariant}
+            transition={{ duration: 0.7 }}
+            className="font-serif text-3xl lg:text-5xl text-white leading-relaxed"
+          >
+            {slide.title}
+          </motion.p>
+          
+          <motion.div 
+            variants={childVariant}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex justify-center mt-10"
+          >
+            <div className="w-16 h-[1px] bg-primary" />
+          </motion.div>
+        </div>
       </motion.div>
     );
   }
 
-  // Default content slide
+  // Bullets slide - Clean list with hierarchy
+  if (slide.type === 'bullets') {
+    return (
+      <motion.div
+        variants={staggerChildren}
+        initial="enter"
+        animate={isActive ? "center" : "exit"}
+        className="relative flex h-full"
+      >
+        <CornerAccent position="tl" />
+        
+        <div className="flex flex-col justify-center px-12 lg:px-20 py-20 w-full">
+          <motion.p 
+            variants={childVariant}
+            transition={{ duration: 0.4 }}
+            className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground mb-4"
+          >
+            Key Points
+          </motion.p>
+          
+          <motion.h2 
+            variants={childVariant}
+            transition={{ duration: 0.5 }}
+            className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-10 max-w-3xl"
+          >
+            {slide.title}
+          </motion.h2>
+          
+          {slide.subtitle && (
+            <motion.p 
+              variants={childVariant}
+              className="text-lg text-muted-foreground mb-8 max-w-2xl"
+            >
+              {slide.subtitle}
+            </motion.p>
+          )}
+          
+          <ul className="space-y-5 mt-2 max-w-3xl">
+            {slide.bullets?.map((bullet, idx) => (
+              <motion.li
+                key={idx}
+                variants={childVariant}
+                transition={{ duration: 0.4, delay: 0.1 + idx * 0.08 }}
+                className="flex items-start gap-5 group"
+              >
+                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
+                  <span className="font-mono text-xs text-primary font-medium">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                </span>
+                <span className="text-lg lg:text-xl text-foreground leading-relaxed pt-1">
+                  {bullet}
+                </span>
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Closing slide
+  if (slide.type === 'closing') {
+    return (
+      <motion.div
+        variants={staggerChildren}
+        initial="enter"
+        animate={isActive ? "center" : "exit"}
+        className="relative flex flex-col items-center justify-center h-full text-center px-8"
+      >
+        <GridBackground />
+        <CornerAccent position="tl" inverted />
+        <CornerAccent position="br" inverted />
+        
+        <motion.div
+          variants={childVariant}
+          transition={{ duration: 0.6 }}
+          className="mb-10"
+        >
+          <RubiklabLogo inverted />
+        </motion.div>
+        
+        <motion.h1 
+          variants={childVariant}
+          transition={{ duration: 0.6 }}
+          className="font-serif text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4"
+        >
+          {slide.title}
+        </motion.h1>
+        
+        {slide.subtitle && (
+          <motion.p 
+            variants={childVariant}
+            transition={{ duration: 0.6 }}
+            className="text-xl text-white/60 mt-4 font-light"
+          >
+            {slide.subtitle}
+          </motion.p>
+        )}
+        
+        <motion.div 
+          variants={childVariant}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="absolute bottom-12 flex items-center gap-3"
+        >
+          <span className="font-mono text-[10px] tracking-widest text-white/40 uppercase">
+            rubiklab.ai
+          </span>
+        </motion.div>
+      </motion.div>
+    );
+  }
+
+  // Default content slide - Editorial layout
   return (
     <motion.div
-      variants={variants}
+      variants={staggerChildren}
       initial="enter"
       animate={isActive ? "center" : "exit"}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="flex flex-col justify-center h-full px-12 lg:px-20"
+      className="relative flex h-full"
     >
-      <h2 className="font-serif text-3xl lg:text-5xl font-bold tracking-tight text-foreground mb-6">
-        {slide.title}
-      </h2>
-      {slide.subtitle && (
-        <p className="text-xl text-primary font-medium mb-4">{slide.subtitle}</p>
-      )}
-      {slide.body && (
-        <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-4xl">
-          {slide.body}
-        </p>
-      )}
+      <CornerAccent position="tl" />
+      
+      <div className="flex flex-col justify-center px-12 lg:px-20 py-20 max-w-5xl">
+        <motion.div 
+          variants={childVariant}
+          transition={{ duration: 0.4 }}
+          className="flex items-center gap-4 mb-6"
+        >
+          <div className="w-8 h-[2px] bg-primary" />
+          <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+            Insight
+          </span>
+        </motion.div>
+        
+        <motion.h2 
+          variants={childVariant}
+          transition={{ duration: 0.5 }}
+          className="font-serif text-4xl lg:text-6xl font-bold tracking-tight text-foreground mb-8"
+        >
+          {slide.title}
+        </motion.h2>
+        
+        {slide.subtitle && (
+          <motion.p 
+            variants={childVariant}
+            transition={{ duration: 0.5 }}
+            className="text-xl text-primary font-medium mb-6"
+          >
+            {slide.subtitle}
+          </motion.p>
+        )}
+        
+        {slide.body && (
+          <motion.p 
+            variants={childVariant}
+            transition={{ duration: 0.6 }}
+            className="text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-3xl"
+          >
+            {slide.body}
+          </motion.p>
+        )}
+      </div>
     </motion.div>
   );
 };
+
+// Progress bar component
+const ProgressBar = ({ current, total }: { current: number; total: number }) => (
+  <div className="flex items-center gap-3">
+    <span className="font-mono text-[10px] tracking-wider text-muted-foreground">
+      {String(current + 1).padStart(2, '0')}
+    </span>
+    <div className="w-24 h-[2px] bg-muted-foreground/20 rounded-full overflow-hidden">
+      <motion.div 
+        className="h-full bg-primary"
+        initial={{ width: 0 }}
+        animate={{ width: `${((current + 1) / total) * 100}%` }}
+        transition={{ duration: 0.3 }}
+      />
+    </div>
+    <span className="font-mono text-[10px] tracking-wider text-muted-foreground/50">
+      {String(total).padStart(2, '0')}
+    </span>
+  </div>
+);
 
 const PresentationPage = () => {
   const navigate = useNavigate();
@@ -268,6 +530,9 @@ const PresentationPage = () => {
   const nextSlide = useCallback(() => goToSlide(currentSlide + 1), [currentSlide, goToSlide]);
   const prevSlide = useCallback(() => goToSlide(currentSlide - 1), [currentSlide, goToSlide]);
 
+  const currentSlideData = slides[currentSlide];
+  const isDark = currentSlideData?.dark;
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -287,20 +552,29 @@ const PresentationPage = () => {
   }, [nextSlide, prevSlide, navigate]);
 
   return (
-    <div className="h-screen bg-background text-foreground flex flex-col overflow-hidden">
+    <div className={cn(
+      "h-screen flex flex-col overflow-hidden transition-colors duration-500",
+      isDark ? "bg-[#0a0a0f]" : "bg-background"
+    )}>
       {/* Header */}
-      <header className="absolute top-0 left-0 right-0 z-20 px-8 py-6 flex justify-between items-center">
+      <header className={cn(
+        "absolute top-0 left-0 right-0 z-20 px-8 py-6 flex justify-between items-center transition-colors duration-500",
+        isDark ? "text-white" : "text-foreground"
+      )}>
         <button
           onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+          className={cn(
+            "flex items-center gap-2 transition-colors",
+            isDark ? "text-white/60 hover:text-white" : "text-muted-foreground hover:text-foreground"
+          )}
         >
           <ArrowLeft className="w-4 h-4" />
-          <span className="font-mono text-[11px] uppercase tracking-widest">Back</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em]">Exit</span>
         </button>
-        <RubiklabLogo />
-        <span className="font-mono text-[11px] text-muted-foreground">
-          {currentSlide + 1} / {slides.length}
-        </span>
+        
+        <RubiklabLogo inverted={isDark} />
+        
+        <ProgressBar current={currentSlide} total={slides.length} />
       </header>
 
       {/* Slide content */}
@@ -315,47 +589,57 @@ const PresentationPage = () => {
       </main>
 
       {/* Navigation */}
-      <footer className="absolute bottom-0 left-0 right-0 z-20 px-8 py-6 flex justify-between items-center">
+      <footer className={cn(
+        "absolute bottom-0 left-0 right-0 z-20 px-8 py-6 flex justify-between items-center transition-colors duration-500",
+        isDark ? "text-white" : "text-foreground"
+      )}>
         <button
           onClick={prevSlide}
           disabled={currentSlide === 0}
           className={cn(
-            "p-3 rounded-full border border-border transition-all",
+            "group flex items-center gap-3 px-4 py-2 rounded-full border transition-all",
             currentSlide === 0
-              ? "opacity-30 cursor-not-allowed"
-              : "hover:bg-muted hover:border-primary"
+              ? "opacity-30 cursor-not-allowed border-transparent"
+              : isDark 
+                ? "border-white/10 hover:border-primary hover:bg-white/5"
+                : "border-border hover:border-primary hover:bg-muted"
           )}
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-4 h-4" />
+          <span className="font-mono text-[10px] uppercase tracking-wider">Prev</span>
         </button>
 
-        {/* Progress dots */}
-        <div className="flex gap-2">
-          {slides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => goToSlide(idx)}
-              className={cn(
-                "w-2 h-2 rounded-full transition-all",
-                idx === currentSlide
-                  ? "bg-primary scale-125"
-                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-              )}
-            />
-          ))}
+        {/* Keyboard hint */}
+        <div className={cn(
+          "hidden lg:flex items-center gap-2 font-mono text-[9px] uppercase tracking-wider",
+          isDark ? "text-white/30" : "text-muted-foreground/50"
+        )}>
+          <kbd className={cn(
+            "px-2 py-1 rounded",
+            isDark ? "bg-white/5" : "bg-muted"
+          )}>←</kbd>
+          <span>/</span>
+          <kbd className={cn(
+            "px-2 py-1 rounded",
+            isDark ? "bg-white/5" : "bg-muted"
+          )}>→</kbd>
+          <span className="ml-2">to navigate</span>
         </div>
 
         <button
           onClick={nextSlide}
           disabled={currentSlide === slides.length - 1}
           className={cn(
-            "p-3 rounded-full border border-border transition-all",
+            "group flex items-center gap-3 px-4 py-2 rounded-full border transition-all",
             currentSlide === slides.length - 1
-              ? "opacity-30 cursor-not-allowed"
-              : "hover:bg-muted hover:border-primary"
+              ? "opacity-30 cursor-not-allowed border-transparent"
+              : isDark 
+                ? "border-white/10 hover:border-primary hover:bg-white/5"
+                : "border-border hover:border-primary hover:bg-muted"
           )}
         >
-          <ChevronRight className="w-5 h-5" />
+          <span className="font-mono text-[10px] uppercase tracking-wider">Next</span>
+          <ChevronRight className="w-4 h-4" />
         </button>
       </footer>
     </div>
