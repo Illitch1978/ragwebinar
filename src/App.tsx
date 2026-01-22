@@ -18,7 +18,11 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Upload />} />
-          <Route path="/report" element={<Presentation />} />
+          <Route path="/report" element={
+            <div className="min-h-screen bg-background dashboard-light">
+              <ReportSection />
+            </div>
+          } />
           <Route path="/presentation" element={<Presentation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
