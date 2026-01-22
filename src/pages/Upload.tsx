@@ -254,12 +254,25 @@ const UploadPage = () => {
   };
 
   const handleOpenSaved = (presentation: Presentation) => {
+    // Check if this presentation has AI-generated slides
+    const hasGeneratedSlides = presentation.generated_slides && 
+      Array.isArray(presentation.generated_slides) && 
+      presentation.generated_slides.length > 0;
+    
     sessionStorage.setItem('rubiklab-content', presentation.content);
     sessionStorage.setItem('rubiklab-client', presentation.client_name || 'Client');
     sessionStorage.setItem('rubiklab-format', outputFormat);
     sessionStorage.setItem('rubiklab-presentation-id', presentation.id);
     sessionStorage.setItem('rubiklab-brand-guide-id', presentation.brand_guide_id || selectedBrandGuide);
-    navigate(outputFormat === 'presentation' ? '/presentation' : '/report');
+    
+    if (hasGeneratedSlides) {
+      // AI-generated presentation - store slides and go to /presentation
+      sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(presentation.generated_slides));
+      navigate('/presentation');
+    } else {
+      // RAG webinar or legacy content - go to /report (hardcoded content)
+      navigate('/report');
+    }
   };
 
   const handleDelete = async (e: React.MouseEvent, id: string) => {

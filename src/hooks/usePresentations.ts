@@ -7,6 +7,7 @@ export interface Presentation {
   content: string;
   client_name: string | null;
   brand_guide_id: string | null;
+  generated_slides: unknown[] | null;
   created_at: string;
   updated_at: string;
 }
