@@ -10,6 +10,8 @@ import { usePresentations, useCreatePresentation, useDeletePresentation, useUpda
 import { useBrandGuides } from "@/hooks/useBrandGuides";
 import { DECK_PRINCIPLES } from "@/lib/deckPrinciples";
 import { formatDistanceToNow } from "date-fns";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import BrandGuideEditor from "@/components/BrandGuideEditor";
 import {
   Select,
@@ -185,7 +187,10 @@ const UploadPage = () => {
     setIsGenerating(true);
     
     try {
-      // Save to database
+      // Get the selected brand guide data
+      const selectedGuide = brandGuides?.find(bg => bg.id === selectedBrandGuide);
+      
+      // Save initial presentation to database
       const title = clientName || `Presentation ${new Date().toLocaleDateString()}`;
       const saved = await createPresentation.mutateAsync({
         title,
@@ -194,6 +199,38 @@ const UploadPage = () => {
         brand_guide_id: selectedBrandGuide || undefined,
       });
       
+      // Call the edge function to generate slides
+      toast.info("Generating presentation with AI...");
+      
+      const { data: generateData, error: generateError } = await supabase.functions.invoke(
+        'generate-presentation',
+        {
+          body: {
+            content,
+            clientName: clientName || 'Presentation',
+            brandGuide: selectedGuide ? {
+              name: selectedGuide.name,
+              design_system: selectedGuide.design_system,
+              slide_templates: selectedGuide.slide_templates,
+            } : null,
+            length: deckLength,
+          },
+        }
+      );
+      
+      if (generateError) {
+        console.error('Generation error:', generateError);
+        toast.error("Failed to generate slides. Using fallback.");
+      } else if (generateData?.slides) {
+        // Update the presentation with generated slides
+        await supabase
+          .from('presentations')
+          .update({ generated_slides: generateData.slides })
+          .eq('id', saved.id);
+        
+        toast.success(`Generated ${generateData.slides.length} slides!`);
+      }
+      
       // Store content in sessionStorage for the report to consume
       sessionStorage.setItem('rubiklab-content', content);
       sessionStorage.setItem('rubiklab-client', clientName || 'Client');
@@ -201,13 +238,17 @@ const UploadPage = () => {
       sessionStorage.setItem('rubiklab-length', deckLength);
       sessionStorage.setItem('rubiklab-presentation-id', saved.id);
       sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide);
+      if (generateData?.slides) {
+        sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
+      }
       
       // Navigate to appropriate view after a brief animation
       setTimeout(() => {
         navigate(outputFormat === 'presentation' ? '/presentation' : '/report');
-      }, 1500);
+      }, 500);
     } catch (error) {
       console.error('Error saving presentation:', error);
+      toast.error("Error generating presentation");
       setIsGenerating(false);
     }
   };
