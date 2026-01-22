@@ -302,14 +302,6 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         
         {/* Main content - left aligned for editorial feel */}
         <div className="relative z-10 flex flex-col justify-center h-full px-12 lg:px-20 max-w-5xl">
-          {/* Rubiklab branding */}
-          <motion.div
-            variants={childVariant}
-            transition={{ duration: 0.5 }}
-            className="mb-12"
-          >
-            <RubiklabLogo inverted />
-          </motion.div>
           
           {/* Kicker/Event info */}
           {slide.kicker && (
