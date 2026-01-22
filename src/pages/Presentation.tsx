@@ -1112,33 +1112,65 @@ const ProgressBar = ({ current, total }: { current: number; total: number }) => 
 const PresentationPage = () => {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
-  
-  // Use a key to force re-read of sessionStorage on navigation
-  const [slideKey] = useState(() => Date.now());
+  const [slides, setSlides] = useState<Slide[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const slides = useMemo(() => {
-    // Check for AI-generated slides first
-    const generatedSlidesJson = sessionStorage.getItem('rubiklab-generated-slides');
-    const clientName = sessionStorage.getItem('rubiklab-client') || 'Presentation';
-    
-    console.log('Loading slides, found generated:', generatedSlidesJson ? 'yes' : 'no');
-    
-    if (generatedSlidesJson) {
-      try {
-        const generatedSlides = JSON.parse(generatedSlidesJson);
-        console.log('Parsed slides count:', generatedSlides.length);
-        if (Array.isArray(generatedSlides) && generatedSlides.length > 0) {
-          return convertGeneratedSlides(generatedSlides, clientName);
+  // Fetch fresh data from database or use sessionStorage
+  useEffect(() => {
+    const loadSlides = async () => {
+      const presentationId = sessionStorage.getItem('rubiklab-presentation-id');
+      const clientName = sessionStorage.getItem('rubiklab-client') || 'Presentation';
+      
+      // If we have a presentation ID, fetch fresh data from the database
+      if (presentationId) {
+        try {
+          const { supabase } = await import('@/integrations/supabase/client');
+          const { data, error } = await supabase
+            .from('presentations')
+            .select('generated_slides, client_name')
+            .eq('id', presentationId)
+            .single();
+          
+          if (!error && data?.generated_slides && Array.isArray(data.generated_slides)) {
+            console.log('Loaded fresh slides from database:', data.generated_slides.length);
+            // Update sessionStorage with fresh data
+            sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(data.generated_slides));
+            setSlides(convertGeneratedSlides(data.generated_slides, data.client_name || clientName));
+            setIsLoading(false);
+            return;
+          }
+        } catch (e) {
+          console.error('Error fetching presentation:', e);
         }
-      } catch (e) {
-        console.error('Error parsing generated slides:', e);
       }
-    }
+      
+      // Fallback to sessionStorage
+      const generatedSlidesJson = sessionStorage.getItem('rubiklab-generated-slides');
+      
+      console.log('Loading slides from sessionStorage, found:', generatedSlidesJson ? 'yes' : 'no');
+      
+      if (generatedSlidesJson) {
+        try {
+          const generatedSlides = JSON.parse(generatedSlidesJson);
+          console.log('Parsed slides count:', generatedSlides.length);
+          if (Array.isArray(generatedSlides) && generatedSlides.length > 0) {
+            setSlides(convertGeneratedSlides(generatedSlides, clientName));
+            setIsLoading(false);
+            return;
+          }
+        } catch (e) {
+          console.error('Error parsing generated slides:', e);
+        }
+      }
+      
+      // Fallback to parsing raw content
+      const content = sessionStorage.getItem('rubiklab-content') || '';
+      setSlides(parseContentToSlides(content, clientName));
+      setIsLoading(false);
+    };
     
-    // Fallback to parsing raw content
-    const content = sessionStorage.getItem('rubiklab-content') || '';
-    return parseContentToSlides(content, clientName);
-  }, [slideKey]);
+    loadSlides();
+  }, []);
 
   const goToSlide = useCallback((index: number) => {
     if (index >= 0 && index < slides.length) {
@@ -1169,6 +1201,18 @@ const PresentationPage = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide, navigate]);
+
+  // Loading state
+  if (isLoading || slides.length === 0) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          <span className="font-mono text-sm text-muted-foreground">Loading presentation...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={cn(
