@@ -482,23 +482,39 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 08: Legal Knowledge Reality             */}
         {/* ============================================== */}
-        <Slide hasCards>
-          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+        <Slide>
+          <div className="flex-1 flex flex-col justify-center">
             <SlideEyebrow>Legal Knowledge Reality</SlideEyebrow>
-            <ActionTitle>legal knowledge is fundamentally different</ActionTitle>
-            <div className="grid grid-cols-2 gap-5 mt-6 flex-1">
-              <Card title="fragmented">
-                spread across precedents, statutes, practice notes, emails, and institutional memory.
-              </Card>
-              <Card title="purpose driven">
-                applicability changes with intent, from research to litigation strategy to transactional drafting.
-              </Card>
-              <Card title="permission sensitive" accent>
-                ethical walls and matter level security are not optional features.
-              </Card>
-              <Card title="jurisdiction specific and evolving">
-                boundaries alter meaning, and new rulings continuously invalidate prior understanding.
-              </Card>
+            
+            {/* Large statement */}
+            <h2 className="font-serif text-[3rem] lg:text-[4.5rem] leading-[1.05] tracking-tight text-foreground max-w-5xl mb-16">
+              legal knowledge is<br />
+              <span className="text-primary italic">fundamentally different.</span>
+            </h2>
+            
+            {/* Horizontal attributes */}
+            <div className="flex items-start gap-0 border-t border-foreground/10">
+              {[
+                { label: "fragmented", desc: "spread across precedents, statutes, practice notes, and institutional memory" },
+                { label: "purpose driven", desc: "applicability changes with intent—research, litigation, drafting" },
+                { label: "permission sensitive", desc: "ethical walls and matter-level security are non-negotiable" },
+                { label: "jurisdictionally bound", desc: "boundaries alter meaning; rulings continuously invalidate understanding" },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08, duration: 0.4 }}
+                  viewport={{ once: true }}
+                  className={cn(
+                    "flex-1 py-6 pr-6",
+                    i > 0 && "pl-6 border-l border-foreground/10"
+                  )}
+                >
+                  <span className="font-serif text-lg text-foreground">{item.label}</span>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{item.desc}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </Slide>
@@ -579,23 +595,45 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 11: Production Grade                    */}
         {/* ============================================== */}
-        <Slide hasCards>
-          <div className="flex-1 flex flex-col max-w-5xl pt-8">
-            <SlideEyebrow>Production Grade</SlideEyebrow>
-            <ActionTitle>what turns concepts into a reliable system</ActionTitle>
-            <div className="grid grid-cols-2 gap-5 mt-6 flex-1">
-              <Card title="automated parsing pipelines">
-                continuous ingestion, processing, updating, with quality validation.
-              </Card>
-              <Card title="structural segmentation engines">
-                extract document hierarchy, relationships, and semantic units at clause level.
-              </Card>
-              <Card title="practice area taxonomies">
-                classification aligned to the firm's structures and terminology.
-              </Card>
-              <Card title="cross document linking">
-                maintain relationships between related legal content over time.
-              </Card>
+        <Slide>
+          <div className="flex-1 flex justify-between gap-20">
+            {/* Left column - Statement */}
+            <div className="flex flex-col justify-center max-w-md">
+              <SlideEyebrow>Production Grade</SlideEyebrow>
+              <h2 className="font-serif text-[2.5rem] lg:text-[3.25rem] leading-[1.1] tracking-tight text-foreground mb-6">
+                what turns concepts into a <span className="text-primary italic">reliable system</span>.
+              </h2>
+              <p className="font-serif text-lg text-foreground/50 leading-relaxed">
+                Moving from prototype to production requires infrastructure that scales.
+              </p>
+            </div>
+            
+            {/* Right column - Stacked capabilities */}
+            <div className="flex-1 max-w-lg flex flex-col justify-center">
+              {[
+                { num: "01", title: "automated parsing pipelines", desc: "continuous ingestion, processing, updating with quality validation" },
+                { num: "02", title: "structural segmentation", desc: "extract hierarchy, relationships, and semantic units at clause level" },
+                { num: "03", title: "practice area taxonomies", desc: "classification aligned to the firm's structures and terminology" },
+                { num: "04", title: "cross-document linking", desc: "maintain relationships between related legal content over time" },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.num}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  viewport={{ once: true }}
+                  className={cn(
+                    "group flex items-start gap-6 py-5",
+                    i < 3 && "border-b border-foreground/10"
+                  )}
+                >
+                  <span className="font-mono text-xs text-primary font-medium mt-1">{item.num}</span>
+                  <div className="flex-1">
+                    <h4 className="font-serif text-lg text-foreground leading-tight group-hover:text-primary transition-colors">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </Slide>
