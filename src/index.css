@@ -39,7 +39,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 4% 12%;
 
-    --primary: 330 85% 55%;
+    --primary: 201 89% 48%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 30 20% 96%;
@@ -48,7 +48,7 @@
     --muted: 30 14% 93%;
     --muted-foreground: 0 0% 40%;
 
-    --accent: 270 60% 58%;
+    --accent: 201 89% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -56,16 +56,16 @@
 
     --border: 240 4% 12% / 0.1;
     --input: 30 14% 90%;
-    --ring: 330 85% 55%;
+    --ring: 201 89% 48%;
 
     --radius: 2px;
 
     /* Rubiklab Strategic Colors */
-    --rubiklab-magenta: 330 85% 55%;
+    --rubiklab-blue: 201 89% 48%;
     --rubiklab-ink: 240 4% 12%;
     --rubiklab-stone: 240 2% 40%;
     --rubiklab-creme: 30 33% 99%;
-    --accent-glow: 330 85% 55%;
+    --accent-glow: 201 89% 48%;
     --accent-purple: 270 60% 58%;
     --accent-green: 160 84% 39%;
 

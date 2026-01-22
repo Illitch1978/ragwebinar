@@ -110,7 +110,7 @@ const UploadPage = () => {
         <div className="container mx-auto px-6 lg:px-16 py-6 flex justify-between items-center">
           <RubiklabLogo />
           <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-            Intelligence Capital
+            Rubiklab.ai
           </span>
         </div>
       </header>
@@ -365,7 +365,7 @@ Your strategic analysis content...
         <div className="container mx-auto px-6 lg:px-16 flex justify-between items-center">
           <RubiklabLogo size="small" />
           <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-            Rubiklab Intelligence Capital © 2026
+            Rubiklab.ai © 2026
           </span>
         </div>
       </footer>
