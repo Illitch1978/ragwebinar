@@ -487,7 +487,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 07: Turning Point                       */}
         {/* ============================================== */}
-        <Slide dark>
+        <Slide>
           <div className="flex-1 flex flex-col justify-center items-center text-center">
             {/* Accent line */}
             <motion.div 
@@ -508,7 +508,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
               viewport={{ once: true }}
-              className="font-serif text-[4rem] lg:text-[6rem] leading-[0.95] tracking-tight text-white mb-6"
+              className="font-serif text-[4rem] lg:text-[6rem] leading-[0.95] tracking-tight text-foreground mb-6"
             >
               RAG is not broken.
             </motion.h2>
@@ -529,7 +529,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.5 }}
               viewport={{ once: true }}
-              className="font-sans text-lg text-white/50 mt-12 max-w-xl leading-relaxed"
+              className="font-sans text-lg text-foreground/50 mt-12 max-w-xl leading-relaxed"
             >
               Reliability begins well before retrieval.
             </motion.p>
