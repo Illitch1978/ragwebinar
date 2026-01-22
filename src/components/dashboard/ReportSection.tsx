@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Download, Loader2, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import { Download, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -651,15 +651,6 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       className="h-screen w-screen overflow-hidden relative bg-background"
       tabIndex={0}
     >
-      {/* Back to Upload Button */}
-      <button
-        onClick={() => navigate('/')}
-        className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2 bg-card/80 backdrop-blur-sm border border-border hover:border-primary text-muted-foreground hover:text-foreground text-[10px] font-mono uppercase tracking-widest transition-all duration-300 print-hide group"
-      >
-        <ArrowLeft className="w-3.5 h-3.5 group-hover:text-primary transition-colors" />
-        New Report
-      </button>
-      
       {/* Subtle cursor glow effect */}
       <CursorGlow />
       
@@ -680,21 +671,21 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           <StaggeredContent className="max-w-7xl w-full h-full flex flex-col">
             <AnimatedTitle>
               <SlideEyebrow>Methodology</SlideEyebrow>
-              <ActionTitle>Reading this assessment.</ActionTitle>
+              <ActionTitle>How to read this RAG assessment.</ActionTitle>
             </AnimatedTitle>
             
             <AnimatedContent className="grid md:grid-cols-12 gap-10 lg:gap-16">
               <div className="col-span-7 space-y-6">
                 <p className="font-serif text-xl text-foreground leading-relaxed">
-                  This document is a commissioned strategic assessment, distinct from automated performance reports. It combines large-scale quantitative analysis with structured expert judgement.
+                  This document is a commissioned reliability assessment for Retrieval-Augmented Generation (RAG) in legal workflows. It focuses on what matters in practice: grounded answers, verifiable citations, and predictable behaviour under load.
                 </p>
                 
                 <p className="text-base text-muted-foreground leading-relaxed">
-                  Findings are derived from a multi-stage review process covering technical integrity, narrative clarity, user behaviour signals, and market positioning. Each dimension is assessed independently before being synthesised into an overall view.
+                  Findings are derived from a structured review across the full RAG pipeline: data quality, chunking strategy, retrieval configuration, generation prompts, and verification/guardrails. Each layer is assessed independently before synthesis.
                 </p>
 
                 <p className="text-base text-muted-foreground leading-relaxed">
-                  Where scores are provided (0–100), they represent a weighted index calibrated against top-quartile SaaS and professional services benchmarks. Scores are directional indicators designed to guide prioritisation, not absolute measures of success.
+                  Where scores are provided (0–100), they are directional indicators intended to guide prioritisation. In legal settings, the primary success condition is reliability: correct grounding, correct citations, and clear uncertainty.
                 </p>
 
                 <div className="pt-6">
@@ -704,13 +695,13 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                       <span className="text-primary">•</span> Cross-checked across independent signals
                     </li>
                     <li className="flex items-start gap-2 border-t border-border pt-4">
-                      <span className="text-primary">•</span> Benchmarked against 1,200+ sites
+                      <span className="text-primary">•</span> Evaluated against RAG failure modes
                     </li>
                     <li className="flex items-start gap-2 border-t border-border pt-4">
-                      <span className="text-primary">•</span> Reviewed through sector lenses
+                      <span className="text-primary">•</span> Reviewed for legal risk tolerance
                     </li>
                     <li className="flex items-start gap-2 border-t border-border pt-4">
-                      <span className="text-primary">•</span> Weighted to reflect decision impact
+                      <span className="text-primary">•</span> Weighted by downstream harm
                     </li>
                   </ul>
                 </div>
@@ -735,17 +726,13 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <AnimatedTitle>
               <SlideEyebrow>Executive Synthesis</SlideEyebrow>
               <ActionTitle>
-                {reportData.executiveSummary 
-                  ? `Strategic analysis for ${reportData.clientName}.`
-                  : "Operational maturity is currently invisible to the modern buyer."}
+                From retrieval to reliability.
               </ActionTitle>
             </AnimatedTitle>
             
             <AnimatedContent>
               <p className="font-sans font-light text-lg text-muted-foreground max-w-4xl mb-16 leading-relaxed">
-                {reportData.executiveSummary 
-                  ? reportData.executiveSummary.substring(0, 500) + (reportData.executiveSummary.length > 500 ? "..." : "")
-                  : `${reportData.clientName} possesses strong foundational capabilities. This assessment identifies key opportunities to enhance digital presence and market positioning.`}
+                {reportData.executiveSummary}
               </p>
             </AnimatedContent>
 
@@ -760,9 +747,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 viewport={{ once: true }}
               >
                 <div className="font-mono text-xs uppercase tracking-widest text-primary mb-6">01. Primary Asset</div>
-                <h3 className="font-serif text-2xl mb-4">The Global Engine</h3>
+                <h3 className="font-serif text-2xl mb-4">Grounded access to firm knowledge</h3>
                 <p className="text-sm text-muted-foreground mb-8 flex-grow leading-relaxed">
-                  With 85+ countries, 40+ languages, and a 22-year legacy, the "Hard Stuff" (Infrastructure) is solved. This allows for complex, multi-market execution that pure-play tech disruptors cannot replicate.
+                  RAG lets legal teams query proprietary work product and authoritative sources with speed—without requiring the model to “know” the answer. The value comes from retrieval quality and provenance.
                 </p>
                 <div>
                   <motion.div 
@@ -772,9 +759,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     transition={{ duration: 0.8, delay: 0.6 }}
                     viewport={{ once: true }}
                   >
-                    22 Yrs
+                    Fast
                   </motion.div>
-                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Operational Heritage</div>
+                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Research acceleration</div>
                 </div>
               </motion.div>
 
@@ -787,9 +774,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 viewport={{ once: true }}
               >
                 <div className="font-mono text-xs uppercase tracking-widest text-destructive mb-6">02. Primary Constraint</div>
-                <h3 className="font-serif text-2xl mb-4">The "Trust" Vacuum</h3>
+                <h3 className="font-serif text-2xl mb-4">The reliability gap</h3>
                 <p className="text-sm text-muted-foreground mb-8 flex-grow leading-relaxed">
-                  The digital presence relies on "Self-Reported" trust signals (e.g., "95% Satisfaction") without third-party verification. The rebrand reset 20 years of SEO equity, leaving Mavrix invisible to organic search and AI discovery.
+                  Without verification, systems can fabricate citations, misstate holdings, or overstate confidence. In legal work, a single ungrounded answer creates outsized risk.
                 </p>
                 <div>
                   <motion.div 
@@ -799,9 +786,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     transition={{ duration: 0.8, delay: 0.7 }}
                     viewport={{ once: true }}
                   >
-                    Low
+                    Risk
                   </motion.div>
-                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Domain Authority (Reset)</div>
+                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Hallucination exposure</div>
                 </div>
               </motion.div>
 
@@ -814,9 +801,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 viewport={{ once: true }}
               >
                 <div className="font-mono text-xs uppercase tracking-widest text-primary mb-6">03. The Pivot</div>
-                <h3 className="font-serif text-2xl mb-4">Integrity Assurance</h3>
+                <h3 className="font-serif text-2xl mb-4">Verification first</h3>
                 <p className="text-sm text-muted-foreground mb-8 flex-grow leading-relaxed">
-                  Stop competing on "AI Speed" (a commodity war against Zappi/Lucid). Pivot to "Verified Human Truth." Own the complexity that AI cannot solve: hard-to-reach B2B and multi-country compliance.
+                  The winning architecture adds guardrails: citation validation, confidence scoring, and human-in-the-loop review. Reliability becomes the differentiator—not “faster answers.”
                 </p>
                 <div>
                   <motion.div 
@@ -826,9 +813,9 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                     transition={{ duration: 0.8, delay: 0.8 }}
                     viewport={{ once: true }}
                   >
-                    Premium
+                    Trust
                   </motion.div>
-                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Target Positioning</div>
+                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">Defensible output</div>
                 </div>
               </motion.div>
 
@@ -841,54 +828,54 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           <div className="max-w-7xl w-full h-full flex flex-col pt-4">
             <div className="mb-16">
               <span className="font-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-4 block">Navigation</span>
-              <h2 className="font-serif text-5xl text-white">Report Architecture</h2>
+              <h2 className="font-serif text-5xl text-white">Session Architecture</h2>
             </div>
 
             <div className="grid grid-cols-3 gap-12 h-[500px]">
-              {/* Section 01: Market Context */}
+              {/* Section 01: Landscape */}
               <div className="border-l border-white/10 pl-8 h-full flex flex-col">
                 <span className="font-mono text-xs text-primary uppercase tracking-widest mb-4">Section 01</span>
-                <h3 className="font-serif text-3xl text-white mb-2">Market Context.</h3>
-                <p className="text-xs text-gray-500 mb-8 italic">The External Reality</p>
+                <h3 className="font-serif text-3xl text-white mb-2">RAG Landscape.</h3>
+                <p className="text-xs text-gray-500 mb-8 italic">The external patterns</p>
                 
                 <ul className="mt-6 font-sans font-light text-[0.85rem] text-gray-400 leading-[2] space-y-2">
-                  <li className="border-b border-white/5 pb-2">Competitive Reality</li>
-                  <li className="border-b border-white/5 pb-2">Peer Positioning Snapshot</li>
-                  <li className="border-b border-white/5 pb-2">Differentiation Signals</li>
-                  <li className="border-b border-white/5 pb-2">Visibility & Discoverability</li>
-                  <li className="border-b border-white/5 pb-2">Competitive Balance</li>
-                  <li className="border-b border-white/5 pb-2">Strategic Implications</li>
+                  <li className="border-b border-white/5 pb-2">Why RAG (and why now)</li>
+                  <li className="border-b border-white/5 pb-2">What "good" looks like</li>
+                  <li className="border-b border-white/5 pb-2">Common failure modes</li>
+                  <li className="border-b border-white/5 pb-2">Legal risk tolerance</li>
+                  <li className="border-b border-white/5 pb-2">Adoption barriers</li>
+                  <li className="border-b border-white/5 pb-2">Implications for firms</li>
                 </ul>
               </div>
 
-              {/* Section 02: Diagnosis */}
+              {/* Section 02: Reliability */}
               <div className="border-l border-white/10 pl-8 h-full flex flex-col">
                 <span className="font-mono text-xs text-primary uppercase tracking-widest mb-4">Section 02</span>
-                <h3 className="font-serif text-3xl text-white mb-2">Diagnosis.</h3>
-                <p className="text-xs text-gray-500 mb-8 italic">The Internal Reality</p>
+                <h3 className="font-serif text-3xl text-white mb-2">Reliability.</h3>
+                <p className="text-xs text-gray-500 mb-8 italic">The system reality</p>
                 
                 <ul className="mt-6 font-sans font-light text-[0.85rem] text-gray-400 leading-[2] space-y-2">
-                  <li className="border-b border-white/5 pb-2">System-Level Diagnosis</li>
-                  <li className="border-b border-white/5 pb-2">Perceived Authority</li>
-                  <li className="border-b border-white/5 pb-2">Narrative Positioning</li>
-                  <li className="border-b border-white/5 pb-2">Trust Architecture</li>
-                  <li className="border-b border-white/5 pb-2">Diagnosis Synthesis</li>
+                  <li className="border-b border-white/5 pb-2">Retrieval quality</li>
+                  <li className="border-b border-white/5 pb-2">Citation correctness</li>
+                  <li className="border-b border-white/5 pb-2">Hallucination control</li>
+                  <li className="border-b border-white/5 pb-2">Uncertainty handling</li>
+                  <li className="border-b border-white/5 pb-2">Verification layer</li>
                 </ul>
               </div>
 
-              {/* Section 03: The Pivot */}
+              {/* Section 03: Roadmap */}
               <div className="border-l border-white/10 pl-8 h-full flex flex-col">
                 <span className="font-mono text-xs text-primary uppercase tracking-widest mb-4">Section 03</span>
-                <h3 className="font-serif text-3xl text-white mb-2">The Pivot.</h3>
-                <p className="text-xs text-gray-500 mb-8 italic">The Strategic Move</p>
+                <h3 className="font-serif text-3xl text-white mb-2">Roadmap.</h3>
+                <p className="text-xs text-gray-500 mb-8 italic">The implementation move</p>
                 
                 <ul className="mt-6 font-sans font-light text-[0.85rem] text-gray-400 leading-[2] space-y-2">
-                  <li className="border-b border-white/5 pb-2">Strategic Inflection</li>
-                  <li className="border-b border-white/5 pb-2">Focus Themes</li>
-                  <li className="border-b border-white/5 pb-2">Leverage Matrix</li>
-                  <li className="border-b border-white/5 pb-2">Structural Evolution</li>
-                  <li className="border-b border-white/5 pb-2">Governance Signals</li>
-                  <li className="border-b border-white/5 pb-2">Executive Closing</li>
+                  <li className="border-b border-white/5 pb-2">Priority actions</li>
+                  <li className="border-b border-white/5 pb-2">Leverage matrix</li>
+                  <li className="border-b border-white/5 pb-2">Guardrails & governance</li>
+                  <li className="border-b border-white/5 pb-2">Workflow integration</li>
+                  <li className="border-b border-white/5 pb-2">Measurement & QA</li>
+                  <li className="border-b border-white/5 pb-2">Executive close</li>
                 </ul>
               </div>
             </div>
@@ -900,79 +887,83 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
           </div>
         </Slide>
 
-        {/* Slide 05: Overall Digital Standing */}
+        {/* Slide 05: Overall RAG Standing */}
         <Slide>
           <StaggeredContent className="max-w-6xl mx-auto w-full h-full flex flex-col">
             <AnimatedTitle>
-              <SlideEyebrow>Overall Digital Standing</SlideEyebrow>
+              <SlideEyebrow>Overall RAG Standing</SlideEyebrow>
             </AnimatedTitle>
             
             <AnimatedContent className="flex justify-between items-end mb-8">
-              <ActionTitle className="max-w-3xl">A 60-point gap exists between operational potential and digital reality.</ActionTitle>
+              <ActionTitle className="max-w-3xl">A reliability gap exists between capability and deployability.</ActionTitle>
               
               <div className="bg-muted/30 border-l-2 border-primary p-6 max-w-sm mb-8">
                 <span className="font-mono text-[10px] text-primary uppercase tracking-widest block mb-2">Primary Drag</span>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  The "Trust Deficit" (unverified claims, missing social proof) is the single largest weight on performance, costing 30 points of conversion potential.
+                  The largest drag is verification: if citations can’t be validated and uncertainty isn’t surfaced, outputs remain unsafe for legal work.
                 </p>
               </div>
             </AnimatedContent>
 
             <AnimatedContent delay={0.1} className="border-b border-border pb-8">
-              {/* Waterfall Chart */}
+              {/* Waterfall Chart (dynamic from curated RAG data) */}
               <div className="w-full flex items-end justify-between pt-8 gap-8">
-                
-                {/* Digital Potential */}
-                <div className="flex-1 flex flex-col items-center">
-                  <span className="font-mono text-2xl font-semibold text-muted-foreground mb-4">100</span>
-                  <div className="w-full bg-muted h-[240px] rounded-sm"></div>
-                  <span className="font-sans text-[11px] text-muted-foreground font-medium tracking-wider uppercase mt-4 text-center">Digital<br/>Potential</span>
-                </div>
+                {(() => {
+                  const losses = reportData.waterfall?.losses ?? [];
+                  const potential = reportData.waterfall?.potential ?? 100;
+                  const current = reportData.waterfall?.current ?? reportData.score;
 
-                {/* Trust Deficit -30 */}
-                <div className="flex-1 flex flex-col items-center">
-                  <span className="font-mono text-xl font-medium text-destructive mb-4">-30</span>
-                  <div className="h-[240px] w-full flex flex-col justify-start">
-                    <div className="w-full bg-destructive h-[72px] rounded-sm"></div>
-                  </div>
-                  <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">Trust<br/>Deficit</span>
-                </div>
+                  const barHeight = (value: number) => Math.max(8, Math.min(240, Math.round((Math.abs(value) / 100) * 240)));
+                  const padTopForStack = (index: number) => {
+                    const previous = losses.slice(0, index).reduce((sum, l) => sum + barHeight(l.value), 0);
+                    return Math.min(previous, 240);
+                  };
 
-                {/* Visibility Gap -20 */}
-                <div className="flex-1 flex flex-col items-center">
-                  <span className="font-mono text-xl font-medium text-destructive mb-4">-20</span>
-                  <div className="h-[240px] w-full flex flex-col justify-start pt-[72px]">
-                    <div className="w-full bg-destructive h-[48px] rounded-sm"></div>
-                  </div>
-                  <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">Visibility<br/>Gap</span>
-                </div>
+                  return (
+                    <>
+                      {/* Potential */}
+                      <div className="flex-1 flex flex-col items-center">
+                        <span className="font-mono text-2xl font-semibold text-muted-foreground mb-4">{potential}</span>
+                        <div className="w-full bg-muted h-[240px] rounded-sm" />
+                        <span className="font-sans text-[11px] text-muted-foreground font-medium tracking-wider uppercase mt-4 text-center">
+                          System<br />Potential
+                        </span>
+                      </div>
 
-                {/* Content Lag -10 */}
-                <div className="flex-1 flex flex-col items-center">
-                  <span className="font-mono text-xl font-medium text-destructive mb-4">-10</span>
-                  <div className="h-[240px] w-full flex flex-col justify-start pt-[120px]">
-                    <div className="w-full bg-destructive h-[24px] rounded-sm"></div>
-                  </div>
-                  <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">Content<br/>Lag</span>
-                </div>
+                      {/* Losses */}
+                      {losses.slice(0, 3).map((loss, idx) => (
+                        <div key={loss.label} className="flex-1 flex flex-col items-center">
+                          <span className="font-mono text-xl font-medium text-destructive mb-4">{loss.value}</span>
+                          <div className="h-[240px] w-full flex flex-col justify-start" style={{ paddingTop: padTopForStack(idx) }}>
+                            <div className="w-full bg-destructive rounded-sm" style={{ height: barHeight(loss.value) }} />
+                          </div>
+                          <span className="font-sans text-[11px] text-destructive font-medium tracking-wider uppercase mt-4 text-center">
+                            {loss.label.split(" ").join("\n")}
+                          </span>
+                        </div>
+                      ))}
 
-                {/* Current Score */}
-                <div className="flex-1 flex flex-col items-center">
-                  <motion.span 
-                    className="font-mono text-4xl font-semibold text-primary mb-4"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                    viewport={{ once: true }}
-                  >
-                    40
-                  </motion.span>
-                  <div className="h-[240px] w-full flex flex-col justify-end">
-                    <div className="w-full bg-primary h-[96px] rounded-sm"></div>
-                  </div>
-                  <span className="font-sans text-[11px] text-foreground font-bold tracking-wider uppercase mt-4 text-center">Current<br/>Score</span>
-                </div>
-
+                      {/* Current */}
+                      <div className="flex-1 flex flex-col items-center">
+                        <motion.span
+                          className="font-mono text-4xl font-semibold text-primary mb-4"
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
+                          transition={{ duration: 0.8, delay: 0.8 }}
+                          viewport={{ once: true }}
+                        >
+                          {current}
+                        </motion.span>
+                        <div className="h-[240px] w-full flex flex-col justify-end">
+                          <div className="w-full bg-primary rounded-sm" style={{ height: barHeight(current) }} />
+                        </div>
+                        <span className="font-sans text-[11px] text-foreground font-bold tracking-wider uppercase mt-4 text-center">
+                          Current<br />Readiness
+                        </span>
+                      </div>
+                    </>
+                  );
+                })()}
               </div>
             </AnimatedContent>
 
@@ -980,8 +971,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <AnimatedInsight className="grid grid-cols-3 gap-12 pt-8">
               <div>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Score Interpretation</span>
-                <div className="font-serif text-xl text-foreground">Critical Health</div>
-                <div className="text-xs text-muted-foreground mt-1">Structural issues constraining growth.</div>
+                <div className="font-serif text-xl text-foreground">{reportData.healthStatus}</div>
+                <div className="text-xs text-muted-foreground mt-1">Directional signal for prioritisation.</div>
               </div>
               <div>
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest block mb-1">Recovery Potential</span>
