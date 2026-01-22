@@ -29,7 +29,7 @@
   }
   
   :root {
-    /* Mondro Strategic Synthesis Theme - Light Creme */
+    /* Rubiklab Strategic Synthesis Theme - Light Creme */
     --background: 30 33% 99%;
     --foreground: 240 4% 12%;
 
@@ -39,7 +39,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 4% 12%;
 
-    --primary: 195 100% 40%;
+    --primary: 330 85% 55%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 30 20% 96%;
@@ -56,16 +56,16 @@
 
     --border: 240 4% 12% / 0.1;
     --input: 30 14% 90%;
-    --ring: 195 100% 40%;
+    --ring: 330 85% 55%;
 
     --radius: 2px;
 
-    /* Mondro Strategic Colors */
-    --mondro-blue: 195 100% 40%;
-    --mondro-ink: 240 4% 12%;
-    --mondro-stone: 240 2% 40%;
-    --mondro-creme: 30 33% 99%;
-    --accent-glow: 195 100% 40%;
+    /* Rubiklab Strategic Colors */
+    --rubiklab-magenta: 330 85% 55%;
+    --rubiklab-ink: 240 4% 12%;
+    --rubiklab-stone: 240 2% 40%;
+    --rubiklab-creme: 30 33% 99%;
+    --accent-glow: 330 85% 55%;
     --accent-purple: 270 60% 58%;
     --accent-green: 160 84% 39%;
 
@@ -431,8 +431,8 @@
   text-align: left;
 }
 
-/* Inline Mondro logo styling */
-.mondro-inline {
+/* Inline Rubiklab logo styling */
+.rubiklab-inline {
   font-family: var(--font-heading);
   font-weight: 800;
   letter-spacing: -0.05em;
@@ -442,7 +442,7 @@
   color: hsl(var(--foreground));
 }
 
-.mondro-dot {
+.rubiklab-dot {
   display: inline-block;
   width: 0.22em;
   height: 0.22em;

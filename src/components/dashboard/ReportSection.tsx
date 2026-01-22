@@ -309,26 +309,26 @@ const CoverSlide = () => (
         <div>Classified</div>
         <div>{reportData.clientName}</div>
         <div>Gap Analysis</div>
-        <div className="text-[#0099E6]">v.Final</div>
+        <div className="text-primary">v.Final</div>
       </div>
       <button 
-        className="flex items-center gap-2.5 px-5 py-2.5 border border-gray-700 hover:border-[#0099E6] text-gray-400 hover:text-white text-[10px] font-mono uppercase tracking-widest transition-all duration-300 print-hide group"
+        className="flex items-center gap-2.5 px-5 py-2.5 border border-gray-700 hover:border-primary text-gray-400 hover:text-white text-[10px] font-mono uppercase tracking-widest transition-all duration-300 print-hide group"
         onClick={() => {
           const exportButton = document.querySelector('[data-export-trigger]') as HTMLButtonElement;
           if (exportButton) exportButton.click();
         }}
       >
-        <Download className="w-3.5 h-3.5 group-hover:text-[#0099E6] transition-colors" />
+        <Download className="w-3.5 h-3.5 group-hover:text-primary transition-colors" />
         Download Report
       </button>
     </div>
 
     {/* Main content */}
     <div className="relative z-10 flex-grow flex flex-col justify-center">
-      <div className="border-l-4 border-[#0099E6] pl-12 py-4">
+      <div className="border-l-4 border-primary pl-12 py-4">
         <h1 className="font-serif text-7xl md:text-8xl lg:text-9xl text-white leading-[0.9] tracking-tight mb-4">
           Defining the <br />
-          <span className="italic text-[#0099E6]">Digital Standard.</span>
+          <span className="italic text-primary">Digital Standard.</span>
         </h1>
       </div>
     </div>
@@ -336,7 +336,7 @@ const CoverSlide = () => (
     {/* Footer */}
     <div className="relative z-10 flex justify-between items-end">
       <div className="flex items-center gap-1.5">
-        <span className="font-serif font-bold text-3xl tracking-tight lowercase text-white">mondro</span>
+        <span className="font-serif font-bold text-3xl tracking-tight lowercase text-white">Rubiklab</span>
         <div className="relative flex items-center justify-center">
           <div className="absolute w-3 h-3 bg-primary rounded-full animate-ping opacity-20"></div>
           <div className="w-2.5 h-2.5 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></div>
@@ -344,7 +344,7 @@ const CoverSlide = () => (
       </div>
       
       <div className="font-mono text-[10px] text-gray-600 uppercase tracking-widest">
-        Mondro Intelligence Capital © 2026
+        Rubiklab Intelligence Capital © 2026
       </div>
     </div>
   </div>
@@ -382,9 +382,9 @@ const SectionDivider = ({
     )}>
       {layout === 'center' && (
         <div className="flex flex-col items-center">
-          <div className="w-[1px] h-16 bg-[#0099E6] mb-10" />
+          <div className="w-[1px] h-16 bg-primary mb-10" />
           <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6 whitespace-nowrap">
-            {title}<span className="text-[#0099E6]">.</span>
+            {title}<span className="text-primary">.</span>
           </h2>
           <p className="font-sans text-xl text-gray-400 font-light leading-relaxed max-w-lg">
             {subtitle}
@@ -394,9 +394,9 @@ const SectionDivider = ({
       
       {layout === 'top-right' && (
         <div className="text-right max-w-2xl">
-          <div className="w-16 h-1 bg-[#0099E6] ml-auto mb-8" />
+          <div className="w-16 h-1 bg-primary ml-auto mb-8" />
           <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6 leading-[0.95]">
-            {title}<span className="text-[#0099E6]">.</span>
+            {title}<span className="text-primary">.</span>
           </h2>
           <p className="font-sans text-xl text-gray-400 font-light leading-relaxed">
             {subtitle}
@@ -406,9 +406,9 @@ const SectionDivider = ({
       
       {layout === 'bottom-left' && (
         <div className="max-w-2xl">
-          <div className="w-16 h-1 bg-[#0099E6] mb-8" />
+          <div className="w-16 h-1 bg-primary mb-8" />
           <h2 className="font-serif text-7xl lg:text-8xl text-white mb-6">
-            {title}<span className="text-[#0099E6]">.</span>
+            {title}<span className="text-primary">.</span>
           </h2>
           <p className="font-sans text-xl text-gray-400 font-light max-w-lg leading-relaxed">
             {subtitle}
@@ -420,7 +420,7 @@ const SectionDivider = ({
     {/* Footer with logo */}
     <div className="relative z-10 flex justify-between items-end">
       <div className="flex items-center gap-1.5">
-        <span className="font-serif font-bold text-3xl tracking-tight lowercase text-white">mondro</span>
+        <span className="font-serif font-bold text-3xl tracking-tight lowercase text-white">Rubiklab</span>
         <div className="relative flex items-center justify-center">
           <div className="absolute w-3 h-3 bg-primary rounded-full animate-ping opacity-20"></div>
           <div className="w-2.5 h-2.5 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></div>
@@ -428,7 +428,7 @@ const SectionDivider = ({
       </div>
       
       <div className="font-mono text-[10px] text-gray-600 uppercase tracking-widest">
-        Mondro Intelligence Capital © 2026
+        Rubiklab Intelligence Capital © 2026
       </div>
     </div>
   </div>
@@ -636,7 +636,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       
       const clientSlug = reportData.clientName.replace(/[^a-zA-Z0-9]/g, "-").replace(/-+/g, "-");
       const dateStr = new Date().toISOString().split("T")[0];
-      pdf.save(`Mondro_report_${clientSlug}_${dateStr}.pdf`);
+      pdf.save(`Rubiklab_report_${clientSlug}_${dateStr}.pdf`);
     } catch (error) {
       console.error("PDF export failed:", error);
     } finally {
@@ -2594,10 +2594,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   </p>
                 </motion.div>
                 
-                {/* Footer with Mondro branding */}
+                {/* Footer with Rubiklab branding */}
                 <div className="flex justify-end items-center pt-6 border-t border-border mt-auto">
                   <div className="flex items-center gap-1.5 text-foreground">
-                    <span className="font-serif font-bold text-xl tracking-tight lowercase">mondro</span>
+                    <span className="font-serif font-bold text-xl tracking-tight lowercase">Rubiklab</span>
                     <div className="relative flex items-center justify-center">
                       <div className="absolute w-2.5 h-2.5 bg-primary rounded-full animate-ping opacity-20"></div>
                       <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></div>
@@ -2907,7 +2907,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                   <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground block mb-3">Composite Score</span>
                   <div className="font-serif text-5xl text-foreground leading-none mb-2">40<span className="text-xl text-muted-foreground">/100</span></div>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Mondro Health Score. Passing threshold for Enterprise vendors is 75+.
+                    Rubiklab Health Score. Passing threshold for Enterprise vendors is 75+.
                   </p>
                 </div>
 
@@ -3025,7 +3025,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
                 </div>
 
                 <div>
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground block mb-3">Mondro Score Lift</span>
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground block mb-3">Rubiklab Score Lift</span>
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs border-b border-border/50 pb-2">
                       <span className="text-muted-foreground">Remove Marquee</span>

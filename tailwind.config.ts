@@ -63,12 +63,12 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Mondro Strategic Synthesis colors
-        mondro: {
-          blue: "hsl(var(--mondro-blue))",
-          ink: "hsl(var(--mondro-ink))",
-          stone: "hsl(var(--mondro-stone))",
-          creme: "hsl(var(--mondro-creme))",
+        // Rubiklab Strategic Synthesis colors
+        rubiklab: {
+          magenta: "hsl(var(--rubiklab-magenta))",
+          ink: "hsl(var(--rubiklab-ink))",
+          stone: "hsl(var(--rubiklab-stone))",
+          creme: "hsl(var(--rubiklab-creme))",
         },
         glow: "hsl(var(--accent-glow))",
         purple: "hsl(var(--accent-purple))",
