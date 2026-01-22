@@ -289,28 +289,34 @@ const CoverFrame = () => (
 );
 
 const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) => {
+  // Smooth cubic bezier for buttery animations - no spring physics to avoid shake
+  const smoothEase = [0.25, 0.1, 0.25, 1] as const; // CSS ease equivalent
+  
   const variants = {
-    enter: { opacity: 0, y: 10 },
+    enter: { opacity: 0, y: 6 },
     center: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -10 },
+    exit: { opacity: 0, y: -4 },
   };
 
   const staggerChildren = {
     center: {
       transition: { 
-        staggerChildren: 0.1, 
-        delayChildren: 0.1
+        staggerChildren: 0.08, 
+        delayChildren: 0.05
       }
     }
   };
 
   const childVariant = {
-    enter: { opacity: 0, y: 8 },
+    enter: { opacity: 0, y: 4 },
     center: { opacity: 1, y: 0 },
   };
   
-  // Smooth transition config for all child elements
-  const smoothTransition = { duration: 0.4, ease: "easeOut" as const };
+  // Smooth transition config - longer duration, CSS-like easing, no spring
+  const smoothTransition = { 
+    duration: 0.5, 
+    ease: smoothEase,
+  };
 
   // Title/Cover slide - Premium cover treatment
   if (slide.type === 'title' || slide.type === 'cover') {
@@ -333,7 +339,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           {slide.kicker && (
             <motion.div 
               variants={childVariant}
-              transition={{ duration: 0.5 }}
+              transition={smoothTransition}
               className="flex items-center gap-4 mb-6"
             >
               <div className="w-12 h-[1px] bg-primary" />
@@ -346,7 +352,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           {/* Main title */}
           <motion.h1 
             variants={childVariant}
-            transition={{ duration: 0.6 }}
+            transition={smoothTransition}
             className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] mb-6"
           >
             {slide.title}
@@ -356,7 +362,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           {slide.subtitle && (
             <motion.p 
               variants={childVariant}
-              transition={{ duration: 0.5 }}
+              transition={smoothTransition}
               className="text-xl text-white/70 max-w-2xl"
             >
               {slide.subtitle}
@@ -409,7 +415,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           {slide.kicker && (
             <motion.p 
               variants={childVariant}
-              transition={{ duration: 0.5 }}
+              transition={smoothTransition}
               className="font-mono text-[10px] tracking-[0.25em] uppercase text-primary mb-6"
             >
               Section {slide.kicker}
@@ -418,7 +424,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           
           <motion.h2 
             variants={childVariant}
-            transition={{ duration: 0.6 }}
+            transition={smoothTransition}
             className="font-serif text-5xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl"
           >
             {slide.title}
@@ -427,7 +433,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           {slide.subtitle && (
             <motion.p 
               variants={childVariant}
-              transition={{ duration: 0.5 }}
+              transition={smoothTransition}
               className="text-xl text-white/60 mt-6 max-w-2xl"
             >
               {slide.subtitle}
@@ -436,7 +442,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           
           <motion.div 
             variants={childVariant}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={smoothTransition}
             className="flex items-center gap-4 mt-10"
           >
             <div className="w-24 h-[2px] bg-primary" />
@@ -461,7 +467,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         <div className="flex flex-col justify-center px-12 lg:px-20 py-20 w-full">
           <motion.div 
             variants={childVariant}
-            transition={{ duration: 0.4 }}
+            transition={smoothTransition}
             className="flex items-center gap-4 mb-6"
           >
             <div className="w-8 h-[2px] bg-primary" />
@@ -472,7 +478,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           
           <motion.h2 
             variants={childVariant}
-            transition={{ duration: 0.5 }}
+            transition={smoothTransition}
             className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-12 max-w-3xl"
           >
             {slide.title}
@@ -483,7 +489,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
               <motion.div
                 key={idx}
                 variants={childVariant}
-                transition={{ duration: 0.4, delay: 0.1 + idx * 0.1 }}
+                transition={{ ...smoothTransition, delay: idx * 0.06 }}
                 className="border-l-2 border-primary/30 pl-6"
               >
                 <span className="font-mono text-4xl lg:text-5xl font-bold text-primary">
@@ -515,7 +521,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         <div className="flex flex-col justify-center px-12 lg:px-20 py-20 w-full">
           <motion.div 
             variants={childVariant}
-            transition={{ duration: 0.4 }}
+            transition={smoothTransition}
             className="flex items-center gap-4 mb-6"
           >
             <div className="w-8 h-[2px] bg-primary" />
@@ -526,7 +532,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           
           <motion.h2 
             variants={childVariant}
-            transition={{ duration: 0.5 }}
+            transition={smoothTransition}
             className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-10 max-w-4xl"
           >
             {slide.title}
@@ -535,14 +541,14 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <motion.div
               variants={childVariant}
-              transition={{ duration: 0.4, delay: 0.1 }}
+              transition={smoothTransition}
               className="prose prose-lg text-foreground"
             >
               <p className="text-lg leading-relaxed">{slide.leftColumn}</p>
             </motion.div>
             <motion.div
               variants={childVariant}
-              transition={{ duration: 0.4, delay: 0.2 }}
+              transition={smoothTransition}
               className="prose prose-lg text-foreground"
             >
               <p className="text-lg leading-relaxed">{slide.rightColumn}</p>
@@ -567,7 +573,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         <div className="flex flex-col justify-center px-12 lg:px-20 py-20 max-w-5xl">
           <motion.div 
             variants={childVariant}
-            transition={{ duration: 0.4 }}
+            transition={smoothTransition}
             className="flex items-center gap-4 mb-6"
           >
             <div className="w-8 h-[2px] bg-primary" />
@@ -578,7 +584,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           
           <motion.h2 
             variants={childVariant}
-            transition={{ duration: 0.5 }}
+            transition={smoothTransition}
             className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-10"
           >
             {slide.title}
@@ -590,7 +596,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
                 <motion.div
                   key={idx}
                   variants={childVariant}
-                  transition={{ duration: 0.4, delay: 0.1 + idx * 0.1 }}
+                  transition={{ ...smoothTransition, delay: idx * 0.06 }}
                   className="border-l-2 border-primary/30 pl-6"
                 >
                   {item.label && (
@@ -632,7 +638,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         
         <motion.h1 
           variants={childVariant}
-          transition={{ duration: 0.6 }}
+          transition={smoothTransition}
           className="font-serif text-5xl lg:text-7xl font-bold tracking-tight text-white mb-6"
         >
           {slide.title}
@@ -641,7 +647,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         {slide.subtitle && (
           <motion.p 
             variants={childVariant}
-            transition={{ duration: 0.6 }}
+            transition={smoothTransition}
             className="text-xl text-white/60 max-w-2xl"
           >
             {slide.subtitle}
@@ -651,7 +657,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         {(slide.content || slide.body) && (
           <motion.p 
             variants={childVariant}
-            transition={{ duration: 0.5 }}
+            transition={smoothTransition}
             className="text-lg text-white/50 mt-4 max-w-xl"
           >
             {slide.content || slide.body}
@@ -660,7 +666,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         
         <motion.div 
           variants={childVariant}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={smoothTransition}
           className="mt-10 flex items-center gap-4"
         >
           <div className="w-16 h-[2px] bg-primary" />
@@ -690,7 +696,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         <div className="max-w-5xl text-center">
           <motion.div
             variants={childVariant}
-            transition={{ duration: 0.6 }}
+            transition={smoothTransition}
             className="mb-8"
           >
             <span className="font-serif text-8xl text-primary/30">"</span>
@@ -698,7 +704,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           
           <motion.p 
             variants={childVariant}
-            transition={{ duration: 0.7 }}
+            transition={smoothTransition}
             className="font-serif text-2xl lg:text-4xl text-white leading-relaxed"
           >
             {quoteText}
@@ -707,7 +713,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           {authorText && (
             <motion.p 
               variants={childVariant}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={smoothTransition}
               className="text-lg text-white/50 mt-8"
             >
               — {authorText}
@@ -716,7 +722,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           
           <motion.div 
             variants={childVariant}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={smoothTransition}
             className="flex justify-center mt-10"
           >
             <div className="w-16 h-[1px] bg-primary" />
@@ -745,7 +751,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         <div className="flex flex-col justify-center px-12 lg:px-20 py-20 w-full">
           <motion.p 
             variants={childVariant}
-            transition={{ duration: 0.4 }}
+            transition={smoothTransition}
             className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground mb-4"
           >
             Key Points
@@ -753,7 +759,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           
           <motion.h2 
             variants={childVariant}
-            transition={{ duration: 0.5 }}
+            transition={smoothTransition}
             className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-10 max-w-3xl"
           >
             {slide.title}
@@ -773,7 +779,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
               <motion.div
                 key={idx}
                 variants={childVariant}
-                transition={{ duration: 0.4, delay: 0.1 + idx * 0.08 }}
+                transition={{ ...smoothTransition, delay: idx * 0.06 }}
                 className="border-l-2 border-primary/30 pl-6 py-2"
               >
                 {item.value && (
@@ -807,7 +813,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         
         <motion.h1 
           variants={childVariant}
-          transition={{ duration: 0.6 }}
+          transition={smoothTransition}
           className="font-serif text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4"
         >
           {slide.title}
@@ -816,7 +822,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         {slide.subtitle && (
           <motion.p 
             variants={childVariant}
-            transition={{ duration: 0.6 }}
+            transition={smoothTransition}
             className="text-xl text-white/60 mt-4 font-light"
           >
             {slide.subtitle}
@@ -827,7 +833,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         {slide.items && slide.items.length > 0 && (
           <motion.div 
             variants={childVariant}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={smoothTransition}
             className="mt-10 space-y-3"
           >
             {slide.items.map((item: any, idx: number) => (
@@ -841,7 +847,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         
         <motion.div 
           variants={childVariant}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={smoothTransition}
           className="absolute bottom-12 flex items-center gap-3"
         >
           <span className="font-mono text-[10px] tracking-widest text-white/40 uppercase">
@@ -865,7 +871,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
       <div className="flex flex-col justify-center px-12 lg:px-20 py-20 max-w-5xl">
         <motion.div 
           variants={childVariant}
-          transition={{ duration: 0.4 }}
+          transition={smoothTransition}
           className="flex items-center gap-4 mb-6"
         >
           <div className="w-8 h-[2px] bg-primary" />
@@ -876,7 +882,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         
         <motion.h2 
           variants={childVariant}
-          transition={{ duration: 0.5 }}
+          transition={smoothTransition}
           className="font-serif text-4xl lg:text-6xl font-bold tracking-tight text-foreground mb-8"
         >
           {slide.title}
@@ -885,7 +891,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         {slide.subtitle && (
           <motion.p 
             variants={childVariant}
-            transition={{ duration: 0.5 }}
+            transition={smoothTransition}
             className="text-xl text-primary font-medium mb-6"
           >
             {slide.subtitle}
@@ -895,7 +901,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         {slide.body && (
           <motion.p 
             variants={childVariant}
-            transition={{ duration: 0.6 }}
+            transition={smoothTransition}
             className="text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-3xl"
           >
             {slide.body}
