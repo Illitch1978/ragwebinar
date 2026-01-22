@@ -9,6 +9,11 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+
+// Author portrait images
+import owenJenkinsImg from "@/assets/owen-jenkins.png";
+import illitchImg from "@/assets/illitch.png";
+import zsoltImg from "@/assets/zsolt.png";
 interface Slide {
   id: number;
   type: 'title' | 'content' | 'section' | 'bullets' | 'quote' | 'closing' | 'cover' | 'section-divider' | 'text-stack' | 'bullet-list' | 'metrics' | 'two-column' | 'cta';
@@ -761,79 +766,145 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
     );
   }
 
-  // Quote slide - Light themed elegant emphasis
+  // Quote slide - Premium split layout with author portrait
   if (slide.type === 'quote') {
     const quoteText = slide.quote || slide.title || slide.content;
     const authorText = slide.author || slide.subtitle;
+    
+    // Dynamic author image mapping
+    const getAuthorImage = (author: string | undefined) => {
+      if (!author) return null;
+      const authorLower = author.toLowerCase();
+      if (authorLower.includes('owen')) return owenJenkinsImg;
+      if (authorLower.includes('illitch')) return illitchImg;
+      if (authorLower.includes('zsolt')) return zsoltImg;
+      return null;
+    };
+    
+    const authorImage = getAuthorImage(authorText);
     
     return (
       <motion.div
         variants={staggerChildren}
         initial="enter"
         animate={isActive ? "center" : "exit"}
-        className="relative flex items-center justify-center h-full px-12 lg:px-20"
+        className="relative flex h-full"
       >
-        {/* Light cream background accent */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-        
-        {/* Subtle decorative elements */}
-        <div className="absolute top-12 left-12 w-32 h-32 border-l border-t border-primary/10" />
-        <div className="absolute bottom-12 right-12 w-32 h-32 border-r border-b border-primary/10" />
-        
-        <div className="relative max-w-5xl text-center">
-          <motion.div
-            variants={childVariant}
-            transition={smoothTransition}
-            className="mb-8"
-          >
-            <span className="font-serif text-8xl text-primary/40">"</span>
-          </motion.div>
+        {/* Left content section - 2/3 width */}
+        <div className="relative flex-1 flex flex-col justify-center px-12 lg:px-20 py-20">
+          {/* Light cream background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
           
-          <motion.p 
-            variants={childVariant}
-            transition={smoothTransition}
-            className="font-serif text-2xl lg:text-4xl text-foreground leading-relaxed"
-          >
-            {quoteText}
-          </motion.p>
+          {/* Subtle decorative corner */}
+          <div className="absolute top-12 left-12 w-24 h-24 border-l-2 border-t-2 border-primary/10" />
           
-          {authorText && (
+          <div className="relative max-w-3xl">
+            {/* Opening quote mark */}
+            <motion.div
+              variants={childVariant}
+              transition={smoothTransition}
+              className="mb-4"
+            >
+              <span className="font-serif text-7xl lg:text-8xl text-primary/30 leading-none">"</span>
+            </motion.div>
+            
+            {/* Quote text */}
+            <motion.p 
+              variants={childVariant}
+              transition={smoothTransition}
+              className="font-serif text-2xl lg:text-3xl xl:text-4xl text-foreground leading-relaxed"
+            >
+              {quoteText}
+            </motion.p>
+            
+            {/* Author attribution */}
+            {authorText && (
+              <motion.div 
+                variants={childVariant}
+                transition={smoothTransition}
+                className="mt-10 pt-8 border-t border-primary/10"
+              >
+                {slide.authorEmail ? (
+                  <HoverCard>
+                    <HoverCardTrigger asChild>
+                      <button className="text-left cursor-pointer group">
+                        <span className="block text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                          {authorText.split(',')[0]}
+                        </span>
+                        {authorText.includes(',') && (
+                          <span className="block text-sm text-muted-foreground mt-1">
+                            {authorText.split(',').slice(1).join(',').trim()}
+                          </span>
+                        )}
+                      </button>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-auto bg-card border-border">
+                      <a 
+                        href={`mailto:${slide.authorEmail}`}
+                        className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                      >
+                        <Mail className="w-4 h-4" />
+                        <span>{slide.authorEmail}</span>
+                      </a>
+                    </HoverCardContent>
+                  </HoverCard>
+                ) : (
+                  <div className="text-left">
+                    <span className="block text-lg font-medium text-foreground">
+                      {authorText.split(',')[0]}
+                    </span>
+                    {authorText.includes(',') && (
+                      <span className="block text-sm text-muted-foreground mt-1">
+                        {authorText.split(',').slice(1).join(',').trim()}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </motion.div>
+            )}
+            
+            {/* Decorative line */}
             <motion.div 
               variants={childVariant}
               transition={smoothTransition}
-              className="text-lg text-muted-foreground mt-8"
+              className="flex items-center gap-4 mt-10"
             >
-              {slide.authorEmail ? (
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <button className="cursor-pointer hover:text-primary transition-colors underline-offset-4 hover:underline">
-                      — {authorText}
-                    </button>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-auto bg-card border-border">
-                    <a 
-                      href={`mailto:${slide.authorEmail}`}
-                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
-                    >
-                      <Mail className="w-4 h-4" />
-                      <span>{slide.authorEmail}</span>
-                    </a>
-                  </HoverCardContent>
-                </HoverCard>
-              ) : (
-                <span>— {authorText}</span>
-              )}
+              <div className="w-16 h-[1px] bg-primary" />
+              <div className="w-8 h-[1px] bg-primary/30" />
             </motion.div>
-          )}
-          
-          <motion.div 
-            variants={childVariant}
-            transition={smoothTransition}
-            className="flex justify-center mt-10"
-          >
-            <div className="w-16 h-[1px] bg-primary" />
-          </motion.div>
+          </div>
         </div>
+        
+        {/* Right portrait section - 1/3 width, full height */}
+        {authorImage && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
+            className="hidden lg:block w-[35%] relative overflow-hidden"
+          >
+            {/* Gradient overlay on image */}
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent z-10 w-24" />
+            
+            {/* Author portrait */}
+            <img 
+              src={authorImage} 
+              alt={authorText || 'Author'} 
+              className="absolute inset-0 w-full h-full object-cover object-top grayscale"
+            />
+            
+            {/* Subtle top/bottom gradient for blend */}
+            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/20 to-transparent z-10" />
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/30 to-transparent z-10" />
+          </motion.div>
+        )}
+        
+        {/* Fallback decorative panel if no image */}
+        {!authorImage && (
+          <div className="hidden lg:block w-[35%] relative bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5">
+            <div className="absolute bottom-12 right-12 w-24 h-24 border-r-2 border-b-2 border-primary/10" />
+          </div>
+        )}
       </motion.div>
     );
   }
