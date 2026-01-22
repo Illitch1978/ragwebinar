@@ -1,11 +1,12 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation, Loader2, Clock, Trash2 } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation, Loader2, Clock, Trash2, Pencil, Check, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { usePresentations, useCreatePresentation, useDeletePresentation } from "@/hooks/usePresentations";
+import { usePresentations, useCreatePresentation, useDeletePresentation, useUpdatePresentation } from "@/hooks/usePresentations";
 import { formatDistanceToNow } from "date-fns";
 
 // Rubiklab Logo component
@@ -45,6 +46,11 @@ const UploadPage = () => {
   const { data: savedPresentations, isLoading: isLoadingPresentations } = usePresentations();
   const createPresentation = useCreatePresentation();
   const deletePresentation = useDeletePresentation();
+  const updatePresentation = useUpdatePresentation();
+  
+  // Edit state for presentation titles
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingTitle, setEditingTitle] = useState("");
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -183,6 +189,27 @@ const UploadPage = () => {
     e.stopPropagation();
     if (confirm('Are you sure you want to delete this presentation?')) {
       await deletePresentation.mutateAsync(id);
+    }
+  };
+
+  const handleStartEdit = (e: React.MouseEvent, presentation: { id: string; title: string }) => {
+    e.stopPropagation();
+    setEditingId(presentation.id);
+    setEditingTitle(presentation.title);
+  };
+
+  const handleCancelEdit = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingId(null);
+    setEditingTitle("");
+  };
+
+  const handleSaveEdit = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (editingId && editingTitle.trim()) {
+      await updatePresentation.mutateAsync({ id: editingId, title: editingTitle.trim() });
+      setEditingId(null);
+      setEditingTitle("");
     }
   };
 
@@ -474,17 +501,34 @@ Your strategic analysis content...
                 {savedPresentations.map((presentation) => (
                   <div
                     key={presentation.id}
-                    onClick={() => handleOpenSaved(presentation)}
-                    className="group flex items-center justify-between p-4 bg-card border border-border rounded-sm hover:border-primary/50 cursor-pointer transition-all duration-300"
+                    onClick={() => editingId !== presentation.id && handleOpenSaved(presentation)}
+                    className={cn(
+                      "group flex items-center justify-between p-4 bg-card border border-border rounded-sm transition-all duration-300",
+                      editingId !== presentation.id && "hover:border-primary/50 cursor-pointer"
+                    )}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                    <div className="flex items-center gap-4 flex-1 min-w-0">
+                      <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0">
                         <Presentation className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                       </div>
-                      <div>
-                        <p className="font-medium text-foreground group-hover:text-primary transition-colors">
-                          {presentation.title}
-                        </p>
+                      <div className="flex-1 min-w-0">
+                        {editingId === presentation.id ? (
+                          <Input
+                            value={editingTitle}
+                            onChange={(e) => setEditingTitle(e.target.value)}
+                            onClick={(e) => e.stopPropagation()}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') handleSaveEdit(e as any);
+                              if (e.key === 'Escape') handleCancelEdit(e as any);
+                            }}
+                            className="h-8 text-sm font-medium"
+                            autoFocus
+                          />
+                        ) : (
+                          <p className="font-medium text-foreground group-hover:text-primary transition-colors truncate">
+                            {presentation.title}
+                          </p>
+                        )}
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <Clock className="w-3 h-3" />
                           <span>{formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}</span>
@@ -492,15 +536,46 @@ Your strategic analysis content...
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={(e) => handleDelete(e, presentation.id)}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                      <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      {editingId === presentation.id ? (
+                        <>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={handleSaveEdit}
+                            className="text-primary hover:text-primary hover:bg-primary/10"
+                          >
+                            <Check className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={handleCancelEdit}
+                            className="text-muted-foreground hover:text-foreground"
+                          >
+                            <X className="w-4 h-4" />
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={(e) => handleStartEdit(e, presentation)}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                          >
+                            <Pencil className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={(e) => handleDelete(e, presentation.id)}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                        </>
+                      )}
                     </div>
                   </div>
                 ))}
