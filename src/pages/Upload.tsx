@@ -16,7 +16,7 @@ const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
       "font-serif font-bold tracking-tight text-foreground transition-colors duration-700 group-hover:text-primary",
       size === 'small' ? 'text-2xl' : 'text-3xl'
     )}>
-      Rubiklab
+      rubiklab
     </span>
     <div className="relative flex items-center justify-center">
       <div className={cn(
