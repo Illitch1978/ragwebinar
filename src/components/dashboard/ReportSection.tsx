@@ -443,25 +443,15 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
   const isAnimating = useRef(false);
   
   // Get dynamic report data from session storage or use defaults
+  // For the RAG webinar, we always use the curated default content
   const reportData = useMemo(() => {
     const sessionData = getReportDataFromSession();
     if (sessionData) {
+      // Use client name from session but keep curated RAG content
       return {
         ...defaultReportData,
-        score: sessionData.score,
-        healthStatus: sessionData.healthStatus,
-        clientName: sessionData.clientName,
-        clientUrl: sessionData.clientUrl || defaultReportData.clientUrl,
-        generatedDate: sessionData.generatedDate,
-        scope: sessionData.scope,
-        waterfall: sessionData.waterfall,
-        signals: sessionData.signals,
-        heatmap: sessionData.heatmap,
-        matrixItems: sessionData.matrixItems,
-        auditSections: sessionData.auditSections.length > 0 ? sessionData.auditSections : defaultReportData.auditSections,
-        executiveSummary: sessionData.executiveSummary,
-        keyFindings: sessionData.keyFindings,
-        recommendations: sessionData.recommendations,
+        clientName: sessionData.clientName || defaultReportData.clientName,
+        generatedDate: sessionData.generatedDate || defaultReportData.generatedDate,
       };
     }
     return defaultReportData;
