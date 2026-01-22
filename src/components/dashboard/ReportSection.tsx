@@ -495,55 +495,44 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 10: Preparation Layer                   */}
         {/* ============================================== */}
         <Slide>
-          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+          <div className="flex-1 flex flex-col max-w-6xl pt-8">
             <SlideEyebrow>Core Insight</SlideEyebrow>
             <ActionTitle>the preparation layer is everything</ActionTitle>
             
-            {/* Visual pipeline layout */}
-            <div className="mt-8 relative">
-              {/* Connecting line */}
-              <div className="absolute left-8 top-6 bottom-6 w-px bg-gradient-to-b from-primary via-primary/50 to-primary/20" />
-              
-              <div className="space-y-0">
-                {[
-                  { num: "01", title: "content normalisation", items: ["standardise formats", "extract clean text", "remove artefacts"] },
-                  { num: "02", title: "structural parsing", items: ["sections", "clauses", "definitions", "cross references"] },
-                  { num: "03", title: "metadata enrichment", items: ["practice area", "jurisdiction", "type", "author", "approval status"] },
-                  { num: "04", title: "version control", items: ["supersessions", "current vs historical", "change tracking"] },
-                  { num: "05", title: "authority tagging", items: ["firm approved guidance", "precedential value", "confidence levels"] },
-                ].map((step, i) => (
-                  <motion.div
-                    key={step.num}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className="flex items-start gap-6 py-4 group"
-                  >
-                    {/* Number node */}
-                    <div className="relative z-10 w-16 h-16 rounded-full bg-card border-2 border-primary/30 flex items-center justify-center shrink-0 group-hover:border-primary group-hover:bg-primary/5 transition-all duration-300">
-                      <span className="font-mono text-sm font-bold text-primary">{step.num}</span>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1 pt-2">
-                      <h4 className="font-serif text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
-                        {step.title}
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {step.items.map((item, j) => (
-                          <span 
-                            key={j}
-                            className="px-3 py-1 bg-muted/50 border border-border rounded-full text-sm text-muted-foreground font-mono"
-                          >
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+            {/* Premium horizontal layout */}
+            <div className="grid grid-cols-5 gap-6 mt-10 flex-1">
+              {[
+                { num: "01", title: "content normalisation", desc: "standardise formats, extract clean text, remove artefacts" },
+                { num: "02", title: "structural parsing", desc: "sections, clauses, definitions, cross references" },
+                { num: "03", title: "metadata enrichment", desc: "practice area, jurisdiction, type, author, approval status" },
+                { num: "04", title: "version control", desc: "supersessions, current versus historical, change tracking" },
+                { num: "05", title: "authority tagging", desc: "firm approved guidance, precedential value, confidence levels" },
+              ].map((step, i) => (
+                <motion.div
+                  key={step.num}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="group flex flex-col"
+                >
+                  {/* Number */}
+                  <span className="font-mono text-xs text-primary font-medium mb-3">{step.num}</span>
+                  
+                  {/* Vertical line accent */}
+                  <div className="w-full h-[2px] bg-gradient-to-r from-primary to-primary/20 mb-4 group-hover:to-primary/60 transition-all duration-500" />
+                  
+                  {/* Title */}
+                  <h4 className="font-serif text-lg text-foreground leading-tight mb-3 group-hover:text-primary transition-colors duration-300">
+                    {step.title}
+                  </h4>
+                  
+                  {/* Description */}
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </Slide>
@@ -761,13 +750,6 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             <p className="font-sans text-xl text-gray-400 font-light leading-relaxed max-w-lg">
               Let's discuss how these principles apply to your firm
             </p>
-            <div className="mt-16 flex items-center gap-1.5">
-              <span className="font-serif font-bold text-2xl tracking-tight lowercase text-white/60">Rubiklab</span>
-              <div className="relative flex items-center justify-center">
-                <div className="absolute w-3 h-3 bg-primary rounded-full animate-ping opacity-20"></div>
-                <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]"></div>
-              </div>
-            </div>
           </div>
         </Slide>
 
