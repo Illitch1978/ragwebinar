@@ -10,6 +10,7 @@ import { usePresentations, useCreatePresentation, useDeletePresentation, useUpda
 import { useBrandGuides } from "@/hooks/useBrandGuides";
 import { DECK_PRINCIPLES } from "@/lib/deckPrinciples";
 import { formatDistanceToNow } from "date-fns";
+import BrandGuideEditor from "@/components/BrandGuideEditor";
 import {
   Select,
   SelectContent,
@@ -457,8 +458,9 @@ const UploadPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.24 }}
-            className="mb-8"
+            className="mb-8 space-y-6"
           >
+            {/* Global Deck Principles */}
             <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
               <CollapsibleTrigger asChild>
                 <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group">
@@ -493,6 +495,12 @@ const UploadPage = () => {
                 </div>
               </CollapsibleContent>
             </Collapsible>
+
+            {/* Brand Guide Templates Viewer */}
+            <BrandGuideEditor 
+              brandGuides={brandGuides} 
+              isLoading={isLoadingBrandGuides} 
+            />
           </motion.div>
 
           <motion.div
