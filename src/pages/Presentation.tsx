@@ -3,7 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 // No arrow icons needed - navigation is via logo click and keyboard
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-
+import { Mail } from "lucide-react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 interface Slide {
   id: number;
   type: 'title' | 'content' | 'section' | 'bullets' | 'quote' | 'closing' | 'cover' | 'section-divider' | 'text-stack' | 'bullet-list' | 'metrics' | 'two-column' | 'cta';
@@ -19,6 +24,7 @@ interface Slide {
   rightColumn?: string;
   quote?: string;
   author?: string;
+  authorEmail?: string;
   meta?: string;
   dark?: boolean;
 }
@@ -56,6 +62,7 @@ const convertGeneratedSlides = (generatedSlides: any[], clientName: string): Sli
       rightColumn: slide.rightColumn,
       quote: slide.quote,
       author: slide.author,
+      authorEmail: slide.authorEmail,
       dark: isDarkSlide,
       kicker: (slide.type === 'cover' || slide.type === 'section-divider') 
         ? String(sectionCount).padStart(2, '0') 
@@ -711,13 +718,32 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           </motion.p>
           
           {authorText && (
-            <motion.p 
+            <motion.div 
               variants={childVariant}
               transition={smoothTransition}
               className="text-lg text-white/50 mt-8"
             >
-              — {authorText}
-            </motion.p>
+              {slide.authorEmail ? (
+                <HoverCard>
+                  <HoverCardTrigger asChild>
+                    <span className="cursor-pointer hover:text-white/80 transition-colors">
+                      — {authorText}
+                    </span>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-auto bg-zinc-900 border-zinc-700">
+                    <a 
+                      href={`mailto:${slide.authorEmail}`}
+                      className="flex items-center gap-2 text-white hover:text-primary transition-colors"
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>{slide.authorEmail}</span>
+                    </a>
+                  </HoverCardContent>
+                </HoverCard>
+              ) : (
+                <span>— {authorText}</span>
+              )}
+            </motion.div>
           )}
           
           <motion.div 

@@ -158,6 +158,7 @@ Generate the slides JSON array now.`;
                         },
                         quote: { type: "string" },
                         author: { type: "string" },
+                        authorEmail: { type: "string", description: "Email address of the quote author if mentioned in source content" },
                         metrics: {
                           type: "array",
                           items: {
