@@ -297,7 +297,7 @@ const MaturityBubble = ({ level }: { level: "full" | "half" | "quarter" }) => {
 };
 
 // Dark cover slide for the report
-const CoverSlide = ({ clientName, onDownload }: { clientName: string; onDownload?: () => void }) => (
+const CoverSlide = ({ clientName }: { clientName: string }) => (
   <div data-cover="true" className="w-screen h-screen flex-shrink-0 bg-[#050505] text-white relative flex flex-col justify-between p-12 lg:p-16 overflow-hidden">
     {/* Grid background */}
     <div 
@@ -310,33 +310,18 @@ const CoverSlide = ({ clientName, onDownload }: { clientName: string; onDownload
     
     {/* Top metadata */}
     <div className="relative z-10 flex justify-between items-start border-t border-gray-900 pt-6">
-      <div className="grid grid-cols-4 gap-8 font-mono text-[9px] text-gray-500 uppercase tracking-widest">
-        <div>Classified</div>
+      <div className="grid grid-cols-2 gap-8 font-mono text-[9px] text-gray-500 uppercase tracking-widest">
         <div>{clientName}</div>
-        <div>Gap Analysis</div>
         <div className="text-primary">v.Final</div>
       </div>
-      <button 
-        className="flex items-center gap-2.5 px-5 py-2.5 border border-gray-700 hover:border-primary text-gray-400 hover:text-white text-[10px] font-mono uppercase tracking-widest transition-all duration-300 print-hide group"
-        onClick={() => {
-          if (onDownload) onDownload();
-          else {
-            const exportButton = document.querySelector('[data-export-trigger]') as HTMLButtonElement;
-            if (exportButton) exportButton.click();
-          }
-        }}
-      >
-        <Download className="w-3.5 h-3.5 group-hover:text-primary transition-colors" />
-        Download Report
-      </button>
     </div>
 
     {/* Main content */}
     <div className="relative z-10 flex-grow flex flex-col justify-center">
       <div className="border-l-4 border-primary pl-12 py-4">
         <h1 className="font-serif text-7xl md:text-8xl lg:text-9xl text-white leading-[0.9] tracking-tight mb-4">
-          Defining the <br />
-          <span className="italic text-primary">Digital Standard.</span>
+          Making RAG Work <br />
+          <span className="italic text-primary">in Law Firms.</span>
         </h1>
       </div>
     </div>
