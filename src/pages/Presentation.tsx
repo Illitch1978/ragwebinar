@@ -537,7 +537,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
     );
   }
 
-  // Text-stack slide - Simple text content
+  // Text-stack slide - Items with label/text structure
   if (slide.type === 'text-stack') {
     return (
       <motion.div
@@ -548,7 +548,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
       >
         <CornerAccent position="tl" />
         
-        <div className="flex flex-col justify-center px-12 lg:px-20 py-20 max-w-4xl">
+        <div className="flex flex-col justify-center px-12 lg:px-20 py-20 max-w-5xl">
           <motion.div 
             variants={childVariant}
             transition={{ duration: 0.4 }}
@@ -563,21 +563,32 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           <motion.h2 
             variants={childVariant}
             transition={{ duration: 0.5 }}
-            className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-8"
+            className="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-10"
           >
             {slide.title}
           </motion.h2>
           
-          {slide.subtitle && (
-            <motion.p 
-              variants={childVariant}
-              className="text-xl text-muted-foreground mb-6"
-            >
-              {slide.subtitle}
-            </motion.p>
-          )}
-          
-          {(slide.content || slide.body) && (
+          {slide.items && slide.items.length > 0 ? (
+            <div className="space-y-6">
+              {slide.items.map((item: any, idx: number) => (
+                <motion.div
+                  key={idx}
+                  variants={childVariant}
+                  transition={{ duration: 0.4, delay: 0.1 + idx * 0.1 }}
+                  className="border-l-2 border-primary/30 pl-6"
+                >
+                  {item.label && (
+                    <span className="font-mono text-xs tracking-widest text-primary uppercase block mb-2">
+                      {item.label}
+                    </span>
+                  )}
+                  <p className="text-lg lg:text-xl leading-relaxed text-foreground/80">
+                    {item.text || item.value}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          ) : (slide.content || slide.body) && (
             <motion.p 
               variants={childVariant}
               className="text-lg lg:text-xl leading-relaxed text-foreground/80"
@@ -648,6 +659,9 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
 
   // Quote slide - Elegant emphasis
   if (slide.type === 'quote') {
+    const quoteText = slide.quote || slide.title || slide.content;
+    const authorText = slide.author || slide.subtitle;
+    
     return (
       <motion.div
         variants={staggerChildren}
@@ -669,14 +683,24 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           <motion.p 
             variants={childVariant}
             transition={{ duration: 0.7 }}
-            className="font-serif text-3xl lg:text-5xl text-white leading-relaxed"
+            className="font-serif text-2xl lg:text-4xl text-white leading-relaxed"
           >
-            {slide.title}
+            {quoteText}
           </motion.p>
+          
+          {authorText && (
+            <motion.p 
+              variants={childVariant}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-lg text-white/50 mt-8"
+            >
+              — {authorText}
+            </motion.p>
+          )}
           
           <motion.div 
             variants={childVariant}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="flex justify-center mt-10"
           >
             <div className="w-16 h-[1px] bg-primary" />
@@ -688,6 +712,11 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
 
   // Bullets/bullet-list slide - Clean list with hierarchy
   if (slide.type === 'bullets' || slide.type === 'bullet-list') {
+    // Handle both bullets array and items array with value/text structure
+    const bulletItems = slide.items?.length > 0 
+      ? slide.items.map((item: any) => ({ value: item.value, text: item.text }))
+      : slide.bullets?.map((b: string) => ({ value: null, text: b })) || [];
+    
     return (
       <motion.div
         variants={staggerChildren}
@@ -723,25 +752,25 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
             </motion.p>
           )}
           
-          <ul className="space-y-5 mt-2 max-w-3xl">
-            {slide.bullets?.map((bullet, idx) => (
-              <motion.li
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl">
+            {bulletItems.map((item: { value: string | null; text: string }, idx: number) => (
+              <motion.div
                 key={idx}
                 variants={childVariant}
                 transition={{ duration: 0.4, delay: 0.1 + idx * 0.08 }}
-                className="flex items-start gap-5 group"
+                className="border-l-2 border-primary/30 pl-6 py-2"
               >
-                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
-                  <span className="font-mono text-xs text-primary font-medium">
-                    {String(idx + 1).padStart(2, '0')}
+                {item.value && (
+                  <span className="font-mono text-lg lg:text-xl font-bold text-primary block mb-1">
+                    {item.value}
                   </span>
+                )}
+                <span className="text-base lg:text-lg text-foreground/80 leading-relaxed">
+                  {item.text}
                 </span>
-                <span className="text-lg lg:text-xl text-foreground leading-relaxed pt-1">
-                  {bullet}
-                </span>
-              </motion.li>
+              </motion.div>
             ))}
-          </ul>
+          </div>
         </div>
       </motion.div>
     );
@@ -759,14 +788,6 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         <GridBackground />
         <CornerAccent position="tl" inverted />
         <CornerAccent position="br" inverted />
-        
-        <motion.div
-          variants={childVariant}
-          transition={{ duration: 0.6 }}
-          className="mb-10"
-        >
-          <RubiklabLogo inverted />
-        </motion.div>
         
         <motion.h1 
           variants={childVariant}
@@ -786,9 +807,25 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           </motion.p>
         )}
         
+        {/* Contact items if present */}
+        {slide.items && slide.items.length > 0 && (
+          <motion.div 
+            variants={childVariant}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-10 space-y-3"
+          >
+            {slide.items.map((item: any, idx: number) => (
+              <div key={idx} className="text-white/50 text-sm">
+                <span className="font-mono text-xs text-white/30 uppercase tracking-wider">{item.label}:</span>{' '}
+                <span className="text-white/60">{item.text}</span>
+              </div>
+            ))}
+          </motion.div>
+        )}
+        
         <motion.div 
           variants={childVariant}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
           className="absolute bottom-12 flex items-center gap-3"
         >
           <span className="font-mono text-[10px] tracking-widest text-white/40 uppercase">
