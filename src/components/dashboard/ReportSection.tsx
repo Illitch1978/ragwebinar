@@ -87,17 +87,19 @@ const BodyText = ({ children, dark = false }: { children: React.ReactNode; dark?
   </p>
 );
 
-// Premium card component
-const Card = ({ title, children, dark = false }: { title: string; children: React.ReactNode; dark?: boolean }) => (
+// Card component with hover effect and accent
+const Card = ({ title, children, dark = false, accent = false }: { title: string; children: React.ReactNode; dark?: boolean; accent?: boolean }) => (
   <div className={cn(
-    "p-6 lg:p-8 h-full flex flex-col border-l-2",
+    "p-6 lg:p-8 h-full flex flex-col transition-all duration-300 group",
     dark 
-      ? "bg-white/[0.03] border-l-primary/40" 
-      : "bg-white border-l-primary"
+      ? "bg-white/[0.03] border border-white/10 hover:border-white/20 hover:bg-white/[0.05]" 
+      : accent
+        ? "bg-primary/5 border border-primary/20 hover:border-primary/40"
+        : "bg-white/80 border border-foreground/5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
   )}>
     <h3 className={cn(
-      "font-serif text-lg lg:text-xl mb-3",
-      dark ? "text-white" : "text-foreground"
+      "font-serif text-lg lg:text-xl mb-3 transition-colors",
+      dark ? "text-white" : "text-foreground group-hover:text-primary"
     )}>{title}</h3>
     <p className={cn(
       "text-sm lg:text-base leading-relaxed",
@@ -404,7 +406,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="missing context">
                 individual documents may be correct, yet the set lacks qualifications, boundaries, and the full scope required.
               </Card>
-              <Card title="the result">
+              <Card title="the result" accent>
                 answers that sound authoritative and still require expert review, which is exactly what RAG was meant to reduce.
               </Card>
             </div>
@@ -459,7 +461,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="purpose driven">
                 applicability changes with intent, from research to litigation strategy to transactional drafting.
               </Card>
-              <Card title="permission sensitive">
+              <Card title="permission sensitive" accent>
                 ethical walls and matter level security are not optional features.
               </Card>
               <Card title="jurisdiction specific and evolving">
@@ -574,7 +576,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="terminology harmonisation">
                 enrich documents with standardised tags while preserving original language.
               </Card>
-              <Card title="practical effect">
+              <Card title="practical effect" accent>
                 expertise becomes discoverable without changing how lawyers naturally write.
               </Card>
             </div>
