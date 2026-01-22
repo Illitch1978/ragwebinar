@@ -667,28 +667,57 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* ============================================== */}
         {/* SLIDE 12: Authority and Freshness             */}
         {/* ============================================== */}
-        <Slide hasCards>
-          <div className="flex-1 flex flex-col max-w-6xl pt-8">
+        <Slide>
+          <div className="flex-1 flex flex-col justify-center">
             <SlideEyebrow>Authority and Freshness Control</SlideEyebrow>
-            <ActionTitle>rank by authority, not by similarity</ActionTitle>
-            <div className="grid grid-cols-4 gap-4 mt-8 flex-1">
-              <Card title="author identity" accent>
-                who drafted it, who approved it, and what expertise they hold.
-              </Card>
-              <Card title="temporal currency">
-                when it was created, last reviewed, and whether it is still current.
-              </Card>
-              <Card title="approval status">
-                official guidance, working draft, or personal notes.
-              </Card>
-              <Card title="supersession tracking" accent>
-                what newer documents or rulings modify or replace it.
-              </Card>
-            </div>
-            <div className="bg-primary/5 border-l-4 border-primary p-6 mt-auto">
-              <p className="text-lg text-foreground/70 italic font-serif">
-                A highly relevant but outdated memorandum is worse than no answer.
-              </p>
+            
+            {/* Dramatic title */}
+            <h2 className="font-serif text-[3rem] lg:text-[4.5rem] leading-[1.05] tracking-tight text-foreground max-w-5xl mb-12">
+              rank by <span className="text-primary italic">authority</span>,<br />
+              not by similarity.
+            </h2>
+            
+            {/* Two-column layout */}
+            <div className="grid grid-cols-2 gap-16 max-w-4xl">
+              {/* Left - first two items */}
+              <div className="space-y-8">
+                {[
+                  { title: "author identity", desc: "who drafted it, who approved it, and what expertise they hold" },
+                  { title: "approval status", desc: "official guidance, working draft, or personal notes" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1, duration: 0.4 }}
+                    viewport={{ once: true }}
+                    className="group"
+                  >
+                    <h4 className="font-serif text-xl text-foreground group-hover:text-primary transition-colors">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{item.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {/* Right - second two items */}
+              <div className="space-y-8">
+                {[
+                  { title: "temporal currency", desc: "when it was created, last reviewed, and whether it is still current" },
+                  { title: "supersession tracking", desc: "what newer documents or rulings modify or replace it" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: (i + 2) * 0.1, duration: 0.4 }}
+                    viewport={{ once: true }}
+                    className="group"
+                  >
+                    <h4 className="font-serif text-xl text-foreground group-hover:text-primary transition-colors">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{item.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </Slide>
