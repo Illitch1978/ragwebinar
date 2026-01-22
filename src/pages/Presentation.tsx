@@ -917,15 +917,21 @@ const ProgressBar = ({ current, total }: { current: number; total: number }) => 
 const PresentationPage = () => {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Use a key to force re-read of sessionStorage on navigation
+  const [slideKey] = useState(() => Date.now());
 
   const slides = useMemo(() => {
     // Check for AI-generated slides first
     const generatedSlidesJson = sessionStorage.getItem('rubiklab-generated-slides');
     const clientName = sessionStorage.getItem('rubiklab-client') || 'Presentation';
     
+    console.log('Loading slides, found generated:', generatedSlidesJson ? 'yes' : 'no');
+    
     if (generatedSlidesJson) {
       try {
         const generatedSlides = JSON.parse(generatedSlidesJson);
+        console.log('Parsed slides count:', generatedSlides.length);
         if (Array.isArray(generatedSlides) && generatedSlides.length > 0) {
           return convertGeneratedSlides(generatedSlides, clientName);
         }
@@ -937,7 +943,7 @@ const PresentationPage = () => {
     // Fallback to parsing raw content
     const content = sessionStorage.getItem('rubiklab-content') || '';
     return parseContentToSlides(content, clientName);
-  }, []);
+  }, [slideKey]);
 
   const goToSlide = useCallback((index: number) => {
     if (index >= 0 && index < slides.length) {
