@@ -283,7 +283,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
             <RubiklabLogo inverted />
           </motion.div>
           
-          {/* Kicker / category */}
+          {/* Event info */}
           <motion.div 
             variants={childVariant}
             transition={{ duration: 0.5 }}
@@ -291,7 +291,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           >
             <div className="w-12 h-[1px] bg-primary" />
             <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary">
-              {slide.kicker}
+              Event by Inside Practice
             </span>
           </motion.div>
           
@@ -299,23 +299,23 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           <motion.h1 
             variants={childVariant}
             transition={{ duration: 0.6 }}
-            className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[0.95] mb-8"
+            className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] mb-6"
           >
-            {slide.title}
+            From Retrieval to Reliability:
+            <br />
+            <span className="text-white/80">Making RAG Work in Law Firms</span>
           </motion.h1>
           
-          {/* Subtitle / date */}
-          {slide.subtitle && (
-            <motion.div 
-              variants={childVariant}
-              className="flex items-center gap-3 mt-4"
-            >
-              <div className="w-2 h-2 bg-primary rounded-full" />
-              <span className="font-mono text-xs tracking-widest text-white/50 uppercase">
-                {slide.subtitle}
-              </span>
-            </motion.div>
-          )}
+          {/* Date */}
+          <motion.div 
+            variants={childVariant}
+            className="flex items-center gap-3 mt-4"
+          >
+            <div className="w-2 h-2 bg-primary rounded-full" />
+            <span className="font-mono text-xs tracking-widest text-white/50 uppercase">
+              Fri, Jan 23, 2026
+            </span>
+          </motion.div>
           
           {/* Decorative bottom line */}
           <motion.div 
