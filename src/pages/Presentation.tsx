@@ -234,11 +234,11 @@ const CoverPattern = () => (
   </div>
 );
 
-// Large decorative number for cover
-const CoverDecorativeNumber = () => (
+// Large decorative number for cover and section-divider slides
+const LargeDecorativeNumber = ({ number = '01' }: { number?: string }) => (
   <div className="absolute bottom-0 right-0 overflow-hidden pointer-events-none">
     <span className="font-mono text-[400px] lg:text-[600px] font-bold text-white/[0.02] leading-none tracking-tighter select-none" style={{ transform: 'translate(20%, 30%)' }}>
-      01
+      {number}
     </span>
   </div>
 );
@@ -323,7 +323,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
       >
         {/* Premium background elements */}
         <CoverPattern />
-        <CoverDecorativeNumber />
+        <LargeDecorativeNumber number={slide.kicker || '01'} />
         <CoverFrame />
         
         {/* Main content - left aligned for editorial feel */}
@@ -402,16 +402,8 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
       >
         <GridBackground />
         
-        {/* Large section number */}
-        <div className="absolute top-8 left-12 lg:left-20">
-          <motion.span 
-            variants={childVariant}
-            transition={{ duration: 0.5 }}
-            className="font-mono text-[120px] lg:text-[180px] font-bold text-white/[0.03] leading-none"
-          >
-            {slide.kicker || ''}
-          </motion.span>
-        </div>
+        {/* Large background section number - matching cover style */}
+        <LargeDecorativeNumber number={slide.kicker || '01'} />
         
         <div className="flex flex-col justify-center px-12 lg:px-20 z-10">
           {slide.kicker && (
