@@ -149,6 +149,52 @@ const GridBackground = () => (
   </div>
 );
 
+// Premium geometric pattern for cover
+const CoverPattern = () => (
+  <div className="absolute inset-0 overflow-hidden">
+    {/* Radial gradient overlay */}
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_hsl(var(--primary)/0.15)_0%,_transparent_50%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_hsl(var(--primary)/0.1)_0%,_transparent_40%)]" />
+    
+    {/* Geometric lines */}
+    <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="cover-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+          <path d="M 100 0 L 0 100" stroke="white" strokeWidth="0.5" fill="none" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#cover-grid)" />
+    </svg>
+    
+    {/* Floating geometric shapes */}
+    <motion.div 
+      className="absolute top-[15%] right-[10%] w-64 h-64 border border-white/[0.03] rounded-full"
+      animate={{ rotate: 360 }}
+      transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+    />
+    <motion.div 
+      className="absolute bottom-[20%] left-[5%] w-48 h-48 border border-primary/10 rotate-45"
+      animate={{ rotate: 405 }}
+      transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+    />
+    <div className="absolute top-[40%] right-[25%] w-32 h-32 border border-white/[0.02]" />
+    
+    {/* Accent lines */}
+    <div className="absolute top-0 left-[20%] w-[1px] h-[30%] bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+    <div className="absolute bottom-0 right-[30%] w-[1px] h-[25%] bg-gradient-to-t from-transparent via-white/10 to-transparent" />
+    <div className="absolute top-[60%] left-0 w-[15%] h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+  </div>
+);
+
+// Large decorative number for cover
+const CoverDecorativeNumber = () => (
+  <div className="absolute bottom-0 right-0 overflow-hidden pointer-events-none">
+    <span className="font-mono text-[400px] lg:text-[600px] font-bold text-white/[0.02] leading-none tracking-tighter select-none" style={{ transform: 'translate(20%, 30%)' }}>
+      01
+    </span>
+  </div>
+);
+
 // Decorative corner accent
 const CornerAccent = ({ position, inverted }: { position: 'tl' | 'br'; inverted?: boolean }) => (
   <div className={cn(
@@ -166,6 +212,32 @@ const CornerAccent = ({ position, inverted }: { position: 'tl' | 'br'; inverted?
       inverted ? "bg-white/20" : "bg-foreground/10"
     )} />
   </div>
+);
+
+// Premium corner frame for cover
+const CoverFrame = () => (
+  <>
+    {/* Top left corner */}
+    <div className="absolute top-8 left-8 w-24 h-24">
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-white/30 to-transparent" />
+      <div className="absolute top-0 left-0 h-full w-[1px] bg-gradient-to-b from-white/30 to-transparent" />
+    </div>
+    {/* Top right corner */}
+    <div className="absolute top-8 right-8 w-24 h-24">
+      <div className="absolute top-0 right-0 w-full h-[1px] bg-gradient-to-l from-white/30 to-transparent" />
+      <div className="absolute top-0 right-0 h-full w-[1px] bg-gradient-to-b from-white/30 to-transparent" />
+    </div>
+    {/* Bottom left corner */}
+    <div className="absolute bottom-8 left-8 w-24 h-24">
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-white/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 h-full w-[1px] bg-gradient-to-t from-white/20 to-transparent" />
+    </div>
+    {/* Bottom right corner */}
+    <div className="absolute bottom-8 right-8 w-24 h-24">
+      <div className="absolute bottom-0 right-0 w-full h-[1px] bg-gradient-to-l from-primary/40 to-transparent" />
+      <div className="absolute bottom-0 right-0 h-full w-[1px] bg-gradient-to-t from-primary/40 to-transparent" />
+    </div>
+  </>
 );
 
 const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) => {
@@ -186,48 +258,87 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
     center: { opacity: 1, y: 0 },
   };
 
-  // Title slide - Hero treatment
+  // Title slide - Premium cover treatment
   if (slide.type === 'title') {
     return (
       <motion.div
         variants={staggerChildren}
         initial="enter"
         animate={isActive ? "center" : "exit"}
-        className="relative flex flex-col items-center justify-center h-full text-center px-8"
+        className="relative flex h-full"
       >
-        <GridBackground />
-        <CornerAccent position="tl" inverted />
-        <CornerAccent position="br" inverted />
+        {/* Premium background elements */}
+        <CoverPattern />
+        <CoverDecorativeNumber />
+        <CoverFrame />
         
-        <motion.p 
-          variants={childVariant}
-          transition={{ duration: 0.6 }}
-          className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary mb-8"
-        >
-          {slide.kicker}
-        </motion.p>
-        
-        <motion.h1 
-          variants={childVariant}
-          transition={{ duration: 0.6 }}
-          className="font-serif text-6xl lg:text-8xl font-bold tracking-tight text-white mb-6"
-        >
-          {slide.title}
-        </motion.h1>
-        
-        {slide.subtitle && (
+        {/* Main content - left aligned for editorial feel */}
+        <div className="relative z-10 flex flex-col justify-center h-full px-12 lg:px-20 max-w-5xl">
+          {/* Rubiklab branding */}
+          <motion.div
+            variants={childVariant}
+            transition={{ duration: 0.5 }}
+            className="mb-12"
+          >
+            <RubiklabLogo inverted />
+          </motion.div>
+          
+          {/* Kicker / category */}
           <motion.div 
             variants={childVariant}
-            transition={{ duration: 0.6 }}
-            className="flex items-center gap-4 mt-8"
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-4 mb-6"
           >
-            <div className="w-12 h-[1px] bg-white/30" />
-            <p className="font-mono text-xs tracking-widest text-white/60 uppercase">
-              {slide.subtitle}
-            </p>
-            <div className="w-12 h-[1px] bg-white/30" />
+            <div className="w-12 h-[1px] bg-primary" />
+            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary">
+              {slide.kicker}
+            </span>
           </motion.div>
-        )}
+          
+          {/* Main title */}
+          <motion.h1 
+            variants={childVariant}
+            transition={{ duration: 0.6 }}
+            className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[0.95] mb-8"
+          >
+            {slide.title}
+          </motion.h1>
+          
+          {/* Subtitle / date */}
+          {slide.subtitle && (
+            <motion.div 
+              variants={childVariant}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-6 mt-4"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full" />
+                <span className="font-mono text-xs tracking-widest text-white/50 uppercase">
+                  {slide.subtitle}
+                </span>
+              </div>
+              <span className="text-white/20">|</span>
+              <span className="font-mono text-xs tracking-widest text-white/40 uppercase">
+                Confidential
+              </span>
+            </motion.div>
+          )}
+          
+          {/* Decorative bottom line */}
+          <motion.div 
+            variants={childVariant}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="absolute bottom-20 left-12 lg:left-20 flex items-center gap-4"
+          >
+            <div className="w-24 h-[2px] bg-gradient-to-r from-primary to-primary/0" />
+            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-white/30">
+              Strategic Intelligence Report
+            </span>
+          </motion.div>
+        </div>
+        
+        {/* Right side accent */}
+        <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
       </motion.div>
     );
   }
