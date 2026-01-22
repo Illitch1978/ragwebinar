@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 // No arrow icons needed - navigation is via logo click and keyboard
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Mail } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import {
   HoverCard,
   HoverCardContent,
@@ -1118,23 +1119,27 @@ const PresentationPage = () => {
   // Fetch fresh data from database or use sessionStorage
   useEffect(() => {
     const loadSlides = async () => {
-      const presentationId = sessionStorage.getItem('rubiklab-presentation-id');
+      const urlPresentationId = new URLSearchParams(window.location.search).get('id');
+      const sessionPresentationId = sessionStorage.getItem('rubiklab-presentation-id');
+      const presentationId = urlPresentationId || sessionPresentationId;
+
       const clientName = sessionStorage.getItem('rubiklab-client') || 'Presentation';
       
       // If we have a presentation ID, fetch fresh data from the database
       if (presentationId) {
         try {
-          const { supabase } = await import('@/integrations/supabase/client');
           const { data, error } = await supabase
             .from('presentations')
-            .select('generated_slides, client_name')
+            .select('id, generated_slides, client_name')
             .eq('id', presentationId)
             .single();
           
           if (!error && data?.generated_slides && Array.isArray(data.generated_slides)) {
             console.log('Loaded fresh slides from database:', data.generated_slides.length);
             // Update sessionStorage with fresh data
+            sessionStorage.setItem('rubiklab-presentation-id', data.id);
             sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(data.generated_slides));
+            sessionStorage.setItem('rubiklab-client', data.client_name || clientName);
             setSlides(convertGeneratedSlides(data.generated_slides, data.client_name || clientName));
             setIsLoading(false);
             return;
@@ -1142,6 +1147,29 @@ const PresentationPage = () => {
         } catch (e) {
           console.error('Error fetching presentation:', e);
         }
+      }
+
+      // If /presentation is opened directly (no sessionStorage), fall back to latest saved deck
+      try {
+        const { data: latest, error: latestError } = await supabase
+          .from('presentations')
+          .select('id, generated_slides, client_name')
+          .not('generated_slides', 'is', null)
+          .order('updated_at', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (!latestError && latest?.generated_slides && Array.isArray(latest.generated_slides)) {
+          console.log('Loaded latest saved presentation:', latest.id);
+          sessionStorage.setItem('rubiklab-presentation-id', latest.id);
+          sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(latest.generated_slides));
+          sessionStorage.setItem('rubiklab-client', latest.client_name || clientName);
+          setSlides(convertGeneratedSlides(latest.generated_slides, latest.client_name || clientName));
+          setIsLoading(false);
+          return;
+        }
+      } catch (e) {
+        console.error('Error fetching latest presentation:', e);
       }
       
       // Fallback to sessionStorage
