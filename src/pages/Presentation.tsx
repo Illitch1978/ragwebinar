@@ -242,19 +242,19 @@ const CoverFrame = () => (
 
 const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) => {
   const variants = {
-    enter: { opacity: 0, y: 30 },
+    enter: { opacity: 0, y: 20 },
     center: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -30 },
+    exit: { opacity: 0, y: -20 },
   };
 
   const staggerChildren = {
     center: {
-      transition: { staggerChildren: 0.08, delayChildren: 0.1 }
+      transition: { staggerChildren: 0.12, delayChildren: 0.15 }
     }
   };
 
   const childVariant = {
-    enter: { opacity: 0, y: 20 },
+    enter: { opacity: 0, y: 12 },
     center: { opacity: 1, y: 0 },
   };
 
@@ -308,18 +308,11 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           {slide.subtitle && (
             <motion.div 
               variants={childVariant}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-6 mt-4"
+              className="flex items-center gap-3 mt-4"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-primary rounded-full" />
-                <span className="font-mono text-xs tracking-widest text-white/50 uppercase">
-                  {slide.subtitle}
-                </span>
-              </div>
-              <span className="text-white/20">|</span>
-              <span className="font-mono text-xs tracking-widest text-white/40 uppercase">
-                Confidential
+              <div className="w-2 h-2 bg-primary rounded-full" />
+              <span className="font-mono text-xs tracking-widest text-white/50 uppercase">
+                {slide.subtitle}
               </span>
             </motion.div>
           )}
