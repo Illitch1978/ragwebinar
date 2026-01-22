@@ -359,12 +359,38 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 03: Demo vs Production                  */}
         {/* ============================================== */}
         <Slide>
-          <div className="flex-1 flex flex-col justify-center max-w-4xl">
+          <div className="flex-1 flex flex-col justify-center items-center text-center">
             <SlideEyebrow>Demo Versus Production</SlideEyebrow>
-            <ActionTitle>it looked brilliant, then it fell apart</ActionTitle>
-            <BodyText>
-              In demos, datasets are curated and questions are controlled. In production, documents are messy, edge cases appear, and there is no supervision. If lawyers still need to verify everything manually, adoption drops fast.
-            </BodyText>
+            
+            {/* Dramatic quote-style title */}
+            <div className="relative max-w-4xl">
+              {/* Large opening quote mark */}
+              <span className="absolute -left-16 -top-8 font-serif text-[8rem] text-primary/20 leading-none select-none">"</span>
+              
+              <h2 className="font-serif text-[3.5rem] lg:text-[5rem] leading-[1.0] tracking-tight text-foreground italic">
+                it looked brilliant,
+              </h2>
+              <h2 className="font-serif text-[3.5rem] lg:text-[5rem] leading-[1.0] tracking-tight text-primary mt-2">
+                then it fell apart.
+              </h2>
+              
+              {/* Large closing quote mark */}
+              <span className="absolute -right-12 bottom-0 font-serif text-[8rem] text-primary/20 leading-none select-none">"</span>
+            </div>
+            
+            {/* Body text with more visual separation */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="mt-16 max-w-2xl"
+            >
+              <div className="w-16 h-[1px] bg-primary mx-auto mb-8" />
+              <p className="font-sans text-lg lg:text-xl text-foreground/60 leading-relaxed">
+                In demos, datasets are curated and questions are controlled. In production, documents are messy, edge cases appear, and there is no supervision.
+              </p>
+            </motion.div>
           </div>
         </Slide>
 
