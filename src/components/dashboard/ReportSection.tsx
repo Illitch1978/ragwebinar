@@ -1,72 +1,136 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Download, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { 
-  CursorGlow, 
-  StaggeredContent, 
-  AnimatedTitle, 
-  AnimatedContent, 
-  AnimatedInsight,
-  CountingNumber
-} from "./SlideAnimations";
+import { CursorGlow, CountingNumber } from "./SlideAnimations";
 
-// Slide component for consistent layout
+// Premium slide component with light background
 const Slide = ({ 
   children, 
-  className = ""
+  className = "",
+  dark = false
 }: { 
   children: React.ReactNode; 
   className?: string;
+  dark?: boolean;
 }) => (
   <div 
     className={cn(
-      "w-screen h-screen flex-shrink-0 pt-16 pb-20 px-4 lg:px-10 relative flex flex-col items-center bg-background overflow-hidden",
+      "w-screen h-screen flex-shrink-0 relative flex flex-col overflow-hidden",
+      dark ? "bg-[#0a0a0a]" : "bg-[#fafaf8]",
       className
     )}
     data-slide="true"
   >
-    {children}
+    {/* Subtle grid pattern */}
+    {!dark && (
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: 'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)',
+          backgroundSize: '60px 60px'
+        }}
+      />
+    )}
+    
+    {/* Content container with proper margins */}
+    <div className="relative z-10 flex-1 flex flex-col px-16 lg:px-24 py-16 lg:py-20">
+      {children}
+    </div>
+    
+    {/* Footer */}
+    <div className={cn(
+      "relative z-10 px-16 lg:px-24 pb-8 flex justify-between items-end",
+      dark ? "text-white/40" : "text-foreground/30"
+    )}>
+      <div className="flex items-center gap-1.5">
+        <span className={cn(
+          "font-serif font-bold text-xl tracking-tight lowercase",
+          dark ? "text-white/60" : "text-foreground/50"
+        )}>Rubiklab</span>
+        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+      </div>
+      <span className="font-mono text-[10px] uppercase tracking-widest">
+        © 2026
+      </span>
+    </div>
   </div>
 );
 
-// Eyebrow component
-const SlideEyebrow = ({ children }: { children: React.ReactNode }) => (
-  <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-primary mb-3 block font-bold">
+// Eyebrow component - clean uppercase label
+const SlideEyebrow = ({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) => (
+  <span className={cn(
+    "font-mono text-[11px] uppercase tracking-[0.25em] mb-6 block",
+    dark ? "text-primary" : "text-primary"
+  )}>
     {children}
   </span>
 );
 
-// Action title component
-const ActionTitle = ({ children, className }: { children: React.ReactNode; className?: string }) => (
-  <h2 className={cn("font-serif font-normal text-4xl lg:text-5xl leading-[1.15] mb-10 text-foreground max-w-[1000px]", className)}>
+// Main title component
+const ActionTitle = ({ children, className, dark = false }: { children: React.ReactNode; className?: string; dark?: boolean }) => (
+  <h2 className={cn(
+    "font-serif text-[2.75rem] lg:text-[3.5rem] leading-[1.1] mb-8 tracking-tight max-w-4xl",
+    dark ? "text-white" : "text-foreground",
+    className
+  )}>
     {children}
   </h2>
 );
 
 // Body text component
-const BodyText = ({ children }: { children: React.ReactNode }) => (
-  <p className="font-sans text-xl lg:text-2xl text-foreground leading-relaxed max-w-4xl">
+const BodyText = ({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) => (
+  <p className={cn(
+    "font-sans text-lg lg:text-xl leading-[1.7] max-w-3xl",
+    dark ? "text-white/70" : "text-foreground/70"
+  )}>
     {children}
   </p>
 );
 
-// Card component for grid layouts
-const Card = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="bg-muted/30 border border-border p-6 h-full flex flex-col">
-    <h3 className="font-serif text-xl text-foreground mb-3">{title}</h3>
-    <p className="text-sm text-muted-foreground leading-relaxed">{children}</p>
+// Premium card component
+const Card = ({ title, children, dark = false }: { title: string; children: React.ReactNode; dark?: boolean }) => (
+  <div className={cn(
+    "p-6 lg:p-8 h-full flex flex-col border-l-2",
+    dark 
+      ? "bg-white/[0.03] border-l-primary/40" 
+      : "bg-white border-l-primary"
+  )}>
+    <h3 className={cn(
+      "font-serif text-lg lg:text-xl mb-3",
+      dark ? "text-white" : "text-foreground"
+    )}>{title}</h3>
+    <p className={cn(
+      "text-sm lg:text-base leading-relaxed",
+      dark ? "text-white/60" : "text-foreground/60"
+    )}>{children}</p>
   </div>
 );
 
-// Line item component for stacked lists
-const LineItem = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <div className="border-b border-border py-4 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-2">
-    <span className="font-serif text-lg text-foreground">{title}</span>
-    <span className="text-sm text-muted-foreground lg:text-right lg:max-w-md">{subtitle}</span>
+// Line item for stacked lists
+const LineItem = ({ title, subtitle, index, dark = false }: { title: string; subtitle: string; index?: number; dark?: boolean }) => (
+  <div className={cn(
+    "py-5 flex items-start gap-6 border-b",
+    dark ? "border-white/10" : "border-foreground/10"
+  )}>
+    {index !== undefined && (
+      <span className={cn(
+        "font-mono text-xs tabular-nums mt-1",
+        dark ? "text-primary" : "text-primary"
+      )}>{String(index + 1).padStart(2, '0')}</span>
+    )}
+    <div className="flex-1 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-1 lg:gap-8">
+      <span className={cn(
+        "font-serif text-lg lg:text-xl",
+        dark ? "text-white" : "text-foreground"
+      )}>{title}</span>
+      <span className={cn(
+        "text-sm lg:text-base lg:text-right lg:max-w-md",
+        dark ? "text-white/50" : "text-foreground/50"
+      )}>{subtitle}</span>
+    </div>
   </div>
 );
 
@@ -397,72 +461,52 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 02: Why This Session Exists             */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-5xl w-full h-full flex flex-col justify-center">
-            <AnimatedTitle>
-              <SlideEyebrow>Why This Session Exists</SlideEyebrow>
-              <ActionTitle>why RAG fails law firms</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent>
-              <BodyText>
-                Many firms find that RAG rarely delivers the consistency, confidence, or reliability they were promised.
-                The problem is not RAG itself.
-                The problem is the assumption that retrieval can compensate for deeper structural issues in how legal knowledge is created, stored, governed, and reused.
-              </BodyText>
-            </AnimatedContent>
-          </StaggeredContent>
+          <div className="flex-1 flex flex-col justify-center max-w-4xl">
+            <SlideEyebrow>Why This Session Exists</SlideEyebrow>
+            <ActionTitle>why RAG fails law firms</ActionTitle>
+            <BodyText>
+              Many firms find that RAG rarely delivers the consistency, confidence, or reliability they were promised. The problem is not RAG itself. The problem is the assumption that retrieval can compensate for deeper structural issues in how legal knowledge is created, stored, governed, and reused.
+            </BodyText>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 03: Demo vs Production                  */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-5xl w-full h-full flex flex-col justify-center">
-            <AnimatedTitle>
-              <SlideEyebrow>Demo Versus Production</SlideEyebrow>
-              <ActionTitle>it looked brilliant, then it fell apart</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent>
-              <BodyText>
-                In demos, datasets are curated and questions are controlled.
-                In production, documents are messy, edge cases appear, and there is no supervision.
-                If lawyers still need to verify everything manually, adoption drops fast.
-              </BodyText>
-            </AnimatedContent>
-          </StaggeredContent>
+          <div className="flex-1 flex flex-col justify-center max-w-4xl">
+            <SlideEyebrow>Demo Versus Production</SlideEyebrow>
+            <ActionTitle>it looked brilliant, then it fell apart</ActionTitle>
+            <BodyText>
+              In demos, datasets are curated and questions are controlled. In production, documents are messy, edge cases appear, and there is no supervision. If lawyers still need to verify everything manually, adoption drops fast.
+            </BodyText>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 04: Failure Pattern                     */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-5xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>Failure Pattern</SlideEyebrow>
-              <ActionTitle>how RAG actually fails</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent className="mt-8 space-y-0">
-              <LineItem title="wrong jurisdiction" subtitle="precedent drifts across regimes and matter contexts" />
-              <LineItem title="missing carve outs" subtitle="general rules without exceptions or recent amendments" />
-              <LineItem title="outdated precedents" subtitle="overturned, distinguished, or superseded material resurfaces" />
-              <LineItem title="indefensible sources" subtitle="confidence without clear attribution to authority" />
-            </AnimatedContent>
-          </StaggeredContent>
+          <div className="flex-1 flex flex-col max-w-4xl pt-8">
+            <SlideEyebrow>Failure Pattern</SlideEyebrow>
+            <ActionTitle>how RAG actually fails</ActionTitle>
+            <div className="mt-4">
+              <LineItem index={0} title="wrong jurisdiction" subtitle="precedent drifts across regimes and matter contexts" />
+              <LineItem index={1} title="missing carve outs" subtitle="general rules without exceptions or recent amendments" />
+              <LineItem index={2} title="outdated precedents" subtitle="overturned, distinguished, or superseded material resurfaces" />
+              <LineItem index={3} title="indefensible sources" subtitle="confidence without clear attribution to authority" />
+            </div>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 05: Hallucination Moved                 */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-6xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>The Hidden Shift</SlideEyebrow>
-              <ActionTitle>hallucination did not disappear, it moved</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedInsight className="grid grid-cols-2 gap-6 mt-8">
+          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+            <SlideEyebrow>The Hidden Shift</SlideEyebrow>
+            <ActionTitle>hallucination did not disappear, it moved</ActionTitle>
+            <div className="grid grid-cols-2 gap-5 mt-6 flex-1">
               <Card title="noisy retrieval">
                 too many tangential documents, sometimes conflicting, leaving the model to guess what matters.
               </Card>
@@ -475,47 +519,34 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="the result">
                 answers that sound authoritative and still require expert review, which is exactly what RAG was meant to reduce.
               </Card>
-            </AnimatedInsight>
-          </StaggeredContent>
+            </div>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 06: Core Myth                           */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-5xl w-full h-full flex flex-col justify-center">
-            <AnimatedTitle>
-              <SlideEyebrow>Core Myth</SlideEyebrow>
-              <ActionTitle>retrieval does not equal correctness</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent>
-              <BodyText>
-                Retrieval is not authority, retrieval is not permission, and retrieval is not legal applicability.
-                Similarity search is fundamentally not legal reasoning.
-              </BodyText>
-            </AnimatedContent>
-          </StaggeredContent>
+          <div className="flex-1 flex flex-col justify-center max-w-4xl">
+            <SlideEyebrow>Core Myth</SlideEyebrow>
+            <ActionTitle>retrieval does not equal correctness</ActionTitle>
+            <BodyText>
+              Retrieval is not authority, retrieval is not permission, and retrieval is not legal applicability. Similarity search is fundamentally not legal reasoning.
+            </BodyText>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 07: Turning Point                       */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-5xl w-full h-full flex flex-col justify-center">
-            <AnimatedTitle>
-              <SlideEyebrow>Turning Point</SlideEyebrow>
-              <ActionTitle>RAG is not broken</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent>
-              <BodyText>
-                Knowledge foundations are.
-                When the knowledge base is flawed, even the best model is forced to improvise around gaps.
-                Reliability begins well before retrieval.
-              </BodyText>
-            </AnimatedContent>
-          </StaggeredContent>
+          <div className="flex-1 flex flex-col justify-center max-w-4xl">
+            <SlideEyebrow>Turning Point</SlideEyebrow>
+            <ActionTitle>RAG is not broken</ActionTitle>
+            <BodyText>
+              Knowledge foundations are. When the knowledge base is flawed, even the best model is forced to improvise around gaps. Reliability begins well before retrieval.
+            </BodyText>
+          </div>
         </Slide>
 
         {/* ============================================== */}
@@ -530,13 +561,10 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
         {/* SLIDE 08: Legal Knowledge Reality             */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-6xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>Legal Knowledge Reality</SlideEyebrow>
-              <ActionTitle>legal knowledge is fundamentally different</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedInsight className="grid grid-cols-2 gap-6 mt-8">
+          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+            <SlideEyebrow>Legal Knowledge Reality</SlideEyebrow>
+            <ActionTitle>legal knowledge is fundamentally different</ActionTitle>
+            <div className="grid grid-cols-2 gap-5 mt-6 flex-1">
               <Card title="fragmented">
                 spread across precedents, statutes, practice notes, emails, and institutional memory.
               </Card>
@@ -549,61 +577,52 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="jurisdiction specific and evolving">
                 boundaries alter meaning, and new rulings continuously invalidate prior understanding.
               </Card>
-            </AnimatedInsight>
-          </StaggeredContent>
+            </div>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 09: Legal Grade Stack                   */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-5xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>The Trust Chain</SlideEyebrow>
-              <ActionTitle>the legal grade RAG stack</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent className="mt-8 space-y-0">
-              <LineItem title="curated knowledge base" subtitle="prepared, enriched, validated content with metadata" />
-              <LineItem title="semantic indexing plus metadata" subtitle="hybrid search, not vectors alone" />
-              <LineItem title="permission layer" subtitle="query time security validation before retrieval" />
-              <LineItem title="context filter" subtitle="jurisdiction, practice area, and relevance scoping" />
-              <LineItem title="generation with attribution" subtitle="citations with document metadata and confidence signals" />
-            </AnimatedContent>
-          </StaggeredContent>
+          <div className="flex-1 flex flex-col max-w-4xl pt-8">
+            <SlideEyebrow>The Trust Chain</SlideEyebrow>
+            <ActionTitle>the legal grade RAG stack</ActionTitle>
+            <div className="mt-4">
+              <LineItem index={0} title="curated knowledge base" subtitle="prepared, enriched, validated content with metadata" />
+              <LineItem index={1} title="semantic indexing plus metadata" subtitle="hybrid search, not vectors alone" />
+              <LineItem index={2} title="permission layer" subtitle="query time security validation before retrieval" />
+              <LineItem index={3} title="context filter" subtitle="jurisdiction, practice area, and relevance scoping" />
+              <LineItem index={4} title="generation with attribution" subtitle="citations with document metadata and confidence signals" />
+            </div>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 10: Preparation Layer                   */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-5xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>Core Insight</SlideEyebrow>
-              <ActionTitle>the preparation layer is everything</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent className="mt-8 space-y-0">
-              <LineItem title="content normalisation" subtitle="standardise formats, extract clean text, remove artefacts" />
-              <LineItem title="structural parsing" subtitle="sections, clauses, definitions, cross references" />
-              <LineItem title="metadata enrichment" subtitle="practice area, jurisdiction, type, author, approval status" />
-              <LineItem title="version control" subtitle="supersessions, current versus historical, change tracking" />
-              <LineItem title="authority tagging" subtitle="firm approved guidance, precedential value, confidence levels" />
-            </AnimatedContent>
-          </StaggeredContent>
+          <div className="flex-1 flex flex-col max-w-4xl pt-8">
+            <SlideEyebrow>Core Insight</SlideEyebrow>
+            <ActionTitle>the preparation layer is everything</ActionTitle>
+            <div className="mt-4">
+              <LineItem index={0} title="content normalisation" subtitle="standardise formats, extract clean text, remove artefacts" />
+              <LineItem index={1} title="structural parsing" subtitle="sections, clauses, definitions, cross references" />
+              <LineItem index={2} title="metadata enrichment" subtitle="practice area, jurisdiction, type, author, approval status" />
+              <LineItem index={3} title="version control" subtitle="supersessions, current versus historical, change tracking" />
+              <LineItem index={4} title="authority tagging" subtitle="firm approved guidance, precedential value, confidence levels" />
+            </div>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 11: Production Grade                    */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-6xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>Production Grade</SlideEyebrow>
-              <ActionTitle>what turns concepts into a reliable system</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedInsight className="grid grid-cols-2 gap-6 mt-8">
+          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+            <SlideEyebrow>Production Grade</SlideEyebrow>
+            <ActionTitle>what turns concepts into a reliable system</ActionTitle>
+            <div className="grid grid-cols-2 gap-5 mt-6 flex-1">
               <Card title="automated parsing pipelines">
                 continuous ingestion, processing, updating, with quality validation.
               </Card>
@@ -616,21 +635,18 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="cross document linking">
                 maintain relationships between related legal content over time.
               </Card>
-            </AnimatedInsight>
-          </StaggeredContent>
+            </div>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 12: Authority and Freshness             */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-6xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>Authority and Freshness Control</SlideEyebrow>
-              <ActionTitle>rank by authority, not by similarity</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedInsight className="grid grid-cols-2 gap-6 mt-6">
+          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+            <SlideEyebrow>Authority and Freshness Control</SlideEyebrow>
+            <ActionTitle>rank by authority, not by similarity</ActionTitle>
+            <div className="grid grid-cols-2 gap-5 mt-6">
               <Card title="author and reviewer identity">
                 who drafted it, who approved it, and what expertise they hold.
               </Card>
@@ -643,34 +659,24 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="supersession tracking">
                 what newer documents, rulings, or guidance modify or replace it.
               </Card>
-            </AnimatedInsight>
-            
-            <AnimatedContent className="mt-8">
-              <p className="text-base text-muted-foreground italic border-l-2 border-primary pl-4">
-                A highly relevant but outdated memorandum is worse than no answer.
-              </p>
-            </AnimatedContent>
-          </StaggeredContent>
+            </div>
+            <p className="text-base text-foreground/50 italic border-l-2 border-primary pl-4 mt-8">
+              A highly relevant but outdated memorandum is worse than no answer.
+            </p>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 13: Terminology Harmonisation           */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-6xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>Retrieval Quality</SlideEyebrow>
-              <ActionTitle>aligning legal language across the firm</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent>
-              <BodyText>
-                Law firms contain linguistic silos.
-                These are not cosmetic differences, they create retrieval failures where relevant expertise exists but remains undiscoverable.
-              </BodyText>
-            </AnimatedContent>
-            
-            <AnimatedInsight className="grid grid-cols-2 gap-6 mt-10">
+          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+            <SlideEyebrow>Retrieval Quality</SlideEyebrow>
+            <ActionTitle>aligning legal language across the firm</ActionTitle>
+            <BodyText>
+              Law firms contain linguistic silos. These are not cosmetic differences, they create retrieval failures where relevant expertise exists but remains undiscoverable.
+            </BodyText>
+            <div className="grid grid-cols-2 gap-5 mt-8">
               <Card title="controlled vocabularies">
                 canonical terms for key concepts across practice areas.
               </Card>
@@ -683,29 +689,21 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="practical effect">
                 expertise becomes discoverable without changing how lawyers naturally write.
               </Card>
-            </AnimatedInsight>
-          </StaggeredContent>
+            </div>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 14: Governance Through Architecture     */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-6xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>Game Changer</SlideEyebrow>
-              <ActionTitle>governance through architecture</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent>
-              <p className="font-sans text-lg text-muted-foreground leading-relaxed max-w-4xl mb-8">
-                More context often yields worse answers.
-                Aggressive context control and architectural governance improve both quality and security.
-                This is not a compromise, it is what enables production trust.
-              </p>
-            </AnimatedContent>
-            
-            <AnimatedInsight className="grid grid-cols-3 gap-4">
+          <div className="flex-1 flex flex-col max-w-6xl pt-8">
+            <SlideEyebrow>Game Changer</SlideEyebrow>
+            <ActionTitle>governance through architecture</ActionTitle>
+            <p className="font-sans text-base lg:text-lg text-foreground/60 leading-relaxed max-w-4xl mb-8">
+              More context often yields worse answers. Aggressive context control and architectural governance improve both quality and security.
+            </p>
+            <div className="grid grid-cols-3 gap-4 flex-1">
               <Card title="jurisdiction filters">
                 retrieve only content applicable to the relevant regime.
               </Card>
@@ -724,96 +722,62 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
               <Card title="audit trails and ethical walls">
                 immutable logs, architectural separation, and compliance by design.
               </Card>
-            </AnimatedInsight>
-          </StaggeredContent>
+            </div>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 15: Human in the Loop                   */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-5xl w-full h-full flex flex-col justify-center">
-            <AnimatedTitle>
-              <SlideEyebrow>Operating Model</SlideEyebrow>
-              <ActionTitle>human in the loop is non negotiable</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent>
-              <BodyText>
-                RAG does not replace lawyers.
-                It augments judgement by accelerating research, drafting first passes from firm templates, and reducing mechanical tasks.
-                Legal judgement remains central to applicability, risk, and strategy.
-              </BodyText>
-            </AnimatedContent>
-          </StaggeredContent>
+          <div className="flex-1 flex flex-col justify-center max-w-4xl">
+            <SlideEyebrow>Operating Model</SlideEyebrow>
+            <ActionTitle>human in the loop is non negotiable</ActionTitle>
+            <BodyText>
+              RAG does not replace lawyers. It augments judgement by accelerating research, drafting first passes from firm templates, and reducing mechanical tasks. Legal judgement remains central to applicability, risk, and strategy.
+            </BodyText>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 16: Success Metrics                     */}
         {/* ============================================== */}
         <Slide>
-          <StaggeredContent className="max-w-6xl w-full h-full flex flex-col">
-            <AnimatedTitle>
-              <SlideEyebrow>Measuring Success Properly</SlideEyebrow>
-              <ActionTitle>move beyond impressive demos</ActionTitle>
-            </AnimatedTitle>
-            
-            <AnimatedContent>
-              <p className="font-sans text-lg text-muted-foreground leading-relaxed max-w-4xl mb-12">
-                Evaluate value delivery and adoption, not benchmark theatre.
-                Focus on time saved, error reduction, confidence, and integration into daily workflows.
-              </p>
-            </AnimatedContent>
-            
-            <AnimatedInsight className="grid grid-cols-3 gap-8">
-              <motion.div 
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
+          <div className="flex-1 flex flex-col max-w-5xl pt-8">
+            <SlideEyebrow>Measuring Success Properly</SlideEyebrow>
+            <ActionTitle>move beyond impressive demos</ActionTitle>
+            <p className="font-sans text-base lg:text-lg text-foreground/60 leading-relaxed max-w-4xl mb-12">
+              Evaluate value delivery and adoption, not benchmark theatre. Focus on time saved, error reduction, confidence, and integration into daily workflows.
+            </p>
+            <div className="grid grid-cols-3 gap-12 mt-auto mb-12">
+              <div className="text-center">
                 <div className="font-serif text-6xl lg:text-7xl text-primary mb-4">
                   <CountingNumber value={40} suffix="%" className="" duration={1.5} />
                 </div>
-                <p className="text-sm text-muted-foreground">average research time reduction on routine tasks</p>
-              </motion.div>
-              
-              <motion.div 
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
+                <p className="text-sm text-foreground/50">average research time reduction on routine tasks</p>
+              </div>
+              <div className="text-center">
                 <div className="font-serif text-6xl lg:text-7xl text-primary mb-4">
                   <CountingNumber value={78} suffix="%" className="" duration={1.5} />
                 </div>
-                <p className="text-sm text-muted-foreground">weekly active users across a defined target group</p>
-              </motion.div>
-              
-              <motion.div 
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
+                <p className="text-sm text-foreground/50">weekly active users across a defined target group</p>
+              </div>
+              <div className="text-center">
                 <div className="font-serif text-6xl lg:text-7xl text-primary mb-4">
                   <CountingNumber value={92} suffix="%" className="" duration={1.5} />
                 </div>
-                <p className="text-sm text-muted-foreground">lawyer confidence for client facing work, when trust signals are consistent</p>
-              </motion.div>
-            </AnimatedInsight>
-          </StaggeredContent>
+                <p className="text-sm text-foreground/50">lawyer confidence for client facing work</p>
+              </div>
+            </div>
+          </div>
         </Slide>
 
         {/* ============================================== */}
         {/* SLIDE 17: Closing                             */}
         {/* ============================================== */}
-        <Slide className="bg-[#050505]">
-          <div className="max-w-5xl w-full h-full flex flex-col justify-center text-white">
-            <SlideEyebrow>Closing</SlideEyebrow>
+        <Slide dark>
+          <div className="flex-1 flex flex-col justify-center max-w-4xl">
+            <SlideEyebrow dark>Closing</SlideEyebrow>
             
             <p className="font-serif text-3xl lg:text-4xl text-white leading-snug mb-12 italic">
               The problem is not RAG itself.<br />
@@ -821,9 +785,8 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
             </p>
             
             <div className="bg-white/5 border border-white/10 p-8 max-w-3xl">
-              <p className="font-sans text-lg text-gray-300 leading-relaxed">
-                When foundations are disciplined and governance is architectural, RAG becomes legal intelligence infrastructure.
-                It helps firms move faster, reduce risk, scale expertise, and win complex work without sacrificing defensibility.
+              <p className="font-sans text-lg text-white/70 leading-relaxed">
+                When foundations are disciplined and governance is architectural, RAG becomes legal intelligence infrastructure. It helps firms move faster, reduce risk, scale expertise, and win complex work without sacrificing defensibility.
               </p>
             </div>
             
