@@ -16,189 +16,190 @@ import {
   CountingNumber
 } from "./SlideAnimations";
 
-// Default sample data - used when no content is uploaded
+// Default sample data - RAG in Law Firms webinar content
 const defaultReportData = {
-  score: 59,
-  healthStatus: "Moderate health",
-  clientName: "Sample Client",
-  clientUrl: "https://example.com",
-  generatedDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-  scope: "Independent assessment of digital clarity, credibility, and competitive positioning",
-  executiveSummary: "",
+  score: 78,
+  healthStatus: "Strong foundation",
+  clientName: "Inside Practice",
+  clientUrl: "https://insidepractice.com",
+  generatedDate: "January 23, 2026",
+  scope: "From Retrieval to Reliability: Making RAG Work in Law Firms",
+  executiveSummary: "AI is transforming legal research, but most RAG implementations fail to meet the reliability standards law firms require. This session explores practical strategies to build trustworthy AI-powered research systems.",
   keyFindings: [] as { title: string; content: string; level?: string }[],
   recommendations: [] as { title: string; content: string; score?: number }[],
   
-  // Waterfall chart data
+  // Waterfall chart data - RAG maturity journey
   waterfall: {
     potential: 100,
     losses: [
-      { label: "Intake Friction", value: -15 },
-      { label: "Mobile Latency", value: -10 },
-      { label: "Narrative Gap", value: -16 },
+      { label: "Hallucination Risk", value: -12 },
+      { label: "Citation Gaps", value: -8 },
+      { label: "Context Window", value: -7 },
     ],
-    current: 59
+    current: 73
   },
 
-  // Signal grid data
+  // Signal grid data - RAG capabilities
   signals: [
-    { label: "Visual Polish", level: "HIGH", score: 4, variant: "default", description: "Design conveys premium authority." },
-    { label: "Value Clarity", level: "LOW", score: 2, variant: "critical", description: "Proposition is buried below fold." },
-    { label: "Credibility", level: "MODERATE", score: 3, variant: "blue", description: "Lack of client logos hurts score." },
-    { label: "Coherence", level: "MODERATE", score: 3, variant: "default", description: "Narrative flow is interrupted." },
+    { label: "Retrieval Quality", level: "HIGH", score: 4, variant: "default", description: "Strong document chunking and semantic search." },
+    { label: "Citation Accuracy", level: "MODERATE", score: 3, variant: "blue", description: "Room for improvement in source attribution." },
+    { label: "Hallucination Control", level: "LOW", score: 2, variant: "critical", description: "Requires guardrails and verification layers." },
+    { label: "Context Relevance", level: "HIGH", score: 4, variant: "default", description: "Effective filtering of non-relevant content." },
   ],
 
-  // Heatmap data
+  // Heatmap data - RAG implementation vectors
   heatmap: [
-    { vector: "Infrastructure", maturity: "full", observation: "Server response in top 5%.", implication: "Strong foundation for scale." },
-    { vector: "User Flow", maturity: "quarter", observation: "Intake requires 8 fields.", implication: "High abandonment (>60%)." },
-    { vector: "Narrative", maturity: "half", observation: '"Process" vs "Outcome".', implication: "Low C-Suite resonance." },
-    { vector: "Mobile UX", maturity: "half", observation: "Unoptimized image payloads.", implication: "SEO Penalty Risk." },
+    { vector: "Data Quality", maturity: "full", observation: "Clean, structured legal corpus.", implication: "Foundation for accurate retrieval." },
+    { vector: "Chunking Strategy", maturity: "half", observation: "Fixed-size chunks used.", implication: "Semantic boundaries ignored." },
+    { vector: "Embedding Model", maturity: "full", observation: "Legal-tuned embeddings.", implication: "Domain-specific accuracy." },
+    { vector: "Verification Layer", maturity: "quarter", observation: "No citation checking.", implication: "Hallucination risk unmitigated." },
   ],
 
-  // Matrix chart data
+  // Matrix chart data - RAG improvement priorities
   matrixItems: [
-    { x: 15, y: 85, label: "Form Reduction", highlight: true },
-    { x: 25, y: 75, label: "Mobile Fixes", highlight: true },
-    { x: 70, y: 80, label: "Rewrite Value Prop", highlight: false },
-    { x: 80, y: 30, label: "Replatform", highlight: false },
-    { x: 45, y: 45, label: "Meta Tags", highlight: false },
+    { x: 15, y: 90, label: "Citation Verification", highlight: true },
+    { x: 20, y: 80, label: "Semantic Chunking", highlight: true },
+    { x: 65, y: 75, label: "Fine-tuned Embeddings", highlight: false },
+    { x: 75, y: 25, label: "Full Retraining", highlight: false },
+    { x: 40, y: 50, label: "Prompt Engineering", highlight: false },
   ],
 
   auditSections: [
     {
-      title: "Content analysis",
-      score: 65,
-      status: "Moderate",
+      title: "The Promise of RAG",
+      score: 85,
+      status: "Strong",
       categories: [
         {
-          title: "Clarity & positioning",
+          title: "Why RAG for Legal",
           items: [
-            { label: "Value proposition", text: "It's clear you do market research and AI. However, 'Innovating' is a weak verb. It doesn't promise a tangible result or ROI for the user." },
-            { label: "Audience alignment", text: "Strong usage of specialized terms ('unstructured data', 'semantic search'). This speaks directly to data analysts but may alienate executive decision-makers." }
+            { label: "Research acceleration", text: "RAG can reduce legal research time by 60-70% by surfacing relevant precedents and statutes instantly from your firm's knowledge base." },
+            { label: "Knowledge democratization", text: "Junior associates gain access to senior-level insights. Institutional knowledge becomes searchable and actionable." }
           ]
         },
         {
-          title: "Flow & tone",
+          title: "Current capabilities",
           items: [
-            { label: "Narrative coherence", text: "Logical flow: Innovation → Services → Methodology → Proof. The structure is sound, but the 'hook' is buried too deep." },
-            { label: "Tone consistency", text: "Consistent throughout. Professional, tech-forward, and serious. Could benefit from a slightly more 'human' voice in the About section." }
+            { label: "Document analysis", text: "Modern RAG systems can process contracts, briefs, and case law with high accuracy when properly configured." },
+            { label: "Contextual retrieval", text: "Semantic search understands legal concepts, not just keywords. 'Breach of fiduciary duty' finds related cases even without exact phrase matches." }
           ]
         }
       ],
-      strength: "The combination of 'Human-centered' and 'AI' effectively addresses the industry fear that automation will replace human nuance.",
-      fix: "Lack of outcome-oriented messaging. The site sells the 'features' of the AI, not the 'business advantage' (speed & accuracy) of the insights.",
+      strength: "RAG bridges the gap between powerful LLMs and your firm's proprietary knowledge base.",
+      fix: "Without proper guardrails, even sophisticated RAG can produce confident-sounding hallucinations that put client matters at risk.",
       fixLevel: "priority"
     },
     {
-      title: "Visual analysis",
-      score: 60,
-      status: "Acceptable",
-      categories: [
-        {
-          title: "Design assessment",
-          items: [
-            { label: "Overall impression", text: "Modern, sleek, and high-tech aesthetic that leans into a 'dark mode' B2B SaaS vibe. Clean but feels slightly cold and generic." },
-            { label: "Color scheme", text: "Dark charcoal background with vibrant magenta accents. Excellent contrast ratios for readability." }
-          ]
-        },
-        {
-          title: "Layout & typography",
-          items: [
-            { label: "Typography", text: "Clean sans-serif font. Headings are bold and legible. Use of italics in H2s adds a nice stylistic touch." },
-            { label: "Whitespace usage", text: "Excellent use of negative space. The layout breathes well, preventing the dense technical content from feeling overwhelming." }
-          ]
-        }
-      ],
-      strength: "High-resolution imagery and consistent design system create a professional, enterprise-grade first impression.",
-      fix: "Hero section lacks a direct CTA button in the visual hierarchy. The 'Book a Demo' is tucked in the nav, reducing CTR.",
-      fixLevel: "priority"
-    },
-    {
-      title: "UX & flow",
+      title: "The Reliability Problem",
       score: 45,
       status: "Critical",
       categories: [
         {
-          title: "Interaction design",
+          title: "Core challenges",
           items: [
-            { label: "Navigation logic", text: "Menu is simple but essential pages like 'Pricing' are hidden in sub-menus. This adds unnecessary clicks for high-intent users." },
-            { label: "Mobile experience", text: "The hero image pushes content below the fold on mobile. Users see a dark screen with just text, losing the emotional connection." }
+            { label: "Hallucination risk", text: "LLMs can fabricate case citations, misstate holdings, or invent precedents. In legal work, this isn't just wrong—it's malpractice risk." },
+            { label: "Context limitations", text: "Even with large context windows, RAG systems can miss crucial nuances when documents exceed retrieval limits." }
           ]
         },
         {
-          title: "Conversion paths",
+          title: "Trust barriers",
           items: [
-            { label: "Form usability", text: "Critical failure point. 8 fields is too many for a top-of-funnel lead. Asking for 'Job Title' here adds friction with zero user value." },
-            { label: "Call to action (CTA)", text: "Primary CTAs blend into the background. They lack a hover state that gives tactile feedback, reducing the impulse to click." }
+            { label: "Verification burden", text: "Lawyers must still check every AI-generated citation. If verification takes as long as research, where's the value?" },
+            { label: "Inconsistent results", text: "Same query, different day, different answer. Non-deterministic outputs undermine confidence." }
           ]
         }
       ],
-      strength: "Page load speed on desktop is excellent, creating a snappy feeling when navigating between service pages.",
-      fix: "Simplify the 'Book Demo' form immediately. Reduce to 3 fields (Name, Email, Company) to potentially double conversion rate.",
+      strength: "Acknowledging these limitations is the first step toward building systems lawyers can actually trust.",
+      fix: "Implement citation verification layers and confidence scoring before any RAG output reaches client-facing work.",
       fixLevel: "critical"
     },
     {
-      title: "Technical analysis",
-      score: 50,
-      status: "Warning",
+      title: "Building Reliable RAG",
+      score: 75,
+      status: "Actionable",
       categories: [
         {
-          title: "Performance",
+          title: "Architecture principles",
           items: [
-            { label: "Core web vitals", text: "LCP: 2.4s (Needs Improvement). CLS: 0.15 (Good Stability)." },
-            { label: "Mobile speed", text: "Google PageSpeed score: 45/100. Heavy JavaScript bundles are delaying interactivity on low-end devices." }
+            { label: "Semantic chunking", text: "Break documents at natural boundaries (paragraphs, sections, arguments) rather than arbitrary character limits." },
+            { label: "Hybrid retrieval", text: "Combine vector search with keyword matching. Legal documents have specific terminology that benefits from both approaches." }
           ]
         },
         {
-          title: "SEO & structure",
+          title: "Quality controls",
           items: [
-            { label: "Meta tags", text: "Meta descriptions are missing on 40% of indexed pages, reducing CTR from search engine results pages." },
-            { label: "Sitemap", text: "XML sitemap not found in root directory. This hinders Google bot crawling efficiency for new content." }
+            { label: "Citation verification", text: "Every case reference should be validated against authoritative sources before presentation. No exceptions." },
+            { label: "Confidence scoring", text: "Show users when the system is uncertain. A 'low confidence' flag is more valuable than a confidently wrong answer." }
           ]
         }
       ],
-      strength: "Server Response Time (TTFB) is excellent (< 200ms), indicating a healthy backend infrastructure.",
-      fix: "Image Optimization: Current images are full-size PNGs. Serve Next-Gen formats (WebP/AVIF) to reduce payload.",
+      strength: "The firms winning with RAG are those investing in verification layers, not just bigger models.",
+      fix: "Start with high-stakes use cases where reliability matters most. Build trust through demonstrated accuracy.",
+      fixLevel: "priority"
+    },
+    {
+      title: "Implementation Roadmap",
+      score: 70,
+      status: "Strategic",
+      categories: [
+        {
+          title: "Phase 1: Foundation",
+          items: [
+            { label: "Data preparation", text: "Audit and clean your document corpus. Garbage in, garbage out applies doubly to RAG systems." },
+            { label: "Pilot scope", text: "Start with a single practice area. Legal research for M&A due diligence or contract review are strong candidates." }
+          ]
+        },
+        {
+          title: "Phase 2: Scale",
+          items: [
+            { label: "Feedback loops", text: "Lawyers must be able to flag bad outputs easily. Use this data to continuously improve retrieval quality." },
+            { label: "Integration points", text: "RAG works best embedded in existing workflows. Document management, research platforms, matter intake." }
+          ]
+        }
+      ],
+      strength: "Incremental rollout allows learning and adjustment before firm-wide deployment.",
+      fix: "Don't try to boil the ocean. Pick one use case, prove value, then expand.",
       fixLevel: "priority"
     }
   ],
   roadmap: [
     {
-      title: "Shorten 'Book demo' form",
-      subtitle: "Reduce 8 fields to 3 fields.",
-      effort: "Low",
-      impact: "High",
-      tasks: [
-        { tag: "DEV", text: "Remove 'Job Title' and 'Phone Number' fields." },
-        { tag: "DEV", text: "Enable browser auto-fill attributes." }
-      ]
-    },
-    {
-      title: "Update CTA visuals",
-      subtitle: "Fix button contrast & visibility.",
-      effort: "Low",
-      impact: "Med",
-      tasks: [
-        { tag: "CSS", text: "Change primary buttons to high-contrast accent color." }
-      ]
-    },
-    {
-      title: "Rewrite hero messaging",
-      subtitle: "Implement 'Problem/Solution' framework.",
+      title: "Implement citation verification",
+      subtitle: "Validate all case references automatically.",
       effort: "Med",
       impact: "High",
       tasks: [
-        { tag: "COPY", text: "New H1: 'Automate Your Lab Reporting in Half the Time.'" }
+        { tag: "DEV", text: "Integrate with Westlaw/Lexis citation APIs." },
+        { tag: "QA", text: "Build automated testing for citation accuracy." }
       ]
     },
     {
-      title: "Implement product visuals",
-      subtitle: "Replace stock photos with UI screens.",
-      effort: "High",
+      title: "Adopt semantic chunking",
+      subtitle: "Break documents at natural boundaries.",
+      effort: "Low",
+      impact: "High",
+      tasks: [
+        { tag: "ML", text: "Implement paragraph-aware document splitting." }
+      ]
+    },
+    {
+      title: "Add confidence scoring",
+      subtitle: "Surface uncertainty to end users.",
+      effort: "Med",
       impact: "Med",
       tasks: [
-        { tag: "DESIGN", text: "Create 3 high-fidelity product screenshots." },
-        { tag: "DEV", text: "Implement responsive image gallery component." }
+        { tag: "UX", text: "Design confidence indicator UI components." },
+        { tag: "ML", text: "Implement retrieval confidence metrics." }
+      ]
+    },
+    {
+      title: "Build feedback pipeline",
+      subtitle: "Capture lawyer corrections for retraining.",
+      effort: "High",
+      impact: "High",
+      tasks: [
+        { tag: "DEV", text: "Create thumbs up/down feedback mechanism." },
+        { tag: "DATA", text: "Design feedback aggregation and analysis." }
       ]
     }
   ]
@@ -310,9 +311,8 @@ const CoverSlide = ({ clientName }: { clientName: string }) => (
     
     {/* Top metadata */}
     <div className="relative z-10 flex justify-between items-start border-t border-gray-900 pt-6">
-      <div className="grid grid-cols-2 gap-8 font-mono text-[9px] text-gray-500 uppercase tracking-widest">
-        <div>{clientName}</div>
-        <div className="text-primary">v.Final</div>
+      <div className="font-mono text-[9px] text-gray-500 uppercase tracking-widest">
+        {clientName}
       </div>
     </div>
 
