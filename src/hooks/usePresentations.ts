@@ -70,3 +70,30 @@ export const useDeletePresentation = () => {
     },
   });
 };
+
+export const useUpdatePresentation = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async ({ 
+      id, 
+      title 
+    }: { 
+      id: string; 
+      title: string; 
+    }) => {
+      const { data, error } = await supabase
+        .from("presentations")
+        .update({ title, updated_at: new Date().toISOString() })
+        .eq("id", id)
+        .select()
+        .single();
+      
+      if (error) throw error;
+      return data as Presentation;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["presentations"] });
+    },
+  });
+};
