@@ -6,6 +6,7 @@ export interface Presentation {
   title: string;
   content: string;
   client_name: string | null;
+  brand_guide_id: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -32,15 +33,17 @@ export const useCreatePresentation = () => {
     mutationFn: async ({ 
       title, 
       content, 
-      client_name 
+      client_name,
+      brand_guide_id,
     }: { 
       title: string; 
       content: string; 
-      client_name?: string; 
+      client_name?: string;
+      brand_guide_id?: string;
     }) => {
       const { data, error } = await supabase
         .from("presentations")
-        .insert({ title, content, client_name })
+        .insert({ title, content, client_name, brand_guide_id })
         .select()
         .single();
       
