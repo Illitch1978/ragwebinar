@@ -39,13 +39,13 @@ const convertGeneratedSlides = (generatedSlides: any[], clientName: string): Sli
       sectionCount++;
     }
     
-    // Quote slides should always be dark for contrast
+    // Quote slides are now LIGHT for variety - don't start with two dark slides
     const isDarkSlide = slide.dark ?? (
       slide.type === 'cover' || 
       slide.type === 'section-divider' || 
       slide.type === 'closing' || 
-      slide.type === 'quote' ||
       slide.type === 'cta'
+      // Quote removed from dark list - now light themed
     );
     
     return {
@@ -296,33 +296,33 @@ const CoverFrame = () => (
 );
 
 const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) => {
-  // Smooth cubic bezier for buttery animations - no spring physics to avoid shake
-  const smoothEase = [0.25, 0.1, 0.25, 1] as const; // CSS ease equivalent
+  // Trendy blur-in animation - popular in modern Framer sites
+  const blurInEase = [0.22, 1, 0.36, 1] as const; // Smooth deceleration
   
   const variants = {
-    enter: { opacity: 0, y: 6 },
-    center: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -4 },
+    enter: { opacity: 0, filter: "blur(12px)", scale: 0.98 },
+    center: { opacity: 1, filter: "blur(0px)", scale: 1 },
+    exit: { opacity: 0, filter: "blur(8px)", scale: 0.99 },
   };
 
   const staggerChildren = {
     center: {
       transition: { 
-        staggerChildren: 0.08, 
-        delayChildren: 0.05
+        staggerChildren: 0.12, 
+        delayChildren: 0.1
       }
     }
   };
 
   const childVariant = {
-    enter: { opacity: 0, y: 4 },
-    center: { opacity: 1, y: 0 },
+    enter: { opacity: 0, filter: "blur(8px)", y: 0 },
+    center: { opacity: 1, filter: "blur(0px)", y: 0 },
   };
   
-  // Smooth transition config - longer duration, CSS-like easing, no spring
+  // Smooth transition config - blur-focused, no vertical movement
   const smoothTransition = { 
-    duration: 0.5, 
-    ease: smoothEase,
+    duration: 0.6, 
+    ease: blurInEase,
   };
 
   // Title/Cover slide - Premium cover treatment
@@ -686,7 +686,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
     );
   }
 
-  // Quote slide - Elegant emphasis
+  // Quote slide - Light themed elegant emphasis
   if (slide.type === 'quote') {
     const quoteText = slide.quote || slide.title || slide.content;
     const authorText = slide.author || slide.subtitle;
@@ -698,21 +698,26 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         animate={isActive ? "center" : "exit"}
         className="relative flex items-center justify-center h-full px-12 lg:px-20"
       >
-        <GridBackground />
+        {/* Light cream background accent */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
         
-        <div className="max-w-5xl text-center">
+        {/* Subtle decorative elements */}
+        <div className="absolute top-12 left-12 w-32 h-32 border-l border-t border-primary/10" />
+        <div className="absolute bottom-12 right-12 w-32 h-32 border-r border-b border-primary/10" />
+        
+        <div className="relative max-w-5xl text-center">
           <motion.div
             variants={childVariant}
             transition={smoothTransition}
             className="mb-8"
           >
-            <span className="font-serif text-8xl text-primary/30">"</span>
+            <span className="font-serif text-8xl text-primary/40">"</span>
           </motion.div>
           
           <motion.p 
             variants={childVariant}
             transition={smoothTransition}
-            className="font-serif text-2xl lg:text-4xl text-white leading-relaxed"
+            className="font-serif text-2xl lg:text-4xl text-foreground leading-relaxed"
           >
             {quoteText}
           </motion.p>
@@ -721,7 +726,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
             <motion.div 
               variants={childVariant}
               transition={smoothTransition}
-              className="text-lg text-white/50 mt-8"
+              className="text-lg text-muted-foreground mt-8"
             >
               {slide.authorEmail ? (
                 <HoverCard>
@@ -730,10 +735,10 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
                       — {authorText}
                     </button>
                   </HoverCardTrigger>
-                  <HoverCardContent className="w-auto bg-zinc-900 border-zinc-700">
+                  <HoverCardContent className="w-auto bg-card border-border">
                     <a 
                       href={`mailto:${slide.authorEmail}`}
-                      className="flex items-center gap-2 text-white hover:text-primary transition-colors"
+                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
                     >
                       <Mail className="w-4 h-4" />
                       <span>{slide.authorEmail}</span>
