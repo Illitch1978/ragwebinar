@@ -270,21 +270,27 @@ const CoverFrame = () => (
 
 const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) => {
   const variants = {
-    enter: { opacity: 0, y: 20 },
+    enter: { opacity: 0, y: 10 },
     center: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
+    exit: { opacity: 0, y: -10 },
   };
 
   const staggerChildren = {
     center: {
-      transition: { staggerChildren: 0.12, delayChildren: 0.15 }
+      transition: { 
+        staggerChildren: 0.1, 
+        delayChildren: 0.1
+      }
     }
   };
 
   const childVariant = {
-    enter: { opacity: 0, y: 12 },
+    enter: { opacity: 0, y: 8 },
     center: { opacity: 1, y: 0 },
   };
+  
+  // Smooth transition config for all child elements
+  const smoothTransition = { duration: 0.4, ease: "easeOut" as const };
 
   // Title/Cover slide - Premium cover treatment
   if (slide.type === 'title' || slide.type === 'cover') {
