@@ -204,6 +204,81 @@ const GridBackground = () => (
   </div>
 );
 
+// Premium morphing gradient mesh background for divider slides
+const MorphingGradientBackground = () => (
+  <div className="absolute inset-0 overflow-hidden">
+    {/* Base gradient */}
+    <div className="absolute inset-0 bg-gradient-to-br from-black via-[#050505] to-[#0a0a0a]" />
+    
+    {/* Morphing gradient blobs */}
+    <motion.div
+      className="absolute w-[800px] h-[800px] rounded-full opacity-[0.15]"
+      style={{
+        background: 'radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)',
+        filter: 'blur(100px)',
+        top: '-20%',
+        right: '-10%',
+      }}
+      animate={{
+        x: [0, 50, -30, 0],
+        y: [0, -40, 30, 0],
+        scale: [1, 1.1, 0.95, 1],
+      }}
+      transition={{
+        duration: 20,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    />
+    <motion.div
+      className="absolute w-[600px] h-[600px] rounded-full opacity-[0.08]"
+      style={{
+        background: 'radial-gradient(circle, hsl(220, 90%, 50%) 0%, transparent 70%)',
+        filter: 'blur(80px)',
+        bottom: '-15%',
+        left: '-5%',
+      }}
+      animate={{
+        x: [0, -40, 60, 0],
+        y: [0, 50, -30, 0],
+        scale: [1, 0.9, 1.15, 1],
+      }}
+      transition={{
+        duration: 25,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    />
+    <motion.div
+      className="absolute w-[500px] h-[500px] rounded-full opacity-[0.06]"
+      style={{
+        background: 'radial-gradient(circle, hsl(280, 70%, 50%) 0%, transparent 70%)',
+        filter: 'blur(90px)',
+        top: '30%',
+        left: '30%',
+      }}
+      animate={{
+        x: [0, 80, -50, 0],
+        y: [0, -60, 40, 0],
+        scale: [1, 1.2, 0.85, 1],
+      }}
+      transition={{
+        duration: 30,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    />
+    
+    {/* Subtle noise overlay for texture */}
+    <div 
+      className="absolute inset-0 opacity-[0.03]"
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+      }}
+    />
+  </div>
+);
+
 // Premium geometric pattern for cover
 const CoverPattern = () => (
   <div className="absolute inset-0 overflow-hidden">
@@ -404,7 +479,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
     );
   }
 
-  // Section/Section-divider slide - Bold typographic treatment
+  // Section/Section-divider slide - Bold typographic treatment with morphing gradient
   if (slide.type === 'section' || slide.type === 'section-divider') {
     return (
       <motion.div
@@ -413,7 +488,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         animate={isActive ? "center" : "exit"}
         className="relative flex h-full"
       >
-        <GridBackground />
+        <MorphingGradientBackground />
         
         {/* Large background section number - matching cover style */}
         <LargeDecorativeNumber number={slide.kicker || '01'} />

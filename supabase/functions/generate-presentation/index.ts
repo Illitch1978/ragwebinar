@@ -44,6 +44,7 @@ CRITICAL DESIGN RULES (always follow):
 10. TITLE RULE: If no title is provided, generate an appropriate, compelling title based on the content. The title should be concise (3-6 words) and capture the essence of the presentation. NEVER use generic titles like "Strategic Intelligence Report" - always be specific to the content.
 11. ANIMATION RULE: Text reveal animations must be smooth and elegant - NEVER shaky or jittery. Use ease-out timing functions with subtle vertical movement (8-12px max).
 12. CONTRAST RULE: ALWAYS ensure proper text-to-background contrast. Dark backgrounds (black, navy) use white/light text. Light backgrounds (cream, white) use dark/black text. Quote slides, CTA slides, cover slides, section-dividers, and closing slides MUST use dark backgrounds with light text.
+13. TEXT ENCODING RULE: ALL text content must be in English using Latin characters only. NEVER include Chinese, Japanese, Korean, Arabic, Cyrillic or any other non-Latin script characters in titles, subtitles, content, or any other text fields. If the source content contains non-Latin characters, translate or omit them.
 `;
 
 // Slide count targets based on length preference
