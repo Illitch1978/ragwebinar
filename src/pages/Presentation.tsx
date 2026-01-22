@@ -726,9 +726,9 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
               {slide.authorEmail ? (
                 <HoverCard>
                   <HoverCardTrigger asChild>
-                    <span className="cursor-pointer hover:text-white/80 transition-colors">
+                    <button className="cursor-pointer hover:text-primary transition-colors underline-offset-4 hover:underline">
                       — {authorText}
-                    </span>
+                    </button>
                   </HoverCardTrigger>
                   <HoverCardContent className="w-auto bg-zinc-900 border-zinc-700">
                     <a 
