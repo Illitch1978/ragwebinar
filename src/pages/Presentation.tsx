@@ -1300,30 +1300,26 @@ const PresentationPage = () => {
           </div>
         </button>
         
-        {/* Presenter mode toggle */}
-        <button
-          onClick={() => {
-            const newParams = new URLSearchParams(searchParams);
-            if (isPresenterMode) {
+        {/* Presenter mode toggle - only visible when in presenter mode */}
+        {isPresenterMode && (
+          <button
+            onClick={() => {
+              const newParams = new URLSearchParams(searchParams);
               newParams.delete('mode');
-            } else {
-              newParams.set('mode', 'presenter');
-            }
-            navigate(`/presentation?${newParams.toString()}`, { replace: true });
-          }}
-          className={cn(
-            "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all",
-            isPresenterMode 
-              ? "bg-primary text-primary-foreground" 
-              : isDark 
-                ? "bg-white/10 text-white/60 hover:bg-white/20 hover:text-white" 
-                : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-          )}
-          title={isPresenterMode ? "Exit presenter mode" : "Enter presenter mode"}
-        >
-          <StickyNote className="w-4 h-4" />
-          <span className="hidden sm:inline">{isPresenterMode ? "Exit Notes" : "Presenter Mode"}</span>
-        </button>
+              navigate(`/presentation?${newParams.toString()}`, { replace: true });
+            }}
+            className={cn(
+              "flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium transition-all opacity-60 hover:opacity-100",
+              isDark 
+                ? "bg-white/10 text-white/80 hover:bg-white/20" 
+                : "bg-muted text-muted-foreground hover:bg-muted/80"
+            )}
+            title="Exit presenter mode"
+          >
+            <StickyNote className="w-3 h-3" />
+            <span>Exit Notes</span>
+          </button>
+        )}
       </footer>
 
       {/* Presenter Notes Panel - only in presenter mode */}
