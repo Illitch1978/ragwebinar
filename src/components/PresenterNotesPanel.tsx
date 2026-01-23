@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Save, StickyNote, Link2, Check } from "lucide-react";
+import { ChevronRight, Save, StickyNote, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -86,7 +86,6 @@ export const PresenterNotesPanel = ({
   }, [notes, hasChanges, saveNotes]);
 
   const currentNote = notes[String(currentSlide)] || "";
-  const [linkCopied, setLinkCopied] = useState(false);
 
   const handleNoteChange = (value: string) => {
     setNotes(prev => ({
@@ -94,16 +93,6 @@ export const PresenterNotesPanel = ({
       [String(currentSlide)]: value
     }));
     setHasChanges(true);
-  };
-
-  const copyGuestLink = () => {
-    // Build guest URL (without mode=presenter)
-    const url = new URL(window.location.href);
-    url.searchParams.delete('mode');
-    navigator.clipboard.writeText(url.toString());
-    setLinkCopied(true);
-    toast.success("Guest link copied to clipboard");
-    setTimeout(() => setLinkCopied(false), 2000);
   };
 
   // Keyboard shortcut to toggle panel (N key)
@@ -201,7 +190,7 @@ export const PresenterNotesPanel = ({
               />
             </div>
 
-            {/* Copy guest link button */}
+            {/* Save notes button */}
             <div className={cn(
               "px-4 py-3 border-t",
               isDark ? "border-white/10" : "border-border"
@@ -209,21 +198,28 @@ export const PresenterNotesPanel = ({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={copyGuestLink}
+                onClick={saveNotes}
+                disabled={!hasChanges || isSaving}
                 className={cn(
                   "w-full gap-2",
-                  isDark && "border-white/20 text-white hover:bg-white/10"
+                  isDark && "border-white/20 text-white hover:bg-white/10",
+                  !hasChanges && "opacity-50"
                 )}
               >
-                {linkCopied ? (
+                {isSaving ? (
                   <>
-                    <Check className="w-4 h-4 text-green-500" />
-                    Link Copied!
+                    <Save className="w-4 h-4 animate-pulse" />
+                    Saving...
+                  </>
+                ) : hasChanges ? (
+                  <>
+                    <Save className="w-4 h-4" />
+                    Save Notes
                   </>
                 ) : (
                   <>
-                    <Link2 className="w-4 h-4" />
-                    Copy Guest Link
+                    <Check className="w-4 h-4 text-green-500" />
+                    Notes Saved
                   </>
                 )}
               </Button>
