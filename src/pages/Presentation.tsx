@@ -1329,6 +1329,12 @@ const PresentationPage = () => {
           currentSlide={currentSlide}
           totalSlides={slides.length}
           isDark={isDark}
+          onPopout={() => {
+            // Exit presenter mode for clean screen sharing
+            const newParams = new URLSearchParams(searchParams);
+            newParams.delete('mode');
+            navigate(`/presentation?${newParams.toString()}`, { replace: true });
+          }}
         />
       )}
 
