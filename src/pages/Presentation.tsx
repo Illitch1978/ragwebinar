@@ -219,63 +219,98 @@ const MorphingGradientBackground = ({ reduced = false }: { reduced?: boolean }) 
     <div className="absolute inset-0 bg-gradient-to-br from-black via-[#050505] to-[#0a0a0a]" />
     
     {/* Morphing gradient blobs */}
-    <motion.div
-      className="absolute w-[800px] h-[800px] rounded-full opacity-[0.15]"
-      style={{
-        background: 'radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)',
-        filter: 'blur(100px)',
-        top: '-20%',
-        right: '-10%',
-      }}
-      animate={{
-        x: [0, 50, -30, 0],
-        y: [0, -40, 30, 0],
-        scale: [1, 1.1, 0.95, 1],
-      }}
-      transition={{
-        duration: 20,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
-    <motion.div
-      className="absolute w-[600px] h-[600px] rounded-full opacity-[0.08]"
-      style={{
-        background: 'radial-gradient(circle, hsl(220, 90%, 50%) 0%, transparent 70%)',
-        filter: 'blur(80px)',
-        bottom: '-15%',
-        left: '-5%',
-      }}
-      animate={{
-        x: [0, -40, 60, 0],
-        y: [0, 50, -30, 0],
-        scale: [1, 0.9, 1.15, 1],
-      }}
-      transition={{
-        duration: 25,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
-    <motion.div
-      className="absolute w-[500px] h-[500px] rounded-full opacity-[0.06]"
-      style={{
-        background: 'radial-gradient(circle, hsl(280, 70%, 50%) 0%, transparent 70%)',
-        filter: 'blur(90px)',
-        top: '30%',
-        left: '30%',
-      }}
-      animate={{
-        x: [0, 80, -50, 0],
-        y: [0, -60, 40, 0],
-        scale: [1, 1.2, 0.85, 1],
-      }}
-      transition={{
-        duration: 30,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
+    {!reduced ? (
+      <>
+        <motion.div
+          className="absolute w-[800px] h-[800px] rounded-full opacity-[0.15]"
+          style={{
+            background: 'radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)',
+            filter: 'blur(100px)',
+            top: '-20%',
+            right: '-10%',
+          }}
+          animate={{
+            x: [0, 50, -30, 0],
+            y: [0, -40, 30, 0],
+            scale: [1, 1.1, 0.95, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute w-[600px] h-[600px] rounded-full opacity-[0.08]"
+          style={{
+            background: 'radial-gradient(circle, hsl(220, 90%, 50%) 0%, transparent 70%)',
+            filter: 'blur(80px)',
+            bottom: '-15%',
+            left: '-5%',
+          }}
+          animate={{
+            x: [0, -40, 60, 0],
+            y: [0, 50, -30, 0],
+            scale: [1, 0.9, 1.15, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute w-[500px] h-[500px] rounded-full opacity-[0.06]"
+          style={{
+            background: 'radial-gradient(circle, hsl(280, 70%, 50%) 0%, transparent 70%)',
+            filter: 'blur(90px)',
+            top: '30%',
+            left: '30%',
+          }}
+          animate={{
+            x: [0, 80, -50, 0],
+            y: [0, -60, 40, 0],
+            scale: [1, 1.2, 0.85, 1],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </>
+    ) : (
+      // Export mode: keep the mesh look but avoid continuous transforms/filters that can destabilize capture
+      <>
+        <div
+          className="absolute w-[800px] h-[800px] rounded-full opacity-[0.15]"
+          style={{
+            background: 'radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)',
+            filter: 'blur(100px)',
+            top: '-20%',
+            right: '-10%',
+          }}
+        />
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full opacity-[0.08]"
+          style={{
+            background: 'radial-gradient(circle, hsl(220, 90%, 50%) 0%, transparent 70%)',
+            filter: 'blur(80px)',
+            bottom: '-15%',
+            left: '-5%',
+          }}
+        />
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full opacity-[0.06]"
+          style={{
+            background: 'radial-gradient(circle, hsl(280, 70%, 50%) 0%, transparent 70%)',
+            filter: 'blur(90px)',
+            top: '30%',
+            left: '30%',
+          }}
+        />
+      </>
+    )}
     
     {/* Noise overlay removed (html2canvas createPattern issues) */}
   </div>
@@ -300,18 +335,28 @@ const CoverPattern = ({ reduced = false }: { reduced?: boolean }) => (
       />
     )}
     
-    {/* Floating geometric shapes */}
-    <motion.div 
-      className="absolute top-[15%] right-[10%] w-64 h-64 border border-white/[0.03] rounded-full"
-      animate={{ rotate: 360 }}
-      transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-    />
-    <motion.div 
-      className="absolute bottom-[20%] left-[5%] w-48 h-48 border border-primary/10 rotate-45"
-      animate={{ rotate: 405 }}
-      transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-    />
-    <div className="absolute top-[40%] right-[25%] w-32 h-32 border border-white/[0.02]" />
+    {/* Floating geometric shapes (static in export mode) */}
+    {!reduced ? (
+      <>
+        <motion.div 
+          className="absolute top-[15%] right-[10%] w-64 h-64 border border-white/[0.03] rounded-full"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div 
+          className="absolute bottom-[20%] left-[5%] w-48 h-48 border border-primary/10 rotate-45"
+          animate={{ rotate: 405 }}
+          transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+        />
+        <div className="absolute top-[40%] right-[25%] w-32 h-32 border border-white/[0.02]" />
+      </>
+    ) : (
+      <>
+        <div className="absolute top-[15%] right-[10%] w-64 h-64 border border-white/[0.03] rounded-full" />
+        <div className="absolute bottom-[20%] left-[5%] w-48 h-48 border border-primary/10 rotate-45" />
+        <div className="absolute top-[40%] right-[25%] w-32 h-32 border border-white/[0.02]" />
+      </>
+    )}
     
     {/* Accent lines */}
     <div className="absolute top-0 left-[20%] w-[1px] h-[30%] bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
