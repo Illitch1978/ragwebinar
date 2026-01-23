@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Settings, ChevronDown, Link2 } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Settings, ChevronDown, Link2, Download } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,6 +13,7 @@ import { formatDistanceToNow } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import BrandGuideEditor from "@/components/BrandGuideEditor";
+import { exportToPptx } from "@/lib/pptxExport";
 import {
   Select,
   SelectContent,
@@ -756,6 +757,31 @@ Your strategic analysis content...
                         </>
                       ) : (
                         <>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={async (e) => {
+                              e.stopPropagation();
+                              if (presentation.generated_slides && Array.isArray(presentation.generated_slides)) {
+                                toast.loading("Generating PowerPoint...");
+                                try {
+                                  await exportToPptx(presentation.generated_slides as any[], presentation.title);
+                                  toast.dismiss();
+                                  toast.success("PowerPoint downloaded!");
+                                } catch (err) {
+                                  toast.dismiss();
+                                  toast.error("Failed to generate PowerPoint");
+                                  console.error(err);
+                                }
+                              } else {
+                                toast.error("No slides available for this presentation");
+                              }
+                            }}
+                            title="Download as PowerPoint"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                          >
+                            <Download className="w-4 h-4" />
+                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
