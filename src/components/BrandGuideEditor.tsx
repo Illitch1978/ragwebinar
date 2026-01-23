@@ -15,11 +15,34 @@ interface BrandGuideEditorProps {
 }
 
 interface DesignSystem {
+  theme?: string;
   brand_intent?: string;
   design_principles?: string[];
-  colors?: Record<string, Record<string, { hex?: string; usage?: string }>>;
+  // Flat color structure (from actual DB)
+  colors?: {
+    primary?: string;
+    accent?: string;
+    background_dark?: string;
+    background_light?: string;
+    [key: string]: string | undefined;
+  };
+  // Nested color structure (for future expansion)
+  color_categories?: Record<string, Record<string, { hex?: string; usage?: string }>>;
   color_rules?: string[];
-  typography?: Record<string, unknown>;
+  // Flat typography structure (from actual DB)
+  typography?: {
+    headings?: string;
+    body?: string;
+    mono?: string;
+    [key: string]: string | unknown;
+  };
+  // Effects
+  effects?: {
+    grid_pattern?: boolean;
+    blue_accent_bar?: boolean;
+    staggered_animations?: boolean;
+    [key: string]: boolean | undefined;
+  };
   animation_style?: {
     name?: string;
     description?: string;
@@ -47,6 +70,7 @@ interface DesignSystem {
 
 interface SlideTemplate {
   type: string;
+  description?: string;
   background?: string;
   elements?: string[];
   typography?: Record<string, string>;
@@ -55,19 +79,26 @@ interface SlideTemplate {
   accent?: string;
 }
 
-const ColorSwatch = ({ hex, name, usage }: { hex: string; name: string; usage?: string }) => (
+// Helper to convert HSL string to approximate hex for display
+const hslToDisplayColor = (color: string): string => {
+  if (color.startsWith('#')) return color;
+  if (color.startsWith('hsl')) return color; // Keep HSL as-is for CSS
+  return color;
+};
+
+const ColorSwatch = ({ value, name, usage }: { value: string; name: string; usage?: string }) => (
   <div className="flex items-center gap-3 py-2">
     <div 
       className="w-8 h-8 rounded-sm border border-border shrink-0 shadow-sm"
-      style={{ backgroundColor: hex }}
+      style={{ backgroundColor: hslToDisplayColor(value) }}
     />
     <div className="flex-1 min-w-0">
-      <div className="flex items-center gap-2">
-        <span className="font-mono text-xs text-foreground">{name}</span>
-        <span className="font-mono text-[10px] text-muted-foreground uppercase">{hex}</span>
+      <div className="flex flex-col">
+        <span className="font-mono text-xs text-foreground capitalize">{name.replace(/_/g, ' ')}</span>
+        <span className="font-mono text-[10px] text-muted-foreground">{value}</span>
       </div>
       {usage && (
-        <p className="text-xs text-muted-foreground truncate">{usage}</p>
+        <p className="text-xs text-muted-foreground truncate mt-0.5">{usage}</p>
       )}
     </div>
   </div>
@@ -245,14 +276,16 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
 
               {/* Section content */}
               <div className="p-4">
-                {/* Brand Intent */}
-                {!activeSection && designSystem?.brand_intent && (
+                {/* Overview - when no section is selected */}
+                {!activeSection && (
                   <div className="space-y-4">
-                    <div>
-                      <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Brand Intent</p>
-                      <p className="text-sm text-foreground">{designSystem.brand_intent}</p>
-                    </div>
-                    {designSystem.design_principles && (
+                    {designSystem?.brand_intent && (
+                      <div>
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Brand Intent</p>
+                        <p className="text-sm text-foreground">{designSystem.brand_intent}</p>
+                      </div>
+                    )}
+                    {designSystem?.design_principles && (
                       <div>
                         <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Design Principles</p>
                         <div className="flex flex-wrap gap-2">
@@ -264,11 +297,33 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                         </div>
                       </div>
                     )}
-                    {designSystem.dev_summary && (
+                    {designSystem?.theme && (
+                      <div>
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Theme</p>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-sm font-mono">
+                          {designSystem.theme}
+                        </span>
+                      </div>
+                    )}
+                    {designSystem?.animation_style?.name && (
+                      <div>
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Animation Style</p>
+                        <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded-sm font-mono">
+                          {designSystem.animation_style.name}
+                        </span>
+                      </div>
+                    )}
+                    {designSystem?.dev_summary && (
                       <div className="bg-muted/30 border border-border rounded-sm p-3">
                         <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Dev Summary</p>
                         <p className="text-xs text-foreground">{designSystem.dev_summary}</p>
                       </div>
+                    )}
+                    {/* Fallback if no specific overview content */}
+                    {!designSystem?.brand_intent && !designSystem?.design_principles && !designSystem?.dev_summary && (
+                      <p className="text-sm text-muted-foreground">
+                        Click a section above to view details about colors, typography, animations, and slide templates.
+                      </p>
                     )}
                   </div>
                 )}
@@ -276,25 +331,37 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                 {/* Colors Section */}
                 {activeSection === 'colors' && designSystem?.colors && (
                   <div className="space-y-4">
-                    {Object.entries(designSystem.colors).map(([category, colors]) => (
-                      <div key={category}>
-                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2 capitalize">
-                          {category.replace(/_/g, ' ')}
-                        </p>
-                        <div className="grid grid-cols-2 gap-x-4">
-                          {Object.entries(colors).map(([name, color]) => (
+                    <div>
+                      <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Palette</p>
+                      <div className="grid grid-cols-2 gap-x-4">
+                        {Object.entries(designSystem.colors).map(([name, value]) => (
+                          value && typeof value === 'string' ? (
                             <ColorSwatch 
                               key={name} 
-                              hex={color.hex || '#000'} 
-                              name={name.replace(/_/g, ' ')} 
-                              usage={color.usage} 
+                              value={value} 
+                              name={name} 
                             />
+                          ) : null
+                        ))}
+                      </div>
+                    </div>
+                    {designSystem.effects && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Effects</p>
+                        <div className="space-y-2">
+                          {Object.entries(designSystem.effects).map(([name, enabled]) => (
+                            <div key={name} className="flex items-center gap-2 text-xs">
+                              <span className={enabled ? "text-green-500" : "text-muted-foreground"}>
+                                {enabled ? "✓" : "○"}
+                              </span>
+                              <span className="text-foreground capitalize">{name.replace(/_/g, ' ')}</span>
+                            </div>
                           ))}
                         </div>
                       </div>
-                    ))}
+                    )}
                     {designSystem.color_rules && (
-                      <div className="border-t border-border pt-4 mt-4">
+                      <div className="border-t border-border pt-4">
                         <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Color Rules</p>
                         <ul className="space-y-1">
                           {designSystem.color_rules.map((rule, i) => (
@@ -312,25 +379,36 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                 {/* Typography Section */}
                 {activeSection === 'typography' && designSystem?.typography && (
                   <div className="space-y-4">
-                    {Object.entries(designSystem.typography).map(([category, config]) => (
-                      <div key={category}>
-                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2 capitalize">
-                          {category.replace(/_/g, ' ')}
-                        </p>
-                        {typeof config === 'object' && config !== null && (
-                          <div className="bg-muted/30 rounded-sm p-3 space-y-1">
-                            {Object.entries(config as Record<string, unknown>).map(([key, value]) => (
-                              <div key={key} className="flex justify-between text-xs">
-                                <span className="text-muted-foreground capitalize">{key.replace(/_/g, ' ')}</span>
-                                <span className="text-foreground font-mono">
-                                  {typeof value === 'object' ? JSON.stringify(value) : String(value)}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                    <div>
+                      <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Font Stack</p>
+                      <div className="space-y-3">
+                        {Object.entries(designSystem.typography).map(([purpose, font]) => (
+                          typeof font === 'string' ? (
+                            <div key={purpose} className="bg-muted/30 rounded-sm p-3 flex items-center justify-between">
+                              <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">{purpose}</span>
+                              <span 
+                                className="text-foreground text-lg"
+                                style={{ 
+                                  fontFamily: purpose === 'headings' ? "'Playfair Display', serif" : 
+                                             purpose === 'mono' ? "'Roboto Mono', monospace" : 
+                                             "'Inter', sans-serif"
+                                }}
+                              >
+                                {font}
+                              </span>
+                            </div>
+                          ) : null
+                        ))}
                       </div>
-                    ))}
+                    </div>
+                    {designSystem.theme && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Theme</p>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-sm font-mono">
+                          {designSystem.theme}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -344,8 +422,8 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                   <div className="space-y-3">
                     {slideTemplates.map((template, i) => (
                       <div key={i} className="bg-muted/30 border border-border rounded-sm p-3">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-xs text-foreground uppercase">{template.type}</span>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-mono text-xs text-primary uppercase font-medium">{template.type}</span>
                           {template.background && (
                             <div className="flex items-center gap-1.5">
                               <div 
@@ -356,8 +434,11 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                             </div>
                           )}
                         </div>
+                        {template.description && (
+                          <p className="text-xs text-foreground mb-2">{template.description}</p>
+                        )}
                         {template.elements && (
-                          <ul className="text-xs text-muted-foreground space-y-0.5">
+                          <ul className="text-xs text-muted-foreground space-y-0.5 mt-2 border-t border-border/50 pt-2">
                             {template.elements.map((el, j) => (
                               <li key={j}>• {el}</li>
                             ))}
