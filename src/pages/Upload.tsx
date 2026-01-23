@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Settings, ChevronDown } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Settings, ChevronDown, Link2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -756,6 +756,20 @@ Your strategic analysis content...
                         </>
                       ) : (
                         <>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const guestUrl = `${window.location.origin}/presentation?id=${presentation.id}`;
+                              navigator.clipboard.writeText(guestUrl);
+                              toast.success("Guest link copied!");
+                            }}
+                            title="Copy guest link (view only)"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                          >
+                            <Link2 className="w-4 h-4" />
+                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
