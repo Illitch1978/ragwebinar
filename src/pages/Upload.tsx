@@ -466,11 +466,6 @@ const UploadPage = () => {
                 ))}
               </SelectContent>
             </Select>
-            {brandGuides?.find(bg => bg.id === selectedBrandGuide)?.description && (
-              <p className="mt-2 text-sm text-muted-foreground">
-                {brandGuides.find(bg => bg.id === selectedBrandGuide)?.description}
-              </p>
-            )}
           </motion.div>
 
           {/* Brand Guide Templates Viewer */}
