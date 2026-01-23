@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Save, StickyNote, Check } from "lucide-react";
+import { ChevronRight, Save, StickyNote, Check, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,6 +24,7 @@ export const PresenterNotesPanel = ({
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [isSaving, setIsSaving] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+  const [popoutWindow, setPopoutWindow] = useState<Window | null>(null);
 
   // Load notes from database
   useEffect(() => {
@@ -95,6 +96,106 @@ export const PresenterNotesPanel = ({
     setHasChanges(true);
   };
 
+  // Pop out notes to separate window
+  const popOutNotes = () => {
+    const width = 400;
+    const height = 500;
+    const left = window.screen.width - width - 50;
+    const top = 50;
+    
+    const popup = window.open(
+      '',
+      'presenter-notes',
+      `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
+    );
+    
+    if (popup) {
+      setPopoutWindow(popup);
+      updatePopoutContent(popup, currentNote, currentSlide, totalSlides);
+      
+      // Close popup when main window closes
+      window.addEventListener('beforeunload', () => popup.close());
+      
+      // Detect when popup is closed
+      const checkClosed = setInterval(() => {
+        if (popup.closed) {
+          setPopoutWindow(null);
+          clearInterval(checkClosed);
+        }
+      }, 500);
+      
+      toast.success("Notes popped out - share the main window!");
+    }
+  };
+
+  // Update popout window content
+  const updatePopoutContent = (popup: Window, note: string, slide: number, total: number) => {
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Presenter Notes - Slide ${slide + 1}/${total}</title>
+          <style>
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+              font-family: system-ui, -apple-system, sans-serif;
+              background: #0a0a0f;
+              color: #fff;
+              padding: 20px;
+              line-height: 1.6;
+            }
+            .header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 16px;
+              padding-bottom: 12px;
+              border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            .title {
+              font-size: 14px;
+              font-weight: 600;
+              color: #fff;
+            }
+            .slide-num {
+              font-family: monospace;
+              font-size: 12px;
+              color: rgba(255,255,255,0.5);
+            }
+            .notes {
+              font-size: 16px;
+              white-space: pre-wrap;
+              color: rgba(255,255,255,0.9);
+            }
+            .empty {
+              color: rgba(255,255,255,0.3);
+              font-style: italic;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <span class="title">📝 Presenter Notes</span>
+            <span class="slide-num">Slide ${slide + 1}/${total}</span>
+          </div>
+          <div class="notes ${!note ? 'empty' : ''}">
+            ${note || 'No notes for this slide'}
+          </div>
+        </body>
+      </html>
+    `;
+    popup.document.open();
+    popup.document.write(html);
+    popup.document.close();
+  };
+
+  // Update popout when slide changes
+  useEffect(() => {
+    if (popoutWindow && !popoutWindow.closed) {
+      updatePopoutContent(popoutWindow, currentNote, currentSlide, totalSlides);
+    }
+  }, [currentSlide, currentNote, popoutWindow, totalSlides]);
+
   // Keyboard shortcut to toggle panel (N key)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -161,6 +262,18 @@ export const PresenterNotesPanel = ({
                 )}>
                   Slide {currentSlide + 1}/{totalSlides}
                 </span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={popOutNotes}
+                  title="Pop out notes to separate window"
+                  className={cn(
+                    "h-7 px-2",
+                    isDark ? "hover:bg-white/10" : ""
+                  )}
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </Button>
                 {hasChanges && (
                   <Button
                     size="sm"
