@@ -568,30 +568,42 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                           {/* Primary Glowing Button */}
                           <div className="relative group">
                             <div 
-                              className="absolute inset-0 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
-                              style={{
-                                background: 'radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, transparent 70%)',
-                                transform: 'scale(1.3)',
-                              }}
-                            />
-                            <div 
-                              className="relative rounded-sm p-[1px]"
+                              className="relative rounded-sm p-[1px] overflow-hidden"
                               style={{
                                 background: 'linear-gradient(135deg, hsl(var(--foreground) / 0.3) 0%, hsl(var(--foreground) / 0.1) 50%, hsl(var(--foreground) / 0.25) 100%)',
                               }}
                             >
                               <button
-                                className="relative px-5 py-2.5 rounded-sm overflow-hidden flex items-center justify-center transition-all duration-300 group-hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
+                                className="relative px-5 py-2.5 rounded-sm overflow-hidden flex items-center justify-center transition-all duration-300"
                                 style={{
                                   background: 'linear-gradient(180deg, hsl(240 10% 10%) 0%, hsl(240 10% 6%) 100%)',
                                 }}
                               >
+                                {/* Inner glow effect - contained within button */}
+                                <div 
+                                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                                  style={{
+                                    background: 'radial-gradient(ellipse at center, hsl(var(--primary) / 0.15) 0%, transparent 70%)',
+                                  }}
+                                />
+                                {/* Top Glass Highlight */}
                                 <div 
                                   className="absolute inset-x-0 top-0 h-1/2 rounded-t-sm pointer-events-none"
                                   style={{
                                     background: 'linear-gradient(180deg, hsl(var(--foreground) / 0.08) 0%, transparent 100%)',
                                   }}
                                 />
+                                {/* Shimmer effect - contained */}
+                                <div 
+                                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden"
+                                >
+                                  <div 
+                                    className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+                                    style={{
+                                      background: 'linear-gradient(90deg, transparent 0%, hsl(var(--foreground) / 0.1) 50%, transparent 100%)',
+                                    }}
+                                  />
+                                </div>
                                 <span
                                   className="relative z-10 text-xs font-semibold uppercase tracking-[0.15em] text-foreground/90 group-hover:text-foreground transition-colors duration-300"
                                   style={{ fontFamily: 'var(--font-heading)' }}
@@ -641,7 +653,7 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                             </div>
                             <div className="flex justify-between">
                               <span className="text-muted-foreground">Hover</span>
-                              <span className="text-foreground font-mono">glow + shimmer</span>
+                              <span className="text-foreground font-mono">inner glow + shimmer</span>
                             </div>
                           </div>
                         </div>
