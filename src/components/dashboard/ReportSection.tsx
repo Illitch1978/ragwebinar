@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { CursorGlow, CountingNumber } from "./SlideAnimations";
+import { StickyNote } from "lucide-react";
+import { PresenterNotesPanel } from "@/components/PresenterNotesPanel";
 
 // Premium slide component with light background
 const Slide = ({ 
@@ -269,9 +271,13 @@ interface ReportSectionProps {
 
 const ReportSection = ({ onExit }: ReportSectionProps) => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
+  
+  const isPresenterMode = searchParams.get('mode') === 'presenter';
+  const presentationId = '09c46523-f385-4efd-afc6-c1684929c68c'; // RAG presentation ID
   
   const [totalSlides, setTotalSlides] = useState(0);
   
@@ -1058,18 +1064,51 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       {totalSlides > 0 && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
           {/* Progress bar */}
-          <div className="w-24 h-[2px] bg-muted overflow-hidden">
+          <div className="w-24 h-[2px] bg-white/20 overflow-hidden">
             <div 
-              className="h-full bg-foreground transition-all duration-300"
+              className="h-full bg-white transition-all duration-300"
               style={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
             />
           </div>
           
           {/* Slide counter */}
-          <span className="font-mono text-[11px] text-muted-foreground tabular-nums">
+          <span className="font-mono text-[11px] text-white/50 tabular-nums">
             {String(currentSlide + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
           </span>
+          
+          {/* Presenter mode toggle */}
+          {isPresenterMode ? (
+            <button
+              onClick={() => {
+                navigate('/report', { replace: true });
+              }}
+              className="p-2 rounded-lg transition-all text-white/60 hover:bg-white/10 hover:text-white flex items-center gap-1.5"
+              title="Exit presenter mode"
+            >
+              <StickyNote className="w-3 h-3" />
+              <span className="text-xs">Exit Notes</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                navigate('/report?mode=presenter', { replace: true });
+              }}
+              className="p-2 rounded-lg transition-all opacity-40 hover:opacity-100 text-white/60 hover:bg-white/10 hover:text-white"
+              title="Enter presenter mode (N)"
+            >
+              <StickyNote className="w-4 h-4" />
+            </button>
+          )}
         </div>
+      )}
+      
+      {/* Presenter Notes Panel */}
+      {isPresenterMode && (
+        <PresenterNotesPanel
+          presentationId={presentationId}
+          currentSlide={currentSlide}
+          totalSlides={totalSlides}
+        />
       )}
     </div>
   );
