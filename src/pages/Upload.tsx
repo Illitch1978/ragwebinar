@@ -703,7 +703,7 @@ Your strategic analysis content...
                     key={presentation.id}
                     onClick={() => editingId !== presentation.id && handleOpenSaved(presentation)}
                     className={cn(
-                      "group flex items-center justify-between p-4 bg-card border border-border rounded-sm transition-all duration-300",
+                      "group relative flex items-center justify-between p-4 bg-card border border-border rounded-sm transition-all duration-300",
                       editingId !== presentation.id && "hover:border-primary/50 cursor-pointer"
                     )}
                   >
@@ -735,7 +735,7 @@ Your strategic analysis content...
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 relative z-10">
                       {editingId === presentation.id ? (
                         <>
                           <Button
