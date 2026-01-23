@@ -1350,8 +1350,8 @@ const PresentationPage = () => {
           </div>
         </button>
 
-        {/* Presenter mode toggle - only visible when in presenter mode */}
-        {isPresenterMode && (
+        {/* Presenter mode toggle */}
+        {isPresenterMode ? (
           <button
             onClick={() => {
               const newParams = new URLSearchParams(searchParams);
@@ -1368,6 +1368,23 @@ const PresentationPage = () => {
           >
             <StickyNote className="w-3 h-3" />
             <span>Exit Notes</span>
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              const newParams = new URLSearchParams(searchParams);
+              newParams.set('mode', 'presenter');
+              navigate(`/presentation?${newParams.toString()}`, { replace: true });
+            }}
+            className={cn(
+              "p-2 rounded-lg transition-all opacity-40 hover:opacity-100",
+              isDark 
+                ? "text-white/60 hover:bg-white/10 hover:text-white" 
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            )}
+            title="Enter presenter mode (N)"
+          >
+            <StickyNote className="w-4 h-4" />
           </button>
         )}
       </footer>
