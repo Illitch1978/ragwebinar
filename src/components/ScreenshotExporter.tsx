@@ -93,7 +93,10 @@ export const ScreenshotExporter = ({
     await waitForAssets(element);
 
     // Let layout/AnimatePresence settle
-    await new Promise((resolve) => setTimeout(resolve, 250));
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    const rect = element.getBoundingClientRect();
+    console.log(`Capturing slide - element size: ${rect.width}x${rect.height}`);
 
     let lastError: unknown;
     for (let attempt = 0; attempt < 3; attempt++) {
@@ -102,18 +105,40 @@ export const ScreenshotExporter = ({
           scale: 2,
           useCORS: true,
           allowTaint: true,
-          backgroundColor: null,
-          logging: false,
-          onclone: (clonedDoc) => {
+          backgroundColor: "#0a0a0f", // Use solid dark background to avoid pattern issues
+          logging: true, // Enable logging to debug
+          width: rect.width,
+          height: rect.height,
+          x: 0,
+          y: 0,
+          scrollX: 0,
+          scrollY: 0,
+          windowWidth: rect.width,
+          windowHeight: rect.height,
+          foreignObjectRendering: false, // Disable foreignObject which can cause issues
+          removeContainer: true,
+          onclone: (clonedDoc, clonedEl) => {
             // Disable animations/transitions in clone for stable capture
             const style = clonedDoc.createElement("style");
             style.textContent = `
-              * { animation: none !important; transition: none !important; }
+              *, *::before, *::after { 
+                animation: none !important; 
+                animation-delay: 0s !important;
+                transition: none !important; 
+              }
               .animate-ping { display: none !important; }
             `;
             clonedDoc.head.appendChild(style);
+            
+            // Force the cloned element to have explicit dimensions
+            if (clonedEl instanceof HTMLElement) {
+              clonedEl.style.width = `${rect.width}px`;
+              clonedEl.style.height = `${rect.height}px`;
+            }
           },
         });
+
+        console.log(`Canvas captured: ${canvas.width}x${canvas.height}`);
 
         // Some failures yield a 0x0 canvas; treat as error so we retry.
         if (!canvas.width || !canvas.height) {
@@ -122,9 +147,10 @@ export const ScreenshotExporter = ({
 
         return canvas.toDataURL("image/png", 1.0);
       } catch (err) {
+        console.error(`Capture attempt ${attempt + 1} failed:`, err);
         lastError = err;
         // backoff
-        await new Promise((r) => setTimeout(r, 250 * (attempt + 1)));
+        await new Promise((r) => setTimeout(r, 300 * (attempt + 1)));
       }
     }
 
