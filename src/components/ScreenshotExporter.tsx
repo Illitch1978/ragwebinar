@@ -35,75 +35,107 @@ export const ScreenshotExporter = ({
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState({ current: 0, total: 0, phase: "" });
   const [capturedSlides, setCapturedSlides] = useState<SlideImage[]>([]);
+  const [exportError, setExportError] = useState<string | null>(null);
   const originalSlideRef = useRef(currentSlide);
   const hasAutoStarted = useRef(false);
 
-  const captureSlide = useCallback(async (): Promise<string> => {
-    if (!slideContainerRef.current) {
-      throw new Error("Slide container not found");
-    }
-
-    const element = slideContainerRef.current;
-    
-    // Ensure element has dimensions
-    const width = element.offsetWidth || element.clientWidth || 1920;
-    const height = element.offsetHeight || element.clientHeight || 1080;
-    
-    if (width === 0 || height === 0) {
-      console.warn("Slide container has zero dimensions, using fallback");
-    }
-
-    // Wait longer for animations and complex backgrounds to settle
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    try {
-      const canvas = await html2canvas(element, {
-        scale: 2, // High resolution
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#0a0a0f", // Fallback dark background
-        logging: false,
-        width: Math.max(width, 1920),
-        height: Math.max(height, 1080),
-        windowWidth: 1920,
-        windowHeight: 1080,
-        // Ignore problematic elements that cause canvas errors
-        ignoreElements: (el) => {
-          // Ignore elements with complex SVG patterns that break html2canvas
-          if (el.tagName === 'PATTERN' || el.tagName === 'DEFS') return true;
-          // Ignore ping animations which can cause issues
-          if (el.classList?.contains('animate-ping')) return true;
-          return false;
-        },
-        onclone: (clonedDoc) => {
-          // Remove problematic animations from cloned document
-          const pingElements = clonedDoc.querySelectorAll('.animate-ping');
-          pingElements.forEach(el => el.remove());
-        }
-      });
-
-      return canvas.toDataURL("image/png", 1.0);
-    } catch (error) {
-      console.error("html2canvas error:", error);
-      // Return a fallback canvas for failed captures
-      const fallbackCanvas = document.createElement('canvas');
-      fallbackCanvas.width = 1920;
-      fallbackCanvas.height = 1080;
-      const ctx = fallbackCanvas.getContext('2d');
-      if (ctx) {
-        ctx.fillStyle = '#0a0a0f';
-        ctx.fillRect(0, 0, 1920, 1080);
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '48px serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('Slide capture failed', 960, 540);
+  const waitForAssets = useCallback(async (root: HTMLElement) => {
+    // Wait for web fonts (important for accurate capture)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const docAny = document as any;
+    if (docAny.fonts?.ready) {
+      try {
+        await docAny.fonts.ready;
+      } catch {
+        // ignore
       }
-      return fallbackCanvas.toDataURL("image/png", 1.0);
     }
-  }, [slideContainerRef]);
+
+    // Wait for images in the slide
+    const imgs = Array.from(root.querySelectorAll("img"));
+    if (imgs.length === 0) return;
+
+    await Promise.all(
+      imgs.map(
+        (img) =>
+          new Promise<void>((resolve) => {
+            if (img.complete) return resolve();
+            const onDone = () => {
+              img.removeEventListener("load", onDone);
+              img.removeEventListener("error", onDone);
+              resolve();
+            };
+            img.addEventListener("load", onDone);
+            img.addEventListener("error", onDone);
+            // safety timeout
+            setTimeout(onDone, 2000);
+          })
+      )
+    );
+  }, []);
+
+  const waitForNonZeroSize = useCallback(async (el: HTMLElement) => {
+    for (let attempt = 0; attempt < 10; attempt++) {
+      const rect = el.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) return;
+      await new Promise((r) => requestAnimationFrame(() => r(null)));
+      await new Promise((r) => setTimeout(r, 100));
+    }
+    throw new Error("Slide container has zero size");
+  }, []);
+
+  const captureSlide = useCallback(async (): Promise<string> => {
+    if (!slideContainerRef.current) throw new Error("Slide container not found");
+    const element = slideContainerRef.current;
+
+    // Ensure the target is measurable and assets are loaded
+    await waitForNonZeroSize(element);
+    await waitForAssets(element);
+
+    // Let layout/AnimatePresence settle
+    await new Promise((resolve) => setTimeout(resolve, 250));
+
+    let lastError: unknown;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const canvas = await html2canvas(element, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null,
+          logging: false,
+          onclone: (clonedDoc) => {
+            // Disable animations/transitions in clone for stable capture
+            const style = clonedDoc.createElement("style");
+            style.textContent = `
+              * { animation: none !important; transition: none !important; }
+              .animate-ping { display: none !important; }
+            `;
+            clonedDoc.head.appendChild(style);
+          },
+        });
+
+        // Some failures yield a 0x0 canvas; treat as error so we retry.
+        if (!canvas.width || !canvas.height) {
+          throw new Error("Captured canvas is empty");
+        }
+
+        return canvas.toDataURL("image/png", 1.0);
+      } catch (err) {
+        lastError = err;
+        // backoff
+        await new Promise((r) => setTimeout(r, 250 * (attempt + 1)));
+      }
+    }
+
+    throw (lastError instanceof Error
+      ? lastError
+      : new Error("Slide capture failed"));
+  }, [slideContainerRef, waitForAssets, waitForNonZeroSize]);
 
   const handleExport = useCallback(async () => {
     setIsExporting(true);
+    setExportError(null);
     originalSlideRef.current = currentSlide;
     const slides: SlideImage[] = [];
 
@@ -118,7 +150,7 @@ export const ScreenshotExporter = ({
         onSlideChange(i);
         
         // Wait for the slide to render and animate in
-        await new Promise((resolve) => setTimeout(resolve, 800));
+        await new Promise((resolve) => setTimeout(resolve, 900));
 
         // Capture the slide
         const imageUrl = await captureSlide();
@@ -148,10 +180,12 @@ export const ScreenshotExporter = ({
 
     } catch (error) {
       console.error("Export failed:", error);
+      const message = error instanceof Error ? error.message : "Export failed";
+      setExportError(message);
       setIsExporting(false);
       setExportProgress({ current: 0, total: 0, phase: "" });
       onSlideChange(originalSlideRef.current);
-      onComplete?.();
+      // Don't auto-navigate away on failure
     }
   }, [totalSlides, currentSlide, onSlideChange, captureSlide, presentationTitle, onComplete]);
 
@@ -196,7 +230,7 @@ export const ScreenshotExporter = ({
 
       {/* Export Progress Overlay */}
       <AnimatePresence>
-        {isExporting && (
+        {(isExporting || exportError) && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -210,7 +244,11 @@ export const ScreenshotExporter = ({
               className="bg-[#111] border border-white/10 rounded-lg p-8 max-w-md w-full mx-4"
             >
               <div className="flex flex-col items-center gap-6">
-                {exportProgress.phase === "Complete!" ? (
+                {exportError ? (
+                  <div className="w-12 h-12 rounded-full border border-white/15 flex items-center justify-center">
+                    <X className="w-6 h-6 text-white/70" />
+                  </div>
+                ) : exportProgress.phase === "Complete!" ? (
                   <CheckCircle className="w-12 h-12 text-green-500" />
                 ) : (
                   <div className="relative">
@@ -225,26 +263,40 @@ export const ScreenshotExporter = ({
 
                 <div className="text-center">
                   <h3 className="text-lg font-medium text-white mb-2">
-                    {exportProgress.phase || "Preparing export..."}
+                    {exportError ? "Export failed" : exportProgress.phase || "Preparing export..."}
                   </h3>
                   <p className="text-sm text-white/60">
-                    {exportProgress.phase === "Complete!"
-                      ? "Your PowerPoint has been downloaded!"
-                      : `Processing slide ${exportProgress.current} of ${exportProgress.total}`}
+                    {exportError
+                      ? exportError
+                      : exportProgress.phase === "Complete!"
+                        ? "Your PowerPoint has been downloaded!"
+                        : `Processing slide ${exportProgress.current} of ${exportProgress.total}`}
                   </p>
                 </div>
 
                 {/* Progress bar */}
-                <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
-                  <motion.div
-                    className="h-full bg-primary"
-                    initial={{ width: 0 }}
-                    animate={{
-                      width: `${(exportProgress.current / exportProgress.total) * 100}%`,
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
+                {!exportError && (
+                  <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+                    <motion.div
+                      className="h-full bg-primary"
+                      initial={{ width: 0 }}
+                      animate={{
+                        width: `${(exportProgress.current / exportProgress.total) * 100}%`,
+                      }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
+                )}
+
+                {exportError && (
+                  <Button
+                    variant="secondary"
+                    onClick={() => setExportError(null)}
+                    className="w-full"
+                  >
+                    Close
+                  </Button>
+                )}
 
                 {/* Preview of captured slides */}
                 {capturedSlides.length > 0 && (
