@@ -14,35 +14,56 @@ interface BrandGuideEditorProps {
   isLoading: boolean;
 }
 
+// Color can be flat string or nested object with hex/usage
+type ColorValue = string | { hex?: string; usage?: string } | Record<string, { hex?: string; usage?: string }>;
+
 interface DesignSystem {
   theme?: string;
   brand_intent?: string;
   design_principles?: string[];
-  // Flat color structure (from actual DB)
-  colors?: {
-    primary?: string;
-    accent?: string;
-    background_dark?: string;
-    background_light?: string;
-    [key: string]: string | undefined;
-  };
-  // Nested color structure (for future expansion)
-  color_categories?: Record<string, Record<string, { hex?: string; usage?: string }>>;
+  // Colors can be flat (Swiss) or nested categories (DataExpert)
+  colors?: Record<string, ColorValue>;
   color_rules?: string[];
-  // Flat typography structure (from actual DB)
+  // Typography can be flat (Swiss) or nested (DataExpert)
   typography?: {
+    font_family?: string;
     headings?: string;
     body?: string;
     mono?: string;
-    [key: string]: string | unknown;
+    hierarchy?: Record<string, { color?: string; weight?: string; case?: string }>;
+    spacing_rules?: string[];
+    [key: string]: unknown;
   };
-  // Effects
-  effects?: {
-    grid_pattern?: boolean;
-    blue_accent_bar?: boolean;
-    staggered_animations?: boolean;
-    [key: string]: boolean | undefined;
+  // Effects (Swiss style)
+  effects?: Record<string, boolean>;
+  // Charts (DataExpert style)
+  charts?: {
+    style?: string;
+    color_mapping?: Record<string, string>;
+    labels_axes?: Record<string, string>;
   };
+  // Grid system (DataExpert style)
+  grid_system?: {
+    zones?: string[];
+    content_blocks?: string;
+  };
+  // Iconography (DataExpert style)
+  iconography?: {
+    style?: string;
+    allowed_colors?: string[];
+    forbidden?: string;
+  };
+  // Functional elements (DataExpert style)
+  functional_elements?: Record<string, Record<string, string>>;
+  // Writing style (DataExpert style)
+  writing_style?: {
+    tone?: string[];
+    avoid?: string[];
+  };
+  // Validation checklist (DataExpert style)
+  validation_checklist?: string[];
+  // Automation defaults (DataExpert style)
+  automation_defaults?: Record<string, string>;
   animation_style?: {
     name?: string;
     description?: string;
@@ -64,7 +85,6 @@ interface DesignSystem {
       duration?: number;
     };
   };
-  automation_defaults?: Record<string, string>;
   dev_summary?: string;
 }
 
@@ -331,20 +351,55 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                 {/* Colors Section */}
                 {activeSection === 'colors' && designSystem?.colors && (
                   <div className="space-y-4">
-                    <div>
-                      <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Palette</p>
-                      <div className="grid grid-cols-2 gap-x-4">
-                        {Object.entries(designSystem.colors).map(([name, value]) => (
-                          value && typeof value === 'string' ? (
+                    {Object.entries(designSystem.colors).map(([categoryOrName, value]) => {
+                      // Check if this is a flat color (string) or a category (object)
+                      if (typeof value === 'string') {
+                        // Flat color structure (Swiss)
+                        return (
+                          <ColorSwatch 
+                            key={categoryOrName} 
+                            value={value} 
+                            name={categoryOrName} 
+                          />
+                        );
+                      } else if (typeof value === 'object' && value !== null) {
+                        // Check if it's a direct {hex, usage} object or a category of colors
+                        if ('hex' in value && typeof (value as { hex?: string }).hex === 'string') {
+                          // Direct color with hex/usage
+                          const colorObj = value as { hex: string; usage?: string };
+                          return (
                             <ColorSwatch 
-                              key={name} 
-                              value={value} 
-                              name={name} 
+                              key={categoryOrName} 
+                              value={colorObj.hex} 
+                              name={categoryOrName}
+                              usage={colorObj.usage}
                             />
-                          ) : null
-                        ))}
-                      </div>
-                    </div>
+                          );
+                        } else {
+                          // Category of colors (DataExpert nested structure)
+                          return (
+                            <div key={categoryOrName}>
+                              <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2 capitalize">
+                                {categoryOrName.replace(/_/g, ' ')}
+                              </p>
+                              <div className="grid grid-cols-2 gap-x-4 pl-2 border-l-2 border-border">
+                                {Object.entries(value as Record<string, { hex?: string; usage?: string }>).map(([colorName, colorData]) => (
+                                  colorData?.hex ? (
+                                    <ColorSwatch 
+                                      key={colorName} 
+                                      value={colorData.hex} 
+                                      name={colorName}
+                                      usage={colorData.usage}
+                                    />
+                                  ) : null
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        }
+                      }
+                      return null;
+                    })}
                     {designSystem.effects && (
                       <div className="border-t border-border pt-4">
                         <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Effects</p>
@@ -379,28 +434,76 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                 {/* Typography Section */}
                 {activeSection === 'typography' && designSystem?.typography && (
                   <div className="space-y-4">
-                    <div>
-                      <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Font Stack</p>
-                      <div className="space-y-3">
-                        {Object.entries(designSystem.typography).map(([purpose, font]) => (
-                          typeof font === 'string' ? (
-                            <div key={purpose} className="bg-muted/30 rounded-sm p-3 flex items-center justify-between">
-                              <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">{purpose}</span>
-                              <span 
-                                className="text-foreground text-lg"
-                                style={{ 
-                                  fontFamily: purpose === 'headings' ? "'Playfair Display', serif" : 
-                                             purpose === 'mono' ? "'Roboto Mono', monospace" : 
-                                             "'Inter', sans-serif"
-                                }}
-                              >
-                                {font}
-                              </span>
-                            </div>
-                          ) : null
-                        ))}
+                    {/* Font Family (DataExpert) or individual fonts (Swiss) */}
+                    {designSystem.typography.font_family ? (
+                      <div>
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Primary Font</p>
+                        <span className="text-lg text-foreground" style={{ fontFamily: `'${designSystem.typography.font_family}', sans-serif` }}>
+                          {designSystem.typography.font_family}
+                        </span>
                       </div>
-                    </div>
+                    ) : (
+                      <div>
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Font Stack</p>
+                        <div className="space-y-3">
+                          {Object.entries(designSystem.typography).map(([purpose, font]) => (
+                            typeof font === 'string' ? (
+                              <div key={purpose} className="bg-muted/30 rounded-sm p-3 flex items-center justify-between">
+                                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">{purpose}</span>
+                                <span 
+                                  className="text-foreground text-lg"
+                                  style={{ 
+                                    fontFamily: purpose === 'headings' ? "'Playfair Display', serif" : 
+                                               purpose === 'mono' ? "'Roboto Mono', monospace" : 
+                                               "'Inter', sans-serif"
+                                  }}
+                                >
+                                  {font}
+                                </span>
+                              </div>
+                            ) : null
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Hierarchy (DataExpert) */}
+                    {designSystem.typography.hierarchy && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Type Hierarchy</p>
+                        <div className="space-y-2">
+                          {Object.entries(designSystem.typography.hierarchy).map(([level, specs]) => (
+                            <div key={level} className="bg-muted/30 rounded-sm p-3">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="font-mono text-xs text-primary uppercase">{level.replace(/_/g, ' ')}</span>
+                              </div>
+                              <div className="flex gap-3 text-xs text-muted-foreground">
+                                {specs.weight && <span>Weight: <span className="text-foreground">{specs.weight}</span></span>}
+                                {specs.color && <span>Color: <span className="text-foreground">{specs.color}</span></span>}
+                                {specs.case && <span>Case: <span className="text-foreground">{specs.case}</span></span>}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Spacing Rules (DataExpert) */}
+                    {designSystem.typography.spacing_rules && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Spacing Rules</p>
+                        <ul className="space-y-1">
+                          {designSystem.typography.spacing_rules.map((rule, i) => (
+                            <li key={i} className="text-xs text-foreground flex items-start gap-2">
+                              <span className="text-primary mt-1">•</span>
+                              {rule}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Theme (Swiss) */}
                     {designSystem.theme && (
                       <div className="border-t border-border pt-4">
                         <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Theme</p>
@@ -414,7 +517,76 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
 
                 {/* Animation Section */}
                 {activeSection === 'animation' && (
-                  <AnimationPreview animationStyle={designSystem?.animation_style} />
+                  <div className="space-y-4">
+                    <AnimationPreview animationStyle={designSystem?.animation_style} />
+                    
+                    {/* Charts (DataExpert) */}
+                    {designSystem?.charts && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Chart Styling</p>
+                        {designSystem.charts.style && (
+                          <p className="text-xs text-foreground mb-3">{designSystem.charts.style}</p>
+                        )}
+                        {designSystem.charts.color_mapping && (
+                          <div className="grid grid-cols-2 gap-2">
+                            {Object.entries(designSystem.charts.color_mapping).map(([name, color]) => (
+                              <div key={name} className="flex items-center gap-2">
+                                <div 
+                                  className="w-4 h-4 rounded-sm border border-border"
+                                  style={{ backgroundColor: color }}
+                                />
+                                <span className="text-xs text-muted-foreground capitalize">{name.replace(/_/g, ' ')}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Writing Style (DataExpert) */}
+                    {designSystem?.writing_style && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Writing Style</p>
+                        <div className="grid grid-cols-2 gap-4">
+                          {designSystem.writing_style.tone && (
+                            <div>
+                              <p className="text-xs text-muted-foreground mb-1">Tone</p>
+                              <div className="flex flex-wrap gap-1">
+                                {designSystem.writing_style.tone.map((t, i) => (
+                                  <span key={i} className="text-xs bg-green-500/10 text-green-600 px-1.5 py-0.5 rounded-sm">{t}</span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {designSystem.writing_style.avoid && (
+                            <div>
+                              <p className="text-xs text-muted-foreground mb-1">Avoid</p>
+                              <div className="flex flex-wrap gap-1">
+                                {designSystem.writing_style.avoid.map((a, i) => (
+                                  <span key={i} className="text-xs bg-red-500/10 text-red-600 px-1.5 py-0.5 rounded-sm">{a}</span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Validation Checklist (DataExpert) */}
+                    {designSystem?.validation_checklist && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Validation Checklist</p>
+                        <ul className="space-y-1">
+                          {designSystem.validation_checklist.map((item, i) => (
+                            <li key={i} className="text-xs text-foreground flex items-start gap-2">
+                              <span className="text-muted-foreground">□</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 )}
 
                 {/* Templates Section */}
