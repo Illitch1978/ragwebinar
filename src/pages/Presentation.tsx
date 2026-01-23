@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Mail, StickyNote } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PresenterNotesPanel } from "@/components/PresenterNotesPanel";
+import ScreenshotExporter from "@/components/ScreenshotExporter";
 import {
   HoverCard,
   HoverCardContent,
@@ -1110,9 +1111,13 @@ const PresentationPage = () => {
   const [slides, setSlides] = useState<Slide[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [presentationId, setPresentationId] = useState<string | null>(null);
+  const [presentationTitle, setPresentationTitle] = useState("Presentation");
+  const slideContainerRef = useRef<HTMLDivElement>(null);
   
   // Presenter mode - simply check URL parameter (no auth required)
   const isPresenterMode = searchParams.get('mode') === 'presenter';
+  // Export mode - auto-trigger screenshot capture
+  const isExportMode = searchParams.get('export') === 'true';
 
   // Fetch fresh data from database or use sessionStorage
   useEffect(() => {
@@ -1266,6 +1271,7 @@ const PresentationPage = () => {
 
       {/* Slide content */}
       <main 
+        ref={slideContainerRef}
         className={cn(
           "flex-1 relative transition-all duration-300",
           isPresenterMode && "mr-80"
@@ -1323,6 +1329,23 @@ const PresentationPage = () => {
           </button>
         )}
       </footer>
+
+      {/* Screenshot-based PPT Export - auto-starts in export mode */}
+      {isExportMode && slides.length > 0 && (
+        <ScreenshotExporter
+          slideContainerRef={slideContainerRef}
+          totalSlides={slides.length}
+          currentSlide={currentSlide}
+          onSlideChange={goToSlide}
+          presentationTitle={presentationTitle}
+          isDark={isDark}
+          autoStart={true}
+          onComplete={() => {
+            // Navigate back to home after export completes
+            navigate('/');
+          }}
+        />
+      )}
 
       {/* Presenter Notes Panel - only in presenter mode */}
       {isPresenterMode && (

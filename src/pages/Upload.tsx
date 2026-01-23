@@ -762,20 +762,12 @@ Your strategic analysis content...
                             <Button
                               variant="ghost"
                               size="icon"
-                              onClick={async (e) => {
+                              onClick={(e) => {
                                 e.stopPropagation();
-                                toast.loading("Generating PowerPoint...");
-                                try {
-                                  await exportToPptx(presentation.generated_slides as any[], presentation.title);
-                                  toast.dismiss();
-                                  toast.success("PowerPoint downloaded!");
-                                } catch (err) {
-                                  toast.dismiss();
-                                  toast.error("Failed to generate PowerPoint");
-                                  console.error(err);
-                                }
+                                // Navigate to presentation with export mode - will auto-trigger screenshot capture
+                                navigate(`/presentation?id=${presentation.id}&export=true`);
                               }}
-                              title="Download as PowerPoint"
+                              title="Download as PowerPoint (screenshot-based)"
                               className="opacity-0 group-hover:opacity-100 transition-opacity text-white/70 hover:text-white"
                             >
                               <Download className="w-4 h-4" />

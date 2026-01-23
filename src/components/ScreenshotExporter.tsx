@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 import { Download, Loader2, X, CheckCircle } from "lucide-react";
@@ -18,6 +18,8 @@ interface ScreenshotExporterProps {
   onSlideChange: (index: number) => void;
   presentationTitle: string;
   isDark?: boolean;
+  autoStart?: boolean;
+  onComplete?: () => void;
 }
 
 export const ScreenshotExporter = ({
@@ -27,11 +29,14 @@ export const ScreenshotExporter = ({
   onSlideChange,
   presentationTitle,
   isDark = false,
+  autoStart = false,
+  onComplete,
 }: ScreenshotExporterProps) => {
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState({ current: 0, total: 0, phase: "" });
   const [capturedSlides, setCapturedSlides] = useState<SlideImage[]>([]);
   const originalSlideRef = useRef(currentSlide);
+  const hasAutoStarted = useRef(false);
 
   const captureSlide = useCallback(async (): Promise<string> => {
     if (!slideContainerRef.current) {
@@ -90,11 +95,12 @@ export const ScreenshotExporter = ({
       // Return to original slide
       onSlideChange(originalSlideRef.current);
       
-      // Reset after a moment
+      // Reset after a moment and call onComplete
       setTimeout(() => {
         setIsExporting(false);
         setExportProgress({ current: 0, total: 0, phase: "" });
         setCapturedSlides([]);
+        onComplete?.();
       }, 2000);
 
     } catch (error) {
@@ -102,13 +108,26 @@ export const ScreenshotExporter = ({
       setIsExporting(false);
       setExportProgress({ current: 0, total: 0, phase: "" });
       onSlideChange(originalSlideRef.current);
+      onComplete?.();
     }
-  }, [totalSlides, currentSlide, onSlideChange, captureSlide, presentationTitle]);
+  }, [totalSlides, currentSlide, onSlideChange, captureSlide, presentationTitle, onComplete]);
+
+  // Auto-start export when autoStart is true
+  useEffect(() => {
+    if (autoStart && !hasAutoStarted.current && totalSlides > 0) {
+      hasAutoStarted.current = true;
+      // Small delay to ensure slides are loaded
+      setTimeout(() => {
+        handleExport();
+      }, 1000);
+    }
+  }, [autoStart, totalSlides, handleExport]);
 
   return (
     <>
-      {/* Export Button */}
-      <Button
+      {/* Export Button - hidden in autoStart mode */}
+      {!autoStart && (
+        <Button
         variant="ghost"
         size="sm"
         onClick={handleExport}
@@ -130,6 +149,7 @@ export const ScreenshotExporter = ({
           {isExporting ? "Exporting..." : "Download PPT"}
         </span>
       </Button>
+      )}
 
       {/* Export Progress Overlay */}
       <AnimatePresence>
