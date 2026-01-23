@@ -757,12 +757,13 @@ Your strategic analysis content...
                         </>
                       ) : (
                         <>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={async (e) => {
-                              e.stopPropagation();
-                              if (presentation.generated_slides && Array.isArray(presentation.generated_slides)) {
+                          {/* Only show download button if presentation has generated slides */}
+                          {presentation.generated_slides && Array.isArray(presentation.generated_slides) && (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={async (e) => {
+                                e.stopPropagation();
                                 toast.loading("Generating PowerPoint...");
                                 try {
                                   await exportToPptx(presentation.generated_slides as any[], presentation.title);
@@ -773,15 +774,13 @@ Your strategic analysis content...
                                   toast.error("Failed to generate PowerPoint");
                                   console.error(err);
                                 }
-                              } else {
-                                toast.error("No slides available for this presentation");
-                              }
-                            }}
-                            title="Download as PowerPoint"
-                            className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
-                          >
-                            <Download className="w-4 h-4" />
-                          </Button>
+                              }}
+                              title="Download as PowerPoint"
+                              className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                            >
+                              <Download className="w-4 h-4" />
+                            </Button>
+                          )}
                           <Button
                             variant="ghost"
                             size="icon"
