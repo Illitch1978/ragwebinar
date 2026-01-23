@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-// No arrow icons needed - navigation is via logo click and keyboard
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { PresenterNotesPanel } from "@/components/PresenterNotesPanel";
 import {
   HoverCard,
   HoverCardContent,
@@ -1105,26 +1105,31 @@ const ProgressBar = ({ current, total }: { current: number; total: number }) => 
 
 const PresentationPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slides, setSlides] = useState<Slide[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [presentationId, setPresentationId] = useState<string | null>(null);
+  
+  // Presenter mode detection from URL
+  const isPresenterMode = searchParams.get('mode') === 'presenter';
 
   // Fetch fresh data from database or use sessionStorage
   useEffect(() => {
     const loadSlides = async () => {
       const urlPresentationId = new URLSearchParams(window.location.search).get('id');
       const sessionPresentationId = sessionStorage.getItem('rubiklab-presentation-id');
-      const presentationId = urlPresentationId || sessionPresentationId;
+      const loadedPresentationId = urlPresentationId || sessionPresentationId;
 
       const clientName = sessionStorage.getItem('rubiklab-client') || 'Presentation';
       
       // If we have a presentation ID, fetch fresh data from the database
-      if (presentationId) {
+      if (loadedPresentationId) {
         try {
           const { data, error } = await supabase
             .from('presentations')
             .select('id, generated_slides, client_name')
-            .eq('id', presentationId)
+            .eq('id', loadedPresentationId)
             .single();
           
           if (!error && data?.generated_slides && Array.isArray(data.generated_slides)) {
@@ -1133,6 +1138,7 @@ const PresentationPage = () => {
             sessionStorage.setItem('rubiklab-presentation-id', data.id);
             sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(data.generated_slides));
             sessionStorage.setItem('rubiklab-client', data.client_name || clientName);
+            setPresentationId(data.id);
             setSlides(convertGeneratedSlides(data.generated_slides, data.client_name || clientName));
             setIsLoading(false);
             return;
@@ -1157,6 +1163,7 @@ const PresentationPage = () => {
           sessionStorage.setItem('rubiklab-presentation-id', latest.id);
           sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(latest.generated_slides));
           sessionStorage.setItem('rubiklab-client', latest.client_name || clientName);
+          setPresentationId(latest.id);
           setSlides(convertGeneratedSlides(latest.generated_slides, latest.client_name || clientName));
           setIsLoading(false);
           return;
@@ -1242,14 +1249,18 @@ const PresentationPage = () => {
     )}>
       {/* Header - minimal, just progress */}
       <header className={cn(
-        "absolute top-0 right-0 z-20 px-8 py-6 transition-colors duration-500",
+        "absolute top-0 z-20 px-8 py-6 transition-colors duration-500",
+        isPresenterMode ? "right-80" : "right-0",
         isDark ? "text-white" : "text-foreground"
       )}>
         <ProgressBar current={currentSlide} total={slides.length} />
       </header>
 
       {/* Slide content */}
-      <main className="flex-1 relative">
+      <main className={cn(
+        "flex-1 relative transition-all duration-300",
+        isPresenterMode && "mr-80"
+      )}>
         <AnimatePresence mode="wait">
           <SlideContent
             key={currentSlide}
@@ -1280,6 +1291,16 @@ const PresentationPage = () => {
           </div>
         </button>
       </footer>
+
+      {/* Presenter Notes Panel - only in presenter mode */}
+      {isPresenterMode && (
+        <PresenterNotesPanel
+          presentationId={presentationId}
+          currentSlide={currentSlide}
+          totalSlides={slides.length}
+          isDark={isDark}
+        />
+      )}
     </div>
   );
 };
