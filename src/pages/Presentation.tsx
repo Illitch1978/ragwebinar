@@ -1212,9 +1212,17 @@ const PresentationPage = () => {
   const currentSlideData = slides[currentSlide];
   const isDark = currentSlideData?.dark;
 
-  // Keyboard navigation
+  // Keyboard navigation - disabled when typing in input/textarea
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't handle navigation when user is typing in an input or textarea
+      const activeElement = document.activeElement;
+      const isTyping = activeElement?.tagName === 'TEXTAREA' || 
+                       activeElement?.tagName === 'INPUT' ||
+                       (activeElement as HTMLElement)?.isContentEditable;
+      
+      if (isTyping) return;
+      
       if (e.key === 'ArrowRight' || e.key === ' ') {
         e.preventDefault();
         nextSlide();
