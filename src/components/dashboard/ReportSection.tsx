@@ -311,7 +311,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
         nextSlide();
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
