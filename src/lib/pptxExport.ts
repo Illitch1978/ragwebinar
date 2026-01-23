@@ -27,16 +27,20 @@ export const exportToPptx = async (
   pptx.subject = title;
   pptx.company = "Rubiklab Intelligence Capital";
   
-  // Define colors
-  const primaryColor = "E85D04"; // Orange primary
+  // Define Rubiklab brand colors
+  const primaryColor = "0A66C2"; // LinkedIn Blue
   const darkBg = "0A0A0F";
   const lightBg = "FAFAF8";
   const textDark = "1A1A1A";
   const textLight = "FFFFFF";
+  
+  // Slide types that should have dark backgrounds
+  const darkSlideTypes = ["cover", "title", "section", "section-divider", "cta", "closing", "quote"];
 
   slides.forEach((slideData, index) => {
     const slide = pptx.addSlide();
-    const isDark = slideData.dark;
+    // Use dark background for specific slide types OR if explicitly set
+    const isDark = slideData.dark || darkSlideTypes.includes(slideData.type);
     
     // Set background
     slide.background = { color: isDark ? darkBg : lightBg };
