@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronRight, Palette, Type, Zap, Layout, MousePointer, Shapes } from "lucide-react";
+import { ChevronDown, ChevronRight, Palette, Type, Zap, Layout, MousePointer, Shapes, Image, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BrandGuide } from "@/hooks/useBrandGuides";
 import {
@@ -263,6 +263,7 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
     { id: 'colors', label: 'Colors', icon: Palette },
     { id: 'typography', label: 'Typography', icon: Type },
     { id: 'buttons', label: 'Buttons', icon: MousePointer },
+    { id: 'logo', label: 'Logo', icon: Image },
     { id: 'icons', label: 'Icons', icon: Shapes },
     { id: 'animation', label: 'Animation', icon: Zap },
     { id: 'templates', label: 'Templates', icon: Layout },
@@ -746,83 +747,236 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                   </div>
                 )}
 
+                {/* Logo Section */}
+                {activeSection === 'logo' && (
+                  <div className="space-y-6">
+                    {/* Logo Display */}
+                    <div>
+                      <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Primary Logo</p>
+                      <div className="bg-muted/30 border border-border rounded-sm p-6 flex items-center justify-center">
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-serif text-3xl font-bold tracking-tight text-foreground">
+                            rubiklab
+                          </span>
+                          <div className="relative flex items-center justify-center">
+                            <div className="absolute w-2.5 h-2.5 bg-primary rounded-full animate-ping opacity-20" />
+                            <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Logo Specifications */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-muted/30 border border-border rounded-sm p-4">
+                        <p className="font-mono text-xs text-primary uppercase font-medium mb-3">Typography</p>
+                        <div className="space-y-2 text-xs">
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Text</span>
+                            <span className="text-foreground font-mono">rubiklab</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Case</span>
+                            <span className="text-foreground font-mono">lowercase only</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Font</span>
+                            <span className="text-foreground font-mono">Playfair Display</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Weight</span>
+                            <span className="text-foreground font-mono">700 (bold)</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-muted/30 border border-border rounded-sm p-4">
+                        <p className="font-mono text-xs text-primary uppercase font-medium mb-3">Dot Indicator</p>
+                        <div className="space-y-2 text-xs">
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Color</span>
+                            <span className="text-foreground font-mono">primary (LinkedIn Blue)</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Size</span>
+                            <span className="text-foreground font-mono">8px / 0.5rem</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Effect</span>
+                            <span className="text-foreground font-mono">glow + pulse</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Position</span>
+                            <span className="text-foreground font-mono">right of text</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Placement Rules */}
+                    <div className="border-t border-border pt-4">
+                      <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Placement Rules</p>
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 p-3 bg-muted/30 rounded-sm">
+                          <div className="w-5 h-5 rounded-sm bg-primary/20 flex items-center justify-center shrink-0 mt-0.5">
+                            <span className="text-primary text-xs font-bold">1</span>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-foreground">One logo per slide</p>
+                            <p className="text-xs text-muted-foreground">Single brand logo fixed in the bottom-left footer. No redundant logos.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-muted/30 rounded-sm">
+                          <div className="w-5 h-5 rounded-sm bg-primary/20 flex items-center justify-center shrink-0 mt-0.5">
+                            <span className="text-primary text-xs font-bold">2</span>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-foreground">Footer format</p>
+                            <p className="text-xs text-muted-foreground">Use "Rubiklab Intelligence Capital" for full footer attribution.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-muted/30 rounded-sm">
+                          <div className="w-5 h-5 rounded-sm bg-primary/20 flex items-center justify-center shrink-0 mt-0.5">
+                            <span className="text-primary text-xs font-bold">3</span>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-foreground">Interactive behavior</p>
+                            <p className="text-xs text-muted-foreground">Clicking the footer logo navigates back to the landing page.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Forbidden Usage */}
+                    <div className="bg-destructive/5 border border-destructive/20 rounded-sm p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertTriangle className="w-4 h-4 text-destructive" />
+                        <p className="font-mono text-[10px] text-destructive uppercase tracking-wider">Do Not</p>
+                      </div>
+                      <ul className="space-y-1 text-xs text-foreground">
+                        <li className="flex items-start gap-2">
+                          <span className="text-destructive mt-0.5">×</span>
+                          Duplicate logos on cover or closing slides
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-destructive mt-0.5">×</span>
+                          Use uppercase "RUBIKLAB" or mixed case
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-destructive mt-0.5">×</span>
+                          Remove or change the animated dot indicator
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-destructive mt-0.5">×</span>
+                          Place logo in slide content areas
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
+
                 {/* Icons Section */}
                 {activeSection === 'icons' && (
-                  <div className="space-y-4">
-                    {(designSystem?.iconography || designSystem?.icons) ? (
-                      <>
-                        {(() => {
-                          const iconSpec = designSystem.iconography || designSystem.icons;
-                          return (
-                            <>
-                              {iconSpec?.style && (
-                                <div>
-                                  <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Style</p>
-                                  <p className="text-sm text-foreground">{iconSpec.style}</p>
-                                </div>
-                              )}
-                              {iconSpec?.stroke_width && (
-                                <div>
-                                  <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Stroke Width</p>
-                                  <span className="text-xs bg-muted px-2 py-1 rounded-sm font-mono">{iconSpec.stroke_width}</span>
-                                </div>
-                              )}
-                              {iconSpec?.sizes && (
-                                <div>
-                                  <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Sizes</p>
-                                  <div className="flex gap-4 items-end">
-                                    {Object.entries(iconSpec.sizes).map(([name, size]) => (
-                                      <div key={name} className="text-center">
-                                        <div 
-                                          className="bg-muted rounded-sm flex items-center justify-center mb-1 mx-auto"
-                                          style={{ width: size, height: size }}
-                                        >
-                                          <Shapes className="text-foreground" style={{ width: `calc(${size} - 8px)`, height: `calc(${size} - 8px)` }} />
-                                        </div>
-                                        <p className="text-[10px] text-muted-foreground">{name}</p>
-                                        <p className="text-[10px] text-primary font-mono">{size}</p>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                              {(iconSpec?.colors || iconSpec?.allowed_colors) && (
-                                <div>
-                                  <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Allowed Colors</p>
-                                  <div className="flex flex-wrap gap-2">
-                                    {(iconSpec.colors || iconSpec.allowed_colors)?.map((color, i) => (
-                                      <div key={i} className="flex items-center gap-1.5 bg-muted px-2 py-1 rounded-sm">
-                                        <div 
-                                          className="w-3 h-3 rounded-full border border-border"
-                                          style={{ backgroundColor: color }}
-                                        />
-                                        <span className="text-xs text-foreground">{color}</span>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                              {iconSpec?.forbidden && (
-                                <div className="bg-destructive/5 border border-destructive/20 rounded-sm p-3">
-                                  <p className="font-mono text-[10px] text-destructive uppercase tracking-wider mb-1">Forbidden</p>
-                                  <p className="text-xs text-foreground">{iconSpec.forbidden}</p>
-                                </div>
-                              )}
-                            </>
-                          );
-                        })()}
-                      </>
-                    ) : (
-                      <div className="text-center py-8">
-                        <Shapes className="w-8 h-8 text-muted-foreground/50 mx-auto mb-2" />
-                        <p className="text-sm text-muted-foreground">
-                          No icon specifications defined for this brand guide.
-                        </p>
-                        <p className="text-xs text-muted-foreground/70 mt-1">
-                          Uses Lucide icons with default styling.
-                        </p>
+                  <div className="space-y-6">
+                    {/* Minimal Use Warning */}
+                    <div className="bg-amber-500/10 border border-amber-500/30 rounded-sm p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertTriangle className="w-4 h-4 text-amber-600" />
+                        <p className="font-mono text-[10px] text-amber-700 uppercase tracking-wider font-medium">Minimal Icon Policy</p>
                       </div>
-                    )}
+                      <p className="text-sm text-foreground">
+                        Icons should be used sparingly and only when they add clear functional value. 
+                        Prefer typography and whitespace over iconography for visual hierarchy.
+                      </p>
+                    </div>
+
+                    {/* When to use icons */}
+                    <div>
+                      <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Acceptable Use Cases</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-sm">
+                          <div className="w-8 h-8 rounded-sm bg-primary/10 flex items-center justify-center">
+                            <MousePointer className="w-4 h-4 text-primary" />
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-foreground">Interactive elements</p>
+                            <p className="text-[10px] text-muted-foreground">Buttons, navigation, actions</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-sm">
+                          <div className="w-8 h-8 rounded-sm bg-primary/10 flex items-center justify-center">
+                            <AlertTriangle className="w-4 h-4 text-primary" />
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-foreground">Status indicators</p>
+                            <p className="text-[10px] text-muted-foreground">Warnings, success, errors</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Icon Specifications (if used) */}
+                    <div className="border-t border-border pt-4">
+                      <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">If Icons Are Required</p>
+                      <div className="bg-muted/30 border border-border rounded-sm p-4">
+                        <div className="grid grid-cols-2 gap-4 text-xs">
+                          <div className="space-y-2">
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Library</span>
+                              <span className="text-foreground font-mono">Lucide</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Stroke Width</span>
+                              <span className="text-foreground font-mono">1.5px</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Style</span>
+                              <span className="text-foreground font-mono">outline only</span>
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Size (sm)</span>
+                              <span className="text-foreground font-mono">16px</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Size (md)</span>
+                              <span className="text-foreground font-mono">20px</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Size (lg)</span>
+                              <span className="text-foreground font-mono">24px</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Forbidden */}
+                    <div className="bg-destructive/5 border border-destructive/20 rounded-sm p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertTriangle className="w-4 h-4 text-destructive" />
+                        <p className="font-mono text-[10px] text-destructive uppercase tracking-wider">Avoid</p>
+                      </div>
+                      <ul className="space-y-1 text-xs text-foreground">
+                        <li className="flex items-start gap-2">
+                          <span className="text-destructive mt-0.5">×</span>
+                          Decorative icons without functional purpose
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-destructive mt-0.5">×</span>
+                          Filled/solid icon styles
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-destructive mt-0.5">×</span>
+                          Icon-heavy layouts or icon grids
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-destructive mt-0.5">×</span>
+                          Using icons as primary content elements
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 )}
 
