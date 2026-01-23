@@ -117,6 +117,11 @@ export const ScreenshotExporter = ({
           windowHeight: rect.height,
           foreignObjectRendering: false, // Disable foreignObject which can cause issues
           removeContainer: true,
+          // html2canvas can crash when it encounters a 0x0 canvas (common with hidden blur/filters)
+          // We don't rely on canvas rendering for the deck visuals, so it's safe to ignore.
+          ignoreElements: (el) => {
+            return el.tagName?.toLowerCase() === "canvas";
+          },
           onclone: (clonedDoc, clonedEl) => {
             // Disable animations/transitions in clone for stable capture
             const style = clonedDoc.createElement("style");
@@ -129,6 +134,13 @@ export const ScreenshotExporter = ({
               .animate-ping { display: none !important; }
             `;
             clonedDoc.head.appendChild(style);
+
+            // Remove canvases from the clone (some libs create zero-sized canvases that crash createPattern)
+            try {
+              clonedDoc.querySelectorAll("canvas").forEach((c) => c.remove());
+            } catch {
+              // ignore
+            }
             
             // Force the cloned element to have explicit dimensions
             if (clonedEl instanceof HTMLElement) {
