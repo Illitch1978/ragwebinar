@@ -1023,15 +1023,6 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
           </motion.div>
         )}
         
-        <motion.div 
-          variants={childVariant}
-          transition={smoothTransition}
-          className="absolute bottom-12 flex items-center gap-3"
-        >
-          <span className="font-mono text-[10px] tracking-widest text-white/40 uppercase">
-            rubiklab.ai
-          </span>
-        </motion.div>
       </motion.div>
     );
   }
