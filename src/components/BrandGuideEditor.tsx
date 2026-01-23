@@ -552,157 +552,254 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                 {/* Buttons Section */}
                 {activeSection === 'buttons' && (
                   <div className="space-y-6">
-                    {/* Primary button style description */}
+                    {/* GlowingButton Specification */}
                     <div className="space-y-4">
                       <div>
-                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Button Style</p>
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">GlowingButton Effect Specification</p>
                         <p className="text-sm text-foreground">
-                          Sharp-edged buttons with gradient borders and premium glow effects. Text uses uppercase serif typography with wide letter-spacing.
+                          Premium pill-shaped buttons with gradient borders, layered glass effects, and a signature diagonal shimmer sweep.
                         </p>
                       </div>
 
                       {/* Live Button Preview */}
                       <div className="bg-muted/30 border border-border rounded-sm p-4">
-                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-4">Live Preview</p>
-                        <div className="flex flex-wrap gap-4 items-center justify-center p-6 bg-background rounded-sm border border-border">
-                          {/* Primary Glowing Button */}
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-4">Live Preview (hover to see effects)</p>
+                        <div className="flex flex-wrap gap-6 items-center justify-center p-8 bg-background rounded-sm border border-border">
+                          {/* Primary Glowing Button - Exact Spec */}
                           <div className="relative group">
+                            {/* Deep Ambient Glow (Behind) - External */}
                             <div 
-                              className="relative rounded-sm p-[1px] overflow-hidden"
+                              className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl pointer-events-none"
+                              style={{
+                                background: 'radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, transparent 70%)',
+                                transform: 'scale(1.5)',
+                              }}
+                            />
+                            
+                            {/* Gradient Border Container */}
+                            <div 
+                              className="relative rounded-full p-[1px]"
                               style={{
                                 background: 'linear-gradient(135deg, hsl(var(--foreground) / 0.3) 0%, hsl(var(--foreground) / 0.1) 50%, hsl(var(--foreground) / 0.25) 100%)',
                               }}
                             >
+                              {/* The Button Content */}
                               <button
-                                className="relative px-5 py-2.5 rounded-sm overflow-hidden flex items-center justify-center transition-all duration-300"
+                                className="relative px-5 py-2.5 rounded-full overflow-hidden flex items-center justify-center transition-all duration-300 ease-out group-hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
                                 style={{
                                   background: 'linear-gradient(180deg, hsl(240 10% 10%) 0%, hsl(240 10% 6%) 100%)',
                                 }}
                               >
-                                {/* Inner glow effect - contained within button */}
-                                <div 
-                                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                                  style={{
-                                    background: 'radial-gradient(ellipse at center, hsl(var(--primary) / 0.15) 0%, transparent 70%)',
-                                  }}
-                                />
                                 {/* Top Glass Highlight */}
                                 <div 
-                                  className="absolute inset-x-0 top-0 h-1/2 rounded-t-sm pointer-events-none"
+                                  className="absolute inset-x-0 top-0 h-1/2 rounded-t-full pointer-events-none"
                                   style={{
                                     background: 'linear-gradient(180deg, hsl(var(--foreground) / 0.08) 0%, transparent 100%)',
                                   }}
                                 />
-                                {/* Shimmer effect - contained */}
+                                
+                                {/* Bottom Shadow for depth */}
                                 <div 
-                                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden"
-                                >
-                                  <div 
-                                    className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
-                                    style={{
-                                      background: 'linear-gradient(90deg, transparent 0%, hsl(var(--foreground) / 0.1) 50%, transparent 100%)',
-                                    }}
-                                  />
-                                </div>
+                                  className="absolute inset-x-0 bottom-0 h-1/3 rounded-b-full pointer-events-none"
+                                  style={{
+                                    background: 'linear-gradient(0deg, hsl(0 0% 0% / 0.3) 0%, transparent 100%)',
+                                  }}
+                                />
+                                
+                                {/* Shimmer Effect - Signature diagonal sweep */}
+                                <div 
+                                  className="brand-shimmer absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                                  style={{
+                                    background: 'linear-gradient(105deg, transparent 40%, hsl(var(--foreground) / 0.06) 45%, hsl(var(--foreground) / 0.12) 50%, hsl(var(--foreground) / 0.06) 55%, transparent 60%)',
+                                  }}
+                                />
+                                
+                                {/* Text */}
                                 <span
                                   className="relative z-10 text-xs font-semibold uppercase tracking-[0.15em] text-foreground/90 group-hover:text-foreground transition-colors duration-300"
                                   style={{ fontFamily: 'var(--font-heading)' }}
                                 >
-                                  Primary
+                                  Generate Deck
                                 </span>
                               </button>
                             </div>
                           </div>
+                        </div>
+                        
+                        {/* Shimmer Animation Styles */}
+                        <style>{`
+                          .brand-shimmer {
+                            transform: translateX(-120%);
+                          }
+                          .group:hover .brand-shimmer {
+                            animation: brand-shimmer-sweep 1.15s ease-out forwards;
+                          }
+                          @keyframes brand-shimmer-sweep {
+                            100% { transform: translateX(120%); }
+                          }
+                        `}</style>
+                      </div>
 
-                          {/* Secondary Ghost Button */}
-                          <button className="px-5 py-2.5 rounded-sm border border-border bg-transparent hover:bg-muted/50 text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground hover:text-foreground transition-all duration-300">
-                            Secondary
-                          </button>
+                      {/* Structure Section */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-muted/30 border border-border rounded-sm p-4">
+                          <p className="font-mono text-xs text-primary uppercase font-medium mb-3">Structure</p>
+                          <div className="space-y-2 text-xs">
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Outer wrapper</span>
+                              <span className="text-foreground font-mono">relative group</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Border</span>
+                              <span className="text-foreground font-mono">p-[1px] gradient</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Shape</span>
+                              <span className="text-foreground font-mono">rounded-full (pill)</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Inner</span>
+                              <span className="text-foreground font-mono">dark gradient + glass</span>
+                            </div>
+                          </div>
+                        </div>
 
-                          {/* Text Link */}
-                          <button className="text-xs font-medium uppercase tracking-[0.1em] text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-all duration-300">
-                            Text Link
-                          </button>
+                        <div className="bg-muted/30 border border-border rounded-sm p-4">
+                          <p className="font-mono text-xs text-primary uppercase font-medium mb-3">Typography</p>
+                          <div className="space-y-2 text-xs">
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Font</span>
+                              <span className="text-foreground font-mono">var(--font-heading)</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Weight</span>
+                              <span className="text-foreground font-mono">font-semibold</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Case</span>
+                              <span className="text-foreground font-mono">uppercase</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Tracking</span>
+                              <span className="text-foreground font-mono">0.15em</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
-                      {/* Button Specifications */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-muted/30 border border-border rounded-sm p-4">
-                          <p className="font-mono text-xs text-primary uppercase font-medium mb-3">Primary Button</p>
-                          <div className="space-y-2 text-xs">
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Border Radius</span>
-                              <span className="text-foreground font-mono">0 (sharp edges)</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Border</span>
-                              <span className="text-foreground font-mono">1px gradient</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Background</span>
-                              <span className="text-foreground font-mono">dark gradient</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Padding</span>
-                              <span className="text-foreground font-mono">px-5 py-2.5</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Text</span>
-                              <span className="text-foreground font-mono">uppercase, 0.15em</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Hover</span>
-                              <span className="text-foreground font-mono">inner glow + shimmer</span>
-                            </div>
-                          </div>
+                      {/* Colors Table */}
+                      <div className="bg-muted/30 border border-border rounded-sm p-4">
+                        <p className="font-mono text-xs text-primary uppercase font-medium mb-3">Colors (HSL-based)</p>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-xs">
+                            <thead className="border-b border-border">
+                              <tr>
+                                <th className="text-left py-2 pr-4 font-medium text-muted-foreground">Element</th>
+                                <th className="text-left py-2 font-medium text-muted-foreground">Value</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-border/30">
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Border gradient</td>
+                                <td className="py-2 font-mono text-muted-foreground text-[10px]">linear-gradient(135deg, hsl(--foreground/0.3) → 0.1 → 0.25)</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Button background</td>
+                                <td className="py-2 font-mono text-muted-foreground text-[10px]">linear-gradient(180deg, hsl(240 10% 10%) → hsl(240 10% 6%))</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Top glass highlight</td>
+                                <td className="py-2 font-mono text-muted-foreground text-[10px]">hsl(--foreground/0.08) → transparent</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Bottom shadow</td>
+                                <td className="py-2 font-mono text-muted-foreground text-[10px]">hsl(0 0% 0% / 0.3) → transparent</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Ambient glow (hover)</td>
+                                <td className="py-2 font-mono text-muted-foreground text-[10px]">radial-gradient(hsl(--primary/0.4) → transparent)</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Hover box-shadow</td>
+                                <td className="py-2 font-mono text-muted-foreground text-[10px]">0 0 20px hsl(--primary/0.3)</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Shimmer</td>
+                                <td className="py-2 font-mono text-muted-foreground text-[10px]">hsl(--foreground/0.06 → 0.12 → 0.06)</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
+                      </div>
 
-                        <div className="bg-muted/30 border border-border rounded-sm p-4">
-                          <p className="font-mono text-xs text-primary uppercase font-medium mb-3">Secondary Button</p>
-                          <div className="space-y-2 text-xs">
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Border Radius</span>
-                              <span className="text-foreground font-mono">rounded-sm</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Border</span>
-                              <span className="text-foreground font-mono">1px solid</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Background</span>
-                              <span className="text-foreground font-mono">transparent</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Padding</span>
-                              <span className="text-foreground font-mono">px-5 py-2.5</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Text</span>
-                              <span className="text-foreground font-mono">uppercase, 0.15em</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Hover</span>
-                              <span className="text-foreground font-mono">bg-muted/50</span>
-                            </div>
-                          </div>
+                      {/* Animations Table */}
+                      <div className="bg-muted/30 border border-border rounded-sm p-4">
+                        <p className="font-mono text-xs text-primary uppercase font-medium mb-3">Animations</p>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-xs">
+                            <thead className="border-b border-border">
+                              <tr>
+                                <th className="text-left py-2 pr-4 font-medium text-muted-foreground">Effect</th>
+                                <th className="text-left py-2 pr-4 font-medium text-muted-foreground">Duration</th>
+                                <th className="text-left py-2 pr-4 font-medium text-muted-foreground">Easing</th>
+                                <th className="text-left py-2 font-medium text-muted-foreground">Behavior</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-border/30">
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Ambient glow fade-in</td>
+                                <td className="py-2 pr-4 font-mono text-muted-foreground">500ms</td>
+                                <td className="py-2 pr-4 font-mono text-muted-foreground">CSS default</td>
+                                <td className="py-2 text-muted-foreground">opacity: 0 → 1 on hover</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Box-shadow glow</td>
+                                <td className="py-2 pr-4 font-mono text-muted-foreground">300ms</td>
+                                <td className="py-2 pr-4 font-mono text-muted-foreground">ease-out</td>
+                                <td className="py-2 text-muted-foreground">Appears on hover</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Text color</td>
+                                <td className="py-2 pr-4 font-mono text-muted-foreground">300ms</td>
+                                <td className="py-2 pr-4 font-mono text-muted-foreground">CSS default</td>
+                                <td className="py-2 text-muted-foreground">foreground/90 → foreground</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 pr-4 text-foreground">Shimmer sweep</td>
+                                <td className="py-2 pr-4 font-mono text-muted-foreground">1150ms</td>
+                                <td className="py-2 pr-4 font-mono text-muted-foreground">ease-out</td>
+                                <td className="py-2 text-muted-foreground">translateX(-120% → 120%), one-shot</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
+                      </div>
+
+                      {/* Key Properties */}
+                      <div className="bg-amber-500/5 border border-amber-500/20 rounded-sm p-4">
+                        <p className="font-mono text-xs text-amber-600 uppercase font-medium mb-3">Key Properties</p>
+                        <ul className="text-xs text-muted-foreground space-y-1.5">
+                          <li>• <strong className="text-foreground">No scaling</strong> — zero transform scale effects</li>
+                          <li>• <strong className="text-foreground">No translateY</strong> — no vertical movement</li>
+                          <li>• <strong className="text-foreground">Rounded: rounded-full</strong> — pill shape</li>
+                          <li>• <strong className="text-foreground">Shimmer is the signature</strong> — diagonal light sweep triggered once per hover</li>
+                        </ul>
                       </div>
 
                       {/* Button Sizes */}
                       <div className="border-t border-border pt-4">
                         <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Sizes</p>
-                        <div className="flex gap-4 items-end justify-center p-4 bg-muted/20 rounded-sm">
+                        <div className="flex gap-6 items-end justify-center p-4 bg-muted/20 rounded-sm">
                           <div className="text-center">
                             <div className="relative group mb-2">
                               <div 
-                                className="relative rounded-sm p-[1px]"
+                                className="relative rounded-full p-[1px]"
                                 style={{
                                   background: 'linear-gradient(135deg, hsl(var(--foreground) / 0.3) 0%, hsl(var(--foreground) / 0.1) 50%, hsl(var(--foreground) / 0.25) 100%)',
                                 }}
                               >
                                 <button
-                                  className="relative px-4 py-2 rounded-sm text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground/90"
+                                  className="relative px-4 py-2 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground/90"
                                   style={{
                                     background: 'linear-gradient(180deg, hsl(240 10% 10%) 0%, hsl(240 10% 6%) 100%)',
                                   }}
@@ -716,13 +813,13 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                           <div className="text-center">
                             <div className="relative group mb-2">
                               <div 
-                                className="relative rounded-sm p-[1px]"
+                                className="relative rounded-full p-[1px]"
                                 style={{
                                   background: 'linear-gradient(135deg, hsl(var(--foreground) / 0.3) 0%, hsl(var(--foreground) / 0.1) 50%, hsl(var(--foreground) / 0.25) 100%)',
                                 }}
                               >
                                 <button
-                                  className="relative px-5 py-2.5 rounded-sm text-xs font-semibold uppercase tracking-[0.15em] text-foreground/90"
+                                  className="relative px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-[0.15em] text-foreground/90"
                                   style={{
                                     background: 'linear-gradient(180deg, hsl(240 10% 10%) 0%, hsl(240 10% 6%) 100%)',
                                   }}
@@ -736,13 +833,13 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                           <div className="text-center">
                             <div className="relative group mb-2">
                               <div 
-                                className="relative rounded-sm p-[1px]"
+                                className="relative rounded-full p-[1px]"
                                 style={{
                                   background: 'linear-gradient(135deg, hsl(var(--foreground) / 0.3) 0%, hsl(var(--foreground) / 0.1) 50%, hsl(var(--foreground) / 0.25) 100%)',
                                 }}
                               >
                                 <button
-                                  className="relative px-7 py-3.5 rounded-sm text-sm font-semibold uppercase tracking-[0.15em] text-foreground/90"
+                                  className="relative px-7 py-3.5 rounded-full text-sm font-semibold uppercase tracking-[0.15em] text-foreground/90"
                                   style={{
                                     background: 'linear-gradient(180deg, hsl(240 10% 10%) 0%, hsl(240 10% 6%) 100%)',
                                   }}
