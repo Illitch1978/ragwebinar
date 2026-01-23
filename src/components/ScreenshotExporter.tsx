@@ -43,20 +43,63 @@ export const ScreenshotExporter = ({
       throw new Error("Slide container not found");
     }
 
-    // Wait a moment for animations to complete
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    const element = slideContainerRef.current;
+    
+    // Ensure element has dimensions
+    const width = element.offsetWidth || element.clientWidth || 1920;
+    const height = element.offsetHeight || element.clientHeight || 1080;
+    
+    if (width === 0 || height === 0) {
+      console.warn("Slide container has zero dimensions, using fallback");
+    }
 
-    const canvas = await html2canvas(slideContainerRef.current, {
-      scale: 2, // High resolution
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: null,
-      logging: false,
-      width: slideContainerRef.current.offsetWidth,
-      height: slideContainerRef.current.offsetHeight,
-    });
+    // Wait longer for animations and complex backgrounds to settle
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-    return canvas.toDataURL("image/png", 1.0);
+    try {
+      const canvas = await html2canvas(element, {
+        scale: 2, // High resolution
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: "#0a0a0f", // Fallback dark background
+        logging: false,
+        width: Math.max(width, 1920),
+        height: Math.max(height, 1080),
+        windowWidth: 1920,
+        windowHeight: 1080,
+        // Ignore problematic elements that cause canvas errors
+        ignoreElements: (el) => {
+          // Ignore elements with complex SVG patterns that break html2canvas
+          if (el.tagName === 'PATTERN' || el.tagName === 'DEFS') return true;
+          // Ignore ping animations which can cause issues
+          if (el.classList?.contains('animate-ping')) return true;
+          return false;
+        },
+        onclone: (clonedDoc) => {
+          // Remove problematic animations from cloned document
+          const pingElements = clonedDoc.querySelectorAll('.animate-ping');
+          pingElements.forEach(el => el.remove());
+        }
+      });
+
+      return canvas.toDataURL("image/png", 1.0);
+    } catch (error) {
+      console.error("html2canvas error:", error);
+      // Return a fallback canvas for failed captures
+      const fallbackCanvas = document.createElement('canvas');
+      fallbackCanvas.width = 1920;
+      fallbackCanvas.height = 1080;
+      const ctx = fallbackCanvas.getContext('2d');
+      if (ctx) {
+        ctx.fillStyle = '#0a0a0f';
+        ctx.fillRect(0, 0, 1920, 1080);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '48px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Slide capture failed', 960, 540);
+      }
+      return fallbackCanvas.toDataURL("image/png", 1.0);
+    }
   }, [slideContainerRef]);
 
   const handleExport = useCallback(async () => {
