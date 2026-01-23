@@ -1269,7 +1269,7 @@ const PresentationPage = () => {
       
       if (isTyping) return;
       
-      if (e.key === 'ArrowRight' || e.key === ' ') {
+      if (e.key === 'ArrowRight') {
         e.preventDefault();
         nextSlide();
       } else if (e.key === 'ArrowLeft') {
