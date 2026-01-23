@@ -776,7 +776,7 @@ Your strategic analysis content...
                                 }
                               }}
                               title="Download as PowerPoint"
-                              className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                              className="opacity-0 group-hover:opacity-100 transition-opacity text-white/70 hover:text-white"
                             >
                               <Download className="w-4 h-4" />
                             </Button>
@@ -791,7 +791,7 @@ Your strategic analysis content...
                               toast.success("Guest link copied!");
                             }}
                             title="Copy guest link (view only)"
-                            className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity text-white/70 hover:text-white"
                           >
                             <Link2 className="w-4 h-4" />
                           </Button>
@@ -799,7 +799,7 @@ Your strategic analysis content...
                             variant="ghost"
                             size="icon"
                             onClick={(e) => handleStartEdit(e, presentation)}
-                            className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-primary"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity text-white/70 hover:text-white"
                           >
                             <Pencil className="w-4 h-4" />
                           </Button>
