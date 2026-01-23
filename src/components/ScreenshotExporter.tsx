@@ -117,10 +117,22 @@ export const ScreenshotExporter = ({
           windowHeight: rect.height,
           foreignObjectRendering: false, // Disable foreignObject which can cause issues
           removeContainer: true,
-          // html2canvas can crash when it encounters a 0x0 canvas (common with hidden blur/filters)
-          // We don't rely on canvas rendering for the deck visuals, so it's safe to ignore.
+          // html2canvas can crash when it tries to render a background pattern for a 0x0 element.
+          // We defensively ignore:
+          //  - any <canvas> in the DOM (often hidden helper canvases)
+          //  - any element whose box is 0x0 (these are the usual createPattern culprits)
           ignoreElements: (el) => {
-            return el.tagName?.toLowerCase() === "canvas";
+            try {
+              const tag = el.tagName?.toLowerCase();
+              if (tag === "canvas") return true;
+
+              // Only ignore truly non-rendering boxes
+              const rect = (el as HTMLElement).getBoundingClientRect?.();
+              if (rect && (rect.width === 0 || rect.height === 0)) return true;
+            } catch {
+              // ignore
+            }
+            return false;
           },
           onclone: (clonedDoc, clonedEl) => {
             // Disable animations/transitions in clone for stable capture
@@ -138,6 +150,21 @@ export const ScreenshotExporter = ({
             // Remove canvases from the clone (some libs create zero-sized canvases that crash createPattern)
             try {
               clonedDoc.querySelectorAll("canvas").forEach((c) => c.remove());
+            } catch {
+              // ignore
+            }
+
+            // Additional hardening: if any elements end up 0x0 in the cloned DOM, strip their backgrounds.
+            // This avoids html2canvas trying to createPattern() from a 0-sized backing canvas.
+            try {
+              const all = Array.from(clonedDoc.querySelectorAll<HTMLElement>("*"));
+              for (const node of all) {
+                const r = node.getBoundingClientRect?.();
+                if (!r || r.width === 0 || r.height === 0) {
+                  node.style.backgroundImage = "none";
+                  node.style.background = "none";
+                }
+              }
             } catch {
               // ignore
             }
