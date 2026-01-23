@@ -159,37 +159,6 @@ function generateWaterfall(score: number): ParsedReportData['waterfall'] {
   };
 }
 
-// Generate heatmap from sections
-function generateHeatmap(sections: Map<string, string>): ParsedReportData['heatmap'] {
-  const heatmap: ParsedReportData['heatmap'] = [];
-  
-  const sectionMaturity = (content: string): "full" | "three-quarter" | "half" | "quarter" => {
-    const length = content.length;
-    if (length > 1000) return "full";
-    if (length > 500) return "three-quarter";
-    if (length > 200) return "half";
-    return "quarter";
-  };
-  
-  const vectors = [
-    { key: "executive summary", name: "Strategy" },
-    { key: "key findings", name: "Analysis" },
-    { key: "recommendations", name: "Execution" },
-    { key: "conclusion", name: "Synthesis" },
-  ];
-  
-  for (const vector of vectors) {
-    const content = sections.get(vector.key) || "";
-    heatmap.push({
-      vector: vector.name,
-      maturity: content ? sectionMaturity(content) : "quarter",
-      observation: content ? `${vector.name} section included.` : `${vector.name} section missing.`,
-      implication: content ? "Strong foundation." : "Consider adding."
-    });
-  }
-  
-  return heatmap;
-}
 
 // Main parser function
 export function parseMarkdownToReport(rawContent: string, clientName: string): ParsedReportData {
@@ -285,7 +254,7 @@ export function parseMarkdownToReport(rawContent: string, clientName: string): P
     recommendations: recommendationSections,
     signals: parseSignals(findings),
     waterfall: generateWaterfall(score),
-    heatmap: generateHeatmap(sections),
+    heatmap: [], // Legacy heatmap removed
     matrixItems: [
       { x: 20, y: 80, label: recommendations[0]?.substring(0, 20) || "Quick Win 1", highlight: true },
       { x: 30, y: 70, label: recommendations[1]?.substring(0, 20) || "Quick Win 2", highlight: true },
