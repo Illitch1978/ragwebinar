@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Settings, ChevronDown, Link2, Download } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,11 +8,11 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { usePresentations, useCreatePresentation, useDeletePresentation, useUpdatePresentation, Presentation } from "@/hooks/usePresentations";
 import { useBrandGuides } from "@/hooks/useBrandGuides";
-import { DECK_PRINCIPLES } from "@/lib/deckPrinciples";
 import { formatDistanceToNow } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import BrandGuideEditor from "@/components/BrandGuideEditor";
+import SettingsSidebar from "@/components/SettingsSidebar";
 import { exportToPptx } from "@/lib/pptxExport";
 import {
   Select,
@@ -51,13 +51,6 @@ const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
 type OutputFormat = 'report' | 'presentation';
 type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
 
-const DECK_LENGTH_OPTIONS: { value: DeckLength; label: string; description: string; range: string }[] = [
-  { value: 'brief', label: 'Brief', description: 'Executive summary', range: '8-12 slides' },
-  { value: 'medium', label: 'Medium', description: 'Standard presentation', range: '13-22 slides' },
-  { value: 'long', label: 'Long', description: 'Deep-dive analysis', range: '23-30 slides' },
-  { value: 'very-long', label: 'Very Long', description: 'Full workshop deck', range: '31-45 slides' },
-];
-
 const UploadPage = () => {
   const [content, setContent] = useState("");
   const [clientName, setClientName] = useState("");
@@ -67,7 +60,7 @@ const UploadPage = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isProcessingFile, setIsProcessingFile] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   
@@ -319,6 +312,10 @@ const UploadPage = () => {
       <header className="relative z-10 border-b border-border">
         <div className="container mx-auto px-6 lg:px-16 py-6 flex justify-between items-center">
           <RubiklabLogo />
+          <SettingsSidebar 
+            deckLength={deckLength} 
+            onDeckLengthChange={setDeckLength} 
+          />
         </div>
       </header>
 
@@ -436,43 +433,11 @@ const UploadPage = () => {
             </div>
           </motion.div>
 
-          {/* Deck Length Selection */}
+          {/* Brand Guide Selection & Editor */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="mb-8"
-          >
-            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Deck Length
-            </label>
-            <div className="grid grid-cols-4 gap-3">
-              {DECK_LENGTH_OPTIONS.map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setDeckLength(option.value)}
-                  className={cn(
-                    "relative px-4 py-4 rounded-sm border-2 transition-all duration-300 text-center",
-                    deckLength === option.value
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-primary/50 bg-card"
-                  )}
-                >
-                  <p className="font-medium text-foreground text-sm mb-0.5">{option.label}</p>
-                  <p className="text-xs text-muted-foreground">{option.range}</p>
-                  {deckLength === option.value && (
-                    <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Brand Guide Selection */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.22 }}
             className="mb-8"
           >
             <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
@@ -508,50 +473,13 @@ const UploadPage = () => {
             )}
           </motion.div>
 
-          {/* Settings / Deck Principles (Admin Section) */}
+          {/* Brand Guide Templates Viewer */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.24 }}
-            className="mb-8 space-y-6"
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.22 }}
+            className="mb-8"
           >
-            {/* Global Deck Principles */}
-            <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
-              <CollapsibleTrigger asChild>
-                <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group">
-                  <Settings className="w-4 h-4" />
-                  <span className="font-mono text-[11px] uppercase tracking-widest">
-                    Deck Generation Settings
-                  </span>
-                  <ChevronDown className={cn(
-                    "w-4 h-4 transition-transform duration-200",
-                    isSettingsOpen && "rotate-180"
-                  )} />
-                </button>
-              </CollapsibleTrigger>
-              <CollapsibleContent className="mt-4">
-                <div className="bg-card border border-border rounded-sm p-6 space-y-4">
-                  <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-4">
-                    Global Principles (Apply to all templates)
-                  </p>
-                  {Object.entries(DECK_PRINCIPLES).map(([key, principle]) => (
-                    <div key={key} className="border-l-2 border-primary/30 pl-4 py-2">
-                      <h4 className="font-medium text-foreground text-sm mb-1">
-                        {principle.title}
-                      </h4>
-                      <p className="text-sm text-muted-foreground mb-1">
-                        {principle.description}
-                      </p>
-                      <p className="text-xs text-muted-foreground/70 font-mono">
-                        {principle.rule}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </CollapsibleContent>
-            </Collapsible>
-
-            {/* Brand Guide Templates Viewer */}
             <BrandGuideEditor 
               brandGuides={brandGuides} 
               isLoading={isLoadingBrandGuides} 

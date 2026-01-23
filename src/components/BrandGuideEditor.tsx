@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronRight, Palette, Type, Zap, Layout, Eye, EyeOff } from "lucide-react";
+import { ChevronDown, ChevronRight, Palette, Type, Zap, Layout, MousePointer, Shapes } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BrandGuide } from "@/hooks/useBrandGuides";
 import {
@@ -16,6 +16,31 @@ interface BrandGuideEditorProps {
 
 // Color can be flat string or nested object with hex/usage
 type ColorValue = string | { hex?: string; usage?: string } | Record<string, { hex?: string; usage?: string }>;
+
+interface ButtonSpec {
+  variant?: string;
+  background?: string;
+  text_color?: string;
+  border?: string;
+  hover?: string;
+  padding?: string;
+  border_radius?: string;
+  states?: {
+    default?: string;
+    hover?: string;
+    active?: string;
+    disabled?: string;
+  };
+}
+
+interface IconSpec {
+  style?: string;
+  stroke_width?: string;
+  sizes?: Record<string, string>;
+  colors?: string[];
+  allowed_colors?: string[];
+  forbidden?: string;
+}
 
 interface DesignSystem {
   theme?: string;
@@ -34,6 +59,17 @@ interface DesignSystem {
     spacing_rules?: string[];
     [key: string]: unknown;
   };
+  // Button specifications
+  buttons?: {
+    primary?: ButtonSpec;
+    secondary?: ButtonSpec;
+    ghost?: ButtonSpec;
+    sizes?: Record<string, string>;
+    [key: string]: ButtonSpec | Record<string, string> | undefined;
+  };
+  // Icon specifications
+  iconography?: IconSpec;
+  icons?: IconSpec;
   // Effects (Swiss style)
   effects?: Record<string, boolean>;
   // Charts (DataExpert style)
@@ -46,12 +82,6 @@ interface DesignSystem {
   grid_system?: {
     zones?: string[];
     content_blocks?: string;
-  };
-  // Iconography (DataExpert style)
-  iconography?: {
-    style?: string;
-    allowed_colors?: string[];
-    forbidden?: string;
   };
   // Functional elements (DataExpert style)
   functional_elements?: Record<string, Record<string, string>>;
@@ -84,6 +114,7 @@ interface DesignSystem {
       scale?: number;
       duration?: number;
     };
+    micro_interactions?: Record<string, { type?: string; duration?: number; easing?: string }>;
   };
   dev_summary?: string;
 }
@@ -231,6 +262,8 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
   const sections = [
     { id: 'colors', label: 'Colors', icon: Palette },
     { id: 'typography', label: 'Typography', icon: Type },
+    { id: 'buttons', label: 'Buttons', icon: MousePointer },
+    { id: 'icons', label: 'Icons', icon: Shapes },
     { id: 'animation', label: 'Animation', icon: Zap },
     { id: 'templates', label: 'Templates', icon: Layout },
   ];
@@ -515,10 +548,253 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
                   </div>
                 )}
 
+                {/* Buttons Section */}
+                {activeSection === 'buttons' && (
+                  <div className="space-y-4">
+                    {designSystem?.buttons ? (
+                      <>
+                        {Object.entries(designSystem.buttons).map(([variantName, spec]) => {
+                          if (variantName === 'sizes' || !spec) return null;
+                          const buttonSpec = spec as ButtonSpec;
+                          return (
+                            <div key={variantName} className="bg-muted/30 border border-border rounded-sm p-4">
+                              <div className="flex items-center justify-between mb-3">
+                                <span className="font-mono text-xs text-primary uppercase font-medium">
+                                  {variantName} Button
+                                </span>
+                              </div>
+                              {/* Button Preview */}
+                              <div className="mb-4 p-4 bg-background rounded-sm border border-border flex items-center justify-center">
+                                <button
+                                  className={cn(
+                                    "px-4 py-2 rounded-sm font-medium text-sm transition-all",
+                                    variantName === 'primary' && "bg-primary text-primary-foreground hover:bg-primary/90",
+                                    variantName === 'secondary' && "bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80",
+                                    variantName === 'ghost' && "bg-transparent hover:bg-muted text-foreground"
+                                  )}
+                                  style={{
+                                    backgroundColor: buttonSpec.background,
+                                    color: buttonSpec.text_color,
+                                    borderRadius: buttonSpec.border_radius,
+                                  }}
+                                >
+                                  {variantName.charAt(0).toUpperCase() + variantName.slice(1)} Button
+                                </button>
+                              </div>
+                              {/* Specs */}
+                              <div className="grid grid-cols-2 gap-2 text-xs">
+                                {buttonSpec.background && (
+                                  <div className="flex items-center gap-2">
+                                    <div 
+                                      className="w-3 h-3 rounded-sm border border-border"
+                                      style={{ backgroundColor: buttonSpec.background }}
+                                    />
+                                    <span className="text-muted-foreground">Background: <span className="text-foreground">{buttonSpec.background}</span></span>
+                                  </div>
+                                )}
+                                {buttonSpec.text_color && (
+                                  <div className="flex items-center gap-2">
+                                    <div 
+                                      className="w-3 h-3 rounded-sm border border-border"
+                                      style={{ backgroundColor: buttonSpec.text_color }}
+                                    />
+                                    <span className="text-muted-foreground">Text: <span className="text-foreground">{buttonSpec.text_color}</span></span>
+                                  </div>
+                                )}
+                                {buttonSpec.border_radius && (
+                                  <div>
+                                    <span className="text-muted-foreground">Radius: <span className="text-foreground">{buttonSpec.border_radius}</span></span>
+                                  </div>
+                                )}
+                                {buttonSpec.padding && (
+                                  <div>
+                                    <span className="text-muted-foreground">Padding: <span className="text-foreground">{buttonSpec.padding}</span></span>
+                                  </div>
+                                )}
+                              </div>
+                              {/* States */}
+                              {buttonSpec.states && (
+                                <div className="mt-3 pt-3 border-t border-border/50">
+                                  <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">States</p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {Object.entries(buttonSpec.states).map(([state, value]) => (
+                                      <span key={state} className="text-[10px] bg-muted px-1.5 py-0.5 rounded">
+                                        {state}: {value}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                        {/* Button Sizes */}
+                        {designSystem.buttons.sizes && (
+                          <div className="border-t border-border pt-4">
+                            <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Sizes</p>
+                            <div className="flex gap-3 items-end">
+                              {Object.entries(designSystem.buttons.sizes).map(([size, value]) => (
+                                <div key={size} className="text-center">
+                                  <button className="px-3 py-1.5 bg-primary text-primary-foreground rounded-sm text-xs mb-1">
+                                    {size}
+                                  </button>
+                                  <p className="text-[10px] text-muted-foreground">{value}</p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="text-center py-8">
+                        <MousePointer className="w-8 h-8 text-muted-foreground/50 mx-auto mb-2" />
+                        <p className="text-sm text-muted-foreground">
+                          No button specifications defined for this brand guide.
+                        </p>
+                        <p className="text-xs text-muted-foreground/70 mt-1">
+                          Default shadcn button variants will be used.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Icons Section */}
+                {activeSection === 'icons' && (
+                  <div className="space-y-4">
+                    {(designSystem?.iconography || designSystem?.icons) ? (
+                      <>
+                        {(() => {
+                          const iconSpec = designSystem.iconography || designSystem.icons;
+                          return (
+                            <>
+                              {iconSpec?.style && (
+                                <div>
+                                  <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Style</p>
+                                  <p className="text-sm text-foreground">{iconSpec.style}</p>
+                                </div>
+                              )}
+                              {iconSpec?.stroke_width && (
+                                <div>
+                                  <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Stroke Width</p>
+                                  <span className="text-xs bg-muted px-2 py-1 rounded-sm font-mono">{iconSpec.stroke_width}</span>
+                                </div>
+                              )}
+                              {iconSpec?.sizes && (
+                                <div>
+                                  <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Sizes</p>
+                                  <div className="flex gap-4 items-end">
+                                    {Object.entries(iconSpec.sizes).map(([name, size]) => (
+                                      <div key={name} className="text-center">
+                                        <div 
+                                          className="bg-muted rounded-sm flex items-center justify-center mb-1 mx-auto"
+                                          style={{ width: size, height: size }}
+                                        >
+                                          <Shapes className="text-foreground" style={{ width: `calc(${size} - 8px)`, height: `calc(${size} - 8px)` }} />
+                                        </div>
+                                        <p className="text-[10px] text-muted-foreground">{name}</p>
+                                        <p className="text-[10px] text-primary font-mono">{size}</p>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                              {(iconSpec?.colors || iconSpec?.allowed_colors) && (
+                                <div>
+                                  <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Allowed Colors</p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {(iconSpec.colors || iconSpec.allowed_colors)?.map((color, i) => (
+                                      <div key={i} className="flex items-center gap-1.5 bg-muted px-2 py-1 rounded-sm">
+                                        <div 
+                                          className="w-3 h-3 rounded-full border border-border"
+                                          style={{ backgroundColor: color }}
+                                        />
+                                        <span className="text-xs text-foreground">{color}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                              {iconSpec?.forbidden && (
+                                <div className="bg-destructive/5 border border-destructive/20 rounded-sm p-3">
+                                  <p className="font-mono text-[10px] text-destructive uppercase tracking-wider mb-1">Forbidden</p>
+                                  <p className="text-xs text-foreground">{iconSpec.forbidden}</p>
+                                </div>
+                              )}
+                            </>
+                          );
+                        })()}
+                      </>
+                    ) : (
+                      <div className="text-center py-8">
+                        <Shapes className="w-8 h-8 text-muted-foreground/50 mx-auto mb-2" />
+                        <p className="text-sm text-muted-foreground">
+                          No icon specifications defined for this brand guide.
+                        </p>
+                        <p className="text-xs text-muted-foreground/70 mt-1">
+                          Uses Lucide icons with default styling.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* Animation Section */}
                 {activeSection === 'animation' && (
                   <div className="space-y-4">
                     <AnimationPreview animationStyle={designSystem?.animation_style} />
+                    
+                    {/* Element-specific animations */}
+                    {designSystem?.animation_style?.elements && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Element Animations</p>
+                        <div className="grid grid-cols-2 gap-2">
+                          {Object.entries(designSystem.animation_style.elements).map(([element, specs]) => (
+                            <div key={element} className="bg-muted/30 rounded-sm p-3">
+                              <p className="font-mono text-xs text-primary uppercase mb-1">{element}</p>
+                              <div className="text-[10px] text-muted-foreground space-y-0.5">
+                                {specs.type && <p>Type: <span className="text-foreground">{specs.type}</span></p>}
+                                {specs.duration && <p>Duration: <span className="text-foreground">{specs.duration}s</span></p>}
+                                {specs.stagger && <p>Stagger: <span className="text-foreground">{specs.stagger}s</span></p>}
+                                {specs.delay && <p>Delay: <span className="text-foreground">{specs.delay}s</span></p>}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Micro-interactions */}
+                    {designSystem?.animation_style?.micro_interactions && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Micro-interactions</p>
+                        <div className="space-y-2">
+                          {Object.entries(designSystem.animation_style.micro_interactions).map(([name, specs]) => (
+                            <div key={name} className="flex items-center justify-between bg-muted/30 rounded-sm px-3 py-2">
+                              <span className="text-xs text-foreground capitalize">{name.replace(/_/g, ' ')}</span>
+                              <div className="flex gap-2 text-[10px] text-muted-foreground">
+                                {specs.type && <span className="bg-muted px-1.5 py-0.5 rounded">{specs.type}</span>}
+                                {specs.duration && <span>{specs.duration}s</span>}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Section Divider Animation */}
+                    {designSystem?.animation_style?.section_divider && (
+                      <div className="border-t border-border pt-4">
+                        <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Section Divider</p>
+                        <div className="bg-muted/30 rounded-sm p-3 text-xs">
+                          <p className="text-muted-foreground">Type: <span className="text-foreground">{designSystem.animation_style.section_divider.type}</span></p>
+                          <p className="text-muted-foreground">Duration: <span className="text-foreground">{designSystem.animation_style.section_divider.duration}s</span></p>
+                          {designSystem.animation_style.section_divider.easing && (
+                            <p className="text-muted-foreground">Easing: <span className="text-foreground font-mono text-[10px]">{designSystem.animation_style.section_divider.easing}</span></p>
+                          )}
+                        </div>
+                      </div>
+                    )}
                     
                     {/* Charts (DataExpert) */}
                     {designSystem?.charts && (
