@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Mail, StickyNote } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PresenterNotesPanel } from "@/components/PresenterNotesPanel";
+import ScreenshotExporter from "@/components/ScreenshotExporter";
 import {
   HoverCard,
   HoverCardContent,
@@ -1110,6 +1111,8 @@ const PresentationPage = () => {
   const [slides, setSlides] = useState<Slide[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [presentationId, setPresentationId] = useState<string | null>(null);
+  const [presentationTitle, setPresentationTitle] = useState("Presentation");
+  const slideContainerRef = useRef<HTMLElement>(null);
   
   // Presenter mode - simply check URL parameter (no auth required)
   const isPresenterMode = searchParams.get('mode') === 'presenter';
@@ -1139,6 +1142,7 @@ const PresentationPage = () => {
             sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(data.generated_slides));
             sessionStorage.setItem('rubiklab-client', data.client_name || clientName);
             setPresentationId(data.id);
+            setPresentationTitle(data.client_name || clientName);
             setSlides(convertGeneratedSlides(data.generated_slides, data.client_name || clientName));
             setIsLoading(false);
             return;
@@ -1164,6 +1168,7 @@ const PresentationPage = () => {
           sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(latest.generated_slides));
           sessionStorage.setItem('rubiklab-client', latest.client_name || clientName);
           setPresentationId(latest.id);
+          setPresentationTitle(latest.client_name || clientName);
           setSlides(convertGeneratedSlides(latest.generated_slides, latest.client_name || clientName));
           setIsLoading(false);
           return;
@@ -1265,10 +1270,13 @@ const PresentationPage = () => {
       </header>
 
       {/* Slide content */}
-      <main className={cn(
-        "flex-1 relative transition-all duration-300",
-        isPresenterMode && "mr-80"
-      )}>
+      <main 
+        ref={slideContainerRef as React.RefObject<HTMLDivElement>}
+        className={cn(
+          "flex-1 relative transition-all duration-300",
+          isPresenterMode && "mr-80"
+        )}
+      >
         <AnimatePresence mode="wait">
           <SlideContent
             key={currentSlide}
@@ -1299,27 +1307,40 @@ const PresentationPage = () => {
             <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
           </div>
         </button>
+
+        {/* Export and presenter mode controls */}
+        <div className="flex items-center gap-4">
+          {/* Screenshot-based PPT Export */}
+          <ScreenshotExporter
+            slideContainerRef={slideContainerRef}
+            totalSlides={slides.length}
+            currentSlide={currentSlide}
+            onSlideChange={goToSlide}
+            presentationTitle={presentationTitle}
+            isDark={isDark}
+          />
         
-        {/* Presenter mode toggle - only visible when in presenter mode */}
-        {isPresenterMode && (
-          <button
-            onClick={() => {
-              const newParams = new URLSearchParams(searchParams);
-              newParams.delete('mode');
-              navigate(`/presentation?${newParams.toString()}`, { replace: true });
-            }}
-            className={cn(
-              "flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium transition-all opacity-60 hover:opacity-100",
-              isDark 
-                ? "bg-white/10 text-white/80 hover:bg-white/20" 
-                : "bg-muted text-muted-foreground hover:bg-muted/80"
-            )}
-            title="Exit presenter mode"
-          >
-            <StickyNote className="w-3 h-3" />
-            <span>Exit Notes</span>
-          </button>
-        )}
+          {/* Presenter mode toggle - only visible when in presenter mode */}
+          {isPresenterMode && (
+            <button
+              onClick={() => {
+                const newParams = new URLSearchParams(searchParams);
+                newParams.delete('mode');
+                navigate(`/presentation?${newParams.toString()}`, { replace: true });
+              }}
+              className={cn(
+                "flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium transition-all opacity-60 hover:opacity-100",
+                isDark 
+                  ? "bg-white/10 text-white/80 hover:bg-white/20" 
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              )}
+              title="Exit presenter mode"
+            >
+              <StickyNote className="w-3 h-3" />
+              <span>Exit Notes</span>
+            </button>
+          )}
+        </div>
       </footer>
 
       {/* Presenter Notes Panel - only in presenter mode */}
