@@ -244,10 +244,10 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
       >
         <div className="flex items-center gap-3">
           <div className="w-3 h-3 rounded-full bg-primary" />
-          <div className="text-left">
+          <div className="text-left flex-1">
             <h3 className="font-medium text-foreground">{guide.name}</h3>
             {guide.description && (
-              <p className="text-sm text-muted-foreground line-clamp-1">{guide.description}</p>
+              <p className="text-sm text-muted-foreground">{guide.description}</p>
             )}
           </div>
           {guide.is_default && (
