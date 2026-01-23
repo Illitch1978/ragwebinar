@@ -12,6 +12,7 @@ interface PresenterNotesPanelProps {
   currentSlide: number;
   totalSlides: number;
   isDark?: boolean;
+  onPopout?: () => void;
 }
 
 export const PresenterNotesPanel = ({
@@ -19,6 +20,7 @@ export const PresenterNotesPanel = ({
   currentSlide,
   totalSlides,
   isDark = false,
+  onPopout,
 }: PresenterNotesPanelProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [notes, setNotes] = useState<Record<string, string>>({});
@@ -124,7 +126,10 @@ export const PresenterNotesPanel = ({
         }
       }, 500);
       
-      toast.success("Notes popped out - share the main window!");
+      toast.success("Notes popped out - main window is now clean for sharing!");
+      
+      // Notify parent to exit presenter mode (clean main window)
+      onPopout?.();
     }
   };
 
