@@ -213,7 +213,7 @@ const GridBackground = () => (
 );
 
 // Premium morphing gradient mesh background for divider slides
-const MorphingGradientBackground = () => (
+const MorphingGradientBackground = ({ reduced = false }: { reduced?: boolean }) => (
   <div className="absolute inset-0 overflow-hidden">
     {/* Base gradient */}
     <div className="absolute inset-0 bg-gradient-to-br from-black via-[#050505] to-[#0a0a0a]" />
@@ -277,32 +277,36 @@ const MorphingGradientBackground = () => (
       }}
     />
     
-    {/* Subtle noise overlay for texture */}
-    <div 
-      className="absolute inset-0 opacity-[0.03]"
-      style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-      }}
-    />
+    {/* Subtle noise overlay for texture (disabled in export mode for capture reliability) */}
+    {!reduced && (
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        }}
+      />
+    )}
   </div>
 );
 
 // Premium geometric pattern for cover
-const CoverPattern = () => (
+const CoverPattern = ({ reduced = false }: { reduced?: boolean }) => (
   <div className="absolute inset-0 overflow-hidden">
     {/* Radial gradient overlay */}
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_hsl(var(--primary)/0.15)_0%,_transparent_50%)]" />
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_hsl(var(--primary)/0.1)_0%,_transparent_40%)]" />
     
-    {/* Geometric lines */}
-    <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="cover-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-          <path d="M 100 0 L 0 100" stroke="white" strokeWidth="0.5" fill="none" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#cover-grid)" />
-    </svg>
+    {/* Geometric lines (disabled in export mode for capture reliability) */}
+    {!reduced && (
+      <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="cover-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+            <path d="M 100 0 L 0 100" stroke="white" strokeWidth="0.5" fill="none" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#cover-grid)" />
+      </svg>
+    )}
     
     {/* Floating geometric shapes */}
     <motion.div 
@@ -378,7 +382,7 @@ const CoverFrame = () => (
   </>
 );
 
-const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) => {
+const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActive: boolean; isExportMode: boolean }) => {
   // Slide-down animation - new slide enters from top, current exits to bottom
   const fadeEase = [0.4, 0, 0.2, 1] as const; // Material design standard easing
   
@@ -418,7 +422,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         className="relative flex h-full"
       >
         {/* Premium background elements */}
-        <CoverPattern />
+        <CoverPattern reduced={isExportMode} />
         <LargeDecorativeNumber number={slide.kicker || '01'} />
         <CoverFrame />
         
@@ -496,7 +500,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
         animate={isActive ? "center" : "exit"}
         className="relative flex h-full"
       >
-        <MorphingGradientBackground />
+        <MorphingGradientBackground reduced={isExportMode} />
         
         {/* Large background section number - matching cover style */}
         <LargeDecorativeNumber number={slide.kicker || '01'} />
@@ -1282,6 +1286,7 @@ const PresentationPage = () => {
             key={currentSlide}
             slide={slides[currentSlide]}
             isActive={true}
+            isExportMode={isExportMode}
           />
         </AnimatePresence>
       </main>
