@@ -277,15 +277,7 @@ const MorphingGradientBackground = ({ reduced = false }: { reduced?: boolean }) 
       }}
     />
     
-    {/* Subtle noise overlay for texture (disabled in export mode for capture reliability) */}
-    {!reduced && (
-      <div 
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
-      />
-    )}
+    {/* Noise overlay removed (html2canvas createPattern issues) */}
   </div>
 );
 
@@ -296,16 +288,16 @@ const CoverPattern = ({ reduced = false }: { reduced?: boolean }) => (
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_hsl(var(--primary)/0.15)_0%,_transparent_50%)]" />
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_hsl(var(--primary)/0.1)_0%,_transparent_40%)]" />
     
-    {/* Geometric lines (disabled in export mode for capture reliability) */}
+    {/* Swiss lines (CSS grid) - html2canvas safe */}
     {!reduced && (
-      <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="cover-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-            <path d="M 100 0 L 0 100" stroke="white" strokeWidth="0.5" fill="none" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#cover-grid)" />
-      </svg>
+      <div
+        className="absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, hsl(var(--primary-foreground) / 0.18) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--primary-foreground) / 0.18) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }}
+      />
     )}
     
     {/* Floating geometric shapes */}
