@@ -378,13 +378,13 @@ const CoverFrame = () => (
 );
 
 const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) => {
-  // Clean fade-only animation - minimal and professional
+  // Slide-down animation - new slide enters from top, current exits to bottom
   const fadeEase = [0.4, 0, 0.2, 1] as const; // Material design standard easing
   
   const variants = {
-    enter: { opacity: 0 },
-    center: { opacity: 1 },
-    exit: { opacity: 0 },
+    enter: { opacity: 0, y: '-8%' },
+    center: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: '8%' },
   };
 
   const staggerChildren = {
