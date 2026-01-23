@@ -15,6 +15,7 @@ import {
 import owenJenkinsImg from "@/assets/owen-jenkins.png";
 import illitchImg from "@/assets/illitch.png";
 import zsoltImg from "@/assets/zsolt.png";
+import tiborImg from "@/assets/tibor-buda.png";
 interface Slide {
   id: number;
   type: 'title' | 'content' | 'section' | 'bullets' | 'quote' | 'closing' | 'cover' | 'section-divider' | 'text-stack' | 'bullet-list' | 'metrics' | 'two-column' | 'cta';
@@ -779,6 +780,7 @@ const SlideContent = ({ slide, isActive }: { slide: Slide; isActive: boolean }) 
       if (authorLower.includes('owen')) return owenJenkinsImg;
       if (authorLower.includes('illitch')) return illitchImg;
       if (authorLower.includes('zsolt')) return zsoltImg;
+      if (authorLower.includes('tibor')) return tiborImg;
       return null;
     };
     
