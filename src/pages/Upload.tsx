@@ -768,7 +768,7 @@ Your strategic analysis content...
                                 navigate(`/presentation?id=${presentation.id}&export=true`);
                               }}
                               title="Download as PowerPoint (screenshot-based)"
-                              className="text-muted-foreground hover:text-primary transition-colors"
+                              className="text-muted-foreground transition-colors"
                             >
                               <Download className="w-4 h-4" />
                             </Button>
@@ -783,7 +783,7 @@ Your strategic analysis content...
                               toast.success("Guest link copied!");
                             }}
                             title="Copy guest link (view only)"
-                            className="text-muted-foreground hover:text-primary transition-colors"
+                            className="text-muted-foreground transition-colors"
                           >
                             <Link2 className="w-4 h-4" />
                           </Button>
@@ -791,7 +791,7 @@ Your strategic analysis content...
                             variant="ghost"
                             size="icon"
                             onClick={(e) => handleStartEdit(e, presentation)}
-                            className="text-muted-foreground hover:text-primary transition-colors"
+                            className="text-muted-foreground transition-colors"
                           >
                             <Pencil className="w-4 h-4" />
                           </Button>
