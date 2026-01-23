@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Mail } from "lucide-react";
+import { Mail, StickyNote } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PresenterNotesPanel } from "@/components/PresenterNotesPanel";
 import {
@@ -1270,10 +1270,11 @@ const PresentationPage = () => {
         </AnimatePresence>
       </main>
 
-      {/* Footer - Logo only (click to exit) */}
+      {/* Footer - Logo and presenter toggle */}
       <footer className={cn(
-        "absolute bottom-0 left-0 z-20 px-8 py-6 transition-colors duration-500",
-        isDark ? "text-white" : "text-foreground"
+        "absolute bottom-0 left-0 right-0 z-20 px-8 py-6 transition-colors duration-500 flex justify-between items-center",
+        isDark ? "text-white" : "text-foreground",
+        isPresenterMode && "right-80"
       )}>
         <button
           onClick={() => navigate('/')}
@@ -1289,6 +1290,31 @@ const PresentationPage = () => {
             <div className="absolute w-2.5 h-2.5 bg-primary rounded-full animate-ping opacity-20" />
             <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
           </div>
+        </button>
+        
+        {/* Presenter mode toggle */}
+        <button
+          onClick={() => {
+            const newParams = new URLSearchParams(searchParams);
+            if (isPresenterMode) {
+              newParams.delete('mode');
+            } else {
+              newParams.set('mode', 'presenter');
+            }
+            navigate(`/presentation?${newParams.toString()}`, { replace: true });
+          }}
+          className={cn(
+            "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all",
+            isPresenterMode 
+              ? "bg-primary text-primary-foreground" 
+              : isDark 
+                ? "bg-white/10 text-white/60 hover:bg-white/20 hover:text-white" 
+                : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+          )}
+          title={isPresenterMode ? "Exit presenter mode" : "Enter presenter mode"}
+        >
+          <StickyNote className="w-4 h-4" />
+          <span className="hidden sm:inline">{isPresenterMode ? "Exit Notes" : "Presenter Mode"}</span>
         </button>
       </footer>
 
