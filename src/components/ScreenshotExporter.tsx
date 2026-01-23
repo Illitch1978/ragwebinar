@@ -136,16 +136,25 @@ export const ScreenshotExporter = ({
           },
           onclone: (clonedDoc, clonedEl) => {
             // Disable animations/transitions in clone for stable capture
-            const style = clonedDoc.createElement("style");
-            style.textContent = `
-              *, *::before, *::after { 
-                animation: none !important; 
-                animation-delay: 0s !important;
-                transition: none !important; 
+            try {
+              const style = clonedDoc.createElement("style");
+              style.textContent = `
+                *, *::before, *::after { 
+                  animation: none !important; 
+                  animation-delay: 0s !important;
+                  transition: none !important; 
+                  opacity: 1 !important;
+                }
+                .animate-ping { display: none !important; }
+              `;
+              // Safely append to head or body
+              const target = clonedDoc.head || clonedDoc.body || clonedDoc.documentElement;
+              if (target) {
+                target.appendChild(style);
               }
-              .animate-ping { display: none !important; }
-            `;
-            clonedDoc.head.appendChild(style);
+            } catch {
+              // ignore style injection failures
+            }
 
             // Remove canvases from the clone (some libs create zero-sized canvases that crash createPattern)
             try {
