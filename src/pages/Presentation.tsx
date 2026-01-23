@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PresenterNotesPanel } from "@/components/PresenterNotesPanel";
-import { PresenterPasswordGate } from "@/components/PresenterPasswordGate";
 import {
   HoverCard,
   HoverCardContent,
@@ -1106,42 +1105,14 @@ const ProgressBar = ({ current, total }: { current: number; total: number }) => 
 
 const PresentationPage = () => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slides, setSlides] = useState<Slide[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [presentationId, setPresentationId] = useState<string | null>(null);
   
-  // Presenter mode detection from URL
-  const isPresenterModeRequested = searchParams.get('mode') === 'presenter';
-  const [isPresenterAuthenticated, setIsPresenterAuthenticated] = useState(() => {
-    // Check if already authenticated in this session
-    return sessionStorage.getItem('presenter-authenticated') === 'true';
-  });
-  const [showPasswordGate, setShowPasswordGate] = useState(false);
-  
-  // Show password gate when presenter mode is requested but not authenticated
-  useEffect(() => {
-    if (isPresenterModeRequested && !isPresenterAuthenticated) {
-      setShowPasswordGate(true);
-    }
-  }, [isPresenterModeRequested, isPresenterAuthenticated]);
-  
-  // Actual presenter mode = requested AND authenticated
-  const isPresenterMode = isPresenterModeRequested && isPresenterAuthenticated;
-  
-  const handlePasswordSuccess = () => {
-    setIsPresenterAuthenticated(true);
-    setShowPasswordGate(false);
-  };
-  
-  const handlePasswordCancel = () => {
-    setShowPasswordGate(false);
-    // Remove the mode=presenter from URL
-    const newParams = new URLSearchParams(searchParams);
-    newParams.delete('mode');
-    setSearchParams(newParams);
-  };
+  // Presenter mode - simply check URL parameter (no auth required)
+  const isPresenterMode = searchParams.get('mode') === 'presenter';
 
   // Fetch fresh data from database or use sessionStorage
   useEffect(() => {
@@ -1331,13 +1302,6 @@ const PresentationPage = () => {
         />
       )}
 
-      {/* Password gate for presenter access */}
-      {showPasswordGate && (
-        <PresenterPasswordGate
-          onSuccess={handlePasswordSuccess}
-          onCancel={handlePasswordCancel}
-        />
-      )}
     </div>
   );
 };
