@@ -308,9 +308,17 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
     navigateToSlide(Math.max(currentSlide - 1, 0));
   }, [currentSlide, navigateToSlide]);
 
-  // Keyboard navigation
+  // Keyboard navigation - disabled when notes panel is open
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Only allow navigation when notes panel is closed
+      if (isPresenterMode) {
+        if (e.key === 'Escape') {
+          navigate('/report', { replace: true });
+        }
+        return;
+      }
+      
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
         nextSlide();
@@ -324,12 +332,12 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nextSlide, prevSlide, navigate]);
+  }, [nextSlide, prevSlide, navigate, isPresenterMode]);
 
-  // Wheel navigation
+  // Wheel navigation - disabled when notes panel is open
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || isPresenterMode) return;
     
     let wheelTimeout: ReturnType<typeof setTimeout>;
     
@@ -359,7 +367,7 @@ const ReportSection = ({ onExit }: ReportSectionProps) => {
       container.removeEventListener('wheel', handleWheel);
       clearTimeout(wheelTimeout);
     };
-  }, [nextSlide, prevSlide]);
+  }, [nextSlide, prevSlide, isPresenterMode]);
 
   return (
     <div 
