@@ -58,6 +58,7 @@ export type Database = {
           created_at: string
           generated_slides: Json | null
           id: string
+          presenter_notes: Json | null
           title: string
           updated_at: string
         }
@@ -68,6 +69,7 @@ export type Database = {
           created_at?: string
           generated_slides?: Json | null
           id?: string
+          presenter_notes?: Json | null
           title: string
           updated_at?: string
         }
@@ -78,6 +80,7 @@ export type Database = {
           created_at?: string
           generated_slides?: Json | null
           id?: string
+          presenter_notes?: Json | null
           title?: string
           updated_at?: string
         }
