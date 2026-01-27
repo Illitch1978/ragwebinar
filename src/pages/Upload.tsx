@@ -406,12 +406,12 @@ const UploadPage = () => {
             className="text-center mb-12 lg:mb-16"
           >
             <h1 className="font-serif text-4xl lg:text-6xl text-foreground mb-6 tracking-tight">
-              Strategic<br />
-              <span className="italic text-primary">Intelligence Reports</span>
+              Content to<br />
+              <span className="italic text-primary">Premium Decks</span>
             </h1>
             <p className="text-muted-foreground text-lg lg:text-xl max-w-2xl mx-auto font-light">
-              Transform your analysis into a premium presentation deck. 
-              Paste your content or upload a file to begin.
+              Transform raw content into polished presentations, reports, and executive documents. 
+              Drop your analysis and let AI do the heavy lifting.
             </p>
           </motion.div>
 
@@ -599,66 +599,66 @@ const UploadPage = () => {
               Content
             </label>
             
-            {/* Drag & Drop Zone */}
-            <div
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              onClick={() => fileInputRef.current?.click()}
-              className={cn(
-                "relative border-2 border-dashed rounded-sm p-8 mb-4 cursor-pointer transition-all duration-300",
-                isDragging 
-                  ? "border-primary bg-primary/5" 
-                  : "border-border hover:border-primary/50 hover:bg-muted/30"
-              )}
-            >
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".txt,.md,.html,.htm,text/plain,text/markdown,text/html"
-                onChange={handleFileSelect}
-                className="hidden"
-              />
-              <div className="flex flex-col items-center gap-4 text-center">
-                <div className={cn(
-                  "w-14 h-14 rounded-full flex items-center justify-center transition-colors",
-                  isDragging ? "bg-primary/20" : "bg-muted",
-                  isProcessingFile && "animate-pulse"
-                )}>
-                  {isProcessingFile ? (
-                    <Loader2 className="w-6 h-6 text-primary animate-spin" />
-                  ) : (
-                    <UploadIcon className={cn(
-                      "w-6 h-6 transition-colors",
-                      isDragging ? "text-primary" : "text-muted-foreground"
-                    )} />
-                  )}
-                </div>
-                <div>
-                  <p className="font-medium text-foreground mb-1">
-                    {isProcessingFile ? "Processing file..." : "Drop your file here, or click to browse"}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Supports .txt, .md, and .html files
-                  </p>
+            {/* Elegant Content Input Container */}
+            <div className="bg-card border border-border rounded-sm overflow-hidden">
+              {/* Drag & Drop Zone */}
+              <div
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+                className={cn(
+                  "relative p-10 cursor-pointer transition-all duration-300 border-b border-border",
+                  isDragging 
+                    ? "bg-primary/5" 
+                    : "hover:bg-muted/30"
+                )}
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".txt,.md,.html,.htm,text/plain,text/markdown,text/html"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
+                <div className="flex flex-col items-center gap-3 text-center">
+                  <div className={cn(
+                    "w-12 h-12 rounded-full border-2 border-dashed flex items-center justify-center transition-all duration-300",
+                    isDragging ? "border-primary bg-primary/10" : "border-muted-foreground/30",
+                    isProcessingFile && "animate-pulse border-primary"
+                  )}>
+                    {isProcessingFile ? (
+                      <Loader2 className="w-5 h-5 text-primary animate-spin" />
+                    ) : (
+                      <UploadIcon className={cn(
+                        "w-5 h-5 transition-colors",
+                        isDragging ? "text-primary" : "text-muted-foreground/60"
+                      )} />
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground text-sm">
+                      {isProcessingFile ? "Processing file..." : "Drop your file here, or click to browse"}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Supports .txt, .md, and .html files
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Or divider */}
-            <div className="flex items-center gap-4 mb-4">
-              <div className="flex-1 h-px bg-border" />
-              <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-                Or paste content
-              </span>
-              <div className="flex-1 h-px bg-border" />
-            </div>
+              {/* Or divider */}
+              <div className="flex items-center justify-center py-3 bg-muted/20">
+                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+                  Or paste content
+                </span>
+              </div>
 
-            {/* Textarea */}
-            <Textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Paste your Markdown or plain text content here...
+              {/* Textarea */}
+              <Textarea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder="Paste your Markdown or plain text content here...
 
 # Executive Summary
 Your strategic analysis content...
@@ -669,15 +669,17 @@ Your strategic analysis content...
 
 ## Recommendations
 ..."
-              className="min-h-[300px] bg-card border-border focus:border-primary resize-none font-mono text-sm"
-            />
-            
-            {content && (
-              <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-                <FileText className="w-4 h-4" />
-                <span>{content.length.toLocaleString()} characters</span>
-              </div>
-            )}
+                className="min-h-[240px] bg-transparent border-0 focus:ring-0 focus-visible:ring-0 resize-none font-mono text-sm px-6 py-5"
+              />
+              
+              {/* Character count footer */}
+              {content && (
+                <div className="px-6 py-3 border-t border-border bg-muted/20 flex items-center gap-2 text-xs text-muted-foreground">
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>{content.length.toLocaleString()} characters</span>
+                </div>
+              )}
+            </div>
           </motion.div>
 
           {/* Generate Button */}
