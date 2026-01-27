@@ -39,12 +39,18 @@ interface Slide {
 
 // Convert generated slides to our internal format
 const convertGeneratedSlides = (generatedSlides: any[], clientName: string): Slide[] => {
-  let sectionCount = 0;
+  let dividerCount = 0; // Only count section-dividers, not cover
+  let quoteCount = 0; // Track quote slides for portrait logic
   
   return generatedSlides.map((slide, index) => {
-    // Increment section count for cover and section-divider slides
-    if (slide.type === 'cover' || slide.type === 'section-divider') {
-      sectionCount++;
+    // Only increment for section-dividers (NOT cover slides)
+    if (slide.type === 'section-divider') {
+      dividerCount++;
+    }
+    
+    // Track quote slides
+    if (slide.type === 'quote') {
+      quoteCount++;
     }
     
     // Quote slides are now LIGHT for variety - don't start with two dark slides
@@ -56,11 +62,19 @@ const convertGeneratedSlides = (generatedSlides: any[], clientName: string): Sli
       // Quote removed from dark list - now light themed
     );
     
+    // For section-dividers: swap title and subtitle (subtitle becomes main display)
+    const displayTitle = slide.type === 'section-divider' && slide.subtitle 
+      ? slide.subtitle 
+      : slide.title;
+    const displaySubtitle = slide.type === 'section-divider' && slide.subtitle 
+      ? slide.title 
+      : slide.subtitle;
+    
     return {
       id: index,
       type: slide.type as Slide['type'],
-      title: slide.title || '',
-      subtitle: slide.subtitle,
+      title: displayTitle || '',
+      subtitle: displaySubtitle,
       content: slide.content,
       body: slide.content,
       items: slide.items,
@@ -72,9 +86,12 @@ const convertGeneratedSlides = (generatedSlides: any[], clientName: string): Sli
       author: slide.author,
       authorEmail: slide.authorEmail,
       dark: isDarkSlide,
-      kicker: (slide.type === 'cover' || slide.type === 'section-divider') 
-        ? String(sectionCount).padStart(2, '0') 
-        : slide.kicker,
+      // Cover gets no number, section-dividers get sequential 1, 2, 3...
+      kicker: slide.type === 'section-divider' 
+        ? String(dividerCount).padStart(2, '0') 
+        : (slide.type === 'cover' ? undefined : slide.kicker),
+      // Track if this is the first quote (for portrait display)
+      meta: slide.type === 'quote' ? String(quoteCount) : slide.meta,
     };
   });
 };
@@ -463,27 +480,12 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
         animate={isActive ? "center" : "exit"}
         className="relative flex h-full"
       >
-        {/* Premium background elements */}
+        {/* Premium background elements - no number on cover */}
         <CoverPattern reduced={isExportMode} />
-        <LargeDecorativeNumber number={slide.kicker || '01'} />
         <CoverFrame />
         
         {/* Main content - left aligned for editorial feel */}
         <div className="relative z-10 flex flex-col justify-center h-full px-12 lg:px-20 max-w-5xl">
-          
-          {/* Kicker/Event info */}
-          {slide.kicker && (
-            <motion.div 
-              variants={childVariant}
-              transition={smoothTransition}
-              className="flex items-center gap-4 mb-6"
-            >
-              <div className="w-12 h-[1px] bg-primary" />
-              <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary">
-                {slide.kicker}
-              </span>
-            </motion.div>
-          )}
           
           {/* Main title */}
           <motion.h1 
@@ -841,14 +843,15 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
     );
   }
 
-  // Quote slide - Premium split layout with author portrait
+  // Quote slide - Premium layout: first quote gets portrait, others are centered big text
   if (slide.type === 'quote') {
     const quoteText = slide.quote || slide.title || slide.content;
     const authorText = slide.author || slide.subtitle;
+    const isFirstQuote = slide.meta === '1';
     
-    // Dynamic author image mapping
+    // Dynamic author image mapping - only for first quote
     const getAuthorImage = (author: string | undefined) => {
-      if (!author) return null;
+      if (!author || !isFirstQuote) return null;
       const authorLower = author.toLowerCase();
       if (authorLower.includes('owen')) return owenJenkinsImg;
       if (authorLower.includes('illitch')) return illitchImg;
@@ -859,6 +862,58 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
     
     const authorImage = getAuthorImage(authorText);
     
+    // Non-first quotes: centered big text layout
+    if (!isFirstQuote) {
+      return (
+        <motion.div
+          variants={staggerChildren}
+          initial="enter"
+          animate={isActive ? "center" : "exit"}
+          className="relative flex flex-col items-center justify-center h-full text-center px-12 lg:px-20"
+        >
+          {/* Light premium background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+          
+          {/* Corner accents */}
+          <div className="absolute top-12 left-12 w-24 h-24 border-l-2 border-t-2 border-primary/10" />
+          <div className="absolute bottom-12 right-12 w-24 h-24 border-r-2 border-b-2 border-primary/10" />
+          
+          <div className="relative max-w-4xl">
+            {/* Opening quote mark */}
+            <motion.div
+              variants={childVariant}
+              transition={smoothTransition}
+              className="mb-2"
+            >
+              <span className="font-serif text-8xl lg:text-9xl text-primary/20 leading-none">"</span>
+            </motion.div>
+            
+            {/* Quote text - big and centered */}
+            <motion.p 
+              variants={childVariant}
+              transition={smoothTransition}
+              className="font-serif text-3xl lg:text-4xl xl:text-5xl text-foreground leading-relaxed"
+            >
+              {quoteText}
+            </motion.p>
+            
+            {/* Author attribution - simple centered */}
+            {authorText && (
+              <motion.div 
+                variants={childVariant}
+                transition={smoothTransition}
+                className="mt-12 flex flex-col items-center"
+              >
+                <div className="w-16 h-[2px] bg-primary mb-6" />
+                <span className="text-lg font-medium text-foreground">{authorText}</span>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
+      );
+    }
+    
+    // First quote: split layout with portrait
     return (
       <motion.div
         variants={staggerChildren}
