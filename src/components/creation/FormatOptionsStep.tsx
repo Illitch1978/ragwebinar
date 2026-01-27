@@ -16,12 +16,54 @@ import { BrandGuide } from "@/hooks/useBrandGuides";
 import { useRef, useState } from "react";
 
 export type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
+export type ArticlePersona = 'strategist' | 'operator' | 'storyteller' | 'sharp-edge' | 'marketing-guru';
+export type WordCountRange = '400' | '600' | '800' | '1000';
 
 const DECK_LENGTH_OPTIONS = [
   { key: 'brief' as DeckLength, label: 'Brief', slides: '8-12' },
   { key: 'medium' as DeckLength, label: 'Medium', slides: '13-22' },
   { key: 'long' as DeckLength, label: 'Long', slides: '23-30' },
   { key: 'very-long' as DeckLength, label: 'Very Long', slides: '31-45' },
+];
+
+const ARTICLE_PERSONA_OPTIONS = [
+  { 
+    key: 'strategist' as ArticlePersona, 
+    label: 'The Strategist',
+    reference: 'Michael Porter, Richard Rumelt',
+    description: 'Deliberate, structured, directional. Frames ideas around purpose, trade-offs, and long-term positioning. Builds arguments step by step with calm authority.',
+  },
+  { 
+    key: 'operator' as ArticlePersona, 
+    label: 'The Operator',
+    reference: 'Execution-focused practitioners',
+    description: 'Practical, grounded, focused on execution. Values what works over abstraction. Centers on process, outcomes, and real-world constraints.',
+  },
+  { 
+    key: 'storyteller' as ArticlePersona, 
+    label: 'The Storyteller',
+    reference: 'Narrative-driven thinkers',
+    description: 'Leads with narrative and human experience. Ideas introduced through scenes and moments. Confident but inviting, designed to draw readers in.',
+  },
+  { 
+    key: 'sharp-edge' as ArticlePersona, 
+    label: 'The Sharp Edge',
+    reference: 'Contrarian analysts',
+    description: 'Bold, challenging, deliberately contrarian. Questions assumptions and exposes weak logic. Confident and unapologetic with crisp language.',
+  },
+  { 
+    key: 'marketing-guru' as ArticlePersona, 
+    label: 'The Marketing Guru',
+    reference: 'Brand strategists',
+    description: 'Audience-first and positioning-driven. Focuses on attention, perception, and how ideas land. Simple but intentional language crafted for impact.',
+  },
+];
+
+const WORD_COUNT_OPTIONS = [
+  { key: '400' as WordCountRange, label: 'Up to 400', description: 'Brief insight' },
+  { key: '600' as WordCountRange, label: 'Up to 600', description: 'Short article' },
+  { key: '800' as WordCountRange, label: 'Up to 800', description: 'Standard piece' },
+  { key: '1000' as WordCountRange, label: 'Up to 1,000', description: 'In-depth' },
 ];
 
 interface FormatOptionsStepProps {
@@ -32,6 +74,10 @@ interface FormatOptionsStepProps {
   setSelectedBrandGuide: (value: string) => void;
   deckLength: DeckLength;
   setDeckLength: (value: DeckLength) => void;
+  articlePersona: ArticlePersona;
+  setArticlePersona: (value: ArticlePersona) => void;
+  wordCountRange: WordCountRange;
+  setWordCountRange: (value: WordCountRange) => void;
   content: string;
   setContent: (value: string) => void;
   onBack: () => void;
@@ -47,6 +93,10 @@ const FormatOptionsStep = ({
   setSelectedBrandGuide,
   deckLength,
   setDeckLength,
+  articlePersona,
+  setArticlePersona,
+  wordCountRange,
+  setWordCountRange,
   content,
   setContent,
   onBack,
@@ -56,6 +106,7 @@ const FormatOptionsStep = ({
   const formatConfig = OUTPUT_FORMAT_OPTIONS.find(f => f.key === outputFormat);
   const showBrandGuide = formatConfig?.needsBrandGuide ?? true;
   const showDeckOptions = formatConfig?.isSlideFormat ?? true;
+  const isArticleFormat = outputFormat === 'article';
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -216,7 +267,7 @@ const FormatOptionsStep = ({
                 key={option.key}
                 onClick={() => setDeckLength(option.key)}
                 className={cn(
-                  "relative px-4 py-3 rounded-sm border-2 transition-all duration-300 text-center",
+                  "relative px-4 py-3 border-2 transition-all duration-300 text-center",
                   deckLength === option.key
                     ? "border-primary bg-primary/5"
                     : "border-border hover:border-primary/50 bg-card"
@@ -225,7 +276,84 @@ const FormatOptionsStep = ({
                 <p className="font-medium text-sm text-foreground">{option.label}</p>
                 <p className="text-xs text-muted-foreground">{option.slides} slides</p>
                 {deckLength === option.key && (
-                  <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full" />
+                  <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary" />
+                )}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Article Persona Selection - only for Thought Leadership */}
+      {isArticleFormat && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+            Writing Persona
+          </label>
+          <div className="space-y-3">
+            {ARTICLE_PERSONA_OPTIONS.map((option) => (
+              <button
+                key={option.key}
+                onClick={() => setArticlePersona(option.key)}
+                className={cn(
+                  "relative w-full px-5 py-4 border-2 transition-all duration-300 text-left group",
+                  articlePersona === option.key
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-primary/50 bg-card"
+                )}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-1">
+                      <p className="font-medium text-foreground">{option.label}</p>
+                      <span className="text-[10px] font-mono text-muted-foreground">
+                        {option.reference}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {option.description}
+                    </p>
+                  </div>
+                  {articlePersona === option.key && (
+                    <div className="w-1.5 h-1.5 bg-primary shrink-0 mt-2" />
+                  )}
+                </div>
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Word Count Range - only for Thought Leadership */}
+      {isArticleFormat && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
+          <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+            Word Count
+          </label>
+          <div className="grid grid-cols-4 gap-3">
+            {WORD_COUNT_OPTIONS.map((option) => (
+              <button
+                key={option.key}
+                onClick={() => setWordCountRange(option.key)}
+                className={cn(
+                  "relative px-4 py-3 border-2 transition-all duration-300 text-center",
+                  wordCountRange === option.key
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-primary/50 bg-card"
+                )}
+              >
+                <p className="font-medium text-sm text-foreground">{option.label}</p>
+                <p className="text-xs text-muted-foreground">{option.description}</p>
+                {wordCountRange === option.key && (
+                  <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary" />
                 )}
               </button>
             ))}
