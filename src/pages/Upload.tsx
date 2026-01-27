@@ -378,7 +378,7 @@ const UploadPage = () => {
               Content to<br />
               <span className="italic text-primary">Premium Decks</span>
             </h1>
-            <p className="text-[#525252] text-lg lg:text-xl max-w-2xl mx-auto font-light">
+            <p className="font-serif text-xl lg:text-2xl text-[#003366] font-medium italic max-w-2xl mx-auto leading-relaxed">
               Transform raw content into polished presentations, proposals, and executive documents.
             </p>
           </motion.div>
