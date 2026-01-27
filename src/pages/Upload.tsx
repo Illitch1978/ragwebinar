@@ -12,33 +12,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import DeleteConfirmationDialog from "@/components/DeleteConfirmationDialog";
 import SettingsSidebar from "@/components/SettingsSidebar";
+import AppHeader from "@/components/AppHeader";
 import { exportToPptx } from "@/lib/pptxExport";
 import { exportToDocx } from "@/lib/docxExport";
 import { exportProposalToPdf } from "@/lib/pdfProposalExport";
 import ProjectDetailsStep, { OutputFormat, OUTPUT_FORMAT_OPTIONS } from "@/components/creation/ProjectDetailsStep";
 import FormatOptionsStep, { DeckLength, ArticlePersona, WordCountRange } from "@/components/creation/FormatOptionsStep";
-
-// Rubiklab Logo component
-const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
-  <div className="flex items-center gap-1.5 group cursor-pointer">
-    <span className={cn(
-      "font-serif font-bold tracking-tight text-muted-foreground transition-colors duration-700 group-hover:text-primary",
-      size === 'small' ? 'text-xl' : 'text-2xl'
-    )}>
-      rubiklab
-    </span>
-    <div className="relative flex items-center justify-center">
-      <div className={cn(
-        "absolute bg-primary rounded-full animate-ping opacity-20",
-        size === 'small' ? 'w-2 h-2' : 'w-2.5 h-2.5'
-      )} />
-      <div className={cn(
-        "bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.3)]",
-        size === 'small' ? 'w-1.5 h-1.5' : 'w-2 h-2'
-      )} />
-    </div>
-  </div>
-);
 
 const UploadPage = () => {
   // Wizard step state
@@ -383,18 +362,7 @@ const UploadPage = () => {
       />
 
       {/* Header */}
-      <header className="relative z-10 border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-6 lg:px-16 py-5 flex justify-between items-center">
-          <div className="flex items-center gap-6">
-            <RubiklabLogo />
-            <div className="hidden md:block h-6 w-px bg-border" />
-            <span className="hidden md:block font-mono text-[10px] text-muted-foreground uppercase tracking-[0.2em]">
-              Intelligence Studio
-            </span>
-          </div>
-          <SettingsSidebar />
-        </div>
-      </header>
+      <AppHeader />
 
       {/* Main Content */}
       <main className="relative z-10 flex-1 container mx-auto px-6 lg:px-16 py-12 lg:py-20">
@@ -580,7 +548,10 @@ const UploadPage = () => {
       {/* Footer */}
       <footer className="relative z-10 border-t border-border py-8">
         <div className="container mx-auto px-6 lg:px-16 flex justify-between items-center">
-          <RubiklabLogo size="small" />
+          <div className="flex items-baseline gap-0.5 select-none">
+            <span className="font-serif font-bold text-xl tracking-tight text-muted-foreground leading-none">rubiklab</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_hsl(var(--primary)/0.6)] transform -translate-y-0.5" />
+          </div>
           <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
             Rubiklab Intelligence Capital © 2026
           </span>
