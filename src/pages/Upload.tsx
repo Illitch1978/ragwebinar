@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, ClipboardList } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, ClipboardList, Target, BookOpen, BriefcaseBusiness, FileCheck, Video } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,6 +12,7 @@ import { formatDistanceToNow } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import BrandGuideEditor from "@/components/BrandGuideEditor";
+import DeleteConfirmationDialog from "@/components/DeleteConfirmationDialog";
 import SettingsSidebar from "@/components/SettingsSidebar";
 import { exportToPptx } from "@/lib/pptxExport";
 import {
@@ -56,37 +57,37 @@ const OUTPUT_FORMAT_OPTIONS = [
     key: 'presentation' as OutputFormat,
     label: 'Presentation',
     description: 'Versatile deck for any topic with clear narrative flow',
-    icon: 'PresentationIcon',
+    Icon: PresentationIcon,
   },
   {
     key: 'report' as OutputFormat,
     label: 'Report',
     description: 'Data-driven analysis with findings and recommendations',
-    icon: 'FileBarChart',
+    Icon: FileBarChart,
   },
   {
     key: 'proposal' as OutputFormat,
     label: 'Proposal Builder',
     description: 'Persuasive pitch with problem-solution structure and CTA',
-    icon: 'FileText',
+    Icon: Target,
   },
   {
     key: 'article' as OutputFormat,
     label: 'Thought Leadership',
-    description: 'Long-form narrative with insights and supporting evidence',
-    icon: 'FileText',
+    description: 'Word document (1-5 pages) with insights and supporting evidence',
+    Icon: BookOpen,
   },
   {
     key: 'executive-summary' as OutputFormat,
     label: 'Executive Summary',
-    description: 'Concise 5-8 slide overview for decision-makers',
-    icon: 'ClipboardList',
+    description: 'Word document (2-5 pages) for decision-makers',
+    Icon: BriefcaseBusiness,
   },
   {
     key: 'post-meeting' as OutputFormat,
     label: 'Post-Meeting Deck',
-    description: 'Quick recap with action items and next steps',
-    icon: 'ClipboardList',
+    description: '4-5 slides from AI recording: summary, takeaways, action items',
+    Icon: Video,
   },
 ];
 
@@ -120,6 +121,10 @@ const UploadPage = () => {
   // Edit state for presentation titles
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingTitle, setEditingTitle] = useState("");
+  
+  // Delete confirmation state
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [presentationToDelete, setPresentationToDelete] = useState<Presentation | null>(null);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -311,18 +316,25 @@ const UploadPage = () => {
     }
   };
 
-  const handleDelete = async (e: React.MouseEvent, presentation: Presentation) => {
+  const handleDelete = (e: React.MouseEvent, presentation: Presentation) => {
     e.stopPropagation();
     if (presentation.is_locked) {
       toast.error("Cannot delete a locked presentation");
       return;
     }
-    if (confirm('Are you sure you want to delete this presentation?')) {
-      try {
-        await deletePresentation.mutateAsync(presentation.id);
-      } catch (error: any) {
-        toast.error(error.message || "Failed to delete presentation");
-      }
+    setPresentationToDelete(presentation);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!presentationToDelete) return;
+    try {
+      await deletePresentation.mutateAsync(presentationToDelete.id);
+      toast.success("Presentation deleted");
+    } catch (error: any) {
+      toast.error(error.message || "Failed to delete presentation");
+    } finally {
+      setPresentationToDelete(null);
     }
   };
 
@@ -434,10 +446,7 @@ const UploadPage = () => {
             </label>
             <div className="grid grid-cols-2 gap-4">
               {OUTPUT_FORMAT_OPTIONS.map((option) => {
-                const IconComponent = option.icon === 'FileBarChart' ? FileBarChart 
-                  : option.icon === 'FileText' ? FileText 
-                  : option.icon === 'Presentation' ? PresentationIcon 
-                  : ClipboardList;
+                const IconComponent = option.Icon;
                 
                 return (
                   <button
@@ -880,6 +889,14 @@ Your strategic analysis content...
           </span>
         </div>
       </footer>
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteConfirmationDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        presentationTitle={presentationToDelete?.title || ""}
+        onConfirm={confirmDelete}
+      />
     </div>
   );
 };

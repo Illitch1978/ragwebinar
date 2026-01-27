@@ -86,7 +86,7 @@ export const OUTPUT_FORMAT_PRINCIPLES: Record<OutputFormat, {
   },
 
   article: {
-    name: "Article / Thought Leadership",
+    name: "Thought Leadership",
     structure: [
       "Provocative opening thesis",
       "Context and background (why now?)",
@@ -102,19 +102,20 @@ export const OUTPUT_FORMAT_PRINCIPLES: Record<OutputFormat, {
       "Balance data with narrative",
       "Invite reflection, not just agreement",
     ],
-    slideLengthHint: "12-20 slides",
+    slideLengthHint: "1-5 pages (Word document)",
     keyFeatures: [
       "Strong editorial voice",
-      "Quote slides with attribution",
+      "Quote blocks with attribution",
       "Data visualization for key insights",
       "Memorable closing statement",
+      "Professional document formatting",
     ],
   },
 
   "executive-summary": {
     name: "Executive Summary",
     structure: [
-      "One-slide situation overview",
+      "One-paragraph situation overview",
       "Key findings (2-3 bullets max)",
       "Critical implications",
       "Recommended actions",
@@ -126,23 +127,23 @@ export const OUTPUT_FORMAT_PRINCIPLES: Record<OutputFormat, {
       "Every word must earn its place",
       "No jargon or filler phrases",
     ],
-    slideLengthHint: "5-8 slides",
+    slideLengthHint: "2-5 pages (Word document)",
     keyFeatures: [
       "Maximum information density",
       "Clear decision points highlighted",
       "Skip the preamble—get to the point",
       "Designed for time-pressed executives",
+      "Professional document formatting",
     ],
   },
 
   "post-meeting": {
-    name: "Post-Meeting Mini Deck",
+    name: "Post-Meeting Deck",
     structure: [
       "Meeting context (who, when, purpose)",
       "Key discussion points recap",
       "Decisions made",
       "Action items with owners and deadlines",
-      "Open questions / parking lot",
       "Next meeting or follow-up date",
     ],
     toneGuidelines: [
@@ -151,12 +152,13 @@ export const OUTPUT_FORMAT_PRINCIPLES: Record<OutputFormat, {
       "Use clear ownership language",
       "Include specific dates and deadlines",
     ],
-    slideLengthHint: "6-10 slides",
+    slideLengthHint: "4-5 slides",
     keyFeatures: [
       "Action item checklist format",
       "Clear owner assignments",
       "Timeline for follow-ups",
       "Quick reference for all attendees",
+      "AI recording summary compatible",
     ],
   },
 };
