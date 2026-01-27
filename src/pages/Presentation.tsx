@@ -516,7 +516,24 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             </span>
           </motion.div>
           
-          {/* Decorative bottom line - no text to avoid logo duplication */}
+          {/* Presenter/attendee details */}
+          {slide.items && slide.items.length > 0 && (
+            <motion.div 
+              variants={childVariant}
+              transition={smoothTransition}
+              className="mt-8 space-y-2"
+            >
+              {slide.items.map((item: any, idx: number) => (
+                <div key={idx} className="flex items-center gap-3 text-sm">
+                  <span className="font-mono text-[10px] tracking-wider text-primary uppercase w-28">{item.label}</span>
+                  <div className="w-4 h-[1px] bg-white/20" />
+                  <span className="text-white/60">{item.text}</span>
+                </div>
+              ))}
+            </motion.div>
+          )}
+          
+          {/* Decorative bottom line */}
           <motion.div 
             variants={childVariant}
             transition={smoothTransition}
