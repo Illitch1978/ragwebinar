@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput, ChevronDown, MoreHorizontal } from "lucide-react";
+import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput, ChevronDown, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,7 +46,6 @@ const UploadPage = () => {
   
   // Step 1: Project Details
   const [projectName, setProjectName] = useState("");
-  const [owner, setOwner] = useState("");
   const [description, setDescription] = useState("");
   const [outputFormat, setOutputFormat] = useState<OutputFormat>('proposal');
   
@@ -83,6 +82,15 @@ const UploadPage = () => {
   // Delete confirmation state
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [presentationToDelete, setPresentationToDelete] = useState<Presentation | null>(null);
+  
+  // Search state for saved projects
+  const [projectSearch, setProjectSearch] = useState("");
+  
+  // Filter presentations based on search
+  const filteredPresentations = savedPresentations?.filter(p => 
+    p.title.toLowerCase().includes(projectSearch.toLowerCase()) ||
+    (p.client_name && p.client_name.toLowerCase().includes(projectSearch.toLowerCase()))
+  );
 
   const handleGenerate = async () => {
     const fullContent = additionalContent 
@@ -106,7 +114,7 @@ const UploadPage = () => {
         content: fullContent,
         client_name: projectName || undefined,
         brand_guide_id: selectedBrandGuide || undefined,
-        created_by: owner || undefined,
+        created_by: undefined,
       });
       
       // For non-slide formats, handle document export directly
@@ -118,14 +126,13 @@ const UploadPage = () => {
             clientName: projectName || undefined,
             content: fullContent,
             format: outputFormat,
-            createdBy: owner || undefined,
+            createdBy: undefined,
           });
           toast.success("Word document downloaded!");
           setIsGenerating(false);
           // Reset form
           setCurrentStep(1);
           setProjectName("");
-          setOwner("");
           setDescription("");
           setAdditionalContent("");
           return;
@@ -173,7 +180,7 @@ const UploadPage = () => {
             title,
             clientName: projectName || undefined,
             content: fullContent,
-            createdBy: owner || undefined,
+            createdBy: undefined,
             termsAndConditions,
           });
           toast.success("Proposal PDF downloaded!");
@@ -374,9 +381,15 @@ const UploadPage = () => {
       />
 
       {/* Header */}
-      <header className="relative z-10 border-b border-border">
-        <div className="container mx-auto px-6 lg:px-16 py-6 flex justify-between items-center">
-          <RubiklabLogo />
+      <header className="relative z-10 border-b border-border bg-card/50 backdrop-blur-sm">
+        <div className="container mx-auto px-6 lg:px-16 py-5 flex justify-between items-center">
+          <div className="flex items-center gap-6">
+            <RubiklabLogo />
+            <div className="hidden md:block h-6 w-px bg-border" />
+            <span className="hidden md:block font-mono text-[10px] text-muted-foreground uppercase tracking-[0.2em]">
+              Intelligence Studio
+            </span>
+          </div>
           <SettingsSidebar />
         </div>
       </header>
@@ -407,22 +420,22 @@ const UploadPage = () => {
             className="flex items-center justify-center gap-4 mb-10"
           >
             <div className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-full border transition-colors",
+              "flex items-center gap-2 px-4 py-2 border transition-colors",
               currentStep === 1 
                 ? "border-primary bg-primary/10 text-primary" 
                 : "border-border text-muted-foreground"
             )}>
-              <span className="w-6 h-6 rounded-full bg-current/20 flex items-center justify-center text-xs font-bold">1</span>
+              <span className="w-6 h-6 bg-current/20 flex items-center justify-center text-xs font-bold">1</span>
               <span className="font-mono text-[10px] uppercase tracking-widest">Project Details</span>
             </div>
             <div className="w-8 h-px bg-border" />
             <div className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-full border transition-colors",
+              "flex items-center gap-2 px-4 py-2 border transition-colors",
               currentStep === 2 
                 ? "border-primary bg-primary/10 text-primary" 
                 : "border-border text-muted-foreground"
             )}>
-              <span className="w-6 h-6 rounded-full bg-current/20 flex items-center justify-center text-xs font-bold">2</span>
+              <span className="w-6 h-6 bg-current/20 flex items-center justify-center text-xs font-bold">2</span>
               <span className="font-mono text-[10px] uppercase tracking-widest">Options & Generate</span>
             </div>
           </motion.div>
@@ -440,8 +453,6 @@ const UploadPage = () => {
                 <ProjectDetailsStep
                   projectName={projectName}
                   setProjectName={setProjectName}
-                  owner={owner}
-                  setOwner={setOwner}
                   description={description}
                   setDescription={setDescription}
                   outputFormat={outputFormat}
@@ -476,7 +487,7 @@ const UploadPage = () => {
           </AnimatePresence>
 
 
-          {/* Saved Presentations Dropdown */}
+          {/* Saved Presentations with Search */}
           {savedPresentations && savedPresentations.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -491,21 +502,36 @@ const UploadPage = () => {
                 </h2>
               </div>
               
+              {/* Search Input */}
+              <div className="relative mb-4">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  value={projectSearch}
+                  onChange={(e) => setProjectSearch(e.target.value)}
+                  placeholder="Search projects..."
+                  className="w-full pl-12 pr-6 py-3 bg-card border border-border text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              
+              {/* Dropdown */}
               <div className="relative">
                 <select
                   onChange={(e) => {
-                    const selected = savedPresentations.find(p => p.id === e.target.value);
+                    const selected = filteredPresentations?.find(p => p.id === e.target.value);
                     if (selected) handleOpenSaved(selected);
                   }}
                   className="w-full appearance-none px-6 py-4 pr-12 bg-card border border-border text-foreground font-medium cursor-pointer hover:border-primary/50 transition-colors focus:outline-none focus:border-primary"
                   defaultValue=""
                 >
                   <option value="" disabled>
-                    Select a saved project to open...
+                    {filteredPresentations?.length === 0 
+                      ? "No projects match your search..." 
+                      : "Select a project to open..."}
                   </option>
-                  {savedPresentations.map((presentation) => (
+                  {filteredPresentations?.map((presentation) => (
                     <option key={presentation.id} value={presentation.id}>
-                      {presentation.title} {presentation.created_by ? `• ${presentation.created_by}` : ''} • {formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}
+                      {presentation.title} • {formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}
                     </option>
                   ))}
                 </select>
@@ -513,7 +539,9 @@ const UploadPage = () => {
               </div>
               
               <p className="text-xs text-muted-foreground mt-3">
-                {savedPresentations.length} saved project{savedPresentations.length !== 1 ? 's' : ''}
+                {filteredPresentations?.length === savedPresentations.length 
+                  ? `${savedPresentations.length} saved project${savedPresentations.length !== 1 ? 's' : ''}`
+                  : `${filteredPresentations?.length} of ${savedPresentations.length} projects`}
               </p>
             </motion.div>
           )}

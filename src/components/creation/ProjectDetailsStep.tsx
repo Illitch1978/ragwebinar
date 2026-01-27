@@ -60,8 +60,6 @@ export const OUTPUT_FORMAT_OPTIONS = [
 interface ProjectDetailsStepProps {
   projectName: string;
   setProjectName: (value: string) => void;
-  owner: string;
-  setOwner: (value: string) => void;
   description: string;
   setDescription: (value: string) => void;
   outputFormat: OutputFormat;
@@ -72,8 +70,6 @@ interface ProjectDetailsStepProps {
 const ProjectDetailsStep = ({
   projectName,
   setProjectName,
-  owner,
-  setOwner,
   description,
   setDescription,
   outputFormat,
@@ -98,24 +94,6 @@ const ProjectDetailsStep = ({
           value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
           placeholder="Enter project or client name..."
-          className="w-full px-6 py-4 bg-card border border-border rounded-sm font-sans text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
-        />
-      </motion.div>
-
-      {/* Owner */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-      >
-        <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-          Owner / Created By
-        </label>
-        <input
-          type="text"
-          value={owner}
-          onChange={(e) => setOwner(e.target.value)}
-          placeholder="Your name..."
           className="w-full px-6 py-4 bg-card border border-border rounded-sm font-sans text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
         />
       </motion.div>
