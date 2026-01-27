@@ -1,74 +1,16 @@
-import { Link, useLocation } from "react-router-dom";
-import { ArrowLeft, Settings } from "lucide-react";
+import AppHeader from "@/components/AppHeader";
 
 const Overview = () => {
-  const location = useLocation();
-  
-  const navTabs = [
-    { label: "Overview", path: "/overview" },
-    { label: "Deck", path: "/deck" },
-    { label: "Talk to Data", path: "#" },
-  ];
-
   return (
-    <div className="flex h-screen w-full bg-[#F9F8F4] text-[#1C1C1C] font-sans overflow-hidden selection:bg-[#E1F5FE] selection:text-[#0D9BDD]">
+    <div className="flex flex-col h-screen w-full bg-[#F9F8F4] text-[#1C1C1C] font-sans overflow-hidden selection:bg-[#E1F5FE] selection:text-[#0D9BDD]">
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-full relative">
-        
-        {/* App Header */}
-        <div className="flex items-center justify-between px-8 py-4 border-b border-neutral-200 bg-white/80 backdrop-blur-md sticky top-0 z-30">
-          
-          {/* Breadcrumb / Back */}
-          <div className="flex items-center gap-4 text-sm">
-            <button className="text-neutral-400 hover:text-[#1C1C1C] transition-colors flex items-center gap-2 font-medium group">
-              <div className="w-6 h-6 rounded-full bg-neutral-100 flex items-center justify-center group-hover:bg-neutral-200 transition-colors">
-                <ArrowLeft size={14} />
-              </div>
-              <span className="uppercase tracking-wide text-xs font-bold">Projects</span>
-            </button>
-          </div>
+      {/* App Header */}
+      <AppHeader />
 
-          {/* Navigation Tabs */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-0">
-            {navTabs.map((tab) => {
-              const isActive = location.pathname === tab.path;
-              return (
-                <Link
-                  key={tab.label}
-                  to={tab.path}
-                  className={`px-8 py-3 text-xs uppercase tracking-[0.15em] font-bold transition-all ${
-                    isActive 
-                      ? "bg-[#0D9BDD] text-white" 
-                      : "bg-transparent text-[#64748B] hover:bg-[rgba(13,155,221,0.05)] hover:text-[#0D9BDD]"
-                  }`}
-                >
-                  {tab.label}
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* User Controls */}
-          <div className="flex items-center gap-6">
-            <div className="flex -space-x-3">
-              {["U1", "U2", "U3"].map((user, i) => (
-                <div key={i} className="w-8 h-8 rounded-full bg-neutral-200 border-2 border-white flex items-center justify-center text-[10px] font-bold text-neutral-600 shadow-sm relative z-0">
-                  {user}
-                </div>
-              ))}
-            </div>
-            <div className="h-8 w-px bg-neutral-200" />
-            <button className="p-2 rounded-none transition-colors text-neutral-400 hover:text-[#1C1C1C] hover:bg-neutral-50">
-              <Settings size={20} />
-            </button>
-          </div>
-        </div>
-
-        {/* Page Content (Overview) */}
-        <div className="flex-1 min-h-0 overflow-auto">
-          <div className="overview-wrapper">
-            <div className="overview-container">
+      {/* Page Content (Overview) */}
+      <div className="flex-1 min-h-0 overflow-auto">
+        <div className="overview-wrapper">
+          <div className="overview-container">
               
               {/* Section 1: Editorial Header */}
               <header className="header-section">
@@ -196,14 +138,13 @@ const Overview = () => {
                       Interrogate the intelligence layer directly to uncover nuanced patterns in reliability clusters.
                     </div>
                   </div>
-                </div>
-              </section>
-
             </div>
-          </div>
+          </section>
+
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
