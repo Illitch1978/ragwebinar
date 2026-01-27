@@ -20,7 +20,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Navigate to="/overview" replace />} />
           <Route path="/overview" element={<Overview />} />
-          <Route path="/upload" element={<Upload />} />
+          <Route path="/deck" element={<Upload />} />
           <Route path="/report" element={
             <div className="min-h-screen bg-background dashboard-light">
               <ReportSection />
