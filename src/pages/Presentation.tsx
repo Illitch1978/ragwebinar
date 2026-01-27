@@ -455,19 +455,19 @@ const CoverFrame = () => (
 );
 
 const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActive: boolean; isExportMode: boolean }) => {
-  // Slide-down animation - new slide enters from top, current exits to bottom
+  // Pure fade animation - no vertical movement for smooth, elegant reveals
   const fadeEase = [0.4, 0, 0.2, 1] as const; // Material design standard easing
   
   const variants = {
-    enter: { opacity: 0, y: '-8%' },
-    center: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: '8%' },
+    enter: { opacity: 0 },
+    center: { opacity: 1 },
+    exit: { opacity: 0 },
   };
 
   const staggerChildren = {
     center: {
       transition: { 
-        staggerChildren: 0.1, 
+        staggerChildren: 0.08, 
         delayChildren: 0.05
       }
     }
@@ -478,7 +478,7 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
     center: { opacity: 1 },
   };
   
-  // Smooth fade transition
+  // Smooth fade transition - 0.5s duration per brand guide
   const smoothTransition = { 
     duration: 0.5, 
     ease: fadeEase,
@@ -1527,8 +1527,8 @@ const PresentationPage = () => {
 
   return (
     <div className={cn(
-      "h-screen flex flex-col overflow-hidden transition-colors duration-500",
-      isDark ? "bg-[#0a0a0f]" : "bg-background"
+      "h-screen flex flex-col overflow-hidden transition-colors duration-500 font-sans selection:bg-[#E1F5FE] selection:text-[#0D9BDD]",
+      isDark ? "bg-[#0a0a0f]" : "bg-[#F9F8F4] text-[#1C1C1C]"
     )}>
       {/* Header - minimal, just progress */}
       <header className={cn(
