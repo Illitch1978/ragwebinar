@@ -8,6 +8,7 @@ export interface Presentation {
   client_name: string | null;
   brand_guide_id: string | null;
   generated_slides: unknown[] | null;
+  is_locked: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -62,12 +63,44 @@ export const useDeletePresentation = () => {
   
   return useMutation({
     mutationFn: async (id: string) => {
+      // Check if presentation is locked before deleting
+      const { data: presentation } = await supabase
+        .from("presentations")
+        .select("is_locked")
+        .eq("id", id)
+        .single();
+      
+      if (presentation?.is_locked) {
+        throw new Error("Cannot delete a locked presentation");
+      }
+      
       const { error } = await supabase
         .from("presentations")
         .delete()
         .eq("id", id);
       
       if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["presentations"] });
+    },
+  });
+};
+
+export const useTogglePresentationLock = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async ({ id, is_locked }: { id: string; is_locked: boolean }) => {
+      const { data, error } = await supabase
+        .from("presentations")
+        .update({ is_locked })
+        .eq("id", id)
+        .select()
+        .single();
+      
+      if (error) throw error;
+      return data as Presentation;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["presentations"] });
@@ -86,6 +119,17 @@ export const useUpdatePresentation = () => {
       id: string; 
       title: string; 
     }) => {
+      // Check if presentation is locked before updating
+      const { data: presentation } = await supabase
+        .from("presentations")
+        .select("is_locked")
+        .eq("id", id)
+        .single();
+      
+      if (presentation?.is_locked) {
+        throw new Error("Cannot edit a locked presentation");
+      }
+      
       const { data, error } = await supabase
         .from("presentations")
         .update({ title, updated_at: new Date().toISOString() })
