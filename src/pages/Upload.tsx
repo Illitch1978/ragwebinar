@@ -505,7 +505,7 @@ const UploadPage = () => {
                 </span>
               </div>
               
-              {/* Combined Search & Select Container */}
+              {/* Combined Search & Results Container */}
               <div className="bg-card border border-border">
                 {/* Search Input */}
                 <div className="relative border-b border-border">
@@ -517,36 +517,47 @@ const UploadPage = () => {
                     placeholder="Search projects..."
                     className="w-full pl-12 pr-6 py-3 bg-transparent text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none"
                   />
+                  {projectSearch && (
+                    <button
+                      onClick={() => setProjectSearch("")}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
                 
-                {/* Dropdown */}
-                <div className="relative">
-                  <select
-                    onChange={(e) => {
-                      const selected = filteredPresentations?.find(p => p.id === e.target.value);
-                      if (selected) handleOpenSaved(selected);
-                    }}
-                    className="w-full appearance-none px-6 py-4 pr-12 bg-transparent text-foreground font-medium cursor-pointer hover:bg-muted/50 transition-colors focus:outline-none"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      {filteredPresentations?.length === 0 
-                        ? "No projects match your search..." 
-                        : "Select a project to open..."}
-                    </option>
-                    {filteredPresentations?.map((presentation) => (
-                      <option key={presentation.id} value={presentation.id}>
-                        {presentation.title} • {formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+                {/* Results List */}
+                <div className="max-h-[240px] overflow-y-auto">
+                  {filteredPresentations?.length === 0 ? (
+                    <div className="px-6 py-4 text-sm text-muted-foreground">
+                      No projects match "{projectSearch}"
+                    </div>
+                  ) : (
+                    filteredPresentations?.map((presentation) => (
+                      <button
+                        key={presentation.id}
+                        onClick={() => handleOpenSaved(presentation)}
+                        className="w-full px-6 py-3 flex items-center justify-between text-left hover:bg-muted/50 transition-colors border-b border-border last:border-b-0 group"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-foreground truncate group-hover:text-primary transition-colors">
+                            {presentation.title}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}
+                          </p>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0 ml-4" />
+                      </button>
+                    ))
+                  )}
                 </div>
               </div>
               
-              {projectSearch && (
+              {projectSearch && filteredPresentations && filteredPresentations.length > 0 && (
                 <p className="text-xs text-muted-foreground mt-3">
-                  {filteredPresentations?.length} of {savedPresentations.length} projects match "{projectSearch}"
+                  {filteredPresentations.length} of {savedPresentations.length} projects match "{projectSearch}"
                 </p>
               )}
             </motion.div>
