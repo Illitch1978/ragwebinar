@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { Settings, Home } from "lucide-react";
+import { Settings } from "lucide-react";
 
 const AppHeader = () => {
   const location = useLocation();
   
   const navTabs = [
-    { label: "Overview", path: "/overview", icon: Home },
+    { label: "Overview", path: "/overview" },
     { label: "Deck", path: "/deck" },
     { label: "Talk to Data", path: "#" },
   ];
@@ -16,19 +16,19 @@ const AppHeader = () => {
         
         {/* Left: Logo + Divider + Title */}
         <div className="flex items-center gap-6">
-          {/* Logo - matching footer style */}
-          <div className="flex items-baseline gap-0.5 select-none">
-            <span className="font-serif font-bold text-xl tracking-tight text-muted-foreground leading-none">rubiklab</span>
+          {/* Logo - matching footer style, clickable */}
+          <Link to="/overview" className="flex items-baseline gap-0.5 select-none group transition-colors hover:text-[#0D9BDD]">
+            <span className="font-serif font-bold text-xl tracking-tight text-muted-foreground leading-none group-hover:text-[#0D9BDD] transition-colors">rubiklab</span>
             <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_hsl(var(--primary)/0.6)] transform -translate-y-0.5" />
-          </div>
+          </Link>
 
           {/* Divider */}
           <div className="h-5 w-px bg-neutral-300" />
 
-          {/* Title */}
-          <span className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium">
+          {/* Title - clickable */}
+          <Link to="/overview" className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium hover:text-[#0D9BDD] transition-colors">
             Intelligence Studio
-          </span>
+          </Link>
         </div>
 
         {/* Right: Navigation + Settings */}
@@ -37,7 +37,6 @@ const AppHeader = () => {
           <nav className="flex items-center gap-1 mr-4">
             {navTabs.map((tab) => {
               const isActive = location.pathname === tab.path;
-              const IconComponent = tab.icon;
               return (
                 <Link
                   key={tab.label}
@@ -48,7 +47,6 @@ const AppHeader = () => {
                       : "text-neutral-400 hover:text-neutral-600"
                   }`}
                 >
-                  {IconComponent && <IconComponent size={14} strokeWidth={1.5} />}
                   {tab.label}
                 </Link>
               );
