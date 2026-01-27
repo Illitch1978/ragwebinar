@@ -374,32 +374,37 @@ const LargeDecorativeNumber = ({ number = '01' }: { number?: string }) => (
   </div>
 );
 
-// Decorative corner accent
-const CornerAccent = ({ position, inverted }: { position: 'tl' | 'br'; inverted?: boolean }) => (
+// Decorative corner accent with blue highlight option
+const CornerAccent = ({ position, inverted, highlight }: { position: 'tl' | 'br'; inverted?: boolean; highlight?: boolean }) => (
   <div className={cn(
-    "absolute w-16 h-16",
+    "absolute",
+    highlight ? "w-28 h-28" : "w-16 h-16",
     position === 'tl' ? "top-8 left-8" : "bottom-8 right-8"
   )}>
     <div className={cn(
-      "absolute w-full h-[1px]",
-      position === 'tl' ? "top-0 left-0" : "bottom-0 right-0",
-      inverted ? "bg-white/20" : "bg-foreground/10"
+      "absolute",
+      highlight ? "h-[2px]" : "h-[1px]",
+      position === 'tl' ? "top-0 left-0 w-full" : "bottom-0 right-0 w-full",
+      highlight ? "bg-gradient-to-r from-primary via-primary/60 to-transparent" : 
+        inverted ? "bg-white/20" : "bg-foreground/10"
     )} />
     <div className={cn(
-      "absolute h-full w-[1px]",
-      position === 'tl' ? "top-0 left-0" : "bottom-0 right-0",
-      inverted ? "bg-white/20" : "bg-foreground/10"
+      "absolute",
+      highlight ? "w-[2px]" : "w-[1px]",
+      position === 'tl' ? "top-0 left-0 h-full" : "bottom-0 right-0 h-full",
+      highlight ? "bg-gradient-to-b from-primary via-primary/60 to-transparent" : 
+        inverted ? "bg-white/20" : "bg-foreground/10"
     )} />
   </div>
 );
 
-// Premium corner frame for cover
+// Premium corner frame for cover with blue accents
 const CoverFrame = () => (
   <>
-    {/* Top left corner */}
-    <div className="absolute top-8 left-8 w-24 h-24">
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-white/30 to-transparent" />
-      <div className="absolute top-0 left-0 h-full w-[1px] bg-gradient-to-b from-white/30 to-transparent" />
+    {/* Top left corner - blue accent */}
+    <div className="absolute top-8 left-8 w-32 h-32">
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-primary via-primary/60 to-transparent" />
+      <div className="absolute top-0 left-0 h-full w-[2px] bg-gradient-to-b from-primary via-primary/60 to-transparent" />
     </div>
     {/* Top right corner */}
     <div className="absolute top-8 right-8 w-24 h-24">
@@ -411,10 +416,10 @@ const CoverFrame = () => (
       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-white/20 to-transparent" />
       <div className="absolute bottom-0 left-0 h-full w-[1px] bg-gradient-to-t from-white/20 to-transparent" />
     </div>
-    {/* Bottom right corner */}
-    <div className="absolute bottom-8 right-8 w-24 h-24">
-      <div className="absolute bottom-0 right-0 w-full h-[1px] bg-gradient-to-l from-primary/40 to-transparent" />
-      <div className="absolute bottom-0 right-0 h-full w-[1px] bg-gradient-to-t from-primary/40 to-transparent" />
+    {/* Bottom right corner - blue accent */}
+    <div className="absolute bottom-8 right-8 w-32 h-32">
+      <div className="absolute bottom-0 right-0 w-full h-[2px] bg-gradient-to-l from-primary via-primary/60 to-transparent" />
+      <div className="absolute bottom-0 right-0 h-full w-[2px] bg-gradient-to-t from-primary via-primary/60 to-transparent" />
     </div>
   </>
 );
@@ -539,8 +544,15 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
       >
         <MorphingGradientBackground reduced={isExportMode} />
         
+        {/* Vertical blue accent bar on left */}
+        <div className="absolute left-0 top-[15%] bottom-[15%] w-1 bg-gradient-to-b from-primary/0 via-primary to-primary/0" />
+        
         {/* Large background section number - matching cover style */}
         <LargeDecorativeNumber number={slide.kicker || '01'} />
+        
+        {/* Blue corner accents */}
+        <CornerAccent position="tl" highlight />
+        <CornerAccent position="br" inverted />
         
         <div className="flex flex-col justify-center px-12 lg:px-20 z-10">
           {slide.kicker && (
@@ -558,7 +570,8 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             transition={smoothTransition}
             className="font-serif text-5xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl"
           >
-            {slide.title}
+            <span className="text-primary">{slide.title?.split(' ')[0]}</span>{' '}
+            {slide.title?.split(' ').slice(1).join(' ')}
           </motion.h2>
           
           {slide.subtitle && (
@@ -576,8 +589,9 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             transition={smoothTransition}
             className="flex items-center gap-4 mt-10"
           >
-            <div className="w-24 h-[2px] bg-primary" />
-            <div className="w-8 h-[2px] bg-white/20" />
+            <div className="w-32 h-[3px] bg-primary" />
+            <div className="w-12 h-[2px] bg-white/20" />
+            <div className="w-2 h-2 bg-primary rounded-full" />
           </motion.div>
         </div>
       </motion.div>
@@ -1030,8 +1044,20 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
         className="relative flex flex-col items-center justify-center h-full text-center px-8"
       >
         <GridBackground />
-        <CornerAccent position="tl" inverted />
-        <CornerAccent position="br" inverted />
+        
+        {/* Blue corner accents */}
+        <CornerAccent position="tl" highlight />
+        <CornerAccent position="br" highlight />
+        
+        {/* Horizontal blue accent line above title */}
+        <motion.div 
+          variants={childVariant}
+          className="flex items-center gap-3 mb-8"
+        >
+          <div className="w-16 h-[2px] bg-primary" />
+          <div className="w-2 h-2 bg-primary rounded-full" />
+          <div className="w-16 h-[2px] bg-primary" />
+        </motion.div>
         
         <motion.h1 
           variants={childVariant}
@@ -1051,6 +1077,14 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
           </motion.p>
         )}
         
+        {/* Blue accent line below subtitle */}
+        <motion.div 
+          variants={childVariant}
+          className="mt-8"
+        >
+          <div className="w-24 h-[3px] bg-gradient-to-r from-transparent via-primary to-transparent" />
+        </motion.div>
+        
         {/* Contact items if present */}
         {slide.items && slide.items.length > 0 && (
           <motion.div 
@@ -1060,7 +1094,7 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
           >
             {slide.items.map((item: any, idx: number) => (
               <div key={idx} className="text-white/50 text-sm">
-                <span className="font-mono text-xs text-white/30 uppercase tracking-wider">{item.label}:</span>{' '}
+                <span className="font-mono text-xs text-primary/60 uppercase tracking-wider">{item.label}:</span>{' '}
                 <span className="text-white/60">{item.text}</span>
               </div>
             ))}
