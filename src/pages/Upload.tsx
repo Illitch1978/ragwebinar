@@ -48,32 +48,44 @@ const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
   </div>
 );
 
-type OutputFormat = 'proposal' | 'article' | 'executive-summary' | 'post-meeting';
+type OutputFormat = 'presentation' | 'report' | 'proposal' | 'article' | 'executive-summary' | 'post-meeting';
 type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
 
 const OUTPUT_FORMAT_OPTIONS = [
   {
-    key: 'proposal' as OutputFormat,
-    label: 'Proposal Builder',
-    description: 'Persuasive pitch deck with problem-solution structure and clear CTA',
+    key: 'presentation' as OutputFormat,
+    label: 'Presentation',
+    description: 'Versatile deck for any topic with clear narrative flow',
+    icon: 'PresentationIcon',
+  },
+  {
+    key: 'report' as OutputFormat,
+    label: 'Report',
+    description: 'Data-driven analysis with findings and recommendations',
     icon: 'FileBarChart',
   },
   {
+    key: 'proposal' as OutputFormat,
+    label: 'Proposal Builder',
+    description: 'Persuasive pitch with problem-solution structure and CTA',
+    icon: 'FileText',
+  },
+  {
     key: 'article' as OutputFormat,
-    label: 'Article / Thought Leadership',
-    description: 'Long-form narrative with insights, quotes, and supporting evidence',
+    label: 'Thought Leadership',
+    description: 'Long-form narrative with insights and supporting evidence',
     icon: 'FileText',
   },
   {
     key: 'executive-summary' as OutputFormat,
     label: 'Executive Summary',
-    description: 'Concise 5-8 slide overview for busy decision-makers',
-    icon: 'Presentation',
+    description: 'Concise 5-8 slide overview for decision-makers',
+    icon: 'ClipboardList',
   },
   {
     key: 'post-meeting' as OutputFormat,
-    label: 'Post-Meeting Mini Deck',
-    description: 'Quick recap with key takeaways, action items, and next steps',
+    label: 'Post-Meeting Deck',
+    description: 'Quick recap with action items and next steps',
     icon: 'ClipboardList',
   },
 ];

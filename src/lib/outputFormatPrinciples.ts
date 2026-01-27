@@ -1,7 +1,7 @@
 // Output format-specific generation principles
 // These define how content should be structured for each output type
 
-export type OutputFormat = 'proposal' | 'article' | 'executive-summary' | 'post-meeting';
+export type OutputFormat = 'presentation' | 'report' | 'proposal' | 'article' | 'executive-summary' | 'post-meeting';
 
 export const OUTPUT_FORMAT_PRINCIPLES: Record<OutputFormat, {
   name: string;
@@ -10,6 +10,55 @@ export const OUTPUT_FORMAT_PRINCIPLES: Record<OutputFormat, {
   slideLengthHint: string;
   keyFeatures: string[];
 }> = {
+  presentation: {
+    name: "Presentation",
+    structure: [
+      "Cover slide with title and branding",
+      "Agenda or overview slide",
+      "Main content sections (5-10 slides)",
+      "Key insights and takeaways",
+      "Closing slide with next steps",
+    ],
+    toneGuidelines: [
+      "Clear and professional",
+      "Balanced mix of visuals and text",
+      "Engaging narrative flow",
+      "Audience-appropriate language",
+    ],
+    slideLengthHint: "10-20 slides",
+    keyFeatures: [
+      "Versatile for any topic",
+      "Visual storytelling emphasis",
+      "Clear section breaks",
+      "Memorable opening and closing",
+    ],
+  },
+
+  report: {
+    name: "Report",
+    structure: [
+      "Executive summary slide",
+      "Background and context",
+      "Data and findings (3-6 slides)",
+      "Analysis and insights",
+      "Recommendations",
+      "Appendix if needed",
+    ],
+    toneGuidelines: [
+      "Formal and objective",
+      "Data-driven and factual",
+      "Clear methodology explanation",
+      "Balanced perspective",
+    ],
+    slideLengthHint: "15-30 slides",
+    keyFeatures: [
+      "Heavy on data visualization",
+      "Structured and methodical",
+      "Evidence-based conclusions",
+      "Professional formatting",
+    ],
+  },
+
   proposal: {
     name: "Proposal Builder",
     structure: [
