@@ -1,12 +1,12 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, Unlock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { usePresentations, useCreatePresentation, useDeletePresentation, useUpdatePresentation, Presentation } from "@/hooks/usePresentations";
+import { usePresentations, useCreatePresentation, useDeletePresentation, useUpdatePresentation, useTogglePresentationLock, Presentation } from "@/hooks/usePresentations";
 import { useBrandGuides } from "@/hooks/useBrandGuides";
 import { formatDistanceToNow } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
@@ -69,6 +69,7 @@ const UploadPage = () => {
   const createPresentation = useCreatePresentation();
   const deletePresentation = useDeletePresentation();
   const updatePresentation = useUpdatePresentation();
+  const toggleLock = useTogglePresentationLock();
   
   // Set default brand guide when data loads
   const defaultGuide = brandGuides?.find(bg => bg.is_default);
@@ -269,15 +270,40 @@ const UploadPage = () => {
     }
   };
 
-  const handleDelete = async (e: React.MouseEvent, id: string) => {
+  const handleDelete = async (e: React.MouseEvent, presentation: Presentation) => {
     e.stopPropagation();
+    if (presentation.is_locked) {
+      toast.error("Cannot delete a locked presentation");
+      return;
+    }
     if (confirm('Are you sure you want to delete this presentation?')) {
-      await deletePresentation.mutateAsync(id);
+      try {
+        await deletePresentation.mutateAsync(presentation.id);
+      } catch (error: any) {
+        toast.error(error.message || "Failed to delete presentation");
+      }
     }
   };
 
-  const handleStartEdit = (e: React.MouseEvent, presentation: { id: string; title: string }) => {
+  const handleToggleLock = async (e: React.MouseEvent, presentation: Presentation) => {
     e.stopPropagation();
+    try {
+      await toggleLock.mutateAsync({ 
+        id: presentation.id, 
+        is_locked: !presentation.is_locked 
+      });
+      toast.success(presentation.is_locked ? "Presentation unlocked" : "Presentation locked");
+    } catch (error: any) {
+      toast.error(error.message || "Failed to toggle lock");
+    }
+  };
+
+  const handleStartEdit = (e: React.MouseEvent, presentation: Presentation) => {
+    e.stopPropagation();
+    if (presentation.is_locked) {
+      toast.error("Cannot edit a locked presentation");
+      return;
+    }
     setEditingId(presentation.id);
     setEditingTitle(presentation.title);
   };
@@ -648,9 +674,14 @@ Your strategic analysis content...
                             autoFocus
                           />
                         ) : (
-                          <p className="font-medium text-foreground group-hover:text-primary transition-colors truncate">
-                            {presentation.title}
-                          </p>
+                          <div className="flex items-center gap-2">
+                            {presentation.is_locked && (
+                              <Lock className="w-3.5 h-3.5 text-primary shrink-0" />
+                            )}
+                            <p className="font-medium text-foreground group-hover:text-primary transition-colors truncate">
+                              {presentation.title}
+                            </p>
+                          </div>
                         )}
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <Clock className="w-3 h-3" />
@@ -713,16 +744,38 @@ Your strategic analysis content...
                           <Button
                             variant="ghost"
                             size="icon"
+                            onClick={(e) => handleToggleLock(e, presentation)}
+                            title={presentation.is_locked ? "Unlock presentation" : "Lock presentation"}
+                            className={cn(
+                              "transition-colors",
+                              presentation.is_locked 
+                                ? "text-primary hover:text-primary/80" 
+                                : "text-muted-foreground hover:text-foreground"
+                            )}
+                          >
+                            {presentation.is_locked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
                             onClick={(e) => handleStartEdit(e, presentation)}
-                            className="text-muted-foreground transition-colors"
+                            disabled={presentation.is_locked}
+                            className={cn(
+                              "text-muted-foreground transition-colors",
+                              presentation.is_locked && "opacity-50 cursor-not-allowed"
+                            )}
                           >
                             <Pencil className="w-4 h-4" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={(e) => handleDelete(e, presentation.id)}
-                            className="text-muted-foreground hover:text-destructive transition-colors"
+                            onClick={(e) => handleDelete(e, presentation)}
+                            disabled={presentation.is_locked}
+                            className={cn(
+                              "text-muted-foreground hover:text-destructive transition-colors",
+                              presentation.is_locked && "opacity-50 cursor-not-allowed hover:text-muted-foreground"
+                            )}
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
