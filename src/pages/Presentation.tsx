@@ -1058,48 +1058,68 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
         variants={staggerChildren}
         initial="enter"
         animate={isActive ? "center" : "exit"}
-        className="relative flex flex-col items-center justify-center h-full text-center px-8"
+        className="relative flex flex-col items-center justify-center h-full text-center px-8 overflow-hidden"
       >
+        {/* Premium gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#050505] via-[#0a0a12] to-[#050510]" />
+        
+        {/* Animated glow orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/8 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
+        
         <GridBackground />
         
-        {/* Blue corner accents */}
-        <CornerAccent position="tl" highlight />
-        <CornerAccent position="br" highlight />
+        {/* Large blue corner frames */}
+        <div className="absolute top-8 left-8 w-40 h-40">
+          <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary via-primary/70 to-transparent" />
+          <div className="absolute top-0 left-0 h-full w-[3px] bg-gradient-to-b from-primary via-primary/70 to-transparent" />
+        </div>
+        <div className="absolute bottom-8 right-8 w-40 h-40">
+          <div className="absolute bottom-0 right-0 w-full h-[3px] bg-gradient-to-l from-primary via-primary/70 to-transparent" />
+          <div className="absolute bottom-0 right-0 h-full w-[3px] bg-gradient-to-t from-primary via-primary/70 to-transparent" />
+        </div>
         
-        {/* Horizontal blue accent line above title */}
+        {/* Decorative vertical lines */}
+        <div className="absolute left-[15%] top-[20%] bottom-[20%] w-[1px] bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+        <div className="absolute right-[15%] top-[20%] bottom-[20%] w-[1px] bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+        
+        {/* Horizontal accent above title */}
         <motion.div 
           variants={childVariant}
-          className="flex items-center gap-3 mb-8"
+          className="relative z-10 flex items-center gap-4 mb-10"
         >
-          <div className="w-16 h-[2px] bg-primary" />
-          <div className="w-2 h-2 bg-primary rounded-full" />
-          <div className="w-16 h-[2px] bg-primary" />
+          <div className="w-20 h-[2px] bg-gradient-to-r from-transparent to-primary" />
+          <div className="w-3 h-3 bg-primary rounded-full shadow-[0_0_20px_hsl(var(--primary)/0.6)]" />
+          <div className="w-20 h-[2px] bg-gradient-to-l from-transparent to-primary" />
         </motion.div>
         
         <motion.h1 
           variants={childVariant}
           transition={smoothTransition}
-          className="font-serif text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4"
+          className="relative z-10 font-serif text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-6"
         >
-          {slide.title}
+          <span className="text-primary">{slide.title?.split(' ')[0]}</span>{' '}
+          <span className="text-white">{slide.title?.split(' ').slice(1, -1).join(' ')}</span>{' '}
+          <span className="text-primary">{slide.title?.split(' ').slice(-1)}</span>
         </motion.h1>
         
         {slide.subtitle && (
           <motion.p 
             variants={childVariant}
             transition={smoothTransition}
-            className="text-xl text-white/60 mt-4 font-light"
+            className="relative z-10 text-lg md:text-xl text-white/50 mt-4 font-light max-w-3xl leading-relaxed"
           >
             {slide.subtitle}
           </motion.p>
         )}
         
-        {/* Blue accent line below subtitle */}
+        {/* Striking bottom accent */}
         <motion.div 
           variants={childVariant}
-          className="mt-8"
+          className="relative z-10 mt-12 flex flex-col items-center gap-4"
         >
-          <div className="w-24 h-[3px] bg-gradient-to-r from-transparent via-primary to-transparent" />
+          <div className="w-48 h-[4px] bg-gradient-to-r from-transparent via-primary to-transparent rounded-full shadow-[0_0_30px_hsl(var(--primary)/0.4)]" />
+          <div className="w-24 h-[2px] bg-white/10" />
         </motion.div>
         
         {/* Contact items if present */}
@@ -1107,7 +1127,7 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
           <motion.div 
             variants={childVariant}
             transition={smoothTransition}
-            className="mt-10 space-y-3"
+            className="relative z-10 mt-10 space-y-3"
           >
             {slide.items.map((item: any, idx: number) => (
               <div key={idx} className="text-white/50 text-sm">
