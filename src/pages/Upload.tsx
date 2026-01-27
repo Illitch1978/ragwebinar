@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, Unlock, ClipboardList } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, ClipboardList } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -747,14 +747,9 @@ Your strategic analysis content...
                             autoFocus
                           />
                         ) : (
-                          <div className="flex items-center gap-2">
-                            {presentation.is_locked && (
-                              <Lock className="w-3.5 h-3.5 text-primary shrink-0" />
-                            )}
-                            <p className="font-medium text-foreground group-hover:text-primary transition-colors truncate">
-                              {presentation.title}
-                            </p>
-                          </div>
+                          <p className="font-medium text-foreground group-hover:text-primary transition-colors truncate">
+                            {presentation.title}
+                          </p>
                         )}
                         <div className="flex items-center gap-3 text-sm text-muted-foreground">
                           {presentation.created_by && (
@@ -827,14 +822,12 @@ Your strategic analysis content...
                             size="icon"
                             onClick={(e) => handleToggleLock(e, presentation)}
                             title={presentation.is_locked ? "Unlock presentation" : "Lock presentation"}
-                            className={cn(
-                              "transition-colors",
-                              presentation.is_locked 
-                                ? "text-primary hover:text-primary/80" 
-                                : "text-muted-foreground hover:text-foreground"
-                            )}
+                            className="text-muted-foreground hover:text-foreground transition-colors"
                           >
-                            {presentation.is_locked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
+                            <Lock className={cn(
+                              "w-4 h-4 transition-colors",
+                              presentation.is_locked ? "text-primary" : "text-muted-foreground"
+                            )} />
                           </Button>
                           <Button
                             variant="ghost"
