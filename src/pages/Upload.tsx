@@ -16,7 +16,7 @@ import { exportToPptx } from "@/lib/pptxExport";
 import { exportToDocx } from "@/lib/docxExport";
 import { exportProposalToPdf } from "@/lib/pdfProposalExport";
 import ProjectDetailsStep, { OutputFormat, OUTPUT_FORMAT_OPTIONS } from "@/components/creation/ProjectDetailsStep";
-import FormatOptionsStep, { DeckLength } from "@/components/creation/FormatOptionsStep";
+import FormatOptionsStep, { DeckLength, ArticlePersona, WordCountRange } from "@/components/creation/FormatOptionsStep";
 
 // Rubiklab Logo component
 const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
@@ -52,6 +52,8 @@ const UploadPage = () => {
   // Step 2: Format Options
   const [selectedBrandGuide, setSelectedBrandGuide] = useState<string>("");
   const [deckLength, setDeckLength] = useState<DeckLength>('medium');
+  const [articlePersona, setArticlePersona] = useState<ArticlePersona>('strategist');
+  const [wordCountRange, setWordCountRange] = useState<WordCountRange>('600');
   const [additionalContent, setAdditionalContent] = useState("");
   
   const [isGenerating, setIsGenerating] = useState(false);
@@ -476,6 +478,10 @@ const UploadPage = () => {
                   setSelectedBrandGuide={setSelectedBrandGuide}
                   deckLength={deckLength}
                   setDeckLength={setDeckLength}
+                  articlePersona={articlePersona}
+                  setArticlePersona={setArticlePersona}
+                  wordCountRange={wordCountRange}
+                  setWordCountRange={setWordCountRange}
                   content={additionalContent}
                   setContent={setAdditionalContent}
                   onBack={() => setCurrentStep(1)}
