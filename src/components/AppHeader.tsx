@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { Settings } from "lucide-react";
+import { Settings, Home } from "lucide-react";
 
 const AppHeader = () => {
   const location = useLocation();
   
   const navTabs = [
-    { label: "Overview", path: "/overview" },
+    { label: "Overview", path: "/overview", icon: Home },
     { label: "Deck", path: "/deck" },
     { label: "Talk to Data", path: "#" },
   ];
@@ -16,10 +16,10 @@ const AppHeader = () => {
       <div className="flex items-center justify-between px-8 py-4 border-b border-neutral-200 bg-white/80 backdrop-blur-md">
         
         {/* Left: Logo + Divider + Title */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 ml-4">
           {/* Logo */}
           <div className="flex items-baseline gap-0.5 select-none">
-            <span className="font-serif font-bold text-xl tracking-tight text-[#1C1C1C] leading-none">rubiklab</span>
+            <span className="font-serif font-bold text-xl tracking-tight text-neutral-400 leading-none">rubiklab</span>
             <div className="w-1.5 h-1.5 rounded-full bg-[#0D9BDD] shadow-[0_0_6px_rgba(13,155,221,0.6)] transform -translate-y-0.5" />
           </div>
 
@@ -44,16 +44,18 @@ const AppHeader = () => {
         <nav className="flex items-center gap-1">
           {navTabs.map((tab) => {
             const isActive = location.pathname === tab.path;
+            const IconComponent = tab.icon;
             return (
               <Link
                 key={tab.label}
                 to={tab.path}
-                className={`px-4 py-2 text-xs uppercase tracking-[0.1em] font-semibold transition-all ${
+                className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.1em] font-semibold transition-all ${
                   isActive 
                     ? "text-[#0D9BDD]" 
                     : "text-neutral-400 hover:text-neutral-600"
                 }`}
               >
+                {IconComponent && <IconComponent size={14} strokeWidth={1.5} />}
                 {tab.label}
               </Link>
             );
