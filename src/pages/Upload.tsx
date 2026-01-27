@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, ClipboardList, Target, BookOpen, BriefcaseBusiness, FileCheck, Video } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, ClipboardList, Target, BookOpen, BriefcaseBusiness, FileCheck, Video, FileOutput } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,6 +15,7 @@ import BrandGuideEditor from "@/components/BrandGuideEditor";
 import DeleteConfirmationDialog from "@/components/DeleteConfirmationDialog";
 import SettingsSidebar from "@/components/SettingsSidebar";
 import { exportToPptx } from "@/lib/pptxExport";
+import { exportToDocx } from "@/lib/docxExport";
 import {
   Select,
   SelectContent,
@@ -599,16 +600,16 @@ const UploadPage = () => {
               Content
             </label>
             
-            {/* Elegant Content Input Container */}
+            {/* Compact Content Input Container */}
             <div className="bg-card border border-border rounded-sm overflow-hidden">
-              {/* Drag & Drop Zone */}
+              {/* Compact Drag & Drop Zone - inline style */}
               <div
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
                 className={cn(
-                  "relative p-10 cursor-pointer transition-all duration-300 border-b border-border",
+                  "relative px-6 py-4 cursor-pointer transition-all duration-300 border-b border-border flex items-center justify-center gap-4",
                   isDragging 
                     ? "bg-primary/5" 
                     : "hover:bg-muted/30"
@@ -621,34 +622,32 @@ const UploadPage = () => {
                   onChange={handleFileSelect}
                   className="hidden"
                 />
-                <div className="flex flex-col items-center gap-3 text-center">
-                  <div className={cn(
-                    "w-12 h-12 rounded-full border-2 border-dashed flex items-center justify-center transition-all duration-300",
-                    isDragging ? "border-primary bg-primary/10" : "border-muted-foreground/30",
-                    isProcessingFile && "animate-pulse border-primary"
-                  )}>
-                    {isProcessingFile ? (
-                      <Loader2 className="w-5 h-5 text-primary animate-spin" />
-                    ) : (
-                      <UploadIcon className={cn(
-                        "w-5 h-5 transition-colors",
-                        isDragging ? "text-primary" : "text-muted-foreground/60"
-                      )} />
-                    )}
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground text-sm">
-                      {isProcessingFile ? "Processing file..." : "Drop your file here, or click to browse"}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Supports .txt, .md, and .html files
-                    </p>
-                  </div>
+                <div className={cn(
+                  "w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center transition-all duration-300 shrink-0",
+                  isDragging ? "border-primary bg-primary/10" : "border-muted-foreground/30",
+                  isProcessingFile && "animate-pulse border-primary"
+                )}>
+                  {isProcessingFile ? (
+                    <Loader2 className="w-4 h-4 text-primary animate-spin" />
+                  ) : (
+                    <UploadIcon className={cn(
+                      "w-4 h-4 transition-colors",
+                      isDragging ? "text-primary" : "text-muted-foreground/60"
+                    )} />
+                  )}
+                </div>
+                <div className="text-left">
+                  <p className="font-medium text-foreground text-sm">
+                    {isProcessingFile ? "Processing file..." : "Drop your file here, or click to browse"}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Supports .txt, .md, and .html files
+                  </p>
                 </div>
               </div>
 
               {/* Or divider */}
-              <div className="flex items-center justify-center py-3 bg-muted/20">
+              <div className="flex items-center justify-center py-2 bg-muted/20">
                 <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
                   Or paste content
                 </span>
@@ -798,7 +797,7 @@ Your strategic analysis content...
                         </>
                       ) : (
                         <>
-                          {/* Only show download button if presentation has generated slides */}
+                          {/* Download PPTX button if presentation has generated slides */}
                           {presentation.generated_slides && Array.isArray(presentation.generated_slides) && (
                             <Button
                               variant="ghost"
@@ -808,12 +807,38 @@ Your strategic analysis content...
                                 // Navigate to presentation with export mode - will auto-trigger screenshot capture
                                 navigate(`/presentation?id=${presentation.id}&export=true`);
                               }}
-                              title="Download as PowerPoint (screenshot-based)"
+                              title="Download as PowerPoint"
                               className="text-muted-foreground transition-colors"
                             >
                               <Download className="w-4 h-4" />
                             </Button>
                           )}
+                          {/* Word export button */}
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={async (e) => {
+                              e.stopPropagation();
+                              try {
+                                toast.info("Generating Word document...");
+                                await exportToDocx({
+                                  title: presentation.title,
+                                  clientName: presentation.client_name || undefined,
+                                  content: presentation.content,
+                                  format: 'article',
+                                  createdBy: presentation.created_by || undefined,
+                                });
+                                toast.success("Word document downloaded!");
+                              } catch (error) {
+                                console.error('Word export error:', error);
+                                toast.error("Failed to export Word document");
+                              }
+                            }}
+                            title="Download as Word document"
+                            className="text-muted-foreground transition-colors"
+                          >
+                            <FileOutput className="w-4 h-4" />
+                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
