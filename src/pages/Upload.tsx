@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, Unlock } from "lucide-react";
+import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, Unlock, ClipboardList } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -48,14 +48,41 @@ const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
   </div>
 );
 
-type OutputFormat = 'report' | 'presentation';
+type OutputFormat = 'proposal' | 'article' | 'executive-summary' | 'post-meeting';
 type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
+
+const OUTPUT_FORMAT_OPTIONS = [
+  {
+    key: 'proposal' as OutputFormat,
+    label: 'Proposal Builder',
+    description: 'Persuasive pitch deck with problem-solution structure and clear CTA',
+    icon: 'FileBarChart',
+  },
+  {
+    key: 'article' as OutputFormat,
+    label: 'Article / Thought Leadership',
+    description: 'Long-form narrative with insights, quotes, and supporting evidence',
+    icon: 'FileText',
+  },
+  {
+    key: 'executive-summary' as OutputFormat,
+    label: 'Executive Summary',
+    description: 'Concise 5-8 slide overview for busy decision-makers',
+    icon: 'Presentation',
+  },
+  {
+    key: 'post-meeting' as OutputFormat,
+    label: 'Post-Meeting Mini Deck',
+    description: 'Quick recap with key takeaways, action items, and next steps',
+    icon: 'ClipboardList',
+  },
+];
 
 const UploadPage = () => {
   const [content, setContent] = useState("");
   const [clientName, setClientName] = useState("");
   const [createdBy, setCreatedBy] = useState("");
-  const [outputFormat, setOutputFormat] = useState<OutputFormat>('report');
+  const [outputFormat, setOutputFormat] = useState<OutputFormat>('proposal');
   const [deckLength, setDeckLength] = useState<DeckLength>('medium');
   const [selectedBrandGuide, setSelectedBrandGuide] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
@@ -239,9 +266,9 @@ const UploadPage = () => {
         sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
       }
       
-      // Navigate to appropriate view after a brief animation
+      // Navigate to presentation view after a brief animation
       setTimeout(() => {
-        navigate(outputFormat === 'presentation' ? '/presentation' : '/report');
+        navigate('/presentation');
       }, 500);
     } catch (error) {
       console.error('Error saving presentation:', error);
@@ -394,67 +421,46 @@ const UploadPage = () => {
               Output Format
             </label>
             <div className="grid grid-cols-2 gap-4">
-              <button
-                onClick={() => setOutputFormat('report')}
-                className={cn(
-                  "relative px-6 py-5 rounded-sm border-2 transition-all duration-300 text-left group",
-                  outputFormat === 'report'
-                    ? "border-primary bg-primary/5"
-                    : "border-border hover:border-primary/50 bg-card"
-                )}
-              >
-                <div className="flex items-start gap-4">
-                  <div className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
-                    outputFormat === 'report' ? "bg-primary/20" : "bg-muted"
-                  )}>
-                    <FileBarChart className={cn(
-                      "w-5 h-5 transition-colors",
-                      outputFormat === 'report' ? "text-primary" : "text-muted-foreground"
-                    )} />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground mb-1">Strategic Report</p>
-                    <p className="text-sm text-muted-foreground">
-                      Comprehensive analysis deck with executive synthesis
-                    </p>
-                  </div>
-                </div>
-                {outputFormat === 'report' && (
-                  <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full" />
-                )}
-              </button>
-
-              <button
-                onClick={() => setOutputFormat('presentation')}
-                className={cn(
-                  "relative px-6 py-5 rounded-sm border-2 transition-all duration-300 text-left group",
-                  outputFormat === 'presentation'
-                    ? "border-primary bg-primary/5"
-                    : "border-border hover:border-primary/50 bg-card"
-                )}
-              >
-                <div className="flex items-start gap-4">
-                  <div className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
-                    outputFormat === 'presentation' ? "bg-primary/20" : "bg-muted"
-                  )}>
-                    <PresentationIcon className={cn(
-                      "w-5 h-5 transition-colors",
-                      outputFormat === 'presentation' ? "text-primary" : "text-muted-foreground"
-                    )} />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground mb-1">Presentation</p>
-                    <p className="text-sm text-muted-foreground">
-                      Webinar-style slides with focused messaging
-                    </p>
-                  </div>
-                </div>
-                {outputFormat === 'presentation' && (
-                  <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full" />
-                )}
-              </button>
+              {OUTPUT_FORMAT_OPTIONS.map((option) => {
+                const IconComponent = option.icon === 'FileBarChart' ? FileBarChart 
+                  : option.icon === 'FileText' ? FileText 
+                  : option.icon === 'Presentation' ? PresentationIcon 
+                  : ClipboardList;
+                
+                return (
+                  <button
+                    key={option.key}
+                    onClick={() => setOutputFormat(option.key)}
+                    className={cn(
+                      "relative px-5 py-4 rounded-sm border-2 transition-all duration-300 text-left group",
+                      outputFormat === option.key
+                        ? "border-primary bg-primary/5"
+                        : "border-border hover:border-primary/50 bg-card"
+                    )}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={cn(
+                        "w-9 h-9 rounded-full flex items-center justify-center transition-colors shrink-0",
+                        outputFormat === option.key ? "bg-primary/20" : "bg-muted"
+                      )}>
+                        <IconComponent className={cn(
+                          "w-4 h-4 transition-colors",
+                          outputFormat === option.key ? "text-primary" : "text-muted-foreground"
+                        )} />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-medium text-foreground text-sm mb-0.5">{option.label}</p>
+                        <p className="text-xs text-muted-foreground leading-snug">
+                          {option.description}
+                        </p>
+                      </div>
+                    </div>
+                    {outputFormat === option.key && (
+                      <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-primary rounded-full" />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </motion.div>
 
@@ -569,7 +575,7 @@ const UploadPage = () => {
             className="mb-8"
           >
             <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              {outputFormat === 'presentation' ? 'Slide Content' : 'Report Content'}
+              Content
             </label>
             
             {/* Drag & Drop Zone */}
