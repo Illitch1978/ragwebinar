@@ -19,7 +19,7 @@ import zsoltImg from "@/assets/zsolt.png";
 import tiborImg from "@/assets/tibor-buda.png";
 interface Slide {
   id: number;
-  type: 'title' | 'content' | 'section' | 'bullets' | 'quote' | 'closing' | 'cover' | 'section-divider' | 'text-stack' | 'bullet-list' | 'metrics' | 'two-column' | 'cta';
+  type: 'title' | 'content' | 'section' | 'bullets' | 'quote' | 'closing' | 'cover' | 'section-divider' | 'text-stack' | 'bullet-list' | 'metrics' | 'two-column' | 'split-insight' | 'cta';
   kicker?: string;
   title?: string;
   subtitle?: string;
@@ -30,12 +30,25 @@ interface Slide {
   metrics?: Array<{ value: string; label: string; trend?: string }>;
   leftColumn?: string;
   rightColumn?: string;
+  leftItems?: Array<{ label?: string; text?: string }>;
+  rightItems?: Array<{ label?: string; text?: string }>;
+  keyInsight?: string;
   quote?: string;
   author?: string;
   authorEmail?: string;
   meta?: string;
   dark?: boolean;
 }
+
+// Helper to safely render HTML content (for bold/blue key terms)
+const RichText = ({ text, className = "" }: { text: string; className?: string }) => {
+  return (
+    <span 
+      className={className}
+      dangerouslySetInnerHTML={{ __html: text }} 
+    />
+  );
+};
 
 // Convert generated slides to our internal format
 const convertGeneratedSlides = (generatedSlides: any[], clientName: string): Slide[] => {
@@ -706,17 +719,121 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             <motion.div
               variants={childVariant}
               transition={smoothTransition}
-              className="prose prose-lg text-foreground"
+              className="prose prose-lg text-foreground [&_strong]:text-primary [&_strong]:font-semibold"
             >
-              <p className="text-lg leading-relaxed">{slide.leftColumn}</p>
+              <RichText text={slide.leftColumn || ''} className="text-lg leading-relaxed block" />
             </motion.div>
             <motion.div
               variants={childVariant}
               transition={smoothTransition}
-              className="prose prose-lg text-foreground"
+              className="prose prose-lg text-foreground [&_strong]:text-primary [&_strong]:font-semibold"
             >
-              <p className="text-lg leading-relaxed">{slide.rightColumn}</p>
+              <RichText text={slide.rightColumn || ''} className="text-lg leading-relaxed block" />
             </motion.div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Split-insight slide - Premium layout with key insight callout
+  if (slide.type === 'split-insight') {
+    return (
+      <motion.div
+        variants={staggerChildren}
+        initial="enter"
+        animate={isActive ? "center" : "exit"}
+        className="relative flex h-full"
+      >
+        <CornerAccent position="tl" />
+        
+        <div className="flex flex-col justify-center px-12 lg:px-20 py-16 w-full">
+          <motion.div 
+            variants={childVariant}
+            transition={smoothTransition}
+            className="flex items-center gap-4 mb-4"
+          >
+            <div className="w-8 h-[2px] bg-primary" />
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+              Analysis
+            </span>
+          </motion.div>
+          
+          <motion.h2 
+            variants={childVariant}
+            transition={smoothTransition}
+            className="font-serif text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-3 max-w-4xl"
+          >
+            {slide.title}
+          </motion.h2>
+          
+          {slide.subtitle && (
+            <motion.p 
+              variants={childVariant}
+              transition={smoothTransition}
+              className="text-base text-muted-foreground mb-6 max-w-3xl"
+            >
+              {slide.subtitle}
+            </motion.p>
+          )}
+          
+          {/* Key Insight Callout */}
+          {slide.keyInsight && (
+            <motion.div
+              variants={childVariant}
+              transition={smoothTransition}
+              className="bg-primary/10 border-l-4 border-primary px-6 py-4 mb-8 max-w-2xl"
+            >
+              <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-primary block mb-1">Key Insight</span>
+              <p className="text-lg font-medium text-foreground">{slide.keyInsight}</p>
+            </motion.div>
+          )}
+          
+          {/* Two-column items */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left column items */}
+            <div className="space-y-4">
+              {slide.leftItems?.map((item: any, idx: number) => (
+                <motion.div
+                  key={idx}
+                  variants={childVariant}
+                  transition={{ ...smoothTransition, delay: idx * 0.05 }}
+                  className="border-l-2 border-primary/30 pl-4"
+                >
+                  {item.label && (
+                    <span className="font-mono text-[10px] tracking-widest text-primary uppercase block mb-1">
+                      {item.label}
+                    </span>
+                  )}
+                  <RichText 
+                    text={item.text || ''} 
+                    className="text-sm lg:text-base leading-relaxed text-foreground/80 [&_strong]:text-primary [&_strong]:font-semibold" 
+                  />
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Right column items */}
+            <div className="space-y-4">
+              {slide.rightItems?.map((item: any, idx: number) => (
+                <motion.div
+                  key={idx}
+                  variants={childVariant}
+                  transition={{ ...smoothTransition, delay: (idx + 3) * 0.05 }}
+                  className="border-l-2 border-primary/30 pl-4"
+                >
+                  {item.label && (
+                    <span className="font-mono text-[10px] tracking-widest text-primary uppercase block mb-1">
+                      {item.label}
+                    </span>
+                  )}
+                  <RichText 
+                    text={item.text || ''} 
+                    className="text-sm lg:text-base leading-relaxed text-foreground/80 [&_strong]:text-primary [&_strong]:font-semibold" 
+                  />
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </motion.div>
@@ -768,19 +885,18 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
                       {item.label}
                     </span>
                   )}
-                  <p className="text-lg lg:text-xl leading-relaxed text-foreground/80">
-                    {item.text || item.value}
-                  </p>
+                  <RichText 
+                    text={item.text || item.value || ''} 
+                    className="text-lg lg:text-xl leading-relaxed text-foreground/80 [&_strong]:text-primary [&_strong]:font-semibold" 
+                  />
                 </motion.div>
               ))}
             </div>
           ) : (slide.content || slide.body) && (
-            <motion.p 
-              variants={childVariant}
-              className="text-lg lg:text-xl leading-relaxed text-foreground/80"
-            >
-              {slide.content || slide.body}
-            </motion.p>
+            <RichText 
+              text={slide.content || slide.body || ''} 
+              className="text-lg lg:text-xl leading-relaxed text-foreground/80 [&_strong]:text-primary [&_strong]:font-semibold"
+            />
           )}
         </div>
       </motion.div>
@@ -1044,8 +1160,8 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
   if (slide.type === 'bullets' || slide.type === 'bullet-list') {
     // Handle both bullets array and items array with value/text structure
     const bulletItems = slide.items?.length > 0 
-      ? slide.items.map((item: any) => ({ value: item.value, text: item.text }))
-      : slide.bullets?.map((b: string) => ({ value: null, text: b })) || [];
+      ? slide.items.map((item: any) => ({ value: item.value, label: item.label, text: item.text }))
+      : slide.bullets?.map((b: string) => ({ value: null, label: null, text: b })) || [];
     
     return (
       <motion.div
@@ -1074,30 +1190,36 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
           </motion.h2>
           
           {slide.subtitle && (
-            <motion.p 
+            <motion.div 
               variants={childVariant}
-              className="text-lg text-muted-foreground mb-8 max-w-2xl"
+              className="text-lg text-muted-foreground mb-8 max-w-2xl [&_strong]:text-primary [&_strong]:font-semibold"
             >
-              {slide.subtitle}
-            </motion.p>
+              <RichText text={slide.subtitle} />
+            </motion.div>
           )}
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl">
-            {bulletItems.map((item: { value: string | null; text: string }, idx: number) => (
+            {bulletItems.map((item: { value: string | null; label: string | null; text: string }, idx: number) => (
               <motion.div
                 key={idx}
                 variants={childVariant}
                 transition={{ ...smoothTransition, delay: idx * 0.06 }}
                 className="border-l-2 border-primary/30 pl-6 py-2"
               >
-                {item.value && (
+                {item.label && (
+                  <span className="font-mono text-xs tracking-widest text-primary uppercase block mb-1">
+                    {item.label}
+                  </span>
+                )}
+                {item.value && !item.label && (
                   <span className="font-mono text-lg lg:text-xl font-bold text-primary block mb-1">
                     {item.value}
                   </span>
                 )}
-                <span className="text-base lg:text-lg text-foreground/80 leading-relaxed">
-                  {item.text}
-                </span>
+                <RichText 
+                  text={item.text} 
+                  className="text-base lg:text-lg text-foreground/80 leading-relaxed [&_strong]:text-primary [&_strong]:font-semibold" 
+                />
               </motion.div>
             ))}
           </div>
