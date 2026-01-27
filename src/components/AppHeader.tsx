@@ -14,22 +14,22 @@ const AppHeader = () => {
     <div className="relative z-30 border-b border-neutral-200 bg-white/80 backdrop-blur-md">
       <div className="container mx-auto px-6 lg:px-16 py-4 flex items-center justify-between">
         
-        {/* Left: Logo + Divider + Title */}
-        <div className="flex items-center gap-6">
-          {/* Logo - matching footer style, clickable */}
-          <Link to="/overview" className="flex items-baseline gap-0.5 select-none group transition-colors hover:text-[#0D9BDD]">
+        {/* Left: Logo + Divider + Title - all clickable */}
+        <Link to="/overview" className="flex items-center gap-6 group">
+          {/* Logo - matching footer style */}
+          <div className="flex items-baseline gap-0.5 select-none">
             <span className="font-serif font-bold text-xl tracking-tight text-muted-foreground leading-none group-hover:text-[#0D9BDD] transition-colors">rubiklab</span>
             <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_hsl(var(--primary)/0.6)] transform -translate-y-0.5" />
-          </Link>
+          </div>
 
           {/* Divider */}
           <div className="h-5 w-px bg-neutral-300" />
 
-          {/* Title - clickable */}
-          <Link to="/overview" className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium hover:text-[#0D9BDD] transition-colors">
+          {/* Title */}
+          <span className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium group-hover:text-[#0D9BDD] transition-colors">
             Intelligence Studio
-          </Link>
-        </div>
+          </span>
+        </Link>
 
         {/* Right: Navigation + Settings */}
         <div className="flex items-center gap-2">
