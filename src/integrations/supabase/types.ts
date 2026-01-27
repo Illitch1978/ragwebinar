@@ -56,6 +56,7 @@ export type Database = {
           client_name: string | null
           content: string
           created_at: string
+          created_by: string | null
           generated_slides: Json | null
           id: string
           is_locked: boolean
@@ -68,6 +69,7 @@ export type Database = {
           client_name?: string | null
           content: string
           created_at?: string
+          created_by?: string | null
           generated_slides?: Json | null
           id?: string
           is_locked?: boolean
@@ -80,6 +82,7 @@ export type Database = {
           client_name?: string | null
           content?: string
           created_at?: string
+          created_by?: string | null
           generated_slides?: Json | null
           id?: string
           is_locked?: boolean

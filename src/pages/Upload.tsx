@@ -54,6 +54,7 @@ type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
 const UploadPage = () => {
   const [content, setContent] = useState("");
   const [clientName, setClientName] = useState("");
+  const [createdBy, setCreatedBy] = useState("");
   const [outputFormat, setOutputFormat] = useState<OutputFormat>('report');
   const [deckLength, setDeckLength] = useState<DeckLength>('medium');
   const [selectedBrandGuide, setSelectedBrandGuide] = useState<string>("");
@@ -192,6 +193,7 @@ const UploadPage = () => {
         content,
         client_name: clientName || undefined,
         brand_guide_id: selectedBrandGuide || undefined,
+        created_by: createdBy || undefined,
       });
       
       // Call the edge function to generate slides
@@ -338,10 +340,7 @@ const UploadPage = () => {
       <header className="relative z-10 border-b border-border">
         <div className="container mx-auto px-6 lg:px-16 py-6 flex justify-between items-center">
           <RubiklabLogo />
-          <SettingsSidebar 
-            deckLength={deckLength} 
-            onDeckLengthChange={setDeckLength} 
-          />
+          <SettingsSidebar />
         </div>
       </header>
 
@@ -504,6 +503,62 @@ const UploadPage = () => {
             <BrandGuideEditor 
               brandGuides={brandGuides} 
               isLoading={isLoadingBrandGuides} 
+            />
+          </motion.div>
+
+          {/* Deck Length Selection */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.23 }}
+            className="mb-8"
+          >
+            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+              Deck Length
+            </label>
+            <div className="grid grid-cols-4 gap-3">
+              {[
+                { key: 'brief', label: 'Brief', slides: '8-12' },
+                { key: 'medium', label: 'Medium', slides: '13-22' },
+                { key: 'long', label: 'Long', slides: '23-30' },
+                { key: 'very-long', label: 'Very Long', slides: '31-45' },
+              ].map((option) => (
+                <button
+                  key={option.key}
+                  onClick={() => setDeckLength(option.key as DeckLength)}
+                  className={cn(
+                    "relative px-4 py-3 rounded-sm border-2 transition-all duration-300 text-center",
+                    deckLength === option.key
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-primary/50 bg-card"
+                  )}
+                >
+                  <p className="font-medium text-sm text-foreground">{option.label}</p>
+                  <p className="text-xs text-muted-foreground">{option.slides} slides</p>
+                  {deckLength === option.key && (
+                    <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Creator / Owner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.24 }}
+            className="mb-8"
+          >
+            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+              Created By / Owner
+            </label>
+            <input
+              type="text"
+              value={createdBy}
+              onChange={(e) => setCreatedBy(e.target.value)}
+              placeholder="Your name..."
+              className="w-full px-6 py-4 bg-card border border-border rounded-sm font-sans text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
             />
           </motion.div>
 
@@ -683,9 +738,17 @@ Your strategic analysis content...
                             </p>
                           </div>
                         )}
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Clock className="w-3 h-3" />
-                          <span>{formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}</span>
+                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                          {presentation.created_by && (
+                            <>
+                              <span className="font-medium">{presentation.created_by}</span>
+                              <span className="text-muted-foreground/50">•</span>
+                            </>
+                          )}
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            <span>{formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
