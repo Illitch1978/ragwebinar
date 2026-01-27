@@ -1,9 +1,8 @@
-import { useState, useRef } from "react";
-import { motion } from "framer-motion";
-import { Upload as UploadIcon, FileText, Sparkles, ArrowRight, FileBarChart, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, ChevronDown, Link2, Download, Lock, ClipboardList, Target, BookOpen, BriefcaseBusiness, FileCheck, Video, FileOutput } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { usePresentations, useCreatePresentation, useDeletePresentation, useUpdatePresentation, useTogglePresentationLock, Presentation } from "@/hooks/usePresentations";
@@ -11,23 +10,14 @@ import { useBrandGuides } from "@/hooks/useBrandGuides";
 import { formatDistanceToNow } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import BrandGuideEditor from "@/components/BrandGuideEditor";
 import DeleteConfirmationDialog from "@/components/DeleteConfirmationDialog";
 import SettingsSidebar from "@/components/SettingsSidebar";
 import { exportToPptx } from "@/lib/pptxExport";
 import { exportToDocx } from "@/lib/docxExport";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { exportProposalToPdf } from "@/lib/pdfProposalExport";
+import ProjectDetailsStep, { OutputFormat, OUTPUT_FORMAT_OPTIONS } from "@/components/creation/ProjectDetailsStep";
+import FormatOptionsStep, { DeckLength } from "@/components/creation/FormatOptionsStep";
+
 // Rubiklab Logo component
 const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
   <div className="flex items-center gap-1.5 group cursor-pointer">
@@ -50,60 +40,23 @@ const RubiklabLogo = ({ size = 'default' }: { size?: 'default' | 'small' }) => (
   </div>
 );
 
-type OutputFormat = 'presentation' | 'report' | 'proposal' | 'article' | 'executive-summary' | 'post-meeting';
-type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
-
-const OUTPUT_FORMAT_OPTIONS = [
-  {
-    key: 'presentation' as OutputFormat,
-    label: 'Presentation',
-    description: 'Versatile deck for any topic with clear narrative flow',
-    Icon: PresentationIcon,
-  },
-  {
-    key: 'report' as OutputFormat,
-    label: 'Report',
-    description: 'Data-driven analysis with findings and recommendations',
-    Icon: FileBarChart,
-  },
-  {
-    key: 'proposal' as OutputFormat,
-    label: 'Proposal Builder',
-    description: 'Persuasive pitch with problem-solution structure and CTA',
-    Icon: Target,
-  },
-  {
-    key: 'article' as OutputFormat,
-    label: 'Thought Leadership',
-    description: 'Word document (1-5 pages) with insights and supporting evidence',
-    Icon: BookOpen,
-  },
-  {
-    key: 'executive-summary' as OutputFormat,
-    label: 'Executive Summary',
-    description: 'Word document (2-5 pages) for decision-makers',
-    Icon: BriefcaseBusiness,
-  },
-  {
-    key: 'post-meeting' as OutputFormat,
-    label: 'Post-Meeting Deck',
-    description: '4-5 slides from AI recording: summary, takeaways, action items',
-    Icon: Video,
-  },
-];
-
 const UploadPage = () => {
-  const [content, setContent] = useState("");
-  const [clientName, setClientName] = useState("");
-  const [createdBy, setCreatedBy] = useState("");
-  const [outputFormat, setOutputFormat] = useState<OutputFormat>('proposal');
-  const [deckLength, setDeckLength] = useState<DeckLength>('medium');
-  const [selectedBrandGuide, setSelectedBrandGuide] = useState<string>("");
-  const [isDragging, setIsDragging] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [isProcessingFile, setIsProcessingFile] = useState(false);
+  // Wizard step state
+  const [currentStep, setCurrentStep] = useState(1);
   
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // Step 1: Project Details
+  const [projectName, setProjectName] = useState("");
+  const [owner, setOwner] = useState("");
+  const [description, setDescription] = useState("");
+  const [outputFormat, setOutputFormat] = useState<OutputFormat>('proposal');
+  
+  // Step 2: Format Options
+  const [selectedBrandGuide, setSelectedBrandGuide] = useState<string>("");
+  const [deckLength, setDeckLength] = useState<DeckLength>('medium');
+  const [additionalContent, setAdditionalContent] = useState("");
+  
+  const [isGenerating, setIsGenerating] = useState(false);
+  
   const navigate = useNavigate();
   
   const { data: savedPresentations, isLoading: isLoadingPresentations } = usePresentations();
@@ -114,10 +67,14 @@ const UploadPage = () => {
   const toggleLock = useTogglePresentationLock();
   
   // Set default brand guide when data loads
-  const defaultGuide = brandGuides?.find(bg => bg.is_default);
-  if (brandGuides && !selectedBrandGuide && defaultGuide) {
-    setSelectedBrandGuide(defaultGuide.id);
-  }
+  useEffect(() => {
+    if (brandGuides && !selectedBrandGuide) {
+      const defaultGuide = brandGuides.find(bg => bg.is_default);
+      if (defaultGuide) {
+        setSelectedBrandGuide(defaultGuide.id);
+      }
+    }
+  }, [brandGuides, selectedBrandGuide]);
   
   // Edit state for presentation titles
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -127,129 +84,126 @@ const UploadPage = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [presentationToDelete, setPresentationToDelete] = useState<Presentation | null>(null);
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handleDrop = async (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      await handleFile(files[0]);
-    }
-  };
-
-
-  const extractTextFromHTML = (html: string): string => {
-    // Create a temporary DOM element to parse HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    
-    // Remove script and style elements
-    doc.querySelectorAll('script, style').forEach(el => el.remove());
-    
-    // Extract text from slides if it's a reveal.js presentation
-    const slides = doc.querySelectorAll('section');
-    if (slides.length > 0) {
-      let content = '';
-      slides.forEach((slide, index) => {
-        const heading = slide.querySelector('h1, h2');
-        const body = slide.querySelector('.body, .lead, p');
-        const bullets = slide.querySelectorAll('li, .line');
-        
-        if (heading) {
-          content += `## ${heading.textContent?.trim()}\n\n`;
-        }
-        if (body) {
-          content += `${body.textContent?.trim()}\n\n`;
-        }
-        if (bullets.length > 0) {
-          bullets.forEach(bullet => {
-            const text = bullet.textContent?.trim();
-            if (text) content += `- ${text}\n`;
-          });
-          content += '\n';
-        }
-      });
-      return content.trim();
-    }
-    
-    // Fallback: just get body text
-    return doc.body?.textContent?.trim() || '';
-  };
-
-  const handleFile = async (file: File) => {
-    setIsProcessingFile(true);
-    
-    try {
-      // Text/Markdown files
-      if (file.type === "text/plain" || file.type === "text/markdown" || file.name.endsWith('.md') || file.name.endsWith('.txt')) {
-        const text = await file.text();
-        setContent(text);
-      }
-      // HTML files
-      else if (file.type === "text/html" || file.name.endsWith('.html') || file.name.endsWith('.htm')) {
-        const html = await file.text();
-        const extractedText = extractTextFromHTML(html);
-        setContent(extractedText);
-      }
-      else {
-        alert("Please upload a .txt, .md, or .html file");
-      }
-    } catch (error) {
-      console.error('Error processing file:', error);
-      alert("Error processing file. Please try again.");
-    } finally {
-      setIsProcessingFile(false);
-    }
-  };
-
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      await handleFile(files[0]);
-    }
-  };
-
   const handleGenerate = async () => {
-    if (!content.trim()) {
-      alert("Please add some content first");
+    const fullContent = additionalContent 
+      ? `${description}\n\n---\n\n${additionalContent}` 
+      : description;
+    
+    if (!fullContent.trim()) {
+      toast.error("Please add project content");
       return;
     }
     
     setIsGenerating(true);
     
     try {
-      // Get the selected brand guide data
       const selectedGuide = brandGuides?.find(bg => bg.id === selectedBrandGuide);
+      const formatConfig = OUTPUT_FORMAT_OPTIONS.find(f => f.key === outputFormat);
       
-      // Save initial presentation to database
-      const title = clientName || `Presentation ${new Date().toLocaleDateString()}`;
+      const title = projectName || `Project ${new Date().toLocaleDateString()}`;
       const saved = await createPresentation.mutateAsync({
         title,
-        content,
-        client_name: clientName || undefined,
+        content: fullContent,
+        client_name: projectName || undefined,
         brand_guide_id: selectedBrandGuide || undefined,
-        created_by: createdBy || undefined,
+        created_by: owner || undefined,
       });
       
-      // Call the edge function to generate slides
+      // For non-slide formats, handle document export directly
+      if (!formatConfig?.isSlideFormat) {
+        if (outputFormat === 'article' || outputFormat === 'executive-summary') {
+          toast.info("Generating Word document...");
+          await exportToDocx({
+            title,
+            clientName: projectName || undefined,
+            content: fullContent,
+            format: outputFormat,
+            createdBy: owner || undefined,
+          });
+          toast.success("Word document downloaded!");
+          setIsGenerating(false);
+          // Reset form
+          setCurrentStep(1);
+          setProjectName("");
+          setOwner("");
+          setDescription("");
+          setAdditionalContent("");
+          return;
+        }
+      }
+      
+      // For proposal format, also generate PDF
+      if (outputFormat === 'proposal') {
+        // Get T&C from brand guide if available
+        const termsAndConditions = selectedGuide?.terms_and_conditions as string | undefined;
+        
+        // Generate both slides and PDF
+        toast.info("Generating proposal...");
+        
+        // Generate slides first
+        const { data: generateData, error: generateError } = await supabase.functions.invoke(
+          'generate-presentation',
+          {
+            body: {
+              content: fullContent,
+              clientName: projectName || 'Proposal',
+              brandGuide: selectedGuide ? {
+                name: selectedGuide.name,
+                design_system: selectedGuide.design_system,
+                slide_templates: selectedGuide.slide_templates,
+              } : null,
+              length: deckLength,
+            },
+          }
+        );
+        
+        if (generateError) {
+          console.error('Generation error:', generateError);
+          toast.error("Failed to generate slides.");
+        } else if (generateData?.slides) {
+          await supabase
+            .from('presentations')
+            .update({ generated_slides: generateData.slides })
+            .eq('id', saved.id);
+          
+          toast.success(`Generated ${generateData.slides.length} slides!`);
+          
+          // Also export PDF
+          await exportProposalToPdf({
+            title,
+            clientName: projectName || undefined,
+            content: fullContent,
+            createdBy: owner || undefined,
+            termsAndConditions,
+          });
+          toast.success("Proposal PDF downloaded!");
+        }
+        
+        sessionStorage.setItem('rubiklab-content', fullContent);
+        sessionStorage.setItem('rubiklab-client', projectName || 'Client');
+        sessionStorage.setItem('rubiklab-format', outputFormat);
+        sessionStorage.setItem('rubiklab-length', deckLength);
+        sessionStorage.setItem('rubiklab-presentation-id', saved.id);
+        sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide);
+        if (generateData?.slides) {
+          sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
+        }
+        
+        setTimeout(() => {
+          navigate('/presentation');
+        }, 500);
+        return;
+      }
+      
+      // Standard slide generation
       toast.info("Generating presentation with AI...");
       
       const { data: generateData, error: generateError } = await supabase.functions.invoke(
         'generate-presentation',
         {
           body: {
-            content,
-            clientName: clientName || 'Presentation',
+            content: fullContent,
+            clientName: projectName || 'Presentation',
             brandGuide: selectedGuide ? {
               name: selectedGuide.name,
               design_system: selectedGuide.design_system,
@@ -264,7 +218,6 @@ const UploadPage = () => {
         console.error('Generation error:', generateError);
         toast.error("Failed to generate slides. Using fallback.");
       } else if (generateData?.slides) {
-        // Update the presentation with generated slides
         await supabase
           .from('presentations')
           .update({ generated_slides: generateData.slides })
@@ -273,9 +226,8 @@ const UploadPage = () => {
         toast.success(`Generated ${generateData.slides.length} slides!`);
       }
       
-      // Store content in sessionStorage for the report to consume
-      sessionStorage.setItem('rubiklab-content', content);
-      sessionStorage.setItem('rubiklab-client', clientName || 'Client');
+      sessionStorage.setItem('rubiklab-content', fullContent);
+      sessionStorage.setItem('rubiklab-client', projectName || 'Client');
       sessionStorage.setItem('rubiklab-format', outputFormat);
       sessionStorage.setItem('rubiklab-length', deckLength);
       sessionStorage.setItem('rubiklab-presentation-id', saved.id);
@@ -284,7 +236,6 @@ const UploadPage = () => {
         sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
       }
       
-      // Navigate to presentation view after a brief animation
       setTimeout(() => {
         navigate('/presentation');
       }, 500);
@@ -296,7 +247,6 @@ const UploadPage = () => {
   };
 
   const handleOpenSaved = (presentation: Presentation) => {
-    // Check if this presentation has AI-generated slides
     const hasGeneratedSlides = presentation.generated_slides && 
       Array.isArray(presentation.generated_slides) && 
       presentation.generated_slides.length > 0;
@@ -308,11 +258,9 @@ const UploadPage = () => {
     sessionStorage.setItem('rubiklab-brand-guide-id', presentation.brand_guide_id || selectedBrandGuide);
     
     if (hasGeneratedSlides) {
-      // AI-generated presentation - store slides and go to /presentation
       sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(presentation.generated_slides));
       navigate('/presentation');
     } else {
-      // RAG webinar or legacy content - go to /report (hardcoded content)
       navigate('/report');
     }
   };
@@ -377,6 +325,43 @@ const UploadPage = () => {
     }
   };
 
+  const handleExportWord = async (e: React.MouseEvent, presentation: Presentation) => {
+    e.stopPropagation();
+    try {
+      toast.info("Generating Word document...");
+      await exportToDocx({
+        title: presentation.title,
+        clientName: presentation.client_name || undefined,
+        content: presentation.content,
+        format: 'article',
+        createdBy: presentation.created_by || undefined,
+      });
+      toast.success("Word document downloaded!");
+    } catch (error) {
+      console.error('Word export error:', error);
+      toast.error("Failed to export Word document");
+    }
+  };
+
+  const handleExportPdf = async (e: React.MouseEvent, presentation: Presentation) => {
+    e.stopPropagation();
+    try {
+      toast.info("Generating PDF...");
+      const selectedGuide = brandGuides?.find(bg => bg.id === presentation.brand_guide_id);
+      await exportProposalToPdf({
+        title: presentation.title,
+        clientName: presentation.client_name || undefined,
+        content: presentation.content,
+        createdBy: presentation.created_by || undefined,
+        termsAndConditions: selectedGuide?.terms_and_conditions as string | undefined,
+      });
+      toast.success("PDF downloaded!");
+    } catch (error) {
+      console.error('PDF export error:', error);
+      toast.error("Failed to export PDF");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Subtle grid background */}
@@ -411,307 +396,84 @@ const UploadPage = () => {
               <span className="italic text-primary">Premium Decks</span>
             </h1>
             <p className="text-muted-foreground text-lg lg:text-xl max-w-2xl mx-auto font-light">
-              Transform raw content into polished presentations, reports, and executive documents. 
-              Drop your analysis and let AI do the heavy lifting.
+              Transform raw content into polished presentations, proposals, and executive documents.
             </p>
           </motion.div>
 
-          {/* Client Name Input */}
+          {/* Step Indicator */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-            className="mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex items-center justify-center gap-4 mb-10"
           >
-            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Client / Project Name
-            </label>
-            <input
-              type="text"
-              value={clientName}
-              onChange={(e) => setClientName(e.target.value)}
-              placeholder="Enter client or project name..."
-              className="w-full px-6 py-4 bg-card border border-border rounded-sm font-sans text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
-            />
-          </motion.div>
-
-          {/* Format Selection */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-            className="mb-8"
-          >
-            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Output Format
-            </label>
-            <div className="grid grid-cols-2 gap-4">
-              {OUTPUT_FORMAT_OPTIONS.map((option) => {
-                const IconComponent = option.Icon;
-                
-                return (
-                  <button
-                    key={option.key}
-                    onClick={() => setOutputFormat(option.key)}
-                    className={cn(
-                      "relative px-5 py-4 rounded-sm border-2 transition-all duration-300 text-left group",
-                      outputFormat === option.key
-                        ? "border-primary bg-primary/5"
-                        : "border-border hover:border-primary/50 bg-card"
-                    )}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={cn(
-                        "w-9 h-9 rounded-full flex items-center justify-center transition-colors shrink-0",
-                        outputFormat === option.key ? "bg-primary/20" : "bg-muted"
-                      )}>
-                        <IconComponent className={cn(
-                          "w-4 h-4 transition-colors",
-                          outputFormat === option.key ? "text-primary" : "text-muted-foreground"
-                        )} />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="font-medium text-foreground text-sm mb-0.5">{option.label}</p>
-                        <p className="text-xs text-muted-foreground leading-snug">
-                          {option.description}
-                        </p>
-                      </div>
-                    </div>
-                    {outputFormat === option.key && (
-                      <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-primary rounded-full" />
-                    )}
-                  </button>
-                );
-              })}
+            <div className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-full border transition-colors",
+              currentStep === 1 
+                ? "border-primary bg-primary/10 text-primary" 
+                : "border-border text-muted-foreground"
+            )}>
+              <span className="w-6 h-6 rounded-full bg-current/20 flex items-center justify-center text-xs font-bold">1</span>
+              <span className="font-mono text-[10px] uppercase tracking-widest">Project Details</span>
+            </div>
+            <div className="w-8 h-px bg-border" />
+            <div className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-full border transition-colors",
+              currentStep === 2 
+                ? "border-primary bg-primary/10 text-primary" 
+                : "border-border text-muted-foreground"
+            )}>
+              <span className="w-6 h-6 rounded-full bg-current/20 flex items-center justify-center text-xs font-bold">2</span>
+              <span className="font-mono text-[10px] uppercase tracking-widest">Options & Generate</span>
             </div>
           </motion.div>
 
-          {/* Brand Guide Selection & Editor */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="mb-8"
-          >
-            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Brand Guide / Template
-            </label>
-            <Select
-              value={selectedBrandGuide}
-              onValueChange={setSelectedBrandGuide}
-              disabled={isLoadingBrandGuides}
-            >
-              <SelectTrigger className="w-full bg-card border-border h-12">
-                <SelectValue placeholder={isLoadingBrandGuides ? "Loading..." : "Select a brand guide"} />
-              </SelectTrigger>
-              <SelectContent className="bg-card border-border">
-                {brandGuides?.map((guide) => (
-                  <SelectItem key={guide.id} value={guide.id} className="cursor-pointer">
-                    <div className="flex items-center gap-2">
-                      <span>{guide.name}</span>
-                      {guide.is_default && (
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-primary bg-primary/10 px-1.5 py-0.5 rounded">
-                          Default
-                        </span>
-                      )}
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </motion.div>
-
-          {/* Brand Guide Templates Viewer */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.22 }}
-            className="mb-8"
-          >
-            <BrandGuideEditor 
-              brandGuides={brandGuides} 
-              isLoading={isLoadingBrandGuides} 
-            />
-          </motion.div>
-
-          {/* Deck Length Selection */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.23 }}
-            className="mb-8"
-          >
-            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Deck Length
-            </label>
-            <div className="grid grid-cols-4 gap-3">
-              {[
-                { key: 'brief', label: 'Brief', slides: '8-12' },
-                { key: 'medium', label: 'Medium', slides: '13-22' },
-                { key: 'long', label: 'Long', slides: '23-30' },
-                { key: 'very-long', label: 'Very Long', slides: '31-45' },
-              ].map((option) => (
-                <button
-                  key={option.key}
-                  onClick={() => setDeckLength(option.key as DeckLength)}
-                  className={cn(
-                    "relative px-4 py-3 rounded-sm border-2 transition-all duration-300 text-center",
-                    deckLength === option.key
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-primary/50 bg-card"
-                  )}
-                >
-                  <p className="font-medium text-sm text-foreground">{option.label}</p>
-                  <p className="text-xs text-muted-foreground">{option.slides} slides</p>
-                  {deckLength === option.key && (
-                    <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Creator / Owner */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.24 }}
-            className="mb-8"
-          >
-            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Created By / Owner
-            </label>
-            <input
-              type="text"
-              value={createdBy}
-              onChange={(e) => setCreatedBy(e.target.value)}
-              placeholder="Your name..."
-              className="w-full px-6 py-4 bg-card border border-border rounded-sm font-sans text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.25 }}
-            className="mb-8"
-          >
-            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Content
-            </label>
-            
-            {/* Compact Content Input Container */}
-            <div className="bg-card border border-border rounded-sm overflow-hidden">
-              {/* Compact Drag & Drop Zone - inline style */}
-              <div
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
-                className={cn(
-                  "relative px-6 py-4 cursor-pointer transition-all duration-300 border-b border-border flex items-center justify-center gap-4",
-                  isDragging 
-                    ? "bg-primary/5" 
-                    : "hover:bg-muted/30"
-                )}
+          {/* Wizard Steps */}
+          <AnimatePresence mode="wait">
+            {currentStep === 1 ? (
+              <motion.div
+                key="step1"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
               >
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept=".txt,.md,.html,.htm,text/plain,text/markdown,text/html"
-                  onChange={handleFileSelect}
-                  className="hidden"
+                <ProjectDetailsStep
+                  projectName={projectName}
+                  setProjectName={setProjectName}
+                  owner={owner}
+                  setOwner={setOwner}
+                  description={description}
+                  setDescription={setDescription}
+                  outputFormat={outputFormat}
+                  setOutputFormat={setOutputFormat}
+                  onNext={() => setCurrentStep(2)}
                 />
-                <div className={cn(
-                  "w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center transition-all duration-300 shrink-0",
-                  isDragging ? "border-primary bg-primary/10" : "border-muted-foreground/30",
-                  isProcessingFile && "animate-pulse border-primary"
-                )}>
-                  {isProcessingFile ? (
-                    <Loader2 className="w-4 h-4 text-primary animate-spin" />
-                  ) : (
-                    <UploadIcon className={cn(
-                      "w-4 h-4 transition-colors",
-                      isDragging ? "text-primary" : "text-muted-foreground/60"
-                    )} />
-                  )}
-                </div>
-                <div className="text-left">
-                  <p className="font-medium text-foreground text-sm">
-                    {isProcessingFile ? "Processing file..." : "Drop your file here, or click to browse"}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Supports .txt, .md, and .html files
-                  </p>
-                </div>
-              </div>
-
-              {/* Or divider */}
-              <div className="flex items-center justify-center py-2 bg-muted/20">
-                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-                  Or paste content
-                </span>
-              </div>
-
-              {/* Textarea */}
-              <Textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="Paste your Markdown or plain text content here...
-
-# Executive Summary
-Your strategic analysis content...
-
-## Key Findings
-- Finding 1
-- Finding 2
-
-## Recommendations
-..."
-                className="min-h-[240px] bg-transparent border-0 focus:ring-0 focus-visible:ring-0 resize-none font-mono text-sm px-6 py-5"
-              />
-              
-              {/* Character count footer */}
-              {content && (
-                <div className="px-6 py-3 border-t border-border bg-muted/20 flex items-center gap-2 text-xs text-muted-foreground">
-                  <FileText className="w-3.5 h-3.5" />
-                  <span>{content.length.toLocaleString()} characters</span>
-                </div>
-              )}
-            </div>
-          </motion.div>
-
-          {/* Generate Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-            className="flex justify-center"
-          >
-            <Button
-              onClick={handleGenerate}
-              disabled={!content.trim() || isGenerating}
-              size="lg"
-              className={cn(
-                "relative px-12 py-6 bg-foreground text-background hover:bg-primary hover:text-primary-foreground",
-                "font-mono text-[11px] font-bold tracking-[0.3em] uppercase",
-                "transition-all duration-500 group",
-                isGenerating && "bg-primary text-primary-foreground"
-              )}
-            >
-              {isGenerating ? (
-                <>
-                  <Sparkles className="w-4 h-4 mr-3 animate-pulse" />
-                  Generating...
-                </>
-              ) : (
-                <>
-                  Generate Presentation
-                  <ArrowRight className="w-4 h-4 ml-3 group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
-            </Button>
-          </motion.div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="step2"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <FormatOptionsStep
+                  outputFormat={outputFormat}
+                  brandGuides={brandGuides}
+                  isLoadingBrandGuides={isLoadingBrandGuides}
+                  selectedBrandGuide={selectedBrandGuide}
+                  setSelectedBrandGuide={setSelectedBrandGuide}
+                  deckLength={deckLength}
+                  setDeckLength={setDeckLength}
+                  content={additionalContent}
+                  setContent={setAdditionalContent}
+                  onBack={() => setCurrentStep(1)}
+                  onGenerate={handleGenerate}
+                  isGenerating={isGenerating}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
 
           {/* Saved Presentations */}
@@ -797,14 +559,13 @@ Your strategic analysis content...
                         </>
                       ) : (
                         <>
-                          {/* Download PPTX button if presentation has generated slides */}
+                          {/* Download PPTX button */}
                           {presentation.generated_slides && Array.isArray(presentation.generated_slides) && (
                             <Button
                               variant="ghost"
                               size="icon"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                // Navigate to presentation with export mode - will auto-trigger screenshot capture
                                 navigate(`/presentation?id=${presentation.id}&export=true`);
                               }}
                               title="Download as PowerPoint"
@@ -817,27 +578,21 @@ Your strategic analysis content...
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={async (e) => {
-                              e.stopPropagation();
-                              try {
-                                toast.info("Generating Word document...");
-                                await exportToDocx({
-                                  title: presentation.title,
-                                  clientName: presentation.client_name || undefined,
-                                  content: presentation.content,
-                                  format: 'article',
-                                  createdBy: presentation.created_by || undefined,
-                                });
-                                toast.success("Word document downloaded!");
-                              } catch (error) {
-                                console.error('Word export error:', error);
-                                toast.error("Failed to export Word document");
-                              }
-                            }}
+                            onClick={(e) => handleExportWord(e, presentation)}
                             title="Download as Word document"
                             className="text-muted-foreground transition-colors"
                           >
                             <FileOutput className="w-4 h-4" />
+                          </Button>
+                          {/* PDF export button */}
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={(e) => handleExportPdf(e, presentation)}
+                            title="Download as PDF proposal"
+                            className="text-muted-foreground transition-colors"
+                          >
+                            <Sparkles className="w-4 h-4" />
                           </Button>
                           <Button
                             variant="ghost"

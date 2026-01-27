@@ -24,6 +24,7 @@ export type Database = {
           is_default: boolean | null
           name: string
           slide_templates: Json
+          terms_and_conditions: string | null
           updated_at: string
         }
         Insert: {
@@ -35,6 +36,7 @@ export type Database = {
           is_default?: boolean | null
           name: string
           slide_templates?: Json
+          terms_and_conditions?: string | null
           updated_at?: string
         }
         Update: {
@@ -46,6 +48,7 @@ export type Database = {
           is_default?: boolean | null
           name?: string
           slide_templates?: Json
+          terms_and_conditions?: string | null
           updated_at?: string
         }
         Relationships: []
