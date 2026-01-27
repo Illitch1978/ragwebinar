@@ -1083,16 +1083,6 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
         <div className="absolute left-[15%] top-[20%] bottom-[20%] w-[1px] bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
         <div className="absolute right-[15%] top-[20%] bottom-[20%] w-[1px] bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
         
-        {/* Horizontal accent above title */}
-        <motion.div 
-          variants={childVariant}
-          className="relative z-10 flex items-center gap-4 mb-10"
-        >
-          <div className="w-20 h-[2px] bg-gradient-to-r from-transparent to-primary" />
-          <div className="w-3 h-3 bg-primary rounded-full shadow-[0_0_20px_hsl(var(--primary)/0.6)]" />
-          <div className="w-20 h-[2px] bg-gradient-to-l from-transparent to-primary" />
-        </motion.div>
-        
         <motion.h1 
           variants={childVariant}
           transition={smoothTransition}
@@ -1107,20 +1097,11 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
           <motion.p 
             variants={childVariant}
             transition={smoothTransition}
-            className="relative z-10 text-lg md:text-xl text-white/50 mt-4 font-light max-w-3xl leading-relaxed"
+            className="relative z-10 text-lg md:text-xl text-white/50 mt-6 font-light max-w-3xl leading-relaxed"
           >
             {slide.subtitle}
           </motion.p>
         )}
-        
-        {/* Striking bottom accent */}
-        <motion.div 
-          variants={childVariant}
-          className="relative z-10 mt-12 flex flex-col items-center gap-4"
-        >
-          <div className="w-48 h-[4px] bg-gradient-to-r from-transparent via-primary to-transparent rounded-full shadow-[0_0_30px_hsl(var(--primary)/0.4)]" />
-          <div className="w-24 h-[2px] bg-white/10" />
-        </motion.div>
         
         {/* Contact items if present */}
         {slide.items && slide.items.length > 0 && (
