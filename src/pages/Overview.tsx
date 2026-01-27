@@ -1,76 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
-import { ChevronRight, ArrowLeft, Plus, FileText, Settings } from "lucide-react";
+import { ArrowLeft, Settings } from "lucide-react";
 
 const Overview = () => {
   const location = useLocation();
   
   const navTabs = [
     { label: "Overview", path: "/overview" },
-    { label: "Analysis Deck", path: "/upload" },
+    { label: "Deck", path: "/deck" },
     { label: "Talk to Data", path: "#" },
-    { label: "Team's Room", path: "#" },
   ];
 
   return (
     <div className="flex h-screen w-full bg-[#F9F8F4] text-[#1C1C1C] font-sans overflow-hidden selection:bg-[#E1F5FE] selection:text-[#0D9BDD]">
-      
-      {/* Sidebar */}
-      <div className="w-72 flex-shrink-0 bg-white border-r border-neutral-200 flex flex-col z-30">
-        
-        {/* Sidebar Header */}
-        <div className="h-20 flex items-center px-6 border-b border-neutral-100 justify-between">
-          <div className="flex items-center gap-3 cursor-pointer hover:opacity-70 transition-opacity">
-            <div className="flex items-baseline gap-1 select-none">
-              <span className="font-serif font-bold text-2xl tracking-tight text-black leading-none lowercase">lab</span>
-              <div className="w-2 h-2 rounded-full bg-[#0D9BDD] shadow-[0_0_8px_rgba(13,155,221,0.6)] transform -translate-y-1" />
-            </div>
-          </div>
-          <button className="p-2 hover:bg-neutral-50 rounded-md text-neutral-400 transition-colors">
-            <ChevronRight size={16} className="transform rotate-180" />
-          </button>
-        </div>
-
-        {/* Sidebar Content */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-8">
-          {/* Active Project */}
-          <div>
-            <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-4 flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              Active Project
-            </div>
-            <div className="bg-neutral-50 p-5 rounded-xl border border-neutral-100 space-y-3">
-              <div className="font-bold text-sm leading-snug">Atrium Home Services: CX & Intent</div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] bg-white border border-neutral-200 text-neutral-600 px-2 py-0.5 font-bold uppercase tracking-wide">
-                  ACTIVE
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Source Material */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Source Material</div>
-              <button className="text-neutral-400 hover:text-[#0D9BDD] transition-colors">
-                <Plus size={14} />
-              </button>
-            </div>
-            <div className="space-y-1">
-              {["Source_Document_v1.pdf", "Source_Document_v2.pdf", "Source_Document_v3.pdf"].map((file, i) => (
-                <div key={i} className="group flex items-center gap-3 py-1.5 px-2 rounded-lg hover:bg-neutral-50 cursor-pointer transition-colors border border-transparent hover:border-neutral-100">
-                  <div className="text-neutral-300 group-hover:text-[#0D9BDD] transition-colors">
-                    <FileText size={16} />
-                  </div>
-                  <div className="text-xs font-medium text-neutral-700 group-hover:text-neutral-900 truncate">
-                    {file}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col h-full relative">
