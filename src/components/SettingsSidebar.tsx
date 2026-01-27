@@ -1,5 +1,4 @@
-import { Settings, ChevronDown, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Settings, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DECK_PRINCIPLES } from "@/lib/deckPrinciples";
 import {
@@ -16,21 +15,7 @@ import {
 } from "@/components/ui/collapsible";
 import { useState } from "react";
 
-type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
-
-interface SettingsSidebarProps {
-  deckLength: DeckLength;
-  onDeckLengthChange: (length: DeckLength) => void;
-}
-
-const DECK_LENGTH_OPTIONS: { value: DeckLength; label: string; description: string; range: string }[] = [
-  { value: 'brief', label: 'Brief', description: 'Executive summary', range: '8-12 slides' },
-  { value: 'medium', label: 'Medium', description: 'Standard presentation', range: '13-22 slides' },
-  { value: 'long', label: 'Long', description: 'Deep-dive analysis', range: '23-30 slides' },
-  { value: 'very-long', label: 'Very Long', description: 'Full workshop deck', range: '31-45 slides' },
-];
-
-const SettingsSidebar = ({ deckLength, onDeckLengthChange }: SettingsSidebarProps) => {
+const SettingsSidebar = () => {
   const [isPrinciplesOpen, setIsPrinciplesOpen] = useState(false);
 
   return (
@@ -54,37 +39,10 @@ const SettingsSidebar = ({ deckLength, onDeckLengthChange }: SettingsSidebarProp
         </SheetHeader>
 
         <div className="space-y-8">
-          {/* Deck Length */}
-          <div>
-            <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-              Deck Length
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              {DECK_LENGTH_OPTIONS.map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => onDeckLengthChange(option.value)}
-                  className={cn(
-                    "relative px-3 py-3 rounded-sm border-2 transition-all duration-200 text-left",
-                    deckLength === option.value
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-primary/50 bg-card"
-                  )}
-                >
-                  <p className="font-medium text-foreground text-sm">{option.label}</p>
-                  <p className="text-xs text-muted-foreground">{option.range}</p>
-                  {deckLength === option.value && (
-                    <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Deck Principles */}
           <Collapsible open={isPrinciplesOpen} onOpenChange={setIsPrinciplesOpen}>
             <CollapsibleTrigger asChild>
-              <button className="flex items-center justify-between w-full text-left py-3 border-t border-border">
+              <button className="flex items-center justify-between w-full text-left py-3 border-b border-border">
                 <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest">
                   Global Deck Principles
                 </span>

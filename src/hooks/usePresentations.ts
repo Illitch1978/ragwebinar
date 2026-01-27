@@ -9,6 +9,7 @@ export interface Presentation {
   brand_guide_id: string | null;
   generated_slides: unknown[] | null;
   is_locked: boolean;
+  created_by: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -37,15 +38,17 @@ export const useCreatePresentation = () => {
       content, 
       client_name,
       brand_guide_id,
+      created_by,
     }: { 
       title: string; 
       content: string; 
       client_name?: string;
       brand_guide_id?: string;
+      created_by?: string;
     }) => {
       const { data, error } = await supabase
         .from("presentations")
-        .insert({ title, content, client_name, brand_guide_id })
+        .insert({ title, content, client_name, brand_guide_id, created_by })
         .select()
         .single();
       
