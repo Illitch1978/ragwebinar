@@ -26,36 +26,36 @@ const DECK_LENGTH_OPTIONS = [
   { key: 'very-long' as DeckLength, label: 'Very Long', slides: '31-45' },
 ];
 
-const ARTICLE_PERSONA_OPTIONS = [
+export const ARTICLE_PERSONA_OPTIONS = [
   { 
     key: 'strategist' as ArticlePersona, 
     label: 'The Strategist',
-    reference: 'Michael Porter, Richard Rumelt',
     description: 'Deliberate, structured, directional. Frames ideas around purpose, trade-offs, and long-term positioning. Builds arguments step by step with calm authority.',
+    styleSheet: 'This voice is deliberate, structured, and directional. It frames ideas around purpose, trade-offs, and long-term positioning rather than tactics or trends. Writing flows from first principles, defining the problem space before introducing options, implications, and consequences. Arguments are built step by step, often using contrast between what is tempting and what is strategically sound. The tone is calm, authoritative, and grounded in logic rather than persuasion. Language avoids hype and favors clarity, precision, and disciplined reasoning. The reader should feel guided through a map of the terrain, understanding not just what to do, but why it matters, what it costs, and how it shapes future advantage.',
   },
   { 
     key: 'operator' as ArticlePersona, 
     label: 'The Operator',
-    reference: 'Execution-focused practitioners',
     description: 'Practical, grounded, focused on execution. Values what works over abstraction. Centers on process, outcomes, and real-world constraints.',
+    styleSheet: 'This voice is practical, grounded, and focused on execution. It values what works over what sounds good, and evidence over abstraction. Writing centers on process, outcomes, and real-world constraints, highlighting how ideas survive contact with reality. The tone is clear, direct, and quietly confident, often using concrete examples, patterns, and lessons learned. Complexity is not avoided, but it is broken into manageable steps and decisions. Language favors action verbs, measurable impact, and operational clarity. The reader should come away with a sense of momentum and applicability, feeling that insights can be tested, applied, and refined in real situations rather than admired from a distance.',
   },
   { 
     key: 'storyteller' as ArticlePersona, 
     label: 'The Storyteller',
-    reference: 'Narrative-driven thinkers',
     description: 'Leads with narrative and human experience. Ideas introduced through scenes and moments. Confident but inviting, designed to draw readers in.',
+    styleSheet: 'This voice leads with narrative and human experience. Ideas are introduced through scenes, characters, or moments before being unpacked into insight. Writing flows with rhythm and pacing, using contrast, tension, and resolution to keep the reader engaged. Abstract concepts are grounded in relatable examples, metaphors, or historical parallels. The tone is confident but inviting, designed to draw the reader into a journey rather than deliver a lecture. Language is vivid without being decorative, purposeful without being dry. The reader should feel carried through the argument, remembering the message not just as information, but as a story that lingers and connects emotionally.',
   },
   { 
     key: 'sharp-edge' as ArticlePersona, 
     label: 'The Sharp Edge',
-    reference: 'Contrarian analysts',
     description: 'Bold, challenging, deliberately contrarian. Questions assumptions and exposes weak logic. Confident and unapologetic with crisp language.',
+    styleSheet: 'This voice is bold, challenging, and deliberately contrarian. It questions assumptions, exposes weak logic, and highlights uncomfortable truths. Writing often sets up a dominant view only to dismantle it with reasoning, examples, or counterintuitive insight. The tone is confident and unapologetic, but not careless, grounded in clarity rather than provocation for its own sake. Language is crisp, sometimes pointed, favoring strong statements over soft qualifiers. The reader should feel unsettled in a productive way, prompted to re-examine beliefs and notice risks, blind spots, or opportunities that conventional thinking tends to ignore.',
   },
   { 
     key: 'marketing-guru' as ArticlePersona, 
     label: 'The Marketing Guru',
-    reference: 'Brand strategists',
     description: 'Audience-first and positioning-driven. Focuses on attention, perception, and how ideas land. Simple but intentional language crafted for impact.',
+    styleSheet: 'This voice is audience-first and positioning-driven. It focuses on attention, perception, and how ideas land in the mind of the market. Writing emphasizes clarity of message, emotional resonance, and distinctiveness rather than technical depth. Concepts are framed in terms of value, relevance, and memorability, often linking strategy to brand, identity, and trust. The tone is confident, accessible, and forward-looking, designed to inspire action without sounding promotional. Language is simple but intentional, crafted for impact and recall. The reader should feel that complex ideas have been sharpened into messages that can travel, stick, and shape how a product, service, or idea is perceived.',
   },
 ];
 
@@ -308,12 +308,7 @@ const FormatOptionsStep = ({
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-1">
-                      <p className="font-medium text-foreground">{option.label}</p>
-                      <span className="text-[10px] font-mono text-muted-foreground">
-                        {option.reference}
-                      </span>
-                    </div>
+                    <p className="font-medium text-foreground mb-1">{option.label}</p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       {option.description}
                     </p>
