@@ -351,7 +351,7 @@ const UploadPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div className="min-h-screen bg-[#F9F8F4] text-[#1C1C1C] font-sans flex flex-col selection:bg-[#E1F5FE] selection:text-[#0D9BDD]">
       {/* Subtle grid background */}
       <div 
         className="fixed inset-0 pointer-events-none z-0 opacity-[0.02]" 
@@ -374,11 +374,11 @@ const UploadPage = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center mb-12 lg:mb-16"
           >
-            <h1 className="font-serif text-4xl lg:text-6xl text-foreground mb-6 tracking-tight">
+            <h1 className="font-serif text-4xl lg:text-6xl text-[#1C1C1C] mb-6 tracking-tight">
               Content to<br />
               <span className="italic text-primary">Premium Decks</span>
             </h1>
-            <p className="text-muted-foreground text-lg lg:text-xl max-w-2xl mx-auto font-light">
+            <p className="text-[#525252] text-lg lg:text-xl max-w-2xl mx-auto font-light">
               Transform raw content into polished presentations, proposals, and executive documents.
             </p>
           </motion.div>
