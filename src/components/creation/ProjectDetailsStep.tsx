@@ -120,26 +120,27 @@ const ProjectDetailsStep = ({
         />
       </motion.div>
 
-      {/* Description (mandatory) */}
+      {/* Project Objectives (mandatory) */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-          Project Content <span className="text-destructive">*</span>
+          Project Objectives <span className="text-destructive">*</span>
         </label>
+        <p className="text-sm text-muted-foreground mb-3">
+          Define your project goals, key deliverables, and expected outcomes. Include any relevant context, data points, or requirements.
+        </p>
         <Textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Paste your content, meeting notes, or analysis here...
+          placeholder="What are the main objectives of this project?
 
-# Executive Summary
-Your strategic analysis content...
-
-## Key Findings
-- Finding 1
-- Finding 2"
+• Primary goal and desired outcome
+• Key stakeholders and target audience
+• Success metrics and deliverables
+• Timeline and constraints"
           className="min-h-[180px] px-6 py-5 bg-card border-border font-mono text-sm"
         />
         {description.length > 0 && (
@@ -166,7 +167,7 @@ Your strategic analysis content...
                 key={option.key}
                 onClick={() => setOutputFormat(option.key)}
                 className={cn(
-                  "relative px-5 py-4 rounded-sm border-2 transition-all duration-300 text-left group",
+                  "relative px-5 py-4 border-2 transition-all duration-300 text-left group",
                   outputFormat === option.key
                     ? "border-primary bg-primary/5"
                     : "border-border hover:border-primary/50 bg-card"
@@ -174,7 +175,7 @@ Your strategic analysis content...
               >
                 <div className="flex items-start gap-3">
                   <div className={cn(
-                    "w-9 h-9 rounded-full flex items-center justify-center transition-colors shrink-0",
+                    "w-9 h-9 flex items-center justify-center transition-colors shrink-0",
                     outputFormat === option.key ? "bg-primary/20" : "bg-muted"
                   )}>
                     <IconComponent className={cn(
@@ -190,7 +191,7 @@ Your strategic analysis content...
                   </div>
                 </div>
                 {outputFormat === option.key && (
-                  <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-primary rounded-full" />
+                  <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-primary" />
                 )}
               </button>
             );

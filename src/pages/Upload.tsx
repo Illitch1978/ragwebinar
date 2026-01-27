@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput } from "lucide-react";
+import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput, ChevronDown, MoreHorizontal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -476,7 +476,7 @@ const UploadPage = () => {
           </AnimatePresence>
 
 
-          {/* Saved Presentations */}
+          {/* Saved Presentations Dropdown */}
           {savedPresentations && savedPresentations.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -487,170 +487,34 @@ const UploadPage = () => {
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-8 h-[1px] bg-primary" />
                 <h2 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest">
-                  Saved Presentations
+                  Recent Projects
                 </h2>
               </div>
               
-              <div className="space-y-3">
-                {savedPresentations.map((presentation) => (
-                  <div
-                    key={presentation.id}
-                    onClick={() => editingId !== presentation.id && handleOpenSaved(presentation)}
-                    className={cn(
-                      "group relative flex items-center justify-between p-4 bg-card border border-border rounded-sm transition-all duration-300",
-                      editingId !== presentation.id && "hover:border-primary/50 cursor-pointer"
-                    )}
-                  >
-                    <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0">
-                        <PresentationIcon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        {editingId === presentation.id ? (
-                          <Input
-                            value={editingTitle}
-                            onChange={(e) => setEditingTitle(e.target.value)}
-                            onClick={(e) => e.stopPropagation()}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') handleSaveEdit(e as any);
-                              if (e.key === 'Escape') handleCancelEdit(e as any);
-                            }}
-                            className="h-8 text-sm font-medium"
-                            autoFocus
-                          />
-                        ) : (
-                          <p className="font-medium text-foreground group-hover:text-primary transition-colors truncate">
-                            {presentation.title}
-                          </p>
-                        )}
-                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                          {presentation.created_by && (
-                            <>
-                              <span className="font-medium">{presentation.created_by}</span>
-                              <span className="text-muted-foreground/50">•</span>
-                            </>
-                          )}
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            <span>{formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 relative z-10">
-                      {editingId === presentation.id ? (
-                        <>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={handleSaveEdit}
-                            className="text-primary hover:text-primary hover:bg-primary/10"
-                          >
-                            <Check className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={handleCancelEdit}
-                            className="text-muted-foreground hover:text-foreground"
-                          >
-                            <X className="w-4 h-4" />
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          {/* Download PPTX button */}
-                          {presentation.generated_slides && Array.isArray(presentation.generated_slides) && (
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(`/presentation?id=${presentation.id}&export=true`);
-                              }}
-                              title="Download as PowerPoint"
-                              className="text-muted-foreground transition-colors"
-                            >
-                              <Download className="w-4 h-4" />
-                            </Button>
-                          )}
-                          {/* Word export button */}
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={(e) => handleExportWord(e, presentation)}
-                            title="Download as Word document"
-                            className="text-muted-foreground transition-colors"
-                          >
-                            <FileOutput className="w-4 h-4" />
-                          </Button>
-                          {/* PDF export button */}
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={(e) => handleExportPdf(e, presentation)}
-                            title="Download as PDF proposal"
-                            className="text-muted-foreground transition-colors"
-                          >
-                            <Sparkles className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              const guestUrl = `${window.location.origin}/presentation?id=${presentation.id}`;
-                              navigator.clipboard.writeText(guestUrl);
-                              toast.success("Guest link copied!");
-                            }}
-                            title="Copy guest link (view only)"
-                            className="text-muted-foreground transition-colors"
-                          >
-                            <Link2 className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={(e) => handleToggleLock(e, presentation)}
-                            title={presentation.is_locked ? "Unlock presentation" : "Lock presentation"}
-                            className="text-muted-foreground hover:text-foreground transition-colors"
-                          >
-                            <Lock className={cn(
-                              "w-4 h-4 transition-colors",
-                              presentation.is_locked ? "text-primary" : "text-muted-foreground"
-                            )} />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={(e) => handleStartEdit(e, presentation)}
-                            disabled={presentation.is_locked}
-                            className={cn(
-                              "text-muted-foreground transition-colors",
-                              presentation.is_locked && "opacity-50 cursor-not-allowed"
-                            )}
-                          >
-                            <Pencil className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={(e) => handleDelete(e, presentation)}
-                            disabled={presentation.is_locked}
-                            className={cn(
-                              "text-muted-foreground hover:text-destructive transition-colors",
-                              presentation.is_locked && "opacity-50 cursor-not-allowed hover:text-muted-foreground"
-                            )}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                        </>
-                      )}
-                    </div>
-                  </div>
-                ))}
+              <div className="relative">
+                <select
+                  onChange={(e) => {
+                    const selected = savedPresentations.find(p => p.id === e.target.value);
+                    if (selected) handleOpenSaved(selected);
+                  }}
+                  className="w-full appearance-none px-6 py-4 pr-12 bg-card border border-border text-foreground font-medium cursor-pointer hover:border-primary/50 transition-colors focus:outline-none focus:border-primary"
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Select a saved project to open...
+                  </option>
+                  {savedPresentations.map((presentation) => (
+                    <option key={presentation.id} value={presentation.id}>
+                      {presentation.title} {presentation.created_by ? `• ${presentation.created_by}` : ''} • {formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
               </div>
+              
+              <p className="text-xs text-muted-foreground mt-3">
+                {savedPresentations.length} saved project{savedPresentations.length !== 1 ? 's' : ''}
+              </p>
             </motion.div>
           )}
           
