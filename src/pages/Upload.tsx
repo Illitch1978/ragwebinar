@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput, ChevronDown, Search } from "lucide-react";
+import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput, ChevronDown, Search, LockOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +18,12 @@ import { exportToDocx } from "@/lib/docxExport";
 import { exportProposalToPdf } from "@/lib/pdfProposalExport";
 import ProjectDetailsStep, { OutputFormat, OUTPUT_FORMAT_OPTIONS } from "@/components/creation/ProjectDetailsStep";
 import FormatOptionsStep, { DeckLength, ArticlePersona, WordCountRange } from "@/components/creation/FormatOptionsStep";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const UploadPage = () => {
   // Wizard step state
@@ -488,23 +494,126 @@ const UploadPage = () => {
                       No projects match "{projectSearch}"
                     </div>
                   ) : (
-                    filteredPresentations?.map((presentation) => (
-                      <button
-                        key={presentation.id}
-                        onClick={() => handleOpenSaved(presentation)}
-                        className="w-full px-6 py-3 flex items-center justify-between text-left hover:bg-muted/50 transition-colors border-b border-border last:border-b-0 group"
-                      >
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium text-foreground truncate group-hover:text-primary transition-colors">
-                            {presentation.title}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}
-                          </p>
+                    <TooltipProvider delayDuration={300}>
+                      {filteredPresentations?.map((presentation) => (
+                        <div
+                          key={presentation.id}
+                          onClick={() => handleOpenSaved(presentation)}
+                          className="w-full px-4 py-3 flex items-center gap-3 text-left hover:bg-muted/50 transition-colors border-b border-border last:border-b-0 group cursor-pointer"
+                        >
+                          {/* Title and metadata */}
+                          <div className="flex-1 min-w-0">
+                            {editingId === presentation.id ? (
+                              <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                                <input
+                                  type="text"
+                                  value={editingTitle}
+                                  onChange={(e) => setEditingTitle(e.target.value)}
+                                  className="flex-1 bg-transparent border-b border-primary text-foreground text-sm focus:outline-none"
+                                  autoFocus
+                                />
+                                <button onClick={handleSaveEdit} className="p-1 hover:bg-muted rounded">
+                                  <Check className="w-3.5 h-3.5 text-green-600" />
+                                </button>
+                                <button onClick={handleCancelEdit} className="p-1 hover:bg-muted rounded">
+                                  <X className="w-3.5 h-3.5 text-muted-foreground" />
+                                </button>
+                              </div>
+                            ) : (
+                              <>
+                                <p className="font-medium text-foreground text-sm truncate group-hover:text-primary transition-colors">
+                                  {presentation.title}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                  {formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })}
+                                </p>
+                              </>
+                            )}
+                          </div>
+                          
+                          {/* Action icons */}
+                          {editingId !== presentation.id && (
+                            <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+                              {/* Lock/Unlock */}
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <button
+                                    onClick={(e) => handleToggleLock(e, presentation)}
+                                    className="p-1.5 hover:bg-muted rounded transition-colors"
+                                  >
+                                    {presentation.is_locked ? (
+                                      <Lock className="w-3.5 h-3.5 text-primary" />
+                                    ) : (
+                                      <LockOpen className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+                                    )}
+                                  </button>
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="text-xs">
+                                  {presentation.is_locked ? "Unlock" : "Lock"}
+                                </TooltipContent>
+                              </Tooltip>
+                              
+                              {/* Copy Link */}
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      navigator.clipboard.writeText(`${window.location.origin}/presentation?id=${presentation.id}`);
+                                      toast.success("Link copied!");
+                                    }}
+                                    className="p-1.5 hover:bg-muted rounded transition-colors"
+                                  >
+                                    <Link2 className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+                                  </button>
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="text-xs">
+                                  Copy link
+                                </TooltipContent>
+                              </Tooltip>
+                              
+                              {/* Edit title */}
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <button
+                                    onClick={(e) => handleStartEdit(e, presentation)}
+                                    className={cn(
+                                      "p-1.5 hover:bg-muted rounded transition-colors",
+                                      presentation.is_locked && "opacity-50 cursor-not-allowed"
+                                    )}
+                                    disabled={presentation.is_locked}
+                                  >
+                                    <Pencil className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+                                  </button>
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="text-xs">
+                                  Edit name
+                                </TooltipContent>
+                              </Tooltip>
+                              
+                              {/* Delete */}
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <button
+                                    onClick={(e) => handleDelete(e, presentation)}
+                                    className={cn(
+                                      "p-1.5 hover:bg-muted rounded transition-colors",
+                                      presentation.is_locked && "opacity-50 cursor-not-allowed"
+                                    )}
+                                    disabled={presentation.is_locked}
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5 text-muted-foreground hover:text-red-500" />
+                                  </button>
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="text-xs">
+                                  Delete
+                                </TooltipContent>
+                              </Tooltip>
+                            </div>
+                          )}
                         </div>
-                        <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0 ml-4" />
-                      </button>
-                    ))
+                      ))}
+                    </TooltipProvider>
                   )}
                 </div>
               </div>
