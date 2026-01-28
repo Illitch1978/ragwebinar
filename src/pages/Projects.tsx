@@ -113,20 +113,10 @@ const Projects = () => {
             backgroundSize: '24px 24px',
           }}
         >
-          <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto">
             {/* Header Section */}
-            <div className="flex items-end justify-between mb-20 pt-8">
+            <div className="flex items-end justify-between mb-20">
               <div>
-                {/* Swiss Logo */}
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="flex items-baseline gap-1 select-none">
-                    <span className="font-serif font-bold text-2xl tracking-tight text-black leading-none lowercase">
-                      lab
-                    </span>
-                    <div className="w-2 h-2 rounded-full bg-[#0D9BDD] animate-pulse shadow-[0_0_8px_rgba(13,155,221,0.6)] transform -translate-y-1" />
-                  </div>
-                </div>
-
                 <h1 className="text-5xl font-extrabold mb-3 tracking-tight text-[#1C1C1C] leading-tight">
                   Welcome back,<br />
                   Illitch.
@@ -137,10 +127,9 @@ const Projects = () => {
               {/* Create Project Button */}
               <Link
                 to="/deck"
-                className="relative bg-[#1C1C1C] text-white px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(13,155,221,0.4)] hover:-translate-y-0.5 group"
+                className="bg-[#1C1C1C] text-white px-6 py-3 text-xs font-bold uppercase tracking-[0.15em]"
               >
-                <span className="relative z-10">Create Project</span>
-                <div className="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-500 group-hover:left-[100%]" />
+                Create Project
               </Link>
             </div>
 
