@@ -1,4 +1,4 @@
-import { Settings, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DECK_PRINCIPLES } from "@/lib/deckPrinciples";
 import { OUTPUT_FORMAT_PRINCIPLES, OutputFormat } from "@/lib/outputFormatPrinciples";
@@ -7,7 +7,6 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import {
   Collapsible,
@@ -16,24 +15,18 @@ import {
 } from "@/components/ui/collapsible";
 import { useState } from "react";
 
-const SettingsSidebar = () => {
+interface SettingsSidebarProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+const SettingsSidebar = ({ open, onOpenChange }: SettingsSidebarProps) => {
   const [isPrinciplesOpen, setIsPrinciplesOpen] = useState(false);
   const [isFormatPrinciplesOpen, setIsFormatPrinciplesOpen] = useState(true);
   const [selectedFormat, setSelectedFormat] = useState<OutputFormat>('proposal');
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <button 
-          className="flex items-center gap-2 px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-sm transition-colors"
-          aria-label="Open settings"
-        >
-          <Settings className="w-4 h-4" />
-          <span className="font-mono text-[11px] uppercase tracking-widest hidden sm:inline">
-            Settings
-          </span>
-        </button>
-      </SheetTrigger>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="w-[400px] sm:w-[500px] bg-background border-l border-border overflow-y-auto">
         <SheetHeader className="mb-6">
           <SheetTitle className="font-serif text-xl text-foreground">
