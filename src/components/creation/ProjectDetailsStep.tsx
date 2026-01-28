@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Presentation as PresentationIcon, BarChart3, FileText, BookOpen, BriefcaseBusiness, Video } from "lucide-react";
@@ -81,11 +80,7 @@ const ProjectDetailsStep = ({
   return (
     <div className="space-y-8">
       {/* Project Name */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
+      <div>
         <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
           Project / Client Name
         </label>
@@ -96,14 +91,10 @@ const ProjectDetailsStep = ({
           placeholder="Enter project or client name..."
           className="w-full px-6 py-4 bg-card border border-border rounded-sm font-sans text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
         />
-      </motion.div>
+      </div>
 
       {/* Project Objectives (mandatory) */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
+      <div>
         <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
           Project Objectives <span className="text-destructive">*</span>
         </label>
@@ -126,14 +117,10 @@ const ProjectDetailsStep = ({
             {description.length.toLocaleString()} characters
           </p>
         )}
-      </motion.div>
+      </div>
 
       {/* Output Format Selection */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.25 }}
-      >
+      <div>
         <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
           Output Format
         </label>
@@ -175,15 +162,10 @@ const ProjectDetailsStep = ({
             );
           })}
         </div>
-      </motion.div>
+      </div>
 
       {/* Next Button */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="flex justify-center pt-4"
-      >
+      <div className="flex justify-center pt-4">
         <Button
           onClick={onNext}
           disabled={!isValid}
@@ -197,7 +179,7 @@ const ProjectDetailsStep = ({
           Continue
           <ArrowRight className="w-4 h-4 ml-3 group-hover:translate-x-1 transition-transform" />
         </Button>
-      </motion.div>
+      </div>
     </div>
   );
 };
