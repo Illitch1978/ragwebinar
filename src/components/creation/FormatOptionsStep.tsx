@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Sparkles, Loader2, Upload as UploadIcon, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -191,23 +190,15 @@ const FormatOptionsStep = ({
   return (
     <div className="space-y-8">
       {/* Step indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex items-center gap-2 text-sm text-muted-foreground mb-4"
-      >
+      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
         <span className="font-mono text-[10px] uppercase tracking-wider">Step 2</span>
         <span>•</span>
         <span className="font-medium text-foreground">{formatConfig?.label}</span>
-      </motion.div>
+      </div>
 
       {/* Brand Guide Selection - only for slide-based formats */}
       {showBrandGuide && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
+        <div>
           <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
             Brand Guide / Template
           </label>
@@ -234,30 +225,22 @@ const FormatOptionsStep = ({
               ))}
             </SelectContent>
           </Select>
-        </motion.div>
+        </div>
       )}
 
       {/* Brand Guide Editor */}
       {showBrandGuide && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-        >
+        <div>
           <BrandGuideEditor 
             brandGuides={brandGuides} 
             isLoading={isLoadingBrandGuides} 
           />
-        </motion.div>
+        </div>
       )}
 
       {/* Deck Length - only for slide-based formats */}
       {showDeckOptions && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+        <div>
           <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
             Deck Length
           </label>
@@ -281,16 +264,12 @@ const FormatOptionsStep = ({
               </button>
             ))}
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* Article Persona Selection - only for Thought Leadership */}
       {isArticleFormat && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
+        <div>
           <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
             Writing Persona
           </label>
@@ -320,16 +299,12 @@ const FormatOptionsStep = ({
               </button>
             ))}
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* Word Count Range - only for Thought Leadership */}
       {isArticleFormat && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-        >
+        <div>
           <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
             Word Count
           </label>
@@ -353,15 +328,11 @@ const FormatOptionsStep = ({
               </button>
             ))}
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* Additional Content Upload */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.25 }}
-      >
+      <div>
         <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
           Additional Content (Optional)
         </label>
@@ -431,15 +402,10 @@ const FormatOptionsStep = ({
             </div>
           )}
         </div>
-      </motion.div>
+      </div>
 
       {/* Navigation Buttons */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="flex justify-between items-center pt-4"
-      >
+      <div className="flex justify-between items-center pt-4">
         <Button
           onClick={onBack}
           variant="outline"
@@ -473,7 +439,7 @@ const FormatOptionsStep = ({
             </>
           )}
         </Button>
-      </motion.div>
+      </div>
     </div>
   );
 };

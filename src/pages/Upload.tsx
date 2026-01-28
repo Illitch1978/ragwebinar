@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput, ChevronDown, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -404,55 +404,41 @@ const UploadPage = () => {
             </div>
           </motion.div>
 
-          {/* Wizard Steps */}
-          <AnimatePresence mode="wait">
-            {currentStep === 1 ? (
-              <motion.div
-                key="step1"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <ProjectDetailsStep
-                  projectName={projectName}
-                  setProjectName={setProjectName}
-                  description={description}
-                  setDescription={setDescription}
-                  outputFormat={outputFormat}
-                  setOutputFormat={setOutputFormat}
-                  onNext={() => setCurrentStep(2)}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="step2"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <FormatOptionsStep
-                  outputFormat={outputFormat}
-                  brandGuides={brandGuides}
-                  isLoadingBrandGuides={isLoadingBrandGuides}
-                  selectedBrandGuide={selectedBrandGuide}
-                  setSelectedBrandGuide={setSelectedBrandGuide}
-                  deckLength={deckLength}
-                  setDeckLength={setDeckLength}
-                  articlePersona={articlePersona}
-                  setArticlePersona={setArticlePersona}
-                  wordCountRange={wordCountRange}
-                  setWordCountRange={setWordCountRange}
-                  content={additionalContent}
-                  setContent={setAdditionalContent}
-                  onBack={() => setCurrentStep(1)}
-                  onGenerate={handleGenerate}
-                  isGenerating={isGenerating}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Wizard Steps (no entrance/slide animations) */}
+          {currentStep === 1 ? (
+            <div>
+              <ProjectDetailsStep
+                projectName={projectName}
+                setProjectName={setProjectName}
+                description={description}
+                setDescription={setDescription}
+                outputFormat={outputFormat}
+                setOutputFormat={setOutputFormat}
+                onNext={() => setCurrentStep(2)}
+              />
+            </div>
+          ) : (
+            <div>
+              <FormatOptionsStep
+                outputFormat={outputFormat}
+                brandGuides={brandGuides}
+                isLoadingBrandGuides={isLoadingBrandGuides}
+                selectedBrandGuide={selectedBrandGuide}
+                setSelectedBrandGuide={setSelectedBrandGuide}
+                deckLength={deckLength}
+                setDeckLength={setDeckLength}
+                articlePersona={articlePersona}
+                setArticlePersona={setArticlePersona}
+                wordCountRange={wordCountRange}
+                setWordCountRange={setWordCountRange}
+                content={additionalContent}
+                setContent={setAdditionalContent}
+                onBack={() => setCurrentStep(1)}
+                onGenerate={handleGenerate}
+                isGenerating={isGenerating}
+              />
+            </div>
+          )}
 
 
           {/* Saved Presentations with Search */}
