@@ -487,8 +487,8 @@ const UploadPage = () => {
                   )}
                 </div>
                 
-                {/* Results List - shows exactly 3 items (61px per row × 3) */}
-                <div className="max-h-[183px] overflow-y-auto">
+                {/* Results List - shows exactly 3 items */}
+                <div className="max-h-[195px] overflow-y-auto">
                   {filteredPresentations?.length === 0 ? (
                     <div className="px-6 py-4 text-sm text-muted-foreground">
                       No projects match "{projectSearch}"
