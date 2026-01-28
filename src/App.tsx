@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Upload from "./pages/Upload";
 import Overview from "./pages/Overview";
+import Projects from "./pages/Projects";
 import ReportSection from "./components/dashboard/ReportSection";
 import Presentation from "./pages/Presentation";
 import NotFound from "./pages/NotFound";
@@ -18,7 +19,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/overview" replace />} />
+          <Route path="/" element={<Navigate to="/projects" replace />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/overview" element={<Overview />} />
           <Route path="/deck" element={<Upload />} />
           <Route path="/report" element={
