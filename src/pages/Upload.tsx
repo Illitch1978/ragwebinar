@@ -369,14 +369,13 @@ const UploadPage = () => {
         <div className="max-w-4xl mx-auto">
           {/* Hero */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             className="text-center mb-12 lg:mb-16"
           >
             <h1 className="font-serif text-4xl lg:text-6xl text-[#1C1C1C] mb-6 tracking-tight">
-              Content to<br />
-              <span className="italic text-primary">Premium Decks</span>
+              Content to Premium Decks
             </h1>
             <p className="font-serif text-xl lg:text-2xl text-[#003366] font-medium italic max-w-2xl mx-auto leading-relaxed">
               Transform raw content into polished presentations, proposals, and executive documents.
