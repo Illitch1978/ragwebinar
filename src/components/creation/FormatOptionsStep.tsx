@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ArrowRight, Sparkles, Loader2, Upload as UploadIcon, FileText, Search, Database, Filter, File } from "lucide-react";
+import { ArrowLeft, ArrowRight, Sparkles, Loader2, Upload as UploadIcon, FileText, Search, Database, Filter, File, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -13,7 +13,6 @@ import BrandGuideEditor from "@/components/BrandGuideEditor";
 import { OUTPUT_FORMAT_OPTIONS, OutputFormat } from "./ProjectDetailsStep";
 import { BrandGuide } from "@/hooks/useBrandGuides";
 import { useRef, useState } from "react";
-
 export type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
 export type ArticlePersona = 'strategist' | 'operator' | 'storyteller' | 'sharp-edge' | 'marketing-guru';
 export type WordCountRange = '400' | '600' | '800' | '1000';
@@ -110,6 +109,13 @@ const FormatOptionsStep = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessingFile, setIsProcessingFile] = useState(false);
+  const [selectedSources, setSelectedSources] = useState<number[]>([]);
+
+  const toggleSource = (idx: number) => {
+    setSelectedSources(prev => 
+      prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
+    );
+  };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -228,10 +234,18 @@ const FormatOptionsStep = ({
             ].map((source, idx) => (
               <div
                 key={idx}
-                className="px-4 py-2.5 flex items-center gap-3 border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors cursor-pointer opacity-60"
+                onClick={() => toggleSource(idx)}
+                className="px-4 py-2.5 flex items-center gap-3 border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors cursor-pointer"
               >
-                <div className="w-4 h-4 border border-muted-foreground/40 flex items-center justify-center">
-                  {/* Checkbox placeholder */}
+                <div className={cn(
+                  "w-4 h-4 border flex items-center justify-center transition-colors",
+                  selectedSources.includes(idx)
+                    ? "bg-primary border-primary"
+                    : "border-muted-foreground/40"
+                )}>
+                  {selectedSources.includes(idx) && (
+                    <Check className="w-3 h-3 text-primary-foreground" />
+                  )}
                 </div>
                 {source.type === 'doc' ? (
                   <File className="w-4 h-4 text-muted-foreground shrink-0" />
@@ -256,7 +270,7 @@ const FormatOptionsStep = ({
       {showBrandGuide && (
         <div>
           <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-            Design Template
+            Select template
           </label>
           <Select
             value={selectedBrandGuide}
