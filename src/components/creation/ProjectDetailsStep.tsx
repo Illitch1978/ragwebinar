@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowRight, Presentation as PresentationIcon, FileBarChart, Target, BookOpen, BriefcaseBusiness, Video } from "lucide-react";
+import { ArrowRight, Presentation as PresentationIcon, FileBarChart, FileText, BookOpen, BriefcaseBusiness, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export type OutputFormat = 'presentation' | 'report' | 'proposal' | 'article' | 'executive-summary' | 'post-meeting';
@@ -27,7 +27,7 @@ export const OUTPUT_FORMAT_OPTIONS = [
     key: 'proposal' as OutputFormat,
     label: 'Proposal Builder',
     description: 'PDF with signature block and configurable T&C',
-    Icon: Target,
+    Icon: FileText,
     isSlideFormat: true,
     needsBrandGuide: true,
   },
