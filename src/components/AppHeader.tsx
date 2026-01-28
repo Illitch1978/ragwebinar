@@ -15,7 +15,7 @@ const AppHeader = () => {
       <div className="container mx-auto px-6 lg:px-16 py-4 flex items-center justify-between">
         
         {/* Left: Logo + Divider + Title - all clickable */}
-        <Link to="/overview" className="flex items-center gap-6 group">
+        <Link to="/deck" className="flex items-center gap-6 group">
           {/* Logo - matching footer style */}
           <div className="flex items-baseline gap-0.5 select-none">
             <span className="font-serif font-bold text-xl tracking-tight text-muted-foreground leading-none group-hover:text-[#0D9BDD] transition-colors">rubiklab</span>
