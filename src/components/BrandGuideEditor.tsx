@@ -1264,7 +1264,7 @@ const BrandGuideEditor = ({ brandGuides, isLoading }: BrandGuideEditorProps) => 
         <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group">
           <Palette className="w-4 h-4" />
           <span className="font-mono text-[11px] uppercase tracking-widest">
-            Brand Guide Templates
+            Design Templates
           </span>
           <span className="text-[10px] text-muted-foreground/70 font-mono">
             ({brandGuides?.length || 0})

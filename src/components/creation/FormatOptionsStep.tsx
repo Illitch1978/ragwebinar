@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ArrowRight, Sparkles, Loader2, Upload as UploadIcon, FileText } from "lucide-react";
+import { ArrowLeft, ArrowRight, Sparkles, Loader2, Upload as UploadIcon, FileText, Search, Database, Filter, File } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -196,11 +196,67 @@ const FormatOptionsStep = ({
         <span className="font-medium text-foreground">{formatConfig?.label}</span>
       </div>
 
-      {/* Brand Guide Selection - only for slide-based formats */}
+      {/* Data Sources Selection - placeholder for library integration */}
+      <div>
+        <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+          Data Sources
+        </label>
+        <div className="bg-card border border-border">
+          {/* Search Bar */}
+          <div className="relative border-b border-border">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search sources..."
+              className="w-full pl-12 pr-4 py-3 bg-transparent text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none"
+              disabled
+            />
+            <button className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-muted/50 transition-colors" disabled>
+              <Filter className="w-4 h-4 text-muted-foreground" />
+            </button>
+          </div>
+          
+          {/* Placeholder Source List */}
+          <div className="max-h-[180px] overflow-y-auto">
+            {[
+              { name: 'The Impact of Social Media In...', type: 'doc' },
+              { name: 'Galaxy Research Journal', type: 'doc' },
+              { name: 'Sustainable fashion consumpt...', type: 'doc' },
+              { name: 'Street Interviews - Germany', type: 'data' },
+              { name: 'Podcast Ready Set Click', type: 'data' },
+              { name: 'Sustainable fashion forum', type: 'data' },
+            ].map((source, idx) => (
+              <div
+                key={idx}
+                className="px-4 py-2.5 flex items-center gap-3 border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors cursor-pointer opacity-60"
+              >
+                <div className="w-4 h-4 border border-muted-foreground/40 flex items-center justify-center">
+                  {/* Checkbox placeholder */}
+                </div>
+                {source.type === 'doc' ? (
+                  <File className="w-4 h-4 text-muted-foreground shrink-0" />
+                ) : (
+                  <Database className="w-4 h-4 text-muted-foreground shrink-0" />
+                )}
+                <span className="text-sm text-foreground truncate">{source.name}</span>
+              </div>
+            ))}
+          </div>
+          
+          {/* Footer hint */}
+          <div className="px-4 py-2.5 border-t border-border bg-muted/20">
+            <p className="text-xs text-muted-foreground italic">
+              Data library coming soon — connect your research files and datasets
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Design Template Selection - only for slide-based formats */}
       {showBrandGuide && (
         <div>
           <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-            Brand Guide / Template
+            Design Template
           </label>
           <Select
             value={selectedBrandGuide}
@@ -208,7 +264,7 @@ const FormatOptionsStep = ({
             disabled={isLoadingBrandGuides}
           >
             <SelectTrigger className="w-full bg-card border-border h-12">
-              <SelectValue placeholder={isLoadingBrandGuides ? "Loading..." : "Select a brand guide"} />
+              <SelectValue placeholder={isLoadingBrandGuides ? "Loading..." : "Select a template"} />
             </SelectTrigger>
             <SelectContent className="bg-card border-border">
               {brandGuides?.map((guide) => (
@@ -228,7 +284,7 @@ const FormatOptionsStep = ({
         </div>
       )}
 
-      {/* Brand Guide Editor */}
+      {/* Template Details */}
       {showBrandGuide && (
         <div>
           <BrandGuideEditor 
