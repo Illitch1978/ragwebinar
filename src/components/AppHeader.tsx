@@ -41,7 +41,7 @@ const AppHeader = () => {
                 <Link
                   key={tab.label}
                   to={tab.path}
-                  className={`flex items-center justify-center w-28 px-4 py-2 text-xs uppercase tracking-[0.1em] font-semibold transition-all ${
+                  className={`px-4 py-2 text-xs uppercase tracking-[0.1em] font-semibold transition-colors whitespace-nowrap ${
                     isActive 
                       ? "text-[#0D9BDD]" 
                       : "text-neutral-400 hover:text-neutral-600"
