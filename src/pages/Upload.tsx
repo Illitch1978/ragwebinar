@@ -365,7 +365,7 @@ const UploadPage = () => {
       <AppHeader />
 
       {/* Main Content */}
-      <main className="relative z-10 flex-1 container mx-auto px-6 lg:px-16 py-12 lg:py-20">
+      <main className="relative z-10 flex-1 container mx-auto px-6 lg:px-16 pt-20 pb-12">
         <div className="max-w-4xl mx-auto">
           {/* Hero */}
           <div className="text-center mb-12 lg:mb-16">
