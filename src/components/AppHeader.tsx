@@ -1,6 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { Settings } from "lucide-react";
-
+import { Settings, User, Building2, Users, LogOut } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 const AppHeader = () => {
   const location = useLocation();
   
@@ -56,11 +62,34 @@ const AppHeader = () => {
           {/* Divider */}
           <div className="h-5 w-px bg-neutral-200" />
 
-          {/* Settings */}
-          <button className="flex items-center gap-2 px-3 py-2 text-neutral-400 hover:text-neutral-600 transition-colors ml-2">
-            <Settings size={16} strokeWidth={1.5} />
-            <span className="text-xs uppercase tracking-[0.1em] font-semibold">Settings</span>
-          </button>
+          {/* Settings Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center gap-2 px-3 py-2 text-neutral-400 hover:text-neutral-600 transition-colors ml-2">
+                <Settings size={16} strokeWidth={1.5} />
+                <span className="text-xs uppercase tracking-[0.1em] font-semibold">Settings</span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56 bg-white border border-neutral-200 shadow-lg z-50">
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-neutral-50">
+                <User size={16} strokeWidth={1.5} className="text-neutral-500" />
+                <span className="text-sm font-medium">Profile & Preferences</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-neutral-50">
+                <Building2 size={16} strokeWidth={1.5} className="text-neutral-500" />
+                <span className="text-sm font-medium">Workspace Settings</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-neutral-50">
+                <Users size={16} strokeWidth={1.5} className="text-neutral-500" />
+                <span className="text-sm font-medium">Team Access</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-neutral-200" />
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-neutral-50 text-red-600">
+                <LogOut size={16} strokeWidth={1.5} />
+                <span className="text-sm font-medium">Sign out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </div>
