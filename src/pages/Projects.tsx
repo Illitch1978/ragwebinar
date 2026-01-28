@@ -127,7 +127,7 @@ const Projects = () => {
               {/* Create Project Button */}
               <Link
                 to="/deck"
-                className="bg-[#1C1C1C] text-white px-6 py-3 text-xs font-bold uppercase tracking-[0.15em]"
+                className="bg-[#1C1C1C] text-white px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] shadow-md transition-colors duration-200 hover:bg-[#0D9BDD]"
               >
                 Create Project
               </Link>
