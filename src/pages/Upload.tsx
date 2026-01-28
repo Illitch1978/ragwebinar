@@ -368,19 +368,14 @@ const UploadPage = () => {
       <main className="relative z-10 flex-1 container mx-auto px-6 lg:px-16 py-12 lg:py-20">
         <div className="max-w-4xl mx-auto">
           {/* Hero */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-            className="text-center mb-12 lg:mb-16"
-          >
+          <div className="text-center mb-12 lg:mb-16">
             <h1 className="font-serif text-[3rem] font-bold text-[#1C1C1C] mb-5 tracking-tight leading-tight">
               Content to Premium Decks
             </h1>
             <p className="font-serif text-[1.4rem] text-[#003366] font-medium italic max-w-2xl mx-auto leading-relaxed">
               Transform raw content into polished presentations, proposals, and executive documents.
             </p>
-          </motion.div>
+          </div>
 
           {/* Step Indicator */}
           <motion.div
