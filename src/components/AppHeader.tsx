@@ -34,14 +34,14 @@ const AppHeader = () => {
         {/* Right: Navigation + Settings */}
         <div className="flex items-center gap-2">
           {/* Navigation Tabs */}
-          <nav className="flex items-center gap-1 mr-4">
+          <nav className="flex items-center mr-4">
             {navTabs.map((tab) => {
               const isActive = location.pathname === tab.path;
               return (
                 <Link
                   key={tab.label}
                   to={tab.path}
-                  className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.1em] font-semibold transition-all ${
+                  className={`flex items-center justify-center w-28 px-4 py-2 text-xs uppercase tracking-[0.1em] font-semibold transition-all ${
                     isActive 
                       ? "text-[#0D9BDD]" 
                       : "text-neutral-400 hover:text-neutral-600"
