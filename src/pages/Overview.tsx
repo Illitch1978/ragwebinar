@@ -23,9 +23,9 @@ const Overview = () => {
                   <span>•</span>
                   <span>Seven active sources</span>
                   <span>•</span>
-                  <span>High confidence</span>
+                  <span>2,847 signals analyzed</span>
                   <span>•</span>
-                  <span>Full traceability</span>
+                  <span>Q4 2024 – Present</span>
                 </div>
 
                 <div className="project-summary">
@@ -55,9 +55,9 @@ const Overview = () => {
                 </div>
               </section>
 
-              {/* Section 3: Current Priorities */}
+              {/* Section 3: Key Learnings */}
               <section className="priorities-section">
-                <div className="section-header">Strategic Priorities</div>
+                <div className="section-header">Key Learnings</div>
 
                 <div className="priority-item">
                   <div className="priority-title">Protect local brand trust</div>
@@ -84,41 +84,32 @@ const Overview = () => {
                 </div>
               </section>
 
-              {/* Section 4: Action Board (Links) */}
+              {/* Section 4: Action Buttons */}
               <section className="action-board">
-                <div className="section-header">Recommended Actions</div>
-                <p className="section-cue">Based on current signals</p>
+                <div className="section-header">Actions</div>
 
-                <div className="action-list">
-                  <div className="action-item">
-                    <span className="action-link">Generate executive summary</span>
-                    <div className="action-description">
-                      Prepare a C-suite briefing on trust and branding performance across Midwest markets.
-                    </div>
-                  </div>
+                <div className="action-buttons">
+                  <button className="action-button">
+                    <span className="action-button-title">Executive Summary</span>
+                    <span className="action-button-description">Generate a C-suite briefing</span>
+                  </button>
 
-                  <div className="action-item">
-                    <span className="action-link">Run data audit</span>
-                    <div className="action-description">
-                      Verify source balance to ensure operational logs aren't overpowering direct customer feedback.
-                    </div>
-                  </div>
+                  <button className="action-button">
+                    <span className="action-button-title">Data Audit</span>
+                    <span className="action-button-description">Verify source balance and coverage</span>
+                  </button>
 
-                  <div className="action-item">
-                    <span className="action-link">Explore churn risk drivers</span>
-                    <div className="action-description">
-                      Isolate negative sentiment correlating with cancellations, specifically no-shows and pricing.
-                    </div>
-                  </div>
+                  <button className="action-button">
+                    <span className="action-button-title">Talk to Data</span>
+                    <span className="action-button-description">Ask questions in natural language</span>
+                  </button>
 
-                  <div className="action-item">
-                    <span className="action-link">Talk to data</span>
-                    <div className="action-description">
-                      Interrogate the intelligence layer directly to uncover nuanced patterns in reliability clusters.
-                    </div>
-                  </div>
-            </div>
-          </section>
+                  <button className="action-button">
+                    <span className="action-button-title">Emotional Mapping</span>
+                    <span className="action-button-description">Visualize sentiment patterns</span>
+                  </button>
+                </div>
+              </section>
 
         </div>
       </div>
