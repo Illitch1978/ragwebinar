@@ -5,7 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import ExploreFilters, { FilterState } from "@/components/explore/ExploreFilters";
 
 type ExplorationMode = "all" | "qual" | "quant";
@@ -23,6 +25,7 @@ interface Theme {
   quotes: {
     text: string;
     source: string;
+    sourceUrl?: string;
     speaker?: string;
   }[];
 }
@@ -36,11 +39,11 @@ const mockThemes: Theme[] = [
     positiveChange: 33.1,
     neutralPercent: 54.0,
     negativeChange: -12.9,
-    summary: "The data reveals a strong emphasis on streamlining information flow through real-time transcription, structured tagging, and integrated workflows, with ongoing human validation and feedback loops to ensure accuracy.",
+    summary: "The data reveals a strong emphasis on streamlining information flow through real-time transcription, structured tagging, and integrated workflows. Organizations are increasingly adopting automated capture systems that reduce manual entry while maintaining data fidelity across departments.\n\nHuman validation and feedback loops remain critical to ensuring accuracy, with senior team members providing oversight at key decision points. The integration of these workflows has shown measurable improvements in both speed and consistency of information processing.",
     tags: ["transcription", "tagging", "workflow", "validation", "feedback"],
     quotes: [
-      { text: "A ranking is never followed by one person alone. It's always a kind of a discussion between a more experienced or senior person and the person who's done all the work.", source: "13th Jan Workshop Part 1 Transcript", speaker: "Senior Researcher" },
-      { text: "They fill out their ranking notes for every firm, every individual. And then they pass that on to the QA, their line manager or their specialist.", source: "13th Jan Workshop Part 1 Transcript" }
+      { text: "A ranking is never followed by one person alone. It's always a kind of a discussion between a more experienced or senior person and the person who's done all the work.", source: "13th Jan Workshop Part 1 Transcript", sourceUrl: "/sources/workshop-jan-13", speaker: "Senior Researcher" },
+      { text: "They fill out their ranking notes for every firm, every individual. And then they pass that on to the QA, their line manager or their specialist.", source: "13th Jan Workshop Part 1 Transcript", sourceUrl: "/sources/workshop-jan-13" }
     ]
   },
   {
@@ -51,10 +54,10 @@ const mockThemes: Theme[] = [
     positiveChange: 29.6,
     neutralPercent: 55.6,
     negativeChange: -14.9,
-    summary: "Strong emphasis on maintaining consistency and rigorous quality assurance through defined workflows, calibration exercises, human validation, and continuous monitoring.",
+    summary: "Strong emphasis on maintaining consistency and rigorous quality assurance through defined workflows, calibration exercises, human validation, and continuous monitoring. Teams rely on standardized checklists and peer review processes to catch errors before they propagate downstream.\n\nThe data suggests that organizations investing in structured QA frameworks see significant reductions in rework and improved stakeholder confidence. Regular calibration sessions between team members help maintain alignment on scoring criteria and interpretation standards.",
     tags: ["consistency", "quality assurance", "validation", "calibration", "accuracy"],
     quotes: [
-      { text: "It's not so much a technicality of how hard it is to put something somewhere, it's more to know what's actually going to make their process less painful.", source: "Interview Transcript" }
+      { text: "It's not so much a technicality of how hard it is to put something somewhere, it's more to know what's actually going to make their process less painful.", source: "Interview Transcript", sourceUrl: "/sources/interview-transcript" }
     ]
   },
   {
@@ -65,7 +68,7 @@ const mockThemes: Theme[] = [
     positiveChange: 27.2,
     neutralPercent: 55.4,
     negativeChange: -17.4,
-    summary: "Persistent challenges around cognitive load for researchers, difficulties ensuring data completeness and accuracy, significant admin burden due to manual processes.",
+    summary: "Persistent challenges around cognitive load for researchers, difficulties ensuring data completeness and accuracy, significant admin burden due to manual processes. These operational constraints often lead to bottlenecks during peak periods and can impact overall team morale.\n\nOrganizations are exploring automation and workflow optimization to address these pain points, though implementation remains uneven. The balance between thoroughness and efficiency continues to be a central tension in research operations.",
     tags: ["cognitive load", "data completeness", "admin burden", "accuracy", "workflow integration"],
     quotes: []
   },
@@ -77,7 +80,7 @@ const mockThemes: Theme[] = [
     positiveChange: 41.8,
     neutralPercent: 45.9,
     negativeChange: -12.3,
-    summary: "Findings show that human judgment is central at multiple decision points, including validation of completeness, calibration of scoring, and final ranking.",
+    summary: "Findings show that human judgment is central at multiple decision points, including validation of completeness, calibration of scoring, and final ranking. Experienced team members play a crucial role in interpreting ambiguous data and resolving edge cases.\n\nThe research indicates that attempts to fully automate these decision points often result in quality degradation. A hybrid approach combining algorithmic support with human oversight appears to deliver the best outcomes across accuracy and efficiency metrics.",
     tags: ["validation", "calibration", "consistency", "human in the loop", "scoring"],
     quotes: []
   },
@@ -89,7 +92,7 @@ const mockThemes: Theme[] = [
     positiveChange: 45.0,
     neutralPercent: 40.0,
     negativeChange: -15.0,
-    summary: "Quantitative analysis reveals consistent revenue growth patterns across key market segments, with notable acceleration in Q3 and Q4.",
+    summary: "Quantitative analysis reveals consistent revenue growth patterns across key market segments, with notable acceleration in Q3 and Q4. Year-over-year comparisons show double-digit improvements in core product lines while emerging markets contribute an increasing share.\n\nThe data suggests strong correlation between customer retention rates and revenue stability, with subscription-based models outperforming transactional approaches. Strategic investments in customer success appear to be driving sustainable growth trajectories.",
     tags: ["revenue", "growth", "trends", "quarterly"],
     quotes: []
   },
@@ -101,7 +104,7 @@ const mockThemes: Theme[] = [
     positiveChange: 22.5,
     neutralPercent: 60.0,
     negativeChange: -17.5,
-    summary: "Market positioning data indicates stable share maintenance with emerging opportunities in adjacent segments.",
+    summary: "Market positioning data indicates stable share maintenance with emerging opportunities in adjacent segments. Competitive analysis reveals differentiation primarily through service quality and integration capabilities rather than price.\n\nThe quantitative trends suggest that market leaders are consolidating while mid-tier players face increasing pressure. Strategic partnerships and ecosystem development appear to be key factors in maintaining and growing market position.",
     tags: ["market share", "competitive", "positioning"],
     quotes: []
   }
@@ -274,7 +277,7 @@ const Explore = () => {
 
       {/* Theme Detail Drawer - Near Full Viewport */}
       <Sheet open={!!selectedTheme} onOpenChange={(open) => !open && setSelectedTheme(null)}>
-        <SheetContent className="w-full sm:max-w-[90vw] lg:max-w-[80vw] overflow-hidden flex flex-col">
+        <SheetContent className="w-full sm:max-w-[95vw] lg:max-w-[90vw] overflow-hidden flex flex-col">
           {selectedTheme && (
             <>
               <SheetHeader className="pb-4 border-b border-border">
@@ -325,10 +328,16 @@ const Explore = () => {
                     </div>
                   </div>
 
-                  {/* Summary */}
+                  {/* Summary - Two paragraphs */}
                   <div>
                     <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">Summary</h4>
-                    <p className="text-sm text-foreground leading-relaxed">{selectedTheme.summary}</p>
+                    <div className="space-y-3">
+                      {selectedTheme.summary.split('\n\n').map((paragraph, idx) => (
+                        <p key={idx} className="text-sm text-foreground leading-relaxed">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Tags */}
@@ -344,11 +353,11 @@ const Explore = () => {
                   </div>
 
                   {/* Quotes */}
-                  {selectedTheme.quotes.length > 0 && (
-                    <div>
-                      <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-3">
-                        Relevant Quotes ({selectedTheme.quotes.length})
-                      </h4>
+                  <div>
+                    <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-3">
+                      Relevant Quotes ({selectedTheme.quotes.length})
+                    </h4>
+                    {selectedTheme.quotes.length > 0 ? (
                       <div className="space-y-4">
                         {selectedTheme.quotes.map((quote, idx) => (
                           <div key={idx} className="border-l-2 border-primary/30 pl-4 py-1">
@@ -357,7 +366,16 @@ const Explore = () => {
                             </p>
                             <div className="flex items-center gap-2 text-xs text-muted-foreground">
                               <FileText className="w-3 h-3" />
-                              <span>{quote.source}</span>
+                              {quote.sourceUrl ? (
+                                <Link 
+                                  to={quote.sourceUrl} 
+                                  className="hover:text-primary hover:underline transition-colors"
+                                >
+                                  {quote.source}
+                                </Link>
+                              ) : (
+                                <span>{quote.source}</span>
+                              )}
                               {quote.speaker && (
                                 <>
                                   <span>•</span>
@@ -368,8 +386,22 @@ const Explore = () => {
                           </div>
                         ))}
                       </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground italic">No quotes available for this theme.</p>
+                    )}
+                    
+                    {/* Generate More Quotes Button */}
+                    <div className="mt-6 pt-4 border-t border-border/50">
+                      <Button 
+                        variant="outline" 
+                        className="w-full gap-2"
+                        onClick={() => console.log("Generate more quotes for:", selectedTheme.name)}
+                      >
+                        <Sparkles className="w-4 h-4" />
+                        Generate More Quotes
+                      </Button>
                     </div>
-                  )}
+                  </div>
                 </div>
               </ScrollArea>
             </>
