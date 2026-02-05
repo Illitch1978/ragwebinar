@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers, RefreshCw } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers, RefreshCw, Gauge, LinkIcon, Activity } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -27,6 +27,13 @@ interface Theme {
   negativeChange: number;
   summary: string;
   tags: string[];
+  // New enhanced metrics
+  sourceCount: number;
+  confidenceLevel: "High" | "Medium" | "Low";
+  confidencePercent: number;
+  deltaFromPrevious: number;
+  sparklineData: number[];
+  relatedThemes: string[];
   quotes: {
     text: string;
     source: string;
@@ -44,6 +51,12 @@ const mockThemes: Theme[] = [
     positiveChange: 33.1,
     neutralPercent: 54.0,
     negativeChange: -12.9,
+    sourceCount: 8,
+    confidenceLevel: "High",
+    confidencePercent: 87,
+    deltaFromPrevious: 12,
+    sparklineData: [25, 32, 28, 35, 33, 38, 33],
+    relatedThemes: ["Quality Assurance", "Workflow Automation"],
     summary: "The data reveals a strong emphasis on streamlining information flow through real-time transcription, structured tagging, and integrated workflows. Organizations are increasingly adopting automated capture systems that reduce manual entry while maintaining data fidelity across departments. The shift toward centralized knowledge repositories has enabled faster decision-making cycles, with teams reporting 40% improvements in information retrieval times.\n\nHuman validation and feedback loops remain critical to ensuring accuracy, with senior team members providing oversight at key decision points. The integration of these workflows has shown measurable improvements in both speed and consistency of information processing. Cross-functional collaboration has emerged as a key enabler, with organizations implementing shared taxonomies and standardized metadata frameworks to bridge departmental silos.\n\nNotably, the most successful implementations combine automated transcription with human review gates, creating a balanced approach that leverages technology for scale while preserving quality through expert oversight. This hybrid model appears to deliver optimal outcomes across both efficiency and accuracy metrics.\n\nLooking ahead, organizations are exploring AI-assisted summarization and intelligent routing to further reduce cognitive load on researchers while maintaining the human-in-the-loop paradigm that ensures contextual accuracy.",
     tags: ["transcription", "tagging", "workflow", "validation", "feedback"],
     quotes: [
@@ -59,6 +72,12 @@ const mockThemes: Theme[] = [
     positiveChange: 29.6,
     neutralPercent: 55.6,
     negativeChange: -14.9,
+    sourceCount: 12,
+    confidenceLevel: "High",
+    confidencePercent: 92,
+    deltaFromPrevious: -3,
+    sparklineData: [30, 28, 32, 29, 31, 30, 30],
+    relatedThemes: ["Human Judgment", "Operational Efficiency"],
     summary: "Strong emphasis on maintaining consistency and rigorous quality assurance through defined workflows, calibration exercises, human validation, and continuous monitoring. Teams rely on standardized checklists and peer review processes to catch errors before they propagate downstream. The implementation of tiered review systems has proven particularly effective, with junior analysts handling initial passes and senior reviewers focusing on edge cases and strategic decisions.\n\nThe data suggests that organizations investing in structured QA frameworks see significant reductions in rework—often 30-50% fewer revision cycles—and improved stakeholder confidence. Regular calibration sessions between team members help maintain alignment on scoring criteria and interpretation standards, with monthly sync meetings emerging as a best practice.\n\nDocumentation plays a crucial role in sustaining quality over time. Organizations with comprehensive style guides and decision trees report higher consistency scores and faster onboarding of new team members. The most mature teams have developed automated quality checks that flag potential issues before human review.\n\nEmerging trends include the adoption of inter-rater reliability metrics and systematic bias detection protocols, which help identify and address consistency gaps proactively rather than reactively.",
     tags: ["consistency", "quality assurance", "validation", "calibration", "accuracy"],
     quotes: [
@@ -73,6 +92,12 @@ const mockThemes: Theme[] = [
     positiveChange: 27.2,
     neutralPercent: 55.4,
     negativeChange: -17.4,
+    sourceCount: 9,
+    confidenceLevel: "Medium",
+    confidencePercent: 71,
+    deltaFromPrevious: -8,
+    sparklineData: [35, 30, 28, 25, 27, 29, 27],
+    relatedThemes: ["Resource Management", "Process Optimization"],
     summary: "Persistent challenges around cognitive load for researchers, difficulties ensuring data completeness and accuracy, significant admin burden due to manual processes. These operational constraints often lead to bottlenecks during peak periods and can impact overall team morale. The research identifies context-switching as a primary productivity drain, with analysts frequently interrupted by ad-hoc requests that fragment deep work sessions.\n\nOrganizations are exploring automation and workflow optimization to address these pain points, though implementation remains uneven across teams and departments. The balance between thoroughness and efficiency continues to be a central tension in research operations, with different stakeholders prioritizing different outcomes.\n\nResource constraints compound these challenges, with teams often operating at or near capacity. This leaves little room for process improvement initiatives or skill development, creating a cycle of reactive rather than proactive work patterns. The data suggests that organizations without dedicated operations roles struggle most acutely.\n\nMitigation strategies showing promise include batch processing approaches, protected focus time blocks, and the delegation of routine tasks to specialized support roles. However, cultural resistance to change remains a significant barrier in many organizations.",
     tags: ["cognitive load", "data completeness", "admin burden", "accuracy", "workflow integration"],
     quotes: []
@@ -85,6 +110,12 @@ const mockThemes: Theme[] = [
     positiveChange: 41.8,
     neutralPercent: 45.9,
     negativeChange: -12.3,
+    sourceCount: 6,
+    confidenceLevel: "High",
+    confidencePercent: 84,
+    deltaFromPrevious: 18,
+    sparklineData: [28, 32, 35, 38, 40, 42, 42],
+    relatedThemes: ["Decision Automation", "Expert Systems"],
     summary: "Findings show that human judgment is central at multiple decision points, including validation of completeness, calibration of scoring, and final ranking. Experienced team members play a crucial role in interpreting ambiguous data and resolving edge cases where automated systems lack sufficient context. The tacit knowledge held by senior analysts proves particularly valuable in nuanced situations.\n\nThe research indicates that attempts to fully automate these decision points often result in quality degradation—typically 15-25% higher error rates compared to human-reviewed outputs. A hybrid approach combining algorithmic support with human oversight appears to deliver the best outcomes across accuracy and efficiency metrics.\n\nCritical decision points identified include initial scoping, methodology selection, anomaly detection, and final synthesis. Each requires different expertise levels and carries different risk profiles. Organizations are developing decision frameworks that route items appropriately based on complexity and impact.\n\nTraining and knowledge transfer emerge as key challenges, with organizations struggling to codify the intuitive judgments of experienced practitioners. Mentorship programs and structured decision logging are being explored as mechanisms to capture and transmit this expertise to newer team members.",
     tags: ["validation", "calibration", "consistency", "human in the loop", "scoring"],
     quotes: []
@@ -97,6 +128,12 @@ const mockThemes: Theme[] = [
     positiveChange: 45.0,
     neutralPercent: 40.0,
     negativeChange: -15.0,
+    sourceCount: 14,
+    confidenceLevel: "High",
+    confidencePercent: 95,
+    deltaFromPrevious: 22,
+    sparklineData: [32, 35, 38, 42, 45, 48, 45],
+    relatedThemes: ["Market Performance", "Financial Metrics"],
     summary: "Quantitative analysis reveals consistent revenue growth patterns across key market segments, with notable acceleration in Q3 and Q4 driven by seasonal demand and strategic product launches. Year-over-year comparisons show double-digit improvements in core product lines—averaging 18% growth—while emerging markets contribute an increasing share of overall revenue, now representing 23% of total.\n\nThe data suggests strong correlation between customer retention rates and revenue stability, with subscription-based models outperforming transactional approaches by 2.3x on lifetime value metrics. Strategic investments in customer success appear to be driving sustainable growth trajectories, with high-touch accounts showing 40% lower churn rates.\n\nGeographic analysis reveals significant variance in growth rates, with APAC leading at 27% YoY growth compared to 12% in mature Western European markets. This suggests substantial untapped potential in developing regions, though market entry costs and localization requirements present barriers.\n\nForward-looking indicators remain positive, with pipeline coverage ratios exceeding 3x targets and new customer acquisition costs declining 15% quarter-over-quarter. However, margin pressure from competitive pricing actions warrants monitoring in the coming quarters.",
     tags: ["revenue", "growth", "trends", "quarterly"],
     quotes: []
@@ -109,6 +146,12 @@ const mockThemes: Theme[] = [
     positiveChange: 22.5,
     neutralPercent: 60.0,
     negativeChange: -17.5,
+    sourceCount: 7,
+    confidenceLevel: "Medium",
+    confidencePercent: 68,
+    deltaFromPrevious: -5,
+    sparklineData: [28, 26, 24, 23, 22, 23, 22],
+    relatedThemes: ["Competitive Analysis", "Strategic Planning"],
     summary: "Market positioning data indicates stable share maintenance at 34% of addressable market, with emerging opportunities in adjacent segments representing potential 15% expansion. Competitive analysis reveals differentiation primarily through service quality and integration capabilities rather than price, with NPS scores 18 points above industry average.\n\nThe quantitative trends suggest that market leaders are consolidating—top 3 players now control 67% of market, up from 58% two years ago—while mid-tier players face increasing pressure from both above and below. Strategic partnerships and ecosystem development appear to be key factors in maintaining and growing market position.\n\nProduct capability gaps have been identified in three areas: mobile experience, API extensibility, and real-time analytics. Addressing these gaps could unlock an estimated 8-12% additional market share based on customer feedback analysis and competitive benchmarking.\n\nCustomer segmentation reveals that enterprise accounts show highest loyalty (92% renewal rates) while SMB segments exhibit more volatility. This suggests differentiated retention strategies may be warranted, with increased investment in enterprise success programs and streamlined self-service for smaller accounts.",
     tags: ["market share", "competitive", "positioning"],
     quotes: []
@@ -328,29 +371,120 @@ const Explore = () => {
 
               <ScrollArea className="flex-1 -mx-6 px-6">
                 <div className="py-6 space-y-6">
-                  {/* Insight Metrics */}
-                  <div className="bg-muted/30 rounded-lg p-4">
-                    <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-3">Insight Matrix</h4>
-                    <div className="flex items-center gap-6">
-                      <div className="text-center">
-                        <span className="flex items-center justify-center gap-1 text-lg font-medium text-emerald-600">
-                          <TrendingUp className="w-4 h-4" />
-                          +{selectedTheme.positiveChange.toFixed(1)}%
+                  {/* Enhanced Insight Matrix */}
+                  <div className="bg-muted/30 rounded-lg p-5">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Insight Matrix</h4>
+                      <div className="flex items-center gap-2">
+                        <span className={`text-[10px] uppercase font-medium px-2 py-0.5 rounded ${
+                          selectedTheme.confidenceLevel === "High" 
+                            ? "bg-emerald-100 text-emerald-700" 
+                            : selectedTheme.confidenceLevel === "Medium"
+                            ? "bg-amber-100 text-amber-700"
+                            : "bg-rose-100 text-rose-700"
+                        }`}>
+                          {selectedTheme.confidencePercent}% Confidence
                         </span>
-                        <span className="text-[10px] text-muted-foreground uppercase">Positive</span>
                       </div>
-                      <div className="text-center">
-                        <span className="flex items-center justify-center gap-1 text-lg font-medium text-muted-foreground">
-                          {selectedTheme.neutralPercent.toFixed(1)}%
-                        </span>
-                        <span className="text-[10px] text-muted-foreground uppercase">Neutral</span>
+                    </div>
+                    
+                    <div className="grid grid-cols-12 gap-4">
+                      {/* Left: Sentiment Breakdown with Visual Bar */}
+                      <div className="col-span-5 space-y-3">
+                        <div className="flex items-center gap-4">
+                          <div className="text-center">
+                            <span className="flex items-center justify-center gap-1 text-lg font-medium text-emerald-600">
+                              <TrendingUp className="w-4 h-4" />
+                              +{selectedTheme.positiveChange.toFixed(1)}%
+                            </span>
+                            <span className="text-[10px] text-muted-foreground uppercase">Positive</span>
+                          </div>
+                          <div className="text-center">
+                            <span className="flex items-center justify-center gap-1 text-lg font-medium text-muted-foreground">
+                              {selectedTheme.neutralPercent.toFixed(1)}%
+                            </span>
+                            <span className="text-[10px] text-muted-foreground uppercase">Neutral</span>
+                          </div>
+                          <div className="text-center">
+                            <span className="flex items-center justify-center gap-1 text-lg font-medium text-rose-600">
+                              <TrendingDown className="w-4 h-4" />
+                              {Math.abs(selectedTheme.negativeChange).toFixed(1)}%
+                            </span>
+                            <span className="text-[10px] text-muted-foreground uppercase">Negative</span>
+                          </div>
+                        </div>
+                        
+                        {/* Horizontal Sentiment Bar */}
+                        <div className="h-2 rounded-full overflow-hidden flex bg-muted">
+                          <div 
+                            className="bg-emerald-500 h-full" 
+                            style={{ width: `${selectedTheme.positiveChange}%` }}
+                          />
+                          <div 
+                            className="bg-muted-foreground/30 h-full" 
+                            style={{ width: `${selectedTheme.neutralPercent}%` }}
+                          />
+                          <div 
+                            className="bg-rose-500 h-full" 
+                            style={{ width: `${Math.abs(selectedTheme.negativeChange)}%` }}
+                          />
+                        </div>
                       </div>
-                      <div className="text-center">
-                        <span className="flex items-center justify-center gap-1 text-lg font-medium text-rose-600">
-                          <TrendingDown className="w-4 h-4" />
-                          {selectedTheme.negativeChange.toFixed(1)}%
-                        </span>
-                        <span className="text-[10px] text-muted-foreground uppercase">Negative</span>
+                      
+                      {/* Center: Sparkline & Delta */}
+                      <div className="col-span-4 border-l border-r border-border/50 px-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-[10px] text-muted-foreground uppercase">Trend</span>
+                          <span className={`text-xs font-medium flex items-center gap-1 ${
+                            selectedTheme.deltaFromPrevious >= 0 ? "text-emerald-600" : "text-rose-600"
+                          }`}>
+                            {selectedTheme.deltaFromPrevious >= 0 ? "↑" : "↓"}
+                            {Math.abs(selectedTheme.deltaFromPrevious)}% vs prev
+                          </span>
+                        </div>
+                        
+                        {/* Mini Sparkline */}
+                        <div className="flex items-end gap-1 h-8">
+                          {selectedTheme.sparklineData.map((value, idx) => (
+                            <div 
+                              key={idx}
+                              className="flex-1 bg-primary/60 rounded-sm transition-all hover:bg-primary"
+                              style={{ height: `${(value / Math.max(...selectedTheme.sparklineData)) * 100}%` }}
+                            />
+                          ))}
+                        </div>
+                        <div className="flex justify-between mt-1">
+                          <span className="text-[9px] text-muted-foreground">7d ago</span>
+                          <span className="text-[9px] text-muted-foreground">Today</span>
+                        </div>
+                      </div>
+                      
+                      {/* Right: Source Count & Related Themes */}
+                      <div className="col-span-3 space-y-3">
+                        <div className="flex items-center gap-2">
+                          <FileText className="w-4 h-4 text-muted-foreground" />
+                          <div>
+                            <span className="text-sm font-medium">{selectedTheme.sourceCount}</span>
+                            <span className="text-[10px] text-muted-foreground ml-1">sources</span>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <div className="flex items-center gap-1 mb-1">
+                            <LinkIcon className="w-3 h-3 text-muted-foreground" />
+                            <span className="text-[10px] text-muted-foreground uppercase">Related</span>
+                          </div>
+                          <div className="flex flex-wrap gap-1">
+                            {selectedTheme.relatedThemes.map((theme, idx) => (
+                              <span 
+                                key={idx}
+                                className="text-[10px] px-1.5 py-0.5 bg-primary/10 text-primary rounded"
+                              >
+                                {theme}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
