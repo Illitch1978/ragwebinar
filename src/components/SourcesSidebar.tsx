@@ -139,7 +139,7 @@ const SourcesSidebar = () => {
                   return (
                     <div
                       key={source.id}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-sm hover:bg-accent/50 cursor-pointer transition-colors group"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-sm hover:bg-accent/50 cursor-pointer transition-colors group min-w-0"
                     >
                       <Icon className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
                       <span className="text-sm text-foreground truncate">
