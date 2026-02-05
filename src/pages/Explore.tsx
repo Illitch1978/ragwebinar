@@ -17,6 +17,19 @@ import ExploreFilters, { FilterState } from "@/components/explore/ExploreFilters
 
 type ExplorationMode = "all" | "qual" | "quant";
 
+type SentimentFilter = "all" | "positive" | "neutral" | "negative";
+
+interface SentimentContent {
+  summary: string;
+  tags: string[];
+  quotes: {
+    text: string;
+    source: string;
+    sourceUrl?: string;
+    speaker?: string;
+  }[];
+}
+
 interface Theme {
   id: string;
   name: string;
@@ -34,6 +47,10 @@ interface Theme {
   deltaFromPrevious: number;
   sparklineData: number[];
   relatedThemes: string[];
+  // Sentiment-specific content
+  positiveSentiment: SentimentContent;
+  neutralSentiment: SentimentContent;
+  negativeSentiment: SentimentContent;
   quotes: {
     text: string;
     source: string;
@@ -57,8 +74,29 @@ const mockThemes: Theme[] = [
     deltaFromPrevious: 12,
     sparklineData: [25, 32, 28, 35, 33, 38, 33],
     relatedThemes: ["Quality Assurance", "Workflow Automation"],
-    summary: "The data reveals a strong emphasis on streamlining information flow through real-time transcription, structured tagging, and integrated workflows. Organizations are increasingly adopting automated capture systems that reduce manual entry while maintaining data fidelity across departments. The shift toward centralized knowledge repositories has enabled faster decision-making cycles, with teams reporting 40% improvements in information retrieval times.\n\nHuman validation and feedback loops remain critical to ensuring accuracy, with senior team members providing oversight at key decision points. The integration of these workflows has shown measurable improvements in both speed and consistency of information processing. Cross-functional collaboration has emerged as a key enabler, with organizations implementing shared taxonomies and standardized metadata frameworks to bridge departmental silos.\n\nNotably, the most successful implementations combine automated transcription with human review gates, creating a balanced approach that leverages technology for scale while preserving quality through expert oversight. This hybrid model appears to deliver optimal outcomes across both efficiency and accuracy metrics.\n\nLooking ahead, organizations are exploring AI-assisted summarization and intelligent routing to further reduce cognitive load on researchers while maintaining the human-in-the-loop paradigm that ensures contextual accuracy.",
+    summary: "The data reveals a strong emphasis on streamlining information flow through real-time transcription, structured tagging, and integrated workflows. Organizations are increasingly adopting automated capture systems that reduce manual entry while maintaining data fidelity across departments.\n\nHuman validation and feedback loops remain critical to ensuring accuracy, with senior team members providing oversight at key decision points. The integration of these workflows has shown measurable improvements in both speed and consistency of information processing.\n\nNotably, the most successful implementations combine automated transcription with human review gates, creating a balanced approach that leverages technology for scale while preserving quality through expert oversight.\n\nLooking ahead, organizations are exploring AI-assisted summarization and intelligent routing to further reduce cognitive load on researchers.",
     tags: ["transcription", "tagging", "workflow", "validation", "feedback"],
+    positiveSentiment: {
+      summary: "Organizations report significant productivity gains from streamlined information capture, with 40% faster retrieval times and reduced manual entry burden. Teams praise the intuitive workflow integration and real-time transcription accuracy.\n\nCross-functional collaboration has flourished with shared taxonomies, enabling faster decision-making cycles. The hybrid human-AI approach is viewed as a major success, delivering both efficiency and accuracy improvements.",
+      tags: ["efficiency gains", "automation success", "collaboration", "productivity"],
+      quotes: [
+        { text: "The new transcription system has completely transformed how we capture meeting insights. What used to take hours now happens in real-time.", source: "Q4 User Feedback Survey", sourceUrl: "/sources/q4-survey", speaker: "Product Manager" }
+      ]
+    },
+    neutralSentiment: {
+      summary: "Implementation progress varies across departments, with some teams fully adopting new workflows while others remain in transition. The learning curve is manageable but requires dedicated training time.\n\nCost-benefit analyses show break-even typically achieved within 6-9 months, with ongoing optimization opportunities identified for advanced features.",
+      tags: ["implementation", "training", "transition", "adoption"],
+      quotes: [
+        { text: "They fill out their ranking notes for every firm, every individual. And then they pass that on to the QA, their line manager or their specialist.", source: "13th Jan Workshop Part 1 Transcript", sourceUrl: "/sources/workshop-jan-13" }
+      ]
+    },
+    negativeSentiment: {
+      summary: "Some users report frustration with edge cases where automated transcription misses context or technical terminology. Integration with legacy systems remains challenging for certain departments.\n\nConcerns raised about over-reliance on automation potentially degrading institutional knowledge over time. Some senior staff feel the human validation layer adds unnecessary delays.",
+      tags: ["accuracy issues", "legacy integration", "delays", "edge cases"],
+      quotes: [
+        { text: "The system still struggles with our industry-specific jargon. We end up spending time correcting transcripts anyway.", source: "User Feedback Session", sourceUrl: "/sources/feedback", speaker: "Senior Analyst" }
+      ]
+    },
     quotes: [
       { text: "A ranking is never followed by one person alone. It's always a kind of a discussion between a more experienced or senior person and the person who's done all the work.", source: "13th Jan Workshop Part 1 Transcript", sourceUrl: "/sources/workshop-jan-13", speaker: "Senior Researcher" },
       { text: "They fill out their ranking notes for every firm, every individual. And then they pass that on to the QA, their line manager or their specialist.", source: "13th Jan Workshop Part 1 Transcript", sourceUrl: "/sources/workshop-jan-13" }
@@ -78,8 +116,29 @@ const mockThemes: Theme[] = [
     deltaFromPrevious: -3,
     sparklineData: [30, 28, 32, 29, 31, 30, 30],
     relatedThemes: ["Human Judgment", "Operational Efficiency"],
-    summary: "Strong emphasis on maintaining consistency and rigorous quality assurance through defined workflows, calibration exercises, human validation, and continuous monitoring. Teams rely on standardized checklists and peer review processes to catch errors before they propagate downstream. The implementation of tiered review systems has proven particularly effective, with junior analysts handling initial passes and senior reviewers focusing on edge cases and strategic decisions.\n\nThe data suggests that organizations investing in structured QA frameworks see significant reductions in rework—often 30-50% fewer revision cycles—and improved stakeholder confidence. Regular calibration sessions between team members help maintain alignment on scoring criteria and interpretation standards, with monthly sync meetings emerging as a best practice.\n\nDocumentation plays a crucial role in sustaining quality over time. Organizations with comprehensive style guides and decision trees report higher consistency scores and faster onboarding of new team members. The most mature teams have developed automated quality checks that flag potential issues before human review.\n\nEmerging trends include the adoption of inter-rater reliability metrics and systematic bias detection protocols, which help identify and address consistency gaps proactively rather than reactively.",
+    summary: "Strong emphasis on maintaining consistency and rigorous quality assurance through defined workflows, calibration exercises, human validation, and continuous monitoring.\n\nThe data suggests that organizations investing in structured QA frameworks see significant reductions in rework—often 30-50% fewer revision cycles.\n\nDocumentation plays a crucial role in sustaining quality over time with comprehensive style guides.\n\nEmerging trends include the adoption of inter-rater reliability metrics and systematic bias detection protocols.",
     tags: ["consistency", "quality assurance", "validation", "calibration", "accuracy"],
+    positiveSentiment: {
+      summary: "Structured QA frameworks have driven remarkable improvements in output consistency, with 30-50% fewer revision cycles reported. Stakeholder confidence has increased measurably.\n\nMonthly calibration sessions have become a valued best practice, with teams reporting stronger alignment on scoring criteria and faster onboarding of new members.",
+      tags: ["reduced rework", "stakeholder confidence", "calibration success", "onboarding"],
+      quotes: [
+        { text: "Since implementing the tiered review system, our error rates have dropped by 40%. The junior analysts catch most issues before they reach senior reviewers.", source: "QA Team Lead Interview", sourceUrl: "/sources/qa-interview" }
+      ]
+    },
+    neutralSentiment: {
+      summary: "Quality frameworks require ongoing maintenance and periodic updates to remain effective. The balance between thoroughness and speed continues to require careful management.\n\nOrganizations are still evaluating optimal review layer configurations, with different team sizes requiring different approaches.",
+      tags: ["maintenance", "balance", "optimization", "evaluation"],
+      quotes: [
+        { text: "It's not so much a technicality of how hard it is to put something somewhere, it's more to know what's actually going to make their process less painful.", source: "Interview Transcript", sourceUrl: "/sources/interview-transcript" }
+      ]
+    },
+    negativeSentiment: {
+      summary: "Some teams report that extensive QA processes create bottlenecks during peak periods. The overhead of documentation requirements frustrates some analysts.\n\nConcerns exist about checkbox-style compliance replacing genuine quality focus. Inter-rater reliability metrics have revealed larger consistency gaps than expected in some areas.",
+      tags: ["bottlenecks", "overhead", "compliance fatigue", "gaps"],
+      quotes: [
+        { text: "We spend so much time on documentation that we have less time for actual analysis. It feels like quality theater sometimes.", source: "Anonymous Survey Response", sourceUrl: "/sources/survey" }
+      ]
+    },
     quotes: [
       { text: "It's not so much a technicality of how hard it is to put something somewhere, it's more to know what's actually going to make their process less painful.", source: "Interview Transcript", sourceUrl: "/sources/interview-transcript" }
     ]
@@ -98,8 +157,27 @@ const mockThemes: Theme[] = [
     deltaFromPrevious: -8,
     sparklineData: [35, 30, 28, 25, 27, 29, 27],
     relatedThemes: ["Resource Management", "Process Optimization"],
-    summary: "Persistent challenges around cognitive load for researchers, difficulties ensuring data completeness and accuracy, significant admin burden due to manual processes. These operational constraints often lead to bottlenecks during peak periods and can impact overall team morale. The research identifies context-switching as a primary productivity drain, with analysts frequently interrupted by ad-hoc requests that fragment deep work sessions.\n\nOrganizations are exploring automation and workflow optimization to address these pain points, though implementation remains uneven across teams and departments. The balance between thoroughness and efficiency continues to be a central tension in research operations, with different stakeholders prioritizing different outcomes.\n\nResource constraints compound these challenges, with teams often operating at or near capacity. This leaves little room for process improvement initiatives or skill development, creating a cycle of reactive rather than proactive work patterns. The data suggests that organizations without dedicated operations roles struggle most acutely.\n\nMitigation strategies showing promise include batch processing approaches, protected focus time blocks, and the delegation of routine tasks to specialized support roles. However, cultural resistance to change remains a significant barrier in many organizations.",
+    summary: "Persistent challenges around cognitive load for researchers, difficulties ensuring data completeness and accuracy, significant admin burden due to manual processes.\n\nOrganizations are exploring automation and workflow optimization to address these pain points.\n\nResource constraints compound these challenges, with teams often operating at or near capacity.\n\nMitigation strategies showing promise include batch processing approaches and protected focus time blocks.",
     tags: ["cognitive load", "data completeness", "admin burden", "accuracy", "workflow integration"],
+    positiveSentiment: {
+      summary: "Teams implementing batch processing approaches report meaningful reductions in context-switching overhead. Protected focus time initiatives show early promise in improving deep work capacity.\n\nDelegation of routine tasks to specialized support roles has freed analysts for higher-value activities.",
+      tags: ["batch processing", "focus time", "delegation", "efficiency"],
+      quotes: [
+        { text: "The new focus time blocks have been game-changing. I actually complete complex analyses without interruption now.", source: "Analyst Feedback", sourceUrl: "/sources/analyst-feedback" }
+      ]
+    },
+    neutralSentiment: {
+      summary: "Automation implementation remains uneven across teams, with progress dependent on local leadership and resource availability. Different stakeholders continue to prioritize different outcomes.\n\nThe balance between thoroughness and efficiency requires ongoing negotiation and adjustment.",
+      tags: ["uneven progress", "leadership dependency", "tradeoffs", "negotiation"],
+      quotes: []
+    },
+    negativeSentiment: {
+      summary: "Cognitive load remains a primary pain point, with analysts frequently overwhelmed by ad-hoc requests that fragment their work. Admin burden from manual processes significantly impacts morale.\n\nCultural resistance to change has slowed adoption of mitigation strategies. Organizations without dedicated operations roles struggle acutely.",
+      tags: ["cognitive overload", "fragmentation", "morale impact", "resistance"],
+      quotes: [
+        { text: "I'm constantly switching between tasks. By the time I get back to my main project, I've lost all the context I built up.", source: "Research Team Workshop", sourceUrl: "/sources/workshop" }
+      ]
+    },
     quotes: []
   },
   {
@@ -116,8 +194,27 @@ const mockThemes: Theme[] = [
     deltaFromPrevious: 18,
     sparklineData: [28, 32, 35, 38, 40, 42, 42],
     relatedThemes: ["Decision Automation", "Expert Systems"],
-    summary: "Findings show that human judgment is central at multiple decision points, including validation of completeness, calibration of scoring, and final ranking. Experienced team members play a crucial role in interpreting ambiguous data and resolving edge cases where automated systems lack sufficient context. The tacit knowledge held by senior analysts proves particularly valuable in nuanced situations.\n\nThe research indicates that attempts to fully automate these decision points often result in quality degradation—typically 15-25% higher error rates compared to human-reviewed outputs. A hybrid approach combining algorithmic support with human oversight appears to deliver the best outcomes across accuracy and efficiency metrics.\n\nCritical decision points identified include initial scoping, methodology selection, anomaly detection, and final synthesis. Each requires different expertise levels and carries different risk profiles. Organizations are developing decision frameworks that route items appropriately based on complexity and impact.\n\nTraining and knowledge transfer emerge as key challenges, with organizations struggling to codify the intuitive judgments of experienced practitioners. Mentorship programs and structured decision logging are being explored as mechanisms to capture and transmit this expertise to newer team members.",
+    summary: "Findings show that human judgment is central at multiple decision points, including validation of completeness, calibration of scoring, and final ranking.\n\nThe research indicates that attempts to fully automate these decision points often result in quality degradation—typically 15-25% higher error rates.\n\nCritical decision points identified include initial scoping, methodology selection, anomaly detection, and final synthesis.\n\nTraining and knowledge transfer emerge as key challenges.",
     tags: ["validation", "calibration", "consistency", "human in the loop", "scoring"],
+    positiveSentiment: {
+      summary: "The hybrid human-AI approach delivers optimal outcomes, with experienced analysts providing invaluable context that automated systems cannot replicate. Decision frameworks are improving routing efficiency.\n\nMentorship programs are successfully capturing tacit knowledge from senior practitioners, accelerating junior staff development.",
+      tags: ["hybrid approach", "expertise", "mentorship", "knowledge capture"],
+      quotes: [
+        { text: "The decision framework has made it much easier to know when to escalate. I feel more confident in my judgment now.", source: "Junior Analyst Interview", sourceUrl: "/sources/junior-interview" }
+      ]
+    },
+    neutralSentiment: {
+      summary: "Organizations continue refining the optimal balance between algorithmic support and human oversight. Different complexity levels require different expertise involvement.\n\nStructured decision logging efforts are ongoing, with mixed success in codifying intuitive judgments.",
+      tags: ["balance refinement", "complexity routing", "documentation efforts", "ongoing work"],
+      quotes: []
+    },
+    negativeSentiment: {
+      summary: "Knowledge transfer remains challenging, with organizations struggling to codify the intuitive judgments of experienced practitioners. Senior analyst capacity is often a bottleneck.\n\nFully automated approaches have repeatedly resulted in quality degradation, with 15-25% higher error rates on complex decisions.",
+      tags: ["knowledge gaps", "capacity limits", "automation failures", "errors"],
+      quotes: [
+        { text: "We've tried to document everything, but there's so much tacit knowledge that just doesn't translate to written guidelines.", source: "Senior Analyst Interview", sourceUrl: "/sources/senior-interview" }
+      ]
+    },
     quotes: []
   },
   {
@@ -134,8 +231,27 @@ const mockThemes: Theme[] = [
     deltaFromPrevious: 22,
     sparklineData: [32, 35, 38, 42, 45, 48, 45],
     relatedThemes: ["Market Performance", "Financial Metrics"],
-    summary: "Quantitative analysis reveals consistent revenue growth patterns across key market segments, with notable acceleration in Q3 and Q4 driven by seasonal demand and strategic product launches. Year-over-year comparisons show double-digit improvements in core product lines—averaging 18% growth—while emerging markets contribute an increasing share of overall revenue, now representing 23% of total.\n\nThe data suggests strong correlation between customer retention rates and revenue stability, with subscription-based models outperforming transactional approaches by 2.3x on lifetime value metrics. Strategic investments in customer success appear to be driving sustainable growth trajectories, with high-touch accounts showing 40% lower churn rates.\n\nGeographic analysis reveals significant variance in growth rates, with APAC leading at 27% YoY growth compared to 12% in mature Western European markets. This suggests substantial untapped potential in developing regions, though market entry costs and localization requirements present barriers.\n\nForward-looking indicators remain positive, with pipeline coverage ratios exceeding 3x targets and new customer acquisition costs declining 15% quarter-over-quarter. However, margin pressure from competitive pricing actions warrants monitoring in the coming quarters.",
+    summary: "Quantitative analysis reveals consistent revenue growth patterns across key market segments, with notable acceleration in Q3 and Q4.\n\nThe data suggests strong correlation between customer retention rates and revenue stability, with subscription-based models outperforming transactional approaches by 2.3x.\n\nGeographic analysis reveals significant variance in growth rates, with APAC leading at 27% YoY growth.\n\nForward-looking indicators remain positive, with pipeline coverage ratios exceeding 3x targets.",
     tags: ["revenue", "growth", "trends", "quarterly"],
+    positiveSentiment: {
+      summary: "Revenue growth has exceeded expectations with 18% average improvement in core product lines. Subscription models show 2.3x better lifetime value performance than transactional approaches.\n\nAPAC region leads with 27% YoY growth, demonstrating strong market expansion. Customer success investments are driving 40% lower churn in high-touch accounts.",
+      tags: ["exceeding targets", "subscription success", "APAC growth", "retention"],
+      quotes: [
+        { text: "Our Q4 numbers blew past projections. The subscription pivot was the right call.", source: "Quarterly Earnings Call", sourceUrl: "/sources/earnings" }
+      ]
+    },
+    neutralSentiment: {
+      summary: "Emerging markets now represent 23% of total revenue, a significant shift from prior periods. Geographic variance requires differentiated strategies for mature vs. developing regions.\n\nMarket entry costs and localization requirements present barriers to further expansion.",
+      tags: ["market shift", "geographic variance", "localization", "strategy"],
+      quotes: []
+    },
+    negativeSentiment: {
+      summary: "Margin pressure from competitive pricing actions warrants monitoring. Western European markets show slower growth at 12% compared to other regions.\n\nNew customer acquisition costs remain elevated despite recent improvements. Some product lines face headwinds from market saturation.",
+      tags: ["margin pressure", "slow markets", "acquisition costs", "saturation"],
+      quotes: [
+        { text: "We're seeing increased price competition in our core markets. Margins are under pressure.", source: "CFO Commentary", sourceUrl: "/sources/cfo" }
+      ]
+    },
     quotes: []
   },
   {
@@ -152,8 +268,27 @@ const mockThemes: Theme[] = [
     deltaFromPrevious: -5,
     sparklineData: [28, 26, 24, 23, 22, 23, 22],
     relatedThemes: ["Competitive Analysis", "Strategic Planning"],
-    summary: "Market positioning data indicates stable share maintenance at 34% of addressable market, with emerging opportunities in adjacent segments representing potential 15% expansion. Competitive analysis reveals differentiation primarily through service quality and integration capabilities rather than price, with NPS scores 18 points above industry average.\n\nThe quantitative trends suggest that market leaders are consolidating—top 3 players now control 67% of market, up from 58% two years ago—while mid-tier players face increasing pressure from both above and below. Strategic partnerships and ecosystem development appear to be key factors in maintaining and growing market position.\n\nProduct capability gaps have been identified in three areas: mobile experience, API extensibility, and real-time analytics. Addressing these gaps could unlock an estimated 8-12% additional market share based on customer feedback analysis and competitive benchmarking.\n\nCustomer segmentation reveals that enterprise accounts show highest loyalty (92% renewal rates) while SMB segments exhibit more volatility. This suggests differentiated retention strategies may be warranted, with increased investment in enterprise success programs and streamlined self-service for smaller accounts.",
+    summary: "Market positioning data indicates stable share maintenance at 34% of addressable market, with emerging opportunities in adjacent segments.\n\nThe quantitative trends suggest that market leaders are consolidating—top 3 players now control 67% of market.\n\nProduct capability gaps have been identified in three areas: mobile experience, API extensibility, and real-time analytics.\n\nCustomer segmentation reveals that enterprise accounts show highest loyalty at 92% renewal rates.",
     tags: ["market share", "competitive", "positioning"],
+    positiveSentiment: {
+      summary: "Service quality differentiation is working, with NPS scores 18 points above industry average. Enterprise accounts show exceptional loyalty at 92% renewal rates.\n\nStrategic partnerships and ecosystem development are strengthening market position against consolidating competitors.",
+      tags: ["NPS leadership", "enterprise loyalty", "partnerships", "differentiation"],
+      quotes: [
+        { text: "Our integration capabilities are a major competitive advantage. Customers choose us because we work with their existing stack.", source: "Sales Team Report", sourceUrl: "/sources/sales" }
+      ]
+    },
+    neutralSentiment: {
+      summary: "Market share remains stable at 34%, neither gaining nor losing significant ground. Adjacent segment opportunities represent potential 15% expansion with appropriate investment.\n\nCompetitive dynamics continue to evolve as market leaders consolidate their positions.",
+      tags: ["stability", "opportunity", "market dynamics", "consolidation"],
+      quotes: []
+    },
+    negativeSentiment: {
+      summary: "Product capability gaps in mobile, APIs, and real-time analytics are limiting growth potential. Mid-tier market position faces pressure from both larger and smaller competitors.\n\nSMB segment shows volatility with higher churn than enterprise accounts. Market share has declined slightly over recent periods.",
+      tags: ["capability gaps", "competitive pressure", "SMB churn", "decline"],
+      quotes: [
+        { text: "We're losing deals because of our mobile experience. Competitors have leapfrogged us there.", source: "Product Strategy Meeting", sourceUrl: "/sources/product" }
+      ]
+    },
     quotes: []
   }
 ];
@@ -170,6 +305,31 @@ const Explore = () => {
   const [mode, setMode] = useState<ExplorationMode>("all");
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
   const [filters, setFilters] = useState<FilterState>(initialFilters);
+  const [sentimentFilter, setSentimentFilter] = useState<SentimentFilter>("all");
+
+  // Reset sentiment filter when theme changes
+  const handleThemeSelect = (theme: Theme | null) => {
+    setSelectedTheme(theme);
+    setSentimentFilter("all");
+  };
+
+  // Get content based on sentiment filter
+  const getFilteredContent = (theme: Theme) => {
+    switch (sentimentFilter) {
+      case "positive":
+        return theme.positiveSentiment;
+      case "neutral":
+        return theme.neutralSentiment;
+      case "negative":
+        return theme.negativeSentiment;
+      default:
+        return {
+          summary: theme.summary,
+          tags: theme.tags,
+          quotes: theme.quotes
+        };
+    }
+  };
 
   const filteredThemes = mockThemes.filter(theme => {
     if (mode === "all") return true;
@@ -271,7 +431,7 @@ const Explore = () => {
             <Card 
               key={theme.id}
               className="group cursor-pointer hover:shadow-md transition-all border-border/60 hover:border-primary/30"
-              onClick={() => setSelectedTheme(theme)}
+              onClick={() => handleThemeSelect(theme)}
             >
               <CardContent className="p-5">
                 {/* Type Badge */}
@@ -346,7 +506,7 @@ const Explore = () => {
       </main>
 
       {/* Theme Detail Drawer - Near Full Viewport */}
-      <Sheet open={!!selectedTheme} onOpenChange={(open) => !open && setSelectedTheme(null)}>
+      <Sheet open={!!selectedTheme} onOpenChange={(open) => !open && handleThemeSelect(null)}>
         <SheetContent className="w-full sm:max-w-[95vw] lg:max-w-[90vw] overflow-hidden flex flex-col">
           {selectedTheme && (
             <>
@@ -389,46 +549,77 @@ const Explore = () => {
                     </div>
                     
                     <div className="grid grid-cols-12 gap-4">
-                      {/* Left: Sentiment Breakdown with Visual Bar */}
-                      <div className="col-span-5 space-y-3">
-                        <div className="flex items-center gap-4">
-                          <div className="text-center">
-                            <span className="flex items-center justify-center gap-1 text-lg font-medium text-emerald-600">
-                              <TrendingUp className="w-4 h-4" />
+                      {/* Left: Clickable Sentiment Breakdown with Visual Bar */}
+                      <div className="col-span-4 space-y-3">
+                        <div className="flex items-center gap-3">
+                          <button 
+                            onClick={() => setSentimentFilter(sentimentFilter === "positive" ? "all" : "positive")}
+                            className={`text-center p-2 rounded-lg transition-all cursor-pointer ${
+                              sentimentFilter === "positive" 
+                                ? "bg-emerald-100 ring-2 ring-emerald-500" 
+                                : "hover:bg-muted"
+                            }`}
+                          >
+                            <span className="flex items-center justify-center gap-1 text-base font-medium text-emerald-600">
+                              <TrendingUp className="w-3.5 h-3.5" />
                               +{selectedTheme.positiveChange.toFixed(1)}%
                             </span>
                             <span className="text-[10px] text-muted-foreground uppercase">Positive</span>
-                          </div>
-                          <div className="text-center">
-                            <span className="flex items-center justify-center gap-1 text-lg font-medium text-muted-foreground">
+                          </button>
+                          <button 
+                            onClick={() => setSentimentFilter(sentimentFilter === "neutral" ? "all" : "neutral")}
+                            className={`text-center p-2 rounded-lg transition-all cursor-pointer ${
+                              sentimentFilter === "neutral" 
+                                ? "bg-muted ring-2 ring-muted-foreground" 
+                                : "hover:bg-muted"
+                            }`}
+                          >
+                            <span className="flex items-center justify-center gap-1 text-base font-medium text-muted-foreground">
                               {selectedTheme.neutralPercent.toFixed(1)}%
                             </span>
                             <span className="text-[10px] text-muted-foreground uppercase">Neutral</span>
-                          </div>
-                          <div className="text-center">
-                            <span className="flex items-center justify-center gap-1 text-lg font-medium text-rose-600">
-                              <TrendingDown className="w-4 h-4" />
+                          </button>
+                          <button 
+                            onClick={() => setSentimentFilter(sentimentFilter === "negative" ? "all" : "negative")}
+                            className={`text-center p-2 rounded-lg transition-all cursor-pointer ${
+                              sentimentFilter === "negative" 
+                                ? "bg-rose-100 ring-2 ring-rose-500" 
+                                : "hover:bg-muted"
+                            }`}
+                          >
+                            <span className="flex items-center justify-center gap-1 text-base font-medium text-rose-600">
+                              <TrendingDown className="w-3.5 h-3.5" />
                               {Math.abs(selectedTheme.negativeChange).toFixed(1)}%
                             </span>
                             <span className="text-[10px] text-muted-foreground uppercase">Negative</span>
-                          </div>
+                          </button>
                         </div>
                         
-                        {/* Horizontal Sentiment Bar */}
-                        <div className="h-2 rounded-full overflow-hidden flex bg-muted">
+                        {/* Shorter Horizontal Sentiment Bar */}
+                        <div className="h-1.5 rounded-full overflow-hidden flex bg-muted max-w-[70%]">
                           <div 
-                            className="bg-emerald-500 h-full" 
+                            className={`h-full transition-all ${sentimentFilter === "positive" ? "bg-emerald-600" : "bg-emerald-500"}`}
                             style={{ width: `${selectedTheme.positiveChange}%` }}
                           />
                           <div 
-                            className="bg-muted-foreground/30 h-full" 
+                            className={`h-full transition-all ${sentimentFilter === "neutral" ? "bg-muted-foreground/50" : "bg-muted-foreground/30"}`}
                             style={{ width: `${selectedTheme.neutralPercent}%` }}
                           />
                           <div 
-                            className="bg-rose-500 h-full" 
+                            className={`h-full transition-all ${sentimentFilter === "negative" ? "bg-rose-600" : "bg-rose-500"}`}
                             style={{ width: `${Math.abs(selectedTheme.negativeChange)}%` }}
                           />
                         </div>
+                        
+                        {/* Filter indicator */}
+                        {sentimentFilter !== "all" && (
+                          <button 
+                            onClick={() => setSentimentFilter("all")}
+                            className="text-[10px] text-primary hover:underline flex items-center gap-1"
+                          >
+                            ← View all sentiments
+                          </button>
+                        )}
                       </div>
                       
                       {/* Center: Sparkline & Delta */}
@@ -489,11 +680,27 @@ const Explore = () => {
                     </div>
                   </div>
 
-                  {/* Summary - Two paragraphs */}
+                  {/* Summary - filtered by sentiment */}
                   <div>
-                    <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">Summary</h4>
+                    <div className="flex items-center gap-2 mb-2">
+                      <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Summary</h4>
+                      {sentimentFilter !== "all" && (
+                        <Badge 
+                          variant="secondary" 
+                          className={`text-[10px] ${
+                            sentimentFilter === "positive" 
+                              ? "bg-emerald-100 text-emerald-700" 
+                              : sentimentFilter === "negative"
+                              ? "bg-rose-100 text-rose-700"
+                              : "bg-muted text-muted-foreground"
+                          }`}
+                        >
+                          {sentimentFilter} view
+                        </Badge>
+                      )}
+                    </div>
                     <div className="space-y-3">
-                      {selectedTheme.summary.split('\n\n').map((paragraph, idx) => (
+                      {getFilteredContent(selectedTheme).summary.split('\n\n').map((paragraph, idx) => (
                         <p key={idx} className="text-sm text-foreground leading-relaxed">
                           {paragraph}
                         </p>
@@ -501,17 +708,27 @@ const Explore = () => {
                     </div>
                   </div>
 
-                  {/* Tags */}
+                  {/* Tags - filtered by sentiment */}
                   <div>
-                    <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">Related Tags</h4>
+                    <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">
+                      {sentimentFilter !== "all" ? `${sentimentFilter.charAt(0).toUpperCase() + sentimentFilter.slice(1)} Tags` : "Related Tags"}
+                    </h4>
                     <div className="flex flex-wrap gap-2">
-                      {selectedTheme.tags.map((tag, idx) => {
-                        // Generate mock tooltip data based on tag
+                      {getFilteredContent(selectedTheme).tags.map((tag, idx) => {
                         const tagData = getTagTooltipData(tag);
                         return (
                           <Tooltip key={idx}>
                             <TooltipTrigger asChild>
-                              <Badge variant="outline" className="text-xs cursor-help">
+                              <Badge 
+                                variant="outline" 
+                                className={`text-xs cursor-help ${
+                                  sentimentFilter === "positive" 
+                                    ? "border-emerald-300 bg-emerald-50" 
+                                    : sentimentFilter === "negative"
+                                    ? "border-rose-300 bg-rose-50"
+                                    : ""
+                                }`}
+                              >
                                 {tag}
                               </Badge>
                             </TooltipTrigger>
@@ -524,15 +741,24 @@ const Explore = () => {
                     </div>
                   </div>
 
-                  {/* Quotes */}
+                  {/* Quotes - filtered by sentiment */}
                   <div>
                     <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-3">
-                      Relevant Quotes ({selectedTheme.quotes.length})
+                      {sentimentFilter !== "all" ? `${sentimentFilter.charAt(0).toUpperCase() + sentimentFilter.slice(1)} Quotes` : "Relevant Quotes"} ({getFilteredContent(selectedTheme).quotes.length})
                     </h4>
-                    {selectedTheme.quotes.length > 0 ? (
+                    {getFilteredContent(selectedTheme).quotes.length > 0 ? (
                       <div className="space-y-4">
-                        {selectedTheme.quotes.map((quote, idx) => (
-                          <div key={idx} className="border-l-2 border-primary/30 pl-4 py-1">
+                        {getFilteredContent(selectedTheme).quotes.map((quote, idx) => (
+                          <div 
+                            key={idx} 
+                            className={`border-l-2 pl-4 py-1 ${
+                              sentimentFilter === "positive" 
+                                ? "border-emerald-400" 
+                                : sentimentFilter === "negative"
+                                ? "border-rose-400"
+                                : "border-primary/30"
+                            }`}
+                          >
                             <p className="text-sm text-foreground italic leading-relaxed mb-2">
                               "{quote.text}"
                             </p>
@@ -559,7 +785,11 @@ const Explore = () => {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-sm text-muted-foreground italic">No quotes available for this theme.</p>
+                      <p className="text-sm text-muted-foreground italic">
+                        {sentimentFilter !== "all" 
+                          ? `No ${sentimentFilter} quotes available for this theme.`
+                          : "No quotes available for this theme."}
+                      </p>
                     )}
                     
                     {/* Generate More Quotes Button */}
