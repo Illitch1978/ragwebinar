@@ -23,7 +23,9 @@ const Overview = () => {
                   <span>•</span>
                   <span>Seven active sources</span>
                   <span>•</span>
-                  <span>Lineage Preserved</span>
+                  <span>High confidence</span>
+                  <span>•</span>
+                  <span>Full traceability</span>
                 </div>
 
                 <div className="project-summary">
