@@ -139,12 +139,12 @@ const SourcesSidebar = () => {
                   return (
                     <div
                       key={source.id}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-sm hover:bg-accent/50 cursor-pointer transition-colors group overflow-hidden"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-sm hover:bg-accent/50 cursor-pointer transition-colors group min-w-0"
                     >
                       <Icon className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="text-sm text-foreground truncate block max-w-full">
+                          <span className="text-sm text-foreground truncate flex-1 w-0">
                             {source.name}
                           </span>
                         </TooltipTrigger>
