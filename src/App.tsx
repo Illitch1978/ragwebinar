@@ -9,6 +9,7 @@ import Projects from "./pages/Projects";
 import ReportSection from "./components/dashboard/ReportSection";
 import Presentation from "./pages/Presentation";
 import NotFound from "./pages/NotFound";
+import SourcesSidebar from "./components/SourcesSidebar";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <SourcesSidebar />
         <Routes>
           <Route path="/" element={<Navigate to="/projects" replace />} />
           <Route path="/projects" element={<Projects />} />
