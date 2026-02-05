@@ -26,53 +26,30 @@ const Overview = () => {
                   <span>Lineage Preserved</span>
                 </div>
 
-                <div className="project-brief">
-                  <div className="brief-row">
-                    <span className="brief-label">Decision</span>
-                    <input 
-                      className="brief-input" 
-                      type="text" 
-                      defaultValue="Guide regional leadership on preserving local trust while scaling Atrium branding."
-                      readOnly 
-                    />
-                  </div>
-                  <div className="brief-row">
-                    <span className="brief-label">Signals</span>
-                    <input 
-                      className="brief-input" 
-                      type="text" 
-                      defaultValue="Customer sentiment, service reliability, acquisition messaging, sustainability intent."
-                      readOnly 
-                    />
-                  </div>
-                  <div className="brief-row">
-                    <span className="brief-label">Audience</span>
-                    <input 
-                      className="brief-input" 
-                      type="text" 
-                      defaultValue="Executive team and regional operations managers."
-                      readOnly 
-                    />
-                  </div>
+                <div className="project-summary">
+                  <p>
+                    This intelligence layer synthesizes customer sentiment, service reliability signals, and brand perception data across Atrium's Midwest expansion markets. The analysis directly supports leadership's objective of preserving local trust equity while scaling corporate brand presence—a core strategic priority defined at project inception. Current findings reveal tension between operational consistency expectations and legacy brand loyalty, with clear implications for marketing messaging and service delivery standards in acquired territories.
+                  </p>
                 </div>
               </header>
 
-              {/* Section 2: Decision Context Tiles */}
-              <section className="context-tiles">
-                <div className="tile">
-                  <span className="tile-label">Primary Risk</span>
-                  <div className="tile-statement">Reliability perception is driving negative sentiment in urgent categories.</div>
-                  <div className="tile-support">No show appointments and pricing inconsistency dominate recent complaints.</div>
+              {/* Section 2: Risk & Opportunity */}
+              <section className="risk-opportunity-section">
+                <div className="risk-opp-card risk-card">
+                  <div className="risk-opp-header">
+                    <span className="risk-opp-label risk-label">Risk</span>
+                  </div>
+                  <div className="risk-opp-statement">Reliability perception is driving negative sentiment in urgent service categories.</div>
+                  <div className="risk-opp-support">No-show appointments and pricing inconsistency dominate recent complaints, threatening retention in core markets.</div>
+                  <button className="risk-opp-action">Explore risk drivers →</button>
                 </div>
-                <div className="tile">
-                  <span className="tile-label">Primary Lever</span>
-                  <div className="tile-statement">Local identity outperforms corporate branding in retention.</div>
-                  <div className="tile-support">Endorsement language builds trust faster than replacement naming.</div>
-                </div>
-                <div className="tile">
-                  <span className="tile-label">Business Exposure</span>
-                  <div className="tile-statement">Direct impact on Midwest expansion and marketing strategy.</div>
-                  <div className="tile-support">Referenced in Q1 planning and operations reviews.</div>
+                <div className="risk-opp-card opportunity-card">
+                  <div className="risk-opp-header">
+                    <span className="risk-opp-label opportunity-label">Opportunity</span>
+                  </div>
+                  <div className="risk-opp-statement">Local identity outperforms corporate branding in customer retention.</div>
+                  <div className="risk-opp-support">Endorsement positioning ("Powered by Atrium") builds trust faster than replacement naming strategies.</div>
+                  <button className="risk-opp-action">View opportunity analysis →</button>
                 </div>
               </section>
 
