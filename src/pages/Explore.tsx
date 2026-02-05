@@ -5,21 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers, Filter } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers } from "lucide-react";
+import ExploreFilters, { FilterState } from "@/components/explore/ExploreFilters";
 
 type ExplorationMode = "all" | "qual" | "quant";
-
-// Mock sources for filtering
-const mockSources = [
-  { id: "1", name: "13th Jan Workshop Part 1 Transcript" },
-  { id: "2", name: "Interview Transcript - Senior Researcher" },
-  { id: "3", name: "Q4 Financial Report 2024" },
-  { id: "4", name: "User Survey Results - December" },
-  { id: "5", name: "Competitive Analysis Document" },
-];
 
 interface Theme {
   id: string;
@@ -118,10 +107,18 @@ const mockThemes: Theme[] = [
   }
 ];
 
+const initialFilters: FilterState = {
+  source: "",
+  sourceType: "",
+  year: "",
+  audienceType: "",
+  market: "",
+};
+
 const Explore = () => {
   const [mode, setMode] = useState<ExplorationMode>("all");
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
-  const [selectedSources, setSelectedSources] = useState<string[]>([]);
+  const [filters, setFilters] = useState<FilterState>(initialFilters);
 
   const filteredThemes = mockThemes.filter(theme => {
     if (mode === "all") return true;
@@ -136,62 +133,26 @@ const Explore = () => {
     }
   };
 
-  const toggleSource = (sourceId: string) => {
-    setSelectedSources(prev => 
-      prev.includes(sourceId) 
-        ? prev.filter(id => id !== sourceId)
-        : [...prev, sourceId]
-    );
+  const handleFilterChange = (key: keyof FilterState, value: string) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
   };
 
-  const clearSourceFilters = () => setSelectedSources([]);
+  const handleApplyFilters = () => {
+    // In real implementation, this would trigger a data fetch with filters
+    console.log("Applying filters:", filters);
+  };
+
+  const handleClearFilters = () => {
+    setFilters(initialFilters);
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <AppHeader />
       
       <main className="container mx-auto px-6 lg:px-16 py-8">
-        {/* Controls Row */}
-        <div className="flex items-center justify-between mb-6">
-          {/* Left: Source Filter */}
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Filter className="w-3.5 h-3.5" />
-                Sources
-                {selectedSources.length > 0 && (
-                  <Badge variant="secondary" className="ml-1 px-1.5 py-0 text-[10px]">
-                    {selectedSources.length}
-                  </Badge>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-72 p-3" align="start">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Filter by source</span>
-                {selectedSources.length > 0 && (
-                  <Button variant="ghost" size="sm" className="h-auto p-0 text-xs text-muted-foreground hover:text-foreground" onClick={clearSourceFilters}>
-                    Clear all
-                  </Button>
-                )}
-              </div>
-              <div className="space-y-2">
-                {mockSources.map(source => (
-                  <label key={source.id} className="flex items-center gap-2 cursor-pointer group">
-                    <Checkbox 
-                      checked={selectedSources.includes(source.id)}
-                      onCheckedChange={() => toggleSource(source.id)}
-                    />
-                    <span className="text-sm text-foreground truncate group-hover:text-primary transition-colors">
-                      {source.name}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </PopoverContent>
-          </Popover>
-          
-          {/* Right: Segmented Control */}
+        {/* Segmented Control - Top Right */}
+        <div className="flex justify-end mb-6">
           <ToggleGroup 
             type="single" 
             value={mode} 
@@ -222,19 +183,14 @@ const Explore = () => {
           </ToggleGroup>
         </div>
 
-        {/* Stats Bar */}
-        <div className="flex items-center gap-6 mb-6 text-sm">
-          <span className="text-muted-foreground">
-            Showing <span className="font-medium text-foreground">{filteredThemes.length}</span> themes
-          </span>
-          <div className="h-4 w-px bg-border" />
-          <span className="text-muted-foreground">
-            <span className="font-medium text-foreground">{filteredThemes.filter(t => t.type === "qual").length}</span> qualitative
-          </span>
-          <span className="text-muted-foreground">
-            <span className="font-medium text-foreground">{filteredThemes.filter(t => t.type === "quant").length}</span> quantitative
-          </span>
-        </div>
+        {/* Multi-Filter Bar */}
+        <ExploreFilters
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          onApplyFilters={handleApplyFilters}
+          onClearFilters={handleClearFilters}
+          matchingCount={filteredThemes.length}
+        />
 
         {/* Themes Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
