@@ -67,7 +67,7 @@ const SourcesSidebar = () => {
               "fixed left-0 top-1/2 -translate-y-1/2 z-50",
               "w-10 h-10 flex items-center justify-center",
               "bg-card border border-border border-l-0 rounded-r-lg",
-              "text-muted-foreground hover:text-primary hover:bg-accent",
+              "text-muted-foreground hover:text-primary hover:bg-primary/10",
               "transition-all duration-200 shadow-sm",
               isOpen && "opacity-0 pointer-events-none"
             )}
