@@ -68,81 +68,101 @@
   border-bottom: 1px solid var(--border-subtle);
 }
 
-/* Project Brief Input Area */
-.project-brief {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* Project Summary */
+.project-summary {
   background: rgba(255, 255, 255, 0.5);
   padding: 30px;
   border-left: 2px solid var(--accent-blue);
   margin-top: 40px;
 }
 
-.brief-row {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  align-items: baseline;
-  gap: 20px;
-}
-
-.brief-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--accent-blue);
-  font-weight: 700;
-}
-
-.brief-input {
+.project-summary p {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--text-main);
-  border: none;
-  background: transparent;
-  width: 100%;
-  padding: 0;
-  transition: color 0.2s;
+  line-height: 1.75;
+  margin: 0;
 }
 
-.brief-input:focus {
-  outline: none;
-  color: var(--accent-blue);
-}
-
-/* --- Section 2: Decision Context Tiles --- */
-.context-tiles {
+/* --- Section 2: Risk & Opportunity --- */
+.risk-opportunity-section {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
   margin-bottom: var(--spacing-section);
   border-bottom: 1px solid var(--border-subtle);
   padding-bottom: 60px;
 }
 
-.tile-label {
-  display: block;
+.risk-opp-card {
+  padding: 30px;
+  border-radius: 2px;
+}
+
+.risk-card {
+  background: linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%);
+  border-left: 3px solid #dc2626;
+}
+
+.opportunity-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #f5fff8 100%);
+  border-left: 3px solid #16a34a;
+}
+
+.risk-opp-header {
+  margin-bottom: 15px;
+}
+
+.risk-opp-label {
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-tertiary);
-  margin-bottom: 15px;
   font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 2px;
 }
 
-.tile-statement {
+.risk-label {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.opportunity-label {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.risk-opp-statement {
   font-family: 'Playfair Display', serif;
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.35;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: var(--text-main);
 }
 
-.tile-support {
-  font-size: 0.85rem;
+.risk-opp-support {
+  font-size: 0.9rem;
   color: var(--text-secondary);
   line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.risk-opp-action {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.risk-opp-action:hover {
+  color: var(--accent-blue-hover);
+  text-decoration: underline;
 }
 
 /* --- Section 3: Current Priorities --- */
