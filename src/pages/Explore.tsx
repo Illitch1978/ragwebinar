@@ -542,17 +542,6 @@ const Explore = () => {
                   <div className="bg-muted/30 rounded-lg p-5">
                     <div className="flex items-center justify-between mb-4">
                       <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Insight Matrix</h4>
-                      <div className="flex items-center gap-2">
-                        <span className={`text-[10px] uppercase font-medium px-2 py-0.5 rounded ${
-                          selectedTheme.confidenceLevel === "High" 
-                            ? "bg-emerald-100 text-emerald-700" 
-                            : selectedTheme.confidenceLevel === "Medium"
-                            ? "bg-amber-100 text-amber-700"
-                            : "bg-rose-100 text-rose-700"
-                        }`}>
-                          {selectedTheme.confidencePercent}% Confidence
-                        </span>
-                      </div>
                     </div>
                     
                     <div className="grid grid-cols-12 gap-4">
@@ -670,30 +659,91 @@ const Explore = () => {
                         </div>
                       </div>
                       
-                      {/* Right: Source Count & Related Themes */}
-                      <div className="col-span-3 space-y-3">
-                        <div className="flex items-center gap-2">
-                          <FileText className="w-4 h-4 text-muted-foreground" />
-                          <div>
-                            <span className="text-sm font-medium">{selectedTheme.sourceCount}</span>
-                            <span className="text-[10px] text-muted-foreground ml-1">sources</span>
-                          </div>
-                        </div>
+                      {/* Right: Confidence Score, Sources & Related Themes */}
+                      <div className="col-span-4 space-y-4">
+                        {/* Confidence Score with Gauge */}
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <div className="cursor-help">
+                              <div className="flex items-center justify-between mb-1.5">
+                                <span className="text-[10px] text-muted-foreground uppercase">Confidence Score</span>
+                                <span className={`text-xs font-semibold ${
+                                  selectedTheme.confidenceLevel === "High" 
+                                    ? "text-emerald-600" 
+                                    : selectedTheme.confidenceLevel === "Medium"
+                                    ? "text-amber-600"
+                                    : "text-rose-600"
+                                }`}>
+                                  {selectedTheme.confidencePercent}%
+                                </span>
+                              </div>
+                              {/* Progress bar gauge */}
+                              <div className="h-2 bg-muted rounded-full overflow-hidden">
+                                <div 
+                                  className={`h-full rounded-full transition-all ${
+                                    selectedTheme.confidenceLevel === "High" 
+                                      ? "bg-emerald-500" 
+                                      : selectedTheme.confidenceLevel === "Medium"
+                                      ? "bg-amber-500"
+                                      : "bg-rose-500"
+                                  }`}
+                                  style={{ width: `${selectedTheme.confidencePercent}%` }}
+                                />
+                              </div>
+                              <div className="flex justify-between mt-1">
+                                <span className="text-[9px] text-muted-foreground">Low</span>
+                                <span className="text-[9px] text-muted-foreground">High</span>
+                              </div>
+                            </div>
+                          </TooltipTrigger>
+                          <TooltipContent side="bottom" className="max-w-xs text-xs leading-relaxed p-3">
+                            <p className="font-medium mb-1">What is Confidence Score?</p>
+                            <p className="text-muted-foreground">
+                              Measures the statistical reliability of this theme based on source diversity, 
+                              sample size, and sentiment consistency across {selectedTheme.sourceCount} sources.
+                            </p>
+                            <div className="mt-2 pt-2 border-t border-border/50 grid grid-cols-3 gap-2 text-center">
+                              <div>
+                                <div className="text-emerald-600 font-medium">80%+</div>
+                                <div className="text-[10px] text-muted-foreground">High</div>
+                              </div>
+                              <div>
+                                <div className="text-amber-600 font-medium">60-79%</div>
+                                <div className="text-[10px] text-muted-foreground">Medium</div>
+                              </div>
+                              <div>
+                                <div className="text-rose-600 font-medium">&lt;60%</div>
+                                <div className="text-[10px] text-muted-foreground">Low</div>
+                              </div>
+                            </div>
+                          </TooltipContent>
+                        </Tooltip>
                         
-                        <div>
-                          <div className="flex items-center gap-1 mb-1">
-                            <LinkIcon className="w-3 h-3 text-muted-foreground" />
-                            <span className="text-[10px] text-muted-foreground uppercase">Related</span>
+                        {/* Sources & Related in a row */}
+                        <div className="flex items-start gap-4">
+                          <div className="flex items-center gap-2">
+                            <FileText className="w-4 h-4 text-muted-foreground" />
+                            <div>
+                              <span className="text-sm font-medium">{selectedTheme.sourceCount}</span>
+                              <span className="text-[10px] text-muted-foreground ml-1">sources</span>
+                            </div>
                           </div>
-                          <div className="flex flex-wrap gap-1">
-                            {selectedTheme.relatedThemes.map((theme, idx) => (
-                              <span 
-                                key={idx}
-                                className="text-[10px] px-1.5 py-0.5 bg-primary/10 text-primary rounded"
-                              >
-                                {theme}
-                              </span>
-                            ))}
+                          
+                          <div className="flex-1">
+                            <div className="flex items-center gap-1 mb-1">
+                              <LinkIcon className="w-3 h-3 text-muted-foreground" />
+                              <span className="text-[10px] text-muted-foreground uppercase">Related</span>
+                            </div>
+                            <div className="flex flex-wrap gap-1">
+                              {selectedTheme.relatedThemes.map((theme, idx) => (
+                                <span 
+                                  key={idx}
+                                  className="text-[10px] px-1.5 py-0.5 bg-primary/10 text-primary rounded"
+                                >
+                                  {theme}
+                                </span>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </div>
