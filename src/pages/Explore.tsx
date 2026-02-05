@@ -5,7 +5,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers, Sparkles } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers, RefreshCw } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ExploreFilters, { FilterState } from "@/components/explore/ExploreFilters";
@@ -147,6 +152,28 @@ const Explore = () => {
 
   const handleClearFilters = () => {
     setFilters(initialFilters);
+  };
+
+  // Generate tooltip content for tags with polarity and frequency context
+  const getTagTooltipData = (tag: string): string => {
+    const tagContexts: Record<string, string> = {
+      "transcription": "Mentioned 47 times across sources. Predominantly positive polarity (68%). Often appears in discussions about efficiency gains and workflow automation.",
+      "tagging": "Referenced 32 times. Mixed polarity with 52% positive sentiment. Frequently co-occurs with organization and metadata management topics.",
+      "workflow": "High frequency term (89 mentions). Strongly positive (74%). Central to discussions about process improvement and operational efficiency.",
+      "validation": "Appears 56 times. Neutral to positive polarity (61%). Key theme in quality assurance and accuracy discussions.",
+      "feedback": "Moderate frequency (28 mentions). Positive leaning (65%). Often linked to continuous improvement and stakeholder communication.",
+      "consistency": "Referenced 41 times. Strongly positive (78%). Core theme in quality standards and reliability discussions.",
+      "quality assurance": "High importance term (63 mentions). Positive polarity (71%). Central to compliance and accuracy frameworks.",
+      "calibration": "Mentioned 24 times. Neutral polarity (55%). Technical context relating to measurement and standardization.",
+      "accuracy": "Frequent term (72 mentions). Mixed polarity (58% positive). Key concern in data integrity discussions.",
+      "cognitive load": "Appears 19 times. Negative leaning (62% negative). Associated with user experience pain points.",
+      "data completeness": "Referenced 33 times. Mixed polarity. Often raised in context of data quality challenges.",
+      "admin burden": "Moderate frequency (21 mentions). Strongly negative (81%). Key pain point in operational discussions.",
+      "workflow integration": "Mentioned 27 times. Positive polarity (67%). Linked to system connectivity improvements.",
+      "human in the loop": "Appears 38 times. Positive sentiment (69%). Central to AI governance and quality control themes.",
+      "scoring": "Referenced 45 times. Neutral polarity. Technical context around evaluation and ranking.",
+    };
+    return tagContexts[tag] || `This tag appears across multiple sources with varied polarity. Context frequency and sentiment patterns are being analyzed.`;
   };
 
   return (
@@ -344,11 +371,22 @@ const Explore = () => {
                   <div>
                     <h4 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">Related Tags</h4>
                     <div className="flex flex-wrap gap-2">
-                      {selectedTheme.tags.map((tag, idx) => (
-                        <Badge key={idx} variant="outline" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
+                      {selectedTheme.tags.map((tag, idx) => {
+                        // Generate mock tooltip data based on tag
+                        const tagData = getTagTooltipData(tag);
+                        return (
+                          <Tooltip key={idx}>
+                            <TooltipTrigger asChild>
+                              <Badge variant="outline" className="text-xs cursor-help">
+                                {tag}
+                              </Badge>
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+                              <p>{tagData}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -394,10 +432,10 @@ const Explore = () => {
                     <div className="mt-6 pt-4 border-t border-border/50">
                       <Button 
                         variant="outline" 
-                        className="w-full gap-2"
+                        size="sm"
+                        className="text-xs"
                         onClick={() => console.log("Generate more quotes for:", selectedTheme.name)}
                       >
-                        <Sparkles className="w-4 h-4" />
                         Generate More Quotes
                       </Button>
                     </div>
