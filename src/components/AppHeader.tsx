@@ -16,9 +16,9 @@ const AppHeader = () => {
   
   const navTabs = [
     { label: "Overview", path: "/overview" },
-    { label: "Deck", path: "/deck" },
     { label: "Explore", path: "/explore" },
     { label: "Talk to Data", path: "#" },
+    { label: "Deck", path: "/deck" },
   ];
 
   return (
