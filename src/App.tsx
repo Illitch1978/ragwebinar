@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Upload from "./pages/Upload";
 import Overview from "./pages/Overview";
 import Projects from "./pages/Projects";
+import Explore from "./pages/Explore";
 import ReportSection from "./components/dashboard/ReportSection";
 import Presentation from "./pages/Presentation";
 import NotFound from "./pages/NotFound";
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Navigate to="/projects" replace />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/overview" element={<Overview />} />
+          <Route path="/explore" element={<Explore />} />
           <Route path="/deck" element={<Upload />} />
           <Route path="/report" element={
             <div className="min-h-screen bg-background dashboard-light">
