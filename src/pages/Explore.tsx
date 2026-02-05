@@ -5,9 +5,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers, Filter } from "lucide-react";
 
 type ExplorationMode = "all" | "qual" | "quant";
+
+// Mock sources for filtering
+const mockSources = [
+  { id: "1", name: "13th Jan Workshop Part 1 Transcript" },
+  { id: "2", name: "Interview Transcript - Senior Researcher" },
+  { id: "3", name: "Q4 Financial Report 2024" },
+  { id: "4", name: "User Survey Results - December" },
+  { id: "5", name: "Competitive Analysis Document" },
+];
 
 interface Theme {
   id: string;
@@ -109,6 +121,7 @@ const mockThemes: Theme[] = [
 const Explore = () => {
   const [mode, setMode] = useState<ExplorationMode>("all");
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
+  const [selectedSources, setSelectedSources] = useState<string[]>([]);
 
   const filteredThemes = mockThemes.filter(theme => {
     if (mode === "all") return true;
@@ -123,19 +136,62 @@ const Explore = () => {
     }
   };
 
+  const toggleSource = (sourceId: string) => {
+    setSelectedSources(prev => 
+      prev.includes(sourceId) 
+        ? prev.filter(id => id !== sourceId)
+        : [...prev, sourceId]
+    );
+  };
+
+  const clearSourceFilters = () => setSelectedSources([]);
+
   return (
     <div className="min-h-screen bg-background">
       <AppHeader />
       
       <main className="container mx-auto px-6 lg:px-16 py-8">
-        {/* Page Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-2xl font-semibold text-foreground mb-1">Explore</h1>
-            <p className="text-sm text-muted-foreground">Discover themes, patterns, and insights from your research data</p>
-          </div>
+        {/* Controls Row */}
+        <div className="flex items-center justify-between mb-6">
+          {/* Left: Source Filter */}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" size="sm" className="gap-2">
+                <Filter className="w-3.5 h-3.5" />
+                Sources
+                {selectedSources.length > 0 && (
+                  <Badge variant="secondary" className="ml-1 px-1.5 py-0 text-[10px]">
+                    {selectedSources.length}
+                  </Badge>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-72 p-3" align="start">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Filter by source</span>
+                {selectedSources.length > 0 && (
+                  <Button variant="ghost" size="sm" className="h-auto p-0 text-xs text-muted-foreground hover:text-foreground" onClick={clearSourceFilters}>
+                    Clear all
+                  </Button>
+                )}
+              </div>
+              <div className="space-y-2">
+                {mockSources.map(source => (
+                  <label key={source.id} className="flex items-center gap-2 cursor-pointer group">
+                    <Checkbox 
+                      checked={selectedSources.includes(source.id)}
+                      onCheckedChange={() => toggleSource(source.id)}
+                    />
+                    <span className="text-sm text-foreground truncate group-hover:text-primary transition-colors">
+                      {source.name}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
           
-          {/* Segmented Control */}
+          {/* Right: Segmented Control */}
           <ToggleGroup 
             type="single" 
             value={mode} 
@@ -260,9 +316,9 @@ const Explore = () => {
         </div>
       </main>
 
-      {/* Theme Detail Drawer */}
+      {/* Theme Detail Drawer - Near Full Viewport */}
       <Sheet open={!!selectedTheme} onOpenChange={(open) => !open && setSelectedTheme(null)}>
-        <SheetContent className="w-full sm:max-w-xl overflow-hidden flex flex-col">
+        <SheetContent className="w-full sm:max-w-[90vw] lg:max-w-[80vw] overflow-hidden flex flex-col">
           {selectedTheme && (
             <>
               <SheetHeader className="pb-4 border-b border-border">
