@@ -5,7 +5,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers, RefreshCw, Gauge, LinkIcon, Activity } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Quote, FileText, ChartBar, Layers, RefreshCw, Gauge, LinkIcon, Activity, ChevronDown } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Tooltip,
   TooltipContent,
@@ -624,8 +631,21 @@ const Explore = () => {
                       
                       {/* Center: Sparkline & Delta */}
                       <div className="col-span-4 border-l border-r border-border/50 px-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-[10px] text-muted-foreground uppercase">Trend</span>
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] text-muted-foreground uppercase">Mention Volume</span>
+                            <Select defaultValue="7d">
+                              <SelectTrigger className="h-5 w-[70px] text-[10px] border-none bg-muted/50 px-1.5 focus:ring-0">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="7d" className="text-xs">7 days</SelectItem>
+                                <SelectItem value="14d" className="text-xs">14 days</SelectItem>
+                                <SelectItem value="30d" className="text-xs">30 days</SelectItem>
+                                <SelectItem value="90d" className="text-xs">90 days</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
                           <span className={`text-xs font-medium flex items-center gap-1 ${
                             selectedTheme.deltaFromPrevious >= 0 ? "text-emerald-600" : "text-rose-600"
                           }`}>
@@ -645,7 +665,7 @@ const Explore = () => {
                           ))}
                         </div>
                         <div className="flex justify-between mt-1">
-                          <span className="text-[9px] text-muted-foreground">7d ago</span>
+                          <span className="text-[9px] text-muted-foreground">Start</span>
                           <span className="text-[9px] text-muted-foreground">Today</span>
                         </div>
                       </div>
@@ -797,7 +817,7 @@ const Explore = () => {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        className="text-xs"
+                        className="text-xs focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
                         onClick={() => console.log("Generate more quotes for:", selectedTheme.name)}
                       >
                         Generate More Quotes
