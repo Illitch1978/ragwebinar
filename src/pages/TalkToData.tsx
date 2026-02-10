@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Search, ArrowRight, Loader2, MessageSquare, BarChart3, Shield, Target } from "lucide-react";
+import { ArrowRight, Loader2, MessageSquare } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import TaskCard from "@/components/talk-to-data/TaskCard";
 import MissionsPanel from "@/components/talk-to-data/MissionsPanel";
@@ -33,10 +33,10 @@ export interface TaskResult {
 }
 
 const INTENT_PRESETS = [
-  { label: "Find evidence for…", icon: Search, intent: "evidence", prefix: "Find the strongest evidence for: " },
-  { label: "Validate assumption…", icon: Shield, intent: "validate", prefix: "Validate or refute this assumption: " },
-  { label: "Extract insights about…", icon: Target, intent: "insight", prefix: "Extract key insights about: " },
-  { label: "Summarize findings on…", icon: BarChart3, intent: "insight", prefix: "Summarize the key findings on: " },
+  { label: "Find evidence for…", intent: "evidence", prefix: "Find the strongest evidence for: " },
+  { label: "Validate assumption…", intent: "validate", prefix: "Validate or refute this assumption: " },
+  { label: "Extract insights about…", intent: "insight", prefix: "Extract key insights about: " },
+  { label: "Summarize findings on…", intent: "insight", prefix: "Summarize the key findings on: " },
 ];
 
 const TalkToData = () => {
@@ -138,9 +138,8 @@ const TalkToData = () => {
           {/* Command Bar */}
           <div className="border-b border-neutral-200 bg-white/60 backdrop-blur-sm">
             <div className="px-6 lg:px-10 py-5">
-              <div className="relative">
+                <div className="relative">
                 <div className="flex items-center gap-3 bg-white border border-neutral-200 rounded-none px-5 py-4 focus-within:border-primary transition-colors shadow-sm">
-                  <Search size={18} strokeWidth={1.5} className="text-neutral-400 flex-shrink-0" />
                   <input
                     ref={inputRef}
                     type="text"
@@ -170,7 +169,6 @@ const TalkToData = () => {
                     onClick={() => handlePreset(preset.prefix)}
                     className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] font-medium text-neutral-400 hover:text-primary hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all"
                   >
-                    <preset.icon size={12} strokeWidth={1.5} />
                     {preset.label}
                   </button>
                 ))}
@@ -182,28 +180,33 @@ const TalkToData = () => {
           <div ref={feedRef} className="flex-1 min-h-0 overflow-auto">
             <div className="px-6 lg:px-10 py-6">
               {tasks.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-20 max-w-md mx-auto text-center">
-                  <div className="w-12 h-12 border border-neutral-200 flex items-center justify-center mb-6">
-                    <MessageSquare size={20} strokeWidth={1.5} className="text-neutral-300" />
+                <div className="flex flex-col h-full justify-center max-w-2xl mx-auto px-4">
+                  <div className="mb-8">
+                    <h2 className="font-serif text-2xl font-bold text-foreground mb-2">Your research agent</h2>
+                    <p className="text-sm text-muted-foreground leading-relaxed max-w-lg">
+                      Ask questions about your uploaded data. The agent will find evidence,
+                      validate assumptions, extract patterns, and prepare findings for your deck.
+                    </p>
                   </div>
-                  <h2 className="font-serif text-xl font-bold text-foreground mb-2">Your research agent</h2>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                    Ask questions about your uploaded data. The agent will find evidence,
-                    validate assumptions, extract patterns, and prepare findings for your deck.
-                  </p>
-                  <div className="grid grid-cols-2 gap-3 w-full">
+                  <div className="space-y-2">
                     {[
-                      "What are the strongest customer pain points?",
-                      "Validate: NPS correlates with retention",
-                      "Find evidence for pricing sensitivity",
-                      "Compare Q3 vs Q4 sentiment trends",
-                    ].map((example) => (
+                      { query: "What are the strongest customer pain points?", label: "Pain point analysis" },
+                      { query: "Validate: NPS correlates with retention", label: "Hypothesis validation" },
+                      { query: "Find evidence for pricing sensitivity", label: "Evidence search" },
+                      { query: "Compare Q3 vs Q4 sentiment trends", label: "Trend comparison" },
+                      { query: "What are the top 3 competitive advantages mentioned by customers?", label: "Competitive insight" },
+                      { query: "Identify the weakest areas in our product experience", label: "Weakness analysis" },
+                    ].map(({ query: q, label }) => (
                       <button
-                        key={example}
-                        onClick={() => submitQuery(example)}
-                        className="text-left px-4 py-3 text-xs text-neutral-500 bg-white border border-neutral-200 hover:border-primary/30 hover:text-primary transition-all leading-relaxed"
+                        key={q}
+                        onClick={() => submitQuery(q)}
+                        className="w-full flex items-center justify-between px-5 py-3.5 text-left bg-white border border-neutral-200 hover:border-primary/30 group transition-all"
                       >
-                        {example}
+                        <div>
+                          <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground">{label}</span>
+                          <p className="text-sm text-foreground mt-0.5">{q}</p>
+                        </div>
+                        <ArrowRight size={14} className="text-neutral-300 group-hover:text-primary transition-colors flex-shrink-0 ml-4" />
                       </button>
                     ))}
                   </div>
