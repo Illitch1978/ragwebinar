@@ -292,7 +292,7 @@ const Projects = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-[#F9F8F4] text-[#1C1C1C] font-sans overflow-hidden selection:bg-[#E1F5FE] selection:text-[#0D9BDD]">
+    <div className="flex flex-col min-h-screen w-full bg-[#F9F8F4] text-[#1C1C1C] font-sans overflow-hidden selection:bg-[#E1F5FE] selection:text-[#0D9BDD] pt-4">
       <AppHeader />
 
       <main className="flex-1 overflow-auto">
@@ -337,7 +337,7 @@ const Projects = () => {
         <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto bg-background border-border p-0">
           <DialogHeader className="px-8 pt-8 pb-4 border-b border-border sticky top-0 bg-background z-10">
             <DialogTitle className="font-serif text-2xl font-bold text-foreground text-center">
-              Create New Project
+              {projectName.trim() ? projectName : 'Create a new project'}
             </DialogTitle>
             {/* Step Indicator */}
             <div className="flex items-center justify-center gap-3 mt-4">

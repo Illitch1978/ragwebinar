@@ -2,7 +2,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Sparkles, Loader2, Presentation as PresentationIcon, BarChart3, FileText, BookOpen, BriefcaseBusiness, Video } from "lucide-react";
+import { ArrowLeft, ArrowRight, Wand2, Loader2, Presentation as PresentationIcon, BarChart3, FileText, BookOpen, BriefcaseBusiness, Video } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -131,20 +131,20 @@ const ObjectivesStep = ({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       {/* Guided Prompts */}
       {showGuided && (
         <div>
-          <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
+          <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-2">
             Quick-Start Guide
           </label>
-          <p className="text-sm text-muted-foreground mb-4">
-            Answer these questions to structure your objectives. They'll be compiled into the field below.
+          <p className="text-xs text-muted-foreground mb-3">
+            Answer these questions to structure your objectives.
           </p>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {GUIDED_PROMPTS.map((prompt) => (
               <div key={prompt.key}>
-                <label className="block text-xs font-medium text-foreground mb-1.5">
+                <label className="block text-xs font-medium text-foreground mb-1">
                   {prompt.label}
                 </label>
                 <input
@@ -152,7 +152,7 @@ const ObjectivesStep = ({
                   value={guidedInputs[prompt.key] || ''}
                   onChange={(e) => handleGuidedChange(prompt.key, e.target.value)}
                   placeholder={prompt.placeholder}
-                  className="w-full px-4 py-2.5 bg-card border border-border rounded-sm text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-sm text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
             ))}
@@ -161,7 +161,7 @@ const ObjectivesStep = ({
               size="sm"
               onClick={compileGuidedToDescription}
               disabled={Object.values(guidedInputs).every(v => !v?.trim())}
-              className="mt-2"
+              className="mt-1"
             >
               Add to objectives
             </Button>
@@ -171,7 +171,7 @@ const ObjectivesStep = ({
 
       {/* Project Objectives (mandatory) */}
       <div>
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-2">
           <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest">
             Project Objectives <span className="text-destructive">*</span>
           </label>
@@ -184,16 +184,13 @@ const ObjectivesStep = ({
             </button>
           )}
         </div>
-        <p className="text-sm text-muted-foreground mb-3">
-          Define your project goals, key deliverables, and expected outcomes.
-        </p>
         <Textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe your project objectives in detail..."
-          className="min-h-[160px] px-6 py-5 bg-card border-border font-mono text-sm"
+          className="min-h-[120px] px-5 py-4 bg-card border-border font-mono text-sm"
         />
-        <div className="flex items-center justify-between mt-2">
+        <div className="flex items-center justify-between mt-1.5">
           {description.length > 0 && (
             <p className="text-xs text-muted-foreground">
               {description.length.toLocaleString()} characters
@@ -209,60 +206,15 @@ const ObjectivesStep = ({
             {isEnhancing ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />
             ) : (
-              <Sparkles className="w-3.5 h-3.5" />
+              <Wand2 className="w-3.5 h-3.5" />
             )}
             {isEnhancing ? 'Enhancing...' : 'Enhance with AI'}
           </Button>
         </div>
       </div>
 
-      {/* Output Format Selection */}
-      <div>
-        <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-          Output Format
-        </label>
-        <div className="grid grid-cols-2 gap-4">
-          {OUTPUT_FORMAT_OPTIONS.map((option) => {
-            const IconComponent = option.Icon;
-            return (
-              <button
-                key={option.key}
-                onClick={() => setOutputFormat(option.key)}
-                className={cn(
-                  "relative px-5 py-4 border-2 transition-all duration-300 text-left group",
-                  outputFormat === option.key
-                    ? "border-primary bg-primary/5"
-                    : "border-border hover:border-primary/50 bg-card"
-                )}
-              >
-                <div className="flex items-start gap-3">
-                  <div className={cn(
-                    "w-9 h-9 flex items-center justify-center transition-colors shrink-0",
-                    outputFormat === option.key ? "bg-primary/20" : "bg-muted"
-                  )}>
-                    <IconComponent className={cn(
-                      "w-4 h-4 transition-colors",
-                      outputFormat === option.key ? "text-primary" : "text-muted-foreground"
-                    )} />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-medium text-foreground text-sm mb-0.5">{option.label}</p>
-                    <p className="text-xs text-muted-foreground leading-snug">
-                      {option.description}
-                    </p>
-                  </div>
-                </div>
-                {outputFormat === option.key && (
-                  <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-primary" />
-                )}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Navigation */}
-      <div className="flex justify-between pt-4">
+      <div className="flex justify-between pt-2">
         <Button
           variant="outline"
           onClick={onBack}
