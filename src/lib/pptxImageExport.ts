@@ -119,7 +119,7 @@ export const exportToPptxWithEmbeddedImages = async (
         y: 0,
         w: SLIDE.width,
         h: SLIDE.height,
-        sizing: { type: "cover", w: SLIDE.width, h: SLIDE.height },
+        sizing: { type: "contain", w: SLIDE.width, h: SLIDE.height },
       });
     } catch (error) {
       console.error(`Error processing slide ${i + 1}:`, error);
