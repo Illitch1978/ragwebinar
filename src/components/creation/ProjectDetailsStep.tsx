@@ -1,82 +1,56 @@
 import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
-import { ArrowRight, Presentation as PresentationIcon, BarChart3, FileText, BookOpen, BriefcaseBusiness, Video } from "lucide-react";
+import { ArrowRight, Scale, AlertTriangle, TrendingUp, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export type OutputFormat = 'presentation' | 'report' | 'proposal' | 'article' | 'executive-summary' | 'post-meeting';
+export type AnalysisTone = 'balanced' | 'critical' | 'commercial' | 'risk-compliance';
+export type ProjectLanguage = 'en-us' | 'en-uk';
 
-export const OUTPUT_FORMAT_OPTIONS = [
+const ANALYSIS_TONE_OPTIONS: { key: AnalysisTone; label: string; description: string; Icon: typeof Scale }[] = [
   {
-    key: 'presentation' as OutputFormat,
-    label: 'Presentation',
-    description: 'Versatile deck for any topic with clear narrative flow',
-    Icon: PresentationIcon,
-    isSlideFormat: true,
-    needsBrandGuide: true,
+    key: 'balanced',
+    label: 'Balanced',
+    description: 'A well-rounded analysis highlighting both positive and negative aspects',
+    Icon: Scale,
   },
   {
-    key: 'report' as OutputFormat,
-    label: 'Report',
-    description: 'Data-driven analysis with findings and recommendations',
-    Icon: BarChart3,
-    isSlideFormat: true,
-    needsBrandGuide: true,
+    key: 'critical',
+    label: 'Critical',
+    description: 'Focuses on identifying areas for improvement and potential issues',
+    Icon: AlertTriangle,
   },
   {
-    key: 'proposal' as OutputFormat,
-    label: 'Proposal Builder',
-    description: 'PDF with signature block and configurable T&C',
-    Icon: FileText,
-    isSlideFormat: true,
-    needsBrandGuide: true,
+    key: 'commercial',
+    label: 'Commercial Focus',
+    description: 'Revenue, market opportunity, and ROI-driven perspective',
+    Icon: TrendingUp,
   },
   {
-    key: 'article' as OutputFormat,
-    label: 'Thought Leadership',
-    description: 'Word document (1-5 pages) with insights and evidence',
-    Icon: BookOpen,
-    isSlideFormat: false,
-    needsBrandGuide: false,
-  },
-  {
-    key: 'executive-summary' as OutputFormat,
-    label: 'Executive Summary',
-    description: 'Word document (2-5 pages) for decision-makers',
-    Icon: BriefcaseBusiness,
-    isSlideFormat: false,
-    needsBrandGuide: false,
-  },
-  {
-    key: 'post-meeting' as OutputFormat,
-    label: 'Post-Meeting Deck',
-    description: '4-5 slides from AI recording: summary & action items',
-    Icon: Video,
-    isSlideFormat: true,
-    needsBrandGuide: true,
+    key: 'risk-compliance',
+    label: 'Risk & Compliance',
+    description: 'Regulatory, risk mitigation, and governance lens',
+    Icon: Shield,
   },
 ];
 
 interface ProjectDetailsStepProps {
   projectName: string;
   setProjectName: (value: string) => void;
-  description: string;
-  setDescription: (value: string) => void;
-  outputFormat: OutputFormat;
-  setOutputFormat: (value: OutputFormat) => void;
+  language: ProjectLanguage;
+  setLanguage: (value: ProjectLanguage) => void;
+  analysisTone: AnalysisTone;
+  setAnalysisTone: (value: AnalysisTone) => void;
   onNext: () => void;
 }
 
 const ProjectDetailsStep = ({
   projectName,
   setProjectName,
-  description,
-  setDescription,
-  outputFormat,
-  setOutputFormat,
+  language,
+  setLanguage,
+  analysisTone,
+  setAnalysisTone,
   onNext,
 }: ProjectDetailsStepProps) => {
-  const isValid = description.trim().length > 0;
-
   return (
     <div className="space-y-8">
       {/* Project Name */}
@@ -93,47 +67,47 @@ const ProjectDetailsStep = ({
         />
       </div>
 
-      {/* Project Objectives (mandatory) */}
+      {/* Project Language */}
       <div>
         <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-          Project Objectives <span className="text-destructive">*</span>
+          Project Language
         </label>
-        <p className="text-sm text-muted-foreground mb-3">
-          Define your project goals, key deliverables, and expected outcomes. Include any relevant context, data points, or requirements.
-        </p>
-        <Textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="What are the main objectives of this project?
-
-• Primary goal and desired outcome
-• Key stakeholders and target audience
-• Success metrics and deliverables
-• Timeline and constraints"
-          className="min-h-[180px] px-6 py-5 bg-card border-border font-mono text-sm"
-        />
-        {description.length > 0 && (
-          <p className="text-xs text-muted-foreground mt-2">
-            {description.length.toLocaleString()} characters
-          </p>
-        )}
+        <div className="flex gap-2">
+          {[
+            { key: 'en-us' as ProjectLanguage, label: 'English (US)' },
+            { key: 'en-uk' as ProjectLanguage, label: 'English (UK)' },
+          ].map((opt) => (
+            <button
+              key={opt.key}
+              onClick={() => setLanguage(opt.key)}
+              className={cn(
+                "px-5 py-2.5 border-2 text-sm font-medium transition-all duration-300",
+                language === opt.key
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border text-muted-foreground hover:border-primary/50 bg-card"
+              )}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Output Format Selection */}
+      {/* Analysis Tone */}
       <div>
         <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">
-          Output Format
+          Analysis Tone
         </label>
         <div className="grid grid-cols-2 gap-4">
-          {OUTPUT_FORMAT_OPTIONS.map((option) => {
+          {ANALYSIS_TONE_OPTIONS.map((option) => {
             const IconComponent = option.Icon;
             return (
               <button
                 key={option.key}
-                onClick={() => setOutputFormat(option.key)}
+                onClick={() => setAnalysisTone(option.key)}
                 className={cn(
                   "relative px-5 py-4 border-2 transition-all duration-300 text-left group",
-                  outputFormat === option.key
+                  analysisTone === option.key
                     ? "border-primary bg-primary/5"
                     : "border-border hover:border-primary/50 bg-card"
                 )}
@@ -141,11 +115,11 @@ const ProjectDetailsStep = ({
                 <div className="flex items-start gap-3">
                   <div className={cn(
                     "w-9 h-9 flex items-center justify-center transition-colors shrink-0",
-                    outputFormat === option.key ? "bg-primary/20" : "bg-muted"
+                    analysisTone === option.key ? "bg-primary/20" : "bg-muted"
                   )}>
                     <IconComponent className={cn(
                       "w-4 h-4 transition-colors",
-                      outputFormat === option.key ? "text-primary" : "text-muted-foreground"
+                      analysisTone === option.key ? "text-primary" : "text-muted-foreground"
                     )} />
                   </div>
                   <div className="min-w-0">
@@ -155,7 +129,7 @@ const ProjectDetailsStep = ({
                     </p>
                   </div>
                 </div>
-                {outputFormat === option.key && (
+                {analysisTone === option.key && (
                   <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-primary" />
                 )}
               </button>
@@ -168,7 +142,6 @@ const ProjectDetailsStep = ({
       <div className="flex justify-center pt-4">
         <Button
           onClick={onNext}
-          disabled={!isValid}
           size="lg"
           className={cn(
             "relative px-12 py-6 bg-foreground text-background hover:bg-primary hover:text-primary-foreground",
