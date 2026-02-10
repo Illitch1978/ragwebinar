@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FileText, Clock, Plus, ArrowRight, Sparkles, Loader2 } from "lucide-react";
+import { FileText, Clock, Plus, ArrowRight, Loader2 } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
