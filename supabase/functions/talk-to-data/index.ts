@@ -12,7 +12,7 @@ You MUST respond with a valid JSON object matching this schema:
 {
   "intent": "evidence" | "validate" | "insight" | "conversational",
   "title": "Short 3-8 word title for this task result",
-  "summary": "1-2 sentence executive summary of the finding",
+  "summary": "2-3 sentence executive summary of the finding. Be specific and analytical—include key metrics, patterns, or strategic implications. Never just one sentence.",
   "confidence": 0.0-1.0,
   "findings": [
     {

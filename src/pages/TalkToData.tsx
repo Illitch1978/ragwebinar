@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { Search, ArrowRight, Sparkles, Shield, Target, MessageSquare, Loader2, ChevronDown, Plus, BarChart3 } from "lucide-react";
+import { Search, ArrowRight, Loader2, MessageSquare, BarChart3, Shield, Target } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import TaskCard from "@/components/talk-to-data/TaskCard";
+import MissionsPanel from "@/components/talk-to-data/MissionsPanel";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -96,11 +97,7 @@ const TalkToData = () => {
       setTasks((prev) =>
         prev.map((t) =>
           t.id === taskId
-            ? {
-                ...t,
-                ...data,
-                status: "complete" as const,
-              }
+            ? { ...t, ...data, status: "complete" as const }
             : t
         )
       );
@@ -131,104 +128,100 @@ const TalkToData = () => {
     inputRef.current?.focus();
   };
 
-  const handleFollowUp = (text: string) => {
-    submitQuery(text);
-  };
-
   return (
     <div className="flex flex-col h-screen w-full bg-[#F9F8F4] text-foreground font-sans overflow-hidden">
       <AppHeader />
 
-      <div className="flex-1 min-h-0 flex flex-col">
-        {/* Command Bar Area */}
-        <div className="border-b border-neutral-200 bg-white/60 backdrop-blur-sm">
-          <div className="container mx-auto px-6 lg:px-16 py-6">
-            {/* Command Input */}
-            <div className="relative max-w-3xl">
-              <div className="flex items-center gap-3 bg-white border border-neutral-200 rounded-none px-5 py-4 focus-within:border-primary transition-colors shadow-sm">
-                <Search size={18} strokeWidth={1.5} className="text-neutral-400 flex-shrink-0" />
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Ask your data anything…"
-                  className="flex-1 bg-transparent text-sm font-sans text-foreground placeholder:text-neutral-400 outline-none"
-                  disabled={isProcessing}
-                />
-                <button
-                  onClick={() => submitQuery(query)}
-                  disabled={!query.trim() || isProcessing}
-                  className="flex items-center gap-2 px-4 py-2 bg-foreground text-white text-xs uppercase tracking-[0.1em] font-semibold hover:bg-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  {isProcessing ? (
-                    <Loader2 size={14} className="animate-spin" />
-                  ) : (
-                    <ArrowRight size={14} />
-                  )}
-                  <span>{isProcessing ? "Working" : "Run"}</span>
-                </button>
+      <div className="flex-1 min-h-0 flex">
+        {/* Left: Command + Task Feed */}
+        <div className="flex-1 min-w-0 flex flex-col border-r border-neutral-200">
+          {/* Command Bar */}
+          <div className="border-b border-neutral-200 bg-white/60 backdrop-blur-sm">
+            <div className="px-6 lg:px-10 py-5">
+              <div className="relative">
+                <div className="flex items-center gap-3 bg-white border border-neutral-200 rounded-none px-5 py-4 focus-within:border-primary transition-colors shadow-sm">
+                  <Search size={18} strokeWidth={1.5} className="text-neutral-400 flex-shrink-0" />
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Ask your data anything…"
+                    className="flex-1 bg-transparent text-sm font-sans text-foreground placeholder:text-neutral-400 outline-none"
+                    disabled={isProcessing}
+                  />
+                  <button
+                    onClick={() => submitQuery(query)}
+                    disabled={!query.trim() || isProcessing}
+                    className="flex items-center gap-2 px-4 py-2 bg-foreground text-white text-xs uppercase tracking-[0.1em] font-semibold hover:bg-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    {isProcessing ? <Loader2 size={14} className="animate-spin" /> : <ArrowRight size={14} />}
+                    <span>{isProcessing ? "Working" : "Run"}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Intent Presets */}
+              <div className="flex items-center gap-2 mt-3">
+                {INTENT_PRESETS.map((preset) => (
+                  <button
+                    key={preset.label}
+                    onClick={() => handlePreset(preset.prefix)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] font-medium text-neutral-400 hover:text-primary hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all"
+                  >
+                    <preset.icon size={12} strokeWidth={1.5} />
+                    {preset.label}
+                  </button>
+                ))}
               </div>
             </div>
+          </div>
 
-            {/* Intent Presets */}
-            <div className="flex items-center gap-2 mt-3 max-w-3xl">
-              {INTENT_PRESETS.map((preset) => (
-                <button
-                  key={preset.label}
-                  onClick={() => handlePreset(preset.prefix)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] font-medium text-neutral-400 hover:text-primary hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all"
-                >
-                  <preset.icon size={12} strokeWidth={1.5} />
-                  {preset.label}
-                </button>
-              ))}
+          {/* Task Feed */}
+          <div ref={feedRef} className="flex-1 min-h-0 overflow-auto">
+            <div className="px-6 lg:px-10 py-6">
+              {tasks.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-20 max-w-md mx-auto text-center">
+                  <div className="w-12 h-12 border border-neutral-200 flex items-center justify-center mb-6">
+                    <MessageSquare size={20} strokeWidth={1.5} className="text-neutral-300" />
+                  </div>
+                  <h2 className="font-serif text-xl font-bold text-foreground mb-2">Your research agent</h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                    Ask questions about your uploaded data. The agent will find evidence,
+                    validate assumptions, extract patterns, and prepare findings for your deck.
+                  </p>
+                  <div className="grid grid-cols-2 gap-3 w-full">
+                    {[
+                      "What are the strongest customer pain points?",
+                      "Validate: NPS correlates with retention",
+                      "Find evidence for pricing sensitivity",
+                      "Compare Q3 vs Q4 sentiment trends",
+                    ].map((example) => (
+                      <button
+                        key={example}
+                        onClick={() => submitQuery(example)}
+                        className="text-left px-4 py-3 text-xs text-neutral-500 bg-white border border-neutral-200 hover:border-primary/30 hover:text-primary transition-all leading-relaxed"
+                      >
+                        {example}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {tasks.map((task) => (
+                    <TaskCard key={task.id} task={task} onFollowUp={(text) => submitQuery(text)} />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
 
-        {/* Task Feed */}
-        <div ref={feedRef} className="flex-1 min-h-0 overflow-auto">
-          <div className="container mx-auto px-6 lg:px-16 py-8">
-            {tasks.length === 0 ? (
-              /* Empty State */
-              <div className="flex flex-col items-center justify-center py-24 max-w-lg mx-auto text-center">
-                <div className="w-12 h-12 border border-neutral-200 flex items-center justify-center mb-6">
-                  <MessageSquare size={20} strokeWidth={1.5} className="text-neutral-300" />
-                </div>
-                <h2 className="font-serif text-xl font-bold text-foreground mb-2">
-                  Your research agent
-                </h2>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                  Ask questions about your uploaded data. The agent will find evidence, 
-                  validate assumptions, extract patterns, and prepare findings for your deck.
-                </p>
-                <div className="grid grid-cols-2 gap-3 w-full">
-                  {[
-                    "What are the strongest customer pain points?",
-                    "Validate: NPS correlates with retention",
-                    "Find evidence for pricing sensitivity",
-                    "Compare Q3 vs Q4 sentiment trends",
-                  ].map((example) => (
-                    <button
-                      key={example}
-                      onClick={() => submitQuery(example)}
-                      className="text-left px-4 py-3 text-xs text-neutral-500 bg-white border border-neutral-200 hover:border-primary/30 hover:text-primary transition-all leading-relaxed"
-                    >
-                      {example}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="max-w-3xl space-y-4">
-                {tasks.map((task) => (
-                  <TaskCard key={task.id} task={task} onFollowUp={handleFollowUp} />
-                ))}
-              </div>
-            )}
-          </div>
+        {/* Right: Missions Panel */}
+        <div className="w-[320px] flex-shrink-0 bg-white/40 backdrop-blur-sm">
+          <MissionsPanel />
         </div>
       </div>
     </div>
