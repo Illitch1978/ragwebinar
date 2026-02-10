@@ -209,49 +209,72 @@
   font-weight: 600;
 }
 
-/* --- Section 4: Action Buttons --- */
-.action-board {
+/* --- Section 4: Data Audit --- */
+.data-audit-section {
   padding-top: 20px;
 }
 
-.action-buttons {
+.audit-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
-.action-button {
+.audit-item {
+  padding: 22px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.audit-item:last-child {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.audit-item-header {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
-  background: white;
-  border: 1px solid var(--border-subtle);
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: left;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
 }
 
-.action-button:hover {
-  border-color: var(--accent-blue);
-  box-shadow: 0 4px 12px rgba(0, 51, 102, 0.08);
-}
-
-.action-button-title {
+.audit-item-label {
   font-family: 'Playfair Display', serif;
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-main);
-  margin-bottom: 6px;
 }
 
-.action-button:hover .action-button-title {
-  color: var(--accent-blue);
-}
-
-.action-button-description {
+.audit-item-score {
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  color: var(--text-tertiary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.score-high { color: #16a34a; }
+.score-mid { color: var(--accent-blue); }
+.score-low { color: #d97706; }
+
+.audit-bar-track {
+  width: 100%;
+  height: 3px;
+  background: var(--border-subtle);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.audit-bar-fill {
+  height: 100%;
+  transition: width 0.6s ease;
+}
+
+.fill-high { background: #16a34a; }
+.fill-mid { background: var(--accent-blue); }
+.fill-low { background: #d97706; }
+
+.audit-item-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
 }

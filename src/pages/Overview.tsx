@@ -84,30 +84,36 @@ const Overview = () => {
                 </div>
               </section>
 
-              {/* Section 4: Action Buttons */}
-              <section className="action-board">
-                <div className="section-header">Actions</div>
+              {/* Section 4: Data Audit */}
+              <section className="data-audit-section">
+                <div className="section-header">Data Audit</div>
 
-                <div className="action-buttons">
-                  <button className="action-button">
-                    <span className="action-button-title">Executive Summary</span>
-                    <span className="action-button-description">Generate a C-suite briefing</span>
-                  </button>
-
-                  <button className="action-button">
-                    <span className="action-button-title">Data Audit</span>
-                    <span className="action-button-description">Verify source balance and coverage</span>
-                  </button>
-
-                  <button className="action-button">
-                    <span className="action-button-title">Talk to Data</span>
-                    <span className="action-button-description">Ask questions in natural language</span>
-                  </button>
-
-                  <button className="action-button">
-                    <span className="action-button-title">Emotional Mapping</span>
-                    <span className="action-button-description">Visualize sentiment patterns</span>
-                  </button>
+                <div className="audit-grid">
+                  {[
+                    { label: "Overall Health", score: 74, description: "Composite indicator across all dimensions showing moderate-to-strong analytical foundation." },
+                    { label: "Quality", score: 82, description: "Source reliability and methodological rigor are strong with minor inconsistencies in older datasets." },
+                    { label: "Quantity", score: 68, description: "Sufficient volume for core markets but thinner coverage in newly acquired Indiana territories." },
+                    { label: "Relevance", score: 79, description: "High alignment with strategic objectives; some legacy data predates current brand transition focus." },
+                    { label: "Credibility", score: 85, description: "Primary sources verified; third-party review data cross-referenced against direct customer feedback." },
+                    { label: "Diversity", score: 61, description: "Over-indexed on review platforms; underrepresented in trade channels and competitor benchmarking." },
+                    { label: "Freshness", score: 77, description: "Majority of signals within 90 days; scheduling complaint data refreshed within the last week." },
+                  ].map((item) => (
+                    <div key={item.label} className="audit-item">
+                      <div className="audit-item-header">
+                        <span className="audit-item-label">{item.label}</span>
+                        <span className={`audit-item-score ${item.score >= 80 ? 'score-high' : item.score >= 65 ? 'score-mid' : 'score-low'}`}>
+                          {item.score}
+                        </span>
+                      </div>
+                      <div className="audit-bar-track">
+                        <div
+                          className={`audit-bar-fill ${item.score >= 80 ? 'fill-high' : item.score >= 65 ? 'fill-mid' : 'fill-low'}`}
+                          style={{ width: `${item.score}%` }}
+                        />
+                      </div>
+                      <p className="audit-item-description">{item.description}</p>
+                    </div>
+                  ))}
                 </div>
               </section>
 
