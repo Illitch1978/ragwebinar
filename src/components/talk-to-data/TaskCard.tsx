@@ -38,7 +38,7 @@ interface TaskCardProps {
 }
 
 const TaskCard = ({ task, onFollowUp }: TaskCardProps) => {
-  const [expanded, setExpanded] = useState(task.status === "complete");
+  const [expanded, setExpanded] = useState(true);
   const intentMeta = INTENT_META[task.intent] || INTENT_META.conversational;
   const IntentIcon = intentMeta.icon;
 
