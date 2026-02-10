@@ -116,7 +116,7 @@ export const ScreenshotExporter = ({
         }
 
         const dataUrl = await domToPng(element, {
-          scale: 1.5,
+          scale: 1,
           width: rect.width,
           height: rect.height,
           style: {
