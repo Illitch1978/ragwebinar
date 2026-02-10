@@ -243,79 +243,15 @@ const GridBackground = () => (
   </div>
 );
 
-// Premium morphing gradient mesh background for divider slides
+// Premium background for divider slides — simple gradient, no blurred orbs
 const MorphingGradientBackground = ({ reduced = false }: { reduced?: boolean }) => (
   <div className="absolute inset-0 overflow-hidden">
     {/* Base gradient */}
     <div className="absolute inset-0 bg-gradient-to-br from-black via-[#050505] to-[#0a0a0a]" />
     
-    {/* Morphing gradient blobs */}
-    {!reduced ? (
-      <>
-        <motion.div
-          className="absolute w-[800px] h-[800px] rounded-full opacity-[0.15]"
-          style={{
-            background: 'radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)',
-            filter: 'blur(100px)',
-            top: '-20%',
-            right: '-10%',
-          }}
-          animate={{
-            x: [0, 50, -30, 0],
-            y: [0, -40, 30, 0],
-            scale: [1, 1.1, 0.95, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full opacity-[0.08]"
-          style={{
-            background: 'radial-gradient(circle, hsl(220, 90%, 50%) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-            bottom: '-15%',
-            left: '-5%',
-          }}
-          animate={{
-            x: [0, -40, 60, 0],
-            y: [0, 50, -30, 0],
-            scale: [1, 0.9, 1.15, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full opacity-[0.06]"
-          style={{
-            background: 'radial-gradient(circle, hsl(280, 70%, 50%) 0%, transparent 70%)',
-            filter: 'blur(90px)',
-            top: '30%',
-            left: '30%',
-          }}
-          animate={{
-            x: [0, 80, -50, 0],
-            y: [0, -60, 40, 0],
-            scale: [1, 1.2, 0.85, 1],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </>
-    ) : (
-      // Export mode: remove blurred blobs entirely — html2canvas renders blur() as opaque solid circles.
-      null
-    )}
-    
-    {/* Noise overlay removed (html2canvas createPattern issues) */}
+    {/* Subtle radial glows using CSS only — no blur filters, no motion */}
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_80%_20%,_hsl(var(--primary)/0.12)_0%,_transparent_60%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_10%_80%,_hsl(220,90%,50%,0.06)_0%,_transparent_50%)]" />
   </div>
 );
 
