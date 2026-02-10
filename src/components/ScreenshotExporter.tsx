@@ -117,23 +117,17 @@ export const ScreenshotExporter = ({
 
       try {
         const canvas = await html2canvas(element, {
-          scale: 2,
+          scale: 1.5,
           useCORS: true,
           allowTaint: true,
           backgroundColor: "#0a0a0f",
-          logging: false,
+          logging: true,
           width: rect.width,
           height: rect.height,
-          x: 0,
-          y: 0,
-          scrollX: 0,
-          scrollY: 0,
-          windowWidth: rect.width,
-          windowHeight: rect.height,
-          foreignObjectRendering: false,
+          foreignObjectRendering: true,
           removeContainer: true,
           onclone: (_clonedDoc, clonedEl) => {
-            // Disable animations/transitions in clone for stable capture
+            // Disable animations in clone
             const style = _clonedDoc.createElement("style");
             style.textContent = `
               *, *::before, *::after { 
@@ -145,23 +139,18 @@ export const ScreenshotExporter = ({
             `;
             (_clonedDoc.head || _clonedDoc.body)?.appendChild(style);
 
-            // Force ALL elements visible — html2canvas reads inline styles,
-            // so we must set them inline rather than relying on CSS cascade.
+            // Force opacity to 1 on all elements (framer-motion sets opacity: 0 inline)
+            // DO NOT touch transform — it breaks flexbox/absolute positioning
             const allEls = [clonedEl, ...Array.from(clonedEl.querySelectorAll('*'))];
             allEls.forEach((el) => {
               if (el instanceof HTMLElement) {
-                // Force opacity to 1 inline (overrides framer-motion's opacity: 0)
                 el.style.opacity = '1';
-                // Remove transforms that may push content off-screen,
-                // but preserve position/layout transforms via CSS
-                el.style.transform = 'none';
               }
             });
 
             // Remove canvases from the clone
             _clonedDoc.querySelectorAll("canvas").forEach((c) => c.remove());
             
-            // Force the cloned element to have explicit dimensions
             if (clonedEl instanceof HTMLElement) {
               clonedEl.style.width = `${rect.width}px`;
               clonedEl.style.height = `${rect.height}px`;
