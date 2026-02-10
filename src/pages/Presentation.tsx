@@ -347,52 +347,63 @@ const MorphingGradientBackground = ({ reduced = false }: { reduced?: boolean }) 
   </div>
 );
 
-// Premium geometric pattern for cover
+// Premium geometric pattern for cover - high impact
 const CoverPattern = ({ reduced = false }: { reduced?: boolean }) => (
   <div className="absolute inset-0 overflow-hidden">
-    {/* Radial gradient overlay */}
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_hsl(var(--primary)/0.15)_0%,_transparent_50%)]" />
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_hsl(var(--primary)/0.1)_0%,_transparent_40%)]" />
+    {/* Deep radial glow - primary color spotlight */}
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,_hsl(var(--primary)/0.25)_0%,_transparent_60%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_80%_at_90%_50%,_hsl(var(--primary)/0.12)_0%,_transparent_50%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_10%_80%,_hsl(var(--primary)/0.08)_0%,_transparent_50%)]" />
     
     {/* Swiss lines (CSS grid) - html2canvas safe */}
     {!reduced && (
       <div
-        className="absolute inset-0 opacity-[0.06]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, hsl(var(--primary-foreground) / 0.18) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--primary-foreground) / 0.18) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
+            "linear-gradient(to right, hsl(var(--primary-foreground) / 0.15) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--primary-foreground) / 0.15) 1px, transparent 1px)",
+          backgroundSize: "100px 100px",
         }}
       />
     )}
     
-    {/* Floating geometric shapes (static in export mode) */}
+    {/* Large floating geometric shapes */}
     {!reduced ? (
       <>
         <motion.div 
-          className="absolute top-[15%] right-[10%] w-64 h-64 border border-white/[0.03] rounded-full"
+          className="absolute top-[8%] right-[5%] w-[500px] h-[500px] border border-white/[0.03] rounded-full"
           animate={{ rotate: 360 }}
-          transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
         />
         <motion.div 
-          className="absolute bottom-[20%] left-[5%] w-48 h-48 border border-primary/10 rotate-45"
-          animate={{ rotate: 405 }}
-          transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[12%] right-[8%] w-[400px] h-[400px] border border-primary/[0.06] rounded-full"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 140, repeat: Infinity, ease: "linear" }}
         />
-        <div className="absolute top-[40%] right-[25%] w-32 h-32 border border-white/[0.02]" />
+        <motion.div 
+          className="absolute bottom-[10%] left-[3%] w-56 h-56 border border-primary/10 rotate-12"
+          animate={{ rotate: 372 }}
+          transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
+        />
+        <div className="absolute top-[35%] right-[20%] w-40 h-40 border border-white/[0.02] rotate-45" />
       </>
     ) : (
       <>
-        <div className="absolute top-[15%] right-[10%] w-64 h-64 border border-white/[0.03] rounded-full" />
-        <div className="absolute bottom-[20%] left-[5%] w-48 h-48 border border-primary/10 rotate-45" />
-        <div className="absolute top-[40%] right-[25%] w-32 h-32 border border-white/[0.02]" />
+        <div className="absolute top-[8%] right-[5%] w-[500px] h-[500px] border border-white/[0.03] rounded-full" />
+        <div className="absolute top-[12%] right-[8%] w-[400px] h-[400px] border border-primary/[0.06] rounded-full" />
+        <div className="absolute bottom-[10%] left-[3%] w-56 h-56 border border-primary/10 rotate-12" />
+        <div className="absolute top-[35%] right-[20%] w-40 h-40 border border-white/[0.02] rotate-45" />
       </>
     )}
     
-    {/* Accent lines */}
-    <div className="absolute top-0 left-[20%] w-[1px] h-[30%] bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
-    <div className="absolute bottom-0 right-[30%] w-[1px] h-[25%] bg-gradient-to-t from-transparent via-white/10 to-transparent" />
-    <div className="absolute top-[60%] left-0 w-[15%] h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+    {/* Accent lines - more dramatic */}
+    <div className="absolute top-0 left-[15%] w-[1px] h-[40%] bg-gradient-to-b from-primary/30 via-primary/10 to-transparent" />
+    <div className="absolute bottom-0 right-[25%] w-[1px] h-[30%] bg-gradient-to-t from-primary/20 via-white/5 to-transparent" />
+    <div className="absolute top-[55%] left-0 w-[20%] h-[1px] bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+    <div className="absolute top-0 right-[40%] w-[1px] h-[20%] bg-gradient-to-b from-primary/15 to-transparent" />
+    
+    {/* Horizontal accent bar */}
+    <div className="absolute bottom-[30%] left-12 lg:left-20 w-32 h-[1px] bg-gradient-to-r from-primary/40 to-transparent" />
   </div>
 );
 
@@ -494,28 +505,40 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
         animate={isActive ? "center" : "exit"}
         className="relative flex h-full"
       >
-        {/* Premium background elements - no number on cover */}
+        {/* Premium background elements */}
         <CoverPattern reduced={isExportMode} />
         <CoverFrame />
         
-        {/* Main content - left aligned for editorial feel */}
-        <div className="relative z-10 flex flex-col justify-center h-full px-12 lg:px-20 max-w-5xl">
+        {/* Main content - centered vertically, left-aligned */}
+        <div className="relative z-10 flex flex-col justify-center h-full px-12 lg:px-20 max-w-6xl">
           
-          {/* Main title */}
+          {/* Kicker line */}
+          <motion.div 
+            variants={childVariant}
+            transition={smoothTransition}
+            className="flex items-center gap-4 mb-8"
+          >
+            <div className="w-12 h-[2px] bg-primary" />
+            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary/80">
+              {slide.author || 'Intelligence Capital'}
+            </span>
+          </motion.div>
+          
+          {/* Main title - much larger */}
           <motion.h1 
             variants={childVariant}
             transition={smoothTransition}
-            className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] mb-6"
+            className="font-serif text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[0.95] mb-8"
           >
             {slide.title}
           </motion.h1>
           
-          {/* Subtitle if present */}
+          {/* Subtitle - editorial italic */}
           {slide.subtitle && (
             <motion.p 
               variants={childVariant}
               transition={smoothTransition}
-              className="text-xl text-white/70 max-w-2xl"
+              className="text-xl lg:text-2xl text-white/60 max-w-2xl font-serif italic leading-relaxed"
             >
               {slide.subtitle}
             </motion.p>
@@ -524,10 +547,10 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
           {/* Date/meta */}
           <motion.div 
             variants={childVariant}
-            className="flex items-center gap-3 mt-6"
+            className="flex items-center gap-3 mt-10"
           >
-            <div className="w-2 h-2 bg-primary rounded-full" />
-            <span className="font-mono text-xs tracking-widest text-white/50 uppercase">
+            <div className="w-2.5 h-2.5 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.5)]" />
+            <span className="font-mono text-xs tracking-widest text-white/40 uppercase">
               {slide.meta || new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
             </span>
           </motion.div>
@@ -537,7 +560,7 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             <motion.div 
               variants={childVariant}
               transition={smoothTransition}
-              className="mt-8 space-y-2"
+              className="mt-10 space-y-2"
             >
               {slide.items.map((item: any, idx: number) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
@@ -548,20 +571,10 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
               ))}
             </motion.div>
           )}
-          
-          {/* Decorative bottom line */}
-          <motion.div 
-            variants={childVariant}
-            transition={smoothTransition}
-            className="absolute bottom-20 left-12 lg:left-20 flex items-center gap-4"
-          >
-            <div className="w-24 h-[2px] bg-gradient-to-r from-primary to-primary/0" />
-            <div className="w-12 h-[2px] bg-white/10" />
-          </motion.div>
         </div>
         
-        {/* Right side accent */}
-        <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+        {/* Right side accent - stronger */}
+        <div className="absolute right-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
       </motion.div>
     );
   }
