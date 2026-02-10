@@ -1562,13 +1562,9 @@ const PresentationPage = () => {
       <main 
         ref={slideContainerRef}
         className={cn(
-          "relative transition-all duration-300",
-          isExportMode 
-            ? "" // Explicit dimensions set via style below
-            : "flex-1",
-          isPresenterMode && "mr-80"
+          "flex-1 relative transition-all duration-300",
+          isPresenterMode && !isExportMode && "mr-80"
         )}
-        style={isExportMode ? { width: '1920px', height: '1080px' } : undefined}
       >
         <AnimatePresence mode="wait">
           <SlideContent
