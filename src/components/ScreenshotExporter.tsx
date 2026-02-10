@@ -105,6 +105,16 @@ export const ScreenshotExporter = ({
 
     let lastError: unknown;
     for (let attempt = 0; attempt < 3; attempt++) {
+      // Monkey-patch createPattern to gracefully handle 0-sized canvases
+      // instead of throwing (html2canvas bug with background patterns)
+      const origCreatePattern = CanvasRenderingContext2D.prototype.createPattern;
+      CanvasRenderingContext2D.prototype.createPattern = function (image: any, repetition: string | null) {
+        if (image instanceof HTMLCanvasElement && (image.width === 0 || image.height === 0)) {
+          return null;
+        }
+        return origCreatePattern.call(this, image, repetition);
+      };
+
       try {
         const canvas = await html2canvas(element, {
           scale: 2,
@@ -122,11 +132,6 @@ export const ScreenshotExporter = ({
           windowHeight: rect.height,
           foreignObjectRendering: false,
           removeContainer: true,
-          ignoreElements: (el) => {
-            // Only ignore <canvas> elements (helper canvases that crash createPattern)
-            const tag = el.tagName?.toLowerCase();
-            return tag === "canvas";
-          },
           onclone: (_clonedDoc, clonedEl) => {
             // Disable animations/transitions in clone for stable capture
             const style = _clonedDoc.createElement("style");
@@ -152,6 +157,9 @@ export const ScreenshotExporter = ({
           },
         });
 
+        // Restore original
+        CanvasRenderingContext2D.prototype.createPattern = origCreatePattern;
+
         console.log(`Canvas captured: ${canvas.width}x${canvas.height}`);
 
         // Some failures yield a 0x0 canvas; treat as error so we retry.
@@ -161,9 +169,9 @@ export const ScreenshotExporter = ({
 
         return canvas.toDataURL("image/png", 1.0);
       } catch (err) {
+        CanvasRenderingContext2D.prototype.createPattern = origCreatePattern;
         console.error(`Capture attempt ${attempt + 1} failed:`, err);
         lastError = err;
-        // backoff
         await new Promise((r) => setTimeout(r, 300 * (attempt + 1)));
       }
     }
