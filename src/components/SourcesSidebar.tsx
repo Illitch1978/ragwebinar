@@ -59,7 +59,7 @@ const SourcesSidebar = () => {
   );
 
   // Only show inside a project context, not on landing or presentation routes
-  const allowedRoutes = ['/upload', '/overview', '/explore'];
+  const allowedRoutes = ['/upload', '/overview', '/explore', '/talk-to-data'];
   const isAllowed = allowedRoutes.some(route => location.pathname.startsWith(route));
   if (!isAllowed) {
     return null;
