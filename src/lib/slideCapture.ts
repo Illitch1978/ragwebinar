@@ -1,4 +1,4 @@
-import html2canvas from "html2canvas";
+import { domToBlob } from "modern-screenshot";
 import { supabase } from "@/integrations/supabase/client";
 
 export interface CapturedSlide {
@@ -14,21 +14,14 @@ export const captureSlideElement = async (
   element: HTMLElement,
   scale: number = 2
 ): Promise<Blob> => {
-  const canvas = await html2canvas(element, {
+  const blob = await domToBlob(element, {
     scale,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: null,
-    logging: false,
     width: element.offsetWidth,
     height: element.offsetHeight,
   });
 
-  return new Promise((resolve) => {
-    canvas.toBlob((blob) => {
-      resolve(blob!);
-    }, "image/png", 1.0);
-  });
+  if (!blob) throw new Error("Failed to capture slide");
+  return blob;
 };
 
 /**
