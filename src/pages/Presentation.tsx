@@ -1174,45 +1174,50 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
         {/* Premium gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#050505] via-[#0a0a12] to-[#050510]" />
         
-        {/* Animated glow orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/8 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
+      {/* Subtle radial glows */}
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 40%, rgba(10,102,194,0.08) 0%, transparent 60%)' }} />
         
-        <GridBackground />
-        
-        {/* Large blue corner frames */}
-        <div className="absolute top-8 left-8 w-40 h-40">
-          <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary via-primary/70 to-transparent" />
-          <div className="absolute top-0 left-0 h-full w-[3px] bg-gradient-to-b from-primary via-primary/70 to-transparent" />
+        {/* Very subtle grid - matching cover slide subtlety */}
+        <div className="absolute inset-0" style={{ opacity: 0.025 }}>
+          <div 
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+                linear-gradient(to right, white 1px, transparent 1px),
+                linear-gradient(to bottom, white 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px'
+            }}
+          />
         </div>
-        <div className="absolute bottom-8 right-8 w-40 h-40">
-          <div className="absolute bottom-0 right-0 w-full h-[3px] bg-gradient-to-l from-primary via-primary/70 to-transparent" />
-          <div className="absolute bottom-0 right-0 h-full w-[3px] bg-gradient-to-t from-primary via-primary/70 to-transparent" />
-        </div>
         
-        {/* Decorative vertical lines */}
-        <div className="absolute left-[15%] top-[20%] bottom-[20%] w-[1px] bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
-        <div className="absolute right-[15%] top-[20%] bottom-[20%] w-[1px] bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+        {/* Corner frames - matching reference */}
+        <div className="absolute top-8 left-8 w-20 h-20">
+          <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: 'linear-gradient(to right, #0A66C2, transparent)' }} />
+          <div className="absolute top-0 left-0 h-full w-[2px]" style={{ background: 'linear-gradient(to bottom, #0A66C2, transparent)' }} />
+        </div>
+        <div className="absolute bottom-8 right-8 w-20 h-20">
+          <div className="absolute bottom-0 right-0 w-full h-[2px]" style={{ background: 'linear-gradient(to left, #0A66C2, transparent)' }} />
+          <div className="absolute bottom-0 right-0 h-full w-[2px]" style={{ background: 'linear-gradient(to top, #0A66C2, transparent)' }} />
+        </div>
         
         <motion.h1 
           variants={childVariant}
           transition={smoothTransition}
           className="relative z-10 font-serif text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-6"
         >
-          <span className="text-primary">{slide.title?.split(' ')[0]}</span>{' '}
+          <span style={{ color: '#0A66C2' }}>{slide.title?.split(' ')[0]}</span>{' '}
           <span className="text-white">{slide.title?.split(' ').slice(1, -1).join(' ')}</span>{' '}
-          <span className="text-primary">{slide.title?.split(' ').slice(-1)}</span>
+          <span style={{ color: '#0A66C2' }}>{slide.title?.split(' ').slice(-1)}</span>
         </motion.h1>
         
-        {slide.subtitle && (
-          <motion.p 
-            variants={childVariant}
-            transition={smoothTransition}
-            className="relative z-10 text-lg md:text-xl text-white/50 mt-6 font-light max-w-3xl leading-relaxed"
-          >
-            {slide.subtitle}
-          </motion.p>
-        )}
+        <motion.p 
+          variants={childVariant}
+          transition={smoothTransition}
+          className="relative z-10 text-lg md:text-xl text-white/40 mt-6 font-light max-w-3xl leading-relaxed italic"
+        >
+          Transform scattered intelligence into augmented memory. Business ready.
+        </motion.p>
         
         {/* Contact items if present */}
         {slide.items && slide.items.length > 0 && (
