@@ -238,12 +238,6 @@ const ObjectivesStep = ({
                 {isUploading ? 'Reading...' : 'Upload document'}
               </Button>
             </div>
-            <button
-              onClick={() => setShowGuided(false)}
-              className="text-xs text-primary hover:underline font-medium mt-2"
-            >
-              Skip — write objectives directly
-            </button>
           </div>
         </div>
       ) : (
