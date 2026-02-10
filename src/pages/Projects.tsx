@@ -334,13 +334,13 @@ const Projects = () => {
 
       {/* Create Project Wizard Dialog */}
       <Dialog open={wizardOpen} onOpenChange={(open) => { if (!isGenerating) setWizardOpen(open); }}>
-        <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto bg-background border-border p-0">
-            <DialogHeader className="px-8 pt-4 pb-4 border-b border-border sticky top-0 bg-background z-10">
-              <DialogTitle className="font-serif text-2xl font-bold text-foreground text-center">
+        <DialogContent className="max-w-5xl h-[80vh] flex flex-col bg-background border-border p-0">
+            <DialogHeader className="px-8 pt-6 pb-4 border-b border-border bg-background z-10 shrink-0">
+              <DialogTitle className="font-serif text-2xl font-bold text-foreground text-center mb-4">
                 {projectName.trim() ? projectName : 'Create a new project'}
               </DialogTitle>
               {/* Step Indicator */}
-              <div className="flex items-center justify-center gap-3 mt-4">
+              <div className="flex items-center justify-center gap-3">
               {[
                 { num: 1, label: 'Project Details' },
                 { num: 2, label: 'Objectives' },
@@ -370,7 +370,7 @@ const Projects = () => {
             </div>
           </DialogHeader>
 
-          <div className="px-8 py-6">
+          <div className="px-8 py-6 flex-1 overflow-y-auto">
             {currentStep === 1 && (
               <ProjectDetailsStep
                 projectName={projectName}
