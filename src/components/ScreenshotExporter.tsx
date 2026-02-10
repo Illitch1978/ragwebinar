@@ -140,19 +140,21 @@ export const ScreenshotExporter = ({
                 animation: none !important; 
                 animation-delay: 0s !important;
                 transition: none !important; 
-                opacity: 1 !important;
-                transform: none !important;
               }
               .animate-ping { display: none !important; }
             `;
             (_clonedDoc.head || _clonedDoc.body)?.appendChild(style);
 
-            // Strip framer-motion inline styles that hide content
-            clonedEl.querySelectorAll('*').forEach((el) => {
+            // Force ALL elements visible — html2canvas reads inline styles,
+            // so we must set them inline rather than relying on CSS cascade.
+            const allEls = [clonedEl, ...Array.from(clonedEl.querySelectorAll('*'))];
+            allEls.forEach((el) => {
               if (el instanceof HTMLElement) {
-                // Remove inline opacity/transform set by framer-motion
-                if (el.style.opacity) el.style.removeProperty('opacity');
-                if (el.style.transform) el.style.removeProperty('transform');
+                // Force opacity to 1 inline (overrides framer-motion's opacity: 0)
+                el.style.opacity = '1';
+                // Remove transforms that may push content off-screen,
+                // but preserve position/layout transforms via CSS
+                el.style.transform = 'none';
               }
             });
 
@@ -208,7 +210,7 @@ export const ScreenshotExporter = ({
         onSlideChange(i);
         
         // Wait for the slide to render and animate in
-        await new Promise((resolve) => setTimeout(resolve, 900));
+        await new Promise((resolve) => setTimeout(resolve, 1500));
 
         // Capture the slide
         const imageUrl = await captureSlide();
