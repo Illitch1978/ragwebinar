@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Sparkles, Loader2, X, Plus } from "lucide-react";
+import { ArrowLeft, Loader2, X, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -24,6 +24,14 @@ const ThemeStep = ({
 }: ThemeStepProps) => {
   const [newTheme, setNewTheme] = useState('');
   const [isGeneratingThemes, setIsGeneratingThemes] = useState(false);
+
+  // Auto-generate themes on mount if none exist and objectives are defined
+  useEffect(() => {
+    if (themes.length === 0 && description.trim()) {
+      handleGenerateThemes();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const addTheme = () => {
     if (!newTheme.trim() || themes.includes(newTheme.trim())) return;
@@ -62,36 +70,37 @@ const ThemeStep = ({
     <div className="space-y-8">
       {/* Info Banner */}
       <div className="bg-card border border-border p-5">
-        <p className="text-sm text-foreground mb-1">
-          Hit <strong>Generate Themes</strong> for an AI-generated list based on your business objectives, or type in your own.
-        </p>
-        <p className="text-xs text-muted-foreground">
-          These are the key topics you want to analyze in your research.
-        </p>
-        <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1.5">
-          💡 Tip: Start with broad topics (e.g. <em>product usage</em>, <em>purchase drivers</em>), then refine based on what emerges in the data.
-        </p>
+        {isGeneratingThemes ? (
+          <div className="flex items-center gap-3">
+            <Loader2 className="w-4 h-4 animate-spin text-primary" />
+            <p className="text-sm text-foreground">Generating themes based on your objectives...</p>
+          </div>
+        ) : (
+          <>
+            <p className="text-sm text-foreground mb-1">
+              Themes have been generated based on your project objectives. You can edit, remove, or add more below.
+            </p>
+            <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1.5">
+              💡 Tip: Start with broad topics (e.g. <em>product usage</em>, <em>purchase drivers</em>), then refine based on what emerges in the data.
+            </p>
+          </>
+        )}
       </div>
 
-      {/* Generate Button */}
+      {/* Themes Header */}
       <div className="flex items-center justify-between">
         <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest">
           Themes
         </label>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleGenerateThemes}
-          disabled={isGeneratingThemes}
-          className="gap-2"
-        >
-          {isGeneratingThemes ? (
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
-          ) : (
-            <Sparkles className="w-3.5 h-3.5" />
-          )}
-          {isGeneratingThemes ? 'Generating...' : 'Generate themes'}
-        </Button>
+        {themes.length > 0 && (
+          <button
+            onClick={handleGenerateThemes}
+            disabled={isGeneratingThemes}
+            className="text-xs text-primary hover:underline font-medium disabled:opacity-50"
+          >
+            {isGeneratingThemes ? 'Regenerating...' : 'Regenerate'}
+          </button>
+        )}
       </div>
 
       {/* Themes List */}
@@ -161,10 +170,7 @@ const ThemeStep = ({
               Generating...
             </>
           ) : (
-            <>
-              <Sparkles className="w-4 h-4 mr-2" />
-              Create Project
-            </>
+            'Create Project'
           )}
         </Button>
       </div>
