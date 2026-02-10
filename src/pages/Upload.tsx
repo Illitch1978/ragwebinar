@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput, ChevronDown, Search, LockOpen } from "lucide-react";
+import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput, ChevronDown, Search, LockOpen, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +22,12 @@ import MetadataStep, { MetadataField } from "@/components/creation/MetadataStep"
 import ThemeStep from "@/components/creation/ThemeStep";
 import FormatOptionsStep, { DeckLength, ArticlePersona, WordCountRange } from "@/components/creation/FormatOptionsStep";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -29,7 +35,8 @@ import {
 } from "@/components/ui/tooltip";
 
 const UploadPage = () => {
-  // Wizard step state
+  // Wizard dialog
+  const [wizardOpen, setWizardOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   
   // Step 1: Project Details
@@ -380,96 +387,107 @@ const UploadPage = () => {
         <div className="max-w-4xl mx-auto">
           {/* Hero */}
           <div className="text-center mb-12 lg:mb-16">
-            <h1 className="font-serif text-[3rem] font-bold text-[#1C1C1C] mb-5 tracking-tight leading-tight">
+            <h1 className="font-serif text-[3rem] font-bold text-foreground mb-5 tracking-tight leading-tight">
               Content to Premium Decks
             </h1>
-            <p className="font-serif text-[1.4rem] text-[#003366] font-medium italic max-w-2xl mx-auto leading-relaxed">
+            <p className="font-serif text-[1.4rem] text-primary font-medium italic max-w-2xl mx-auto leading-relaxed mb-8">
               Transform raw content into polished presentations, proposals, and executive documents.
             </p>
+            <Button
+              onClick={() => { setWizardOpen(true); setCurrentStep(1); }}
+              size="lg"
+              className={cn(
+                "px-10 py-6 bg-foreground text-background hover:bg-primary hover:text-primary-foreground",
+                "font-mono text-[11px] font-bold tracking-[0.3em] uppercase",
+                "transition-all duration-500 group"
+              )}
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Create New Project
+            </Button>
           </div>
 
-          {/* Step Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex items-center justify-center gap-3 mb-10"
-          >
-            {[
-              { num: 1, label: 'Project Details' },
-              { num: 2, label: 'Objectives' },
-              { num: 3, label: 'Metadata' },
-              { num: 4, label: 'Themes' },
-            ].map((step, i) => (
-              <div key={step.num} className="flex items-center gap-3">
-                {i > 0 && <div className="w-6 h-px bg-border" />}
-                <div className={cn(
-                  "flex items-center gap-2 px-3 py-1.5 border transition-colors",
-                  currentStep === step.num
-                    ? "border-primary bg-primary/10 text-primary"
-                    : currentStep > step.num
-                    ? "border-primary/40 bg-primary/5 text-primary/70"
-                    : "border-border text-muted-foreground"
-                )}>
-                  <span className={cn(
-                    "w-5 h-5 flex items-center justify-center text-[10px] font-bold",
-                    currentStep > step.num ? "bg-primary text-primary-foreground" : "bg-current/20"
-                  )}>
-                    {currentStep > step.num ? '✓' : step.num}
-                  </span>
-                  <span className="font-mono text-[9px] uppercase tracking-widest hidden sm:inline">{step.label}</span>
+          {/* Create Project Dialog */}
+          <Dialog open={wizardOpen} onOpenChange={setWizardOpen}>
+            <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-background border-border p-0">
+              <DialogHeader className="px-8 pt-8 pb-4 border-b border-border sticky top-0 bg-background z-10">
+                <DialogTitle className="font-serif text-2xl font-bold text-foreground text-center">
+                  Create New Project
+                </DialogTitle>
+                {/* Step Indicator */}
+                <div className="flex items-center justify-center gap-3 mt-4">
+                  {[
+                    { num: 1, label: 'Project Details' },
+                    { num: 2, label: 'Objectives' },
+                    { num: 3, label: 'Metadata' },
+                    { num: 4, label: 'Themes' },
+                  ].map((step, i) => (
+                    <div key={step.num} className="flex items-center gap-3">
+                      {i > 0 && <div className="w-6 h-px bg-border" />}
+                      <div className={cn(
+                        "flex items-center gap-2 px-3 py-1.5 border transition-colors",
+                        currentStep === step.num
+                          ? "border-primary bg-primary/10 text-primary"
+                          : currentStep > step.num
+                          ? "border-primary/40 bg-primary/5 text-primary/70"
+                          : "border-border text-muted-foreground"
+                      )}>
+                        <span className={cn(
+                          "w-5 h-5 flex items-center justify-center text-[10px] font-bold",
+                          currentStep > step.num ? "bg-primary text-primary-foreground" : "bg-current/20"
+                        )}>
+                          {currentStep > step.num ? '✓' : step.num}
+                        </span>
+                        <span className="font-mono text-[9px] uppercase tracking-widest hidden sm:inline">{step.label}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
-          </motion.div>
+              </DialogHeader>
 
-          {/* Wizard Steps */}
-          {currentStep === 1 && (
-            <div>
-              <ProjectDetailsStep
-                projectName={projectName}
-                setProjectName={setProjectName}
-                language={language}
-                setLanguage={setLanguage}
-                analysisTone={analysisTone}
-                setAnalysisTone={setAnalysisTone}
-                onNext={() => setCurrentStep(2)}
-              />
-            </div>
-          )}
-          {currentStep === 2 && (
-            <div>
-              <ObjectivesStep
-                description={description}
-                setDescription={setDescription}
-                outputFormat={outputFormat}
-                setOutputFormat={setOutputFormat}
-                onBack={() => setCurrentStep(1)}
-                onNext={() => setCurrentStep(3)}
-              />
-            </div>
-          )}
-          {currentStep === 3 && (
-            <div>
-              <MetadataStep
-                metadataFields={metadataFields}
-                setMetadataFields={setMetadataFields}
-                onBack={() => setCurrentStep(2)}
-                onNext={() => setCurrentStep(4)}
-              />
-            </div>
-          )}
-          {currentStep === 4 && (
-            <div>
-              <ThemeStep
-                themes={themes}
-                setThemes={setThemes}
-                description={description}
-                onBack={() => setCurrentStep(3)}
-                onGenerate={handleGenerate}
-                isGenerating={isGenerating}
-              />
-            </div>
-          )}
+              <div className="px-8 py-6">
+                {currentStep === 1 && (
+                  <ProjectDetailsStep
+                    projectName={projectName}
+                    setProjectName={setProjectName}
+                    language={language}
+                    setLanguage={setLanguage}
+                    analysisTone={analysisTone}
+                    setAnalysisTone={setAnalysisTone}
+                    onNext={() => setCurrentStep(2)}
+                  />
+                )}
+                {currentStep === 2 && (
+                  <ObjectivesStep
+                    description={description}
+                    setDescription={setDescription}
+                    outputFormat={outputFormat}
+                    setOutputFormat={setOutputFormat}
+                    onBack={() => setCurrentStep(1)}
+                    onNext={() => setCurrentStep(3)}
+                  />
+                )}
+                {currentStep === 3 && (
+                  <MetadataStep
+                    metadataFields={metadataFields}
+                    setMetadataFields={setMetadataFields}
+                    onBack={() => setCurrentStep(2)}
+                    onNext={() => setCurrentStep(4)}
+                  />
+                )}
+                {currentStep === 4 && (
+                  <ThemeStep
+                    themes={themes}
+                    setThemes={setThemes}
+                    description={description}
+                    onBack={() => setCurrentStep(3)}
+                    onGenerate={handleGenerate}
+                    isGenerating={isGenerating}
+                  />
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
 
 
           {/* Saved Presentations with Search */}
