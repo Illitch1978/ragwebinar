@@ -1484,6 +1484,7 @@ const PresentationPage = () => {
           "flex-1 relative transition-all duration-300",
           isPresenterMode && !isExportMode && "mr-80"
         )}
+        style={{ backgroundColor: isDark ? '#0a0a0f' : '#F9F8F4' }}
       >
         <AnimatePresence mode="wait">
           <SlideContent
