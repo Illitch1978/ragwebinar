@@ -1177,19 +1177,6 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
       {/* Subtle radial glows */}
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 40%, rgba(10,102,194,0.08) 0%, transparent 60%)' }} />
         
-        {/* Very subtle grid - matching cover slide subtlety */}
-        <div className="absolute inset-0" style={{ opacity: 0.025 }}>
-          <div 
-            className="w-full h-full"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, white 1px, transparent 1px),
-                linear-gradient(to bottom, white 1px, transparent 1px)
-              `,
-              backgroundSize: '60px 60px'
-            }}
-          />
-        </div>
         
         {/* Corner frames - matching reference */}
         <div className="absolute top-8 left-8 w-20 h-20">
