@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import html2canvas from "html2canvas";
+import { domToPng } from "modern-screenshot";
 import { Download, Loader2, X, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -97,83 +97,56 @@ export const ScreenshotExporter = ({
     await waitForNonZeroSize(element);
     await waitForAssets(element);
 
-    // Let layout/AnimatePresence settle
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    // Let animations settle
+    await new Promise((resolve) => setTimeout(resolve, 400));
 
     const rect = element.getBoundingClientRect();
     console.log(`Capturing slide - element size: ${rect.width}x${rect.height}`);
 
     let lastError: unknown;
     for (let attempt = 0; attempt < 3; attempt++) {
-      // Monkey-patch createPattern to gracefully handle 0-sized canvases
-      // instead of throwing (html2canvas bug with background patterns)
-      const origCreatePattern = CanvasRenderingContext2D.prototype.createPattern;
-      CanvasRenderingContext2D.prototype.createPattern = function (image: any, repetition: string | null) {
-        if (image instanceof HTMLCanvasElement && (image.width === 0 || image.height === 0)) {
-          return null;
-        }
-        return origCreatePattern.call(this, image, repetition);
-      };
-
       try {
-        const canvas = await html2canvas(element, {
+        const dataUrl = await domToPng(element, {
           scale: 1.5,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: "#0a0a0f",
-          logging: true,
           width: rect.width,
           height: rect.height,
-          foreignObjectRendering: true,
-          removeContainer: true,
-          onclone: (_clonedDoc, clonedEl) => {
-            // Disable animations in clone
-            const style = _clonedDoc.createElement("style");
-            style.textContent = `
-              *, *::before, *::after { 
-                animation: none !important; 
-                animation-delay: 0s !important;
-                transition: none !important; 
-              }
-              .animate-ping { display: none !important; }
-            `;
-            (_clonedDoc.head || _clonedDoc.body)?.appendChild(style);
-
-            // Force opacity to 1 on all elements (framer-motion sets opacity: 0 inline)
-            // DO NOT touch transform — it breaks flexbox/absolute positioning
-            const allEls = [clonedEl, ...Array.from(clonedEl.querySelectorAll('*'))];
-            allEls.forEach((el) => {
-              if (el instanceof HTMLElement) {
-                el.style.opacity = '1';
-              }
-            });
-
-            // Remove canvases from the clone
-            _clonedDoc.querySelectorAll("canvas").forEach((c) => c.remove());
-            
-            if (clonedEl instanceof HTMLElement) {
-              clonedEl.style.width = `${rect.width}px`;
-              clonedEl.style.height = `${rect.height}px`;
+          style: {
+            // Force all content visible in the clone
+            opacity: '1',
+          },
+          filter: (node: Node) => {
+            // Remove canvas elements that cause issues
+            if (node instanceof HTMLCanvasElement) return false;
+            // Remove ping animations
+            if (node instanceof HTMLElement && node.classList.contains('animate-ping')) return false;
+            return true;
+          },
+          onCloneNode: (clonedNode: Node) => {
+            if (clonedNode instanceof HTMLElement) {
+              // Force all elements to be visible (override framer-motion opacity: 0)
+              const allEls = [clonedNode, ...Array.from(clonedNode.querySelectorAll('*'))];
+              allEls.forEach((el) => {
+                if (el instanceof HTMLElement) {
+                  el.style.opacity = '1';
+                  // Disable animations
+                  el.style.animation = 'none';
+                  el.style.transition = 'none';
+                }
+              });
             }
           },
         });
 
-        // Restore original
-        CanvasRenderingContext2D.prototype.createPattern = origCreatePattern;
-
-        console.log(`Canvas captured: ${canvas.width}x${canvas.height}`);
-
-        // Some failures yield a 0x0 canvas; treat as error so we retry.
-        if (!canvas.width || !canvas.height) {
-          throw new Error("Captured canvas is empty");
+        if (!dataUrl) {
+          throw new Error("Captured image is empty");
         }
 
-        return canvas.toDataURL("image/png", 1.0);
+        console.log(`Slide captured successfully (attempt ${attempt + 1})`);
+        return dataUrl;
       } catch (err) {
-        CanvasRenderingContext2D.prototype.createPattern = origCreatePattern;
         console.error(`Capture attempt ${attempt + 1} failed:`, err);
         lastError = err;
-        await new Promise((r) => setTimeout(r, 300 * (attempt + 1)));
+        await new Promise((r) => setTimeout(r, 500 * (attempt + 1)));
       }
     }
 
