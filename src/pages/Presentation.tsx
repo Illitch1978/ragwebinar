@@ -966,9 +966,9 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
     const authorText = slide.author || slide.subtitle;
     const isFirstQuote = slide.meta === '1';
     
-    // Dynamic author image mapping - only for first quote
+    // Dynamic author image mapping - show portrait for any quote with a known author
     const getAuthorImage = (author: string | undefined) => {
-      if (!author || !isFirstQuote) return null;
+      if (!author) return null;
       const authorLower = author.toLowerCase();
       if (authorLower.includes('owen')) return owenJenkinsImg;
       if (authorLower.includes('illitch')) return illitchImg;
@@ -980,8 +980,8 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
     
     const authorImage = getAuthorImage(authorText);
     
-    // Non-first quotes: centered big text layout
-    if (!isFirstQuote) {
+    // Quotes without a portrait: centered big text layout
+    if (!authorImage) {
       return (
         <motion.div
           variants={staggerChildren}
