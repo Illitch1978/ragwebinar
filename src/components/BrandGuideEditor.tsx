@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronRight, Palette, Type, Zap, Layout, MousePointer, Shapes, Image, AlertTriangle } from "lucide-react";
+import { ChevronDown, ChevronRight, Palette, Type, Zap, Layout, MousePointer, Shapes, Image, AlertTriangle, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BrandGuide } from "@/hooks/useBrandGuides";
+import { exportBrandGuideToPdf } from "@/lib/brandGuidePdfExport";
+import { toast } from "sonner";
 import {
   Collapsible,
   CollapsibleContent,
@@ -289,6 +291,22 @@ const BrandGuideCard = ({ guide }: { guide: BrandGuide }) => {
               Default
             </span>
           )}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toast.info("Generating PDF...");
+              exportBrandGuideToPdf({
+                name: guide.name,
+                description: guide.description,
+                design_system: guide.design_system as Record<string, any>,
+                slide_templates: guide.slide_templates as any[],
+              }).then(() => toast.success("PDF downloaded!")).catch(() => toast.error("PDF export failed"));
+            }}
+            className="ml-2 p-1.5 rounded-sm text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+            title="Export as PDF"
+          >
+            <Download className="w-4 h-4" />
+          </button>
         </div>
         <ChevronDown className={cn(
           "w-5 h-5 text-muted-foreground transition-transform duration-200",
