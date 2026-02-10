@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { domToPng } from "modern-screenshot";
+import { domToJpeg } from "modern-screenshot";
 import { Download, Loader2, X, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -115,8 +115,9 @@ export const ScreenshotExporter = ({
           }
         }
 
-        const dataUrl = await domToPng(element, {
+        const dataUrl = await domToJpeg(element, {
           scale: 1,
+          quality: 0.85,
           width: rect.width,
           height: rect.height,
           style: {
