@@ -66,6 +66,21 @@ const GUIDED_PROMPTS = [
   { key: 'constraints', label: 'Constraints', placeholder: 'Timeline, budget, or scope limitations?' },
 ];
 
+/** Strip any residual markdown the AI might return */
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/^#{1,6}\s+/gm, '')          // ### headings
+    .replace(/\*\*\*(.*?)\*\*\*/g, '$1')   // ***bold italic***
+    .replace(/\*\*(.*?)\*\*/g, '$1')       // **bold**
+    .replace(/\*(.*?)\*/g, '$1')           // *italic*
+    .replace(/__(.*?)__/g, '$1')           // __underline__
+    .replace(/_(.*?)_/g, '$1')             // _italic_
+    .replace(/`(.*?)`/g, '$1')             // `code`
+    .replace(/^[-*+]\s+/gm, '• ')          // list markers → bullets
+    .replace(/\n{3,}/g, '\n\n')            // collapse newlines
+    .trim();
+}
+
 interface ObjectivesStepProps {
   description: string;
   setDescription: (value: string) => void;
@@ -85,6 +100,7 @@ const ObjectivesStep = ({
 }: ObjectivesStepProps) => {
   const [guidedInputs, setGuidedInputs] = useState<Record<string, string>>({});
   const [isEnhancing, setIsEnhancing] = useState(false);
+  const [hasBeenEnhanced, setHasBeenEnhanced] = useState(false);
   const [showGuided, setShowGuided] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -112,11 +128,10 @@ const ObjectivesStep = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const allowedTypes = ['text/plain', 'text/markdown', 'text/html'];
     const allowedExtensions = ['.txt', '.md', '.html'];
     const ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
 
-    if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(ext)) {
+    if (!allowedExtensions.includes(ext)) {
       toast.error("Please upload a .txt, .md, or .html file");
       return;
     }
@@ -124,10 +139,9 @@ const ObjectivesStep = ({
     setIsUploading(true);
     try {
       const text = await file.text();
-      // Strip any HTML tags if it's an HTML file
       const cleaned = ext === '.html'
         ? text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
-        : text;
+        : stripMarkdown(text);
       
       setDescription(description ? `${description}\n\n${cleaned}` : cleaned);
       setShowGuided(false);
@@ -152,13 +166,8 @@ const ObjectivesStep = ({
       });
       if (error) throw error;
       if (data?.enhanced) {
-        const clean = data.enhanced
-          .replace(/^#{1,6}\s+/gm, '')
-          .replace(/\*\*(.*?)\*\*/g, '$1')
-          .replace(/\*(.*?)\*/g, '$1')
-          .replace(/^[-*]\s+/gm, '• ')
-          .replace(/\n{3,}/g, '\n\n');
-        setDescription(clean);
+        setDescription(stripMarkdown(data.enhanced));
+        setHasBeenEnhanced(true);
         toast.success("Objectives enhanced!");
       }
     } catch (err) {
@@ -169,9 +178,22 @@ const ObjectivesStep = ({
     }
   };
 
+  // Hidden file input shared across both views
+  const fileInput = (
+    <input
+      ref={fileInputRef}
+      type="file"
+      accept=".txt,.md,.html"
+      onChange={handleFileUpload}
+      className="hidden"
+    />
+  );
+
   return (
     <div className="flex flex-col h-full min-h-0">
-      {/* Guided Prompts - only shown before objectives are compiled */}
+      {fileInput}
+
+      {/* Guided Prompts - only shown before objectives exist */}
       {showGuided && !description.trim() ? (
         <div className="flex-1 min-h-0">
           <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-2">
@@ -215,13 +237,6 @@ const ObjectivesStep = ({
                 <Upload className="w-3.5 h-3.5" />
                 {isUploading ? 'Reading...' : 'Upload document'}
               </Button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".txt,.md,.html"
-                onChange={handleFileUpload}
-                className="hidden"
-              />
             </div>
             <button
               onClick={() => setShowGuided(false)}
@@ -232,7 +247,7 @@ const ObjectivesStep = ({
           </div>
         </div>
       ) : (
-        /* Project Objectives - full space when guided is hidden */
+        /* Project Objectives - full space */
         <div className="flex-1 min-h-0 flex flex-col">
           <div className="flex items-center justify-between mb-2">
             <label className="block font-mono text-[11px] text-muted-foreground uppercase tracking-widest">
@@ -247,28 +262,28 @@ const ObjectivesStep = ({
                   Show guided prompts
                 </button>
               )}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => fileInputRef.current?.click()}
-                disabled={isUploading}
-                className="gap-2"
-              >
-                <Upload className="w-3.5 h-3.5" />
-                {isUploading ? 'Reading...' : 'Upload document'}
-              </Button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".txt,.md,.html"
-                onChange={handleFileUpload}
-                className="hidden"
-              />
+              {/* Upload only before objectives are defined */}
+              {!description.trim() && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploading}
+                  className="gap-2"
+                >
+                  <Upload className="w-3.5 h-3.5" />
+                  {isUploading ? 'Reading...' : 'Upload document'}
+                </Button>
+              )}
             </div>
           </div>
           <Textarea
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => {
+              setDescription(e.target.value);
+              // If user manually edits after enhancement, allow re-enhancing
+              if (hasBeenEnhanced) setHasBeenEnhanced(false);
+            }}
             placeholder="Describe your project objectives in detail..."
             className="flex-1 min-h-[200px] px-5 py-4 bg-card border-border text-sm leading-relaxed resize-none"
           />
@@ -278,22 +293,25 @@ const ObjectivesStep = ({
                 {description.length.toLocaleString()} characters
               </p>
             )}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleEnhanceWithAI}
-              disabled={isEnhancing || !description.trim()}
-              className="ml-auto"
-            >
-              {isEnhancing ? (
-                <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                  Enhancing...
-                </>
-              ) : (
-                'Enhance with AI'
-              )}
-            </Button>
+            {/* Hide Enhance button once it's been used */}
+            {!hasBeenEnhanced && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleEnhanceWithAI}
+                disabled={isEnhancing || !description.trim()}
+                className="ml-auto"
+              >
+                {isEnhancing ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                    Enhancing...
+                  </>
+                ) : (
+                  'Enhance with AI'
+                )}
+              </Button>
+            )}
           </div>
         </div>
       )}
