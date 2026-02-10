@@ -553,6 +553,21 @@ const UploadPage = () => {
                                 </TooltipContent>
                               </Tooltip>
                               
+                              {/* Download PDF */}
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <button
+                                    onClick={(e) => handleExportPdf(e, presentation)}
+                                    className="p-1.5 hover:bg-muted rounded transition-colors"
+                                  >
+                                    <FileOutput className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+                                  </button>
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="text-xs">
+                                  Download PDF
+                                </TooltipContent>
+                              </Tooltip>
+
                               {/* Copy Link */}
                               <Tooltip>
                                 <TooltipTrigger asChild>
