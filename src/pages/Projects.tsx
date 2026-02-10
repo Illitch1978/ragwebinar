@@ -340,7 +340,7 @@ const Projects = () => {
               {projectName.trim() ? projectName : 'Create a new project'}
             </DialogTitle>
             {/* Step Indicator */}
-            <div className="flex items-center justify-center gap-3 mt-4">
+            <div className="flex items-center justify-center gap-3 mt-6">
               {[
                 { num: 1, label: 'Project Details' },
                 { num: 2, label: 'Objectives' },
