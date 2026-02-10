@@ -111,28 +111,19 @@ export const ScreenshotExporter = ({
           width: rect.width,
           height: rect.height,
           style: {
-            // Force all content visible in the clone
             opacity: '1',
           },
           filter: (node: Node) => {
-            // Remove canvas elements that cause issues
             if (node instanceof HTMLCanvasElement) return false;
-            // Remove ping animations
             if (node instanceof HTMLElement && node.classList.contains('animate-ping')) return false;
             return true;
           },
-          onCloneNode: (clonedNode: Node) => {
-            if (clonedNode instanceof HTMLElement) {
-              // Force all elements to be visible (override framer-motion opacity: 0)
-              const allEls = [clonedNode, ...Array.from(clonedNode.querySelectorAll('*'))];
-              allEls.forEach((el) => {
-                if (el instanceof HTMLElement) {
-                  el.style.opacity = '1';
-                  // Disable animations
-                  el.style.animation = 'none';
-                  el.style.transition = 'none';
-                }
-              });
+          // Force every single cloned element to be visible
+          onCloneEachNode: (cloned: Node) => {
+            if (cloned instanceof HTMLElement) {
+              cloned.style.opacity = '1';
+              cloned.style.animation = 'none';
+              cloned.style.transition = 'none';
             }
           },
         });
