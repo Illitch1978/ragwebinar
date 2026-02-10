@@ -106,18 +106,20 @@ export const ScreenshotExporter = ({
     let lastError: unknown;
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
+        // Use scale 1 for large export containers (1920x1080) to avoid memory issues
+        const captureScale = rect.width > 1200 ? 1 : 2;
         const canvas = await html2canvas(element, {
-          scale: 2,
+          scale: captureScale,
           useCORS: true,
           allowTaint: true,
-          backgroundColor: "#0a0a0f", // Use solid dark background to avoid pattern issues
-          logging: true, // Enable logging to debug
+          backgroundColor: "#0a0a0f",
+          logging: false,
           width: rect.width,
           height: rect.height,
           x: 0,
           y: 0,
-          scrollX: 0,
-          scrollY: 0,
+          scrollX: -window.scrollX,
+          scrollY: -window.scrollY,
           windowWidth: rect.width,
           windowHeight: rect.height,
           foreignObjectRendering: false, // Disable foreignObject which can cause issues

@@ -1547,22 +1547,28 @@ const PresentationPage = () => {
       "h-screen flex flex-col overflow-hidden transition-colors duration-500 font-sans selection:bg-[#E1F5FE] selection:text-[#0D9BDD]",
       isDark ? "bg-[#0a0a0f]" : "bg-[#F9F8F4] text-[#1C1C1C]"
     )}>
-      {/* Header - minimal, just progress */}
-      <header className={cn(
-        "absolute top-0 z-20 px-8 py-6 transition-colors duration-500",
-        isPresenterMode ? "right-80" : "right-0",
-        isDark ? "text-white" : "text-foreground"
-      )}>
-        <ProgressBar current={currentSlide} total={slides.length} />
-      </header>
+      {/* Header - minimal, just progress (hidden in export mode) */}
+      {!isExportMode && (
+        <header className={cn(
+          "absolute top-0 z-20 px-8 py-6 transition-colors duration-500",
+          isPresenterMode ? "right-80" : "right-0",
+          isDark ? "text-white" : "text-foreground"
+        )}>
+          <ProgressBar current={currentSlide} total={slides.length} />
+        </header>
+      )}
 
       {/* Slide content */}
       <main 
         ref={slideContainerRef}
         className={cn(
-          "flex-1 relative transition-all duration-300",
+          "relative transition-all duration-300",
+          isExportMode 
+            ? "" // Explicit dimensions set via style below
+            : "flex-1",
           isPresenterMode && "mr-80"
         )}
+        style={isExportMode ? { width: '1920px', height: '1080px' } : undefined}
       >
         <AnimatePresence mode="wait">
           <SlideContent
@@ -1574,66 +1580,68 @@ const PresentationPage = () => {
         </AnimatePresence>
       </main>
 
-      {/* Footer - Logo and presenter toggle */}
-      <footer className={cn(
-        "absolute bottom-0 left-0 right-0 z-20 px-8 py-6 transition-colors duration-500 flex justify-between items-center",
-        isDark ? "text-white" : "text-foreground",
-        isPresenterMode && "right-80"
-      )}>
-        <button
-          onClick={() => navigate('/')}
-          className="group flex items-center gap-1.5 transition-opacity hover:opacity-80"
-        >
-          <span className={cn(
-            "font-serif font-bold text-xl tracking-tight lowercase transition-colors",
-            isDark ? "text-white/60 group-hover:text-primary" : "text-foreground/50 group-hover:text-primary"
-          )}>
-            rubiklab
-          </span>
-          <div className="relative flex items-center justify-center">
-            <div className="absolute w-2.5 h-2.5 bg-primary rounded-full animate-ping opacity-20" />
-            <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
-          </div>
-        </button>
+      {/* Footer - Logo and presenter toggle (hidden in export mode) */}
+      {!isExportMode && (
+        <footer className={cn(
+          "absolute bottom-0 left-0 right-0 z-20 px-8 py-6 transition-colors duration-500 flex justify-between items-center",
+          isDark ? "text-white" : "text-foreground",
+          isPresenterMode && "right-80"
+        )}>
+          <button
+            onClick={() => navigate('/')}
+            className="group flex items-center gap-1.5 transition-opacity hover:opacity-80"
+          >
+            <span className={cn(
+              "font-serif font-bold text-xl tracking-tight lowercase transition-colors",
+              isDark ? "text-white/60 group-hover:text-primary" : "text-foreground/50 group-hover:text-primary"
+            )}>
+              rubiklab
+            </span>
+            <div className="relative flex items-center justify-center">
+              <div className="absolute w-2.5 h-2.5 bg-primary rounded-full animate-ping opacity-20" />
+              <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
+            </div>
+          </button>
 
-        {/* Presenter mode toggle */}
-        {isPresenterMode ? (
-          <button
-            onClick={() => {
-              const newParams = new URLSearchParams(searchParams);
-              newParams.delete('mode');
-              navigate(`/presentation?${newParams.toString()}`, { replace: true });
-            }}
-            className={cn(
-              "flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium transition-all opacity-60 hover:opacity-100",
-              isDark 
-                ? "bg-white/10 text-white/80 hover:bg-white/20" 
-                : "bg-muted text-muted-foreground hover:bg-muted/80"
-            )}
-            title="Exit presenter mode"
-          >
-            <StickyNote className="w-3 h-3" />
-            <span>Exit Notes</span>
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              const newParams = new URLSearchParams(searchParams);
-              newParams.set('mode', 'presenter');
-              navigate(`/presentation?${newParams.toString()}`, { replace: true });
-            }}
-            className={cn(
-              "p-2 rounded-lg transition-all opacity-40 hover:opacity-100",
-              isDark 
-                ? "text-white/60 hover:bg-white/10 hover:text-white" 
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
-            )}
-            title="Enter presenter mode (N)"
-          >
-            <StickyNote className="w-4 h-4" />
-          </button>
-        )}
-      </footer>
+          {/* Presenter mode toggle */}
+          {isPresenterMode ? (
+            <button
+              onClick={() => {
+                const newParams = new URLSearchParams(searchParams);
+                newParams.delete('mode');
+                navigate(`/presentation?${newParams.toString()}`, { replace: true });
+              }}
+              className={cn(
+                "flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium transition-all opacity-60 hover:opacity-100",
+                isDark 
+                  ? "bg-white/10 text-white/80 hover:bg-white/20" 
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              )}
+              title="Exit presenter mode"
+            >
+              <StickyNote className="w-3 h-3" />
+              <span>Exit Notes</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                const newParams = new URLSearchParams(searchParams);
+                newParams.set('mode', 'presenter');
+                navigate(`/presentation?${newParams.toString()}`, { replace: true });
+              }}
+              className={cn(
+                "p-2 rounded-lg transition-all opacity-40 hover:opacity-100",
+                isDark 
+                  ? "text-white/60 hover:bg-white/10 hover:text-white" 
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              )}
+              title="Enter presenter mode (N)"
+            >
+              <StickyNote className="w-4 h-4" />
+            </button>
+          )}
+        </footer>
+      )}
 
       {/* Screenshot-based PPT Export - auto-starts in export mode */}
       {isExportMode && slides.length > 0 && (
