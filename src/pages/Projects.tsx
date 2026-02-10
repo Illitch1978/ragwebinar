@@ -1,6 +1,25 @@
-import { Link } from "react-router-dom";
-import { FileText, Clock } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FileText, Clock, Plus, ArrowRight, Sparkles, Loader2 } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import ProjectDetailsStep, { AnalysisTone, ProjectLanguage } from "@/components/creation/ProjectDetailsStep";
+import ObjectivesStep, { OutputFormat, OUTPUT_FORMAT_OPTIONS } from "@/components/creation/ObjectivesStep";
+import MetadataStep, { MetadataField } from "@/components/creation/MetadataStep";
+import ThemeStep from "@/components/creation/ThemeStep";
+import { usePresentations, useCreatePresentation } from "@/hooks/usePresentations";
+import { useBrandGuides } from "@/hooks/useBrandGuides";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { exportToDocx } from "@/lib/docxExport";
+import { exportProposalToPdf } from "@/lib/pdfProposalExport";
 
 interface ProjectCard {
   id: string;
@@ -99,21 +118,192 @@ const ProjectCardComponent = ({ project }: { project: ProjectCard }) => {
 };
 
 const Projects = () => {
+  const navigate = useNavigate();
+
+  // Wizard dialog
+  const [wizardOpen, setWizardOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
+
+  // Step 1
+  const [projectName, setProjectName] = useState("");
+  const [language, setLanguage] = useState<ProjectLanguage>('en-us');
+  const [analysisTone, setAnalysisTone] = useState<AnalysisTone>('balanced');
+
+  // Step 2
+  const [description, setDescription] = useState("");
+  const [outputFormat, setOutputFormat] = useState<OutputFormat>('proposal');
+
+  // Step 3
+  const [metadataFields, setMetadataFields] = useState<MetadataField[]>([]);
+
+  // Step 4
+  const [themes, setThemes] = useState<string[]>([]);
+
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const { data: brandGuides } = useBrandGuides();
+  const createPresentation = useCreatePresentation();
+
+  const [selectedBrandGuide, setSelectedBrandGuide] = useState<string>("");
+
+  useEffect(() => {
+    if (brandGuides && !selectedBrandGuide) {
+      const defaultGuide = brandGuides.find(bg => bg.is_default);
+      if (defaultGuide) setSelectedBrandGuide(defaultGuide.id);
+    }
+  }, [brandGuides, selectedBrandGuide]);
+
+  const resetWizard = () => {
+    setCurrentStep(1);
+    setProjectName("");
+    setDescription("");
+    setOutputFormat('proposal');
+    setLanguage('en-us');
+    setAnalysisTone('balanced');
+    setMetadataFields([]);
+    setThemes([]);
+  };
+
+  const handleGenerate = async () => {
+    if (!description.trim()) {
+      toast.error("Please add project objectives");
+      return;
+    }
+
+    setIsGenerating(true);
+
+    try {
+      const selectedGuide = brandGuides?.find(bg => bg.id === selectedBrandGuide);
+      const formatConfig = OUTPUT_FORMAT_OPTIONS.find(f => f.key === outputFormat);
+      const title = projectName || `Project ${new Date().toLocaleDateString()}`;
+
+      const saved = await createPresentation.mutateAsync({
+        title,
+        content: description,
+        client_name: projectName || undefined,
+        brand_guide_id: selectedBrandGuide || undefined,
+        created_by: undefined,
+      });
+
+      // Non-slide formats: Word export
+      if (!formatConfig?.isSlideFormat) {
+        toast.info("Generating Word document...");
+        await exportToDocx({
+          title,
+          clientName: projectName || undefined,
+          content: description,
+          format: outputFormat as 'article' | 'executive-summary',
+          createdBy: undefined,
+        });
+        toast.success("Word document downloaded!");
+        setIsGenerating(false);
+        setWizardOpen(false);
+        resetWizard();
+        return;
+      }
+
+      // Proposal: generate slides + PDF
+      if (outputFormat === 'proposal') {
+        const termsAndConditions = selectedGuide?.terms_and_conditions as string | undefined;
+        toast.info("Generating proposal...");
+
+        const { data: generateData, error: generateError } = await supabase.functions.invoke(
+          'generate-presentation',
+          {
+            body: {
+              content: description,
+              clientName: projectName || 'Proposal',
+              brandGuide: selectedGuide ? {
+                name: selectedGuide.name,
+                design_system: selectedGuide.design_system,
+                slide_templates: selectedGuide.slide_templates,
+              } : null,
+              length: 'medium',
+            },
+          }
+        );
+
+        if (generateError) {
+          console.error('Generation error:', generateError);
+          toast.error("Failed to generate slides.");
+        } else if (generateData?.slides) {
+          await supabase.from('presentations').update({ generated_slides: generateData.slides }).eq('id', saved.id);
+          toast.success(`Generated ${generateData.slides.length} slides!`);
+          await exportProposalToPdf({ title, clientName: projectName || undefined, content: description, createdBy: undefined, termsAndConditions });
+          toast.success("Proposal PDF downloaded!");
+        }
+
+        sessionStorage.setItem('rubiklab-content', description);
+        sessionStorage.setItem('rubiklab-client', projectName || 'Client');
+        sessionStorage.setItem('rubiklab-format', outputFormat);
+        sessionStorage.setItem('rubiklab-length', 'medium');
+        sessionStorage.setItem('rubiklab-presentation-id', saved.id);
+        sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide);
+        if (generateData?.slides) sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
+
+        setWizardOpen(false);
+        resetWizard();
+        setTimeout(() => navigate('/presentation'), 500);
+        return;
+      }
+
+      // Standard slide generation
+      toast.info("Generating presentation with AI...");
+      const { data: generateData, error: generateError } = await supabase.functions.invoke(
+        'generate-presentation',
+        {
+          body: {
+            content: description,
+            clientName: projectName || 'Presentation',
+            brandGuide: selectedGuide ? {
+              name: selectedGuide.name,
+              design_system: selectedGuide.design_system,
+              slide_templates: selectedGuide.slide_templates,
+            } : null,
+            length: 'medium',
+          },
+        }
+      );
+
+      if (generateError) {
+        console.error('Generation error:', generateError);
+        toast.error("Failed to generate slides. Using fallback.");
+      } else if (generateData?.slides) {
+        await supabase.from('presentations').update({ generated_slides: generateData.slides }).eq('id', saved.id);
+        toast.success(`Generated ${generateData.slides.length} slides!`);
+      }
+
+      sessionStorage.setItem('rubiklab-content', description);
+      sessionStorage.setItem('rubiklab-client', projectName || 'Client');
+      sessionStorage.setItem('rubiklab-format', outputFormat);
+      sessionStorage.setItem('rubiklab-length', 'medium');
+      sessionStorage.setItem('rubiklab-presentation-id', saved.id);
+      sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide);
+      if (generateData?.slides) sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
+
+      setWizardOpen(false);
+      resetWizard();
+      setTimeout(() => navigate('/presentation'), 500);
+    } catch (error) {
+      console.error('Error saving presentation:', error);
+      toast.error("Error generating presentation");
+      setIsGenerating(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen w-full bg-[#F9F8F4] text-[#1C1C1C] font-sans overflow-hidden selection:bg-[#E1F5FE] selection:text-[#0D9BDD]">
-      {/* App Header */}
       <AppHeader />
 
-      {/* Main Content */}
       <main className="flex-1 overflow-auto">
-        <div 
+        <div
           className="min-h-full p-8 md:p-12"
           style={{
             backgroundImage: 'radial-gradient(#E5E7EB 1px, transparent 1px)',
             backgroundSize: '24px 24px',
           }}
         >
-        <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             {/* Header Section */}
             <div className="flex items-end justify-between mb-20">
               <div>
@@ -124,13 +314,12 @@ const Projects = () => {
                 <div className="h-1 w-20 bg-[#0D9BDD] mt-6" />
               </div>
 
-              {/* Create Project Button */}
-              <Link
-                to="/deck"
+              <button
+                onClick={() => { resetWizard(); setWizardOpen(true); }}
                 className="bg-[#1C1C1C] text-white px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] shadow-md transition-colors duration-200 hover:bg-[#0D9BDD]"
               >
                 Create Project
-              </Link>
+              </button>
             </div>
 
             {/* Project Grid */}
@@ -142,6 +331,88 @@ const Projects = () => {
           </div>
         </div>
       </main>
+
+      {/* Create Project Wizard Dialog */}
+      <Dialog open={wizardOpen} onOpenChange={(open) => { if (!isGenerating) setWizardOpen(open); }}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-background border-border p-0">
+          <DialogHeader className="px-8 pt-8 pb-4 border-b border-border sticky top-0 bg-background z-10">
+            <DialogTitle className="font-serif text-2xl font-bold text-foreground text-center">
+              Create New Project
+            </DialogTitle>
+            {/* Step Indicator */}
+            <div className="flex items-center justify-center gap-3 mt-4">
+              {[
+                { num: 1, label: 'Project Details' },
+                { num: 2, label: 'Objectives' },
+                { num: 3, label: 'Metadata' },
+                { num: 4, label: 'Themes' },
+              ].map((step, i) => (
+                <div key={step.num} className="flex items-center gap-3">
+                  {i > 0 && <div className="w-6 h-px bg-border" />}
+                  <div className={cn(
+                    "flex items-center gap-2 px-3 py-1.5 border transition-colors",
+                    currentStep === step.num
+                      ? "border-primary bg-primary/10 text-primary"
+                      : currentStep > step.num
+                      ? "border-primary/40 bg-primary/5 text-primary/70"
+                      : "border-border text-muted-foreground"
+                  )}>
+                    <span className={cn(
+                      "w-5 h-5 flex items-center justify-center text-[10px] font-bold",
+                      currentStep > step.num ? "bg-primary text-primary-foreground" : "bg-current/20"
+                    )}>
+                      {currentStep > step.num ? '✓' : step.num}
+                    </span>
+                    <span className="font-mono text-[9px] uppercase tracking-widest hidden sm:inline">{step.label}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </DialogHeader>
+
+          <div className="px-8 py-6">
+            {currentStep === 1 && (
+              <ProjectDetailsStep
+                projectName={projectName}
+                setProjectName={setProjectName}
+                language={language}
+                setLanguage={setLanguage}
+                analysisTone={analysisTone}
+                setAnalysisTone={setAnalysisTone}
+                onNext={() => setCurrentStep(2)}
+              />
+            )}
+            {currentStep === 2 && (
+              <ObjectivesStep
+                description={description}
+                setDescription={setDescription}
+                outputFormat={outputFormat}
+                setOutputFormat={setOutputFormat}
+                onBack={() => setCurrentStep(1)}
+                onNext={() => setCurrentStep(3)}
+              />
+            )}
+            {currentStep === 3 && (
+              <MetadataStep
+                metadataFields={metadataFields}
+                setMetadataFields={setMetadataFields}
+                onBack={() => setCurrentStep(2)}
+                onNext={() => setCurrentStep(4)}
+              />
+            )}
+            {currentStep === 4 && (
+              <ThemeStep
+                themes={themes}
+                setThemes={setThemes}
+                description={description}
+                onBack={() => setCurrentStep(3)}
+                onGenerate={handleGenerate}
+                isGenerating={isGenerating}
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
