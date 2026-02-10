@@ -188,7 +188,7 @@ const ObjectivesStep = ({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe your project objectives in detail..."
-          className="min-h-[120px] px-5 py-4 bg-card border-border font-mono text-sm"
+          className="min-h-[120px] px-5 py-4 bg-card border-border text-sm leading-relaxed"
         />
         <div className="flex items-center justify-between mt-1.5">
           {description.length > 0 && (
