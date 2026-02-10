@@ -311,36 +311,8 @@ const MorphingGradientBackground = ({ reduced = false }: { reduced?: boolean }) 
         />
       </>
     ) : (
-      // Export mode: keep the mesh look but avoid continuous transforms/filters that can destabilize capture
-      <>
-        <div
-          className="absolute w-[800px] h-[800px] rounded-full opacity-[0.15]"
-          style={{
-            background: 'radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)',
-            filter: 'blur(100px)',
-            top: '-20%',
-            right: '-10%',
-          }}
-        />
-        <div
-          className="absolute w-[600px] h-[600px] rounded-full opacity-[0.08]"
-          style={{
-            background: 'radial-gradient(circle, hsl(220, 90%, 50%) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-            bottom: '-15%',
-            left: '-5%',
-          }}
-        />
-        <div
-          className="absolute w-[500px] h-[500px] rounded-full opacity-[0.06]"
-          style={{
-            background: 'radial-gradient(circle, hsl(280, 70%, 50%) 0%, transparent 70%)',
-            filter: 'blur(90px)',
-            top: '30%',
-            left: '30%',
-          }}
-        />
-      </>
+      // Export mode: remove blurred blobs entirely — html2canvas renders blur() as opaque solid circles.
+      null
     )}
     
     {/* Noise overlay removed (html2canvas createPattern issues) */}
@@ -1149,11 +1121,11 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent z-10 w-24" />
             
             {/* Author portrait */}
-            <img 
-              src={authorImage} 
-              alt={authorText || 'Author'} 
-              className="absolute inset-0 w-full h-full object-cover object-top grayscale"
-            />
+             <img 
+               src={authorImage} 
+               alt={authorText || 'Author'} 
+               className="absolute inset-0 w-full h-full object-cover object-[center_20%] grayscale"
+             />
             
             {/* Subtle top/bottom gradient for blend */}
             <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/20 to-transparent z-10" />
