@@ -1,32 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Presentation as PresentationIcon, Loader2, Clock, Trash2, Pencil, Check, X, Link2, Download, Lock, FileOutput, ChevronDown, Search, LockOpen, Plus } from "lucide-react";
+import { Loader2, Trash2, Pencil, Check, X, Link2, Download, Lock, Search, LockOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { usePresentations, useCreatePresentation, useDeletePresentation, useUpdatePresentation, useTogglePresentationLock, Presentation } from "@/hooks/usePresentations";
-import { useBrandGuides } from "@/hooks/useBrandGuides";
+import { usePresentations, useDeletePresentation, useUpdatePresentation, useTogglePresentationLock, Presentation } from "@/hooks/usePresentations";
 import { formatDistanceToNow } from "date-fns";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import DeleteConfirmationDialog from "@/components/DeleteConfirmationDialog";
-import SettingsSidebar from "@/components/SettingsSidebar";
 import AppHeader from "@/components/AppHeader";
-import { exportToPptx } from "@/lib/pptxExport";
 import { exportToDocx } from "@/lib/docxExport";
-import { exportProposalToPdf } from "@/lib/pdfProposalExport";
-import ProjectDetailsStep, { AnalysisTone, ProjectLanguage } from "@/components/creation/ProjectDetailsStep";
-import ObjectivesStep, { OutputFormat, OUTPUT_FORMAT_OPTIONS } from "@/components/creation/ObjectivesStep";
-import MetadataStep, { MetadataField } from "@/components/creation/MetadataStep";
-import ThemeStep from "@/components/creation/ThemeStep";
-import FormatOptionsStep, { DeckLength, ArticlePersona, WordCountRange } from "@/components/creation/FormatOptionsStep";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -35,52 +17,12 @@ import {
 } from "@/components/ui/tooltip";
 
 const UploadPage = () => {
-  // Wizard dialog
-  const [wizardOpen, setWizardOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
-  
-  // Step 1: Project Details
-  const [projectName, setProjectName] = useState("");
-  const [language, setLanguage] = useState<ProjectLanguage>('en-us');
-  const [analysisTone, setAnalysisTone] = useState<AnalysisTone>('balanced');
-  
-  // Step 2: Objectives & Output Format
-  const [description, setDescription] = useState("");
-  const [outputFormat, setOutputFormat] = useState<OutputFormat>('proposal');
-  
-  // Step 3: Metadata
-  const [metadataFields, setMetadataFields] = useState<MetadataField[]>([]);
-  
-  // Step 4: Themes
-  const [themes, setThemes] = useState<string[]>([]);
-  
-  // Format Options (used during generation)
-  const [selectedBrandGuide, setSelectedBrandGuide] = useState<string>("");
-  const [deckLength, setDeckLength] = useState<DeckLength>('medium');
-  const [articlePersona, setArticlePersona] = useState<ArticlePersona>('strategist');
-  const [wordCountRange, setWordCountRange] = useState<WordCountRange>('600');
-  const [additionalContent, setAdditionalContent] = useState("");
-  
-  const [isGenerating, setIsGenerating] = useState(false);
-  
   const navigate = useNavigate();
   
   const { data: savedPresentations, isLoading: isLoadingPresentations } = usePresentations();
-  const { data: brandGuides, isLoading: isLoadingBrandGuides } = useBrandGuides();
-  const createPresentation = useCreatePresentation();
   const deletePresentation = useDeletePresentation();
   const updatePresentation = useUpdatePresentation();
   const toggleLock = useTogglePresentationLock();
-  
-  // Set default brand guide when data loads
-  useEffect(() => {
-    if (brandGuides && !selectedBrandGuide) {
-      const defaultGuide = brandGuides.find(bg => bg.is_default);
-      if (defaultGuide) {
-        setSelectedBrandGuide(defaultGuide.id);
-      }
-    }
-  }, [brandGuides, selectedBrandGuide]);
   
   // Edit state for presentation titles
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -99,167 +41,6 @@ const UploadPage = () => {
     (p.client_name && p.client_name.toLowerCase().includes(projectSearch.toLowerCase()))
   );
 
-  const handleGenerate = async () => {
-    const fullContent = additionalContent 
-      ? `${description}\n\n---\n\n${additionalContent}` 
-      : description;
-    
-    if (!fullContent.trim()) {
-      toast.error("Please add project content");
-      return;
-    }
-    
-    setIsGenerating(true);
-    
-    try {
-      const selectedGuide = brandGuides?.find(bg => bg.id === selectedBrandGuide);
-      const formatConfig = OUTPUT_FORMAT_OPTIONS.find(f => f.key === outputFormat);
-      
-      const title = projectName || `Project ${new Date().toLocaleDateString()}`;
-      const saved = await createPresentation.mutateAsync({
-        title,
-        content: fullContent,
-        client_name: projectName || undefined,
-        brand_guide_id: selectedBrandGuide || undefined,
-        created_by: undefined,
-      });
-      
-      // For non-slide formats, handle document export directly
-      if (!formatConfig?.isSlideFormat) {
-        if (outputFormat === 'article' || outputFormat === 'executive-summary') {
-          toast.info("Generating Word document...");
-          await exportToDocx({
-            title,
-            clientName: projectName || undefined,
-            content: fullContent,
-            format: outputFormat,
-            createdBy: undefined,
-          });
-          toast.success("Word document downloaded!");
-          setIsGenerating(false);
-          // Reset form
-          setCurrentStep(1);
-          setProjectName("");
-          setDescription("");
-          setAdditionalContent("");
-          return;
-        }
-      }
-      
-      // For proposal format, also generate PDF
-      if (outputFormat === 'proposal') {
-        // Get T&C from brand guide if available
-        const termsAndConditions = selectedGuide?.terms_and_conditions as string | undefined;
-        
-        // Generate both slides and PDF
-        toast.info("Generating proposal...");
-        
-        // Generate slides first
-        const { data: generateData, error: generateError } = await supabase.functions.invoke(
-          'generate-presentation',
-          {
-            body: {
-              content: fullContent,
-              clientName: projectName || 'Proposal',
-              brandGuide: selectedGuide ? {
-                name: selectedGuide.name,
-                design_system: selectedGuide.design_system,
-                slide_templates: selectedGuide.slide_templates,
-              } : null,
-              length: deckLength,
-            },
-          }
-        );
-        
-        if (generateError) {
-          console.error('Generation error:', generateError);
-          toast.error("Failed to generate slides.");
-        } else if (generateData?.slides) {
-          await supabase
-            .from('presentations')
-            .update({ generated_slides: generateData.slides })
-            .eq('id', saved.id);
-          
-          toast.success(`Generated ${generateData.slides.length} slides!`);
-          
-          // Also export PDF
-          await exportProposalToPdf({
-            title,
-            clientName: projectName || undefined,
-            content: fullContent,
-            createdBy: undefined,
-            termsAndConditions,
-          });
-          toast.success("Proposal PDF downloaded!");
-        }
-        
-        sessionStorage.setItem('rubiklab-content', fullContent);
-        sessionStorage.setItem('rubiklab-client', projectName || 'Client');
-        sessionStorage.setItem('rubiklab-format', outputFormat);
-        sessionStorage.setItem('rubiklab-length', deckLength);
-        sessionStorage.setItem('rubiklab-presentation-id', saved.id);
-        sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide);
-        if (generateData?.slides) {
-          sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
-        }
-        
-        setTimeout(() => {
-          navigate('/presentation');
-        }, 500);
-        return;
-      }
-      
-      // Standard slide generation
-      toast.info("Generating presentation with AI...");
-      
-      const { data: generateData, error: generateError } = await supabase.functions.invoke(
-        'generate-presentation',
-        {
-          body: {
-            content: fullContent,
-            clientName: projectName || 'Presentation',
-            brandGuide: selectedGuide ? {
-              name: selectedGuide.name,
-              design_system: selectedGuide.design_system,
-              slide_templates: selectedGuide.slide_templates,
-            } : null,
-            length: deckLength,
-          },
-        }
-      );
-      
-      if (generateError) {
-        console.error('Generation error:', generateError);
-        toast.error("Failed to generate slides. Using fallback.");
-      } else if (generateData?.slides) {
-        await supabase
-          .from('presentations')
-          .update({ generated_slides: generateData.slides })
-          .eq('id', saved.id);
-        
-        toast.success(`Generated ${generateData.slides.length} slides!`);
-      }
-      
-      sessionStorage.setItem('rubiklab-content', fullContent);
-      sessionStorage.setItem('rubiklab-client', projectName || 'Client');
-      sessionStorage.setItem('rubiklab-format', outputFormat);
-      sessionStorage.setItem('rubiklab-length', deckLength);
-      sessionStorage.setItem('rubiklab-presentation-id', saved.id);
-      sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide);
-      if (generateData?.slides) {
-        sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
-      }
-      
-      setTimeout(() => {
-        navigate('/presentation');
-      }, 500);
-    } catch (error) {
-      console.error('Error saving presentation:', error);
-      toast.error("Error generating presentation");
-      setIsGenerating(false);
-    }
-  };
-
   const handleOpenSaved = (presentation: Presentation) => {
     const hasGeneratedSlides = presentation.generated_slides && 
       Array.isArray(presentation.generated_slides) && 
@@ -267,9 +48,8 @@ const UploadPage = () => {
     
     sessionStorage.setItem('rubiklab-content', presentation.content);
     sessionStorage.setItem('rubiklab-client', presentation.client_name || 'Client');
-    sessionStorage.setItem('rubiklab-format', outputFormat);
     sessionStorage.setItem('rubiklab-presentation-id', presentation.id);
-    sessionStorage.setItem('rubiklab-brand-guide-id', presentation.brand_guide_id || selectedBrandGuide);
+    sessionStorage.setItem('rubiklab-brand-guide-id', presentation.brand_guide_id || '');
     
     if (hasGeneratedSlides) {
       sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(presentation.generated_slides));
@@ -359,7 +139,6 @@ const UploadPage = () => {
 
   const handleExportPdf = (e: React.MouseEvent, presentation: Presentation) => {
     e.stopPropagation();
-    // Use the working PPTX screenshot-based export
     sessionStorage.setItem('rubiklab-presentation-id', presentation.id);
     sessionStorage.setItem('rubiklab-client', presentation.client_name || 'Client');
     if (presentation.generated_slides) {
@@ -388,115 +167,19 @@ const UploadPage = () => {
           {/* Hero */}
           <div className="text-center mb-12 lg:mb-16">
             <h1 className="font-serif text-[3rem] font-bold text-foreground mb-5 tracking-tight leading-tight">
-              Content to Premium Decks
+              Deck Builder
             </h1>
-            <p className="font-serif text-[1.4rem] text-primary font-medium italic max-w-2xl mx-auto leading-relaxed mb-8">
-              Transform raw content into polished presentations, proposals, and executive documents.
+            <p className="font-serif text-[1.4rem] text-primary font-medium italic max-w-2xl mx-auto leading-relaxed">
+              Manage your presentations, proposals, and executive documents.
             </p>
-            <Button
-              onClick={() => { setWizardOpen(true); setCurrentStep(1); }}
-              size="lg"
-              className={cn(
-                "px-10 py-6 bg-foreground text-background hover:bg-primary hover:text-primary-foreground",
-                "font-mono text-[11px] font-bold tracking-[0.3em] uppercase",
-                "transition-all duration-500 group"
-              )}
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Create New Project
-            </Button>
           </div>
-
-          {/* Create Project Dialog */}
-          <Dialog open={wizardOpen} onOpenChange={setWizardOpen}>
-            <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-background border-border p-0">
-              <DialogHeader className="px-8 pt-8 pb-4 border-b border-border sticky top-0 bg-background z-10">
-                <DialogTitle className="font-serif text-2xl font-bold text-foreground text-center">
-                  Create New Project
-                </DialogTitle>
-                {/* Step Indicator */}
-                <div className="flex items-center justify-center gap-3 mt-4">
-                  {[
-                    { num: 1, label: 'Project Details' },
-                    { num: 2, label: 'Objectives' },
-                    { num: 3, label: 'Metadata' },
-                    { num: 4, label: 'Themes' },
-                  ].map((step, i) => (
-                    <div key={step.num} className="flex items-center gap-3">
-                      {i > 0 && <div className="w-6 h-px bg-border" />}
-                      <div className={cn(
-                        "flex items-center gap-2 px-3 py-1.5 border transition-colors",
-                        currentStep === step.num
-                          ? "border-primary bg-primary/10 text-primary"
-                          : currentStep > step.num
-                          ? "border-primary/40 bg-primary/5 text-primary/70"
-                          : "border-border text-muted-foreground"
-                      )}>
-                        <span className={cn(
-                          "w-5 h-5 flex items-center justify-center text-[10px] font-bold",
-                          currentStep > step.num ? "bg-primary text-primary-foreground" : "bg-current/20"
-                        )}>
-                          {currentStep > step.num ? '✓' : step.num}
-                        </span>
-                        <span className="font-mono text-[9px] uppercase tracking-widest hidden sm:inline">{step.label}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </DialogHeader>
-
-              <div className="px-8 py-6">
-                {currentStep === 1 && (
-                  <ProjectDetailsStep
-                    projectName={projectName}
-                    setProjectName={setProjectName}
-                    language={language}
-                    setLanguage={setLanguage}
-                    analysisTone={analysisTone}
-                    setAnalysisTone={setAnalysisTone}
-                    onNext={() => setCurrentStep(2)}
-                  />
-                )}
-                {currentStep === 2 && (
-                  <ObjectivesStep
-                    description={description}
-                    setDescription={setDescription}
-                    outputFormat={outputFormat}
-                    setOutputFormat={setOutputFormat}
-                    onBack={() => setCurrentStep(1)}
-                    onNext={() => setCurrentStep(3)}
-                  />
-                )}
-                {currentStep === 3 && (
-                  <MetadataStep
-                    metadataFields={metadataFields}
-                    setMetadataFields={setMetadataFields}
-                    onBack={() => setCurrentStep(2)}
-                    onNext={() => setCurrentStep(4)}
-                  />
-                )}
-                {currentStep === 4 && (
-                  <ThemeStep
-                    themes={themes}
-                    setThemes={setThemes}
-                    description={description}
-                    onBack={() => setCurrentStep(3)}
-                    onGenerate={handleGenerate}
-                    isGenerating={isGenerating}
-                  />
-                )}
-              </div>
-            </DialogContent>
-          </Dialog>
-
 
           {/* Saved Presentations with Search */}
           {savedPresentations && savedPresentations.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
-              className="mt-16 pt-12 border-t border-border"
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-8 h-[1px] bg-primary" />
@@ -530,8 +213,8 @@ const UploadPage = () => {
                   )}
                 </div>
                 
-                {/* Results List - shows exactly 3 items */}
-                <div className="max-h-[195px] overflow-y-auto">
+                {/* Results List */}
+                <div className="max-h-[400px] overflow-y-auto">
                   {filteredPresentations?.length === 0 ? (
                     <div className="px-6 py-4 text-sm text-muted-foreground">
                       No projects match "{projectSearch}"
@@ -577,7 +260,6 @@ const UploadPage = () => {
                           {/* Action icons */}
                           {editingId !== presentation.id && (
                             <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
-                              {/* Lock/Unlock */}
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <button
@@ -596,7 +278,6 @@ const UploadPage = () => {
                                 </TooltipContent>
                               </Tooltip>
                               
-                              {/* Download PPTX */}
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <button
@@ -611,7 +292,6 @@ const UploadPage = () => {
                                 </TooltipContent>
                               </Tooltip>
 
-                              {/* Copy Link */}
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <button
@@ -630,7 +310,6 @@ const UploadPage = () => {
                                 </TooltipContent>
                               </Tooltip>
                               
-                              {/* Edit title */}
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <button
@@ -649,7 +328,6 @@ const UploadPage = () => {
                                 </TooltipContent>
                               </Tooltip>
                               
-                              {/* Delete */}
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <button
@@ -660,7 +338,7 @@ const UploadPage = () => {
                                     )}
                                     disabled={presentation.is_locked}
                                   >
-                                    <Trash2 className="w-3.5 h-3.5 text-muted-foreground hover:text-red-500" />
+                                    <Trash2 className="w-3.5 h-3.5 text-muted-foreground hover:text-destructive" />
                                   </button>
                                 </TooltipTrigger>
                                 <TooltipContent side="top" className="text-xs">
@@ -685,7 +363,7 @@ const UploadPage = () => {
           )}
           
           {isLoadingPresentations && (
-            <div className="mt-16 pt-12 border-t border-border flex justify-center">
+            <div className="flex justify-center">
               <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" />
             </div>
           )}
