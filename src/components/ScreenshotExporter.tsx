@@ -106,6 +106,15 @@ export const ScreenshotExporter = ({
     let lastError: unknown;
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
+        // Collect all CSS custom properties from :root so they're available in the SVG foreignObject
+        const rootStyles = getComputedStyle(document.documentElement);
+        const cssVars: Record<string, string> = {};
+        for (const prop of Array.from(rootStyles)) {
+          if (prop.startsWith('--')) {
+            cssVars[prop] = rootStyles.getPropertyValue(prop);
+          }
+        }
+
         const dataUrl = await domToPng(element, {
           scale: 1.5,
           width: rect.width,
@@ -118,7 +127,14 @@ export const ScreenshotExporter = ({
             if (node instanceof HTMLElement && node.classList.contains('animate-ping')) return false;
             return true;
           },
-          // Force every single cloned element to be visible
+          onCloneNode: (cloned: Node) => {
+            // Inject CSS custom properties into the cloned root so SVG foreignObject can resolve them
+            if (cloned instanceof HTMLElement) {
+              for (const [prop, val] of Object.entries(cssVars)) {
+                cloned.style.setProperty(prop, val);
+              }
+            }
+          },
           onCloneEachNode: (cloned: Node) => {
             if (cloned instanceof HTMLElement) {
               cloned.style.opacity = '1';
