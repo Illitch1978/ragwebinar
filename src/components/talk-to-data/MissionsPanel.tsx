@@ -126,7 +126,7 @@ const MissionsPanel = () => {
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between flex-shrink-0">
+      <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between flex-shrink-0 bg-gradient-to-r from-primary/[0.04] to-transparent">
         <span className="text-[11px] uppercase tracking-[0.12em] font-semibold text-foreground">
           Agentic Missions
         </span>
@@ -151,7 +151,7 @@ const MissionsPanel = () => {
               <button
                 key={t.title}
                 onClick={() => launchMission(t.title, t.description)}
-                className="w-full text-left p-3 border border-neutral-200 hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                className="w-full text-left p-3 border border-neutral-200 border-l-[3px] border-l-primary/30 hover:border-l-primary hover:border-primary/30 hover:bg-primary/5 transition-all group"
               >
                 <p className="text-xs font-semibold text-foreground leading-tight">{t.title}</p>
                 <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">{t.description}</p>
@@ -162,14 +162,14 @@ const MissionsPanel = () => {
           /* Suggested templates + description */
           <div className="flex flex-col h-full">
             <div className="p-3 space-y-1">
-              <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground px-1 mb-2 block">
-                Suggested for your data
-              </span>
+          <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-primary/60 px-1 mb-2 block">
+              Suggested for your data
+            </span>
               {suggestedTemplates.map((t) => (
                 <button
                   key={t.title}
                   onClick={() => launchMission(t.title, t.description)}
-                  className="w-full text-left px-3 py-2.5 hover:bg-primary/5 transition-all group"
+                  className="w-full text-left px-3 py-2.5 hover:bg-primary/5 border-l-2 border-l-transparent hover:border-l-primary transition-all group"
                 >
                   <p className="text-xs font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">{t.title}</p>
                   <p className="text-[10px] text-muted-foreground mt-0.5 leading-relaxed line-clamp-1">{t.description}</p>
