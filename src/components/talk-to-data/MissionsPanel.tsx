@@ -126,7 +126,7 @@ const MissionsPanel = () => {
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between">
+      <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between flex-shrink-0">
         <span className="text-[11px] uppercase tracking-[0.12em] font-semibold text-foreground">
           Agentic Missions
         </span>
@@ -135,66 +135,55 @@ const MissionsPanel = () => {
           className="flex items-center gap-1 px-2 py-1 text-[10px] uppercase tracking-[0.08em] font-semibold text-primary hover:bg-primary/5 transition-colors"
         >
           <Plus size={12} />
-          Browse all
+          {showTemplates ? "Close" : "Browse all"}
         </button>
       </div>
 
-      {/* Full template library dropdown */}
-      <AnimatePresence>
-        {showTemplates && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-b border-neutral-200 flex-1 flex flex-col min-h-0"
-          >
-            <div className="p-3 space-y-1 flex-1 overflow-auto">
+      {/* Content area — fills remaining height */}
+      <div className="flex-1 min-h-0 overflow-auto">
+        {showTemplates ? (
+          /* Full template library */
+          <div className="p-3 space-y-1">
+            <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground px-1 mb-2 block">
+              Task library · {MISSION_TEMPLATES.length} templates
+            </span>
+            {MISSION_TEMPLATES.map((t) => (
+              <button
+                key={t.title}
+                onClick={() => launchMission(t.title, t.description)}
+                className="w-full text-left p-3 border border-neutral-200 hover:border-primary/30 hover:bg-primary/5 transition-all group"
+              >
+                <p className="text-xs font-semibold text-foreground leading-tight">{t.title}</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">{t.description}</p>
+              </button>
+            ))}
+          </div>
+        ) : missions.length === 0 ? (
+          /* Suggested templates + description */
+          <div className="flex flex-col h-full">
+            <div className="p-3 space-y-1">
               <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground px-1 mb-2 block">
-                Task library · {MISSION_TEMPLATES.length} templates
+                Suggested for your data
               </span>
-              {MISSION_TEMPLATES.map((t) => (
+              {suggestedTemplates.map((t) => (
                 <button
                   key={t.title}
                   onClick={() => launchMission(t.title, t.description)}
-                  className="w-full text-left p-3 border border-neutral-200 hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                  className="w-full text-left px-3 py-2.5 hover:bg-primary/5 transition-all group"
                 >
-                  <p className="text-xs font-semibold text-foreground leading-tight">{t.title}</p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">{t.description}</p>
+                  <p className="text-xs font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">{t.title}</p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5 leading-relaxed line-clamp-1">{t.description}</p>
                 </button>
               ))}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Suggested Templates (shown when no missions) */}
-      {missions.length === 0 && !showTemplates && (
-        <div className="p-3 space-y-1 border-b border-neutral-100">
-          <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground px-1 mb-2 block">
-            Suggested for your data
-          </span>
-          {suggestedTemplates.map((t) => (
-            <button
-              key={t.title}
-              onClick={() => launchMission(t.title, t.description)}
-              className="w-full text-left px-3 py-2.5 hover:bg-primary/5 transition-all group"
-            >
-              <p className="text-xs font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">{t.title}</p>
-              <p className="text-[10px] text-muted-foreground mt-0.5 leading-relaxed line-clamp-1">{t.description}</p>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Mission List */}
-      <div className="flex-1 min-h-0 overflow-auto">
-        {missions.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full px-6 text-center">
-            <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
-              Launch long-running agentic tasks that synthesize across your entire dataset.
-            </p>
+            <div className="flex-1 flex items-end justify-center px-6 pb-6 text-center">
+              <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
+                Launch long-running agentic tasks that synthesize across your entire dataset.
+              </p>
+            </div>
           </div>
         ) : (
+          /* Active missions */
           <div className="p-3 space-y-2">
             {missions.map((mission) => (
               <motion.div
