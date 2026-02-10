@@ -20,14 +20,14 @@
 }
 
 .overview-container {
-  max-width: 100%;
+  max-width: 1060px;
   margin: 0 auto;
   padding: 80px 1.5rem;
 }
 
 @media (min-width: 1024px) {
   .overview-container {
-    padding: 80px 4rem;
+    padding: 80px 2.5rem;
   }
 }
 
