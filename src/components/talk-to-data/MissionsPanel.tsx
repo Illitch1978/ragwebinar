@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Rocket,
   Plus,
   Clock,
   CheckCircle2,
   Loader2,
   ChevronRight,
-  Zap,
-  Target,
-  TrendingUp,
+  ChevronDown,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -27,17 +24,50 @@ const MISSION_TEMPLATES = [
   {
     title: "Marketing campaign from top insights",
     description: "Design a multi-channel marketing campaign addressing the top 3 learnings from qualitative data",
-    icon: Rocket,
   },
   {
     title: "Competitive positioning analysis",
     description: "Synthesize all competitive mentions and build a positioning framework with recommendations",
-    icon: Target,
   },
   {
     title: "Executive summary & recommendations",
     description: "Create a board-ready executive summary with prioritized strategic recommendations",
-    icon: TrendingUp,
+  },
+  {
+    title: "Customer journey pain-point map",
+    description: "Map the end-to-end customer journey and highlight friction points with severity rankings",
+  },
+  {
+    title: "Pricing strategy deep-dive",
+    description: "Analyze all pricing-related feedback and build a sensitivity model with optimal tier recommendations",
+  },
+  {
+    title: "Churn risk factor analysis",
+    description: "Identify leading indicators of churn from qualitative and quantitative signals across all data sources",
+  },
+  {
+    title: "Feature prioritization matrix",
+    description: "Score and rank feature requests by impact, frequency, and strategic alignment to product roadmap",
+  },
+  {
+    title: "Stakeholder sentiment report",
+    description: "Generate a stakeholder-ready report on brand sentiment, NPS drivers, and perception trends",
+  },
+  {
+    title: "Market opportunity assessment",
+    description: "Identify untapped market segments and whitespace opportunities based on customer data patterns",
+  },
+  {
+    title: "Retention strategy playbook",
+    description: "Build a data-backed retention playbook with tactics mapped to key churn drivers and segments",
+  },
+  {
+    title: "Content strategy from voice of customer",
+    description: "Extract recurring themes and language patterns to inform content pillars and messaging hierarchy",
+  },
+  {
+    title: "Operational efficiency audit",
+    description: "Analyze support tickets and feedback to identify process bottlenecks and automation opportunities",
   },
 ];
 
@@ -90,26 +120,26 @@ const MissionsPanel = () => {
     complete: <CheckCircle2 size={14} className="text-emerald-600" />,
   };
 
+  // Show 5 suggested templates
+  const suggestedTemplates = MISSION_TEMPLATES.slice(0, 5);
+
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
       <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Zap size={14} strokeWidth={1.5} className="text-primary" />
-          <span className="text-[11px] uppercase tracking-[0.12em] font-semibold text-foreground">
-            Missions
-          </span>
-        </div>
+        <span className="text-[11px] uppercase tracking-[0.12em] font-semibold text-foreground">
+          Missions
+        </span>
         <button
           onClick={() => setShowTemplates(!showTemplates)}
           className="flex items-center gap-1 px-2 py-1 text-[10px] uppercase tracking-[0.08em] font-semibold text-primary hover:bg-primary/5 transition-colors"
         >
           <Plus size={12} />
-          New
+          Browse all
         </button>
       </div>
 
-      {/* Templates dropdown */}
+      {/* Full template library dropdown */}
       <AnimatePresence>
         {showTemplates && (
           <motion.div
@@ -118,9 +148,9 @@ const MissionsPanel = () => {
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden border-b border-neutral-200"
           >
-            <div className="p-3 space-y-2">
-              <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground px-1">
-                Long-term tasks
+            <div className="p-3 space-y-1 max-h-[400px] overflow-auto">
+              <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground px-1 mb-2 block">
+                Task library · {MISSION_TEMPLATES.length} templates
               </span>
               {MISSION_TEMPLATES.map((t) => (
                 <button
@@ -128,13 +158,8 @@ const MissionsPanel = () => {
                   onClick={() => launchMission(t.title, t.description)}
                   className="w-full text-left p-3 border border-neutral-200 hover:border-primary/30 hover:bg-primary/5 transition-all group"
                 >
-                  <div className="flex items-start gap-2">
-                    <t.icon size={14} strokeWidth={1.5} className="text-muted-foreground group-hover:text-primary mt-0.5 flex-shrink-0 transition-colors" />
-                    <div>
-                      <p className="text-xs font-semibold text-foreground leading-tight">{t.title}</p>
-                      <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">{t.description}</p>
-                    </div>
-                  </div>
+                  <p className="text-xs font-semibold text-foreground leading-tight">{t.title}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">{t.description}</p>
                 </button>
               ))}
             </div>
@@ -142,22 +167,32 @@ const MissionsPanel = () => {
         )}
       </AnimatePresence>
 
+      {/* Suggested Templates (shown when no missions) */}
+      {missions.length === 0 && !showTemplates && (
+        <div className="p-3 space-y-1 border-b border-neutral-100">
+          <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground px-1 mb-2 block">
+            Suggested for your data
+          </span>
+          {suggestedTemplates.map((t) => (
+            <button
+              key={t.title}
+              onClick={() => launchMission(t.title, t.description)}
+              className="w-full text-left px-3 py-2.5 hover:bg-primary/5 transition-all group"
+            >
+              <p className="text-xs font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">{t.title}</p>
+              <p className="text-[10px] text-muted-foreground mt-0.5 leading-relaxed line-clamp-1">{t.description}</p>
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Mission List */}
       <div className="flex-1 min-h-0 overflow-auto">
         {missions.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full px-6 text-center">
-            <div className="w-10 h-10 border border-neutral-200 flex items-center justify-center mb-3">
-              <Rocket size={16} strokeWidth={1.5} className="text-neutral-300" />
-            </div>
             <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
               Launch long-running agentic tasks that synthesize across your entire dataset.
             </p>
-            <button
-              onClick={() => setShowTemplates(true)}
-              className="mt-3 text-[10px] uppercase tracking-[0.08em] font-semibold text-primary hover:underline"
-            >
-              Browse templates →
-            </button>
           </div>
         ) : (
           <div className="p-3 space-y-2">
