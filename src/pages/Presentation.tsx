@@ -1401,8 +1401,10 @@ const PresentationPage = () => {
   
   // Presenter mode - simply check URL parameter (no auth required)
   const isPresenterMode = searchParams.get('mode') === 'presenter';
-  // Export mode - auto-trigger screenshot capture
-  const isExportMode = searchParams.get('export') === 'true';
+  // Export mode - auto-trigger screenshot capture (export=true for pptx, export=pdf for pdf)
+  const exportParam = searchParams.get('export');
+  const isExportMode = exportParam === 'true' || exportParam === 'pdf';
+  const exportFormat = exportParam === 'pdf' ? 'pdf' as const : 'pptx' as const;
 
   // Fetch fresh data from database or use sessionStorage
   useEffect(() => {
@@ -1643,6 +1645,7 @@ const PresentationPage = () => {
           presentationTitle={presentationTitle}
           isDark={isDark}
           autoStart={true}
+          format={exportFormat}
           onComplete={() => {
             // Navigate back to home after export completes
             navigate('/');

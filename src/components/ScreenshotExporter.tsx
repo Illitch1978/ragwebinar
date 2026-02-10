@@ -5,11 +5,14 @@ import { Download, Loader2, X, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { exportToPptxWithEmbeddedImages } from "@/lib/pptxImageExport";
+import { exportToPdfWithImages } from "@/lib/pdfImageExport";
 
 interface SlideImage {
   slideIndex: number;
   imageUrl: string;
 }
+
+export type ExportFormat = "pptx" | "pdf";
 
 interface ScreenshotExporterProps {
   slideContainerRef: React.RefObject<HTMLElement>;
@@ -20,6 +23,7 @@ interface ScreenshotExporterProps {
   isDark?: boolean;
   autoStart?: boolean;
   onComplete?: () => void;
+  format?: ExportFormat;
 }
 
 export const ScreenshotExporter = ({
@@ -31,6 +35,7 @@ export const ScreenshotExporter = ({
   isDark = false,
   autoStart = false,
   onComplete,
+  format = "pptx",
 }: ScreenshotExporterProps) => {
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState({ current: 0, total: 0, phase: "" });
@@ -232,12 +237,19 @@ export const ScreenshotExporter = ({
       }
 
       setCapturedSlides(slides);
-      setExportProgress({ current: 0, total: totalSlides, phase: "Generating PowerPoint..." });
+      setExportProgress({ current: 0, total: totalSlides, phase: format === "pdf" ? "Generating PDF..." : "Generating PowerPoint..." });
 
-      // Generate the PPTX
-      await exportToPptxWithEmbeddedImages(slides, presentationTitle, (current, total) => {
-        setExportProgress({ current, total, phase: "Embedding slides..." });
-      });
+      // Generate the output file based on format
+      if (format === "pdf") {
+        const { exportToPdfWithImages } = await import("@/lib/pdfImageExport");
+        await exportToPdfWithImages(slides, presentationTitle, (current, total) => {
+          setExportProgress({ current, total, phase: "Embedding slides..." });
+        });
+      } else {
+        await exportToPptxWithEmbeddedImages(slides, presentationTitle, (current, total) => {
+          setExportProgress({ current, total, phase: "Embedding slides..." });
+        });
+      }
 
       setExportProgress({ current: totalSlides, total: totalSlides, phase: "Complete!" });
       
@@ -261,7 +273,7 @@ export const ScreenshotExporter = ({
       onSlideChange(originalSlideRef.current);
       // Don't auto-navigate away on failure
     }
-  }, [totalSlides, currentSlide, onSlideChange, captureSlide, presentationTitle, onComplete]);
+  }, [totalSlides, currentSlide, onSlideChange, captureSlide, presentationTitle, onComplete, format]);
 
   // Auto-start export when autoStart is true
   useEffect(() => {
