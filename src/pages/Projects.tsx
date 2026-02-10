@@ -335,12 +335,12 @@ const Projects = () => {
       {/* Create Project Wizard Dialog */}
       <Dialog open={wizardOpen} onOpenChange={(open) => { if (!isGenerating) setWizardOpen(open); }}>
         <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto bg-background border-border p-0">
-          <DialogHeader className="px-8 pt-8 pb-4 border-b border-border sticky top-0 bg-background z-10">
-            <DialogTitle className="font-serif text-2xl font-bold text-foreground text-center">
-              {projectName.trim() ? projectName : 'Create a new project'}
-            </DialogTitle>
-            {/* Step Indicator */}
-            <div className="flex items-center justify-center gap-3 mt-6">
+            <DialogHeader className="px-8 pt-4 pb-4 border-b border-border sticky top-0 bg-background z-10">
+              <DialogTitle className="font-serif text-2xl font-bold text-foreground text-center">
+                {projectName.trim() ? projectName : 'Create a new project'}
+              </DialogTitle>
+              {/* Step Indicator */}
+              <div className="flex items-center justify-center gap-3 mt-4">
               {[
                 { num: 1, label: 'Project Details' },
                 { num: 2, label: 'Objectives' },

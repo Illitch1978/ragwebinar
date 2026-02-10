@@ -2,7 +2,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Wand2, Loader2, Presentation as PresentationIcon, BarChart3, FileText, BookOpen, BriefcaseBusiness, Video } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2, Presentation as PresentationIcon, BarChart3, FileText, BookOpen, BriefcaseBusiness, Video } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -119,7 +119,14 @@ const ObjectivesStep = ({
       });
       if (error) throw error;
       if (data?.enhanced) {
-        setDescription(data.enhanced);
+        // Strip markdown formatting for clean plain text
+        const clean = data.enhanced
+          .replace(/^#{1,6}\s+/gm, '')        // remove ### headings
+          .replace(/\*\*(.*?)\*\*/g, '$1')     // remove **bold**
+          .replace(/\*(.*?)\*/g, '$1')         // remove *italic*
+          .replace(/^[-*]\s+/gm, '• ')         // convert list markers to bullets
+          .replace(/\n{3,}/g, '\n\n');          // collapse excessive newlines
+        setDescription(clean);
         toast.success("Objectives enhanced!");
       }
     } catch (err) {
@@ -188,7 +195,7 @@ const ObjectivesStep = ({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe your project objectives in detail..."
-          className="min-h-[120px] px-5 py-4 bg-card border-border text-sm leading-relaxed"
+          className="min-h-[200px] px-5 py-4 bg-card border-border text-sm leading-relaxed"
         />
         <div className="flex items-center justify-between mt-1.5">
           {description.length > 0 && (
@@ -201,14 +208,16 @@ const ObjectivesStep = ({
             size="sm"
             onClick={handleEnhanceWithAI}
             disabled={isEnhancing || !description.trim()}
-            className="ml-auto gap-2"
+            className="ml-auto"
           >
             {isEnhancing ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              <>
+                <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                Enhancing...
+              </>
             ) : (
-              <Wand2 className="w-3.5 h-3.5" />
+              'Enhance with AI'
             )}
-            {isEnhancing ? 'Enhancing...' : 'Enhance with AI'}
           </Button>
         </div>
       </div>
