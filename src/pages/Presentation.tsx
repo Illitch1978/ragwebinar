@@ -243,75 +243,79 @@ const GridBackground = () => (
   </div>
 );
 
-// Premium background for divider slides — simple gradient, no blurred orbs
+// Premium background for divider slides
 const MorphingGradientBackground = ({ reduced = false }: { reduced?: boolean }) => (
   <div className="absolute inset-0 overflow-hidden">
-    {/* Base gradient */}
-    <div className="absolute inset-0 bg-gradient-to-br from-black via-[#050505] to-[#0a0a0a]" />
+    {/* Base gradient - use inline styles for export compatibility */}
+    <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom right, #000000, #050505, #0a0a0a)' }} />
     
-    {/* Subtle radial glows using CSS only — no blur filters, no motion */}
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_80%_20%,_hsl(var(--primary)/0.12)_0%,_transparent_60%)]" />
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_10%_80%,_hsl(220,90%,50%,0.06)_0%,_transparent_50%)]" />
+    {/* Subtle radial glows - hardcoded colors for SVG foreignObject compatibility */}
+    <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 80% 20%, rgba(10,102,194,0.12) 0%, transparent 60%)' }} />
+    <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 50% 60% at 10% 80%, rgba(59,130,246,0.06) 0%, transparent 50%)' }} />
   </div>
 );
 
 // Premium geometric pattern for cover - high impact
 const CoverPattern = ({ reduced = false }: { reduced?: boolean }) => (
   <div className="absolute inset-0 overflow-hidden">
-    {/* Deep radial glow - primary color spotlight */}
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,_hsl(var(--primary)/0.25)_0%,_transparent_60%)]" />
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_80%_at_90%_50%,_hsl(var(--primary)/0.12)_0%,_transparent_50%)]" />
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_10%_80%,_hsl(var(--primary)/0.08)_0%,_transparent_50%)]" />
+    {/* Deep radial glow - hardcoded primary (#0A66C2) for export compatibility */}
+    <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(10,102,194,0.25) 0%, transparent 60%)' }} />
+    <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 50% 80% at 90% 50%, rgba(10,102,194,0.12) 0%, transparent 50%)' }} />
+    <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 40% 40% at 10% 80%, rgba(10,102,194,0.08) 0%, transparent 50%)' }} />
     
-    {/* Swiss lines (CSS grid) - html2canvas safe */}
+    {/* Swiss lines (CSS grid) */}
     {!reduced && (
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0"
         style={{
+          opacity: 0.04,
           backgroundImage:
-            "linear-gradient(to right, hsl(var(--primary-foreground) / 0.15) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--primary-foreground) / 0.15) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.15) 1px, transparent 1px)",
           backgroundSize: "100px 100px",
         }}
       />
     )}
     
-    {/* Large floating geometric shapes */}
+    {/* Large floating geometric shapes - static for export */}
     {!reduced ? (
       <>
         <motion.div 
-          className="absolute top-[8%] right-[5%] w-[500px] h-[500px] border border-white/[0.03] rounded-full"
+          className="absolute top-[8%] right-[5%] w-[500px] h-[500px] rounded-full"
+          style={{ border: '1px solid rgba(255,255,255,0.03)' }}
           animate={{ rotate: 360 }}
           transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
         />
         <motion.div 
-          className="absolute top-[12%] right-[8%] w-[400px] h-[400px] border border-primary/[0.06] rounded-full"
+          className="absolute top-[12%] right-[8%] w-[400px] h-[400px] rounded-full"
+          style={{ border: '1px solid rgba(10,102,194,0.06)' }}
           animate={{ rotate: -360 }}
           transition={{ duration: 140, repeat: Infinity, ease: "linear" }}
         />
         <motion.div 
-          className="absolute bottom-[10%] left-[3%] w-56 h-56 border border-primary/10 rotate-12"
+          className="absolute bottom-[10%] left-[3%] w-56 h-56 rotate-12"
+          style={{ border: '1px solid rgba(10,102,194,0.1)' }}
           animate={{ rotate: 372 }}
           transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
         />
-        <div className="absolute top-[35%] right-[20%] w-40 h-40 border border-white/[0.02] rotate-45" />
+        <div className="absolute top-[35%] right-[20%] w-40 h-40 rotate-45" style={{ border: '1px solid rgba(255,255,255,0.02)' }} />
       </>
     ) : (
       <>
-        <div className="absolute top-[8%] right-[5%] w-[500px] h-[500px] border border-white/[0.03] rounded-full" />
-        <div className="absolute top-[12%] right-[8%] w-[400px] h-[400px] border border-primary/[0.06] rounded-full" />
-        <div className="absolute bottom-[10%] left-[3%] w-56 h-56 border border-primary/10 rotate-12" />
-        <div className="absolute top-[35%] right-[20%] w-40 h-40 border border-white/[0.02] rotate-45" />
+        <div className="absolute top-[8%] right-[5%] w-[500px] h-[500px] rounded-full" style={{ border: '1px solid rgba(255,255,255,0.03)' }} />
+        <div className="absolute top-[12%] right-[8%] w-[400px] h-[400px] rounded-full" style={{ border: '1px solid rgba(10,102,194,0.06)' }} />
+        <div className="absolute bottom-[10%] left-[3%] w-56 h-56 rotate-12" style={{ border: '1px solid rgba(10,102,194,0.1)' }} />
+        <div className="absolute top-[35%] right-[20%] w-40 h-40 rotate-45" style={{ border: '1px solid rgba(255,255,255,0.02)' }} />
       </>
     )}
     
-    {/* Accent lines - more dramatic */}
-    <div className="absolute top-0 left-[15%] w-[1px] h-[40%] bg-gradient-to-b from-primary/30 via-primary/10 to-transparent" />
-    <div className="absolute bottom-0 right-[25%] w-[1px] h-[30%] bg-gradient-to-t from-primary/20 via-white/5 to-transparent" />
-    <div className="absolute top-[55%] left-0 w-[20%] h-[1px] bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
-    <div className="absolute top-0 right-[40%] w-[1px] h-[20%] bg-gradient-to-b from-primary/15 to-transparent" />
+    {/* Accent lines - inline styles for export */}
+    <div className="absolute top-0 left-[15%] w-[1px] h-[40%]" style={{ background: 'linear-gradient(to bottom, rgba(10,102,194,0.3), rgba(10,102,194,0.1), transparent)' }} />
+    <div className="absolute bottom-0 right-[25%] w-[1px] h-[30%]" style={{ background: 'linear-gradient(to top, rgba(10,102,194,0.2), rgba(255,255,255,0.05), transparent)' }} />
+    <div className="absolute top-[55%] left-0 w-[20%] h-[1px]" style={{ background: 'linear-gradient(to right, transparent, rgba(10,102,194,0.15), transparent)' }} />
+    <div className="absolute top-0 right-[40%] w-[1px] h-[20%]" style={{ background: 'linear-gradient(to bottom, rgba(10,102,194,0.15), transparent)' }} />
     
     {/* Horizontal accent bar */}
-    <div className="absolute bottom-[30%] left-12 lg:left-20 w-32 h-[1px] bg-gradient-to-r from-primary/40 to-transparent" />
+    <div className="absolute bottom-[30%] left-12 lg:left-20 w-32 h-[1px]" style={{ background: 'linear-gradient(to right, rgba(10,102,194,0.4), transparent)' }} />
   </div>
 );
 
@@ -335,16 +339,20 @@ const CornerAccent = ({ position, inverted, highlight }: { position: 'tl' | 'br'
       "absolute",
       highlight ? "h-[2px]" : "h-[1px]",
       position === 'tl' ? "top-0 left-0 w-full" : "bottom-0 right-0 w-full",
-      highlight ? "bg-gradient-to-r from-primary via-primary/60 to-transparent" : 
-        inverted ? "bg-white/20" : "bg-foreground/10"
-    )} />
+    )} style={{
+      background: highlight 
+        ? 'linear-gradient(to right, #0A66C2, rgba(10,102,194,0.6), transparent)'
+        : inverted ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)'
+    }} />
     <div className={cn(
       "absolute",
       highlight ? "w-[2px]" : "w-[1px]",
       position === 'tl' ? "top-0 left-0 h-full" : "bottom-0 right-0 h-full",
-      highlight ? "bg-gradient-to-b from-primary via-primary/60 to-transparent" : 
-        inverted ? "bg-white/20" : "bg-foreground/10"
-    )} />
+    )} style={{
+      background: highlight 
+        ? 'linear-gradient(to bottom, #0A66C2, rgba(10,102,194,0.6), transparent)'
+        : inverted ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)'
+    }} />
   </div>
 );
 
@@ -353,23 +361,23 @@ const CoverFrame = () => (
   <>
     {/* Top left corner - blue accent */}
     <div className="absolute top-8 left-8 w-32 h-32">
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-primary via-primary/60 to-transparent" />
-      <div className="absolute top-0 left-0 h-full w-[2px] bg-gradient-to-b from-primary via-primary/60 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: 'linear-gradient(to right, #0A66C2, rgba(10,102,194,0.6), transparent)' }} />
+      <div className="absolute top-0 left-0 h-full w-[2px]" style={{ background: 'linear-gradient(to bottom, #0A66C2, rgba(10,102,194,0.6), transparent)' }} />
     </div>
     {/* Top right corner */}
     <div className="absolute top-8 right-8 w-24 h-24">
-      <div className="absolute top-0 right-0 w-full h-[1px] bg-gradient-to-l from-white/30 to-transparent" />
-      <div className="absolute top-0 right-0 h-full w-[1px] bg-gradient-to-b from-white/30 to-transparent" />
+      <div className="absolute top-0 right-0 w-full h-[1px]" style={{ background: 'linear-gradient(to left, rgba(255,255,255,0.3), transparent)' }} />
+      <div className="absolute top-0 right-0 h-full w-[1px]" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.3), transparent)' }} />
     </div>
     {/* Bottom left corner */}
     <div className="absolute bottom-8 left-8 w-24 h-24">
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-white/20 to-transparent" />
-      <div className="absolute bottom-0 left-0 h-full w-[1px] bg-gradient-to-t from-white/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-[1px]" style={{ background: 'linear-gradient(to right, rgba(255,255,255,0.2), transparent)' }} />
+      <div className="absolute bottom-0 left-0 h-full w-[1px]" style={{ background: 'linear-gradient(to top, rgba(255,255,255,0.2), transparent)' }} />
     </div>
     {/* Bottom right corner - blue accent */}
     <div className="absolute bottom-8 right-8 w-32 h-32">
-      <div className="absolute bottom-0 right-0 w-full h-[2px] bg-gradient-to-l from-primary via-primary/60 to-transparent" />
-      <div className="absolute bottom-0 right-0 h-full w-[2px] bg-gradient-to-t from-primary via-primary/60 to-transparent" />
+      <div className="absolute bottom-0 right-0 w-full h-[2px]" style={{ background: 'linear-gradient(to left, #0A66C2, rgba(10,102,194,0.6), transparent)' }} />
+      <div className="absolute bottom-0 right-0 h-full w-[2px]" style={{ background: 'linear-gradient(to top, #0A66C2, rgba(10,102,194,0.6), transparent)' }} />
     </div>
   </>
 );
@@ -426,8 +434,8 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             transition={smoothTransition}
             className="flex items-center gap-4 mb-8"
           >
-            <div className="w-12 h-[2px] bg-primary" />
-            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary/80">
+            <div className="w-12 h-[2px]" style={{ backgroundColor: '#0A66C2' }} />
+            <span className="font-mono text-[10px] tracking-[0.3em] uppercase" style={{ color: 'rgba(10,102,194,0.8)' }}>
               {slide.author || 'Intelligence Capital'}
             </span>
           </motion.div>
@@ -446,7 +454,8 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             <motion.p 
               variants={childVariant}
               transition={smoothTransition}
-              className="text-xl lg:text-2xl text-white/60 max-w-2xl font-serif italic leading-relaxed"
+              className="text-xl lg:text-2xl max-w-2xl font-serif italic leading-relaxed"
+              style={{ color: 'rgba(255,255,255,0.6)' }}
             >
               {slide.subtitle}
             </motion.p>
@@ -457,7 +466,7 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             variants={childVariant}
             className="flex items-center gap-3 mt-10"
           >
-            <div className="w-2.5 h-2.5 bg-primary rounded-full shadow-[0_0_12px_hsl(var(--primary)/0.5)]" />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#0A66C2', boxShadow: '0 0 12px rgba(10,102,194,0.5)' }} />
             <span className="font-mono text-xs tracking-widest text-white/40 uppercase">
               {slide.meta || new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
             </span>
@@ -472,9 +481,9 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             >
               {slide.items.map((item: any, idx: number) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
-                  <span className="font-mono text-[10px] tracking-wider text-primary uppercase w-28">{item.label}</span>
-                  <div className="w-4 h-[1px] bg-white/20" />
-                  <span className="text-white/60">{item.text}</span>
+                  <span className="font-mono text-[10px] tracking-wider uppercase w-28" style={{ color: '#0A66C2' }}>{item.label}</span>
+                  <div className="w-4 h-[1px]" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }} />
+                  <span style={{ color: 'rgba(255,255,255,0.6)' }}>{item.text}</span>
                 </div>
               ))}
             </motion.div>
@@ -482,7 +491,7 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
         </div>
         
         {/* Right side accent - stronger */}
-        <div className="absolute right-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-[2px]" style={{ background: 'linear-gradient(to bottom, transparent, rgba(10,102,194,0.3), transparent)' }} />
       </motion.div>
     );
   }
@@ -499,7 +508,7 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
         <MorphingGradientBackground reduced={isExportMode} />
         
         {/* Vertical blue accent bar on left */}
-        <div className="absolute left-0 top-[15%] bottom-[15%] w-1 bg-gradient-to-b from-primary/0 via-primary to-primary/0" />
+        <div className="absolute left-0 top-[15%] bottom-[15%] w-1" style={{ background: 'linear-gradient(to bottom, transparent, #0A66C2, transparent)' }} />
         
         {/* Large background section number - matching cover style */}
         <LargeDecorativeNumber number={slide.kicker || '01'} />
@@ -513,7 +522,8 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             <motion.p 
               variants={childVariant}
               transition={smoothTransition}
-              className="font-mono text-[10px] tracking-[0.25em] uppercase text-primary mb-6"
+              className="font-mono text-[10px] tracking-[0.25em] uppercase mb-6"
+              style={{ color: '#0A66C2' }}
             >
               Section {slide.kicker}
             </motion.p>
@@ -524,7 +534,7 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             transition={smoothTransition}
             className="font-serif text-5xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl"
           >
-            <span className="text-primary">{slide.title?.split(' ')[0]}</span>{' '}
+            <span style={{ color: '#0A66C2' }}>{slide.title?.split(' ')[0]}</span>{' '}
             {slide.title?.split(' ').slice(1).join(' ')}
           </motion.h2>
           
@@ -532,7 +542,8 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             <motion.p 
               variants={childVariant}
               transition={smoothTransition}
-              className="text-xl text-white/60 mt-6 max-w-2xl"
+              className="text-xl mt-6 max-w-2xl"
+              style={{ color: 'rgba(255,255,255,0.6)' }}
             >
               {slide.subtitle}
             </motion.p>
@@ -543,9 +554,9 @@ const SlideContent = ({ slide, isActive, isExportMode }: { slide: Slide; isActiv
             transition={smoothTransition}
             className="flex items-center gap-4 mt-10"
           >
-            <div className="w-32 h-[3px] bg-primary" />
-            <div className="w-12 h-[2px] bg-white/20" />
-            <div className="w-2 h-2 bg-primary rounded-full" />
+            <div className="w-32 h-[3px]" style={{ backgroundColor: '#0A66C2' }} />
+            <div className="w-12 h-[2px]" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }} />
+            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#0A66C2' }} />
           </motion.div>
         </div>
       </motion.div>
