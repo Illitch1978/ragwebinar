@@ -337,23 +337,15 @@ const UploadPage = () => {
     }
   };
 
-  const handleExportPdf = async (e: React.MouseEvent, presentation: Presentation) => {
+  const handleExportPdf = (e: React.MouseEvent, presentation: Presentation) => {
     e.stopPropagation();
-    try {
-      toast.info("Generating PDF...");
-      const selectedGuide = brandGuides?.find(bg => bg.id === presentation.brand_guide_id);
-      await exportProposalToPdf({
-        title: presentation.title,
-        clientName: presentation.client_name || undefined,
-        content: presentation.content,
-        createdBy: presentation.created_by || undefined,
-        termsAndConditions: selectedGuide?.terms_and_conditions as string | undefined,
-      });
-      toast.success("PDF downloaded!");
-    } catch (error) {
-      console.error('PDF export error:', error);
-      toast.error("Failed to export PDF");
+    // Navigate to the presentation in PDF export mode (screenshot-based)
+    sessionStorage.setItem('rubiklab-presentation-id', presentation.id);
+    sessionStorage.setItem('rubiklab-client', presentation.client_name || 'Client');
+    if (presentation.generated_slides) {
+      sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(presentation.generated_slides));
     }
+    navigate(`/presentation?id=${presentation.id}&export=pdf`);
   };
 
   return (
