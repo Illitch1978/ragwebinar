@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { BookOpen, FileText, Link2, Database, File, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -51,10 +52,17 @@ const getSourceIcon = (type: Source["type"]) => {
 const SourcesSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const location = useLocation();
 
   const filteredSources = mockSources.filter((source) =>
     source.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Hide on presentation and report routes
+  const hiddenRoutes = ['/presentation', '/report', '/deck'];
+  if (hiddenRoutes.some(route => location.pathname.startsWith(route))) {
+    return null;
+  }
 
   return (
     <>
