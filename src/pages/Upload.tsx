@@ -16,7 +16,10 @@ import AppHeader from "@/components/AppHeader";
 import { exportToPptx } from "@/lib/pptxExport";
 import { exportToDocx } from "@/lib/docxExport";
 import { exportProposalToPdf } from "@/lib/pdfProposalExport";
-import ProjectDetailsStep, { OutputFormat, OUTPUT_FORMAT_OPTIONS } from "@/components/creation/ProjectDetailsStep";
+import ProjectDetailsStep, { AnalysisTone, ProjectLanguage } from "@/components/creation/ProjectDetailsStep";
+import ObjectivesStep, { OutputFormat, OUTPUT_FORMAT_OPTIONS } from "@/components/creation/ObjectivesStep";
+import MetadataStep, { MetadataField } from "@/components/creation/MetadataStep";
+import ThemeStep from "@/components/creation/ThemeStep";
 import FormatOptionsStep, { DeckLength, ArticlePersona, WordCountRange } from "@/components/creation/FormatOptionsStep";
 import {
   Tooltip,
@@ -31,10 +34,20 @@ const UploadPage = () => {
   
   // Step 1: Project Details
   const [projectName, setProjectName] = useState("");
+  const [language, setLanguage] = useState<ProjectLanguage>('en-us');
+  const [analysisTone, setAnalysisTone] = useState<AnalysisTone>('balanced');
+  
+  // Step 2: Objectives & Output Format
   const [description, setDescription] = useState("");
   const [outputFormat, setOutputFormat] = useState<OutputFormat>('proposal');
   
-  // Step 2: Format Options
+  // Step 3: Metadata
+  const [metadataFields, setMetadataFields] = useState<MetadataField[]>([]);
+  
+  // Step 4: Themes
+  const [themes, setThemes] = useState<string[]>([]);
+  
+  // Format Options (used during generation)
   const [selectedBrandGuide, setSelectedBrandGuide] = useState<string>("");
   const [deckLength, setDeckLength] = useState<DeckLength>('medium');
   const [articlePersona, setArticlePersona] = useState<ArticlePersona>('strategist');
@@ -379,59 +392,79 @@ const UploadPage = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex items-center justify-center gap-4 mb-10"
+            className="flex items-center justify-center gap-3 mb-10"
           >
-            <div className={cn(
-              "flex items-center gap-2 px-4 py-2 border transition-colors",
-              currentStep === 1 
-                ? "border-primary bg-primary/10 text-primary" 
-                : "border-border text-muted-foreground"
-            )}>
-              <span className="w-6 h-6 bg-current/20 flex items-center justify-center text-xs font-bold">1</span>
-              <span className="font-mono text-[10px] uppercase tracking-widest">Project Details</span>
-            </div>
-            <div className="w-8 h-px bg-border" />
-            <div className={cn(
-              "flex items-center gap-2 px-4 py-2 border transition-colors",
-              currentStep === 2 
-                ? "border-primary bg-primary/10 text-primary" 
-                : "border-border text-muted-foreground"
-            )}>
-              <span className="w-6 h-6 bg-current/20 flex items-center justify-center text-xs font-bold">2</span>
-              <span className="font-mono text-[10px] uppercase tracking-widest">Options & Generate</span>
-            </div>
+            {[
+              { num: 1, label: 'Project Details' },
+              { num: 2, label: 'Objectives' },
+              { num: 3, label: 'Metadata' },
+              { num: 4, label: 'Themes' },
+            ].map((step, i) => (
+              <div key={step.num} className="flex items-center gap-3">
+                {i > 0 && <div className="w-6 h-px bg-border" />}
+                <div className={cn(
+                  "flex items-center gap-2 px-3 py-1.5 border transition-colors",
+                  currentStep === step.num
+                    ? "border-primary bg-primary/10 text-primary"
+                    : currentStep > step.num
+                    ? "border-primary/40 bg-primary/5 text-primary/70"
+                    : "border-border text-muted-foreground"
+                )}>
+                  <span className={cn(
+                    "w-5 h-5 flex items-center justify-center text-[10px] font-bold",
+                    currentStep > step.num ? "bg-primary text-primary-foreground" : "bg-current/20"
+                  )}>
+                    {currentStep > step.num ? '✓' : step.num}
+                  </span>
+                  <span className="font-mono text-[9px] uppercase tracking-widest hidden sm:inline">{step.label}</span>
+                </div>
+              </div>
+            ))}
           </motion.div>
 
-          {/* Wizard Steps (no entrance/slide animations) */}
-          {currentStep === 1 ? (
+          {/* Wizard Steps */}
+          {currentStep === 1 && (
             <div>
               <ProjectDetailsStep
                 projectName={projectName}
                 setProjectName={setProjectName}
+                language={language}
+                setLanguage={setLanguage}
+                analysisTone={analysisTone}
+                setAnalysisTone={setAnalysisTone}
+                onNext={() => setCurrentStep(2)}
+              />
+            </div>
+          )}
+          {currentStep === 2 && (
+            <div>
+              <ObjectivesStep
                 description={description}
                 setDescription={setDescription}
                 outputFormat={outputFormat}
                 setOutputFormat={setOutputFormat}
-                onNext={() => setCurrentStep(2)}
+                onBack={() => setCurrentStep(1)}
+                onNext={() => setCurrentStep(3)}
               />
             </div>
-          ) : (
+          )}
+          {currentStep === 3 && (
             <div>
-              <FormatOptionsStep
-                outputFormat={outputFormat}
-                brandGuides={brandGuides}
-                isLoadingBrandGuides={isLoadingBrandGuides}
-                selectedBrandGuide={selectedBrandGuide}
-                setSelectedBrandGuide={setSelectedBrandGuide}
-                deckLength={deckLength}
-                setDeckLength={setDeckLength}
-                articlePersona={articlePersona}
-                setArticlePersona={setArticlePersona}
-                wordCountRange={wordCountRange}
-                setWordCountRange={setWordCountRange}
-                content={additionalContent}
-                setContent={setAdditionalContent}
-                onBack={() => setCurrentStep(1)}
+              <MetadataStep
+                metadataFields={metadataFields}
+                setMetadataFields={setMetadataFields}
+                onBack={() => setCurrentStep(2)}
+                onNext={() => setCurrentStep(4)}
+              />
+            </div>
+          )}
+          {currentStep === 4 && (
+            <div>
+              <ThemeStep
+                themes={themes}
+                setThemes={setThemes}
+                description={description}
+                onBack={() => setCurrentStep(3)}
                 onGenerate={handleGenerate}
                 isGenerating={isGenerating}
               />

@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import BrandGuideEditor from "@/components/BrandGuideEditor";
-import { OUTPUT_FORMAT_OPTIONS, OutputFormat } from "./ProjectDetailsStep";
+import { OUTPUT_FORMAT_OPTIONS, OutputFormat } from "./ObjectivesStep";
 import { BrandGuide } from "@/hooks/useBrandGuides";
 import { useRef, useState } from "react";
 export type DeckLength = 'brief' | 'medium' | 'long' | 'very-long';
