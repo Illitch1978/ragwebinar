@@ -63,7 +63,7 @@ const GUIDED_PROMPTS = [
   { key: 'goal', label: 'Primary goal', placeholder: 'What is the main objective of this project?' },
   { key: 'audience', label: 'Target audience', placeholder: 'Who will consume this output?' },
   { key: 'metrics', label: 'Success metrics', placeholder: 'How will you measure success?' },
-  { key: 'constraints', label: 'Constraints', placeholder: 'Timeline, budget, or scope limitations?' },
+  { key: 'challenges', label: 'Challenges', placeholder: 'Key challenges or obstacles to address?' },
 ];
 
 /** Strip any residual markdown the AI might return */
@@ -217,7 +217,7 @@ const ObjectivesStep = ({
                 />
               </div>
             ))}
-            <div className="flex items-center gap-3 mt-2">
+            <div className="flex items-center gap-3 mt-4 pt-2">
               <Button
                 variant="outline"
                 size="sm"
