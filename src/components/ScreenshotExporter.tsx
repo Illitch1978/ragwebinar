@@ -141,10 +141,20 @@ export const ScreenshotExporter = ({
                 animation-delay: 0s !important;
                 transition: none !important; 
                 opacity: 1 !important;
+                transform: none !important;
               }
               .animate-ping { display: none !important; }
             `;
             (_clonedDoc.head || _clonedDoc.body)?.appendChild(style);
+
+            // Strip framer-motion inline styles that hide content
+            clonedEl.querySelectorAll('*').forEach((el) => {
+              if (el instanceof HTMLElement) {
+                // Remove inline opacity/transform set by framer-motion
+                if (el.style.opacity) el.style.removeProperty('opacity');
+                if (el.style.transform) el.style.removeProperty('transform');
+              }
+            });
 
             // Remove canvases from the clone
             _clonedDoc.querySelectorAll("canvas").forEach((c) => c.remove());
