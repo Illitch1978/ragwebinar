@@ -33,10 +33,19 @@ export interface TaskResult {
 }
 
 const INTENT_PRESETS = [
-  { label: "Find evidence for…", intent: "evidence", prefix: "Find the strongest evidence for: " },
-  { label: "Validate assumption…", intent: "validate", prefix: "Validate or refute this assumption: " },
-  { label: "Extract insights about…", intent: "insight", prefix: "Extract key insights about: " },
-  { label: "Summarize findings on…", intent: "insight", prefix: "Summarize the key findings on: " },
+  { label: "Find evidence for…", intent: "evidence", prefix: "Find the strongest evidence for: ", color: "hover:text-primary hover:border-primary/20" },
+  { label: "Validate assumption…", intent: "validate", prefix: "Validate or refute this assumption: ", color: "hover:text-emerald-600 hover:border-emerald-200" },
+  { label: "Extract insights about…", intent: "insight", prefix: "Extract key insights about: ", color: "hover:text-violet-600 hover:border-violet-200" },
+  { label: "Summarize findings on…", intent: "insight", prefix: "Summarize the key findings on: ", color: "hover:text-amber-600 hover:border-amber-200" },
+];
+
+const STARTER_COLORS = [
+  "border-l-primary/60",
+  "border-l-emerald-500/60",
+  "border-l-violet-500/60",
+  "border-l-amber-500/60",
+  "border-l-primary/40",
+  "border-l-rose-400/60",
 ];
 
 const TalkToData = () => {
@@ -136,10 +145,10 @@ const TalkToData = () => {
         {/* Left: Command + Task Feed */}
         <div className="flex-1 min-w-0 flex flex-col border-r border-neutral-200">
           {/* Command Bar */}
-          <div className="border-b border-neutral-200 bg-white/60 backdrop-blur-sm">
+          <div className="border-b border-neutral-200 bg-gradient-to-r from-white/80 via-primary/[0.03] to-white/80 backdrop-blur-sm">
             <div className="px-6 lg:px-10 py-5">
                 <div className="relative">
-                <div className="flex items-center gap-3 bg-white border border-neutral-200 rounded-none px-5 py-4 focus-within:border-primary transition-colors shadow-sm">
+                <div className="flex items-center gap-3 bg-white border border-neutral-200 rounded-none px-5 py-4 focus-within:border-primary focus-within:shadow-[0_0_0_3px_hsl(201_89%_48%/0.08)] transition-all shadow-sm">
                   <input
                     ref={inputRef}
                     type="text"
@@ -153,7 +162,7 @@ const TalkToData = () => {
                   <button
                     onClick={() => submitQuery(query)}
                     disabled={!query.trim() || isProcessing}
-                    className="flex items-center gap-2 px-4 py-2 bg-foreground text-white text-xs uppercase tracking-[0.1em] font-semibold hover:bg-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-xs uppercase tracking-[0.1em] font-semibold hover:bg-primary/90 transition-colors disabled:opacity-30 disabled:cursor-not-allowed shadow-[0_2px_8px_hsl(201_89%_48%/0.25)]"
                   >
                     {isProcessing ? <Loader2 size={14} className="animate-spin" /> : <ArrowRight size={14} />}
                     <span>{isProcessing ? "Working" : "Run"}</span>
@@ -167,7 +176,7 @@ const TalkToData = () => {
                   <button
                     key={preset.label}
                     onClick={() => handlePreset(preset.prefix)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] font-medium text-neutral-400 hover:text-primary hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] font-medium text-neutral-400 ${preset.color} hover:bg-neutral-50 border border-transparent transition-all`}
                   >
                     {preset.label}
                   </button>
@@ -182,7 +191,7 @@ const TalkToData = () => {
               {tasks.length === 0 ? (
                 <div className="flex flex-col h-full justify-center max-w-2xl mx-auto px-4">
                   <div className="mb-8">
-                    <h2 className="font-serif text-2xl font-bold text-foreground mb-2">Your research agent</h2>
+                    <h2 className="font-serif text-2xl font-bold text-foreground mb-2">Your research agent<span className="inline-block w-2 h-2 rounded-full bg-primary ml-1.5 shadow-[0_0_6px_hsl(201_89%_48%/0.5)] translate-y-[-2px]" /></h2>
                     <p className="text-sm text-muted-foreground leading-relaxed max-w-lg">
                       Ask questions about your uploaded data. The agent will find evidence,
                       validate assumptions, extract patterns, and prepare findings for your deck.
@@ -196,11 +205,11 @@ const TalkToData = () => {
                       { query: "Compare Q3 vs Q4 sentiment trends", label: "Trend comparison" },
                       { query: "What are the top 3 competitive advantages mentioned by customers?", label: "Competitive insight" },
                       { query: "Identify the weakest areas in our product experience", label: "Weakness analysis" },
-                    ].map(({ query: q, label }) => (
+                    ].map(({ query: q, label }, i) => (
                       <button
                         key={q}
                         onClick={() => submitQuery(q)}
-                        className="w-full flex items-center justify-between px-5 py-3.5 text-left bg-white border border-neutral-200 hover:border-primary/30 group transition-all"
+                        className={`w-full flex items-center justify-between px-5 py-3.5 text-left bg-white border border-neutral-200 border-l-[3px] ${STARTER_COLORS[i]} hover:border-neutral-300 hover:shadow-sm group transition-all`}
                       >
                         <div>
                           <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground">{label}</span>
@@ -223,7 +232,7 @@ const TalkToData = () => {
         </div>
 
         {/* Right: Missions Panel */}
-        <div className="w-[320px] flex-shrink-0 bg-white/40 backdrop-blur-sm">
+        <div className="w-[320px] flex-shrink-0 bg-gradient-to-b from-white/60 via-primary/[0.02] to-white/40 backdrop-blur-sm border-l border-neutral-200">
           <MissionsPanel />
         </div>
       </div>
