@@ -200,10 +200,10 @@ export const ScreenshotExporter = ({
     const slides: SlideImage[] = [];
 
     try {
-      setExportProgress({ current: 0, total: totalSlides, phase: "Capturing slides..." });
+      const slidesToCapture = Math.min(totalSlides, 3); // DEBUG: limit to 3 slides for quick testing
+      setExportProgress({ current: 0, total: slidesToCapture, phase: "Capturing slides..." });
 
-      // Capture each slide
-      for (let i = 0; i < totalSlides; i++) {
+      for (let i = 0; i < slidesToCapture; i++) {
         setExportProgress({ current: i + 1, total: totalSlides, phase: "Capturing slides..." });
         
         // Navigate to the slide
