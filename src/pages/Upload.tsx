@@ -339,13 +339,13 @@ const UploadPage = () => {
 
   const handleExportPdf = (e: React.MouseEvent, presentation: Presentation) => {
     e.stopPropagation();
-    // Navigate to the presentation in PDF export mode (screenshot-based)
+    // Use the working PPTX screenshot-based export
     sessionStorage.setItem('rubiklab-presentation-id', presentation.id);
     sessionStorage.setItem('rubiklab-client', presentation.client_name || 'Client');
     if (presentation.generated_slides) {
       sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(presentation.generated_slides));
     }
-    navigate(`/presentation?id=${presentation.id}&export=pdf`);
+    navigate(`/presentation?id=${presentation.id}&export=true`);
   };
 
   return (
@@ -545,18 +545,18 @@ const UploadPage = () => {
                                 </TooltipContent>
                               </Tooltip>
                               
-                              {/* Download PDF */}
+                              {/* Download PPTX */}
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <button
                                     onClick={(e) => handleExportPdf(e, presentation)}
                                     className="p-1.5 hover:bg-muted rounded transition-colors"
                                   >
-                                    <FileOutput className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+                                    <Download className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
                                   </button>
                                 </TooltipTrigger>
                                 <TooltipContent side="top" className="text-xs">
-                                  Download PDF
+                                  Download PPTX
                                 </TooltipContent>
                               </Tooltip>
 
