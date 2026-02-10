@@ -27,7 +27,8 @@ const App = () => (
           <Route path="/projects" element={<Projects />} />
           <Route path="/overview" element={<Overview />} />
           <Route path="/explore" element={<Explore />} />
-          <Route path="/talk-to-data" element={<TalkToData />} />
+          <Route path="/cockpit" element={<TalkToData />} />
+          <Route path="/talk-to-data" element={<Navigate to="/cockpit" replace />} />
           <Route path="/deck" element={<Upload />} />
           <Route path="/report" element={
             <div className="min-h-screen bg-background dashboard-light">

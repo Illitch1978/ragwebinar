@@ -128,7 +128,7 @@ const MissionsPanel = () => {
       {/* Header */}
       <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between">
         <span className="text-[11px] uppercase tracking-[0.12em] font-semibold text-foreground">
-          Missions
+          Agentic Missions
         </span>
         <button
           onClick={() => setShowTemplates(!showTemplates)}
@@ -146,9 +146,9 @@ const MissionsPanel = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-b border-neutral-200"
+            className="overflow-hidden border-b border-neutral-200 flex-1 flex flex-col min-h-0"
           >
-            <div className="p-3 space-y-1 max-h-[400px] overflow-auto">
+            <div className="p-3 space-y-1 flex-1 overflow-auto">
               <span className="text-[10px] uppercase tracking-[0.1em] font-semibold text-muted-foreground px-1 mb-2 block">
                 Task library · {MISSION_TEMPLATES.length} templates
               </span>
