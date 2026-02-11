@@ -80,7 +80,7 @@ const SourcesSidebar = ({ children }: { children: React.ReactNode }) => {
         >
           <div style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH }} className="h-full flex flex-col">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-border">
+            <div className="flex items-center justify-between p-4">
               <div className="flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-primary" />
                 <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
