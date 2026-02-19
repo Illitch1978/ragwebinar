@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Loader2, Send, RotateCcw, ArrowRight, Layers, X,
-  ChevronRight, MessageSquare, Presentation, BookOpen
+  ChevronRight, MessageSquare, Presentation, BookOpen, ArrowLeft, Target
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -242,6 +242,14 @@ export default function DeckPlanner() {
         {/* Top bar */}
         <div className="border-b border-border bg-card/80 backdrop-blur-sm px-6 py-3 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => navigate("/projects")}
+              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Projects
+            </button>
+            <div className="w-px h-4 bg-border" />
             <Layers className="w-4 h-4 text-primary" />
             <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Deck Planner
@@ -254,6 +262,14 @@ export default function DeckPlanner() {
           </div>
 
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => navigate("/projects")}
+              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors px-2.5 py-1.5 border border-border rounded-sm hover:bg-muted"
+            >
+              <Target className="w-3.5 h-3.5" />
+              Set Objectives
+            </button>
+
             {hasGenerated && (
               <button
                 onClick={handleSuggestStructure}
@@ -297,7 +313,7 @@ export default function DeckPlanner() {
         {/* Main split layout */}
         <div className="flex flex-1 overflow-hidden">
           {/* LEFT: Slide outline */}
-          <div className="w-[55%] border-r border-border flex flex-col overflow-hidden">
+          <div className="w-[68%] border-r border-border flex flex-col overflow-hidden">
             {/* Loading state */}
             {isLoading && (
               <div className="flex-1 flex flex-col items-center justify-center gap-4">
@@ -403,7 +419,7 @@ export default function DeckPlanner() {
           </div>
 
           {/* RIGHT: Chat panel */}
-          <div className="w-[45%] flex flex-col overflow-hidden bg-card">
+          <div className="w-[32%] flex flex-col overflow-hidden bg-card">
             {/* Chat header */}
             <div className="px-5 py-3 border-b border-border shrink-0">
               <div className="flex items-center gap-2">
