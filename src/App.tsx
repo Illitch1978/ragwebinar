@@ -10,8 +10,11 @@ import Explore from "./pages/Explore";
 import TalkToData from "./pages/TalkToData";
 import ReportSection from "./components/dashboard/ReportSection";
 import Presentation from "./pages/Presentation";
+import DeckPlanner from "./pages/DeckPlanner";
+import DeckGenerate from "./pages/DeckGenerate";
 import NotFound from "./pages/NotFound";
 import SourcesSidebar from "./components/SourcesSidebar";
+import { DeckCollectionProvider } from "./contexts/DeckCollectionContext";
 
 const queryClient = new QueryClient();
 
@@ -20,27 +23,31 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <SourcesSidebar>
-          <Routes>
-            <Route path="/" element={<Navigate to="/projects" replace />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/overview" element={<Overview />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/cockpit" element={<TalkToData />} />
-            <Route path="/talk-to-data" element={<Navigate to="/cockpit" replace />} />
-            <Route path="/deck" element={<Upload />} />
-            <Route path="/report" element={
-              <div className="min-h-screen bg-background dashboard-light">
-                <ReportSection />
-              </div>
-            } />
-            <Route path="/presentation" element={<Presentation />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </SourcesSidebar>
-      </BrowserRouter>
+      <DeckCollectionProvider>
+        <BrowserRouter>
+          <SourcesSidebar>
+            <Routes>
+              <Route path="/" element={<Navigate to="/projects" replace />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/overview" element={<Overview />} />
+              <Route path="/explore" element={<Explore />} />
+              <Route path="/cockpit" element={<TalkToData />} />
+              <Route path="/talk-to-data" element={<Navigate to="/cockpit" replace />} />
+              <Route path="/deck" element={<DeckPlanner />} />
+              <Route path="/deck-generate" element={<DeckGenerate />} />
+              <Route path="/deck-archive" element={<Upload />} />
+              <Route path="/report" element={
+                <div className="min-h-screen bg-background dashboard-light">
+                  <ReportSection />
+                </div>
+              } />
+              <Route path="/presentation" element={<Presentation />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </SourcesSidebar>
+        </BrowserRouter>
+      </DeckCollectionProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
