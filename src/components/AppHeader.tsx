@@ -47,8 +47,9 @@ const AppHeader = () => {
           <div className="flex items-center gap-2">
             {/* Navigation Tabs */}
             <nav className="flex items-center mr-4">
-              {navTabs.map((tab) => {
-                const isActive = location.pathname === tab.path;
+            {navTabs.map((tab) => {
+                const isActive = location.pathname === tab.path ||
+                  (tab.path === "/deck" && location.pathname === "/deck-generate");
                 return (
                   <Link
                     key={tab.label}

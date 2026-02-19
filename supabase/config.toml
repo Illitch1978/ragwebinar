@@ -1,1 +1,7 @@
 project_id = "fvcpymqyehknfnfwtnlc"
+
+[functions.plan-deck]
+verify_jwt = false
+
+[functions.edit-slide]
+verify_jwt = false

@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import type { TaskResult, Finding } from "@/pages/TalkToData";
 import { toast } from "sonner";
+import { useDeckCollection } from "@/contexts/DeckCollectionContext";
 
 const INTENT_META: Record<string, { icon: typeof Search; label: string; color: string }> = {
   evidence: { icon: Search, label: "Evidence", color: "text-primary" },
@@ -39,6 +40,7 @@ interface TaskCardProps {
 
 const TaskCard = ({ task, onFollowUp }: TaskCardProps) => {
   const [expanded, setExpanded] = useState(true);
+  const { addItem, hasItem } = useDeckCollection();
   const intentMeta = INTENT_META[task.intent] || INTENT_META.conversational;
   const IntentIcon = intentMeta.icon;
 
@@ -58,10 +60,22 @@ const TaskCard = ({ task, onFollowUp }: TaskCardProps) => {
     toast.success("Copied to clipboard");
   };
 
+  const alreadyAdded = hasItem(task.summary);
+
   const handleAddToDeck = () => {
-    toast.success("Finding queued for deck insertion", {
-      description: task.slide_suggestion?.title || task.title,
+    if (alreadyAdded) return;
+    addItem({
+      type: task.intent === "validate" ? "finding" : task.intent === "evidence" ? "finding" : "insight",
+      source: "cockpit",
+      title: task.title,
+      content: task.summary,
+      metadata: {
+        intent: task.intent,
+        confidence: String(confidencePercent),
+        slideType: task.slide_suggestion?.type || "text-stack",
+      },
     });
+    toast.success("Added to deck", { description: task.title });
   };
 
   if (task.status === "running") {
@@ -226,10 +240,15 @@ const TaskCard = ({ task, onFollowUp }: TaskCardProps) => {
               <div className="mt-4 pt-3 border-t border-neutral-100 flex items-center gap-2 flex-wrap">
                 <button
                   onClick={handleAddToDeck}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] font-semibold bg-foreground text-white hover:bg-primary transition-colors"
+                  disabled={alreadyAdded}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] font-semibold transition-colors ${
+                    alreadyAdded
+                      ? "bg-emerald-50 text-emerald-600 border border-emerald-200 cursor-default"
+                      : "bg-foreground text-white hover:bg-primary"
+                  }`}
                 >
                   <Plus size={12} />
-                  Add to Deck
+                  {alreadyAdded ? "Added to Deck" : "Add to Deck"}
                 </button>
                 <button
                   onClick={handleCopy}

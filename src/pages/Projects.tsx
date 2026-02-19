@@ -202,91 +202,17 @@ const Projects = () => {
         return;
       }
 
-      // Proposal: generate slides + PDF
-      if (outputFormat === 'proposal') {
-        const termsAndConditions = selectedGuide?.terms_and_conditions as string | undefined;
-        toast.info("Generating proposal...");
-
-        const { data: generateData, error: generateError } = await supabase.functions.invoke(
-          'generate-presentation',
-          {
-            body: {
-              content: description,
-              clientName: projectName || 'Proposal',
-              brandGuide: selectedGuide ? {
-                name: selectedGuide.name,
-                design_system: selectedGuide.design_system,
-                slide_templates: selectedGuide.slide_templates,
-              } : null,
-              length: 'medium',
-            },
-          }
-        );
-
-        if (generateError) {
-          console.error('Generation error:', generateError);
-          toast.error("Failed to generate slides.");
-        } else if (generateData?.slides) {
-          await supabase.from('presentations').update({ generated_slides: generateData.slides }).eq('id', saved.id);
-          toast.success(`Generated ${generateData.slides.length} slides!`);
-          await exportProposalToPdf({ title, clientName: projectName || undefined, content: description, createdBy: undefined, termsAndConditions });
-          toast.success("Proposal PDF downloaded!");
-        }
-
-        sessionStorage.setItem('rubiklab-content', description);
-        sessionStorage.setItem('rubiklab-client', projectName || 'Client');
-        sessionStorage.setItem('rubiklab-format', outputFormat);
-        sessionStorage.setItem('rubiklab-length', 'medium');
-        sessionStorage.setItem('rubiklab-presentation-id', saved.id);
-        sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide);
-        if (generateData?.slides) sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
-
-        setWizardOpen(false);
-        resetWizard();
-        setTimeout(() => navigate('/presentation'), 500);
-        return;
-      }
-
-      // Standard slide generation
-      toast.info("Generating presentation with AI...");
-      const { data: generateData, error: generateError } = await supabase.functions.invoke(
-        'generate-presentation',
-        {
-          body: {
-            content: description,
-            clientName: projectName || 'Presentation',
-            brandGuide: selectedGuide ? {
-              name: selectedGuide.name,
-              design_system: selectedGuide.design_system,
-              slide_templates: selectedGuide.slide_templates,
-            } : null,
-            length: 'medium',
-          },
-        }
-      );
-
-      if (generateError) {
-        console.error('Generation error:', generateError);
-        toast.error("Failed to generate slides. Using fallback.");
-      } else if (generateData?.slides) {
-        await supabase.from('presentations').update({ generated_slides: generateData.slides }).eq('id', saved.id);
-        toast.success(`Generated ${generateData.slides.length} slides!`);
-      }
-
-      sessionStorage.setItem('rubiklab-content', description);
+      // Slide formats: route to the Smart Deck Planner
+      sessionStorage.setItem('rubiklab-objectives', description);
       sessionStorage.setItem('rubiklab-client', projectName || 'Client');
+      sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide || '');
       sessionStorage.setItem('rubiklab-format', outputFormat);
-      sessionStorage.setItem('rubiklab-length', 'medium');
-      sessionStorage.setItem('rubiklab-presentation-id', saved.id);
-      sessionStorage.setItem('rubiklab-brand-guide-id', selectedBrandGuide);
-      if (generateData?.slides) sessionStorage.setItem('rubiklab-generated-slides', JSON.stringify(generateData.slides));
-
       setWizardOpen(false);
       resetWizard();
-      setTimeout(() => navigate('/presentation'), 500);
+      navigate('/deck');
     } catch (error) {
       console.error('Error saving presentation:', error);
-      toast.error("Error generating presentation");
+      toast.error("Error saving project");
       setIsGenerating(false);
     }
   };
