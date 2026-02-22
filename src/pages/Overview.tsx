@@ -14,9 +14,9 @@ const Overview = () => {
               
               {/* Section 1: Editorial Header */}
               <header className="header-section">
-                <h1>Atrium Home Services: CX & Intent</h1>
+                <h1>Alpha Home Services: CX & Intent</h1>
                 <p className="framing-sentence">
-                  A live view of customer trust and operational risk shaping Atrium's growth across Midwest markets.
+                  A live view of customer trust and operational risk shaping Alpha's growth across Midwest markets.
                 </p>
                 <div className="provenance-cue">
                   <span>Updated 12 minutes ago</span>
@@ -30,10 +30,10 @@ const Overview = () => {
 
                 <div className="project-summary">
                   <p>
-                    This intelligence layer synthesizes customer sentiment, service reliability signals, and brand perception data across Atrium's Midwest expansion markets. The analysis directly supports leadership's objective of preserving local trust equity while scaling corporate brand presence, a core strategic priority defined at project inception. Current findings reveal tension between operational consistency expectations and legacy brand loyalty, with clear implications for marketing messaging and service delivery standards in acquired territories.
+                    This intelligence layer synthesizes customer sentiment, service reliability signals, and brand perception data across Alpha's Midwest expansion markets. The analysis directly supports leadership's objective of preserving local trust equity while scaling corporate brand presence, a core strategic priority defined at project inception. Current findings reveal tension between operational consistency expectations and legacy brand loyalty, with clear implications for marketing messaging and service delivery standards in acquired territories.
                   </p>
                   <p style={{ marginTop: '16px' }}>
-                    Across acquired service territories in Ohio, Indiana, and Michigan, customer feedback patterns indicate that brand transition timing significantly affects retention outcomes. Markets where legacy branding was preserved through the first 12 months of integration show measurably higher repeat purchase rates and stronger Net Promoter Scores compared to territories where corporate rebranding was introduced immediately. The data also highlights a growing correlation between technician certification visibility and booking conversion rates, particularly in emergency HVAC and plumbing categories where trust signals carry outsized influence on purchase decisions. These dynamics underscore the need for a phased brand architecture strategy that balances corporate scale advantages with the local credibility that Atrium's acquisition targets were originally valued for.
+                    Across acquired service territories in Ohio, Indiana, and Michigan, customer feedback patterns indicate that brand transition timing significantly affects retention outcomes. Markets where legacy branding was preserved through the first 12 months of integration show measurably higher repeat purchase rates and stronger Net Promoter Scores compared to territories where corporate rebranding was introduced immediately. The data also highlights a growing correlation between technician certification visibility and booking conversion rates, particularly in emergency HVAC and plumbing categories where trust signals carry outsized influence on purchase decisions. These dynamics underscore the need for a phased brand architecture strategy that balances corporate scale advantages with the local credibility that Alpha's acquisition targets were originally valued for.
                   </p>
                 </div>
               </header>
@@ -53,7 +53,7 @@ const Overview = () => {
                     <span className="risk-opp-label opportunity-label">Opportunity</span>
                   </div>
                   <div className="risk-opp-statement">Local identity outperforms corporate branding in customer retention.</div>
-                  <div className="risk-opp-support">Endorsement positioning ("Powered by Atrium") builds trust faster than replacement naming strategies.</div>
+                  <div className="risk-opp-support">Endorsement positioning ("Powered by Alpha") builds trust faster than replacement naming strategies.</div>
                   <button className="risk-opp-action">View opportunity analysis →</button>
                 </div>
               </section>
@@ -81,7 +81,7 @@ const Overview = () => {
                 <div className="priority-item">
                   <div className="priority-title">Use endorsement positioning</div>
                   <div>
-                    <div className="priority-meaning">"Powered by Atrium" performs better as reassurance than replacement branding.</div>
+                    <div className="priority-meaning">"Powered by Alpha" performs better as reassurance than replacement branding.</div>
                     <div className="next-move">Next Move: Deploy endorsement messaging in Ohio and Indiana and monitor sentiment.</div>
                   </div>
                 </div>

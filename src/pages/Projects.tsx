@@ -35,7 +35,7 @@ interface ProjectCard {
 const projects: ProjectCard[] = [
   {
     id: "1",
-    title: "Atrium Home Services: CX & Intent Study",
+    title: "Alpha Home Services: CX & Intent Study",
     category: "Blind Study",
     status: "Active",
     sources: 7,
@@ -235,7 +235,7 @@ const Projects = () => {
               <div>
                 <h1 className="text-5xl font-extrabold mb-3 tracking-tight text-[#1C1C1C] leading-tight">
                   Welcome back,<br />
-                  Illitch.
+                  Nadia.
                 </h1>
                 <div className="h-1 w-20 bg-[#0D9BDD] mt-6" />
               </div>
