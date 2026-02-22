@@ -39,7 +39,7 @@ const AppHeader = () => {
 
             {/* Title */}
             <span className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium group-hover:text-[#0D9BDD] transition-colors">
-              Intelligence Studio
+              Studio
             </span>
           </Link>
 
