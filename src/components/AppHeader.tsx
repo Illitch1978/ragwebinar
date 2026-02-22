@@ -31,7 +31,7 @@ const AppHeader = () => {
             {/* Logo - matching footer style */}
             <div className="flex items-baseline gap-0.5 select-none">
               <span className="font-serif font-bold text-xl tracking-tight text-muted-foreground leading-none group-hover:text-[#0D9BDD] transition-colors relative -top-[2px]">rubiklab</span>
-              <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_hsl(var(--primary)/0.6)] transform -translate-y-0.5" />
+              <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_hsl(var(--primary)/0.6)] relative -top-[2px]" />
             </div>
 
             {/* Divider */}
